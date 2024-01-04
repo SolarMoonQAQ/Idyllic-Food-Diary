@@ -18,8 +18,18 @@ build
 .gradle
 
 # other
+.eclipse
 eclipse
 run
 
 # Files from Forge MDK
 forge*changelog.txt
+
+.gitignore
+CREDITS.txt
+LICENSE.txt
+changelog.txt
+setting.gradle
+settings.gradle
+
+
