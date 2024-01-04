@@ -1,0 +1,14 @@
+{
+  "type": "immersive_delight:cup",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "immersive_delight:cup"
+        }
+      ]
+    }
+  ]
+}

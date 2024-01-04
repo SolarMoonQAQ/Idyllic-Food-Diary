@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "immersive_delight:block/wheat_dough" },
+    "facing=south": { "model": "immersive_delight:block/wheat_dough", "y": 180 },
+    "facing=east": { "model": "immersive_delight:block/wheat_dough", "y": 90 },
+    "facing=west": { "model": "immersive_delight:block/wheat_dough", "y": 270 }
+  }
+}

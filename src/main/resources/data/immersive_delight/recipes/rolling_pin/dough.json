@@ -1,0 +1,10 @@
+{
+  "type": "immersive_delight:rolling",
+  "input": {
+    "tag": "immersive_delight:dough"
+  },
+  "time": 40,
+  "output": {
+    "tag": "immersive_delight:dough"
+  }
+}

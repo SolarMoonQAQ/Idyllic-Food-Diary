@@ -1,0 +1,14 @@
+{
+  "type": "immersive_delight:wheat_dough",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:wheat_dough"
+        }
+      ]
+    }
+  ]
+}
