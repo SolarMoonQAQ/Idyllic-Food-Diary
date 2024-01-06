@@ -1,7 +1,12 @@
 {
   "creative_mode_tab.immersive_delight.main": "沉浸乐事",
+
   "item.immersive_delight.rolling_pin": "擀面杖",
+
   "block.immersive_delight.wheat_dough": "面团",
   "block.immersive_delight.flatbread_dough": "面饼",
-  "block.immersive_delight.cup_with_fluid": "装有%s的杯子"
+  "block.immersive_delight.celadon_cup": "青瓷杯",
+  "block.immersive_delight.celadon_cup_with_fluid": "装有%s的青瓷杯",
+  "block.immersive_delight.kettle": "水壶",
+  "block.immersive_delight.kettle_with_fluid": "装有%s的水壶"
 }

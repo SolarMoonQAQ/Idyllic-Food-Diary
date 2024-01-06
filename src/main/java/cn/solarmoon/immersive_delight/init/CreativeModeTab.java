@@ -6,7 +6,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 
-import static cn.solarmoon.immersive_delight.common.RegisterItems.ROLLING_PIN;
+import static cn.solarmoon.immersive_delight.common.IMItems.ROLLING_PIN;
 import static cn.solarmoon.immersive_delight.init.ObjectRegister.ITEMS;
 
 public class CreativeModeTab {

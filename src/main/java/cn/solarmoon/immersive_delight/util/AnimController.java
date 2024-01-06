@@ -23,6 +23,7 @@ public class AnimController {
         if(mc.player == null) return;
         ModifierLayer<IAnimation> animation = (ModifierLayer<IAnimation>) PlayerAnimationAccess.getPlayerAssociatedData(mc.player).get(new ResourceLocation(ImmersiveDelight.MOD_ID, "animation"));
         if(animation == null) return;
+        if(animation.isActive()) return;
         animation.replaceAnimationWithFade(AbstractFadeModifier.functionalFadeIn(length, (modelName, type, value) -> value),
                 new KeyframeAnimationPlayer(Objects.requireNonNull(PlayerAnimationRegistry.getAnimation(new ResourceLocation(ImmersiveDelight.MOD_ID, anim))))
                         .setFirstPersonMode(FirstPersonMode.THIRD_PERSON_MODEL));

@@ -17,7 +17,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import java.util.List;
 import java.util.Map;
 
-import static cn.solarmoon.immersive_delight.common.RegisterItems.ROLLING_PIN;
+import static cn.solarmoon.immersive_delight.common.IMItems.ROLLING_PIN;
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class ItemModelRenderer {

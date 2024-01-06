@@ -1,25 +1,25 @@
 package cn.solarmoon.immersive_delight.common.items.abstract_items;
 
 import cn.solarmoon.immersive_delight.compat.create.Create;
-import cn.solarmoon.immersive_delight.data.FluidEffect;
-import cn.solarmoon.immersive_delight.data.FoodValue;
-import cn.solarmoon.immersive_delight.data.PotionEffect;
+import cn.solarmoon.immersive_delight.data.fluid_effects.serializer.FluidEffect;
+import cn.solarmoon.immersive_delight.data.fluid_effects.serializer.FoodValue;
+import cn.solarmoon.immersive_delight.data.fluid_effects.serializer.PotionEffect;
 import cn.solarmoon.immersive_delight.init.Config;
+import cn.solarmoon.immersive_delight.network.serializer.ClientPackSerializer;
 import cn.solarmoon.immersive_delight.util.Util;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -29,9 +29,9 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -43,21 +43,30 @@ import java.util.Random;
 public abstract class DrinkableItem extends BlockItem {
 
     public DrinkableItem(Block block, Properties properties) {
-        super(block, properties.food(new FoodProperties.Builder().build()));
+        super(block, properties
+                .food(new FoodProperties.Builder().build())
+                .stacksTo(1)
+        );
     }
 
     /**
      * 获取最大容量
      */
-    public int getMaxVolume() {
+    public int getMaxCapacity() {
         return 250;
     }
 
+    /**
+     * 使用时长
+     */
     @Override
     public int getUseDuration(ItemStack stack) {
         return 16;
     }
 
+    /**
+     * 使用动画
+     */
     @Override
     public UseAnim getUseAnimation(ItemStack stack) {
         return UseAnim.DRINK;
@@ -111,18 +120,20 @@ public abstract class DrinkableItem extends BlockItem {
             //获取potion（因为多种药水效果并行所以为s）
             List<PotionEffect> potionEffects = fluidEffect.effects;
             //如果clear为true则先清空药水效果
-            if(fluidEffect.clear) entity.removeAllEffects();
+            if(fluidEffect.clear) if(!level.isClientSide) entity.removeAllEffects();
             //如果fire不为0就点燃
-            if(fluidEffect.fire > 0) entity.setSecondsOnFire(fluidEffect.fire);
+            if(fluidEffect.fire > 0) if(!level.isClientSide) entity.setSecondsOnFire(fluidEffect.fire);
             //如果extinguishing为true就灭火
-            if(fluidEffect.extinguishing) entity.clearFire();
+            if(fluidEffect.extinguishing) if(!level.isClientSide) entity.clearFire();
             //如果foodValue有作用就加饱食度
             if(fluidEffect.getFoodValue().isValid()) {
                 if(entity instanceof Player player) {
                     if(player.canEat(false) || fluidEffect.canAlwaysDrink) {
                         FoodValue foodValue = fluidEffect.getFoodValue();
-                        player.getFoodData().eat(foodValue.hunger, foodValue.saturation);
-                        level.playSound(player, player.getOnPos(), SoundEvents.PLAYER_BURP, SoundSource.PLAYERS, 1F, 1F);
+                        if(!level.isClientSide) {
+                            player.getFoodData().eat(foodValue.hunger, foodValue.saturation);
+                            level.playSound(null, player.getOnPos(), SoundEvents.PLAYER_BURP, SoundSource.PLAYERS, 1F, 1F);
+                        }
                     }
                 }
             }
@@ -134,7 +145,7 @@ public abstract class DrinkableItem extends BlockItem {
                     Random random = new Random();
                     double rand = random.nextDouble();
                     if (rand <= chance) {
-                        entity.addEffect(mobEffectInstance);
+                        if(!level.isClientSide) entity.addEffect(mobEffectInstance);
                     }
                     Util.deBug("存在药水效果：" + mobEffectInstance, level);
                 }
@@ -190,7 +201,7 @@ public abstract class DrinkableItem extends BlockItem {
      */
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, CompoundTag nbt) {
-        return new FluidHandlerItemStack(stack, getMaxVolume());
+        return new FluidHandlerItemStack(stack, getMaxCapacity());
     }
 
     /**
@@ -212,8 +223,19 @@ public abstract class DrinkableItem extends BlockItem {
         FluidStack fluidStack = tankStack.getFluidInTank(0);
         int fluidAmount = fluidStack.getAmount();
         String fluid = fluidStack.getFluid().getFluidType().getDescription().getString();
-        if(fluidAmount != 0) return Util.translation("block", "cup_with_fluid", fluid);
+        if(fluidAmount != 0) return Component.translatable(stack.getDescriptionId() + "_with_fluid", fluid);
         return super.getName(stack);
+    }
+
+    /**
+     * 同步流体信息，防止假右键操作
+     */
+    @Override
+    public void inventoryTick(ItemStack stack, Level level, Entity entity, int tick, boolean p_41408_) {
+        IFluidHandlerItem tankStack = stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM, null).orElse(null);
+        List<ItemStack> stacks = new ArrayList<>();
+        stacks.add(stack);
+        ClientPackSerializer.sendPacket(entity.getOnPos(), stacks, tankStack.getFluidInTank(0), 0, "updateCupItem");
     }
 
 }

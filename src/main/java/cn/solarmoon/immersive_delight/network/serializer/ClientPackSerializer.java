@@ -4,7 +4,6 @@ import cn.solarmoon.immersive_delight.network.handler.ClientPackHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.DistExecutor;
@@ -17,7 +16,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Supplier;
 
-import static cn.solarmoon.immersive_delight.network.RegisterPackClient.instanceClient;
+import static cn.solarmoon.immersive_delight.network.IMPackClient.instanceClient;
 
 
 public record ClientPackSerializer(@Nullable BlockPos pos, List<ItemStack> stacks, FluidStack fluidStack, float f, String message) {

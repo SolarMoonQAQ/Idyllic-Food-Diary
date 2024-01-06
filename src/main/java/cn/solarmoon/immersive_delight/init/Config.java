@@ -29,8 +29,9 @@ public class Config {
 
     public static String SYSTEM_DRINKING = "饮用系统";
 
-    public static String SETTING_VOLUME = "容量设置";
-    public static ForgeConfigSpec.ConfigValue<Integer> maxCupVolume;
+    public static String SETTING_CAPACITY = "容量设置";
+    public static ForgeConfigSpec.ConfigValue<Integer> maxCeladonCupCapacity;
+    public static ForgeConfigSpec.ConfigValue<Integer> maxKettleCapacity;
 
     public static String SETTING_DRINKING = "饮用设置";
     public static ForgeConfigSpec.ConfigValue<Integer> drinkingConsumption;
@@ -59,11 +60,14 @@ public class Config {
         builder.comment("Drinking System")
                 .push(SYSTEM_DRINKING);
 
-        builder.comment("Volume Settings")
-                .push(SETTING_VOLUME);
-        maxCupVolume = builder.comment("The maximum volume of cup. (mB)")
-                .comment("杯子的最大容量 (mB)")
-                .defineInRange("maxCupVolume", 250, 50, 1000);
+        builder.comment("Capacity Settings")
+                .push(SETTING_CAPACITY);
+        maxCeladonCupCapacity = builder.comment("The maximum capacity of celadon cup. (mB)")
+                .comment("青瓷杯的最大容量 (mB)")
+                .defineInRange("maxCeladonCupVolume", 250, 50, 1000);
+        maxKettleCapacity = builder.comment("The maximum capacity of Kettle. (mB)")
+                .comment("烧水壶的最大容量 (mB)")
+                .defineInRange("maxKettleCapacity", 1000, 1000, Integer.MAX_VALUE);
         builder.pop();
 
         builder.comment("Drinking Settings")

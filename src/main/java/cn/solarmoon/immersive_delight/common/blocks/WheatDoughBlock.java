@@ -1,7 +1,7 @@
 package cn.solarmoon.immersive_delight.common.blocks;
 
+import cn.solarmoon.immersive_delight.common.IMBlocks;
 import cn.solarmoon.immersive_delight.common.blocks.abstract_blocks.LongPressEatBlock;
-import cn.solarmoon.immersive_delight.common.RegisterBlocks;
 import cn.solarmoon.immersive_delight.network.serializer.ClientPackSerializer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -11,10 +11,14 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.fluids.FluidStack;
 import org.jetbrains.annotations.NotNull;
 
@@ -22,13 +26,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import static cn.solarmoon.immersive_delight.particles.methods.Wave.wave;
+import static cn.solarmoon.immersive_delight.client.particles.vanilla.Wave.wave;
 
-
+/**
+ * 面团方块
+ */
 public class WheatDoughBlock extends LongPressEatBlock {
 
     public WheatDoughBlock() {
-        super(Block.Properties.copy(Blocks.CAKE).destroyTime(1f));
+        super(Block.Properties
+                .copy(Blocks.CAKE)
+                .destroyTime(1f));
     }
 
     /**
@@ -59,7 +67,7 @@ public class WheatDoughBlock extends LongPressEatBlock {
                 if (entity instanceof LivingEntity) {
                     level.destroyBlock(pos, false);
                     ClientPackSerializer.sendPacket(pos, new ArrayList<>(), FluidStack.EMPTY, fallDistance, "wave");
-                    level.setBlock(pos, RegisterBlocks.FLATBREAD_DOUGH.get().defaultBlockState(), 3);
+                    level.setBlock(pos, IMBlocks.FLATBREAD_DOUGH.get().defaultBlockState(), 3);
                     level.playSound(null, pos, SoundEvents.WOOL_BREAK, SoundSource.BLOCKS, 3.0F, 0.5F);
                     fallCount = 0;
                 }
@@ -67,6 +75,23 @@ public class WheatDoughBlock extends LongPressEatBlock {
         }
 
         fallCounts.put(pos, fallCount);
+    }
+
+    /**
+     * 破坏时刷一下蹦跳次数
+     */
+    @Override
+    public void destroy(LevelAccessor level, BlockPos pos, BlockState state) {
+        fallCounts.put(pos, 0);
+    }
+
+    /**
+     * 碰撞箱
+     */
+    protected static final VoxelShape SHAPE = Block.box(4.0D, 0.0D, 4.0D, 12.0D, 4.0D, 12.0D);
+    @Override
+    public @NotNull VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+        return SHAPE;
     }
 
 }

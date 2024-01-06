@@ -14,7 +14,7 @@ import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.function.Supplier;
 
-import static cn.solarmoon.immersive_delight.network.RegisterPackServer.instanceServer;
+import static cn.solarmoon.immersive_delight.network.IMPackServer.instanceServer;
 
 public record ServerPackSerializer(@Nullable BlockPos pos, @Nullable Block block, @Nullable ItemStack stack, String message) {
 

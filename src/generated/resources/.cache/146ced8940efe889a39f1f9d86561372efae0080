@@ -1,0 +1,5 @@
+// 1.20.1	2024-01-06T14:37:17.2891977	Tags for minecraft:block mod id immersive_delight
+16eb6a62cf18b8e5e8bd50469c86ec47274eb4c8 data/immersive_delight/tags/blocks/can_be_rolled.json
+fc265d05caa0d363b0545d276b0928b9f7e1ed27 data/immersive_delight/tags/blocks/dirt.json
+5755f46b25460113b519639ad6235f7db1cc51e3 data/immersive_delight/tags/blocks/heat_source.json
+7b5cb3422c247d024905742bee8c5ee7f0ded80f data/minecraft/tags/blocks/mineable/pickaxe.json
