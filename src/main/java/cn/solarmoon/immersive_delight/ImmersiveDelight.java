@@ -1,5 +1,6 @@
 package cn.solarmoon.immersive_delight;
 
+import cn.solarmoon.immersive_delight.client.IMItemRenderers;
 import cn.solarmoon.immersive_delight.compat.apple_skin.AppleSkin;
 import cn.solarmoon.immersive_delight.compat.farmersdelight.FarmersDelight;
 import cn.solarmoon.immersive_delight.data.fluid_effects.BuilderFluidEffects;
@@ -13,6 +14,8 @@ import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static cn.solarmoon.immersive_delight.ImmersiveDelight.MOD_ID;
 import static cn.solarmoon.immersive_delight.init.CreativeModeTab.CREATIVE_TAB;
@@ -23,6 +26,8 @@ import static cn.solarmoon.immersive_delight.init.ObjectRegister.*;
 public class ImmersiveDelight {
 
     public static final String MOD_ID = "immersive_delight";
+
+    public static final Logger LOGGER = LoggerFactory.getLogger("Immersive Delight");
 
     public ImmersiveDelight() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -46,10 +51,14 @@ public class ImmersiveDelight {
         //粒子
         PARTICLE_TYPES.register(bus);
 
+        //音效
+        SOUNDS.register(bus);
+
         //配置文件
         Config.register();
 
         MinecraftForge.EVENT_BUS.register(this);
+        MinecraftForge.EVENT_BUS.register(new IMItemRenderers());
 
         //—————————————————————————联动—————————————————————————//
         if(Util.isLoad(vectorwing.farmersdelight.FarmersDelight.MODID)) {

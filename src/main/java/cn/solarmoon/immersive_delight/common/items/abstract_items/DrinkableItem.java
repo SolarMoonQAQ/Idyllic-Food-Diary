@@ -5,17 +5,14 @@ import cn.solarmoon.immersive_delight.data.fluid_effects.serializer.FluidEffect;
 import cn.solarmoon.immersive_delight.data.fluid_effects.serializer.FoodValue;
 import cn.solarmoon.immersive_delight.data.fluid_effects.serializer.PotionEffect;
 import cn.solarmoon.immersive_delight.init.Config;
-import cn.solarmoon.immersive_delight.network.serializer.ClientPackSerializer;
+import cn.solarmoon.immersive_delight.util.FluidHelper;
 import cn.solarmoon.immersive_delight.util.Util;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
@@ -23,15 +20,10 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
-import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
 
-import javax.annotation.Nullable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -40,18 +32,18 @@ import java.util.Random;
  * 作为可饮用方块的对应物品的基本抽象类
  * 基本实现了绝大部分本模组杯子物品所需的功能，简单继承即可使用
  */
-public abstract class DrinkableItem extends BlockItem {
+public abstract class DrinkableItem extends BaseTankItem {
 
     public DrinkableItem(Block block, Properties properties) {
         super(block, properties
                 .food(new FoodProperties.Builder().build())
-                .stacksTo(1)
         );
     }
 
     /**
      * 获取最大容量
      */
+    @Override
     public int getMaxCapacity() {
         return 250;
     }
@@ -92,7 +84,7 @@ public abstract class DrinkableItem extends BlockItem {
      */
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
-        IFluidHandlerItem tankStack = stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM, null).orElse(null);
+        IFluidHandlerItem tankStack = FluidHelper.getTank(stack);
         int tankAmount = tankStack.getFluidInTank(0).getAmount();
         if(tankAmount >= getDrinkVolume()) {
             FluidStack fluidStack = tankStack.getFluidInTank(0);
@@ -162,14 +154,6 @@ public abstract class DrinkableItem extends BlockItem {
     }
 
     /**
-     * 检查物品内液体是否大于0
-     */
-    public boolean remainFluid(ItemStack stack) {
-        IFluidHandlerItem tankStack = stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM, null).orElse(null);
-        return tankStack.getFluidInTank(0).getAmount() > 0;
-    }
-
-    /**
      * 识别容器内的液体是否可被吃，且玩家能吃
      */
     public boolean canEat(ItemStack stack, Player player) {
@@ -193,49 +177,6 @@ public abstract class DrinkableItem extends BlockItem {
             if (!player.isCrouching()) player.startUsingItem(context.getHand());
         }
         return super.useOn(context);
-    }
-
-    /**
-     * 将其赋予一个容器
-     * 能够实现与各类液体容器交互
-     */
-    @Override
-    public ICapabilityProvider initCapabilities(ItemStack stack, CompoundTag nbt) {
-        return new FluidHandlerItemStack(stack, getMaxCapacity());
-    }
-
-    /**
-     * 让杯子类物品显示其存储的液体信息
-     */
-    @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
-        super.appendHoverText(stack, level, components, flag);
-        IFluidHandlerItem tankStack = stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM, null).orElse(null);
-        components.add(Component.literal(tankStack.getFluidInTank(0).getFluid().getFluidType().getDescription().getString() + tankStack.getFluidInTank(0).getAmount()));
-    }
-
-    /**
-     * 让杯子根据所装溶液动态改变显示名称
-     */
-    @Override
-    public Component getName(ItemStack stack) {
-        IFluidHandlerItem tankStack = stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM, null).orElse(null);
-        FluidStack fluidStack = tankStack.getFluidInTank(0);
-        int fluidAmount = fluidStack.getAmount();
-        String fluid = fluidStack.getFluid().getFluidType().getDescription().getString();
-        if(fluidAmount != 0) return Component.translatable(stack.getDescriptionId() + "_with_fluid", fluid);
-        return super.getName(stack);
-    }
-
-    /**
-     * 同步流体信息，防止假右键操作
-     */
-    @Override
-    public void inventoryTick(ItemStack stack, Level level, Entity entity, int tick, boolean p_41408_) {
-        IFluidHandlerItem tankStack = stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM, null).orElse(null);
-        List<ItemStack> stacks = new ArrayList<>();
-        stacks.add(stack);
-        ClientPackSerializer.sendPacket(entity.getOnPos(), stacks, tankStack.getFluidInTank(0), 0, "updateCupItem");
     }
 
 }

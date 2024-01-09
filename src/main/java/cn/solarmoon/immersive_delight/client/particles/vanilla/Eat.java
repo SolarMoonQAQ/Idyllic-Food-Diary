@@ -1,5 +1,6 @@
 package cn.solarmoon.immersive_delight.client.particles.vanilla;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
@@ -11,11 +12,10 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.Random;
 
-import static cn.solarmoon.immersive_delight.util.Constants.mc;
-
 public class Eat {
     public static void eat(BlockPos pos) {
         //吃的粒子效果
+        Minecraft mc = Minecraft.getInstance();
         LocalPlayer player = mc.player;
         ClientLevel level = mc.level;
         if(player == null || level == null) return;

@@ -1,10 +1,13 @@
 package cn.solarmoon.immersive_delight.common.entity_blocks.abstract_blocks;
 
+import cn.solarmoon.immersive_delight.client.IMSounds;
 import cn.solarmoon.immersive_delight.common.entity_blocks.abstract_blocks.entities.TankBlockEntity;
+import cn.solarmoon.immersive_delight.common.items.abstract_items.WaterKettleItem;
 import cn.solarmoon.immersive_delight.common.recipes.KettleRecipe;
-import cn.solarmoon.immersive_delight.common.recipes.helper.GetRecipes;
 import cn.solarmoon.immersive_delight.compat.create.Create;
 import cn.solarmoon.immersive_delight.network.serializer.ClientPackSerializer;
+import cn.solarmoon.immersive_delight.util.FluidHelper;
+import cn.solarmoon.immersive_delight.util.RecipeHelper;
 import cn.solarmoon.immersive_delight.util.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -73,6 +76,7 @@ public abstract class WaterKettleEntityBlock extends BasicEntityBlock {
         if(result.isSuccess()) {
             if(!player.isCreative()) player.setItemInHand(hand, result.getResult());
             tankEntity.setChanged();
+            //水壶倒水声
             Create.playPouringSound(tank.getFluid(), level, pos);
             return true;
         }
@@ -85,7 +89,7 @@ public abstract class WaterKettleEntityBlock extends BasicEntityBlock {
     public boolean getThis(InteractionHand hand, ItemStack heldItem, Player player, Level level, BlockPos pos, BlockState state) {
         if(hand.equals(InteractionHand.MAIN_HAND) && heldItem.isEmpty() && player.isCrouching()) {
             ItemStack drop = getCloneItemStack(level, pos, state);
-            level.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
+            level.removeBlock(pos, false);
             level.playSound(player, pos, SoundEvents.ARMOR_EQUIP_LEATHER, SoundSource.PLAYERS, 1F, 1F);
             level.playSound(player, pos, SoundEvents.LANTERN_BREAK, SoundSource.PLAYERS, 1F, 1F);
             player.setItemInHand(hand, drop);
@@ -102,7 +106,7 @@ public abstract class WaterKettleEntityBlock extends BasicEntityBlock {
         super.setPlacedBy(level, pos, state, placer, stack);
         BlockEntity blockEntity = level.getBlockEntity(pos);
         if(blockEntity == null) return;
-        setTank(blockEntity, stack);
+        FluidHelper.setTank(blockEntity, stack);
     }
 
     /**
@@ -113,7 +117,7 @@ public abstract class WaterKettleEntityBlock extends BasicEntityBlock {
         ItemStack stack = super.getCloneItemStack(level, pos, state);
         BlockEntity blockEntity = level.getBlockEntity(pos);
         if(blockEntity == null) return stack;
-        setTank(stack, blockEntity);
+        FluidHelper.setTank(stack, blockEntity);
         return stack;
     }
 
@@ -125,58 +129,34 @@ public abstract class WaterKettleEntityBlock extends BasicEntityBlock {
         BlockEntity blockEntity = builder.getOptionalParameter(LootContextParams.BLOCK_ENTITY);
         ItemStack stack = new ItemStack(this);
         if(blockEntity != null) {
-            setTank(stack, blockEntity);
+            FluidHelper.setTank(stack, blockEntity);
             return Collections.singletonList(stack);
         }
         return super.getDrops(state, builder);
     }
 
-    /**
-     * 用于强制设置物品里的液体（前者是被设置的，后者是设置的内容）
-     */
-    public void setTank(ItemStack stack, BlockEntity blockEntity) {
-        //把blockEntity的tank注入item
-        IFluidHandler blockTankEntity = blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER, null).orElse(null);
-        IFluidHandlerItem tankStack = stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM, null).orElse(null);
-        FluidStack fluidStack = blockTankEntity.getFluidInTank(0);
-        tankStack.drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.EXECUTE);
-        tankStack.fill(fluidStack, IFluidHandler.FluidAction.EXECUTE);
-    }
-
-    /**
-     * 用于强制设置方块实体里的液体（前者是被设置的，后者是设置的内容）
-     */
-    public void setTank(BlockEntity blockEntity, ItemStack stack) {
-        //从stack注入blockEntity
-        IFluidHandlerItem tankStack = stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM, null).orElse(null);
-        IFluidHandler blockTankEntity = blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER, null).orElse(null);
-        FluidStack fluidStack = tankStack.getFluidInTank(0);
-        blockTankEntity.drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.EXECUTE);
-        blockTankEntity.fill(fluidStack, IFluidHandler.FluidAction.EXECUTE);
-    }
-
     @Override
     public void tick(Level level, BlockPos pos, BlockState state, BlockEntity blockEntity) {
         //防止放入液体时液体值未在客户端同步 而 造成的 假右键操作
-        if (blockEntity instanceof TankBlockEntity tankBlockEntity) {
-            ClientPackSerializer.sendPacket(pos, new ArrayList<>(), tankBlockEntity.tank.getFluid(), tankBlockEntity.getPersistentData().getInt("PressCount"), "updateCupTank");
+        if(blockEntity instanceof TankBlockEntity tankBlockEntity) {
+            ClientPackSerializer.sendPacket(pos, new ArrayList<>(), tankBlockEntity.tank.getFluid(), 0, "updateCupBlock");
         }
 
         //工作中
         //生成一个最大容积的新液体
         if (blockEntity instanceof TankBlockEntity tankBlockEntity) {
             KettleRecipe kettleRecipe = getCheckedRecipe(level, pos, blockEntity);
+            CompoundTag tag = tankBlockEntity.getPersistentData();
             if (kettleRecipe != null) {
-                CompoundTag tag = tankBlockEntity.getPersistentData();
-                tankBlockEntity.getPersistentData().putInt("Time", tag.getInt("Time")+1);
-                Util.deBug("Time："+tag.getInt("Time"), level);
-                if (tag.getInt("Time") > kettleRecipe.getTime()) {
+                tankBlockEntity.time++;
+                Util.deBug("Time："+ tankBlockEntity.time, level);
+                if (tankBlockEntity.time > kettleRecipe.getTime()) {
                     FluidStack fluidStack = new FluidStack(kettleRecipe.getOutputFluid(), tankBlockEntity.getTankMaxCapacity());
                     tankBlockEntity.tank.setFluid(fluidStack);
-                    tag.putInt("Time", 0);
+                    tankBlockEntity.time = 0;
                     tankBlockEntity.setChanged();
                 }
-            }
+            } else tankBlockEntity.time = 0;
         }
 
     }
@@ -188,7 +168,7 @@ public abstract class WaterKettleEntityBlock extends BasicEntityBlock {
     public KettleRecipe getCheckedRecipe(Level level, BlockPos pos ,BlockEntity blockEntity) {
         if(blockEntity instanceof TankBlockEntity tankBlockEntity) {
             FluidStack fluidStack = tankBlockEntity.tank.getFluid();
-            for (KettleRecipe kettleRecipe : GetRecipes.kettleRecipes(level)) {
+            for (KettleRecipe kettleRecipe : RecipeHelper.GetRecipes.kettleRecipes(level)) {
                 if(kettleRecipe.inputMatches(level, fluidStack, pos)) {
                     return kettleRecipe;
                 }

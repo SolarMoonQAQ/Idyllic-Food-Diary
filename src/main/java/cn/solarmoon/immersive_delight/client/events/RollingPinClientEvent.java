@@ -1,17 +1,11 @@
-package cn.solarmoon.immersive_delight.common.events.client;
+package cn.solarmoon.immersive_delight.client.events;
 
 import cn.solarmoon.immersive_delight.common.events.RollingPinEvent;
 import cn.solarmoon.immersive_delight.common.items.RollingPinItem;
-import cn.solarmoon.immersive_delight.data.tags.IMBlockTags;
-import net.minecraft.core.BlockPos;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.event.TickEvent;
@@ -22,9 +16,7 @@ import java.util.List;
 
 import static cn.solarmoon.immersive_delight.client.gui.rolling_pin.DrawItem.scale;
 import static cn.solarmoon.immersive_delight.client.gui.rolling_pin.DrawLittleItem.scaleB;
-import static cn.solarmoon.immersive_delight.client.particles.vanilla.Sweep.sweep;
 import static cn.solarmoon.immersive_delight.common.IMItems.ROLLING_PIN;
-import static cn.solarmoon.immersive_delight.util.Constants.mc;
 
 public class RollingPinClientEvent {
 
@@ -39,6 +31,7 @@ public class RollingPinClientEvent {
 
     @SubscribeEvent
     public void chooseOutPut(InputEvent.MouseScrollingEvent event) {
+        Minecraft mc = Minecraft.getInstance();
         if (mc.player != null && possibleOutputs != null && !possibleOutputs.isEmpty() && RollingPinItem.holdRollingCheck() && RollingPinItem.hitResultRecipeCheck() && mc.player.isCrouching()) {
             // 根据鼠标滚动的方向更新索引
             if (event.getScrollDelta() > 0) {
@@ -66,6 +59,7 @@ public class RollingPinClientEvent {
 
     @SubscribeEvent
     public void updateMatchRecipe(TickEvent.ClientTickEvent event) {
+        Minecraft mc = Minecraft.getInstance();
         if (mc.player != null && RollingPinItem.holdRollingCheck() && RollingPinItem.hitResultRecipeCheck() && mc.player.isCrouching()) {
             Block block = null;
             if (mc.level != null) {

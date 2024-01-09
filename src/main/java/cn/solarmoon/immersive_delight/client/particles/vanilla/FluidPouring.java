@@ -1,11 +1,10 @@
 package cn.solarmoon.immersive_delight.client.particles.vanilla;
 
 import cn.solarmoon.immersive_delight.util.VecAlgorithm;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.particle.Particle;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.particles.BlockParticleOption;
-import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.level.block.state.BlockState;
@@ -13,14 +12,13 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.Random;
 
-import static cn.solarmoon.immersive_delight.util.Constants.mc;
-
 public class FluidPouring {
 
     /**
      * 倒水粒子，根据倒的量增加粒子数
      */
     public static void fluidPouring(BlockState fluidState, int fluidAmount) {
+        Minecraft mc = Minecraft.getInstance();
         ParticleOptions particle = new BlockParticleOption(ParticleTypes.BLOCK, fluidState);
         LocalPlayer player = mc.player;
         ClientLevel level = mc.level;

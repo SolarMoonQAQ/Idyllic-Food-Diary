@@ -1,0 +1,14 @@
+{
+  "player.pouring_water": {
+    "subtitle": "immersive_delight.player.pouring_water",
+    "sounds": [
+      "immersive_delight:player/pouring_water"
+    ]
+  },
+  "player.water_splashing": {
+    "subtitle": "immersive_delight.player.water_splashing",
+    "sounds": [
+      "immersive_delight:player/water_splashing"
+    ]
+  }
+}

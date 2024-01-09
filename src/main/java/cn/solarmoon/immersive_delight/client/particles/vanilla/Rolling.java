@@ -1,5 +1,6 @@
 package cn.solarmoon.immersive_delight.client.particles.vanilla;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ItemParticleOption;
@@ -9,10 +10,9 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.Random;
 
-import static cn.solarmoon.immersive_delight.util.Constants.mc;
-
 public class Rolling {
     public static void rolling(BlockPos pos) {
+        Minecraft mc = Minecraft.getInstance();
         if(mc.level == null) return;
         ParticleOptions particle = new ItemParticleOption(ParticleTypes.ITEM, mc.level.getBlockState(pos).getBlock().asItem().getDefaultInstance());
         BlockState blockState = mc.level.getBlockState(pos);

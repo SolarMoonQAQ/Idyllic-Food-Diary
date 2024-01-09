@@ -1,10 +1,10 @@
 package cn.solarmoon.immersive_delight.common.items;
 
-import cn.solarmoon.immersive_delight.common.events.client.RollingPinClientEvent;
+import cn.solarmoon.immersive_delight.client.events.RollingPinClientEvent;
 import cn.solarmoon.immersive_delight.common.recipes.RollingPinRecipe;
-import cn.solarmoon.immersive_delight.common.recipes.helper.GetRecipes;
 import cn.solarmoon.immersive_delight.network.serializer.ServerPackSerializer;
 import cn.solarmoon.immersive_delight.util.AnimController;
+import cn.solarmoon.immersive_delight.util.RecipeHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
@@ -36,7 +36,6 @@ import java.util.Objects;
 
 import static cn.solarmoon.immersive_delight.client.particles.vanilla.Rolling.rolling;
 import static cn.solarmoon.immersive_delight.common.IMItems.ROLLING_PIN;
-import static cn.solarmoon.immersive_delight.util.Constants.mc;
 
 
 public class RollingPinItem extends SwordItem {
@@ -82,7 +81,7 @@ public class RollingPinItem extends SwordItem {
             if(context.getLevel().isClientSide) {
                 updatePossibleOutputs(equalBlock);
             }
-            List<RollingPinRecipe> recipes = GetRecipes.rollingRecipes(context.getLevel());
+            List<RollingPinRecipe> recipes = RecipeHelper.GetRecipes.rollingRecipes(context.getLevel());
             for (RollingPinRecipe recipe : recipes) {
                 Ingredient input = recipe.getInput();
                 if (input.test(equalBlock.asItem().getDefaultInstance())) {
@@ -107,6 +106,7 @@ public class RollingPinItem extends SwordItem {
     private int tickCounter = 0;
     @Override
     public void onUseTick(@NotNull Level level, @NotNull LivingEntity entity, @NotNull ItemStack stack, int i) {
+        Minecraft mc = Minecraft.getInstance();
         if(level.isClientSide) {
             rolling(equalBlockPos);
             if(!hitResultRecipeCheck() || !(mc.hitResult instanceof BlockHitResult) || !((BlockHitResult) mc.hitResult).getBlockPos().equals(equalBlockPos)) {
@@ -183,11 +183,12 @@ public class RollingPinItem extends SwordItem {
      */
     @OnlyIn(Dist.CLIENT)
     public static boolean hitResultRecipeCheck() {
+        Minecraft mc = Minecraft.getInstance();
         if (mc.level == null) return false;
         if (mc.hitResult instanceof BlockHitResult hitResult){
             BlockPos blockPos = hitResult.getBlockPos();
             Block block = mc.level.getBlockState(blockPos).getBlock();
-            for (RollingPinRecipe recipe : GetRecipes.rollingRecipes(mc.level)) {
+            for (RollingPinRecipe recipe : RecipeHelper.GetRecipes.rollingRecipes(mc.level)) {
                 Ingredient input = recipe.getInput();
                 if (input.test(block.asItem().getDefaultInstance())) {
                     return true;
@@ -204,6 +205,7 @@ public class RollingPinItem extends SwordItem {
     public static boolean holdRollingCheck() {
         boolean isHoldingRollingPin;
         boolean isAnyHandEmpty;
+        Minecraft mc = Minecraft.getInstance();
         if (mc.player != null) {
             isHoldingRollingPin = mc.player.getMainHandItem().is(ROLLING_PIN.get().asItem())
                     || mc.player.getOffhandItem().is(ROLLING_PIN.get().asItem());
@@ -221,11 +223,12 @@ public class RollingPinItem extends SwordItem {
      */
     @OnlyIn(Dist.CLIENT)
     public static void updatePossibleOutputs(Block block) {
+        Minecraft mc = Minecraft.getInstance();
         RollingPinClientEvent.possibleOutputs = new ArrayList<>();
         RollingPinClientEvent.actualResults = new ArrayList<>();
         List<RollingPinRecipe> matchingRecipes = new ArrayList<>();
         if(mc.level == null) return;
-        for (RollingPinRecipe recipe : GetRecipes.rollingRecipes(mc.level)) {
+        for (RollingPinRecipe recipe : RecipeHelper.GetRecipes.rollingRecipes(mc.level)) {
             Ingredient input = recipe.getInput();
             if (input.test(block.asItem().getDefaultInstance())) {
                 //方块->对应配方的随机后物品栈

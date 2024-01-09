@@ -1,4 +1,4 @@
-package cn.solarmoon.immersive_delight.common.events.client;
+package cn.solarmoon.immersive_delight.client.events;
 
 import cn.solarmoon.immersive_delight.common.items.abstract_items.DrinkableItem;
 import cn.solarmoon.immersive_delight.common.items.abstract_items.WaterKettleItem;
@@ -20,6 +20,9 @@ import static cn.solarmoon.immersive_delight.client.particles.vanilla.FluidPouri
  */
 public class DrinkingEvent {
 
+    /**
+     * 可以把水泼出去并对范围内的实体产生效果
+     */
     @SubscribeEvent
     public void pour(PlayerInteractEvent.LeftClickEmpty event) {
         ItemStack stack = event.getItemStack();

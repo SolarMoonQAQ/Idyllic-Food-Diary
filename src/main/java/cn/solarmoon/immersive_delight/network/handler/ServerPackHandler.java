@@ -1,12 +1,11 @@
 package cn.solarmoon.immersive_delight.network.handler;
 
-import cn.solarmoon.immersive_delight.common.items.abstract_items.DrinkableItem;
-import cn.solarmoon.immersive_delight.common.items.abstract_items.WaterKettleItem;
+import cn.solarmoon.immersive_delight.client.IMSounds;
+import cn.solarmoon.immersive_delight.common.items.abstract_items.BaseTankItem;
 import cn.solarmoon.immersive_delight.compat.create.Create;
 import cn.solarmoon.immersive_delight.data.fluid_effects.serializer.FluidEffect;
 import cn.solarmoon.immersive_delight.data.fluid_effects.serializer.PotionEffect;
 import cn.solarmoon.immersive_delight.network.serializer.ServerPackSerializer;
-import cn.solarmoon.immersive_delight.util.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
@@ -16,13 +15,9 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.fluids.FluidStack;
@@ -83,9 +78,9 @@ public class ServerPackHandler {
                 stack.hurtAndBreak(1, player, (entity) -> entity.broadcastBreakEvent(entity.getUsedItemHand()));
             }
             case "pouring" -> {
-                if(player == null) return;
+                if(player == null || pos == null) return;
                 ItemStack itemStack = player.getMainHandItem();
-                if(itemStack.getItem() instanceof DrinkableItem || itemStack.getItem() instanceof WaterKettleItem) {
+                if(itemStack.getItem() instanceof BaseTankItem) {
                     IFluidHandlerItem tankStack = itemStack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM, null).orElse(null);
                     FluidStack fluidStack = tankStack.getFluidInTank(0);
                     int fluidAmount = fluidStack.getAmount();
@@ -98,21 +93,14 @@ public class ServerPackHandler {
                         List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, aabb);
                         for(var entity : entities) {
                             if(!entity.equals(player) || player.getXRot() < -30) {
-                                // 以玩家为基准，检测实体的上方是否有阻挡的方块
-                                boolean isBlocked = false;
-                                for(int i = 0; i < Math.abs(entity.position().y - player.getY()); i ++ ) {
-                                    if(!level.getBlockState(entity.getOnPos().above(i)).isAir()) {
-                                        isBlocked = true;
-                                        break;
-                                    }
-                                }
-                                if (!isBlocked) {
-                                    commonUse(fluidStack, level, entity);
-                                }
+                                // 众所周知液体穿墙是特性（点名表扬喷溅药水）
+                                commonUse(fluidStack, level, entity);
                             }
                         }
                     }
                     tankStack.drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.EXECUTE);
+                    level.playSound(null, pos, SoundEvents.ARMOR_EQUIP_LEATHER, SoundSource.PLAYERS, 1F, 1F);
+                    level.playSound(null, pos, IMSounds.PLAYER_SPILLING_WATER.get(), SoundSource.PLAYERS, 1F, 1F);
                 }
             }
         }

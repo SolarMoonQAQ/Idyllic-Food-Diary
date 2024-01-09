@@ -9,17 +9,17 @@ import dev.kosmx.playerAnim.api.layered.modifier.AbstractFadeModifier;
 import dev.kosmx.playerAnim.core.util.Ease;
 import dev.kosmx.playerAnim.minecraftApi.PlayerAnimationAccess;
 import dev.kosmx.playerAnim.minecraftApi.PlayerAnimationRegistry;
+import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.Objects;
-
-import static cn.solarmoon.immersive_delight.util.Constants.mc;
 
 
 @SuppressWarnings("unchecked")
 public class AnimController {
 
     public void playAnim(int length , String anim) {
+        Minecraft mc = Minecraft.getInstance();
         if(mc.player == null) return;
         ModifierLayer<IAnimation> animation = (ModifierLayer<IAnimation>) PlayerAnimationAccess.getPlayerAssociatedData(mc.player).get(new ResourceLocation(ImmersiveDelight.MOD_ID, "animation"));
         if(animation == null) return;
@@ -30,6 +30,7 @@ public class AnimController {
     }
 
     public void stopAnim(int length) {
+        Minecraft mc = Minecraft.getInstance();
         if(mc.player == null) return;
         ModifierLayer<IAnimation> animation = (ModifierLayer<IAnimation>) PlayerAnimationAccess.getPlayerAssociatedData(mc.player).get(new ResourceLocation(ImmersiveDelight.MOD_ID, "animation"));
         if(animation == null) return;

@@ -24,6 +24,10 @@ import org.jetbrains.annotations.NotNull;
  */
 public abstract class TankBlockEntity extends BlockEntity {
 
+    public int ticks;
+    public float lastScale;
+    public int time;
+
     public FluidTank tank;
 
     public static final String NBT_FLUID = "Fluid";
@@ -82,6 +86,11 @@ public abstract class TankBlockEntity extends BlockEntity {
         CompoundTag fluid = new CompoundTag();
         tank.writeToNBT(fluid);
         tag.put(NBT_FLUID, fluid);
+    }
+
+    public void setChanged() {
+        super.setChanged();
+        ticks = 0;
     }
 
 }

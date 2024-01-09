@@ -1,6 +1,7 @@
 package cn.solarmoon.immersive_delight.common;
 
 
+import cn.solarmoon.immersive_delight.common.recipes.CupRecipe;
 import cn.solarmoon.immersive_delight.common.recipes.KettleRecipe;
 import cn.solarmoon.immersive_delight.common.recipes.RollingPinRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -25,5 +26,9 @@ public class IMRecipes {
     public static final RegistryObject<RecipeType<KettleRecipe>> KETTLE_RECIPE = RECIPE_TYPES.register(KETTLE_ID, () -> registerRecipeType(KETTLE_ID));
     public static final RegistryObject<RecipeSerializer<?>> KETTLE_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register(KETTLE_ID, KettleRecipe.Serializer::new);
 
+    //水杯
+    public static final String CUP_ID = "cup";
+    public static final RegistryObject<RecipeType<CupRecipe>> CUP_RECIPE = RECIPE_TYPES.register(CUP_ID, () -> registerRecipeType(CUP_ID));
+    public static final RegistryObject<RecipeSerializer<?>> CUP_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register(CUP_ID, CupRecipe.Serializer::new);
 
 }

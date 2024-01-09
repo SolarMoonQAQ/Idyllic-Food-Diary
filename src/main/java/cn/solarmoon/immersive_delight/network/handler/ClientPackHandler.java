@@ -1,8 +1,10 @@
 package cn.solarmoon.immersive_delight.network.handler;
 
 import cn.solarmoon.immersive_delight.common.entity_blocks.abstract_blocks.entities.TankBlockEntity;
+import cn.solarmoon.immersive_delight.common.entity_blocks.entities.CupBlockEntity;
 import cn.solarmoon.immersive_delight.network.serializer.ClientPackSerializer;
-import cn.solarmoon.immersive_delight.util.Constants;
+import cn.solarmoon.immersive_delight.util.Util;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
@@ -30,8 +32,9 @@ public class ClientPackHandler {
     public static void clientPackHandler(ClientPackSerializer packet) {
 
         //快乐的定义时间
-        LocalPlayer player = Constants.mc.player;
-        ClientLevel level = Constants.mc.level;
+        Minecraft mc = Minecraft.getInstance();
+        LocalPlayer player = mc.player;
+        ClientLevel level = mc.level;
         BlockPos pos = packet.pos();
         List<ItemStack> stacks = packet.stacks();
         FluidStack fluidStack = packet.fluidStack();
@@ -54,19 +57,15 @@ public class ClientPackHandler {
                     }
                 }
             }
-            case "updateCupTank" -> {
+            case "updateCupBlock" -> {
                 if (level == null || pos == null) return;
                 BlockEntity blockEntity = level.getBlockEntity(pos);
-                if(blockEntity instanceof TankBlockEntity cup) {
-                    cup.setFluid(fluidStack);
-                    //把设置的tank信息顺便存入客户端tag
-                    cup.getPersistentData().put(NBT_FLUID, cup.tank.writeToNBT(new CompoundTag()));
+                if(blockEntity instanceof TankBlockEntity tankBlockEntity) {
+                    tankBlockEntity.setFluid(fluidStack);
+                    if(tankBlockEntity instanceof CupBlockEntity cupBlockEntity) {
+                        cupBlockEntity.setItem(stacks.get(0));
+                    }
                 }
-            }
-            case "updateCupItem" -> {
-                IFluidHandlerItem tankStack = stacks.get(0).getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM, null).orElse(null);
-                tankStack.drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.EXECUTE);
-                tankStack.fill(fluidStack, IFluidHandler.FluidAction.EXECUTE);
             }
         }
     }

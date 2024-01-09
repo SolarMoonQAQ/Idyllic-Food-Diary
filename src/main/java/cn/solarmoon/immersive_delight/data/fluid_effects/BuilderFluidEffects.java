@@ -1,7 +1,7 @@
 package cn.solarmoon.immersive_delight.data.fluid_effects;
 
+import cn.solarmoon.immersive_delight.ImmersiveDelight;
 import cn.solarmoon.immersive_delight.data.fluid_effects.serializer.FluidEffect;
-import cn.solarmoon.immersive_delight.util.Constants;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -38,7 +38,7 @@ public class BuilderFluidEffects extends SimpleJsonResourceReloadListener {
             FluidEffect.MAP.put(fluidEffect.fluidId, fluidEffect);
             fluidEffect.validate();
         }
-        Constants.LOGGER.info("已为 {} 种液体添加效果" + "\nEffects have been added for {} types of fluids.", FluidEffect.MAP.size(), FluidEffect.MAP.size());
+        ImmersiveDelight.LOGGER.info("已为 {} 种液体添加效果" + "\nEffects have been added for {} types of fluids.", FluidEffect.MAP.size(), FluidEffect.MAP.size());
     }
 
 }

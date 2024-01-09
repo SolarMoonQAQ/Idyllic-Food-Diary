@@ -1,4 +1,4 @@
-package cn.solarmoon.immersive_delight.common.items.renderer;
+package cn.solarmoon.immersive_delight.client.ItemRenderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.block.model.BakedQuad;
@@ -16,11 +16,11 @@ import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 
-public class PerspectiveBakedModel implements BakedModel {
+public class PerspectiveBakedModelRenderer implements BakedModel {
     private final BakedModel bakedModel2d;
     private final BakedModel bakedModel3d;
 
-    public PerspectiveBakedModel(BakedModel bakedModel2d, BakedModel bakedModel3d) {
+    public PerspectiveBakedModelRenderer(BakedModel bakedModel2d, BakedModel bakedModel3d) {
         this.bakedModel2d = bakedModel2d;
         this.bakedModel3d = bakedModel3d;
     }

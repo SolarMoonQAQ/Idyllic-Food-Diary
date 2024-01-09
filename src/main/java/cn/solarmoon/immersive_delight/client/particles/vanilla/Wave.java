@@ -1,6 +1,7 @@
 package cn.solarmoon.immersive_delight.client.particles.vanilla;
 
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraftforge.api.distmarker.Dist;
@@ -10,8 +11,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.Random;
-
-import static cn.solarmoon.immersive_delight.util.Constants.mc;
 
 
 
@@ -32,6 +31,7 @@ public class Wave {
 
             @SubscribeEvent
             public void onTick(TickEvent.ClientTickEvent event) {
+                Minecraft mc = Minecraft.getInstance();
                 if (event.phase == TickEvent.Phase.END) {
                     if (holder.distance <= maxDistance) {
                         for (int i = 0; i < holder.count; i++) {

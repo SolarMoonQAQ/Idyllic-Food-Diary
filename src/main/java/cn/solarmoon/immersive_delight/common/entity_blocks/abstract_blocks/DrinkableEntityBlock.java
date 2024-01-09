@@ -1,13 +1,16 @@
 package cn.solarmoon.immersive_delight.common.entity_blocks.abstract_blocks;
 
+import cn.solarmoon.immersive_delight.client.IMSounds;
 import cn.solarmoon.immersive_delight.common.entity_blocks.abstract_blocks.entities.TankBlockEntity;
+import cn.solarmoon.immersive_delight.common.entity_blocks.entities.CupBlockEntity;
 import cn.solarmoon.immersive_delight.common.items.abstract_items.DrinkableItem;
+import cn.solarmoon.immersive_delight.common.items.abstract_items.WaterKettleItem;
+import cn.solarmoon.immersive_delight.common.recipes.CupRecipe;
 import cn.solarmoon.immersive_delight.compat.create.Create;
 import cn.solarmoon.immersive_delight.data.fluid_effects.serializer.FluidEffect;
 import cn.solarmoon.immersive_delight.init.Config;
 import cn.solarmoon.immersive_delight.network.serializer.ClientPackSerializer;
-import cn.solarmoon.immersive_delight.util.CountingDevice;
-import cn.solarmoon.immersive_delight.util.Util;
+import cn.solarmoon.immersive_delight.util.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
@@ -26,7 +29,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.fluids.FluidActionResult;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
@@ -75,6 +77,9 @@ public abstract class DrinkableEntityBlock extends BasicEntityBlock {
         //自动检测是否是流体容器，进行液体存取
         if(loadFluid(heldItem, tankEntity, player, level, pos, hand)) return InteractionResult.SUCCESS;
 
+        //存取任意单个物品
+        if(storage(heldItem, tankEntity, player, hand)) return InteractionResult.SUCCESS;
+
         /*喝！
         默认每两下喝一下，消耗默认50，小于50则全喝完不触发任何效果
         喝时触发效果：声音、余下同item
@@ -98,6 +103,7 @@ public abstract class DrinkableEntityBlock extends BasicEntityBlock {
                     tank.drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.EXECUTE);
                     tankEntity.setChanged();
                     CountingDevice.resetCount(playerTag, -1);
+                    if(!level.isClientSide) level.playSound(null, pos, SoundEvents.GENERIC_DRINK, SoundSource.PLAYERS, 1F, 1F);
                 }
                 return InteractionResult.SUCCESS;
             }
@@ -114,11 +120,13 @@ public abstract class DrinkableEntityBlock extends BasicEntityBlock {
         FluidActionResult result;
         FluidTank tank = tankEntity.tank;
         //存入液体
-        result = FluidUtil.tryEmptyContainer(heldItem, tank, Integer.MAX_VALUE, player, true);
+        //player填null：不发出声音
+        result = FluidUtil.tryEmptyContainer(heldItem, tank, Integer.MAX_VALUE, null, true);
         if(result.isSuccess()) {
             if(!player.isCreative()) player.setItemInHand(hand, result.getResult());
             tankEntity.setChanged();
-            Create.playPouringSound(tank.getFluid(), level, pos);
+            //水壶倒水声
+            level.playSound(null, pos, IMSounds.PLAYER_POUR.get(), SoundSource.PLAYERS, 0.8F, 1F);
             return true;
         }
 
@@ -126,10 +134,29 @@ public abstract class DrinkableEntityBlock extends BasicEntityBlock {
         result = FluidUtil.tryFillContainer(heldItem, tank, Integer.MAX_VALUE, player, true);
         if(result.isSuccess()) {
             if(!player.isCreative()) player.setItemInHand(hand, result.getResult());
-            IFluidHandlerItem tankStack = player.getItemInHand(hand).getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM, null).orElse(null);
+            IFluidHandlerItem tankStack = FluidHelper.getTank(player.getItemInHand(hand));
             tankEntity.setChanged();
             Create.playFillingSound(tankStack.getFluidInTank(0), level, pos, player);
             return true;
+        }
+        return false;
+    }
+
+    /**
+     * 可放入任意物品，如果有物品且空手就取出
+     * 物品的nbt自然需要保存
+     */
+    public boolean storage(ItemStack heldItem, TankBlockEntity tankBlockEntity, Player player, InteractionHand hand) {
+        if(tankBlockEntity instanceof CupBlockEntity cupBlockEntity) {
+            if (!heldItem.isEmpty() && cupBlockEntity.itemStack.isEmpty()) {
+                cupBlockEntity.setItem(heldItem);
+                heldItem.shrink(1);
+                return true;
+            } else if (!cupBlockEntity.itemStack.isEmpty() && heldItem.isEmpty()) {
+                player.setItemInHand(hand, cupBlockEntity.itemStack);
+                cupBlockEntity.setItem(ItemStack.EMPTY);
+                return true;
+            }
         }
         return false;
     }
@@ -140,7 +167,7 @@ public abstract class DrinkableEntityBlock extends BasicEntityBlock {
     public boolean getThis(InteractionHand hand, ItemStack heldItem, Player player, Level level, BlockPos pos, BlockState state) {
         if(hand.equals(InteractionHand.MAIN_HAND) && heldItem.isEmpty() && player.isCrouching()) {
             ItemStack drop = getCloneItemStack(level, pos, state);
-            level.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
+            level.removeBlock(pos, false);
             level.playSound(player, pos, SoundEvents.ARMOR_EQUIP_LEATHER, SoundSource.PLAYERS, 1F, 1F);
             player.setItemInHand(hand, drop);
             return true;
@@ -185,69 +212,107 @@ public abstract class DrinkableEntityBlock extends BasicEntityBlock {
 
     /**
      * 使得放置物具有手上物品tank的读取
+     * 以及item内的item的读取
      */
     @Override
     public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
         super.setPlacedBy(level, pos, state, placer, stack);
         BlockEntity blockEntity = level.getBlockEntity(pos);
         if(blockEntity == null) return;
-        setTank(blockEntity, stack);
+        FluidHelper.setTank(blockEntity, stack);
+        if(blockEntity instanceof CupBlockEntity cupBlockEntity) {
+            cupBlockEntity.setItem(ItemStack.of(stack.getOrCreateTag().getCompound("Item")));
+        }
     }
 
     @Override
     public void tick(Level level, BlockPos pos, BlockState state, BlockEntity blockEntity) {
-        //防止取出液体时液体值未在客户端同步 而 造成的 假右键操作
-        if (blockEntity instanceof TankBlockEntity tankBlockEntity) {
-            ClientPackSerializer.sendPacket(pos, new ArrayList<>(), tankBlockEntity.tank.getFluid(), tankBlockEntity.getPersistentData().getInt("PressCount"), "updateCupTank");
+
+        if(blockEntity instanceof TankBlockEntity tankBlockEntity) {
+            if(tankBlockEntity.ticks < 10) tankBlockEntity.ticks++;
         }
+
+        //防止取出液体时液体值未在客户端同步 而 造成的 假右键操作
+        //在客户端同步内容物防止虚空物品
+        if(blockEntity instanceof TankBlockEntity tankBlockEntity) {
+            List<ItemStack> stacks = new ArrayList<>();
+            if(tankBlockEntity instanceof CupBlockEntity cupBlockEntity) {
+                stacks.add(cupBlockEntity.itemStack);
+            }
+            ClientPackSerializer.sendPacket(pos, stacks, tankBlockEntity.tank.getFluid(), 0, "updateCupBlock");
+        }
+
+        //配方
+        if(blockEntity instanceof CupBlockEntity cupBlockEntity) {
+            CupRecipe recipe = getCheckedRecipe(level, pos, blockEntity);
+            if(recipe != null) {
+                FluidStack fluidStack = FluidHelper.getFluidStack(blockEntity);
+                cupBlockEntity.time++;
+                Util.deBug("Time：" + cupBlockEntity.time, level);
+                if (cupBlockEntity.time > recipe.getTime()) {
+                    //选取最小容量输出
+                    int amount = Math.min(fluidStack.getAmount(), recipe.getFluidAmount());
+                    FluidStack fluidStackOut = new FluidStack(recipe.getOutputFluid(), amount);
+                    cupBlockEntity.tank.setFluid(fluidStackOut);
+                    cupBlockEntity.time = 0;
+                    cupBlockEntity.setItem(ItemStack.EMPTY);
+                    cupBlockEntity.setChanged();
+                }
+            } else cupBlockEntity.time = 0;
+        }
+
     }
 
     /**
-     * 用于强制设置物品里的液体（前者是被设置的，后者是设置的内容）
+     * 获取匹配的配方，不匹配返回null
      */
-    public void setTank(ItemStack stack, BlockEntity blockEntity) {
-        //把blockEntity的tank注入item
-        IFluidHandler blockTankEntity = blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER, null).orElse(null);
-        IFluidHandlerItem tankStack = stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM, null).orElse(null);
-        FluidStack fluidStack = blockTankEntity.getFluidInTank(0);
-        tankStack.drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.EXECUTE);
-        tankStack.fill(fluidStack, IFluidHandler.FluidAction.EXECUTE);
-    }
-
-    /**
-     * 用于强制设置方块实体里的液体（前者是被设置的，后者是设置的内容）
-     */
-    public void setTank(BlockEntity blockEntity, ItemStack stack) {
-        //从stack注入blockEntity
-        IFluidHandlerItem tankStack = stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM, null).orElse(null);
-        IFluidHandler blockTankEntity = blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER, null).orElse(null);
-        FluidStack fluidStack = tankStack.getFluidInTank(0);
-        blockTankEntity.drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.EXECUTE);
-        blockTankEntity.fill(fluidStack, IFluidHandler.FluidAction.EXECUTE);
+    public CupRecipe getCheckedRecipe(Level level, BlockPos pos, BlockEntity blockEntity) {
+        if(blockEntity instanceof TankBlockEntity tankBlockEntity) {
+            FluidStack fluidStack = tankBlockEntity.tank.getFluid();
+            ItemStack stackIn = ItemStack.EMPTY;
+            if (tankBlockEntity instanceof CupBlockEntity cupBlockEntity) {
+                stackIn = cupBlockEntity.itemStack;
+            }
+            List<CupRecipe> recipes = RecipeHelper.GetRecipes.CupRecipe(level);
+            for (var recipe : recipes) {
+                if (recipe.inputMatches(level, fluidStack, stackIn, pos)) {
+                    return recipe;
+                }
+            }
+        }
+        return null;
     }
 
     /**
      * 使得复制物具有该实体的tank内容
+     * 以及内容物
      */
     @Override
     public ItemStack getCloneItemStack(BlockGetter level, BlockPos pos, BlockState state) {
         ItemStack stack = super.getCloneItemStack(level, pos, state);
         BlockEntity blockEntity = level.getBlockEntity(pos);
         if(blockEntity == null) return stack;
-        setTank(stack, blockEntity);
+        FluidHelper.setTank(stack, blockEntity);
+        if(blockEntity instanceof CupBlockEntity cupBlockEntity) {
+            ContainerHelper.setItem(stack, cupBlockEntity.itemStack);
+        }
         return stack;
     }
 
     /**
      * 让战利品表的同类掉落物存在tank信息
+     * 和内容物信息
      */
     @Override
     public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
         BlockEntity blockEntity = builder.getOptionalParameter(LootContextParams.BLOCK_ENTITY);
         ItemStack stack = new ItemStack(this);
         if(blockEntity != null) {
-            setTank(stack, blockEntity);
-            return Collections.singletonList(stack);
+            FluidHelper.setTank(stack, blockEntity);
+            if(blockEntity instanceof CupBlockEntity cupBlockEntity) {
+                ContainerHelper.setItem(stack, cupBlockEntity.itemStack);
+                return Collections.singletonList(stack);
+            }
         }
         return super.getDrops(state, builder);
     }

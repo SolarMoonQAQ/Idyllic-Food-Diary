@@ -28,11 +28,6 @@ public class TeaCrop extends SweetBerryBushBlock {
         super(properties);
     }
 
-    @Override
-    public ItemStack getCloneItemStack(BlockGetter getter, BlockPos pos, BlockState state) {
-        return new ItemStack(this.asItem());
-    }
-
     /**
      * 仅仅造成减速
      */

@@ -4,16 +4,13 @@ import cn.solarmoon.immersive_delight.ImmersiveDelight;
 import cn.solarmoon.immersive_delight.init.Config;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.ModList;
 
 import javax.annotation.Nullable;
-
-import static cn.solarmoon.immersive_delight.util.Constants.mc;
 
 public class Util {
 
@@ -25,6 +22,7 @@ public class Util {
      * 自动从客户端侧发送debug
      */
     public static void deBug(String string, @Nullable Level level) {
+        Minecraft mc = Minecraft.getInstance();
         if(level != null) {
             if(!level.isClientSide) return;
         }
@@ -36,6 +34,7 @@ public class Util {
      * 客户端侧debug
      */
     public static void deBug(String string) {
+        Minecraft mc = Minecraft.getInstance();
         if (mc.player != null) {
             mc.player.sendSystemMessage(Component.literal("[§6IM§f] "  + string));
         }

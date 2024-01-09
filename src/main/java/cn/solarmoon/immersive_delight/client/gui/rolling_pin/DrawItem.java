@@ -1,14 +1,13 @@
 package cn.solarmoon.immersive_delight.client.gui.rolling_pin;
 
-import cn.solarmoon.immersive_delight.common.events.client.RollingPinClientEvent;
+import cn.solarmoon.immersive_delight.client.events.RollingPinClientEvent;
 import cn.solarmoon.immersive_delight.common.items.RollingPinItem;
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-
-import static cn.solarmoon.immersive_delight.util.Constants.mc;
 
 
 @OnlyIn(Dist.CLIENT)
@@ -22,6 +21,8 @@ public class DrawItem {
     private static final int y = 80;
 
     public static void drawItem(GuiGraphics graphics) {
+
+        Minecraft mc = Minecraft.getInstance();
 
         graphics.pose().pushPose();
 

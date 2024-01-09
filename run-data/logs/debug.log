@@ -481,20 +481,20 @@
 [061?2024 14:37:13.702] [modloading-worker-0/DEBUG] [mixin/]: Mixing ClientLevelMixin from flywheel.mixins.json into net.minecraft.client.multiplayer.ClientLevel
 [061?2024 14:37:13.706] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Attempting to inject @EventBusSubscriber classes into the eventbus for appleskin
 [061?2024 14:37:13.714] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Attempting to inject @EventBusSubscriber classes into the eventbus for immersive_delight
-[061?2024 14:37:13.715] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing cn.solarmoon.immersive_delight.common.IMBlockEntityRenderers to MOD
+[061?2024 14:37:13.715] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing cn.solarmoon.immersive_delight.client.IMBlockEntityRenderers to MOD
 [061?2024 14:37:13.718] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing cn.solarmoon.immersive_delight.common.IMBlocks to MOD
 [061?2024 14:37:13.719] [modloading-worker-0/DEBUG] [mixin/]: Mixing PausedPartialTickAccessor from flywheel.mixins.json into net.minecraft.client.Minecraft
 [061?2024 14:37:13.724] [modloading-worker-0/DEBUG] [mixin/]: Mixing client.WindowResizeMixin from create.mixins.json into net.minecraft.client.Minecraft
 [061?2024 14:37:13.739] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing cn.solarmoon.immersive_delight.common.IMCrops to MOD
 [061?2024 14:37:13.742] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing cn.solarmoon.immersive_delight.common.IMEntityBlocks to MOD
-[061?2024 14:37:13.754] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing cn.solarmoon.immersive_delight.common.IMEvents to MOD
+[061?2024 14:37:13.754] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing cn.solarmoon.immersive_delight.common.IMCommonEvents to MOD
 [061?2024 14:37:13.757] [modloading-worker-0/DEBUG] [mixin/]: Mixing CanvasSignEditScreenMixin from farmersdelight.mixins.json into net.minecraft.client.player.LocalPlayer
 [061?2024 14:37:13.758] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing cn.solarmoon.immersive_delight.client.IMGui to MOD
 [061?2024 14:37:13.765] [modloading-worker-0/DEBUG] [mixin/]: Mixing client.HeavyBootsOnPlayerMixin from create.mixins.json into net.minecraft.client.player.LocalPlayer
 [061?2024 14:37:13.782] [modloading-worker-0/DEBUG] [mezz.jei.common.platform.Services/]: Loaded mezz.jei.forge.platform.PlatformHelper@24641f82 for service interface mezz.jei.common.platform.IPlatformHelper
 [061?2024 14:37:13.783] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing cn.solarmoon.immersive_delight.common.IMItems to MOD
 [061?2024 14:37:13.796] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing cn.solarmoon.immersive_delight.common.IMRecipes to MOD
-[061?2024 14:37:13.802] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing cn.solarmoon.immersive_delight.common.items.renderer.ItemModelRenderer to MOD
+[061?2024 14:37:13.802] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing cn.solarmoon.immersive_delight.client.IMItemRenderers to MOD
 [061?2024 14:37:13.819] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing cn.solarmoon.immersive_delight.compat.farmersdelight.FarmersDelight to MOD
 [061?2024 14:37:13.819] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing cn.solarmoon.immersive_delight.data.DataGenerator to MOD
 [061?2024 14:37:13.821] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing cn.solarmoon.immersive_delight.init.client.Animation to MOD

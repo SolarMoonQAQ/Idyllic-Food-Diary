@@ -1,6 +1,6 @@
 package cn.solarmoon.immersive_delight.common.recipes;
 
-import cn.solarmoon.immersive_delight.common.recipes.helper.ChanceResult;
+import cn.solarmoon.immersive_delight.util.RecipeHelper;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -34,9 +34,9 @@ public class RollingPinRecipe implements Recipe<RecipeWrapper> {
     private final Ingredient input;
     private final int time;
     private final Ingredient output;
-    private final NonNullList<ChanceResult> results;
+    private final NonNullList<RecipeHelper.ChanceResult> results;
 
-    public RollingPinRecipe(ResourceLocation id, Ingredient input, int time, Ingredient output, NonNullList<ChanceResult> results) {
+    public RollingPinRecipe(ResourceLocation id, Ingredient input, int time, Ingredient output, NonNullList<RecipeHelper.ChanceResult> results) {
         this.id = id;
         this.input = input;
         this.time = time;
@@ -78,18 +78,18 @@ public class RollingPinRecipe implements Recipe<RecipeWrapper> {
 
     public List<ItemStack> getResults() {
         return getRollableResults().stream()
-                .map(ChanceResult::stack)
+                .map(RecipeHelper.ChanceResult::stack)
                 .collect(Collectors.toList());
     }
 
-    public NonNullList<ChanceResult> getRollableResults() {
+    public NonNullList<RecipeHelper.ChanceResult> getRollableResults() {
         return this.results;
     }
 
     public List<ItemStack> rollResults(RandomSource rand, int fortuneLevel) {
         List<ItemStack> results = new ArrayList<>();
-        NonNullList<ChanceResult> rollableResults = getRollableResults();
-        for (ChanceResult output : rollableResults) {
+        NonNullList<RecipeHelper.ChanceResult> rollableResults = getRollableResults();
+        for (RecipeHelper.ChanceResult output : rollableResults) {
             ItemStack stack = output.rollOutput(rand, fortuneLevel);
             if (!stack.isEmpty())
                 results.add(stack);
@@ -144,10 +144,10 @@ public class RollingPinRecipe implements Recipe<RecipeWrapper> {
         public Serializer() {
         }
 
-        private static NonNullList<ChanceResult> readResults(JsonArray resultArray) {
-            NonNullList<ChanceResult> results = NonNullList.create();
+        private static NonNullList<RecipeHelper.ChanceResult> readResults(JsonArray resultArray) {
+            NonNullList<RecipeHelper.ChanceResult> results = NonNullList.create();
             for (JsonElement result : resultArray) {
-                results.add(ChanceResult.deserialize(result));
+                results.add(RecipeHelper.ChanceResult.deserialize(result));
             }
             return results;
         }
@@ -164,7 +164,7 @@ public class RollingPinRecipe implements Recipe<RecipeWrapper> {
                 output = Ingredient.fromJson(json.get("output"));
             }
 
-            NonNullList<ChanceResult> results = NonNullList.create();
+            NonNullList<RecipeHelper.ChanceResult> results = NonNullList.create();
             if (json.has("result")) {
                 results = readResults(GsonHelper.getAsJsonArray(json, "result"));
             }
@@ -186,8 +186,8 @@ public class RollingPinRecipe implements Recipe<RecipeWrapper> {
             }
 
             int i = buffer.readVarInt();
-            NonNullList<ChanceResult> resultsIn = NonNullList.withSize(i, ChanceResult.EMPTY);
-            resultsIn.replaceAll(ignored -> ChanceResult.read(buffer));
+            NonNullList<RecipeHelper.ChanceResult> resultsIn = NonNullList.withSize(i, RecipeHelper.ChanceResult.EMPTY);
+            resultsIn.replaceAll(ignored -> RecipeHelper.ChanceResult.read(buffer));
 
             return new RollingPinRecipe(recipeId, input, time, output, resultsIn);
         }
@@ -205,7 +205,7 @@ public class RollingPinRecipe implements Recipe<RecipeWrapper> {
             }
 
             buffer.writeVarInt(recipe.results.size());
-            for (ChanceResult result : recipe.results) {
+            for (RecipeHelper.ChanceResult result : recipe.results) {
                 result.write(buffer);
             }
 

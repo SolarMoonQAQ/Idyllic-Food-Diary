@@ -1,4 +1,4 @@
-package cn.solarmoon.immersive_delight.common.entity_blocks.renderer;
+package cn.solarmoon.immersive_delight.client.BlockEntityRenderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.LevelRenderer;
