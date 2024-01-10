@@ -1,7 +1,7 @@
 package cn.solarmoon.immersive_delight.client.gui.rolling_pin;
 
 import cn.solarmoon.immersive_delight.client.events.RollingPinClientEvent;
-import cn.solarmoon.immersive_delight.common.items.RollingPinItem;
+import cn.solarmoon.immersive_delight.util.RollingPinHelper;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -26,8 +26,8 @@ public class DrawItem {
 
         graphics.pose().pushPose();
 
-        boolean show = RollingPinItem.holdRollingCheck()
-                       && RollingPinItem.hitResultRecipeCheck()
+        boolean show = RollingPinHelper.holdRollingCheck()
+                       && RollingPinHelper.hitResultRecipeCheck()
                        && mc.player != null
                        && mc.player.isCrouching();
 

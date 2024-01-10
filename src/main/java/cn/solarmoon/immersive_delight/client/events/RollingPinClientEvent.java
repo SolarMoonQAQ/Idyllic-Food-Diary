@@ -1,7 +1,7 @@
 package cn.solarmoon.immersive_delight.client.events;
 
 import cn.solarmoon.immersive_delight.common.events.RollingPinEvent;
-import cn.solarmoon.immersive_delight.common.items.RollingPinItem;
+import cn.solarmoon.immersive_delight.util.RollingPinHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -32,7 +32,7 @@ public class RollingPinClientEvent {
     @SubscribeEvent
     public void chooseOutPut(InputEvent.MouseScrollingEvent event) {
         Minecraft mc = Minecraft.getInstance();
-        if (mc.player != null && possibleOutputs != null && !possibleOutputs.isEmpty() && RollingPinItem.holdRollingCheck() && RollingPinItem.hitResultRecipeCheck() && mc.player.isCrouching()) {
+        if (mc.player != null && possibleOutputs != null && !possibleOutputs.isEmpty() && RollingPinHelper.holdRollingCheck() && RollingPinHelper.hitResultRecipeCheck() && mc.player.isCrouching()) {
             // 根据鼠标滚动的方向更新索引
             if (event.getScrollDelta() > 0) {
                 currentRecipeIndex++;
@@ -60,14 +60,14 @@ public class RollingPinClientEvent {
     @SubscribeEvent
     public void updateMatchRecipe(TickEvent.ClientTickEvent event) {
         Minecraft mc = Minecraft.getInstance();
-        if (mc.player != null && RollingPinItem.holdRollingCheck() && RollingPinItem.hitResultRecipeCheck() && mc.player.isCrouching()) {
+        if (mc.player != null && RollingPinHelper.holdRollingCheck() && RollingPinHelper.hitResultRecipeCheck() && mc.player.isCrouching()) {
             Block block = null;
             if (mc.level != null) {
                 if (mc.hitResult != null) {
                     block = mc.level.getBlockState(((BlockHitResult)mc.hitResult).getBlockPos()).getBlock();
                 }
             }
-            RollingPinItem.updatePossibleOutputs(block);
+            RollingPinHelper.updatePossibleOutputs(block);
         }
     }
 
