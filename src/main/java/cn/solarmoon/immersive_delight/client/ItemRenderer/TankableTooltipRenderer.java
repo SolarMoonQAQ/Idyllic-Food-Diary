@@ -1,6 +1,7 @@
 package cn.solarmoon.immersive_delight.client.ItemRenderer;
 
 import cn.solarmoon.immersive_delight.common.items.abstract_items.BaseTankItem;
+import cn.solarmoon.immersive_delight.util.ContainerHelper;
 import cn.solarmoon.immersive_delight.util.FluidHelper;
 import cn.solarmoon.immersive_delight.util.FluidRenderHelper;
 import cn.solarmoon.immersive_delight.util.Util;
@@ -11,11 +12,13 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
+import net.minecraftforge.items.ItemStackHandler;
 import org.joml.Matrix4f;
 
 public class TankableTooltipRenderer implements ClientTooltipComponent {
@@ -117,8 +120,9 @@ public class TankableTooltipRenderer implements ClientTooltipComponent {
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
             //渲染内容物
-            ItemStack stackIn = ItemStack.of(stack.getOrCreateTag().getCompound("Item"));
-            if(!stackIn.isEmpty()) {
+            ItemStackHandler inventory = ContainerHelper.getInventory(stack);
+            ItemStack stackIn = inventory.getStackInSlot(0);
+            if (!stackIn.isEmpty()) {
                 guiGraphics.renderItem(stackIn, x + size * count - 4, y + 2);
             }
 

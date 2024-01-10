@@ -5,7 +5,7 @@
 	"texture_size": [32, 32],
 	"textures": {
 		"0": "immersive_delight:block/wheat_dough",
-		"particle": "immersive_delight:block/wheat_dough"
+		"particle": "immersive_delight:block/particle/wheat_dough"
 	},
 	"elements": [
 		{
@@ -90,25 +90,29 @@
 	"display": {
 		"thirdperson_righthand": {
 			"rotation": [80.5, 0, 0],
-			"translation": [0, 2, 5.25],
+			"translation": [0, 2, 4.5],
 			"scale": [0.7, 0.7, 0.7]
 		},
 		"thirdperson_lefthand": {
 			"rotation": [79.25, 0, 0],
-			"translation": [0, 2.75, 4.75],
+			"translation": [0.25, 3, 4.75],
 			"scale": [0.7, 0.7, 0.7]
 		},
 		"firstperson_righthand": {
-			"translation": [0, 7.25, 0]
+			"translation": [0, 7.25, 0.5]
 		},
 		"firstperson_lefthand": {
-			"translation": [0, 8, 0]
+			"translation": [0, 7.5, 1.5]
 		},
 		"ground": {
-			"translation": [0, 4, 0]
+			"translation": [0, 3.75, 0]
 		},
 		"gui": {
-			"rotation": [90, 0, 0]
+			"rotation": [39, 42, 0],
+			"translation": [0, 5, 0]
+		},
+		"head": {
+			"translation": [0, 14.5, 0]
 		},
 		"fixed": {
 			"rotation": [-90, 0, 0],

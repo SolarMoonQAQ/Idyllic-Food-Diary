@@ -1,0 +1,10 @@
+{
+  "type": "immersive_delight:cup",
+  "input_ingredient": {
+    "item": "immersive_delight:green_tea_leaves"
+  },
+  "input_fluid": "immersive_delight:hot_water",
+  "fluid_amount": 250,
+  "time": 100,
+  "output": "immersive_delight:green_tea"
+}

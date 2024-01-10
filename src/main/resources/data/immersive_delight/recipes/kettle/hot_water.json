@@ -1,6 +1,6 @@
 {
   "type": "immersive_delight:kettle",
   "input": "minecraft:water",
-  "time": 200,
-  "output": "minecraft:milk"
+  "time": 400,
+  "output": "immersive_delight:hot_water"
 }

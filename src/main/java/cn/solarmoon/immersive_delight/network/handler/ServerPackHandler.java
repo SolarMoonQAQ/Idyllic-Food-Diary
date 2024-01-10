@@ -77,6 +77,7 @@ public class ServerPackHandler {
                 level.addFreshEntity(itemEntity);
                 stack.hurtAndBreak(1, player, (entity) -> entity.broadcastBreakEvent(entity.getUsedItemHand()));
             }
+            //倒水技能
             case "pouring" -> {
                 if(player == null || pos == null) return;
                 ItemStack itemStack = player.getMainHandItem();
@@ -99,9 +100,18 @@ public class ServerPackHandler {
                         }
                     }
                     tankStack.drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.EXECUTE);
-                    level.playSound(null, pos, SoundEvents.ARMOR_EQUIP_LEATHER, SoundSource.PLAYERS, 1F, 1F);
-                    level.playSound(null, pos, IMSounds.PLAYER_SPILLING_WATER.get(), SoundSource.PLAYERS, 1F, 1F);
+                    if(!level.isClientSide) level.playSound(null, pos, SoundEvents.ARMOR_EQUIP_LEATHER, SoundSource.PLAYERS, 1F, 1F);
+                    if(!level.isClientSide) level.playSound(null, pos, IMSounds.PLAYER_SPILLING_WATER.get(), SoundSource.PLAYERS, 1F, 1F);
                 }
+            }
+            //出入水音效
+            case "playSoundInWater" -> {
+                if(pos == null || level == null) return;
+                if(!level.isClientSide) level.playSound(null, pos, SoundEvents.AMBIENT_UNDERWATER_ENTER, SoundSource.PLAYERS, 0.6f, 1f);
+            }
+            case "playSoundOutWater" -> {
+                if(pos == null || level == null) return;
+                if(!level.isClientSide) level.playSound(null, pos, SoundEvents.AMBIENT_UNDERWATER_EXIT, SoundSource.PLAYERS, 0.8f, 1f);
             }
         }
     }

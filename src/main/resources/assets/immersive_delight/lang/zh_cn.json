@@ -6,6 +6,9 @@
   "item.immersive_delight.black_tea_seeds": "红茶种子",
   "item.immersive_delight.black_tea_leaves": "红茶叶",
   "block.immersive_delight.black_tea_tree": "红茶树",
+  "item.immersive_delight.green_tea_seeds": "绿茶种子",
+  "item.immersive_delight.green_tea_leaves": "绿茶叶",
+  "block.immersive_delight.green_tea_tree": "绿茶树",
 
   "block.immersive_delight.wheat_dough": "面团",
   "block.immersive_delight.flatbread_dough": "面饼",
@@ -15,8 +18,27 @@
   "block.immersive_delight.kettle": "水壶",
   "block.immersive_delight.kettle_with_fluid": "装有%s的水壶",
 
+  "item.immersive_delight.hot_water_bucket": "热水桶",
+  "block.immersive_delight.hot_water": "热水",
+  "fluid_type.immersive_delight.hot_water": "热水",
+  "item.immersive_delight.black_tea_bucket": "红茶桶",
+  "block.immersive_delight.black_tea": "红茶",
+  "fluid_type.immersive_delight.black_tea": "红茶",
+  "item.immersive_delight.green_tea_bucket": "绿茶桶",
+  "block.immersive_delight.green_tea": "绿茶",
+  "fluid_type.immersive_delight.green_tea": "绿茶",
+  "item.immersive_delight.hot_milk_bucket": "热牛奶桶",
+  "block.immersive_delight.hot_milk": "热牛奶",
+  "fluid_type.immersive_delight.hot_milk": "热牛奶",
+
+  "effect.immersive_delight.snug": "温暖",
+  "effect.immersive_delight.refreshment": "神清气爽",
+  "effect.immersive_delight.fleet_of_foot": "健步如飞",
+
   "tooltip.immersive_delight.fluid_empty": "空",
 
-  "immersive_delight.player.pour": "沉浸乐事 : 倒水",
-  "immersive_delight.player.spilling_water": "沉浸乐事 : 泼水"
+  "death.attack.immersive_delight.scald": "%s被开水烫死了",
+
+  "immersive_delight.player.pouring_water": "沉浸乐事 : 倒水",
+  "immersive_delight.player.water_splashing": "沉浸乐事 : 泼水"
 }

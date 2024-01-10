@@ -2,6 +2,7 @@ package cn.solarmoon.immersive_delight.data;
 
 import cn.solarmoon.immersive_delight.data.loot_tables.IMBlockLoots;
 import cn.solarmoon.immersive_delight.data.tags.IMBlockTags;
+import cn.solarmoon.immersive_delight.data.tags.IMFluidTags;
 import cn.solarmoon.immersive_delight.data.tags.IMItemTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -37,6 +38,7 @@ public class DataGenerator {
         IMBlockTags blockTags = new IMBlockTags(output, lookupProvider, helper);
         generator.addProvider(event.includeServer(), blockTags);
         generator.addProvider(event.includeServer(), new IMItemTags(output, lookupProvider, blockTags.contentsGetter(), helper));
+        generator.addProvider(event.includeServer(), new IMFluidTags(output, lookupProvider, helper));
         generator.addProvider(event.includeServer(), new LootTableProvider(output, Collections.emptySet(), List.of(
                 new LootTableProvider.SubProviderEntry(IMBlockLoots::new, LootContextParamSets.BLOCK)
         )));

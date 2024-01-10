@@ -2,9 +2,8 @@ package cn.solarmoon.immersive_delight.common.entity_blocks.abstract_blocks;
 
 import cn.solarmoon.immersive_delight.client.IMSounds;
 import cn.solarmoon.immersive_delight.common.entity_blocks.abstract_blocks.entities.TankBlockEntity;
-import cn.solarmoon.immersive_delight.common.entity_blocks.entities.CupBlockEntity;
-import cn.solarmoon.immersive_delight.common.items.abstract_items.DrinkableItem;
-import cn.solarmoon.immersive_delight.common.items.abstract_items.WaterKettleItem;
+import cn.solarmoon.immersive_delight.common.entity_blocks.abstract_blocks.entities.CupBlockEntity;
+import cn.solarmoon.immersive_delight.common.items.abstract_items.CupItem;
 import cn.solarmoon.immersive_delight.common.recipes.CupRecipe;
 import cn.solarmoon.immersive_delight.compat.create.Create;
 import cn.solarmoon.immersive_delight.data.fluid_effects.serializer.FluidEffect;
@@ -23,7 +22,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootParams;
@@ -43,9 +41,9 @@ import java.util.*;
 /**
  * 作为大部分可饮用方块（如各类杯子）的抽象类
  */
-public abstract class DrinkableEntityBlock extends BasicEntityBlock {
+public abstract class CupEntityBlock extends BasicEntityBlock {
 
-    protected DrinkableEntityBlock(Properties properties) {
+    protected CupEntityBlock(Properties properties) {
         super(properties
                 .strength(0f)
                 .noParticlesOnBreak()
@@ -90,7 +88,7 @@ public abstract class DrinkableEntityBlock extends BasicEntityBlock {
                 //能吃却不能吃 不让用
                 if(!canEat(blockEntity, player)) return InteractionResult.FAIL;
                 if(CountingDevice.getCount(playerTag) >= getPressCount()) {
-                    DrinkableItem.commonUse(tank.getFluid(), level, player);
+                    CupItem.commonUse(tank.getFluid(), level, player);
                     tank.drain(getDrinkVolume(), IFluidHandler.FluidAction.EXECUTE);
                     tankEntity.setChanged();
                     CountingDevice.resetCount(playerTag, -1);
@@ -148,13 +146,11 @@ public abstract class DrinkableEntityBlock extends BasicEntityBlock {
      */
     public boolean storage(ItemStack heldItem, TankBlockEntity tankBlockEntity, Player player, InteractionHand hand) {
         if(tankBlockEntity instanceof CupBlockEntity cupBlockEntity) {
-            if (!heldItem.isEmpty() && cupBlockEntity.itemStack.isEmpty()) {
-                cupBlockEntity.setItem(heldItem);
-                heldItem.shrink(1);
+            if (!heldItem.isEmpty() && cupBlockEntity.getItem().isEmpty()) {
+                player.setItemInHand(hand, cupBlockEntity.insertItem(heldItem));
                 return true;
-            } else if (!cupBlockEntity.itemStack.isEmpty() && heldItem.isEmpty()) {
-                player.setItemInHand(hand, cupBlockEntity.itemStack);
-                cupBlockEntity.setItem(ItemStack.EMPTY);
+            } else if (!cupBlockEntity.getItem().isEmpty() && heldItem.isEmpty()) {
+                player.setItemInHand(hand, cupBlockEntity.extractItem());
                 return true;
             }
         }
@@ -221,7 +217,7 @@ public abstract class DrinkableEntityBlock extends BasicEntityBlock {
         if(blockEntity == null) return;
         FluidHelper.setTank(blockEntity, stack);
         if(blockEntity instanceof CupBlockEntity cupBlockEntity) {
-            cupBlockEntity.setItem(ItemStack.of(stack.getOrCreateTag().getCompound("Item")));
+            cupBlockEntity.setInventory(stack);
         }
     }
 
@@ -237,7 +233,7 @@ public abstract class DrinkableEntityBlock extends BasicEntityBlock {
         if(blockEntity instanceof TankBlockEntity tankBlockEntity) {
             List<ItemStack> stacks = new ArrayList<>();
             if(tankBlockEntity instanceof CupBlockEntity cupBlockEntity) {
-                stacks.add(cupBlockEntity.itemStack);
+                stacks.add(cupBlockEntity.getItem());
             }
             ClientPackSerializer.sendPacket(pos, stacks, tankBlockEntity.tank.getFluid(), 0, "updateCupBlock");
         }
@@ -255,7 +251,7 @@ public abstract class DrinkableEntityBlock extends BasicEntityBlock {
                     FluidStack fluidStackOut = new FluidStack(recipe.getOutputFluid(), amount);
                     cupBlockEntity.tank.setFluid(fluidStackOut);
                     cupBlockEntity.time = 0;
-                    cupBlockEntity.setItem(ItemStack.EMPTY);
+                    cupBlockEntity.extractItem();
                     cupBlockEntity.setChanged();
                 }
             } else cupBlockEntity.time = 0;
@@ -271,7 +267,7 @@ public abstract class DrinkableEntityBlock extends BasicEntityBlock {
             FluidStack fluidStack = tankBlockEntity.tank.getFluid();
             ItemStack stackIn = ItemStack.EMPTY;
             if (tankBlockEntity instanceof CupBlockEntity cupBlockEntity) {
-                stackIn = cupBlockEntity.itemStack;
+                stackIn = cupBlockEntity.getItem();
             }
             List<CupRecipe> recipes = RecipeHelper.GetRecipes.CupRecipe(level);
             for (var recipe : recipes) {
@@ -294,7 +290,7 @@ public abstract class DrinkableEntityBlock extends BasicEntityBlock {
         if(blockEntity == null) return stack;
         FluidHelper.setTank(stack, blockEntity);
         if(blockEntity instanceof CupBlockEntity cupBlockEntity) {
-            ContainerHelper.setItem(stack, cupBlockEntity.itemStack);
+            ContainerHelper.setInventory(stack, cupBlockEntity);
         }
         return stack;
     }
@@ -310,7 +306,7 @@ public abstract class DrinkableEntityBlock extends BasicEntityBlock {
         if(blockEntity != null) {
             FluidHelper.setTank(stack, blockEntity);
             if(blockEntity instanceof CupBlockEntity cupBlockEntity) {
-                ContainerHelper.setItem(stack, cupBlockEntity.itemStack);
+                ContainerHelper.setInventory(stack, cupBlockEntity);
                 return Collections.singletonList(stack);
             }
         }

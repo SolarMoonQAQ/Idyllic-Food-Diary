@@ -32,9 +32,9 @@ import java.util.Random;
  * 作为可饮用方块的对应物品的基本抽象类
  * 基本实现了绝大部分本模组杯子物品所需的功能，简单继承即可使用
  */
-public abstract class DrinkableItem extends BaseTankItem {
+public abstract class CupItem extends BaseTankItem {
 
-    public DrinkableItem(Block block, Properties properties) {
+    public CupItem(Block block, Properties properties) {
         super(block, properties
                 .food(new FoodProperties.Builder().build())
         );

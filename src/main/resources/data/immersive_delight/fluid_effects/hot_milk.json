@@ -1,0 +1,16 @@
+{
+  "fluid": "immersive_delight:hot_milk",
+  "clear": true,
+  "effects" : [
+    {
+      "id": "immersive_delight:snug",
+      "duration": "60",
+      "amplifier": "4"
+    }
+  ],
+  "food_value": {
+    "hunger": 2,
+    "saturation": 1
+  },
+  "can_always_drink": true
+}

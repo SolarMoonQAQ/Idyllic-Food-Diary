@@ -4,6 +4,7 @@ package cn.solarmoon.immersive_delight.common;
 import cn.solarmoon.immersive_delight.client.events.DrinkingEvent;
 import cn.solarmoon.immersive_delight.common.events.RollingPinEvent;
 import cn.solarmoon.immersive_delight.client.events.RollingPinClientEvent;
+import cn.solarmoon.immersive_delight.common.events.SnugEffectEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -22,6 +23,8 @@ public class IMCommonEvents {
         r(new RollingPinEvent());
         //倒水
         r(new DrinkingEvent());
+        //温暖效果事件
+        r(new SnugEffectEvent());
     }
 
     public static void r(Object target) {

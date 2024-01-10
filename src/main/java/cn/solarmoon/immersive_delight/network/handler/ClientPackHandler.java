@@ -1,9 +1,8 @@
 package cn.solarmoon.immersive_delight.network.handler;
 
 import cn.solarmoon.immersive_delight.common.entity_blocks.abstract_blocks.entities.TankBlockEntity;
-import cn.solarmoon.immersive_delight.common.entity_blocks.entities.CupBlockEntity;
+import cn.solarmoon.immersive_delight.common.entity_blocks.abstract_blocks.entities.CupBlockEntity;
 import cn.solarmoon.immersive_delight.network.serializer.ClientPackSerializer;
-import cn.solarmoon.immersive_delight.util.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
@@ -11,19 +10,14 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 
 import java.util.List;
 
-import static cn.solarmoon.immersive_delight.common.entity_blocks.abstract_blocks.entities.TankBlockEntity.NBT_FLUID;
 import static cn.solarmoon.immersive_delight.client.particles.vanilla.Wave.wave;
 
 
@@ -65,6 +59,11 @@ public class ClientPackHandler {
                     if(tankBlockEntity instanceof CupBlockEntity cupBlockEntity) {
                         cupBlockEntity.setItem(stacks.get(0));
                     }
+                }
+            }
+            case "updateUpStep" -> {
+                if (player != null) {
+                    player.setMaxUpStep(0.6f);
                 }
             }
         }

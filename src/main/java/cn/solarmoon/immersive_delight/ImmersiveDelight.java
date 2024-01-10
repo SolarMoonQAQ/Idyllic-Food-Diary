@@ -1,6 +1,7 @@
 package cn.solarmoon.immersive_delight;
 
 import cn.solarmoon.immersive_delight.client.IMItemRenderers;
+import cn.solarmoon.immersive_delight.common.IMFluids;
 import cn.solarmoon.immersive_delight.compat.apple_skin.AppleSkin;
 import cn.solarmoon.immersive_delight.compat.farmersdelight.FarmersDelight;
 import cn.solarmoon.immersive_delight.data.fluid_effects.BuilderFluidEffects;
@@ -41,6 +42,13 @@ public class ImmersiveDelight {
         //方块实体
         BLOCK_ENTITIES.register(bus);
 
+        //流体
+        FLUIDS.register(bus);
+        FLUID_TYPES.register(bus);
+
+        //药水效果
+        EFFECTS.register(bus);
+
         //TBA栏
         CREATIVE_TAB.register(bus);
 
@@ -58,6 +66,8 @@ public class ImmersiveDelight {
         Config.register();
 
         MinecraftForge.EVENT_BUS.register(this);
+
+        //这个静动态混了所以主线也注册
         MinecraftForge.EVENT_BUS.register(new IMItemRenderers());
 
         //—————————————————————————联动—————————————————————————//

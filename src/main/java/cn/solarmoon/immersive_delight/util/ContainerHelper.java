@@ -1,27 +1,40 @@
 package cn.solarmoon.immersive_delight.util;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraftforge.items.ItemStackHandler;
+
+import javax.swing.plaf.basic.BasicComboBoxUI;
 
 public class ContainerHelper {
 
     /**
-     * 保存单个物品到单物品容器物品tag内
-     * @param stack 要设置的容器
-     * @param set 设置的物品
+     * 把方块实体物品信息存入item
      */
-    public static void setItem(ItemStack stack, ItemStack set) {
-        stack.getOrCreateTag().put("Item", set.save(new CompoundTag()));
+    public static void setInventory(ItemStack stack, BlockEntity blockEntity) {
+        ItemStackHandler inventory = (ItemStackHandler) blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, null).orElse(null);
+        stack.getOrCreateTag().put("inventory", inventory.serializeNBT());
     }
 
     /**
-     * 保存单个物品到单方块容器物品tag内
-     * @param blockEntity 要设置的容器
-     * @param set 设置的物品
+     * 把item物品信息存入方块实体
      */
-    public static void setItem(BlockEntity blockEntity, ItemStack set) {
-        blockEntity.getPersistentData().put("Item", set.save(new CompoundTag()));
+    public static void setInventory(BlockEntity blockEntity, ItemStack stack) {
+        blockEntity.getPersistentData().put("inventory", stack.getOrCreateTag().getCompound("inventory"));
+    }
+
+    /**
+     * 获取物品的inventory信息
+     */
+    public static ItemStackHandler getInventory(ItemStack stack) {
+        ItemStackHandler stackHandler = new ItemStackHandler();
+        stackHandler.deserializeNBT(stack.getOrCreateTag().getCompound("inventory"));
+        return stackHandler;
     }
 
 }

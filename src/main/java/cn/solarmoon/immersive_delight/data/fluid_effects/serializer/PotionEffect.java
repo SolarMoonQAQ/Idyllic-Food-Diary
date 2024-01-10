@@ -21,14 +21,14 @@ public class PotionEffect {
     @SerializedName("amplifier")
     public int amplifier;
 
-    @SerializedName("visible")
+    @SerializedName("invisible")
     public boolean invisible;
 
     @SerializedName("chance")
     public double chance;
 
-    @SerializedName("show_icon")
-    public boolean show_icon;
+    @SerializedName("hide_icon")
+    public boolean hide_icon;
 
     /**
      * @return 返回对应药水效果
@@ -36,7 +36,7 @@ public class PotionEffect {
     public MobEffectInstance getEffect() {
         MobEffect effect = ForgeRegistries.MOB_EFFECTS.getValue(new ResourceLocation(this.id));
         if(effect == null) effect = MobEffects.MOVEMENT_SPEED;
-        return new MobEffectInstance(effect, getDuration(), amplifier, false, !invisible, show_icon);
+        return new MobEffectInstance(effect, getDuration(), amplifier, false, !invisible, !hide_icon);
     }
 
     /**

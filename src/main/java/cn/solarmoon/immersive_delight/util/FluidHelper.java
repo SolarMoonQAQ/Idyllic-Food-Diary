@@ -1,12 +1,18 @@
 package cn.solarmoon.immersive_delight.util;
 
+import cn.solarmoon.immersive_delight.common.IMFluids;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 主要用于对流体tank类进行处理
@@ -82,4 +88,35 @@ public class FluidHelper {
         tank.drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.EXECUTE);
         tank.fill(fluidStack, IFluidHandler.FluidAction.EXECUTE);
     }
+
+    /**
+     * 用于判断输入值是否与任一模组的液体匹配
+     */
+    public static boolean IMFluidsMatch(FluidType fluidType) {
+        for(var type : IMFluids.FluidTypes) {
+            if (type.equals(fluidType)) return true;
+        }
+        return false;
+    }
+
+    /**
+     * 用于判断实体是否在任一热水中
+     */
+    public static boolean isInHotFluid(Entity entity) {
+        for(var type : IMFluids.HotFluidTypes) {
+            if (entity.isInFluidType(type)) return true;
+        }
+        return false;
+    }
+
+    /**
+     * 用于判断实体是否在任一可生成粒子效果气泡的水中
+     */
+    public static boolean isInFluid(Entity entity) {
+        for(var type : IMFluids.FluidTypes) {
+            if (entity.isInFluidType(type)) return true;
+        }
+        return false;
+    }
+
 }
