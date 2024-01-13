@@ -30,7 +30,7 @@ public class IMItemTags extends ItemTagsProvider {
 
     protected void registerModTags() {
         //擀面杖配方（农夫乐事兼容）
-        tag(IMItemTags.FORGE_ROLLING_DOUGH).add(
+        tag(FORGE_ROLLING_DOUGH).add(
                 FarmersDelight.WHEAT_DOUGH.get(),
                 IMItems.FLATBREAD_DOUGH.get()
         );

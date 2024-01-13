@@ -2,6 +2,7 @@ package cn.solarmoon.immersive_delight.client;
 
 import cn.solarmoon.immersive_delight.client.BlockEntityRenderer.FurnaceRenderer;
 import cn.solarmoon.immersive_delight.client.BlockEntityRenderer.CeladonCupRenderer;
+import cn.solarmoon.immersive_delight.client.BlockEntityRenderer.JadeChinaCupRenderer;
 import cn.solarmoon.immersive_delight.common.IMEntityBlocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -18,7 +19,9 @@ public class IMBlockEntityRenderers {
     public static void registerBlockEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
         //熔炉渲染
         event.registerBlockEntityRenderer(BlockEntityType.FURNACE, FurnaceRenderer::new);
+        //杯子渲染
         event.registerBlockEntityRenderer(IMEntityBlocks.CELADON_CUP_ENTITY.get(), CeladonCupRenderer::new);
+        event.registerBlockEntityRenderer(IMEntityBlocks.JADE_CHINA_CUP_ENTITY.get(), JadeChinaCupRenderer::new);
     }
 
 }

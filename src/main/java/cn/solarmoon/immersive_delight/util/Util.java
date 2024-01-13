@@ -1,6 +1,5 @@
 package cn.solarmoon.immersive_delight.util;
 
-import cn.solarmoon.immersive_delight.ImmersiveDelight;
 import cn.solarmoon.immersive_delight.init.Config;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -13,10 +12,6 @@ import net.minecraftforge.fml.ModList;
 import javax.annotation.Nullable;
 
 public class Util {
-
-    public static Component translation(String string1, String string2, Object... objects) {
-        return Component.translatable(string1 + "." + ImmersiveDelight.MOD_ID + "." + string2, objects);
-    }
 
     /**
      * 自动从客户端侧发送debug

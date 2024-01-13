@@ -1,7 +1,6 @@
 package cn.solarmoon.immersive_delight;
 
 import cn.solarmoon.immersive_delight.client.IMItemRenderers;
-import cn.solarmoon.immersive_delight.common.IMFluids;
 import cn.solarmoon.immersive_delight.compat.apple_skin.AppleSkin;
 import cn.solarmoon.immersive_delight.compat.farmersdelight.FarmersDelight;
 import cn.solarmoon.immersive_delight.data.fluid_effects.BuilderFluidEffects;
@@ -11,9 +10,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,6 +58,12 @@ public class ImmersiveDelight {
 
         //音效
         SOUNDS.register(bus);
+
+        //生成
+        FEATURES.register(bus);
+
+        //生物
+        ENTITY_TYPES.register(bus);
 
         //配置文件
         Config.register();

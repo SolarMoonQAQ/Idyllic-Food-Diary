@@ -6,7 +6,10 @@ import cn.solarmoon.immersive_delight.data.fluid_effects.serializer.FoodValue;
 import cn.solarmoon.immersive_delight.data.fluid_effects.serializer.PotionEffect;
 import cn.solarmoon.immersive_delight.init.Config;
 import cn.solarmoon.immersive_delight.util.FluidHelper;
+import cn.solarmoon.immersive_delight.util.TextUtil;
 import cn.solarmoon.immersive_delight.util.Util;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -24,6 +27,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 
@@ -177,6 +181,51 @@ public abstract class CupItem extends BaseTankItem {
             if (!player.isCrouching()) player.startUsingItem(context.getHand());
         }
         return super.useOn(context);
+    }
+
+    /**
+     * 显示药水信息
+     */
+    @Override
+    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
+        super.appendHoverText(stack, level, components, flag);
+        //data效果显示
+        FluidEffect fluidEffect = FluidEffect.getFluidEffectFromStack(stack);
+        if(fluidEffect != null) {
+            List<PotionEffect> potionEffects = fluidEffect.effects;
+            if (potionEffects != null) {
+                for (var effect : potionEffects) {
+                    String name = effect.getEffect().getEffect().getDisplayName().getString();
+                    int seconds = effect.duration;
+                    int minutes = seconds / 60;
+                    seconds = seconds % 60;
+                    String time = String.format("(%02d:%02d)", minutes, seconds);
+                    int amplifier = effect.amplifier + 1;
+                    String levelRoman = TextUtil.toRoman(amplifier);
+                    Component base = Component.literal(name + " " + levelRoman + " " + time).withStyle(ChatFormatting.BLUE);
+                    components.add(base);
+                }
+            }
+            if(fluidEffect.clear) components.add(TextUtil.translation("tooltip", "fluid_effect_clear", ChatFormatting.BLUE));
+            if(fluidEffect.extinguishing) components.add(TextUtil.translation("tooltip", "fluid_effect_extinguishing", ChatFormatting.BLUE));
+            if(fluidEffect.fire > 0) components.add(TextUtil.translation("tooltip", "fluid_effect_fire", ChatFormatting.BLUE, fluidEffect.fire));
+        }
+
+        //Create药水效果显示
+        FluidStack fluidStack = FluidHelper.getFluidStack(stack);
+        String fluidTag = fluidStack.getTag() != null ? fluidStack.getTag().toString() : "empty";
+        List<MobEffectInstance> effects = Create.getEffects(fluidTag);
+        for (var effect : effects) {
+            String name = effect.getEffect().getDisplayName().getString();
+            int seconds = effect.getDuration();
+            int minutes = seconds / 60;
+            seconds = seconds % 60;
+            String time = String.format("(%02d:%02d)", minutes, seconds);
+            int amplifier = effect.getAmplifier() + 1;
+            String levelRoman = TextUtil.toRoman(amplifier);
+            Component base = Component.literal(name + " " + levelRoman + " " + time).withStyle(ChatFormatting.BLUE);
+            components.add(base);
+        }
     }
 
 }

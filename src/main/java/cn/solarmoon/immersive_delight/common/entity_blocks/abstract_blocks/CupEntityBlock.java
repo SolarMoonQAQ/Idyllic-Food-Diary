@@ -18,8 +18,10 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -141,14 +143,22 @@ public abstract class CupEntityBlock extends BasicEntityBlock {
     }
 
     /**
-     * 可放入任意物品，如果有物品且空手就取出
+     * 可放入和配方输入匹配的物品，如果有物品且空手就取出
      * 物品的nbt自然需要保存
      */
     public boolean storage(ItemStack heldItem, TankBlockEntity tankBlockEntity, Player player, InteractionHand hand) {
         if(tankBlockEntity instanceof CupBlockEntity cupBlockEntity) {
             if (!heldItem.isEmpty() && cupBlockEntity.getItem().isEmpty()) {
-                player.setItemInHand(hand, cupBlockEntity.insertItem(heldItem));
-                return true;
+                List<CupRecipe> recipes = RecipeHelper.GetRecipes.CupRecipe(player.level());
+                for (var recipe :recipes) {
+                    Ingredient ingredient = recipe.getInputIngredient();
+                    for (var stack : ingredient.getItems()) {
+                        if (stack.is(heldItem.getItem())) {
+                            player.setItemInHand(hand, cupBlockEntity.insertItem(heldItem));
+                            return true;
+                        }
+                    }
+                }
             } else if (!cupBlockEntity.getItem().isEmpty() && heldItem.isEmpty()) {
                 player.setItemInHand(hand, cupBlockEntity.extractItem());
                 return true;
@@ -260,7 +270,7 @@ public abstract class CupEntityBlock extends BasicEntityBlock {
     }
 
     /**
-     * 获取匹配的配方，不匹配返回null
+     * 获取匹配的配方（杯中有物品阶段的匹配），不匹配返回null
      */
     public CupRecipe getCheckedRecipe(Level level, BlockPos pos, BlockEntity blockEntity) {
         if(blockEntity instanceof TankBlockEntity tankBlockEntity) {
@@ -311,6 +321,22 @@ public abstract class CupEntityBlock extends BasicEntityBlock {
             }
         }
         return super.getDrops(state, builder);
+    }
+
+    /**
+     * 设定红石信号逻辑
+     * 有物品则输出满格信号
+     * 只有液体则按液体比例输出信号
+     */
+    @Override
+    public int getAnalogOutputSignal(BlockState blockState, Level level, BlockPos pos) {
+        BlockEntity blockEntity = level.getBlockEntity(pos);
+        if (blockEntity instanceof CupBlockEntity cup) {
+            int itemSignal = cup.getItem().isEmpty() ? 0 : 15;
+            int tankSignal = (int) (FluidHelper.getScale(cup.tank) * 15);
+            return itemSignal == 15 ? itemSignal : tankSignal;
+        }
+        return 0;
     }
 
 }

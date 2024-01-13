@@ -85,6 +85,8 @@ public class CupRecipe implements Recipe<RecipeWrapper> {
         return this.time;
     }
 
+    public Ingredient getInputIngredient() {return this.inputIngredient;}
+
     @Override
     public @NotNull ItemStack assemble(@NotNull RecipeWrapper inv, @NotNull RegistryAccess access) {
         return ItemStack.EMPTY;

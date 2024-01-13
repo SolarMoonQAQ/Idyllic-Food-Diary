@@ -15,6 +15,7 @@ import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,7 +24,7 @@ import java.util.List;
 public class Create {
 
     /**
-     * 机械动力联动：根据药水tag获取药水效果
+     * 机械动力联动：根据药水tag应用药水效果
      * @param fluidTag 液体tag的string
      * @param entity 玩家
      */
@@ -43,6 +44,20 @@ public class Create {
                 }
             }
         }
+    }
+
+    /**
+     * 从药水tag获取药水
+     */
+    public static List<MobEffectInstance> getEffects(String fluidTag) {
+        if(fluidTag.contains("Potion")) {
+            ResourceLocation potionId = new ResourceLocation(Util.extract(fluidTag, "Potion"));
+            Potion potion = ForgeRegistries.POTIONS.getValue(potionId);
+            if (potion != null) {
+                return potion.getEffects();
+            }
+        }
+        return new ArrayList<>();
     }
 
     /**

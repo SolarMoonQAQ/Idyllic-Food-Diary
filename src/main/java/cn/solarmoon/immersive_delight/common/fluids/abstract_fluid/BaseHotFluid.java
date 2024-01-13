@@ -37,8 +37,12 @@ public abstract class BaseHotFluid {
             if(entity instanceof LivingEntity living) {
                 int enchantmentLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.FIRE_PROTECTION, living);
                 if (living.hasEffect(MobEffects.FIRE_RESISTANCE) || enchantmentLevel >= 4) {
-                    //给2级的十秒温暖效果
+                    //给2级的十秒温暖效果 和 1级的十秒生命恢复
+                    //生命恢复只能间断给予，不然会瞬满血，为了美观图标不可见
                     living.addEffect(new MobEffectInstance(IMEffects.Snug.get(), 200, 1));
+                    if(!living.hasEffect(MobEffects.REGENERATION)) {
+                        living.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 200, 0, false, false, false));
+                    }
                     //只在连火焰保护都没有的情况下造成伤害
                 } else if (enchantmentLevel < 1) {
                     living.hurt(IMDamageTypes.getSimpleDamageSource(level, IMDamageTypes.scald), 1f);
@@ -97,7 +101,7 @@ public abstract class BaseHotFluid {
 
         //只在上表面生成粒子
         if(random.nextDouble() < 0.05 && !level.getFluidState(pos.above()).is(state.getType())) {
-            level.addParticle(ParticleTypes.CLOUD, true, pos.getX(), pos.getY() + 2, pos.getZ(), 0, 0.1, 0);
+            level.addAlwaysVisibleParticle(ParticleTypes.CLOUD, pos.getX(), pos.getY() + 2, pos.getZ(), 0, 0.1, 0);
         }
 
     }

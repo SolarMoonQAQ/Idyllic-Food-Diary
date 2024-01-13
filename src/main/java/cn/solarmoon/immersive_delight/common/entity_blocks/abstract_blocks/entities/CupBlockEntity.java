@@ -99,4 +99,6 @@ public abstract class CupBlockEntity extends TankBlockEntity {
         inventory.deserializeNBT(stack.getOrCreateTag().getCompound("inventory"));
     }
 
+
+
 }

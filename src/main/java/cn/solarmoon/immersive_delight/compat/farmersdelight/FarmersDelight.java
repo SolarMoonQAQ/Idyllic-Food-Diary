@@ -10,7 +10,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import static cn.solarmoon.immersive_delight.ImmersiveDelight.MOD_ID;
-import static cn.solarmoon.immersive_delight.common.IMBlocks.WHEAT_DOUGH_ID;
 import static cn.solarmoon.immersive_delight.init.ObjectRegister.ITEMS;
 
 /**
@@ -26,7 +25,7 @@ public class FarmersDelight {
      */
     public static final RegistryObject<WheatDoughItem> WHEAT_DOUGH = (Util.isLoad(vectorwing.farmersdelight.FarmersDelight.MODID)
             ? FD_ITEMS : ITEMS)
-            .register(WHEAT_DOUGH_ID,WheatDoughItem::new);
+            .register("wheat_dough",WheatDoughItem::new);
 
     public static void register(IEventBus bus) {
         FD_ITEMS.register(bus);

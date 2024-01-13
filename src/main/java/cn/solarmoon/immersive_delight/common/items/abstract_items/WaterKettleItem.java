@@ -41,16 +41,6 @@ public class WaterKettleItem extends BaseTankItem {
         return 250;
     }
 
-    /**
-     * 让壶类物品显示
-     */
-    @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
-        super.appendHoverText(stack, level, components, flag);
-        components.add(Component.literal("你好"));
-    }
-
-
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack heldStack = player.getItemInHand(hand);

@@ -111,4 +111,12 @@ public abstract class BasicEntityBlock extends BaseEntityBlock implements Simple
         return RenderShape.MODEL;
     }
 
+    /**
+     * 启用红石信号
+     */
+    @Override
+    public boolean hasAnalogOutputSignal(BlockState state) {
+        return true;
+    }
+
 }

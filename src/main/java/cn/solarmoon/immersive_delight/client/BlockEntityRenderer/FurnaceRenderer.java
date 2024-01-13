@@ -27,6 +27,7 @@ public class FurnaceRenderer<E extends AbstractFurnaceBlockEntity> implements Bl
 
         Level level = e.getLevel();
 
+        //让光度和环境一致
         light = level != null ? LevelRenderer.getLightColor(e.getLevel(), e.getBlockPos().above()) : 15728880;
 
         ItemStack stack0 = e.getItem(0),

@@ -7,16 +7,18 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BaseTankItem extends BlockItem {
+public abstract class BaseTankItem extends BlockItem {
 
     public BaseTankItem(Block block, Properties properties) {
         super(block, properties
@@ -27,9 +29,7 @@ public class BaseTankItem extends BlockItem {
     /**
      * 获取最大容量
      */
-    public int getMaxCapacity() {
-        return 8000;
-    }
+    public abstract int getMaxCapacity();
 
     /**
      * 将其赋予一个容器

@@ -2,6 +2,7 @@ package cn.solarmoon.immersive_delight.data.loot_tables;
 
 import cn.solarmoon.immersive_delight.common.IMBlocks;
 import cn.solarmoon.immersive_delight.common.IMEntityBlocks;
+import cn.solarmoon.immersive_delight.common.IMItems;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.block.Block;
@@ -24,6 +25,13 @@ public class IMBlockLoots extends BlockLootSubProvider {
         dropSelf(IMEntityBlocks.KETTLE.get());
         dropSelf(IMBlocks.FLATBREAD_DOUGH.get());
         dropSelf(IMBlocks.WHEAT_DOUGH.get());
+        dropSelf(IMBlocks.DURIAN_BLOCK.get());
+
+        //这部分都是作物打掉掉种子
+        dropOther(IMBlocks.BLACK_TEA_TREE.get(), IMItems.BLACK_TEA_SEEDS.get());
+        dropOther(IMBlocks.GREEN_TEA_TREE.get(), IMItems.GREEN_TEA_SEEDS.get());
+        dropOther(IMBlocks.APPLE.get(), IMItems.APPLE_SEEDS.get());
+        dropOther(IMBlocks.DURIAN.get(), IMItems.DURIAN_CORE.get());
     }
 
     @Override

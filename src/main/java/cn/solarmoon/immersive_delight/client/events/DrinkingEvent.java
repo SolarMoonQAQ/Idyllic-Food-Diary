@@ -31,10 +31,9 @@ public class DrinkingEvent {
             if(event.getEntity().isCrouching()) {
                 ServerPackSerializer.sendPacket(pos, Blocks.AIR, stack, "pouring");
                 IFluidHandlerItem tankStack = stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM, null).orElse(null);
-                BlockState fluidState = tankStack.getFluidInTank(0).getFluid().defaultFluidState().createLegacyBlock();
                 FluidStack fluidStack = tankStack.getFluidInTank(0);
                 int tankAmount = fluidStack.getAmount();
-                fluidPouring(fluidState, tankAmount);
+                fluidPouring(fluidStack, tankAmount);
             }
         }
     }

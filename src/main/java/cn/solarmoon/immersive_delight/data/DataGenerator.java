@@ -1,13 +1,19 @@
 package cn.solarmoon.immersive_delight.data;
 
+import cn.solarmoon.immersive_delight.ImmersiveDelight;
+import cn.solarmoon.immersive_delight.common.IMFeatures;
 import cn.solarmoon.immersive_delight.data.loot_tables.IMBlockLoots;
 import cn.solarmoon.immersive_delight.data.tags.IMBlockTags;
 import cn.solarmoon.immersive_delight.data.tags.IMFluidTags;
 import cn.solarmoon.immersive_delight.data.tags.IMItemTags;
+import cn.solarmoon.immersive_delight.data.worldgen.TreeBootstrap;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.RegistrySetBuilder;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -15,6 +21,7 @@ import net.minecraftforge.fml.common.Mod;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 import static cn.solarmoon.immersive_delight.ImmersiveDelight.MOD_ID;
@@ -42,6 +49,12 @@ public class DataGenerator {
         generator.addProvider(event.includeServer(), new LootTableProvider(output, Collections.emptySet(), List.of(
                 new LootTableProvider.SubProviderEntry(IMBlockLoots::new, LootContextParamSets.BLOCK)
         )));
+
+        RegistrySetBuilder builder = new RegistrySetBuilder();
+        builder.add(Registries.CONFIGURED_FEATURE, TreeBootstrap::Configured);
+        builder.add(Registries.PLACED_FEATURE, TreeBootstrap::Placed);
+
+        generator.addProvider(event.includeServer(), new DatapackBuiltinEntriesProvider(output, event.getLookupProvider(), builder, Set.of(MOD_ID)));
     }
 
 }

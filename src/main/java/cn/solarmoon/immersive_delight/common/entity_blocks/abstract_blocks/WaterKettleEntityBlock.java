@@ -1,6 +1,7 @@
 package cn.solarmoon.immersive_delight.common.entity_blocks.abstract_blocks;
 
 import cn.solarmoon.immersive_delight.client.IMSounds;
+import cn.solarmoon.immersive_delight.common.entity_blocks.abstract_blocks.entities.CupBlockEntity;
 import cn.solarmoon.immersive_delight.common.entity_blocks.abstract_blocks.entities.TankBlockEntity;
 import cn.solarmoon.immersive_delight.common.items.abstract_items.WaterKettleItem;
 import cn.solarmoon.immersive_delight.common.recipes.KettleRecipe;
@@ -177,6 +178,17 @@ public abstract class WaterKettleEntityBlock extends BasicEntityBlock {
         return null;
     }
 
-
+    /**
+     * 设定红石信号逻辑
+     * 按液体比例输出信号
+     */
+    @Override
+    public int getAnalogOutputSignal(BlockState blockState, Level level, BlockPos pos) {
+        BlockEntity blockEntity = level.getBlockEntity(pos);
+        if (blockEntity instanceof TankBlockEntity tankEntity) {
+            return (int) (FluidHelper.getScale(tankEntity.tank) * 15);
+        }
+        return 0;
+    }
 
 }
