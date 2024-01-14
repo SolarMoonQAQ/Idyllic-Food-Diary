@@ -5,7 +5,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.BubbleParticle;
 import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.client.particle.SplashParticle;
-import net.minecraft.client.particle.SuspendedParticle;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;

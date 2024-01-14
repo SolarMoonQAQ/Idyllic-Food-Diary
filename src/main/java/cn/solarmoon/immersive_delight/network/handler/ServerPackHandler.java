@@ -1,11 +1,13 @@
 package cn.solarmoon.immersive_delight.network.handler;
 
 import cn.solarmoon.immersive_delight.client.IMSounds;
-import cn.solarmoon.immersive_delight.common.items.abstract_items.BaseTankItem;
+import cn.solarmoon.immersive_delight.api.common.item.BaseTankItem;
+import cn.solarmoon.immersive_delight.common.IMDamageTypes;
 import cn.solarmoon.immersive_delight.compat.create.Create;
 import cn.solarmoon.immersive_delight.data.fluid_effects.serializer.FluidEffect;
 import cn.solarmoon.immersive_delight.data.fluid_effects.serializer.PotionEffect;
-import cn.solarmoon.immersive_delight.network.serializer.ServerPackSerializer;
+import cn.solarmoon.immersive_delight.api.network.serializer.ServerPackSerializer;
+import cn.solarmoon.immersive_delight.data.tags.IMFluidTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
@@ -137,6 +139,11 @@ public class ServerPackHandler {
             if(fluidEffect.fire > 0) if(!level.isClientSide) entity.setSecondsOnFire(fluidEffect.fire);
             //如果extinguishing为true就灭火
             if(fluidEffect.extinguishing) if(!level.isClientSide) entity.clearFire();
+            //泼热水造成伤害
+            if(fluidStack.getFluid().defaultFluidState().is(IMFluidTags.HOT_FLUID)) {
+                entity.hurt(IMDamageTypes.getSimpleDamageSource(level, IMDamageTypes.scald), 4f);
+                level.playSound(null, entity.getOnPos(), SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS);
+            }
             //把每种药水效果按概率应用于玩家
             if(potionEffects != null) {
                 for (var potion : potionEffects) {

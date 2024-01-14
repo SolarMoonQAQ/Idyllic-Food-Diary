@@ -11,6 +11,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
 
@@ -28,8 +29,27 @@ public class IMFluidTags extends FluidTagsProvider {
     }
 
     protected void registerModTags() {
-
+        //热水
+        tag(HOT_FLUID).add(
+                IMFluids.HotWater.FLUID_STILL.get(),
+                IMFluids.HotWater.FLUID_FLOWING.get(),
+                IMFluids.HotMilk.FLUID_STILL.get(),
+                IMFluids.HotMilk.FLUID_FLOWING.get(),
+                Fluids.LAVA.getFlowing(),
+                Fluids.LAVA.getSource()
+        );
+        //温水
+        tag(WARM_FLUID).add(
+                IMFluids.BlackTea.FLUID_STILL.get(),
+                IMFluids.BlackTea.FLUID_FLOWING.get(),
+                IMFluids.GreenTea.FLUID_STILL.get(),
+                IMFluids.GreenTea.FLUID_FLOWING.get()
+        )
+                .addTag(HOT_FLUID);
     }
+
+    public static final TagKey<Fluid> HOT_FLUID = fluidTag("hot_fluid");
+    public static final TagKey<Fluid> WARM_FLUID = fluidTag("warm_fluid");
 
     private static TagKey<Fluid> fluidTag(String path) {
         return FluidTags.create(new ResourceLocation(ImmersiveDelight.MOD_ID, path));

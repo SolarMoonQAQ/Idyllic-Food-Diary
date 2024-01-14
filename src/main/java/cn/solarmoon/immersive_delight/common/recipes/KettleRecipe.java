@@ -1,7 +1,7 @@
 package cn.solarmoon.immersive_delight.common.recipes;
 
-import cn.solarmoon.immersive_delight.common.entity_blocks.abstract_blocks.entities.TankBlockEntity;
-import cn.solarmoon.immersive_delight.data.tags.IMBlockTags;
+import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseTankBlockEntity;
+import cn.solarmoon.immersive_delight.util.Util;
 import com.google.gson.JsonObject;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.RegistryAccess;
@@ -15,7 +15,6 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
@@ -55,10 +54,9 @@ public class KettleRecipe implements Recipe<RecipeWrapper> {
         BlockEntity blockEntity = level.getBlockEntity(pos);
         if (fluid != null) {
             BlockState state = level.getBlockState(pos.below());
-            boolean isHeated = (state.hasProperty(BlockStateProperties.LIT) && state.getValue(BlockStateProperties.LIT))
-                    || state.is(IMBlockTags.HEAT_SOURCE);
-            if(blockEntity instanceof TankBlockEntity tankBlockEntity) {
-                FluidStack fluidStack = new FluidStack(fluid, tankBlockEntity.getTankMaxCapacity());
+            boolean isHeated = Util.isHeatSource(state);
+            if(blockEntity instanceof BaseTankBlockEntity tankBlockEntity) {
+                FluidStack fluidStack = new FluidStack(fluid, tankBlockEntity.maxCapacity);
                 return fluidStack.equals(fluidStackIn) && isHeated && fluidStack.getAmount() == fluidStackIn.getAmount();
             }
         }

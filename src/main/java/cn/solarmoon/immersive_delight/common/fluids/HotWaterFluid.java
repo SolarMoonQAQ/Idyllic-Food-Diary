@@ -1,6 +1,6 @@
 package cn.solarmoon.immersive_delight.common.fluids;
 
-import cn.solarmoon.immersive_delight.common.fluids.abstract_fluid.BaseHotFluid;
+import cn.solarmoon.immersive_delight.api.common.fluid.BaseHotFluid;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
 
 import static cn.solarmoon.immersive_delight.common.IMFluids.HotWater.*;

@@ -1,0 +1,8 @@
+{
+  "values": [
+    "minecraft:cobweb",
+    "#minecraft:wool",
+    "#minecraft:wool_carpets",
+    "#minecraft:mineable/axe"
+  ]
+}

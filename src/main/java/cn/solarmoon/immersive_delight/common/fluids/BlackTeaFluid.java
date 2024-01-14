@@ -1,6 +1,6 @@
 package cn.solarmoon.immersive_delight.common.fluids;
 
-import cn.solarmoon.immersive_delight.common.fluids.abstract_fluid.BaseFluid;
+import cn.solarmoon.immersive_delight.api.common.fluid.BaseFluid;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
 
 import static cn.solarmoon.immersive_delight.common.IMFluids.BlackTea.*;

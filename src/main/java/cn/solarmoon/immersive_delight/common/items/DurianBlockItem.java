@@ -1,7 +1,6 @@
 package cn.solarmoon.immersive_delight.common.items;
 
 import cn.solarmoon.immersive_delight.common.IMBlocks;
-import cn.solarmoon.immersive_delight.common.IMEntityTypes;
 import cn.solarmoon.immersive_delight.common.entities.DurianEntity;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
@@ -10,7 +9,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.Attackable;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -18,14 +16,10 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.entity.projectile.Arrow;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.Objects;
 
 public class DurianBlockItem extends BlockItem implements Vanishable {
 

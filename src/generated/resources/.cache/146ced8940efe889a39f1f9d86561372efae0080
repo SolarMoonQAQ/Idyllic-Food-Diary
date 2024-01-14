@@ -1,4 +1,6 @@
-// 1.20.1	2024-01-10T01:48:16.3674314	Tags for minecraft:block mod id immersive_delight
-16eb6a62cf18b8e5e8bd50469c86ec47274eb4c8 data/immersive_delight/tags/blocks/can_be_rolled.json
-5755f46b25460113b519639ad6235f7db1cc51e3 data/immersive_delight/tags/blocks/heat_source.json
+// 1.20.1	2024-01-14T16:37:01.6935535	Tags for minecraft:block mod id immersive_delight
+e6456058c23d22bac703d33b9793865e079ddfb5 data/immersive_delight/tags/blocks/can_be_rolled.json
+2b25bf1d5ed5499f7bbd221dd9b3c9b674cad8ac data/immersive_delight/tags/blocks/heat_source.json
+9843f525d7481f0e5e03777944d5d2aae0334ee5 data/immersive_delight/tags/blocks/mineable/cleaver.json
+6dd9f732869568dde8df12cea5492d6c7f0b9d28 data/minecraft/tags/blocks/mineable/axe.json
 7b5cb3422c247d024905742bee8c5ee7f0ded80f data/minecraft/tags/blocks/mineable/pickaxe.json

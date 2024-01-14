@@ -1,9 +1,6 @@
 package cn.solarmoon.immersive_delight.common.fluids;
 
-import cn.solarmoon.immersive_delight.client.IMParticles;
-import cn.solarmoon.immersive_delight.common.fluids.abstract_fluid.BaseHotFluid;
-import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleTypes;
+import cn.solarmoon.immersive_delight.api.common.fluid.BaseHotFluid;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
 
 import static cn.solarmoon.immersive_delight.common.IMFluids.HotMilk.*;

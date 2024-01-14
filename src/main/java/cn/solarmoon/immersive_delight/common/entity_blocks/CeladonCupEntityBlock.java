@@ -1,7 +1,7 @@
 package cn.solarmoon.immersive_delight.common.entity_blocks;
 
 import cn.solarmoon.immersive_delight.common.IMEntityBlocks;
-import cn.solarmoon.immersive_delight.common.entity_blocks.abstract_blocks.CupEntityBlock;
+import cn.solarmoon.immersive_delight.api.common.entity_block.AbstractCupEntityBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
@@ -15,17 +15,12 @@ import org.jetbrains.annotations.NotNull;
 /**
  * 青瓷杯方块
  */
-public class CeladonCupEntityBlock extends CupEntityBlock {
+public class CeladonCupEntityBlock extends AbstractCupEntityBlock {
 
     public CeladonCupEntityBlock() {
         super(Block.Properties.of()
                 .sound(SoundType.GLASS)
         );
-    }
-
-    @Override
-    public BlockEntityType<?> getBlockEntityType() {
-        return IMEntityBlocks.CELADON_CUP_ENTITY.get();
     }
 
     /**
@@ -37,4 +32,8 @@ public class CeladonCupEntityBlock extends CupEntityBlock {
         return SHAPE;
     }
 
+    @Override
+    public BlockEntityType<?> getBlockEntityType() {
+        return IMEntityBlocks.CELADON_CUP_ENTITY.get();
+    }
 }

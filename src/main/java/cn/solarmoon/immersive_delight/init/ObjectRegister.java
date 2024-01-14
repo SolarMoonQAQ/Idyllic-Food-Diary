@@ -1,19 +1,15 @@
 package cn.solarmoon.immersive_delight.init;
 
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
-import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleType;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidType;
@@ -49,14 +45,6 @@ public class ObjectRegister {
     //配方
     public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(ForgeRegistries.RECIPE_TYPES, MOD_ID);
     public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, MOD_ID);
-    public static <T extends Recipe<?>> RecipeType<T> registerRecipeType(final String identifier) {
-        return new RecipeType<>()
-        {
-            public String toString() {
-                return MOD_ID + ":" + identifier;
-            }
-        };
-    }
 
     //生成
     public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, ImmersiveDelight.MOD_ID);

@@ -2,6 +2,12 @@ package cn.solarmoon.immersive_delight.common;
 
 
 import cn.solarmoon.immersive_delight.common.items.*;
+import cn.solarmoon.immersive_delight.common.items.sapling.AppleSaplingItem;
+import cn.solarmoon.immersive_delight.common.items.sapling.DurianSaplingItem;
+import cn.solarmoon.immersive_delight.common.items.seeds.AppleCoreItem;
+import cn.solarmoon.immersive_delight.common.items.seeds.BlackTeaSeedsItem;
+import cn.solarmoon.immersive_delight.common.items.seeds.DurianCoreItem;
+import cn.solarmoon.immersive_delight.common.items.seeds.GreenTeaSeedsItem;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -17,12 +23,17 @@ public class IMItems {
 
     //擀面杖
     public static final RegistryObject<RollingPinItem> ROLLING_PIN = ITEMS.register("rolling_pin", RollingPinItem::new);
+    //中式菜刀
+    public static final RegistryObject<ChineseCleaverItem> CHINESE_CLEAVER = ITEMS.register("chinese_cleaver", ChineseCleaverItem::new);
+
     //青瓷杯
     public static final RegistryObject<CeladonCupItem> CELADON_CUP = ITEMS.register(CELADON_CUP_ID, CeladonCupItem::new);
     //玉瓷杯
     public static final RegistryObject<JadeChinaCupItem> JADE_CHINA_CUP = ITEMS.register(JADE_CHINA_CUP_ID, JadeChinaCupItem::new);
     //水壶
     public static final RegistryObject<KettleItem> KETTLE = ITEMS.register(KETTLE_ID, KettleItem::new);
+    //汤锅
+    public static final RegistryObject<SoupPotItem> SOUP_POT = ITEMS.register(SOUP_POT_ID, SoupPotItem::new);
 
     //食物————————————————————————————————————————
 

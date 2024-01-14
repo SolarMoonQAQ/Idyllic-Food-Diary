@@ -1,7 +1,7 @@
 package cn.solarmoon.immersive_delight.common.entity_blocks;
 
 import cn.solarmoon.immersive_delight.common.IMEntityBlocks;
-import cn.solarmoon.immersive_delight.common.entity_blocks.abstract_blocks.WaterKettleEntityBlock;
+import cn.solarmoon.immersive_delight.api.common.entity_block.AbstractKettleEntityBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * 水壶方块
  */
-public class KettleEntityBlock extends WaterKettleEntityBlock {
+public class KettleEntityBlock extends AbstractKettleEntityBlock {
 
     public KettleEntityBlock() {
         super(Block.Properties.of()
@@ -24,11 +24,6 @@ public class KettleEntityBlock extends WaterKettleEntityBlock {
                 .strength(1.0f, 6.0F)
                 .mapColor(MapColor.METAL)
         );
-    }
-
-    @Override
-    public BlockEntityType<?> getBlockEntityType() {
-        return IMEntityBlocks.KETTLE_ENTITY.get();
     }
 
     /**
@@ -40,4 +35,8 @@ public class KettleEntityBlock extends WaterKettleEntityBlock {
         return SHAPE;
     }
 
+    @Override
+    public BlockEntityType<?> getBlockEntityType() {
+        return IMEntityBlocks.KETTLE_ENTITY.get();
+    }
 }

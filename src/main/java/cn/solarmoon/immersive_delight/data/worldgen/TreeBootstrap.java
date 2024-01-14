@@ -1,7 +1,7 @@
 package cn.solarmoon.immersive_delight.data.worldgen;
 
 import cn.solarmoon.immersive_delight.common.IMFeatures;
-import cn.solarmoon.immersive_delight.common.level.feature.configuration.BaseTreeConfig;
+import cn.solarmoon.immersive_delight.api.common.level.feature.configuration.BaseTreeConfig;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;

@@ -1,5 +1,6 @@
 package cn.solarmoon.immersive_delight.util;
 
+import cn.solarmoon.immersive_delight.data.tags.IMBlockTags;
 import cn.solarmoon.immersive_delight.init.Config;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -7,7 +8,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fml.ModList;
+import vectorwing.farmersdelight.common.tag.ModTags;
 
 import javax.annotation.Nullable;
 
@@ -58,6 +61,14 @@ public class Util {
 
     public static boolean isLoad(String modId) {
         return ModList.get().isLoaded(modId);
+    }
+
+    /**
+     * 检查是否为热源
+     */
+    public static boolean isHeatSource(BlockState state) {
+        return state.is(IMBlockTags.HEAT_SOURCE) ||
+                (Util.isLoad("farmersdelight") && state.is(ModTags.HEAT_SOURCES));
     }
 
 }

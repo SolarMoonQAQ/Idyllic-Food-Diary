@@ -1,8 +1,8 @@
 package cn.solarmoon.immersive_delight.network.handler;
 
-import cn.solarmoon.immersive_delight.common.entity_blocks.abstract_blocks.entities.TankBlockEntity;
-import cn.solarmoon.immersive_delight.common.entity_blocks.abstract_blocks.entities.CupBlockEntity;
-import cn.solarmoon.immersive_delight.network.serializer.ClientPackSerializer;
+import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseContainerTankBlockEntity;
+import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseTankBlockEntity;
+import cn.solarmoon.immersive_delight.api.network.serializer.ClientPackSerializer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
@@ -10,6 +10,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -32,6 +33,7 @@ public class ClientPackHandler {
         BlockPos pos = packet.pos();
         List<ItemStack> stacks = packet.stacks();
         FluidStack fluidStack = packet.fluidStack();
+        CompoundTag tag = packet.tag();
         float f = packet.f();
         String string = packet.message();
         //处理
@@ -51,13 +53,13 @@ public class ClientPackHandler {
                     }
                 }
             }
-            case "updateCupBlock" -> {
+            case "updateCTBlock" -> {
                 if (level == null || pos == null) return;
                 BlockEntity blockEntity = level.getBlockEntity(pos);
-                if(blockEntity instanceof TankBlockEntity tankBlockEntity) {
+                if(blockEntity instanceof BaseTankBlockEntity tankBlockEntity) {
                     tankBlockEntity.setFluid(fluidStack);
-                    if(tankBlockEntity instanceof CupBlockEntity cupBlockEntity) {
-                        cupBlockEntity.setItem(stacks.get(0));
+                    if(tankBlockEntity instanceof BaseContainerTankBlockEntity ct) {
+                        ct.inventory.deserializeNBT(tag.getCompound("inventory"));
                     }
                 }
             }

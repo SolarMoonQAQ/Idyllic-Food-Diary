@@ -10,5 +10,11 @@
     "sounds": [
       "immersive_delight:player/water_splashing"
     ]
+  },
+  "block.boiling_water": {
+    "subtitle": "immersive_delight.block.boiling_water",
+    "sounds": [
+      "immersive_delight:block/boiling_water"
+    ]
   }
 }

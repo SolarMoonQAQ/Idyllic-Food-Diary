@@ -3,8 +3,7 @@ package cn.solarmoon.immersive_delight.common.events;
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
 import cn.solarmoon.immersive_delight.data.tags.IMBlockTags;
 import cn.solarmoon.immersive_delight.init.Config;
-import cn.solarmoon.immersive_delight.network.serializer.ServerPackSerializer;
-import cn.solarmoon.immersive_delight.util.Util;
+import cn.solarmoon.immersive_delight.api.network.serializer.ServerPackSerializer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
@@ -12,18 +11,15 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-
-import java.util.List;
 
 import static cn.solarmoon.immersive_delight.client.particles.vanilla.Sweep.sweep;
 import static cn.solarmoon.immersive_delight.common.IMItems.ROLLING_PIN;
@@ -39,6 +35,8 @@ public class RollingPinEvent {
         BlockPos pos = event.getPos();
         BlockState state = level.getBlockState(pos);
         if(state.is(IMBlockTags.CAN_BE_ROLLED)) {
+            //防止刷蛋糕
+            if(state.is(Blocks.CAKE) && state.getValue(BlockStateProperties.BITES) != 0) return;
             ItemEntity itemEntity = new ItemEntity(level, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, state.getBlock().asItem().getDefaultInstance());
             itemEntity.setDeltaMovement(itemEntity.getDeltaMovement().add(0, 0.2, 0));
             level.destroyBlock(pos, false);

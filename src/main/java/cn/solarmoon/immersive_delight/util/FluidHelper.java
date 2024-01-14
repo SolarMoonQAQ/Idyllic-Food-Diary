@@ -11,9 +11,6 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * 主要用于对流体tank类进行处理
  */

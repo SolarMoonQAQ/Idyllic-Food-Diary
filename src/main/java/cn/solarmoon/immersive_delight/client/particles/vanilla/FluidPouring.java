@@ -38,7 +38,7 @@ public class FluidPouring {
                 int color = potion.getEffects().get(0).getEffect().getColor();
                 d0 = (double)(color >> 16 & 255) / 255.0D;
                 d1 = (double)(color >> 8 & 255) / 255.0D;
-                d2 = (double)(color >> 0 & 255) / 255.0D;
+                d2 = (double)(color & 255) / 255.0D;
                 Util.deBug(potion.getEffects().get(0).getEffect().getDisplayName().getString());
             }
         } else if (fluidStack.getFluid().getBucket().getDefaultInstance().is(Items.MILK_BUCKET)) {

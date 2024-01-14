@@ -1,9 +1,11 @@
 package cn.solarmoon.immersive_delight.common;
 
 
+import cn.solarmoon.immersive_delight.common.recipes.CleaverRecipe;
 import cn.solarmoon.immersive_delight.common.recipes.CupRecipe;
 import cn.solarmoon.immersive_delight.common.recipes.KettleRecipe;
 import cn.solarmoon.immersive_delight.common.recipes.RollingPinRecipe;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.fml.common.Mod;
@@ -30,5 +32,21 @@ public class IMRecipes {
     public static final String CUP_ID = "cup";
     public static final RegistryObject<RecipeType<CupRecipe>> CUP_RECIPE = RECIPE_TYPES.register(CUP_ID, () -> registerRecipeType(CUP_ID));
     public static final RegistryObject<RecipeSerializer<?>> CUP_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register(CUP_ID, CupRecipe.Serializer::new);
+
+    //菜刀
+    public static final String CLEAVER_ID = "cleaver";
+    public static final RegistryObject<RecipeType<CleaverRecipe>> CLEAVER_RECIPE = RECIPE_TYPES.register(CLEAVER_ID, () -> registerRecipeType(CLEAVER_ID));
+    public static final RegistryObject<RecipeSerializer<?>> CLEAVER_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register(CLEAVER_ID, CleaverRecipe.Serializer::new);
+
+
+
+    public static <T extends Recipe<?>> RecipeType<T> registerRecipeType(final String identifier) {
+        return new RecipeType<>()
+        {
+            public String toString() {
+                return MOD_ID + ":" + identifier;
+            }
+        };
+    }
 
 }

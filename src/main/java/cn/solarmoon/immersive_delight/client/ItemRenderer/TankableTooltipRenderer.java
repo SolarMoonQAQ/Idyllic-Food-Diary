@@ -2,7 +2,7 @@ package cn.solarmoon.immersive_delight.client.ItemRenderer;
 
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
 import cn.solarmoon.immersive_delight.common.IMItems;
-import cn.solarmoon.immersive_delight.common.items.abstract_items.BaseTankItem;
+import cn.solarmoon.immersive_delight.api.common.item.BaseTankItem;
 import cn.solarmoon.immersive_delight.util.*;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;

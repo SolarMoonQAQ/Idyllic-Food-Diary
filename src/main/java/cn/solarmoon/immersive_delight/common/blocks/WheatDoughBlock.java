@@ -1,13 +1,12 @@
 package cn.solarmoon.immersive_delight.common.blocks;
 
 import cn.solarmoon.immersive_delight.common.IMBlocks;
-import cn.solarmoon.immersive_delight.common.blocks.abstract_blocks.LongPressEatBlock;
-import cn.solarmoon.immersive_delight.network.serializer.ClientPackSerializer;
+import cn.solarmoon.immersive_delight.api.common.block.BaseLongPressEatBlock;
+import cn.solarmoon.immersive_delight.api.network.serializer.ClientPackSerializer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
@@ -20,10 +19,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.fluids.FluidStack;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,7 +29,7 @@ import static cn.solarmoon.immersive_delight.client.particles.vanilla.Wave.wave;
 /**
  * 面团方块
  */
-public class WheatDoughBlock extends LongPressEatBlock {
+public class WheatDoughBlock extends BaseLongPressEatBlock {
 
     public WheatDoughBlock() {
         super(Block.Properties
@@ -67,7 +64,7 @@ public class WheatDoughBlock extends LongPressEatBlock {
             if (fallDistance > 5 || fallCount >= 3) {
                 if (entity instanceof LivingEntity) {
                     level.destroyBlock(pos, false);
-                    ClientPackSerializer.sendPacket(pos, new ArrayList<>(), FluidStack.EMPTY, fallDistance, "wave");
+                    ClientPackSerializer.sendPacket(pos, fallDistance, "wave");
                     level.setBlock(pos, IMBlocks.FLATBREAD_DOUGH.get().defaultBlockState(), 3);
                     level.playSound(null, pos, SoundEvents.WOOL_BREAK, SoundSource.BLOCKS, 3.0F, 0.5F);
                     fallCount = 0;

@@ -33,10 +33,41 @@ public class IMItemTags extends ItemTagsProvider {
         tag(FORGE_ROLLING_DOUGH).add(
                 FarmersDelight.WHEAT_DOUGH.get(),
                 IMItems.FLATBREAD_DOUGH.get()
-        );
+        ).replace(false);
+        //刀类物品
+        tag(FORGE_KNIVES).add(
+                IMItems.CHINESE_CLEAVER.get()
+        ).replace(false);
+        tag(FD_KNIVES).add(
+                IMItems.CHINESE_CLEAVER.get()
+        ).replace(false);
+        //砍刀类物品
+        tag(FORGE_CLEAVERS).add(
+                IMItems.CHINESE_CLEAVER.get()
+        ).replace(false);
+        //斧类物品
+        tag(ItemTags.AXES).add(
+                IMItems.CHINESE_CLEAVER.get()
+        ).replace(false);
+        tag(FORGE_AXES).add(
+                IMItems.CHINESE_CLEAVER.get()
+        ).replace(false);
+        //剑类物品
+        tag(ItemTags.SWORDS).add(
+                IMItems.CHINESE_CLEAVER.get()
+        ).replace(false);
+        tag(FORGE_SWORDS).add(
+                IMItems.CHINESE_CLEAVER.get()
+        ).replace(false);
     }
 
     public static final TagKey<Item> FORGE_ROLLING_DOUGH = itemForgeTag("rolling/dough");
+    public static final TagKey<Item> FORGE_AXES = itemForgeTag("tools/axes");
+    public static final TagKey<Item> FORGE_SWORDS = itemForgeTag("tools/swords");
+    public static final TagKey<Item> FORGE_KNIVES = itemForgeTag("tools/knives");
+    public static final TagKey<Item> FORGE_CLEAVERS = itemForgeTag("tools/cleavers");
+
+    public static final TagKey<Item> FD_KNIVES = itemFDTag("tools/knives");
 
     private static TagKey<Item> itemTag(String path) {
         return ItemTags.create(new ResourceLocation(ImmersiveDelight.MOD_ID, path));
@@ -44,6 +75,10 @@ public class IMItemTags extends ItemTagsProvider {
 
     private static TagKey<Item> itemForgeTag(String path) {
         return ItemTags.create(new ResourceLocation("forge", path));
+    }
+
+    private static TagKey<Item> itemFDTag(String path) {
+        return ItemTags.create(new ResourceLocation("farmersdelight", path));
     }
 
 }

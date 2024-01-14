@@ -1,15 +1,9 @@
 package cn.solarmoon.immersive_delight.util;
 
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
-
-import javax.swing.plaf.basic.BasicComboBoxUI;
 
 public class ContainerHelper {
 

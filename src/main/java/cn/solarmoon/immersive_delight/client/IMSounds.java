@@ -19,4 +19,8 @@ public class IMSounds {
     public static final RegistryObject<SoundEvent> PLAYER_SPILLING_WATER = SOUNDS.register("player.water_splashing",
             () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(ImmersiveDelight.MOD_ID, "player.water_splashing")));
 
+    public static final RegistryObject<SoundEvent> BOILING_WATER = SOUNDS.register("block.boiling_water",
+            () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(ImmersiveDelight.MOD_ID, "block.boiling_water")));
+
+
 }

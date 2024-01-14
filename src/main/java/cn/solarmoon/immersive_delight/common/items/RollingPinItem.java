@@ -2,7 +2,7 @@ package cn.solarmoon.immersive_delight.common.items;
 
 import cn.solarmoon.immersive_delight.client.events.RollingPinClientEvent;
 import cn.solarmoon.immersive_delight.common.recipes.RollingPinRecipe;
-import cn.solarmoon.immersive_delight.network.serializer.ServerPackSerializer;
+import cn.solarmoon.immersive_delight.api.network.serializer.ServerPackSerializer;
 import cn.solarmoon.immersive_delight.util.AnimController;
 import cn.solarmoon.immersive_delight.util.RecipeHelper;
 import cn.solarmoon.immersive_delight.util.RollingPinHelper;

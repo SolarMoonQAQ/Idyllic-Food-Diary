@@ -1,6 +1,6 @@
 package cn.solarmoon.immersive_delight.compat.apple_skin;
 
-import cn.solarmoon.immersive_delight.common.items.abstract_items.CupItem;
+import cn.solarmoon.immersive_delight.api.common.item.AbstractCupItem;
 import cn.solarmoon.immersive_delight.data.fluid_effects.serializer.FluidEffect;
 import cn.solarmoon.immersive_delight.data.fluid_effects.serializer.FoodValue;
 import net.minecraft.world.item.ItemStack;
@@ -22,7 +22,7 @@ public class AppleSkin {
      */
     @SubscribeEvent
     public void onFoodValuesEvent(FoodValuesEvent event) {
-        if(event.itemStack.getItem() instanceof CupItem) {
+        if(event.itemStack.getItem() instanceof AbstractCupItem) {
             ItemStack stack = event.itemStack;
             IFluidHandlerItem tankStack = stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM, null).orElse(null);
             FluidEffect fluidEffect = FluidEffect.get(tankStack.getFluidInTank(0).getFluid().getFluidType().toString());

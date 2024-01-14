@@ -1,6 +1,7 @@
 package cn.solarmoon.immersive_delight.util;
 
 import cn.solarmoon.immersive_delight.common.IMRecipes;
+import cn.solarmoon.immersive_delight.common.recipes.CleaverRecipe;
 import cn.solarmoon.immersive_delight.common.recipes.CupRecipe;
 import cn.solarmoon.immersive_delight.common.recipes.KettleRecipe;
 import cn.solarmoon.immersive_delight.common.recipes.RollingPinRecipe;
@@ -51,10 +52,22 @@ public class RecipeHelper {
         /**
          * 获取所有泡茶配方
          */
-        public static List<CupRecipe> CupRecipe(Level level) {
+        public static List<CupRecipe> CupRecipes(Level level) {
             List<CupRecipe> allRecipes;
             RecipeManager recipeManager = level.getRecipeManager();
             allRecipes = recipeManager.getAllRecipesFor(IMRecipes.CUP_RECIPE.get()).stream()
+                    .filter(Objects::nonNull)
+                    .toList();
+            return allRecipes;
+        }
+
+        /**
+         * 获取所有菜刀配方
+         */
+        public static List<CleaverRecipe> CleaverRecipe(Level level) {
+            List<CleaverRecipe> allRecipes;
+            RecipeManager recipeManager = level.getRecipeManager();
+            allRecipes = recipeManager.getAllRecipesFor(IMRecipes.CLEAVER_RECIPE.get()).stream()
                     .filter(Objects::nonNull)
                     .toList();
             return allRecipes;

@@ -1,6 +1,6 @@
 package cn.solarmoon.immersive_delight.common.blocks;
 
-import cn.solarmoon.immersive_delight.common.blocks.abstract_blocks.LongPressEatBlock;
+import cn.solarmoon.immersive_delight.api.common.block.BaseLongPressEatBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * 面饼方块
  */
-public class FlatbreadDoughBlock extends LongPressEatBlock {
+public class FlatbreadDoughBlock extends BaseLongPressEatBlock {
 
     public FlatbreadDoughBlock() {
         super(Block.Properties

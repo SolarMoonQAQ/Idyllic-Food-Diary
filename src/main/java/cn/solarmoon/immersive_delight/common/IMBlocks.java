@@ -6,6 +6,8 @@ import cn.solarmoon.immersive_delight.common.blocks.crops.AppleCrop;
 import cn.solarmoon.immersive_delight.common.blocks.crops.BlackTeaCrop;
 import cn.solarmoon.immersive_delight.common.blocks.crops.DurianCrop;
 import cn.solarmoon.immersive_delight.common.blocks.crops.GreenTeaCrop;
+import cn.solarmoon.immersive_delight.common.blocks.saplings.AppleSaplingBlock;
+import cn.solarmoon.immersive_delight.common.blocks.saplings.DurianSaplingBlock;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
 

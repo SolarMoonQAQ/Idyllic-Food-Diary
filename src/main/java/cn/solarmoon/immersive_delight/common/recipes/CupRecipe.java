@@ -1,6 +1,6 @@
 package cn.solarmoon.immersive_delight.common.recipes;
 
-import cn.solarmoon.immersive_delight.common.entity_blocks.abstract_blocks.entities.CupBlockEntity;
+import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseContainerTankBlockEntity;
 import com.google.gson.JsonObject;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.RegistryAccess;
@@ -21,7 +21,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import static cn.solarmoon.immersive_delight.common.IMRecipes.*;
+import static cn.solarmoon.immersive_delight.common.IMRecipes.CUP_RECIPE;
+import static cn.solarmoon.immersive_delight.common.IMRecipes.CUP_RECIPE_SERIALIZER;
 
 public class CupRecipe implements Recipe<RecipeWrapper> {
 
@@ -54,13 +55,9 @@ public class CupRecipe implements Recipe<RecipeWrapper> {
     public boolean inputMatches(Level level, FluidStack fluidStackIn, ItemStack itemStackIn, BlockPos pos) {
         Fluid fluid = ForgeRegistries.FLUIDS.getValue(new ResourceLocation(inputFluid));
         BlockEntity blockEntity = level.getBlockEntity(pos);
-        boolean itemFlag = false;
-        ItemStack[] stacks = inputIngredient.getItems();
-        for(var stack : stacks) {
-            if(stack.is(itemStackIn.getItem())) itemFlag = true;
-        }
+        boolean itemFlag = inputIngredient.test(itemStackIn);
         if (fluid != null) {
-            if(blockEntity instanceof CupBlockEntity) {
+            if(blockEntity instanceof BaseContainerTankBlockEntity) {
                 return fluidStackIn.getFluid().equals(fluid) && itemFlag && fluidStackIn.getAmount() <= fluidAmount;
             }
         }

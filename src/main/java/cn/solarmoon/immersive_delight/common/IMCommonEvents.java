@@ -2,6 +2,7 @@ package cn.solarmoon.immersive_delight.common;
 
 
 import cn.solarmoon.immersive_delight.client.events.DrinkingEvent;
+import cn.solarmoon.immersive_delight.common.events.CleaverEvent;
 import cn.solarmoon.immersive_delight.common.events.RollingPinEvent;
 import cn.solarmoon.immersive_delight.client.events.RollingPinClientEvent;
 import cn.solarmoon.immersive_delight.common.events.SnugEffectEvent;
@@ -25,6 +26,8 @@ public class IMCommonEvents {
         r(new DrinkingEvent());
         //温暖效果事件
         r(new SnugEffectEvent());
+        //菜刀
+        r(new CleaverEvent());
     }
 
     public static void r(Object target) {

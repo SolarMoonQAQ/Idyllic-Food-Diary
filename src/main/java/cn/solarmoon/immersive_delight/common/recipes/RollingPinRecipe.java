@@ -86,6 +86,9 @@ public class RollingPinRecipe implements Recipe<RecipeWrapper> {
         return this.results;
     }
 
+    /**
+     * 根据幸运等级对results进行随机选取并输出最终结果
+     */
     public List<ItemStack> rollResults(RandomSource rand, int fortuneLevel) {
         List<ItemStack> results = new ArrayList<>();
         NonNullList<RecipeHelper.ChanceResult> rollableResults = getRollableResults();

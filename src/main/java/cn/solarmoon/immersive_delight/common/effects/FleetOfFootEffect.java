@@ -1,10 +1,8 @@
 package cn.solarmoon.immersive_delight.common.effects;
 
-import cn.solarmoon.immersive_delight.network.serializer.ClientPackSerializer;
+import cn.solarmoon.immersive_delight.api.network.serializer.ClientPackSerializer;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;

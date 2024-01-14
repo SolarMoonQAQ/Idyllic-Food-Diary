@@ -12,6 +12,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import vectorwing.farmersdelight.FarmersDelight;
+import vectorwing.farmersdelight.common.registry.ModBlocks;
+import vectorwing.farmersdelight.common.tag.ForgeTags;
+import vectorwing.farmersdelight.common.tag.ModTags;
 
 import javax.annotation.Nullable;
 import java.util.concurrent.CompletableFuture;
@@ -31,25 +35,47 @@ public class IMBlockTags extends BlockTagsProvider {
         //擀面杖快速收割
         tag(CAN_BE_ROLLED).add(
                 IMBlocks.WHEAT_DOUGH.get(),
-                IMBlocks.FLATBREAD_DOUGH.get()
-        );
+                IMBlocks.FLATBREAD_DOUGH.get(),
+                Blocks.CAKE
+        ).replace(false);
         //可被镐子挖
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
-                IMEntityBlocks.KETTLE.get()
-        );
+                IMEntityBlocks.KETTLE.get(),
+                IMEntityBlocks.SOUP_POT.get()
+        ).replace(false);
+        //可被斧子挖
+        tag(BlockTags.MINEABLE_WITH_AXE).add(
+                IMBlocks.DURIAN_BLOCK.get()
+        ).replace(false);
+        //可被刀挖
+        tag(MINEABLE_WITH_CLEAVER).add(
+                Blocks.COBWEB
+        )
+                .addTag(BlockTags.WOOL)
+                .addTag(BlockTags.WOOL_CARPETS)
+                .addTag(BlockTags.MINEABLE_WITH_AXE)
+                .replace(false);
         //热源
         tag(HEAT_SOURCE).add(
                 Blocks.FIRE,
                 Blocks.MAGMA_BLOCK,
-                Blocks.LAVA
-        );
+                Blocks.LAVA,
+                Blocks.CAMPFIRE,
+                Blocks.SOUL_CAMPFIRE
+        ).replace(false);
     }
 
     public static final TagKey<Block> CAN_BE_ROLLED = blockTag("can_be_rolled");
     public static final TagKey<Block> HEAT_SOURCE = blockTag("heat_source");
+    public static final TagKey<Block> FORGE_HEAT_SOURCE = forgeBlockTag("heat_source");
+    public static final TagKey<Block> MINEABLE_WITH_CLEAVER = blockTag("mineable/cleaver");
 
     private static TagKey<Block> blockTag(String path) {
         return BlockTags.create(new ResourceLocation(ImmersiveDelight.MOD_ID, path));
+    }
+
+    private static TagKey<Block> forgeBlockTag(String path) {
+        return BlockTags.create(new ResourceLocation("forge", path));
     }
 
 }

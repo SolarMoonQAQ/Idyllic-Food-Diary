@@ -2,6 +2,7 @@
   "creative_mode_tab.immersive_delight.main": "沉浸乐事",
 
   "item.immersive_delight.rolling_pin": "擀面杖",
+  "item.immersive_delight.chinese_cleaver": "中式菜刀",
 
   "item.immersive_delight.black_tea_seeds": "红茶种子",
   "item.immersive_delight.black_tea_leaves": "红茶叶",
@@ -30,6 +31,8 @@
   "block.immersive_delight.jade_china_cup_with_fluid": "装有%s的玉瓷杯",
   "block.immersive_delight.kettle": "水壶",
   "block.immersive_delight.kettle_with_fluid": "装有%s的水壶",
+  "block.immersive_delight.soup_pot": "汤锅",
+  "block.immersive_delight.soup_pot_with_fluid": "装有%s的汤锅",
 
   "item.immersive_delight.hot_water_bucket": "热水桶",
   "block.immersive_delight.hot_water": "热水",
@@ -58,6 +61,7 @@
   "death.attack.immersive_delight.scald": "%s被烫死了",
   "death.attack.immersive_delight.falling_durian": "%s被榴莲砸穿了",
 
-  "immersive_delight.player.pouring_water": "沉浸乐事 : 倒水",
-  "immersive_delight.player.water_splashing": "沉浸乐事 : 泼水"
+  "immersive_delight.player.pouring_water": "倒水",
+  "immersive_delight.player.water_splashing": "泼水",
+  "immersive_delight.block.boiling_water": "水壶 : 沸腾"
 }
