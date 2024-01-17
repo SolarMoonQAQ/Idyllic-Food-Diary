@@ -1,6 +1,8 @@
 package cn.solarmoon.immersive_delight.client.ItemRenderer;
 
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
+import cn.solarmoon.immersive_delight.api.util.FluidHelper;
+import cn.solarmoon.immersive_delight.api.util.TextUtil;
 import cn.solarmoon.immersive_delight.common.IMItems;
 import cn.solarmoon.immersive_delight.api.common.item.BaseTankItem;
 import cn.solarmoon.immersive_delight.util.*;

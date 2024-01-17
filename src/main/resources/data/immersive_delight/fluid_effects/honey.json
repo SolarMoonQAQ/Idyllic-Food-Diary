@@ -2,6 +2,6 @@
   "fluid": "create:honey",
   "food_value": {
     "hunger": 6,
-    "saturation": 0.05
+    "saturation": 0.1
   }
 }

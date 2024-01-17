@@ -1,6 +1,6 @@
 package cn.solarmoon.immersive_delight.api.common.item;
 
-import cn.solarmoon.immersive_delight.util.FluidHelper;
+import cn.solarmoon.immersive_delight.api.util.FluidHelper;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;
@@ -15,16 +15,14 @@ import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
  */
 public abstract class BaseTankItem extends BlockItem {
 
-    public BaseTankItem(Block block, Properties properties) {
+    private final int maxCapacity;
+
+    public BaseTankItem(Block block, int maxCapacity, Properties properties) {
         super(block, properties
                 .stacksTo(1)
         );
+        this.maxCapacity = maxCapacity;
     }
-
-    /**
-     * 获取最大容量
-     */
-    public abstract int getMaxCapacity();
 
     /**
      * 将其赋予一个容器
@@ -32,7 +30,7 @@ public abstract class BaseTankItem extends BlockItem {
      */
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, CompoundTag nbt) {
-        return new FluidHandlerItemStack(stack, getMaxCapacity());
+        return new FluidHandlerItemStack(stack, this.maxCapacity);
     }
 
     /**
@@ -41,6 +39,11 @@ public abstract class BaseTankItem extends BlockItem {
     public boolean remainFluid(ItemStack stack) {
         return !FluidHelper.getFluidStack(stack).isEmpty();
     }
+
+    /**
+     * 获取剩余容量
+     */
+    public int getRemainFluid(ItemStack stack) {return this.maxCapacity - FluidHelper.getFluidStack(stack).getAmount();}
 
     /**
      * 让物品根据所装溶液动态改变显示名称

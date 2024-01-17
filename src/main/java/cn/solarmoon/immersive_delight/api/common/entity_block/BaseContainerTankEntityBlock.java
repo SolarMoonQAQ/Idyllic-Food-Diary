@@ -6,12 +6,14 @@ import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseTankB
 import cn.solarmoon.immersive_delight.compat.create.Create;
 import cn.solarmoon.immersive_delight.api.network.serializer.ClientPackSerializer;
 import cn.solarmoon.immersive_delight.util.ContainerHelper;
-import cn.solarmoon.immersive_delight.util.FluidHelper;
+import cn.solarmoon.immersive_delight.api.util.FluidHelper;
+import cn.solarmoon.immersive_delight.util.LevelSummonHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -21,6 +23,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.fluids.FluidActionResult;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
@@ -35,10 +38,14 @@ import java.util.List;
  * 拥有基本的存取流体、物品功能
  * 能够保存记录各项数据，如方块掉落物、中键复制等
  * 可以只绑定容器或液体容器的其中一种方块实体
+ * 默认拥有的特殊方法：
+ * ① loadFluid 存取液体
+ * ② storage 用手存取物品
+ * ③ getThis 把方块直接拿到手中
  */
-public abstract class BaseContainerTankBlock extends BasicEntityBlock {
+public abstract class BaseContainerTankEntityBlock extends BasicEntityBlock {
 
-    protected BaseContainerTankBlock(Properties properties) {
+    public BaseContainerTankEntityBlock(Properties properties) {
         super(properties);
     }
 
@@ -54,7 +61,14 @@ public abstract class BaseContainerTankBlock extends BasicEntityBlock {
     public boolean pouringSound() {return false;}
 
     /**
+     * 强制继承类实现use，因为容器一般需要特殊功能
+     */
+    @Override
+    public abstract InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult);
+
+    /**
      * 基本的存物逻辑，似乎可通用
+     * 手不为空时存入，为空时疯狂取出
      */
     public boolean storage(BlockEntity blockEntity, ItemStack heldItem, Player player, InteractionHand hand) {
         if (blockEntity instanceof BaseContainerTankBlockEntity ct) {
@@ -64,7 +78,7 @@ public abstract class BaseContainerTankBlock extends BasicEntityBlock {
                 return !result.equals(heldItem);
             } else {
                 ItemStack result = ct.extractItem();
-                player.setItemInHand(hand, result);
+                LevelSummonHelper.addItemToInventory(player, result);
                 return !result.equals(heldItem);
             }
         }

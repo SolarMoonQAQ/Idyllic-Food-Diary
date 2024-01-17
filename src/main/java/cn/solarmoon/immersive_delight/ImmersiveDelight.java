@@ -3,7 +3,8 @@ package cn.solarmoon.immersive_delight;
 import cn.solarmoon.immersive_delight.client.IMItemRenderers;
 import cn.solarmoon.immersive_delight.compat.apple_skin.AppleSkin;
 import cn.solarmoon.immersive_delight.compat.farmersdelight.FarmersDelight;
-import cn.solarmoon.immersive_delight.data.fluid_effects.BuilderFluidEffects;
+import cn.solarmoon.immersive_delight.data.fluid_effects.FluidEffectsBuilder;
+import cn.solarmoon.immersive_delight.data.fluid_foods.FluidFoodsBuilder;
 import cn.solarmoon.immersive_delight.init.Config;
 import cn.solarmoon.immersive_delight.util.Util;
 import net.minecraftforge.common.MinecraftForge;
@@ -85,7 +86,8 @@ public class ImmersiveDelight {
 
     @SubscribeEvent
     public void onAddReloadListener(AddReloadListenerEvent event) {
-        event.addListener(BuilderFluidEffects.INSTANCE);
+        event.addListener(FluidEffectsBuilder.INSTANCE);
+        event.addListener(FluidFoodsBuilder.INSTANCE);
     }
 
 }

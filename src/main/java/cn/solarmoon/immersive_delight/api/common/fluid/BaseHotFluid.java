@@ -2,7 +2,7 @@ package cn.solarmoon.immersive_delight.api.common.fluid;
 
 import cn.solarmoon.immersive_delight.common.IMDamageTypes;
 import cn.solarmoon.immersive_delight.common.IMEffects;
-import cn.solarmoon.immersive_delight.util.FluidHelper;
+import cn.solarmoon.immersive_delight.api.util.FluidHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;

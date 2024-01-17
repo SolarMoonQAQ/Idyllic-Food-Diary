@@ -2,7 +2,7 @@ package cn.solarmoon.immersive_delight.mixin;
 
 import cn.solarmoon.immersive_delight.client.IMParticles;
 import cn.solarmoon.immersive_delight.common.IMFluids;
-import cn.solarmoon.immersive_delight.util.FluidHelper;
+import cn.solarmoon.immersive_delight.api.util.FluidHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;

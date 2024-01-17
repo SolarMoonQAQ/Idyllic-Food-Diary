@@ -26,11 +26,12 @@ public class IMBlockLoots extends BlockLootSubProvider {
         dropSelf(IMBlocks.FLATBREAD_DOUGH.get());
         dropSelf(IMBlocks.WHEAT_DOUGH.get());
         dropSelf(IMBlocks.DURIAN_BLOCK.get());
+        dropSelf(IMBlocks.test.get());
 
         //这部分都是作物打掉掉种子
         dropOther(IMBlocks.BLACK_TEA_TREE.get(), IMItems.BLACK_TEA_SEEDS.get());
         dropOther(IMBlocks.GREEN_TEA_TREE.get(), IMItems.GREEN_TEA_SEEDS.get());
-        dropOther(IMBlocks.APPLE.get(), IMItems.APPLE_SEEDS.get());
+        dropOther(IMBlocks.APPLE.get(), IMItems.APPLE_CORE.get());
         dropOther(IMBlocks.DURIAN.get(), IMItems.DURIAN_CORE.get());
     }
 

@@ -1,4 +1,4 @@
-// 1.20.1	2024-01-12T22:35:14.4311294	Loot Tables
+// 1.20.1	2024-01-16T22:45:35.9692103	Loot Tables
 f87ad64832837cd3f4d2251516aa3e63166b6766 data/immersive_delight/loot_tables/blocks/apple.json
 a60e6dbf4f1b72d84057d0df030a35451f7bf8e4 data/immersive_delight/loot_tables/blocks/black_tea_tree.json
 fdfebf51de87657b603df2fd8fa022c158b5a848 data/immersive_delight/loot_tables/blocks/celadon_cup.json
@@ -7,4 +7,5 @@ fdfebf51de87657b603df2fd8fa022c158b5a848 data/immersive_delight/loot_tables/bloc
 ac43b591255e17400eb521f17c3f2bfbd3840792 data/immersive_delight/loot_tables/blocks/flatbread_dough.json
 e6364fa147ba4c700fb820eef287a352755d648f data/immersive_delight/loot_tables/blocks/green_tea_tree.json
 09d927d7889186c6cfe0ec23b3ac7c13d6bd10f5 data/immersive_delight/loot_tables/blocks/kettle.json
+6a0ec980fd62e1a1bf0b33e79cf32b3105c86440 data/immersive_delight/loot_tables/blocks/test.json
 5d537e314912a4f4229ea201aa3a089730c29bee data/immersive_delight/loot_tables/blocks/wheat_dough.json

@@ -13,18 +13,18 @@ import net.minecraft.util.profiling.ProfilerFiller;
 import java.util.Map;
 
 
-public class BuilderFluidEffects extends SimpleJsonResourceReloadListener {
+public class FluidEffectsBuilder extends SimpleJsonResourceReloadListener {
 
     private static final Gson gson = new GsonBuilder().create();
     private static final String directory = "fluid_effects";
-    public static final BuilderFluidEffects INSTANCE;
+    public static final FluidEffectsBuilder INSTANCE;
 
-    public BuilderFluidEffects() {
+    public FluidEffectsBuilder() {
         super(gson, directory);
     }
 
     static {
-        INSTANCE = new BuilderFluidEffects();
+        INSTANCE = new FluidEffectsBuilder();
     }
 
     /**
@@ -38,7 +38,7 @@ public class BuilderFluidEffects extends SimpleJsonResourceReloadListener {
             FluidEffect.MAP.put(fluidEffect.fluidId, fluidEffect);
             fluidEffect.validate();
         }
-        ImmersiveDelight.LOGGER.info("已为 {} 种液体添加效果" + "\nEffects have been added for {} types of fluids.", FluidEffect.MAP.size(), FluidEffect.MAP.size());
+        ImmersiveDelight.LOGGER.info("Effects have been added for {} types of fluids.", FluidEffect.MAP.size());
     }
 
 }

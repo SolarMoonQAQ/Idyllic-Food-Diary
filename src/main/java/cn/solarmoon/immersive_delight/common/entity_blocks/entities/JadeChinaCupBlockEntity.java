@@ -9,7 +9,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public class JadeChinaCupBlockEntity extends BaseContainerTankBlockEntity {
 
     public JadeChinaCupBlockEntity(BlockPos pos, BlockState state) {
-        super(IMEntityBlocks.JADE_CHINA_CUP_ENTITY.get() , pos, state, Config.maxJadeChinaCupCapacity.get(), 1, 1);
+        super(IMEntityBlocks.JADE_CHINA_CUP_ENTITY.get() , pos, state, 250, 1, 1);
     }
 
 }

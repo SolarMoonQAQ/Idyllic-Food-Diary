@@ -9,7 +9,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public class KettleBlockEntity extends BaseTankBlockEntity {
 
     public KettleBlockEntity(BlockPos pos, BlockState state) {
-        super(IMEntityBlocks.KETTLE_ENTITY.get(), pos, state, Config.maxKettleCapacity.get());
+        super(IMEntityBlocks.KETTLE_ENTITY.get(), pos, state, 1000);
     }
 
 }

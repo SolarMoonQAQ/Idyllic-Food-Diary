@@ -25,14 +25,15 @@ import org.jetbrains.annotations.Nullable;
 /**
  * 有基本的含水、朝向功能的纯方块
  */
-public abstract class BaseBlock extends Block implements SimpleWaterloggedBlock {
+public abstract class BaseWaterBlock extends Block implements SimpleWaterloggedBlock {
 
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     protected static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D);
 
-    public BaseBlock(Properties properties) {
+    public BaseWaterBlock(Properties properties) {
         super(properties);
+        //这里的设置会被覆盖，要改全改
         this.registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false));
     }
 
@@ -88,6 +89,14 @@ public abstract class BaseBlock extends Block implements SimpleWaterloggedBlock 
     @Override
     public @NotNull VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         return SHAPE;
+    }
+
+    /**
+     * 能发出红石信号
+     */
+    @Override
+    public boolean hasAnalogOutputSignal(BlockState state) {
+        return true;
     }
 
 }

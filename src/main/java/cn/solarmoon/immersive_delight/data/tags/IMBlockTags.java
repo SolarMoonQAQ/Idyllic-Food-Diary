@@ -63,12 +63,16 @@ public class IMBlockTags extends BlockTagsProvider {
                 Blocks.CAMPFIRE,
                 Blocks.SOUL_CAMPFIRE
         ).replace(false);
+        //汤容器
+        tag(SOUP_CONTAINER).add(
+                IMEntityBlocks.SOUP_POT.get()
+        ).replace(false);
     }
 
     public static final TagKey<Block> CAN_BE_ROLLED = blockTag("can_be_rolled");
     public static final TagKey<Block> HEAT_SOURCE = blockTag("heat_source");
-    public static final TagKey<Block> FORGE_HEAT_SOURCE = forgeBlockTag("heat_source");
     public static final TagKey<Block> MINEABLE_WITH_CLEAVER = blockTag("mineable/cleaver");
+    public static final TagKey<Block> SOUP_CONTAINER = blockTag("soup_container");
 
     private static TagKey<Block> blockTag(String path) {
         return BlockTags.create(new ResourceLocation(ImmersiveDelight.MOD_ID, path));

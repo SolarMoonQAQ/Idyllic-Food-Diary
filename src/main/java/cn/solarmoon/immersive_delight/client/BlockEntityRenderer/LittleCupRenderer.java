@@ -1,8 +1,8 @@
 package cn.solarmoon.immersive_delight.client.BlockEntityRenderer;
 
-import cn.solarmoon.immersive_delight.api.common.entity_block.AbstractCupEntityBlock;
+import cn.solarmoon.immersive_delight.api.common.entity_block.specific.AbstractCupEntityBlock;
 import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseContainerTankBlockEntity;
-import cn.solarmoon.immersive_delight.util.FluidHelper;
+import cn.solarmoon.immersive_delight.api.util.FluidHelper;
 import cn.solarmoon.immersive_delight.util.FluidRenderHelper;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;

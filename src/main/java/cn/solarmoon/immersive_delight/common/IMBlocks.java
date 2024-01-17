@@ -22,6 +22,10 @@ public class IMBlocks {
     public static final RegistryObject<WheatDoughBlock> WHEAT_DOUGH = BLOCKS.register("wheat_dough", WheatDoughBlock::new);
     //面饼
     public static final RegistryObject<FlatbreadDoughBlock> FLATBREAD_DOUGH = BLOCKS.register("flatbread_dough", FlatbreadDoughBlock::new);
+    //
+    public static final RegistryObject<test> test = BLOCKS.register("test", test::new);
+
+
     //苹果树苗
     public static final RegistryObject<AppleSaplingBlock> APPLE_SAPLING = BLOCKS.register("apple_sapling", AppleSaplingBlock::new);
     //苹果

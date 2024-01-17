@@ -1,13 +1,7 @@
 package cn.solarmoon.immersive_delight.common;
 
-import cn.solarmoon.immersive_delight.common.entity_blocks.CeladonCupEntityBlock;
-import cn.solarmoon.immersive_delight.common.entity_blocks.JadeChinaCupEntityBlock;
-import cn.solarmoon.immersive_delight.common.entity_blocks.KettleEntityBlock;
-import cn.solarmoon.immersive_delight.common.entity_blocks.SoupPotEntityBlock;
-import cn.solarmoon.immersive_delight.common.entity_blocks.entities.CeladonCupBlockEntity;
-import cn.solarmoon.immersive_delight.common.entity_blocks.entities.JadeChinaCupBlockEntity;
-import cn.solarmoon.immersive_delight.common.entity_blocks.entities.KettleBlockEntity;
-import cn.solarmoon.immersive_delight.common.entity_blocks.entities.SoupPotBlockEntity;
+import cn.solarmoon.immersive_delight.common.entity_blocks.*;
+import cn.solarmoon.immersive_delight.common.entity_blocks.entities.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
@@ -28,7 +22,6 @@ public class IMEntityBlocks {
     public static final String JADE_CHINA_CUP_ID = "jade_china_cup";
     public static final RegistryObject<JadeChinaCupEntityBlock> JADE_CHINA_CUP = BLOCKS.register(JADE_CHINA_CUP_ID, JadeChinaCupEntityBlock::new);
     public static final RegistryObject<BlockEntityType<JadeChinaCupBlockEntity>> JADE_CHINA_CUP_ENTITY = BLOCK_ENTITIES.register(JADE_CHINA_CUP_ID, () -> BlockEntityType.Builder.of(JadeChinaCupBlockEntity::new, JADE_CHINA_CUP.get()).build(null));
-
 
     //水壶
     public static final String KETTLE_ID = "kettle";

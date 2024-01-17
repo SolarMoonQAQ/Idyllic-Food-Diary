@@ -10,14 +10,9 @@ import cn.solarmoon.immersive_delight.init.Config;
 public class KettleItem extends AbstractKettleItem {
 
     public KettleItem() {
-        super(IMEntityBlocks.KETTLE.get(), new Properties()
+        super(IMEntityBlocks.KETTLE.get(), 1000, new Properties()
 
         );
-    }
-
-    @Override
-    public int getMaxCapacity() {
-        return Config.maxKettleCapacity.get();
     }
 
 }

@@ -1,10 +1,7 @@
 package cn.solarmoon.immersive_delight.util;
 
 import cn.solarmoon.immersive_delight.common.IMRecipes;
-import cn.solarmoon.immersive_delight.common.recipes.CleaverRecipe;
-import cn.solarmoon.immersive_delight.common.recipes.CupRecipe;
-import cn.solarmoon.immersive_delight.common.recipes.KettleRecipe;
-import cn.solarmoon.immersive_delight.common.recipes.RollingPinRecipe;
+import cn.solarmoon.immersive_delight.common.recipes.*;
 import com.google.gson.*;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.nbt.TagParser;
@@ -68,6 +65,18 @@ public class RecipeHelper {
             List<CleaverRecipe> allRecipes;
             RecipeManager recipeManager = level.getRecipeManager();
             allRecipes = recipeManager.getAllRecipesFor(IMRecipes.CLEAVER_RECIPE.get()).stream()
+                    .filter(Objects::nonNull)
+                    .toList();
+            return allRecipes;
+        }
+
+        /**
+         * 获取所有汤锅配方
+         */
+        public static List<SoupPotRecipe> SoupPotRecipe(Level level) {
+            List<SoupPotRecipe> allRecipes;
+            RecipeManager recipeManager = level.getRecipeManager();
+            allRecipes = recipeManager.getAllRecipesFor(IMRecipes.SOUP_POT_RECIPE.get()).stream()
                     .filter(Objects::nonNull)
                     .toList();
             return allRecipes;

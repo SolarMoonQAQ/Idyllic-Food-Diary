@@ -1,4 +1,4 @@
-package cn.solarmoon.immersive_delight.util;
+package cn.solarmoon.immersive_delight.api.util;
 
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
 import net.minecraft.ChatFormatting;

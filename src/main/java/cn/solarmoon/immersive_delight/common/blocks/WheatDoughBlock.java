@@ -1,8 +1,9 @@
 package cn.solarmoon.immersive_delight.common.blocks;
 
-import cn.solarmoon.immersive_delight.common.IMBlocks;
-import cn.solarmoon.immersive_delight.api.common.block.BaseLongPressEatBlock;
+import cn.solarmoon.immersive_delight.api.common.block.food.BaseLongPressEatFoodBlock;
 import cn.solarmoon.immersive_delight.api.network.serializer.ClientPackSerializer;
+import cn.solarmoon.immersive_delight.common.IMBlocks;
+import cn.solarmoon.immersive_delight.compat.farmersdelight.FarmersDelight;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
@@ -11,17 +12,21 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static cn.solarmoon.immersive_delight.client.particles.vanilla.Wave.wave;
@@ -29,7 +34,7 @@ import static cn.solarmoon.immersive_delight.client.particles.vanilla.Wave.wave;
 /**
  * 面团方块
  */
-public class WheatDoughBlock extends BaseLongPressEatBlock {
+public class WheatDoughBlock extends BaseLongPressEatFoodBlock {
 
     public WheatDoughBlock() {
         super(Block.Properties
@@ -90,6 +95,22 @@ public class WheatDoughBlock extends BaseLongPressEatBlock {
     @Override
     public @NotNull VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         return SHAPE;
+    }
+
+    /**
+     * 如果农夫乐事加载，则生成农夫乐事的面团
+     */
+    @Override
+    public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
+        return FarmersDelight.getDough() == null ? super.getDrops(state, builder) : List.of(FarmersDelight.getDough().getDefaultInstance());
+    }
+
+    /**
+     * 农夫乐事加载则换为农夫乐事面团
+     */
+    @Override
+    public Item asItem() {
+        return FarmersDelight.getDough() == null ? super.asItem() : FarmersDelight.getDough();
     }
 
 }

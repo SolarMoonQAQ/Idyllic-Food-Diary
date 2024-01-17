@@ -7,9 +7,10 @@ import cn.solarmoon.immersive_delight.compat.create.Create;
 import cn.solarmoon.immersive_delight.data.fluid_effects.serializer.FluidEffect;
 import cn.solarmoon.immersive_delight.data.fluid_effects.serializer.FoodValue;
 import cn.solarmoon.immersive_delight.data.fluid_effects.serializer.PotionEffect;
+import cn.solarmoon.immersive_delight.data.fluid_foods.serializer.FluidFood;
 import cn.solarmoon.immersive_delight.init.Config;
-import cn.solarmoon.immersive_delight.util.FluidHelper;
-import cn.solarmoon.immersive_delight.util.TextUtil;
+import cn.solarmoon.immersive_delight.api.util.FluidHelper;
+import cn.solarmoon.immersive_delight.api.util.TextUtil;
 import cn.solarmoon.immersive_delight.util.Util;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -19,7 +20,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
@@ -46,8 +46,8 @@ import java.util.function.Supplier;
  */
 public abstract class AbstractCupItem extends BaseTankItem implements ICustomItemRendererProvider {
 
-    public AbstractCupItem(Block block, Properties properties) {
-        super(block, properties
+    public AbstractCupItem(Block block, int maxCapacity, Properties properties) {
+        super(block, maxCapacity, properties
                 .food(new FoodProperties.Builder().build())
         );
     }
@@ -90,10 +90,10 @@ public abstract class AbstractCupItem extends BaseTankItem implements ICustomIte
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
         IFluidHandlerItem tankStack = FluidHelper.getTank(stack);
         int tankAmount = tankStack.getFluidInTank(0).getAmount();
-        if(tankAmount >= getDrinkVolume()) {
+        if(tankAmount >= getDrinkVolume(tankStack.getFluidInTank(0))) {
             FluidStack fluidStack = tankStack.getFluidInTank(0);
             commonUse(fluidStack, level, entity);
-            tankStack.drain(getDrinkVolume(), IFluidHandler.FluidAction.EXECUTE);
+            tankStack.drain(getDrinkVolume(tankStack.getFluidInTank(0)), IFluidHandler.FluidAction.EXECUTE);
         } else if (tankAmount > 0) tankStack.drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.EXECUTE);
         return stack;
     }
@@ -153,7 +153,11 @@ public abstract class AbstractCupItem extends BaseTankItem implements ICustomIte
     /**
      * @return 设置每次喝掉的液体量（默认50）
      */
-    public int getDrinkVolume() {
+    public int getDrinkVolume(FluidStack fluidStack) {
+        FluidFood fluidFood = FluidFood.getByFluid(fluidStack.getFluid());
+        if (fluidFood != null) {
+            return fluidFood.fluidAmount;
+        }
         return Config.drinkingConsumption.get();
     }
 

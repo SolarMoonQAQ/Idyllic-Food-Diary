@@ -1,4 +1,4 @@
-package cn.solarmoon.immersive_delight.util;
+package cn.solarmoon.immersive_delight.api.util;
 
 import cn.solarmoon.immersive_delight.common.IMFluids;
 import net.minecraft.world.entity.Entity;
@@ -84,6 +84,25 @@ public class FluidHelper {
         FluidStack fluidStack = getFluidStack(stack);
         tank.drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.EXECUTE);
         tank.fill(fluidStack, IFluidHandler.FluidAction.EXECUTE);
+    }
+
+    /**
+     * 检查两个流体栈是否完全匹配（包括数量）
+     */
+    public static boolean isMatch(FluidStack fluid1, FluidStack fluid2) {
+        return fluid1.equals(fluid2) && fluid1.getAmount() == fluid2.getAmount();
+    }
+
+    /**
+     * 检查是否还能放入液体
+     * 规则为已有液体必须相匹配，且剩余空间大于等于要放入的液体（或者为空）
+     * 相反的检查可以用contains
+     */
+    public static boolean canStillPut(FluidTank tank, FluidStack fluidStack) {
+        int remain = tank.getCapacity() - tank.getFluidAmount();
+        int put = fluidStack.getAmount();
+        boolean match = tank.getFluid().equals(fluidStack);
+        return remain >= put && (match || tank.getFluid().isEmpty());
     }
 
     /**

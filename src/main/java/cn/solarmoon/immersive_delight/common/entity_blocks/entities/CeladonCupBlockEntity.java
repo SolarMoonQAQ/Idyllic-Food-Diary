@@ -9,7 +9,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public class CeladonCupBlockEntity extends BaseContainerTankBlockEntity {
 
     public CeladonCupBlockEntity(BlockPos pos, BlockState state) {
-        super(IMEntityBlocks.CELADON_CUP_ENTITY.get(), pos, state, Config.maxCeladonCupCapacity.get(), 1, 1);
+        super(IMEntityBlocks.CELADON_CUP_ENTITY.get(), pos, state, 250, 1, 1);
     }
 
 }

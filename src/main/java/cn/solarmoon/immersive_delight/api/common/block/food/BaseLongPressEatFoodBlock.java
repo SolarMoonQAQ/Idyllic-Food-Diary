@@ -1,5 +1,6 @@
-package cn.solarmoon.immersive_delight.api.common.block;
+package cn.solarmoon.immersive_delight.api.common.block.food;
 
+import cn.solarmoon.immersive_delight.api.common.block.BaseWaterBlock;
 import cn.solarmoon.immersive_delight.util.CountingDevice;
 import cn.solarmoon.immersive_delight.util.Util;
 import net.minecraft.core.BlockPos;
@@ -29,11 +30,39 @@ import static cn.solarmoon.immersive_delight.client.particles.vanilla.Eat.eat;
 
 /**
  * 所有长按右键可以吃掉的方块的抽象基本类，用于一些没有进食模型改变的食物方块
+ * 一般这种类型的方块所直接对应的物品就是可食用的，因此为了不妨碍进食需要shift放置
  */
-public abstract class BaseLongPressEatBlock extends BaseBlock {
+public abstract class BaseLongPressEatFoodBlock extends BaseWaterBlock {
 
-    public BaseLongPressEatBlock(BlockBehaviour.Properties properties) {
+    private final int eatCount;
+    private final Block blockLeft;
+
+    /**
+     * 默认吃5下，吃完后变为空气方块
+     */
+    public BaseLongPressEatFoodBlock(BlockBehaviour.Properties properties) {
         super(properties);
+        this.eatCount = 4;
+        this.blockLeft = Blocks.AIR;
+    }
+
+    /**
+     * @param blockLeft 吃完后需要替换的方块
+     */
+    public BaseLongPressEatFoodBlock(Block blockLeft, BlockBehaviour.Properties properties) {
+        super(properties);
+        this.eatCount = 4;
+        this.blockLeft = blockLeft;
+    }
+
+    /**
+     * @param eatCount 需要右键的次数才能吃，注意这里吃5下需要填4，因为0也算一下
+     * @param blockLeft 吃完后需要替换的方块
+     */
+    public BaseLongPressEatFoodBlock(int eatCount, Block blockLeft, BlockBehaviour.Properties properties) {
+        super(properties);
+        this.eatCount = eatCount;
+        this.blockLeft = blockLeft;
     }
 
     /**
@@ -52,33 +81,19 @@ public abstract class BaseLongPressEatBlock extends BaseBlock {
             //吃的粒子效果
             if(level.isClientSide) eatParticle(pos);
 
-            if (CountingDevice.getCount(playerTag) >= getEatCount()) {
+            if (CountingDevice.getCount(playerTag) >= this.eatCount) {
                 //吃掉！
                 ItemStack food = state.getBlock().asItem().getDefaultInstance();
                 if(!level.isClientSide) player.eat(level, food);
                 //设置结束方块
-                level.setBlock(pos, getBlockAfterEat(), 3);
+                level.setBlock(pos, this.blockLeft.defaultBlockState(), 3);
                 //重置计数
                 CountingDevice.resetCount(playerTag);
             }
 
             return InteractionResult.SUCCESS;
         }
-        return InteractionResult.FAIL;
-    }
-
-    /**
-     * 决定要吃多少下才能吃完
-     */
-    public int getEatCount(){
-        return 5 - 1;
-    }
-
-    /**
-     * 决定吃完后变为的方块
-     */
-    public BlockState getBlockAfterEat() {
-        return Blocks.AIR.defaultBlockState();
+        return InteractionResult.PASS;
     }
 
     /**

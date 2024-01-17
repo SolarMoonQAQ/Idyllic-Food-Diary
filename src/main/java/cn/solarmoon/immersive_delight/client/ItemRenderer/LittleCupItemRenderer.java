@@ -2,7 +2,7 @@ package cn.solarmoon.immersive_delight.client.ItemRenderer;
 
 import cn.solarmoon.immersive_delight.api.client.ItemRenderer.ItemStackRenderer;
 import cn.solarmoon.immersive_delight.util.ContainerHelper;
-import cn.solarmoon.immersive_delight.util.FluidHelper;
+import cn.solarmoon.immersive_delight.api.util.FluidHelper;
 import cn.solarmoon.immersive_delight.util.FluidRenderAnotherHelper;
 import cn.solarmoon.immersive_delight.util.FluidRenderHelper;
 import com.mojang.blaze3d.vertex.PoseStack;

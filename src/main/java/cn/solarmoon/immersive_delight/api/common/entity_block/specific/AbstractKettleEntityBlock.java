@@ -1,5 +1,6 @@
-package cn.solarmoon.immersive_delight.api.common.entity_block;
+package cn.solarmoon.immersive_delight.api.common.entity_block.specific;
 
+import cn.solarmoon.immersive_delight.api.common.entity_block.BaseContainerTankEntityBlock;
 import cn.solarmoon.immersive_delight.client.IMSounds;
 import cn.solarmoon.immersive_delight.common.entity_blocks.KettleEntityBlock;
 import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseTankBlockEntity;
@@ -30,7 +31,7 @@ import java.util.Random;
  * 应用tankBlockEntity，是一个液体容器（但是不使其具有原有的液体交互功能，而是替换为倒水功能）
  * 具有烧水、倒水功能
  */
-public abstract class AbstractKettleEntityBlock extends BaseContainerTankBlock {
+public abstract class AbstractKettleEntityBlock extends BaseContainerTankEntityBlock {
 
 
     protected AbstractKettleEntityBlock(Properties properties) {
@@ -45,7 +46,7 @@ public abstract class AbstractKettleEntityBlock extends BaseContainerTankBlock {
         BlockEntity blockEntity = level.getBlockEntity(pos);
         BaseTankBlockEntity tankEntity = (BaseTankBlockEntity) blockEntity;
         ItemStack heldItem = player.getItemInHand(hand);
-        if(tankEntity == null) return InteractionResult.FAIL;
+        if(tankEntity == null) return InteractionResult.PASS;
 
         if(getThis(hand, heldItem, player, level, pos ,state)) {
             level.playSound(null, pos, SoundEvents.LANTERN_BREAK, SoundSource.BLOCKS);
@@ -54,7 +55,7 @@ public abstract class AbstractKettleEntityBlock extends BaseContainerTankBlock {
 
         //能够装入液体（不能取）
         if (loadFluid(heldItem, tankEntity, player, level, pos, hand)) return InteractionResult.SUCCESS;
-        return InteractionResult.FAIL;
+        return InteractionResult.PASS;
     }
 
     @Override

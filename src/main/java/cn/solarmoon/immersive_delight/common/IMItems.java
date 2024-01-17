@@ -37,6 +37,9 @@ public class IMItems {
 
     //食物————————————————————————————————————————
 
+    //面团
+    public static final RegistryObject<WheatDoughItem> WHEAT_DOUGH =  ITEMS.register("wheat_dough",WheatDoughItem::new);
+
     //面饼
     public static final RegistryObject<FlatbreadDoughItem> FLATBREAD_DOUGH = ITEMS.register("flatbread_dough", FlatbreadDoughItem::new);
 
@@ -51,7 +54,7 @@ public class IMItems {
     //绿茶种子
     public static final RegistryObject<GreenTeaSeedsItem> GREEN_TEA_SEEDS = ITEMS.register("green_tea_seeds", GreenTeaSeedsItem::new);
     //苹果核
-    public static final RegistryObject<AppleCoreItem> APPLE_SEEDS = ITEMS.register("apple_core", AppleCoreItem::new);
+    public static final RegistryObject<AppleCoreItem> APPLE_CORE = ITEMS.register("apple_core", AppleCoreItem::new);
     //苹果树苗
     public static final RegistryObject<AppleSaplingItem> APPLE_TREE_SAPLING = ITEMS.register("apple_sapling", AppleSaplingItem::new);
     //榴莲块

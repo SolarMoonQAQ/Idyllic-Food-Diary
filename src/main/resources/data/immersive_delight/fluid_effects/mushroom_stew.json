@@ -1,0 +1,7 @@
+{
+  "fluid": "immersive_delight:mushroom_stew",
+  "food_value": {
+    "hunger": 6,
+    "saturation": 0.6
+  }
+}

@@ -3,6 +3,7 @@ package cn.solarmoon.immersive_delight.client.events;
 import cn.solarmoon.immersive_delight.api.common.item.AbstractCupItem;
 import cn.solarmoon.immersive_delight.api.common.item.AbstractKettleItem;
 import cn.solarmoon.immersive_delight.api.network.serializer.ServerPackSerializer;
+import cn.solarmoon.immersive_delight.common.items.SoupPotItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
@@ -26,7 +27,7 @@ public class DrinkingEvent {
     public void pour(PlayerInteractEvent.LeftClickEmpty event) {
         ItemStack stack = event.getItemStack();
         BlockPos pos = event.getPos();
-        if(stack.getItem() instanceof AbstractCupItem || stack.getItem() instanceof AbstractKettleItem) {
+        if(stack.getItem() instanceof AbstractCupItem || stack.getItem() instanceof AbstractKettleItem || stack.getItem() instanceof SoupPotItem) {
             if(event.getEntity().isCrouching()) {
                 ServerPackSerializer.sendPacket(pos, Blocks.AIR, stack, "pouring");
                 IFluidHandlerItem tankStack = stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM, null).orElse(null);

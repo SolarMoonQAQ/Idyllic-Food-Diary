@@ -1,10 +1,7 @@
 package cn.solarmoon.immersive_delight.common;
 
 
-import cn.solarmoon.immersive_delight.common.recipes.CleaverRecipe;
-import cn.solarmoon.immersive_delight.common.recipes.CupRecipe;
-import cn.solarmoon.immersive_delight.common.recipes.KettleRecipe;
-import cn.solarmoon.immersive_delight.common.recipes.RollingPinRecipe;
+import cn.solarmoon.immersive_delight.common.recipes.*;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -37,6 +34,11 @@ public class IMRecipes {
     public static final String CLEAVER_ID = "cleaver";
     public static final RegistryObject<RecipeType<CleaverRecipe>> CLEAVER_RECIPE = RECIPE_TYPES.register(CLEAVER_ID, () -> registerRecipeType(CLEAVER_ID));
     public static final RegistryObject<RecipeSerializer<?>> CLEAVER_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register(CLEAVER_ID, CleaverRecipe.Serializer::new);
+
+    //汤锅
+    public static final String SOUP_POT_ID = "soup_pot";
+    public static final RegistryObject<RecipeType<SoupPotRecipe>> SOUP_POT_RECIPE = RECIPE_TYPES.register(SOUP_POT_ID, () -> registerRecipeType(SOUP_POT_ID));
+    public static final RegistryObject<RecipeSerializer<?>> SOUP_POT_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register(SOUP_POT_ID, SoupPotRecipe.Serializer::new);
 
 
 

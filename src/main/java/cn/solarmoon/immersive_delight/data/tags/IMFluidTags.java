@@ -37,15 +37,23 @@ public class IMFluidTags extends FluidTagsProvider {
                 IMFluids.HotMilk.FLUID_FLOWING.get(),
                 Fluids.LAVA.getFlowing(),
                 Fluids.LAVA.getSource()
-        );
+        ).replace(false);
         //温水
         tag(WARM_FLUID).add(
                 IMFluids.BlackTea.FLUID_STILL.get(),
                 IMFluids.BlackTea.FLUID_FLOWING.get(),
                 IMFluids.GreenTea.FLUID_STILL.get(),
-                IMFluids.GreenTea.FLUID_FLOWING.get()
+                IMFluids.GreenTea.FLUID_FLOWING.get(),
+                IMFluids.MushroomStew.FLUID_STILL.get(),
+                IMFluids.MushroomStew.FLUID_FLOWING.get()
         )
-                .addTag(HOT_FLUID);
+                .addTag(HOT_FLUID)
+                .replace(false);
+        //原版水
+        tag(FluidTags.WATER).add(
+                IMFluids.HotWater.FLUID_STILL.get(),
+                IMFluids.HotWater.FLUID_FLOWING.get()
+        ).replace(false);
     }
 
     public static final TagKey<Fluid> HOT_FLUID = fluidTag("hot_fluid");

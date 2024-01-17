@@ -6,6 +6,7 @@ import cn.solarmoon.immersive_delight.common.events.CleaverEvent;
 import cn.solarmoon.immersive_delight.common.events.RollingPinEvent;
 import cn.solarmoon.immersive_delight.client.events.RollingPinClientEvent;
 import cn.solarmoon.immersive_delight.common.events.SnugEffectEvent;
+import cn.solarmoon.immersive_delight.common.events.SoupContainerEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -28,6 +29,8 @@ public class IMCommonEvents {
         r(new SnugEffectEvent());
         //菜刀
         r(new CleaverEvent());
+        //接汤
+        r(new SoupContainerEvent());
     }
 
     public static void r(Object target) {

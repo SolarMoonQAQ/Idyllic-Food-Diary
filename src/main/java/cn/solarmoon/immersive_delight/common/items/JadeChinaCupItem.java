@@ -7,11 +7,7 @@ import cn.solarmoon.immersive_delight.init.Config;
 public class JadeChinaCupItem extends AbstractCupItem {
 
     public JadeChinaCupItem() {
-        super(IMEntityBlocks.JADE_CHINA_CUP.get(), new Properties());
+        super(IMEntityBlocks.JADE_CHINA_CUP.get(), 250, new Properties());
     }
 
-    @Override
-    public int getMaxCapacity() {
-        return Config.maxJadeChinaCupCapacity.get();
-    }
 }

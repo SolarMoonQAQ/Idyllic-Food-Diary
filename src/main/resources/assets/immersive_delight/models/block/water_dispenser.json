@@ -1,8 +1,11 @@
 {
 	"credit": "Made with Blockbench",
+	"parent": "immersive_delight:block/water_dispenser",
+	"render_type": "minecraft:cutout",
 	"texture_size": [64, 64],
 	"textures": {
-		"1": "C:/Users/KANBON/Desktop/模组/Water_dispenser"
+		"1": "immersive_delight:block/water_dispenser",
+		"particle": "immersive_delight:block/water_dispenser"
 	},
 	"elements": [
 		{

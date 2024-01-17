@@ -30,8 +30,8 @@ public class IMItemTags extends ItemTagsProvider {
 
     protected void registerModTags() {
         //擀面杖配方（农夫乐事兼容）
-        tag(FORGE_ROLLING_DOUGH).add(
-                FarmersDelight.WHEAT_DOUGH.get(),
+        tag(ROLLING_DOUGH).add(
+                IMItems.WHEAT_DOUGH.get(),
                 IMItems.FLATBREAD_DOUGH.get()
         ).replace(false);
         //刀类物品
@@ -61,7 +61,8 @@ public class IMItemTags extends ItemTagsProvider {
         ).replace(false);
     }
 
-    public static final TagKey<Item> FORGE_ROLLING_DOUGH = itemForgeTag("rolling/dough");
+    public static final TagKey<Item> ROLLING_DOUGH = itemTag("dough");
+
     public static final TagKey<Item> FORGE_AXES = itemForgeTag("tools/axes");
     public static final TagKey<Item> FORGE_SWORDS = itemForgeTag("tools/swords");
     public static final TagKey<Item> FORGE_KNIVES = itemForgeTag("tools/knives");

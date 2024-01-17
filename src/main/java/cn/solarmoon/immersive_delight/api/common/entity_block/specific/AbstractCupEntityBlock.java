@@ -1,14 +1,16 @@
-package cn.solarmoon.immersive_delight.api.common.entity_block;
+package cn.solarmoon.immersive_delight.api.common.entity_block.specific;
 
+import cn.solarmoon.immersive_delight.api.common.entity_block.BaseContainerTankEntityBlock;
 import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseContainerTankBlockEntity;
 import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseTankBlockEntity;
 import cn.solarmoon.immersive_delight.api.common.item.AbstractCupItem;
 import cn.solarmoon.immersive_delight.common.recipes.CupRecipe;
 import cn.solarmoon.immersive_delight.data.fluid_effects.serializer.FluidEffect;
+import cn.solarmoon.immersive_delight.data.fluid_foods.serializer.FluidFood;
 import cn.solarmoon.immersive_delight.data.tags.IMFluidTags;
 import cn.solarmoon.immersive_delight.init.Config;
 import cn.solarmoon.immersive_delight.util.CountingDevice;
-import cn.solarmoon.immersive_delight.util.FluidHelper;
+import cn.solarmoon.immersive_delight.api.util.FluidHelper;
 import cn.solarmoon.immersive_delight.util.RecipeHelper;
 import cn.solarmoon.immersive_delight.util.Util;
 import net.minecraft.core.BlockPos;
@@ -39,7 +41,7 @@ import java.util.Objects;
 /**
  * 作为大部分可饮用方块（如各类杯子）的抽象类
  */
-public abstract class AbstractCupEntityBlock extends BaseContainerTankBlock {
+public abstract class AbstractCupEntityBlock extends BaseContainerTankEntityBlock {
 
     protected AbstractCupEntityBlock(Properties properties) {
         super(properties
@@ -82,12 +84,12 @@ public abstract class AbstractCupEntityBlock extends BaseContainerTankBlock {
          */
         else {
             int tankAmount = tank.getFluidAmount();
-            if (tankAmount >= getDrinkVolume()) {
+            if (tankAmount >= getDrinkVolume(tank.getFluid())) {
                 //能吃却不能吃 不让用
-                if(!canEat(blockEntity, player)) return InteractionResult.FAIL;
+                if(!canEat(blockEntity, player)) return InteractionResult.PASS;
                 if(CountingDevice.getCount(playerTag) >= getPressCount()) {
                     AbstractCupItem.commonUse(tank.getFluid(), level, player);
-                    tank.drain(getDrinkVolume(), IFluidHandler.FluidAction.EXECUTE);
+                    tank.drain(getDrinkVolume(tank.getFluid()), IFluidHandler.FluidAction.EXECUTE);
                     tankEntity.setChanged();
                     CountingDevice.resetCount(playerTag, -1);
                     Util.deBug("已有tag：" + blockEntity.getPersistentData(), level);
@@ -105,7 +107,7 @@ public abstract class AbstractCupEntityBlock extends BaseContainerTankBlock {
             }
         }
 
-        return InteractionResult.FAIL;
+        return InteractionResult.PASS;
     }
 
     @Override
@@ -141,7 +143,11 @@ public abstract class AbstractCupEntityBlock extends BaseContainerTankBlock {
     /**
      * @return 设置每次喝掉的液体量（默认50）
      */
-    public int getDrinkVolume() {
+    public int getDrinkVolume(FluidStack fluidStack) {
+        FluidFood fluidFood = FluidFood.getByFluid(fluidStack.getFluid());
+        if (fluidFood != null) {
+            return fluidFood.fluidAmount;
+        }
         return Config.drinkingConsumption.get();
     }
 

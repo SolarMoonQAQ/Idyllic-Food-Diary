@@ -1,0 +1,38 @@
+{
+  "type": "immersive_delight:soup_pot",
+  "input_ingredients": [
+    {
+      "item": "minecraft:red_mushroom"
+    },
+    {
+      "item": "minecraft:brown_mushroom"
+    },
+    {
+      "item": "minecraft:red_mushroom"
+    },
+    {
+      "item": "minecraft:brown_mushroom"
+    },
+    {
+      "item": "minecraft:red_mushroom"
+    },
+    {
+      "item": "minecraft:brown_mushroom"
+    },
+    {
+      "item": "minecraft:red_mushroom"
+    },
+    {
+      "item": "minecraft:brown_mushroom"
+    }
+  ],
+  "input_fluid": {
+    "tag": "minecraft:water",
+    "amount": 2000
+  },
+  "time": 200,
+  "output_fluid": {
+    "id": "immersive_delight:mushroom_stew",
+    "amount": 2000
+  }
+}

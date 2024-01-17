@@ -1,5 +1,6 @@
 package cn.solarmoon.immersive_delight.network.handler;
 
+import cn.solarmoon.immersive_delight.api.util.FluidHelper;
 import cn.solarmoon.immersive_delight.client.IMSounds;
 import cn.solarmoon.immersive_delight.api.common.item.BaseTankItem;
 import cn.solarmoon.immersive_delight.common.IMDamageTypes;
@@ -21,7 +22,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
@@ -84,7 +84,7 @@ public class ServerPackHandler {
                 if(player == null || pos == null) return;
                 ItemStack itemStack = player.getMainHandItem();
                 if(itemStack.getItem() instanceof BaseTankItem) {
-                    IFluidHandlerItem tankStack = itemStack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM, null).orElse(null);
+                    IFluidHandlerItem tankStack = FluidHelper.getTank(itemStack);
                     FluidStack fluidStack = tankStack.getFluidInTank(0);
                     int fluidAmount = fluidStack.getAmount();
                     if(fluidAmount > 0) {
@@ -100,10 +100,10 @@ public class ServerPackHandler {
                                 commonUse(fluidStack, level, entity);
                             }
                         }
+                        tankStack.drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.EXECUTE);
+                        if(!level.isClientSide) level.playSound(null, pos, SoundEvents.ARMOR_EQUIP_LEATHER, SoundSource.PLAYERS, 1F, 1F);
+                        if(!level.isClientSide) level.playSound(null, pos, IMSounds.PLAYER_SPILLING_WATER.get(), SoundSource.PLAYERS, 1F, 1F);
                     }
-                    tankStack.drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.EXECUTE);
-                    if(!level.isClientSide) level.playSound(null, pos, SoundEvents.ARMOR_EQUIP_LEATHER, SoundSource.PLAYERS, 1F, 1F);
-                    if(!level.isClientSide) level.playSound(null, pos, IMSounds.PLAYER_SPILLING_WATER.get(), SoundSource.PLAYERS, 1F, 1F);
                 }
             }
             //出入水音效

@@ -1,7 +1,7 @@
 package cn.solarmoon.immersive_delight.init;
 
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
-import cn.solarmoon.immersive_delight.util.TextUtil;
+import cn.solarmoon.immersive_delight.api.util.TextUtil;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;

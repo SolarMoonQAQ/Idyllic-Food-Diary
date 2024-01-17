@@ -14,14 +14,9 @@ import net.minecraft.world.item.Item;
 public class CeladonCupItem extends AbstractCupItem {
 
     public CeladonCupItem() {
-        super(IMEntityBlocks.CELADON_CUP.get(), new Item.Properties()
+        super(IMEntityBlocks.CELADON_CUP.get(), 250, new Item.Properties()
 
         );
-    }
-
-    @Override
-    public int getMaxCapacity() {
-        return Config.maxCeladonCupCapacity.get();
     }
 
 }

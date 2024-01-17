@@ -1,6 +1,6 @@
 package cn.solarmoon.immersive_delight.mixin;
 
-import cn.solarmoon.immersive_delight.util.FluidHelper;
+import cn.solarmoon.immersive_delight.api.util.FluidHelper;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraftforge.common.extensions.IForgeBoat;

@@ -14,6 +14,9 @@ import net.minecraftforge.items.ItemStackHandler;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 禁忌の液体物品容器双重存在
+ */
 public abstract class BaseContainerTankBlockEntity extends BaseTankBlockEntity {
 
     public ItemStackHandler inventory;

@@ -1,3 +1,4 @@
-// 1.20.1	2024-01-14T18:58:20.5399928	Tags for minecraft:fluid mod id immersive_delight
+// 1.20.1	2024-01-17T19:35:28.0794713	Tags for minecraft:fluid mod id immersive_delight
 92c6e5488e02db5d685eb0b180cbcdf9bb8749f9 data/immersive_delight/tags/fluids/hot_fluid.json
-c83646adf3a44135bc731a5af6283c6c56289c2c data/immersive_delight/tags/fluids/warm_fluid.json
+d53c3d45f3f99cc1f876d416147772d292f5c2ef data/immersive_delight/tags/fluids/warm_fluid.json
+9154ed58093b7194635b2f18d8a56527aea61f95 data/minecraft/tags/fluids/water.json
