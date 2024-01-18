@@ -80,8 +80,8 @@ minecraft {
 }
 
 mixin {
-    add sourceSets.main, "immersive_delight.refmap.json"
-    config "immersive_delight.mixins.json"
+    add sourceSets.main, "${mod_id}.refmap.json"
+    config "${mod_id}.mixins.json"
 }
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
