@@ -1,10 +1,9 @@
 package cn.solarmoon.immersive_delight.common.recipes;
 
-import cn.solarmoon.immersive_delight.ImmersiveDelight;
-import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseContainerTankBlockEntity;
-import cn.solarmoon.immersive_delight.data.tags.IMBlockTags;
+import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseTankContainerBlockEntity;
 import cn.solarmoon.immersive_delight.util.Util;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.RegistryAccess;
@@ -13,6 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
@@ -36,7 +36,7 @@ import static cn.solarmoon.immersive_delight.common.IMRecipes.SOUP_POT_RECIPE_SE
 
 public class SoupPotRecipe implements Recipe<RecipeWrapper> {
 
-    private static String AIR = "minecraft:air";
+    private static final String AIR = "minecraft:air";
 
     private final ResourceLocation id;
     private final List<Ingredient> inputIngredients;
@@ -46,8 +46,9 @@ public class SoupPotRecipe implements Recipe<RecipeWrapper> {
     private final int time;
     private final String outputFluid;
     public final int outputFluidAmount;
+    public final List<Item> outputItems;
 
-    public SoupPotRecipe(ResourceLocation id, List<Ingredient> inputs, String inputFluid, String inputFluidTag, int inputFluidAmount, int time, String output, int fluidAmount) {
+    public SoupPotRecipe(ResourceLocation id, List<Ingredient> inputs, String inputFluid, String inputFluidTag, int inputFluidAmount, int time, String output, int fluidAmount, List<Item> outputItems) {
         this.id = id;
         this.inputIngredients = inputs;
         this.inputFluid = inputFluid;
@@ -56,6 +57,7 @@ public class SoupPotRecipe implements Recipe<RecipeWrapper> {
         this.time = time;
         this.outputFluid = output;
         this.outputFluidAmount = fluidAmount;
+        this.outputItems = outputItems;
     }
 
     @Override
@@ -69,7 +71,7 @@ public class SoupPotRecipe implements Recipe<RecipeWrapper> {
      * 输入液体及量完全匹配
      * 下方为热源
      */
-    public boolean inputMatches(BaseContainerTankBlockEntity ct, RecipeWrapper inv, Level level, BlockPos pos) {
+    public boolean inputMatches(BaseTankContainerBlockEntity ct, RecipeWrapper inv, Level level, BlockPos pos) {
         List<ItemStack> stacks = new ArrayList<>();
         for (int i = 0; i < 9; i++) {
             ItemStack stack = inv.getItem(i);
@@ -79,8 +81,8 @@ public class SoupPotRecipe implements Recipe<RecipeWrapper> {
         }
         if (RecipeMatcher.findMatches(stacks, inputIngredients) != null) {
             FluidStack ctStack = ct.tank.getFluid();
-            if ( ( getInputFluid() != null && getInputFluid().equals(ctStack.getFluid()) )
-                    || ( getInputFluidTag() != null && ctStack.getFluid().defaultFluidState().is(getInputFluidTag()) )
+            if ( ( ( getInputFluid() != null && getInputFluid().equals(ctStack.getFluid()) )
+                    || ( getInputFluidTag() != null && ctStack.getFluid().defaultFluidState().is(getInputFluidTag()) ) )
                     && inputFluidAmount == ct.tank.getFluidAmount()) {
                 return Util.isHeatSource(level.getBlockState(pos.below()));
             }
@@ -150,9 +152,10 @@ public class SoupPotRecipe implements Recipe<RecipeWrapper> {
         if (!inputIngredients.equals(that.inputIngredients)) return false;
         if (!inputFluid.equals(that.outputFluid)) return false;
         if (inputFluidAmount != that.inputFluidAmount) return false;
-        if (getTime() != that.getTime()) return false;
+        if (time != that.time) return false;
         if (!outputFluid.equals(that.outputFluid)) return false;
-        return outputFluidAmount == that.outputFluidAmount;
+        if (outputFluidAmount != that.outputFluidAmount) return false;
+        return outputItems.equals(that.outputItems);
     }
 
     @Override
@@ -161,9 +164,10 @@ public class SoupPotRecipe implements Recipe<RecipeWrapper> {
         result = 31 * result + inputIngredients.hashCode();
         result = 31 * result + inputFluid.hashCode();
         result = 31 * result + inputFluidAmount;
-        result = 31 * result + getTime();
+        result = 31 * result + time;
         result = 31 * result + outputFluid.hashCode();
         result = 31 * result + outputFluidAmount;
+        result = 31 * result + outputItems.hashCode();
         return result;
     }
 
@@ -178,8 +182,8 @@ public class SoupPotRecipe implements Recipe<RecipeWrapper> {
         public @NotNull SoupPotRecipe fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
 
             List<Ingredient> inputIngredients = new ArrayList<>();
-            JsonArray itemArray = GsonHelper.getAsJsonArray(json, "input_ingredients");
-            for (var element : itemArray) {
+            JsonArray inArray = GsonHelper.getAsJsonArray(json, "input_ingredient");
+            for (var element : inArray) {
                 inputIngredients.add(Ingredient.fromJson(element));
             }
 
@@ -199,7 +203,16 @@ public class SoupPotRecipe implements Recipe<RecipeWrapper> {
             String outputFluid = GsonHelper.getAsString(outFluid, "id");
             int outputFluidAmount = GsonHelper.getAsInt(outFluid, "amount");
 
-            return new SoupPotRecipe(recipeId, inputIngredients, inputFluid, inputFluidTag, inputFluidAmount, time, outputFluid, outputFluidAmount);
+            List<Item> outputItems = new ArrayList<>();
+            if (json.has("output_item")) {
+                JsonArray itemArray = GsonHelper.getAsJsonArray(json, "output_item");
+                for (var element : itemArray) {
+                    JsonObject object = element.getAsJsonObject();
+                    outputItems.add(ForgeRegistries.ITEMS.getValue(new ResourceLocation(object.get("item").getAsString())));
+                }
+            }
+
+            return new SoupPotRecipe(recipeId, inputIngredients, inputFluid, inputFluidTag, inputFluidAmount, time, outputFluid, outputFluidAmount, outputItems);
         }
 
         @Nullable
@@ -221,7 +234,13 @@ public class SoupPotRecipe implements Recipe<RecipeWrapper> {
             String outputFluid = buffer.readUtf();
             int outputFluidAmount = buffer.readInt();
 
-            return new SoupPotRecipe(recipeId, inputIngredients, inputFluid, inputFluidTag, inputFluidAmount, time, outputFluid, outputFluidAmount);
+            List<Item> outputItems = new ArrayList<>();
+            int itemCount = buffer.readVarInt();
+            for (int i = 0; i < itemCount; i++) {
+                outputItems.add(ForgeRegistries.ITEMS.getValue(new ResourceLocation(buffer.readUtf())));
+            }
+
+            return new SoupPotRecipe(recipeId, inputIngredients, inputFluid, inputFluidTag, inputFluidAmount, time, outputFluid, outputFluidAmount, outputItems);
         }
 
         @Override
@@ -239,6 +258,10 @@ public class SoupPotRecipe implements Recipe<RecipeWrapper> {
 
             buffer.writeUtf(recipe.outputFluid);
             buffer.writeInt(recipe.outputFluidAmount);
+
+            for (Item item : recipe.outputItems) {
+                buffer.writeItem(item.getDefaultInstance());
+            }
 
         }
 

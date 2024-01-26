@@ -23,7 +23,7 @@ import net.minecraft.world.phys.BlockHitResult;
 
 import javax.annotation.Nullable;
 
-public class BaseFruitCrop extends SweetBerryBushBlock {
+public abstract class BaseFruitCrop extends SweetBerryBushBlock {
 
     public BaseFruitCrop() {
         super(BlockBehaviour.Properties
@@ -92,10 +92,9 @@ public class BaseFruitCrop extends SweetBerryBushBlock {
 
     /**
      * 如果不想改倍率直接改这个
+     * 获取收割物
      */
-    public Item getHarvestItem() {
-        return Items.APPLE;
-    }
+    public abstract Item getHarvestItem();
 
     /**
      * 收获功能

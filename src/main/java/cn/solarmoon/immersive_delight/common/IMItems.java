@@ -43,6 +43,9 @@ public class IMItems {
     //面饼
     public static final RegistryObject<FlatbreadDoughItem> FLATBREAD_DOUGH = ITEMS.register("flatbread_dough", FlatbreadDoughItem::new);
 
+    //藏书羊肉汤
+    public static final RegistryObject<CangshuMuttonSoupItem> CANGSHU_MUTTON_SOUP = ITEMS.register("cangshu_mutton_soup", CangshuMuttonSoupItem::new);
+
     //作物————————————————————————————————————————
 
     //红茶叶

@@ -7,7 +7,7 @@ import cn.solarmoon.immersive_delight.common.IMDamageTypes;
 import cn.solarmoon.immersive_delight.compat.create.Create;
 import cn.solarmoon.immersive_delight.data.fluid_effects.serializer.FluidEffect;
 import cn.solarmoon.immersive_delight.data.fluid_effects.serializer.PotionEffect;
-import cn.solarmoon.immersive_delight.api.network.serializer.ServerPackSerializer;
+import cn.solarmoon.immersive_delight.network.serializer.ServerPackSerializer;
 import cn.solarmoon.immersive_delight.data.tags.IMFluidTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

@@ -21,11 +21,10 @@ public class IMBlockLoots extends BlockLootSubProvider {
 
     @Override
     protected void generate() {
-        dropSelf(IMEntityBlocks.CELADON_CUP.get());
-        dropSelf(IMEntityBlocks.KETTLE.get());
         dropSelf(IMBlocks.FLATBREAD_DOUGH.get());
         dropSelf(IMBlocks.WHEAT_DOUGH.get());
         dropSelf(IMBlocks.DURIAN_BLOCK.get());
+        dropSelf(IMBlocks.CANGSHU_MUTTON_SOUP.get());
         dropSelf(IMBlocks.test.get());
 
         //这部分都是作物打掉掉种子

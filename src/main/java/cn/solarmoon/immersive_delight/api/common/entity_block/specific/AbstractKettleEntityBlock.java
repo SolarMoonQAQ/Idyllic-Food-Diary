@@ -1,9 +1,9 @@
 package cn.solarmoon.immersive_delight.api.common.entity_block.specific;
 
-import cn.solarmoon.immersive_delight.api.common.entity_block.BaseContainerTankEntityBlock;
+import cn.solarmoon.immersive_delight.api.common.entity_block.BaseTankEntityBlock;
+import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseTankBlockEntity;
 import cn.solarmoon.immersive_delight.client.IMSounds;
 import cn.solarmoon.immersive_delight.common.entity_blocks.KettleEntityBlock;
-import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseTankBlockEntity;
 import cn.solarmoon.immersive_delight.common.recipes.KettleRecipe;
 import cn.solarmoon.immersive_delight.data.tags.IMFluidTags;
 import cn.solarmoon.immersive_delight.util.RecipeHelper;
@@ -16,7 +16,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -31,7 +30,7 @@ import java.util.Random;
  * 应用tankBlockEntity，是一个液体容器（但是不使其具有原有的液体交互功能，而是替换为倒水功能）
  * 具有烧水、倒水功能
  */
-public abstract class AbstractKettleEntityBlock extends BaseContainerTankEntityBlock {
+public abstract class AbstractKettleEntityBlock extends BaseTankEntityBlock {
 
 
     protected AbstractKettleEntityBlock(Properties properties) {
@@ -45,16 +44,15 @@ public abstract class AbstractKettleEntityBlock extends BaseContainerTankEntityB
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         BlockEntity blockEntity = level.getBlockEntity(pos);
         BaseTankBlockEntity tankEntity = (BaseTankBlockEntity) blockEntity;
-        ItemStack heldItem = player.getItemInHand(hand);
         if(tankEntity == null) return InteractionResult.PASS;
 
-        if(getThis(hand, heldItem, player, level, pos ,state)) {
+        if(getThis(player, level, pos ,state, hand)) {
             level.playSound(null, pos, SoundEvents.LANTERN_BREAK, SoundSource.BLOCKS);
             return InteractionResult.SUCCESS;
         }
 
         //能够装入液体（不能取）
-        if (loadFluid(heldItem, tankEntity, player, level, pos, hand)) return InteractionResult.SUCCESS;
+        if (loadFluid(tankEntity, player, level, pos, hand)) return InteractionResult.SUCCESS;
         return InteractionResult.PASS;
     }
 

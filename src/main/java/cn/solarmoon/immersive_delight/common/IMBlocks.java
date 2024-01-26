@@ -6,6 +6,9 @@ import cn.solarmoon.immersive_delight.common.blocks.crops.AppleCrop;
 import cn.solarmoon.immersive_delight.common.blocks.crops.BlackTeaCrop;
 import cn.solarmoon.immersive_delight.common.blocks.crops.DurianCrop;
 import cn.solarmoon.immersive_delight.common.blocks.crops.GreenTeaCrop;
+import cn.solarmoon.immersive_delight.common.blocks.longPressEatBlock.CangshuMuttonSoupBlock;
+import cn.solarmoon.immersive_delight.common.blocks.longPressEatBlock.FlatbreadDoughBlock;
+import cn.solarmoon.immersive_delight.common.blocks.longPressEatBlock.WheatDoughBlock;
 import cn.solarmoon.immersive_delight.common.blocks.saplings.AppleSaplingBlock;
 import cn.solarmoon.immersive_delight.common.blocks.saplings.DurianSaplingBlock;
 import net.minecraftforge.fml.common.Mod;
@@ -22,6 +25,9 @@ public class IMBlocks {
     public static final RegistryObject<WheatDoughBlock> WHEAT_DOUGH = BLOCKS.register("wheat_dough", WheatDoughBlock::new);
     //面饼
     public static final RegistryObject<FlatbreadDoughBlock> FLATBREAD_DOUGH = BLOCKS.register("flatbread_dough", FlatbreadDoughBlock::new);
+    //藏书羊肉汤
+    public static final RegistryObject<CangshuMuttonSoupBlock> CANGSHU_MUTTON_SOUP = BLOCKS.register("cangshu_mutton_soup", CangshuMuttonSoupBlock::new);
+
     //
     public static final RegistryObject<test> test = BLOCKS.register("test", test::new);
 

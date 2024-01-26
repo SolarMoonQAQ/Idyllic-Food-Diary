@@ -1,6 +1,6 @@
 package cn.solarmoon.immersive_delight.compat.apple_skin;
 
-import cn.solarmoon.immersive_delight.api.common.item.AbstractCupItem;
+import cn.solarmoon.immersive_delight.api.common.item.specific.AbstractCupItem;
 import cn.solarmoon.immersive_delight.data.fluid_effects.serializer.FluidEffect;
 import cn.solarmoon.immersive_delight.data.fluid_effects.serializer.FoodValue;
 import net.minecraft.world.item.ItemStack;

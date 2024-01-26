@@ -12,7 +12,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class test extends BaseTakenFoodBlock {
     public test() {
-        super(Block.Properties.copy(Blocks.CAKE), 4, Items.APPLE, Items.BOWL);
+        super(4, Items.APPLE, Items.BOWL, Block.Properties.copy(Blocks.CAKE));
     }
 
     protected static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D);

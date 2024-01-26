@@ -1,11 +1,14 @@
 package cn.solarmoon.immersive_delight.api.common.block.food;
 
 import cn.solarmoon.immersive_delight.api.common.block.BaseWaterBlock;
+import cn.solarmoon.immersive_delight.api.common.item.specific.AbstractBowlFoodItem;
+import cn.solarmoon.immersive_delight.api.common.item.specific.AbstractCupItem;
 import cn.solarmoon.immersive_delight.util.CountingDevice;
 import cn.solarmoon.immersive_delight.util.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -19,7 +22,10 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
@@ -70,7 +76,8 @@ public abstract class BaseLongPressEatFoodBlock extends BaseWaterBlock {
      */
     @Override
     public @NotNull InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
-        if (player.canEat(false) && !player.getItemInHand(hand).is(ROLLING_PIN.get())) {
+        ItemStack heldItem = player.getItemInHand(hand);
+        if (player.canEat(false) && !heldItem.is(ROLLING_PIN.get())) {
 
             //计数装置
             CompoundTag playerTag = CountingDevice.player(player, pos, level);
@@ -82,9 +89,13 @@ public abstract class BaseLongPressEatFoodBlock extends BaseWaterBlock {
             if(level.isClientSide) eatParticle(pos);
 
             if (CountingDevice.getCount(playerTag) >= this.eatCount) {
-                //吃掉！
+
                 ItemStack food = state.getBlock().asItem().getDefaultInstance();
-                if(!level.isClientSide) player.eat(level, food);
+                //同时应用finishUsing方法，这样可以应用fluidEffect
+                food.getItem().finishUsingItem(food, level, player);
+                //吃掉！
+                player.eat(level, food);
+
                 //设置结束方块
                 level.setBlock(pos, this.blockLeft.defaultBlockState(), 3);
                 //重置计数

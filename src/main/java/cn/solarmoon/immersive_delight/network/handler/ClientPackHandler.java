@@ -1,8 +1,9 @@
 package cn.solarmoon.immersive_delight.network.handler;
 
-import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseContainerTankBlockEntity;
+import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseContainerBlockEntity;
+import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseTankContainerBlockEntity;
 import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseTankBlockEntity;
-import cn.solarmoon.immersive_delight.api.network.serializer.ClientPackSerializer;
+import cn.solarmoon.immersive_delight.network.serializer.ClientPackSerializer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
@@ -53,14 +54,26 @@ public class ClientPackHandler {
                     }
                 }
             }
-            case "updateCTBlock" -> {
+            case "updateCBlock" -> {
+                if (level == null || pos == null) return;
+                BlockEntity blockEntity = level.getBlockEntity(pos);
+                if(blockEntity instanceof BaseContainerBlockEntity c) {
+                    c.inventory.deserializeNBT(tag.getCompound("inventory"));
+                }
+            }
+            case "updateTBlock" -> {
                 if (level == null || pos == null) return;
                 BlockEntity blockEntity = level.getBlockEntity(pos);
                 if(blockEntity instanceof BaseTankBlockEntity tankBlockEntity) {
                     tankBlockEntity.setFluid(fluidStack);
-                    if(tankBlockEntity instanceof BaseContainerTankBlockEntity ct) {
-                        ct.inventory.deserializeNBT(tag.getCompound("inventory"));
-                    }
+                }
+            }
+            case "updateTCBlock" -> {
+                if (level == null || pos == null) return;
+                BlockEntity blockEntity = level.getBlockEntity(pos);
+                if(blockEntity instanceof BaseTankContainerBlockEntity tc) {
+                    tc.setFluid(fluidStack);
+                    tc.inventory.deserializeNBT(tag.getCompound("inventory"));
                 }
             }
             case "updateUpStep" -> {

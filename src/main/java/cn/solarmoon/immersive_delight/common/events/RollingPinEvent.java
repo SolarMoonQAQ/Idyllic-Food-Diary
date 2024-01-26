@@ -3,7 +3,7 @@ package cn.solarmoon.immersive_delight.common.events;
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
 import cn.solarmoon.immersive_delight.data.tags.IMBlockTags;
 import cn.solarmoon.immersive_delight.init.Config;
-import cn.solarmoon.immersive_delight.api.network.serializer.ServerPackSerializer;
+import cn.solarmoon.immersive_delight.network.serializer.ServerPackSerializer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;

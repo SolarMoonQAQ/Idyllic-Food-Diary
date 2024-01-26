@@ -1,16 +1,16 @@
 package cn.solarmoon.immersive_delight.api.common.entity_block.specific;
 
-import cn.solarmoon.immersive_delight.api.common.entity_block.BaseContainerTankEntityBlock;
-import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseContainerTankBlockEntity;
+import cn.solarmoon.immersive_delight.api.common.entity_block.BaseTCEntityBlock;
 import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseTankBlockEntity;
-import cn.solarmoon.immersive_delight.api.common.item.AbstractCupItem;
+import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseTankContainerBlockEntity;
+import cn.solarmoon.immersive_delight.api.common.item.specific.AbstractCupItem;
+import cn.solarmoon.immersive_delight.api.util.FluidHelper;
 import cn.solarmoon.immersive_delight.common.recipes.CupRecipe;
 import cn.solarmoon.immersive_delight.data.fluid_effects.serializer.FluidEffect;
 import cn.solarmoon.immersive_delight.data.fluid_foods.serializer.FluidFood;
 import cn.solarmoon.immersive_delight.data.tags.IMFluidTags;
 import cn.solarmoon.immersive_delight.init.Config;
 import cn.solarmoon.immersive_delight.util.CountingDevice;
-import cn.solarmoon.immersive_delight.api.util.FluidHelper;
 import cn.solarmoon.immersive_delight.util.RecipeHelper;
 import cn.solarmoon.immersive_delight.util.Util;
 import net.minecraft.core.BlockPos;
@@ -41,12 +41,11 @@ import java.util.Objects;
 /**
  * 作为大部分可饮用方块（如各类杯子）的抽象类
  */
-public abstract class AbstractCupEntityBlock extends BaseContainerTankEntityBlock {
+public abstract class AbstractCupEntityBlock extends BaseTCEntityBlock {
 
     protected AbstractCupEntityBlock(Properties properties) {
         super(properties
-                .strength(0f)
-                .noParticlesOnBreak()
+                .strength(0.5f)
                 .noOcclusion()
         );
     }
@@ -59,12 +58,11 @@ public abstract class AbstractCupEntityBlock extends BaseContainerTankEntityBloc
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         BlockEntity blockEntity = level.getBlockEntity(pos);
         BaseTankBlockEntity tankEntity = (BaseTankBlockEntity) blockEntity;
-        ItemStack heldItem = player.getItemInHand(hand);
         if(tankEntity == null) return InteractionResult.FAIL;
         FluidTank tank = tankEntity.tank;
 
         //空手shift+右键快速拿杯子
-        if(getThis(hand, heldItem, player, level, pos, state)) return InteractionResult.SUCCESS;
+        if(getThis(player, level, pos, state, hand)) return InteractionResult.SUCCESS;
 
         //计数装置
         CompoundTag playerTag = CountingDevice.player(player, pos, level);
@@ -73,10 +71,13 @@ public abstract class AbstractCupEntityBlock extends BaseContainerTankEntityBloc
         }
 
         //自动检测是否是流体容器，进行液体存取
-        if(loadFluid(heldItem, tankEntity, player, level, pos, hand)) return InteractionResult.SUCCESS;
+        if(loadFluid(tankEntity, player, level, pos, hand)) return InteractionResult.SUCCESS;
 
         //存取任意单个物品
-        if(storage(tankEntity, heldItem, player, hand)) return InteractionResult.SUCCESS;
+        if(storage(tankEntity, player, hand)) {
+            level.playSound(null , pos, SoundEvents.ARMOR_EQUIP_LEATHER, SoundSource.PLAYERS, 0.2f, 1f);
+            return InteractionResult.SUCCESS;
+        }
 
         /*喝！
         默认每两下喝一下，消耗默认50，小于50则全喝完不触发任何效果
@@ -121,8 +122,9 @@ public abstract class AbstractCupEntityBlock extends BaseContainerTankEntityBloc
      * 物品的nbt自然需要保存
      */
     @Override
-    public boolean storage(BlockEntity blockEntity, ItemStack heldItem, Player player, InteractionHand hand) {
-        if(blockEntity instanceof BaseContainerTankBlockEntity cupBlockEntity) {
+    public boolean storage(BlockEntity blockEntity, Player player, InteractionHand hand) {
+        if(blockEntity instanceof BaseTankContainerBlockEntity cupBlockEntity) {
+            ItemStack heldItem = player.getItemInHand(hand);
             if (!heldItem.isEmpty() && cupBlockEntity.inventory.getStackInSlot(0).isEmpty()) {
                 List<CupRecipe> recipes = RecipeHelper.GetRecipes.CupRecipes(player.level());
                 for (var recipe :recipes) {
@@ -190,7 +192,7 @@ public abstract class AbstractCupEntityBlock extends BaseContainerTankEntityBloc
         }
 
         //配方
-        if(blockEntity instanceof BaseContainerTankBlockEntity cupBlockEntity) {
+        if(blockEntity instanceof BaseTankContainerBlockEntity cupBlockEntity) {
             CupRecipe recipe = getCheckedRecipe(level, pos, blockEntity);
             if(recipe != null) {
                 FluidStack fluidStack = FluidHelper.getFluidStack(blockEntity);
@@ -217,7 +219,7 @@ public abstract class AbstractCupEntityBlock extends BaseContainerTankEntityBloc
         if(blockEntity instanceof BaseTankBlockEntity tankBlockEntity) {
             FluidStack fluidStack = tankBlockEntity.tank.getFluid();
             ItemStack stackIn = ItemStack.EMPTY;
-            if (tankBlockEntity instanceof BaseContainerTankBlockEntity cupBlockEntity) {
+            if (tankBlockEntity instanceof BaseTankContainerBlockEntity cupBlockEntity) {
                 stackIn = cupBlockEntity.inventory.getStackInSlot(0);
             }
             List<CupRecipe> recipes = RecipeHelper.GetRecipes.CupRecipes(level);
@@ -236,7 +238,7 @@ public abstract class AbstractCupEntityBlock extends BaseContainerTankEntityBloc
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
         BlockEntity blockEntity = level.getBlockEntity(pos);
-        if (blockEntity instanceof BaseContainerTankBlockEntity cup) {
+        if (blockEntity instanceof BaseTankContainerBlockEntity cup) {
             Vec3 spoutPos = pos.getCenter();
             FluidStack fluidStack = cup.tank.getFluid();
             if(!fluidStack.isEmpty() && fluidStack.getFluid().defaultFluidState().is(IMFluidTags.WARM_FLUID)) {

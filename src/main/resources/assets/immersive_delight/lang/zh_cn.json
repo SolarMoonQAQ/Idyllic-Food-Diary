@@ -28,6 +28,8 @@
   "block.immersive_delight.wheat_dough": "面团",
   "block.immersive_delight.flatbread_dough": "面饼",
 
+  "block.immersive_delight.cangshu_mutton_soup": "藏书羊肉汤",
+
 
   "block.immersive_delight.celadon_cup": "青瓷杯",
   "block.immersive_delight.celadon_cup_with_fluid": "装有%s的青瓷杯",
@@ -53,7 +55,8 @@
   "block.immersive_delight.hot_milk": "热牛奶",
   "fluid_type.immersive_delight.hot_milk": "热牛奶",
 
-  "fluid_type.immersive_delight.mushroom_stew": "蘑菇煲",
+  "fluid_type.immersive_delight.mushroom_stew_fluid": "蘑菇煲",
+  "fluid_type.immersive_delight.cangshu_mutton_soup_fluid": "藏书羊肉汤",
 
 
   "entity.immersive_delight.durian": "榴莲",

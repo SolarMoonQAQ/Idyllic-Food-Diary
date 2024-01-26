@@ -1,8 +1,7 @@
 package cn.solarmoon.immersive_delight.common.items;
 
 import cn.solarmoon.immersive_delight.common.IMEntityBlocks;
-import cn.solarmoon.immersive_delight.api.common.item.AbstractCupItem;
-import cn.solarmoon.immersive_delight.init.Config;
+import cn.solarmoon.immersive_delight.api.common.item.specific.AbstractCupItem;
 
 public class JadeChinaCupItem extends AbstractCupItem {
 

@@ -1,0 +1,34 @@
+{
+  "type": "immersive_delight:soup_pot",
+  "input_ingredient": [
+    {
+      "item": "minecraft:mutton"
+    },
+    {
+      "item": "minecraft:mutton"
+    },
+    {
+      "item": "minecraft:mutton"
+    }
+  ],
+  "input_fluid": {
+    "tag": "minecraft:water",
+    "amount": 2000
+  },
+  "time": 500,
+  "output_fluid": {
+    "id": "immersive_delight:cangshu_mutton_soup_fluid",
+    "amount": 2000
+  },
+  "output_item": [
+    {
+      "item": "minecraft:cooked_mutton"
+    },
+    {
+      "item": "minecraft:cooked_mutton"
+    },
+    {
+      "item": "minecraft:cooked_mutton"
+    }
+  ]
+}

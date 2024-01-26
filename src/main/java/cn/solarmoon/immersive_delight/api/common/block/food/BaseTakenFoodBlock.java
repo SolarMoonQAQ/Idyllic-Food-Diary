@@ -17,6 +17,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
@@ -37,18 +38,38 @@ public abstract class BaseTakenFoodBlock extends BaseWaterBlock {
     //必须用item而不是itemStack
     public final Item food;
     public final Item container;
+    public final Block leftBlock;
 
     /**
      * @param maxRemain 食物可被获取次数（形态数）
      * @param food 右键所获得的食物
      * @param container 获得食物所需的容器（需要拿着右键才能获取食物的物品）
      *                  为空的话则任何手都能拿
+     *                  默认情况下吃完后所设置的方块为container的block形式
      */
-    public BaseTakenFoodBlock(Properties properties, int maxRemain, Item food, Item container) {
+    public BaseTakenFoodBlock(int maxRemain, Item food, Item container, Properties properties) {
         super(properties);
         this.maxRemain = maxRemain;
         this.food = food;
         this.container = container;
+        this.leftBlock = Block.byItem(container);
+        this.registerDefaultState(this.getStateDefinition().any().setValue(REMAIN, maxRemain).setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false));
+    }
+
+    /**
+     * @param maxRemain 食物可被获取次数（形态数）
+     * @param food 右键所获得的食物
+     * @param container 获得食物所需的容器（需要拿着右键才能获取食物的物品）
+     *                  为空的话则任何手都能拿
+     *                  默认情况下吃完后所设置的方块为container的block形式
+     * @param leftBlock 吃完后所剩下的方块
+     */
+    public BaseTakenFoodBlock(int maxRemain, Item food, Item container, Block leftBlock, Properties properties) {
+        super(properties);
+        this.maxRemain = maxRemain;
+        this.food = food;
+        this.container = container;
+        this.leftBlock = leftBlock;
         this.registerDefaultState(this.getStateDefinition().any().setValue(REMAIN, maxRemain).setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false));
     }
 
@@ -56,11 +77,12 @@ public abstract class BaseTakenFoodBlock extends BaseWaterBlock {
      * @param maxRemain 食物可被获取次数（形态数）
      * @param food 右键所获得的食物
      */
-    public BaseTakenFoodBlock(Properties properties, int maxRemain, Item food) {
+    public BaseTakenFoodBlock(int maxRemain, Item food, Properties properties) {
         super(properties);
         this.maxRemain = maxRemain;
         this.food = food;
         this.container = Items.AIR;
+        this.leftBlock = Block.byItem(container);
         this.registerDefaultState(this.getStateDefinition().any().setValue(REMAIN, maxRemain).setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false));
     }
 
@@ -77,7 +99,13 @@ public abstract class BaseTakenFoodBlock extends BaseWaterBlock {
         if (remain > 0) {
             if ((heldItem.is(this.container) || this.container.equals(Items.AIR))) {
 
-                level.setBlock(pos, state.setValue(getRemain(), remain - 1), 3);
+                BlockState targetState = state.setValue(getRemain(), remain - 1);
+
+                level.setBlock(pos, targetState, 3);
+
+                if (targetState.getValue(getRemain()) == 0) {
+                    level.setBlock(pos, leftBlock.defaultBlockState(), 3);
+                }
 
                 heldItem.shrink(1);
 

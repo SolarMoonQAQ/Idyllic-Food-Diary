@@ -1,0 +1,19 @@
+{
+  "fluid": "immersive_delight:cangshu_mutton_soup_fluid",
+  "effects" : [
+    {
+      "id": "immersive_delight:snug",
+      "duration": "600",
+      "amplifier": "3"
+    },
+    {
+      "id": "minecraft:strength",
+      "duration": "60",
+      "amplifier": "4"
+    }
+  ],
+  "food_value": {
+    "hunger": 6,
+    "saturation": 1.5
+  }
+}

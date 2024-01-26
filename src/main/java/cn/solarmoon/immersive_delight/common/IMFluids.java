@@ -5,6 +5,7 @@ import cn.solarmoon.immersive_delight.common.fluids.BlackTeaFluid;
 import cn.solarmoon.immersive_delight.common.fluids.GreenTeaFluid;
 import cn.solarmoon.immersive_delight.common.fluids.HotMilkFluid;
 import cn.solarmoon.immersive_delight.common.fluids.HotWaterFluid;
+import cn.solarmoon.immersive_delight.common.fluids.no_bucket.CangShuMuttonSoupFluid;
 import cn.solarmoon.immersive_delight.common.fluids.no_bucket.MushroomStewFluid;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -189,12 +190,48 @@ public class IMFluids {
     @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class MushroomStew {
 
-        private static final String ID = "mushroom_stew";
+        private static final String ID = "mushroom_stew_fluid";
         private static final ResourceLocation SPRITE_FLOWING = new ResourceLocation(MOD_ID + ":fluid/" + ID + "_fluid_side");
         private static final ResourceLocation SPRITE_STILL = new ResourceLocation(MOD_ID + ":fluid/" + ID + "_fluid_top");
         public static RegistryObject<FlowingFluid> FLUID_STILL = FLUIDS.register(ID, MushroomStewFluid.Source::new);
         public static RegistryObject<FlowingFluid> FLUID_FLOWING = FLUIDS.register(ID + "_flowing", MushroomStewFluid.Flowing::new);
         public static RegistryObject<LiquidBlock> FLUID_BLOCK = BLOCKS.register(ID, HotWaterFluid.FluidBlock::new);
+        public static RegistryObject<FluidType> FLUID_TYPE = FLUID_TYPES.register(ID, () -> new FluidType(FluidType.Properties.create()) {
+
+            @Override
+            public void initializeClient(Consumer<IClientFluidTypeExtensions> consumer) {
+                consumer.accept(new IClientFluidTypeExtensions() {
+
+                    @Override
+                    public ResourceLocation getStillTexture() {
+                        return SPRITE_STILL;
+                    }
+
+                    @Override
+                    public ResourceLocation getFlowingTexture() {
+                        return SPRITE_FLOWING;
+                    }
+
+                    @Override
+                    public ResourceLocation getOverlayTexture() {
+                        return null;
+                    }
+
+                });
+            }
+        });
+
+    }
+
+    @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+    public static class CangShuMuttonSoup {
+
+        private static final String ID = "cangshu_mutton_soup_fluid";
+        private static final ResourceLocation SPRITE_FLOWING = new ResourceLocation(MOD_ID + ":fluid/" + ID + "_fluid_side");
+        private static final ResourceLocation SPRITE_STILL = new ResourceLocation(MOD_ID + ":fluid/" + ID + "_fluid_top");
+        public static RegistryObject<FlowingFluid> FLUID_STILL = FLUIDS.register(ID, CangShuMuttonSoupFluid.Source::new);
+        public static RegistryObject<FlowingFluid> FLUID_FLOWING = FLUIDS.register(ID + "_flowing", CangShuMuttonSoupFluid.Flowing::new);
+        public static RegistryObject<LiquidBlock> FLUID_BLOCK = BLOCKS.register(ID, CangShuMuttonSoupFluid.FluidBlock::new);
         public static RegistryObject<FluidType> FLUID_TYPE = FLUID_TYPES.register(ID, () -> new FluidType(FluidType.Properties.create()) {
 
             @Override

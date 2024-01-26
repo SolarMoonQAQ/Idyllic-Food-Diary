@@ -1,7 +1,7 @@
 package cn.solarmoon.immersive_delight.client.BlockEntityRenderer;
 
+import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseTankContainerBlockEntity;
 import cn.solarmoon.immersive_delight.api.common.entity_block.specific.AbstractCupEntityBlock;
-import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseContainerTankBlockEntity;
 import cn.solarmoon.immersive_delight.api.util.FluidHelper;
 import cn.solarmoon.immersive_delight.util.FluidRenderHelper;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -16,7 +16,7 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 
-public class LittleCupRenderer<E extends BaseContainerTankBlockEntity> implements BlockEntityRenderer<E> {
+public class LittleCupRenderer<E extends BaseTankContainerBlockEntity> implements BlockEntityRenderer<E> {
 
     private final ItemRenderer itemRenderer;
 
@@ -26,7 +26,7 @@ public class LittleCupRenderer<E extends BaseContainerTankBlockEntity> implement
 
     @SuppressWarnings("ConstantConditions")
     @Override
-    public void render(BaseContainerTankBlockEntity blockEntity, float tickDelta, PoseStack poseStack, MultiBufferSource buffer, int light, int overlay) {
+    public void render(BaseTankContainerBlockEntity blockEntity, float tickDelta, PoseStack poseStack, MultiBufferSource buffer, int light, int overlay) {
         IFluidHandler tank = FluidHelper.getTank(blockEntity);
         if (tank == null || tank.getFluidInTank(0) == null) {
             return;

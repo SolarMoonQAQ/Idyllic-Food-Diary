@@ -1,6 +1,6 @@
 {
   "type": "immersive_delight:soup_pot",
-  "input_ingredients": [
+  "input_ingredient": [
     {
       "item": "minecraft:red_mushroom"
     },
@@ -32,7 +32,7 @@
   },
   "time": 200,
   "output_fluid": {
-    "id": "immersive_delight:mushroom_stew",
+    "id": "immersive_delight:mushroom_stew_fluid",
     "amount": 2000
   }
 }
