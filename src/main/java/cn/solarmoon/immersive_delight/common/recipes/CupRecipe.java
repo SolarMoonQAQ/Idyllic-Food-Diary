@@ -1,6 +1,6 @@
 package cn.solarmoon.immersive_delight.common.recipes;
 
-import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseTankContainerBlockEntity;
+import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseTCBlockEntity;
 import com.google.gson.JsonObject;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.RegistryAccess;
@@ -21,8 +21,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import static cn.solarmoon.immersive_delight.common.IMRecipes.CUP_RECIPE;
-import static cn.solarmoon.immersive_delight.common.IMRecipes.CUP_RECIPE_SERIALIZER;
+import static cn.solarmoon.immersive_delight.common.registry.IMRecipes.CUP_RECIPE;
+import static cn.solarmoon.immersive_delight.common.registry.IMRecipes.CUP_RECIPE_SERIALIZER;
 
 public class CupRecipe implements Recipe<RecipeWrapper> {
 
@@ -57,7 +57,7 @@ public class CupRecipe implements Recipe<RecipeWrapper> {
         BlockEntity blockEntity = level.getBlockEntity(pos);
         boolean itemFlag = inputIngredient.test(itemStackIn);
         if (fluid != null) {
-            if(blockEntity instanceof BaseTankContainerBlockEntity) {
+            if(blockEntity instanceof BaseTCBlockEntity) {
                 return fluidStackIn.getFluid().equals(fluid) && itemFlag && fluidStackIn.getAmount() <= fluidAmount;
             }
         }

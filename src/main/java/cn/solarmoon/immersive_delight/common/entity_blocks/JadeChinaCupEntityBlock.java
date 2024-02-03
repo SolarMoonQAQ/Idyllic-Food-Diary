@@ -1,6 +1,6 @@
 package cn.solarmoon.immersive_delight.common.entity_blocks;
 
-import cn.solarmoon.immersive_delight.common.IMEntityBlocks;
+import cn.solarmoon.immersive_delight.common.registry.IMEntityBlocks;
 import cn.solarmoon.immersive_delight.api.common.entity_block.specific.AbstractCupEntityBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;

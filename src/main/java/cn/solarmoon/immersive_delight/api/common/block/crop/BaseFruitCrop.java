@@ -100,13 +100,14 @@ public abstract class BaseFruitCrop extends SweetBerryBushBlock {
      * 收获功能
      * 直接抄的甜浆果丛
      * 区别是这里返回age0，因为水果一般整个摘了
+     * 以及需要age到顶才能摘
      */
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         int i = state.getValue(AGE);
         boolean flag = i == 3;
         if (!flag && player.getItemInHand(hand).is(Items.BONE_MEAL)) {
             return InteractionResult.PASS;
-        } else if (i > 1) {
+        } else if (i > 2) {
             popResource(level, pos, harvestResults(level, flag));
             level.playSound(null, pos, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES, SoundSource.BLOCKS, 1.0F, 0.8F + level.random.nextFloat() * 0.4F);
             BlockState blockstate = state.setValue(AGE, 0);
@@ -114,7 +115,7 @@ public abstract class BaseFruitCrop extends SweetBerryBushBlock {
             level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, blockstate));
             return InteractionResult.sidedSuccess(level.isClientSide);
         } else {
-            return super.use(state, level, pos, player, hand, hitResult);
+            return InteractionResult.PASS;
         }
     }
 

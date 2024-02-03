@@ -2,10 +2,11 @@ package cn.solarmoon.immersive_delight.api.common.entity_block.specific;
 
 import cn.solarmoon.immersive_delight.api.common.entity_block.BaseTCEntityBlock;
 import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseTankBlockEntity;
-import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseTankContainerBlockEntity;
+import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseTCBlockEntity;
+import cn.solarmoon.immersive_delight.common.registry.IMRecipes;
 import cn.solarmoon.immersive_delight.common.recipes.SoupPotRecipe;
-import cn.solarmoon.immersive_delight.util.RecipeHelper;
-import cn.solarmoon.immersive_delight.util.Util;
+import cn.solarmoon.immersive_delight.api.util.RecipeUtil;
+import cn.solarmoon.immersive_delight.util.CoreUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -59,11 +60,11 @@ public abstract class AbstractSoupPotEntityBlock extends BaseTCEntityBlock {
     public void tick(Level level, BlockPos pos, BlockState state, BlockEntity blockEntity) {
         super.tick(level, pos, state, blockEntity);
 
-        if (blockEntity instanceof BaseTankContainerBlockEntity tc) {
+        if (blockEntity instanceof BaseTCBlockEntity tc) {
             SoupPotRecipe recipe = getCheckedRecipe(tc, level, pos);
             if (recipe != null) {
                 tc.time++;
-                Util.deBug("Time：" + tc.time, level);
+                CoreUtil.deBug("Time：" + tc.time, level);
                 if(tc.time >= recipe.getTime()) {
                     FluidStack newF = new FluidStack(recipe.getOutputFluid(), recipe.outputFluidAmount);
                     tc.setFluid(newF);
@@ -91,8 +92,8 @@ public abstract class AbstractSoupPotEntityBlock extends BaseTCEntityBlock {
     /**
      * 获取首个匹配的配方
      */
-    public SoupPotRecipe getCheckedRecipe(BaseTankContainerBlockEntity ct, Level level, BlockPos pos) {
-        List<SoupPotRecipe> recipes = RecipeHelper.GetRecipes.SoupPotRecipe(level);
+    public SoupPotRecipe getCheckedRecipe(BaseTCBlockEntity ct, Level level, BlockPos pos) {
+        List<SoupPotRecipe> recipes = RecipeUtil.getRecipes(level, IMRecipes.SOUP_POT_RECIPE.get());
         for (var recipe :recipes) {
             if(recipe.inputMatches(ct, new RecipeWrapper(ct.inventory), level, pos)) {
                 return recipe;

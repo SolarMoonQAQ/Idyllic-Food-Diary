@@ -1,14 +1,11 @@
 package cn.solarmoon.immersive_delight.api.common.block.food;
 
 import cn.solarmoon.immersive_delight.api.common.block.BaseWaterBlock;
-import cn.solarmoon.immersive_delight.api.common.item.specific.AbstractBowlFoodItem;
-import cn.solarmoon.immersive_delight.api.common.item.specific.AbstractCupItem;
 import cn.solarmoon.immersive_delight.util.CountingDevice;
-import cn.solarmoon.immersive_delight.util.Util;
+import cn.solarmoon.immersive_delight.util.CoreUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -22,15 +19,12 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
-import static cn.solarmoon.immersive_delight.common.IMItems.ROLLING_PIN;
+import static cn.solarmoon.immersive_delight.common.registry.IMItems.ROLLING_PIN;
 import static cn.solarmoon.immersive_delight.client.particles.vanilla.Eat.eat;
 
 
@@ -81,7 +75,7 @@ public abstract class BaseLongPressEatFoodBlock extends BaseWaterBlock {
 
             //计数装置
             CompoundTag playerTag = CountingDevice.player(player, pos, level);
-            Util.deBug("点击次数：" + CountingDevice.getCount(playerTag), level);
+            CoreUtil.deBug("点击次数：" + CountingDevice.getCount(playerTag), level);
 
             //吃的声音
             level.playSound(player, pos, getEatSound(), SoundSource.PLAYERS, 1.0F, 1.0F);

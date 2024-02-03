@@ -3,7 +3,7 @@ package cn.solarmoon.immersive_delight.common.fluids;
 import cn.solarmoon.immersive_delight.api.common.fluid.BaseHotFluid;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
 
-import static cn.solarmoon.immersive_delight.common.IMFluids.HotWater.*;
+import static cn.solarmoon.immersive_delight.common.registry.IMFluids.HotWater.*;
 
 /**
  * 热水，站入其中受到伤害

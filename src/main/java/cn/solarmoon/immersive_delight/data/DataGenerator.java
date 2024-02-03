@@ -1,7 +1,5 @@
 package cn.solarmoon.immersive_delight.data;
 
-import cn.solarmoon.immersive_delight.ImmersiveDelight;
-import cn.solarmoon.immersive_delight.common.IMFeatures;
 import cn.solarmoon.immersive_delight.data.loot_tables.IMBlockLoots;
 import cn.solarmoon.immersive_delight.data.tags.IMBlockTags;
 import cn.solarmoon.immersive_delight.data.tags.IMFluidTags;

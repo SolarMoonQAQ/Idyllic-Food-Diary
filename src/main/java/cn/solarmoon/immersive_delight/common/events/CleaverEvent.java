@@ -1,9 +1,10 @@
 package cn.solarmoon.immersive_delight.common.events;
 
+import cn.solarmoon.immersive_delight.common.registry.IMRecipes;
 import cn.solarmoon.immersive_delight.common.recipes.CleaverRecipe;
 import cn.solarmoon.immersive_delight.data.tags.IMItemTags;
-import cn.solarmoon.immersive_delight.util.LevelSummonHelper;
-import cn.solarmoon.immersive_delight.util.RecipeHelper;
+import cn.solarmoon.immersive_delight.api.util.LevelSummonUtil;
+import cn.solarmoon.immersive_delight.api.util.RecipeUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -35,7 +36,7 @@ public class CleaverEvent {
         //斧子或刀或剑都可用
         if (useItem.is(ItemTags.AXES) || useItem.is(ItemTags.SWORDS)
                 || useItem.is(IMItemTags.FORGE_KNIVES) || useItem.is(IMItemTags.FORGE_AXES) || useItem.is(IMItemTags.FORGE_SWORDS)) {
-            List<CleaverRecipe> recipes = RecipeHelper.GetRecipes.CleaverRecipe(level);
+            List<CleaverRecipe> recipes = RecipeUtil.getRecipes(level, IMRecipes.CLEAVER_RECIPE.get());
             for (var recipe : recipes) {
                 if (recipe.getInput().test(state.getBlock().asItem().getDefaultInstance())) {
                     //获取幸运源
@@ -48,7 +49,7 @@ public class CleaverEvent {
                     //输出（生成掉落物）
                     List<ItemStack> results = recipe.rollResults(rand, totalLuckLevel);
                     for (var stack : results) {
-                        LevelSummonHelper.summonDrop(stack, level, pos);
+                        LevelSummonUtil.summonDrop(stack, level, pos);
                     }
                     level.destroyBlock(pos, false);
                     useItem.hurtAndBreak(1, player, (entity) -> entity.broadcastBreakEvent(player.getUsedItemHand()));

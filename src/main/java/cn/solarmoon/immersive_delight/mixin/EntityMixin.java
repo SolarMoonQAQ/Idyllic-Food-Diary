@@ -1,8 +1,8 @@
 package cn.solarmoon.immersive_delight.mixin;
 
-import cn.solarmoon.immersive_delight.client.IMParticles;
-import cn.solarmoon.immersive_delight.common.IMFluids;
-import cn.solarmoon.immersive_delight.api.util.FluidHelper;
+import cn.solarmoon.immersive_delight.api.util.FluidUtil;
+import cn.solarmoon.immersive_delight.common.registry.IMParticles;
+import cn.solarmoon.immersive_delight.common.registry.IMFluids;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -66,7 +66,7 @@ public abstract class EntityMixin {
     public void tick(CallbackInfo ci) {
         //第一次完全进入/出水判别 (模组液体)
         //这个限制 活体
-        boolean isFullInWater = FluidHelper.IMFluidsMatch(getEyeInFluidType());
+        boolean isFullInWater = FluidUtil.IMFluidsMatch(getEyeInFluidType());
         Entity entity = ((Entity)(Object)this);
         if (entity instanceof LivingEntity) {
             CompoundTag tag = entity.getPersistentData();
@@ -91,7 +91,7 @@ public abstract class EntityMixin {
     @Inject(method = "tick", at = @At("HEAD"))
     public void tick2(CallbackInfo ci) {
         Entity entity = ((Entity)(Object)this);
-        boolean isInFluid = FluidHelper.isInFluid(entity);
+        boolean isInFluid = FluidUtil.isInFluid(entity);
         //游泳音效
         if(isInFluid) {
             this.waterSwimSound();

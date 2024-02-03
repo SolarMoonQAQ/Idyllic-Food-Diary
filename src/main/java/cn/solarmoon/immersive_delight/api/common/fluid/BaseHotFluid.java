@@ -1,8 +1,9 @@
 package cn.solarmoon.immersive_delight.api.common.fluid;
 
-import cn.solarmoon.immersive_delight.common.IMDamageTypes;
-import cn.solarmoon.immersive_delight.common.IMEffects;
-import cn.solarmoon.immersive_delight.api.util.FluidHelper;
+import cn.solarmoon.immersive_delight.api.util.DamageUtil;
+import cn.solarmoon.immersive_delight.common.registry.IMDamageTypes;
+import cn.solarmoon.immersive_delight.common.registry.IMEffects;
+import cn.solarmoon.immersive_delight.api.util.FluidUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -45,7 +46,7 @@ public abstract class BaseHotFluid {
                     }
                     //只在连火焰保护都没有的情况下造成伤害
                 } else if (enchantmentLevel < 1) {
-                    living.hurt(IMDamageTypes.getSimpleDamageSource(level, IMDamageTypes.scald), 1f);
+                    living.hurt(DamageUtil.getSimpleDamageSource(level, IMDamageTypes.scald), 1f);
                 }
             }
 
@@ -56,7 +57,7 @@ public abstract class BaseHotFluid {
                 if (!tag.contains("inHotFluid")) {
                     tag.putBoolean("inHotFluid", false);
                 }
-                boolean isInHotFluid = FluidHelper.isInHotFluid(entity);
+                boolean isInHotFluid = FluidUtil.isInHotFluid(entity);
                 if (isInHotFluid && !tag.getBoolean("inHotFluid")) {
                     if (!level.isClientSide)
                         level.playSound(null, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.PLAYERS, 1F, 1F);
@@ -101,7 +102,7 @@ public abstract class BaseHotFluid {
 
         //只在上表面生成粒子
         if(random.nextDouble() < 0.05 && !level.getFluidState(pos.above()).is(state.getType())) {
-            level.addAlwaysVisibleParticle(ParticleTypes.CLOUD, pos.getX(), pos.getY() + 2, pos.getZ(), 0, 0.1, 0);
+            level.addAlwaysVisibleParticle(ParticleTypes.CLOUD, pos.getX(), pos.getY() + 2, pos.getZ(), 0, 0.07, 0);
         }
 
     }

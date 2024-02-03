@@ -1,8 +1,8 @@
 package cn.solarmoon.immersive_delight.common.entities;
 
-import cn.solarmoon.immersive_delight.common.IMEntityTypes;
-import cn.solarmoon.immersive_delight.common.IMItems;
-import cn.solarmoon.immersive_delight.util.LevelSummonHelper;
+import cn.solarmoon.immersive_delight.common.registry.IMEntityTypes;
+import cn.solarmoon.immersive_delight.common.registry.IMItems;
+import cn.solarmoon.immersive_delight.api.util.LevelSummonUtil;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -31,8 +31,8 @@ public class DurianEntity extends AbstractArrow {
     protected void onHit(HitResult hit) {
         super.onHit(hit);
         Level level = this.level();
-        LevelSummonHelper.summonDrop(IMItems.DURIAN_FLESH.get(), level, hit.getLocation(), 2, 4);
-        LevelSummonHelper.summonDrop(IMItems.DURIAN_SHELL.get(), level, hit.getLocation(), 2);
+        LevelSummonUtil.summonDrop(IMItems.DURIAN_FLESH.get(), level, hit.getLocation(), 2, 4);
+        LevelSummonUtil.summonDrop(IMItems.DURIAN_SHELL.get(), level, hit.getLocation(), 2);
         this.discard();
     }
 

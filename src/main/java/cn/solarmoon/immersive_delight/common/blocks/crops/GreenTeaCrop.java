@@ -1,6 +1,6 @@
 package cn.solarmoon.immersive_delight.common.blocks.crops;
 
-import cn.solarmoon.immersive_delight.common.IMItems;
+import cn.solarmoon.immersive_delight.common.registry.IMItems;
 import cn.solarmoon.immersive_delight.api.common.block.crop.BaseTeaCrop;
 import net.minecraft.world.item.Item;
 

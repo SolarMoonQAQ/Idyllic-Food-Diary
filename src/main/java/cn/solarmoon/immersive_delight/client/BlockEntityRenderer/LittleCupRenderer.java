@@ -1,9 +1,9 @@
 package cn.solarmoon.immersive_delight.client.BlockEntityRenderer;
 
-import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseTankContainerBlockEntity;
+import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseTCBlockEntity;
 import cn.solarmoon.immersive_delight.api.common.entity_block.specific.AbstractCupEntityBlock;
-import cn.solarmoon.immersive_delight.api.util.FluidHelper;
-import cn.solarmoon.immersive_delight.util.FluidRenderHelper;
+import cn.solarmoon.immersive_delight.api.util.FluidUtil;
+import cn.solarmoon.immersive_delight.util.FluidRenderUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
@@ -16,7 +16,7 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 
-public class LittleCupRenderer<E extends BaseTankContainerBlockEntity> implements BlockEntityRenderer<E> {
+public class LittleCupRenderer<E extends BaseTCBlockEntity> implements BlockEntityRenderer<E> {
 
     private final ItemRenderer itemRenderer;
 
@@ -26,33 +26,33 @@ public class LittleCupRenderer<E extends BaseTankContainerBlockEntity> implement
 
     @SuppressWarnings("ConstantConditions")
     @Override
-    public void render(BaseTankContainerBlockEntity blockEntity, float tickDelta, PoseStack poseStack, MultiBufferSource buffer, int light, int overlay) {
-        IFluidHandler tank = FluidHelper.getTank(blockEntity);
+    public void render(BaseTCBlockEntity blockEntity, float tickDelta, PoseStack poseStack, MultiBufferSource buffer, int light, int overlay) {
+        IFluidHandler tank = FluidUtil.getTank(blockEntity);
         if (tank == null || tank.getFluidInTank(0) == null) {
             return;
         }
         FluidStack fluidStack = tank.getFluidInTank(0);
 
-        VertexConsumer consumer = buffer.getBuffer(FluidRenderHelper.FluidTankRenderType.RESIZABLE);
+        VertexConsumer consumer = buffer.getBuffer(FluidRenderUtil.FluidTankRenderType.RESIZABLE);
 
         // 渲染流体过渡动画
         float zoom = 3/16f;
         int ticks = blockEntity.ticks;
         float progress = ticks * 0.01f;
-        float targetScale = FluidHelper.getScale(blockEntity.tank);
+        float targetScale = FluidUtil.getScale(blockEntity.tank);
         blockEntity.lastScale = targetScale - (targetScale - blockEntity.lastScale) * (1 - progress);
 
-        int targetColor = FluidRenderHelper.FluidRenderMap.getColor(fluidStack);
+        int targetColor = FluidRenderUtil.FluidRenderMap.getColor(fluidStack);
 
-        FluidRenderHelper.Model3D model = FluidRenderHelper.getFluidModel(fluidStack, FluidRenderHelper.STAGES - 1);
+        FluidRenderUtil.Model3D model = FluidRenderUtil.getFluidModel(fluidStack, FluidRenderUtil.STAGES - 1);
 
         poseStack.pushPose();
         float posB = 6.5f/16f;
         poseStack.translate(posB, 0.1f, posB);
         poseStack.scale(zoom, blockEntity.lastScale * 0.185f, zoom);
-        FluidRenderHelper.RenderResizableCuboid.renderCube(model,
+        FluidRenderUtil.RenderResizableCuboid.renderCube(model,
                 poseStack, consumer, targetColor,
-                FluidRenderHelper.FluidRenderMap.calculateGlowLight(light, fluidStack));
+                FluidRenderUtil.FluidRenderMap.calculateGlowLight(light, fluidStack));
         poseStack.popPose();
 
         //渲染物品

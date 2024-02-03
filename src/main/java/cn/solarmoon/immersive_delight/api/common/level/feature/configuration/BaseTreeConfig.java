@@ -26,6 +26,7 @@ public class BaseTreeConfig implements FeatureConfiguration {
                     .fieldOf("trunk_provider").forGetter((config) -> config.trunkProvider),
                     BlockStateProvider.CODEC
                             .fieldOf("foliage_provider").forGetter((config) -> config.foliageProvider),
-                    FancyTrunkPlacer.CODEC.fieldOf("trunk_placer").forGetter((config) -> config.trunkPlacer))
+                    FancyTrunkPlacer.CODEC
+                            .fieldOf("trunk_placer").forGetter((config) -> config.trunkPlacer))
             .apply(builder, BaseTreeConfig::new));
 }

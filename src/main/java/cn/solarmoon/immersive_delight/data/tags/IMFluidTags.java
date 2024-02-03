@@ -1,15 +1,13 @@
 package cn.solarmoon.immersive_delight.data.tags;
 
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
-import cn.solarmoon.immersive_delight.common.IMFluids;
+import cn.solarmoon.immersive_delight.common.registry.IMFluids;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.FluidTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -44,6 +42,10 @@ public class IMFluidTags extends FluidTagsProvider {
                 IMFluids.BlackTea.FLUID_FLOWING.get(),
                 IMFluids.GreenTea.FLUID_STILL.get(),
                 IMFluids.GreenTea.FLUID_FLOWING.get(),
+                IMFluids.MilkTea.FLUID_STILL.get(),
+                IMFluids.MilkTea.FLUID_FLOWING.get(),
+                IMFluids.CangShuMuttonSoup.FLUID_STILL.get(),
+                IMFluids.CangShuMuttonSoup.FLUID_FLOWING.get(),
                 IMFluids.MushroomStew.FLUID_STILL.get(),
                 IMFluids.MushroomStew.FLUID_FLOWING.get()
         )

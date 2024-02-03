@@ -1,13 +1,16 @@
 package cn.solarmoon.immersive_delight.network.handler;
 
-import cn.solarmoon.immersive_delight.api.util.FluidHelper;
-import cn.solarmoon.immersive_delight.client.IMSounds;
+import cn.solarmoon.immersive_delight.api.util.CapabilityUtil;
+import cn.solarmoon.immersive_delight.api.util.DamageUtil;
+import cn.solarmoon.immersive_delight.api.util.FluidUtil;
+import cn.solarmoon.immersive_delight.common.registry.IMSounds;
 import cn.solarmoon.immersive_delight.api.common.item.BaseTankItem;
-import cn.solarmoon.immersive_delight.common.IMDamageTypes;
-import cn.solarmoon.immersive_delight.compat.create.Create;
+import cn.solarmoon.immersive_delight.common.registry.IMCapabilities;
+import cn.solarmoon.immersive_delight.common.registry.IMDamageTypes;
+import cn.solarmoon.immersive_delight.compat.create.util.PotionUtil;
 import cn.solarmoon.immersive_delight.data.fluid_effects.serializer.FluidEffect;
 import cn.solarmoon.immersive_delight.data.fluid_effects.serializer.PotionEffect;
-import cn.solarmoon.immersive_delight.network.serializer.ServerPackSerializer;
+import cn.solarmoon.immersive_delight.api.network.serializer.ServerPackSerializer;
 import cn.solarmoon.immersive_delight.data.tags.IMFluidTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -84,7 +87,7 @@ public class ServerPackHandler {
                 if(player == null || pos == null) return;
                 ItemStack itemStack = player.getMainHandItem();
                 if(itemStack.getItem() instanceof BaseTankItem) {
-                    IFluidHandlerItem tankStack = FluidHelper.getTank(itemStack);
+                    IFluidHandlerItem tankStack = FluidUtil.getTank(itemStack);
                     FluidStack fluidStack = tankStack.getFluidInTank(0);
                     int fluidAmount = fluidStack.getAmount();
                     if(fluidAmount > 0) {
@@ -115,6 +118,12 @@ public class ServerPackHandler {
                 if(pos == null || level == null) return;
                 if(!level.isClientSide) level.playSound(null, pos, SoundEvents.AMBIENT_UNDERWATER_EXIT, SoundSource.PLAYERS, 0.8f, 1f);
             }
+            case "updateIndex" -> {
+                CapabilityUtil.getData(player, IMCapabilities.PLAYER_DATA).getRecipeSelectorData().setIndex(packet.i());
+            }
+            case "updateRecipeIndex" -> {
+                CapabilityUtil.getData(player, IMCapabilities.PLAYER_DATA).getRecipeSelectorData().setRecipeIndex(packet.i());
+            }
         }
     }
 
@@ -127,7 +136,7 @@ public class ServerPackHandler {
         String fluidTag = fluidStack.getTag() != null ? fluidStack.getTag().toString() : "empty";
 
         //机械动力联动：根据药水tag获取药水效果
-        Create.applyPotionFluidEffect(fluidTag, entity, level);
+        PotionUtil.applyPotionFluidEffect(fluidTag, entity, level);
 
         FluidEffect fluidEffect = FluidEffect.get(fluidId);
         if(fluidEffect != null) {
@@ -141,7 +150,7 @@ public class ServerPackHandler {
             if(fluidEffect.extinguishing) if(!level.isClientSide) entity.clearFire();
             //泼热水造成伤害
             if(fluidStack.getFluid().defaultFluidState().is(IMFluidTags.HOT_FLUID)) {
-                entity.hurt(IMDamageTypes.getSimpleDamageSource(level, IMDamageTypes.scald), 4f);
+                entity.hurt(DamageUtil.getSimpleDamageSource(level, IMDamageTypes.scald), 4f);
                 level.playSound(null, entity.getOnPos(), SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS);
             }
             //把每种药水效果按概率应用于玩家

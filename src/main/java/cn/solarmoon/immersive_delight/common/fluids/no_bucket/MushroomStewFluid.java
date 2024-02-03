@@ -3,7 +3,7 @@ package cn.solarmoon.immersive_delight.common.fluids.no_bucket;
 import cn.solarmoon.immersive_delight.api.common.fluid.BaseFluid;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
 
-import static cn.solarmoon.immersive_delight.common.IMFluids.MushroomStew.*;
+import static cn.solarmoon.immersive_delight.common.registry.IMFluids.MushroomStew.*;
 
 public class MushroomStewFluid {
 

@@ -1,6 +1,6 @@
 package cn.solarmoon.immersive_delight.common.events;
 
-import cn.solarmoon.immersive_delight.common.IMEffects;
+import cn.solarmoon.immersive_delight.common.registry.IMEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.event.entity.living.LivingHealEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

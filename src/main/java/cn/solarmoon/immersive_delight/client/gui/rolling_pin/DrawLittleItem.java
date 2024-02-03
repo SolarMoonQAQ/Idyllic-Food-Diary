@@ -1,11 +1,18 @@
 package cn.solarmoon.immersive_delight.client.gui.rolling_pin;
 
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
-import cn.solarmoon.immersive_delight.client.events.RollingPinClientEvent;
+import cn.solarmoon.immersive_delight.api.common.capability.serializable.RecipeSelectorData;
+import cn.solarmoon.immersive_delight.api.util.CapabilityUtil;
+import cn.solarmoon.immersive_delight.client.event.RollingPinClientEvent;
+import cn.solarmoon.immersive_delight.common.registry.IMCapabilities;
+import cn.solarmoon.immersive_delight.common.registry.IMItems;
+import cn.solarmoon.immersive_delight.common.items.RollingPinItem;
+import cn.solarmoon.immersive_delight.api.util.ItemHelper;
 import cn.solarmoon.immersive_delight.util.RollingPinHelper;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
@@ -25,6 +32,13 @@ public class DrawLittleItem {
     public static void drawLittleItem(GuiGraphics graphics) {
 
         Minecraft mc = Minecraft.getInstance();
+
+        LocalPlayer player = mc.player;
+
+        ItemHelper finder = new ItemHelper(player);
+        RollingPinItem pin = finder.getItemInHand(IMItems.ROLLING_PIN.get());
+
+        RecipeSelectorData selector = CapabilityUtil.getData(player, IMCapabilities.PLAYER_DATA).getRecipeSelectorData();
 
         graphics.pose().pushPose();
 
@@ -54,11 +68,11 @@ public class DrawLittleItem {
 
         ItemStack icon2 = ItemStack.EMPTY;
         ItemStack icon3 = ItemStack.EMPTY;
-        if (RollingPinClientEvent.possibleOutputs != null) {
-            int size = RollingPinClientEvent.possibleOutputs.size();
-            if (size > 0) {
-                icon2 = RollingPinClientEvent.possibleOutputs.get((RollingPinClientEvent.currentRecipeIndex - 1 + size) % size);
-                icon3 = RollingPinClientEvent.possibleOutputs.get((RollingPinClientEvent.currentRecipeIndex + 1) % size);
+        if (!pin.getOptionalOutputs().isEmpty()) {
+            int size = pin.getOptionalOutputs().size();
+            if (size > 1) {
+                icon2 = pin.getOptionalOutputs().get((selector.getIndex() - 1 + size) % size);
+                icon3 = pin.getOptionalOutputs().get((selector.getIndex() + 1) % size);
             }
             if (RollingPinClientEvent.upRoll) {
                 float scaleSpeed = 0.1F;  // 控制放大速度

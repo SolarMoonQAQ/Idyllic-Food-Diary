@@ -1,13 +1,13 @@
 package cn.solarmoon.immersive_delight.api.common.entity_block;
 
-import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseTankContainerBlockEntity;
-import cn.solarmoon.immersive_delight.client.IMSounds;
+import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseTCBlockEntity;
+import cn.solarmoon.immersive_delight.common.registry.IMSounds;
 import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseTankBlockEntity;
-import cn.solarmoon.immersive_delight.compat.create.Create;
-import cn.solarmoon.immersive_delight.network.serializer.ClientPackSerializer;
-import cn.solarmoon.immersive_delight.util.ContainerHelper;
-import cn.solarmoon.immersive_delight.api.util.FluidHelper;
-import cn.solarmoon.immersive_delight.util.LevelSummonHelper;
+import cn.solarmoon.immersive_delight.api.network.serializer.ClientPackSerializer;
+import cn.solarmoon.immersive_delight.compat.create.util.PotionUtil;
+import cn.solarmoon.immersive_delight.util.ContainerUtil;
+import cn.solarmoon.immersive_delight.api.util.FluidUtil;
+import cn.solarmoon.immersive_delight.api.util.LevelSummonUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
@@ -24,7 +24,6 @@ import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.fluids.FluidActionResult;
-import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 
@@ -70,7 +69,7 @@ public abstract class BaseTCEntityBlock extends BasicEntityBlock {
      * 手不为空时存入，为空时疯狂取出
      */
     public boolean storage(BlockEntity blockEntity, Player player, InteractionHand hand) {
-        if (blockEntity instanceof BaseTankContainerBlockEntity tc) {
+        if (blockEntity instanceof BaseTCBlockEntity tc) {
             ItemStack heldItem = player.getItemInHand(hand);
             if (!heldItem.isEmpty()) {
                 ItemStack result = tc.insertItem(heldItem);
@@ -79,7 +78,7 @@ public abstract class BaseTCEntityBlock extends BasicEntityBlock {
                 return !result.equals(heldItem);
             } else if (!tc.getStacks().isEmpty()) {
                 ItemStack result = tc.extractItem();
-                LevelSummonHelper.addItemToInventory(player, result);
+                LevelSummonUtil.addItemToInventory(player, result);
                 tc.setChanged();
                 return !result.equals(heldItem);
             }
@@ -103,25 +102,25 @@ public abstract class BaseTCEntityBlock extends BasicEntityBlock {
         if (fluidLoadSetting() == 0 || fluidLoadSetting() == 1) {
             Player flag = player;
             if (pouringSound()) flag = null;
-            result = FluidUtil.tryEmptyContainer(heldItem, tank, Integer.MAX_VALUE, flag, true);
+            result = net.minecraftforge.fluids.FluidUtil.tryEmptyContainer(heldItem, tank, Integer.MAX_VALUE, flag, true);
             if (result.isSuccess()) {
                 if (!player.isCreative()) player.setItemInHand(hand, result.getResult());
                 tankEntity.setChanged();
                 if (pouringSound()) {
                     level.playSound(null, pos, IMSounds.PLAYER_POUR.get(), SoundSource.PLAYERS, 0.8F, 1F);
-                } else Create.playPouringSound(tank.getFluid(), level, pos);
+                } else PotionUtil.playPouringSound(tank.getFluid(), level, pos);
                 return true;
             }
         }
 
         //取出液体
         if (fluidLoadSetting() == 0 || fluidLoadSetting() == 2) {
-            result = FluidUtil.tryFillContainer(heldItem, tank, Integer.MAX_VALUE, player, true);
+            result = net.minecraftforge.fluids.FluidUtil.tryFillContainer(heldItem, tank, Integer.MAX_VALUE, player, true);
             if (result.isSuccess()) {
                 if (!player.isCreative()) player.setItemInHand(hand, result.getResult());
-                IFluidHandlerItem tankStack = FluidHelper.getTank(player.getItemInHand(hand));
+                IFluidHandlerItem tankStack = FluidUtil.getTank(player.getItemInHand(hand));
                 tankEntity.setChanged();
-                Create.playFillingSound(tankStack.getFluidInTank(0), level, pos, player);
+                PotionUtil.playFillingSound(tankStack.getFluidInTank(0), level, pos, player);
                 return true;
             }
         }
@@ -134,7 +133,7 @@ public abstract class BaseTCEntityBlock extends BasicEntityBlock {
     @Override
     public void tick(Level level, BlockPos pos, BlockState state, BlockEntity blockEntity) {
         //防止放入液体时液体值和物品未在客户端同步 而 造成的 假右键操作
-        if (blockEntity instanceof BaseTankContainerBlockEntity ct) {
+        if (blockEntity instanceof BaseTCBlockEntity ct) {
             CompoundTag tag = new CompoundTag();
             tag.put("inventory", ct.inventory.serializeNBT());
             ClientPackSerializer.sendPacket(pos, ct.tank.getFluid(), tag, "updateTCBlock");
@@ -150,8 +149,8 @@ public abstract class BaseTCEntityBlock extends BasicEntityBlock {
         super.setPlacedBy(level, pos, state, placer, stack);
         BlockEntity blockEntity = level.getBlockEntity(pos);
         if(blockEntity == null) return;
-        FluidHelper.setTank(blockEntity, stack);
-        if(blockEntity instanceof BaseTankContainerBlockEntity ct) {
+        FluidUtil.setTank(blockEntity, stack);
+        if(blockEntity instanceof BaseTCBlockEntity ct) {
             ct.setInventory(stack);
         }
     }
@@ -165,9 +164,9 @@ public abstract class BaseTCEntityBlock extends BasicEntityBlock {
         ItemStack stack = super.getCloneItemStack(level, pos, state);
         BlockEntity blockEntity = level.getBlockEntity(pos);
         if(blockEntity == null) return stack;
-        FluidHelper.setTank(stack, blockEntity);
-        if(blockEntity instanceof BaseTankContainerBlockEntity ct) {
-            ContainerHelper.setInventory(stack, ct);
+        FluidUtil.setTank(stack, blockEntity);
+        if(blockEntity instanceof BaseTCBlockEntity ct) {
+            ContainerUtil.setInventory(stack, ct);
         }
         return stack;
     }
@@ -181,9 +180,9 @@ public abstract class BaseTCEntityBlock extends BasicEntityBlock {
         BlockEntity blockEntity = builder.getOptionalParameter(LootContextParams.BLOCK_ENTITY);
         ItemStack stack = new ItemStack(this);
         if(blockEntity != null) {
-            FluidHelper.setTank(stack, blockEntity);
-            if(blockEntity instanceof BaseTankContainerBlockEntity ct) {
-                ContainerHelper.setInventory(stack, ct);
+            FluidUtil.setTank(stack, blockEntity);
+            if(blockEntity instanceof BaseTCBlockEntity ct) {
+                ContainerUtil.setInventory(stack, ct);
                 return Collections.singletonList(stack);
             }
         }
@@ -198,9 +197,9 @@ public abstract class BaseTCEntityBlock extends BasicEntityBlock {
     @Override
     public int getAnalogOutputSignal(BlockState blockState, Level level, BlockPos pos) {
         BlockEntity blockEntity = level.getBlockEntity(pos);
-        if (blockEntity instanceof BaseTankContainerBlockEntity ct) {
+        if (blockEntity instanceof BaseTCBlockEntity ct) {
             int itemSignal = ( (ct.getStacks().size() + 1) / ct.maxStackCount() ) * 15;
-            int tankSignal = (int) (FluidHelper.getScale(ct.tank) * 15);
+            int tankSignal = (int) (FluidUtil.getScale(ct.tank) * 15);
             return itemSignal == 15 ? itemSignal : tankSignal;
         }
         return 0;

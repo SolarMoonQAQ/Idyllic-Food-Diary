@@ -1,10 +1,10 @@
 package cn.solarmoon.immersive_delight.client.ItemRenderer;
 
 import cn.solarmoon.immersive_delight.api.client.ItemRenderer.ItemStackRenderer;
-import cn.solarmoon.immersive_delight.util.ContainerHelper;
-import cn.solarmoon.immersive_delight.api.util.FluidHelper;
-import cn.solarmoon.immersive_delight.util.FluidRenderAnotherHelper;
-import cn.solarmoon.immersive_delight.util.FluidRenderHelper;
+import cn.solarmoon.immersive_delight.util.ContainerUtil;
+import cn.solarmoon.immersive_delight.api.util.FluidUtil;
+import cn.solarmoon.immersive_delight.util.FluidRenderAnotherUtil;
+import cn.solarmoon.immersive_delight.util.FluidRenderUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
@@ -40,16 +40,16 @@ public class LittleCupItemRenderer extends ItemStackRenderer {
         //根据面朝方向决定旋转角
         poseStack.mulPose(Axis.YP.rotationDegrees(45));
         poseStack.scale(0.5f, 0.5f, 0.5f);
-        ItemStackHandler inventory = ContainerHelper.getInventory(stack);
+        ItemStackHandler inventory = ContainerUtil.getInventory(stack);
         itemRenderer.renderStatic(inventory.getStackInSlot(0), ItemDisplayContext.GROUND, light, overlay, poseStack, buffer, null, 0);
         poseStack.popPose();
 
-        FluidStack fluidStack = FluidHelper.getFluidStack(stack);
-        IFluidHandlerItem stackTank = FluidHelper.getTank(stack);
+        FluidStack fluidStack = FluidUtil.getFluidStack(stack);
+        IFluidHandlerItem stackTank = FluidUtil.getTank(stack);
         float zoom = 0.4f;
-        float targetScale = FluidHelper.getScale(stackTank);
+        float targetScale = FluidUtil.getScale(stackTank);
 
-        int targetColor = FluidRenderHelper.FluidRenderMap.getColor(fluidStack);
+        int targetColor = FluidRenderUtil.FluidRenderMap.getColor(fluidStack);
         Fluid fluid = fluidStack.getFluid();
         IClientFluidTypeExtensions fluidAttributes = IClientFluidTypeExtensions.of(fluid);
         ResourceLocation spriteLocation = fluidAttributes.getStillTexture(fluidStack);
@@ -58,7 +58,7 @@ public class LittleCupItemRenderer extends ItemStackRenderer {
         poseStack.pushPose();
         poseStack.translate(0.3, 0, 0.3);
         poseStack.scale(zoom, 1, zoom);
-        FluidRenderAnotherHelper.renderFluid(targetScale * 0.29f, targetColor, 0, spriteLocation,
+        FluidRenderAnotherUtil.renderFluid(targetScale * 0.29f, targetColor, 0, spriteLocation,
                 poseStack, buffer, light, overlay);
         poseStack.popPose();
 

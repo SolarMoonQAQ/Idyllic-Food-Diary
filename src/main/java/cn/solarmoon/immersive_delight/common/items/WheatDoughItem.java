@@ -1,14 +1,11 @@
 package cn.solarmoon.immersive_delight.common.items;
 
-import cn.solarmoon.immersive_delight.common.IMBlocks;
-import cn.solarmoon.immersive_delight.util.Util;
+import cn.solarmoon.immersive_delight.common.registry.IMBlocks;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import vectorwing.farmersdelight.FarmersDelight;
-import vectorwing.farmersdelight.common.FoodValues;
 
 /**
  * 面团item（农夫乐事联动）

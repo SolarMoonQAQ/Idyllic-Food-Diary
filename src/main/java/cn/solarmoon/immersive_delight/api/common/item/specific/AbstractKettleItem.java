@@ -1,7 +1,7 @@
 package cn.solarmoon.immersive_delight.api.common.item.specific;
 
 import cn.solarmoon.immersive_delight.api.common.item.BaseTankItem;
-import cn.solarmoon.immersive_delight.api.util.FluidHelper;
+import cn.solarmoon.immersive_delight.api.util.FluidUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -37,8 +37,8 @@ public abstract class AbstractKettleItem extends BaseTankItem {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack heldStack = player.getItemInHand(hand);
-        IFluidHandlerItem stackTank = FluidHelper.getTank(heldStack);
-        FluidStack fluidStack = FluidHelper.getFluidStack(heldStack);
+        IFluidHandlerItem stackTank = FluidUtil.getTank(heldStack);
+        FluidStack fluidStack = FluidUtil.getFluidStack(heldStack);
         BlockHitResult blockhitresult = getPlayerPOVHitResult(level, player, ClipContext.Fluid.SOURCE_ONLY);
         BlockPos pos = blockhitresult.getBlockPos();
         BlockState state = level.getBlockState(pos);

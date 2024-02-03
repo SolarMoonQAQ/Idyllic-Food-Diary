@@ -1,6 +1,8 @@
 package cn.solarmoon.immersive_delight.util;
 
-import cn.solarmoon.immersive_delight.client.events.RollingPinClientEvent;
+import cn.solarmoon.immersive_delight.api.util.RecipeUtil;
+import cn.solarmoon.immersive_delight.client.event.RollingPinClientEvent;
+import cn.solarmoon.immersive_delight.common.registry.IMRecipes;
 import cn.solarmoon.immersive_delight.common.recipes.RollingPinRecipe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -21,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static cn.solarmoon.immersive_delight.common.IMItems.ROLLING_PIN;
+import static cn.solarmoon.immersive_delight.common.registry.IMItems.ROLLING_PIN;
 
 /**
  * 用于处理擀面杖的一些识别等方法
@@ -39,7 +41,7 @@ public class RollingPinHelper {
         if (mc.hitResult instanceof BlockHitResult hitResult){
             BlockPos blockPos = hitResult.getBlockPos();
             Block block = mc.level.getBlockState(blockPos).getBlock();
-            for (RollingPinRecipe recipe : RecipeHelper.GetRecipes.rollingRecipes(mc.level)) {
+            for (RollingPinRecipe recipe : RecipeUtil.getRecipes(mc.level, IMRecipes.ROLLING_RECIPE.get())) {
                 Ingredient input = recipe.getInput();
                 if (input.test(block.asItem().getDefaultInstance())) {
                     return true;
@@ -79,7 +81,7 @@ public class RollingPinHelper {
         RollingPinClientEvent.actualResults = new ArrayList<>();
         List<RollingPinRecipe> matchingRecipes = new ArrayList<>();
         if(mc.level == null) return;
-        for (RollingPinRecipe recipe : RecipeHelper.GetRecipes.rollingRecipes(mc.level)) {
+        for (RollingPinRecipe recipe : RecipeUtil.getRecipes(mc.level, IMRecipes.ROLLING_RECIPE.get())) {
             Ingredient input = recipe.getInput();
             if (input.test(block.asItem().getDefaultInstance())) {
                 //方块->对应配方的随机后物品栈

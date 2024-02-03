@@ -1,8 +1,7 @@
 package cn.solarmoon.immersive_delight.data.tags;
 
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
-import cn.solarmoon.immersive_delight.common.IMItems;
-import cn.solarmoon.immersive_delight.compat.farmersdelight.FarmersDelight;
+import cn.solarmoon.immersive_delight.common.registry.IMItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
@@ -29,10 +28,14 @@ public class IMItemTags extends ItemTagsProvider {
     }
 
     protected void registerModTags() {
-        //擀面杖配方（农夫乐事兼容）
+        //擀面杖配方
         tag(ROLLING_DOUGH).add(
                 IMItems.WHEAT_DOUGH.get(),
                 IMItems.FLATBREAD_DOUGH.get()
+        ).replace(false);
+        //擀面杖配方（农夫乐事兼容）
+        tag(ROLLING_DOUGH).addOptional(
+                new ResourceLocation("farmersdelight", "wheat_dough")
         ).replace(false);
         //刀类物品
         tag(FORGE_KNIVES).add(
@@ -59,9 +62,16 @@ public class IMItemTags extends ItemTagsProvider {
         tag(FORGE_SWORDS).add(
                 IMItems.CHINESE_CLEAVER.get()
         ).replace(false);
+        //茶类物品
+        tag(TEA).add(
+                IMItems.BLACK_TEA_LEAVES.get(),
+                IMItems.GREEN_TEA_LEAVES.get()
+        ).replace(false);
     }
 
     public static final TagKey<Item> ROLLING_DOUGH = itemTag("dough");
+
+    public static final TagKey<Item> TEA = itemTag("tea");
 
     public static final TagKey<Item> FORGE_AXES = itemForgeTag("tools/axes");
     public static final TagKey<Item> FORGE_SWORDS = itemForgeTag("tools/swords");

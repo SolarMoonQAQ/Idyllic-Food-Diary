@@ -68,6 +68,13 @@ public class BaseContainerBlockEntity extends BlockEntity {
     }
 
     /**
+     * 从tag中读取inventory信息
+     */
+    public void setInventory(CompoundTag tag) {
+        inventory.deserializeNBT(tag.getCompound("inventory"));
+    }
+
+    /**
      * 插入容纳的物品（按物品栈插入）
      * 逻辑为从第一格开始尝试插入直到插入成功
      * 会返回计算消耗后的物品栈，因此不要再用shrink！用setItem！
@@ -106,7 +113,11 @@ public class BaseContainerBlockEntity extends BlockEntity {
         List<ItemStack> stacks = new ArrayList<>();
         int maxSlots = inventory.getSlots();
         for (int i = 0; i < maxSlots; i++) {
-            stacks.add(inventory.getStackInSlot(i));
+            ItemStack stack = inventory.getStackInSlot(i);
+            //这里不能让stack为空，因为会插入EMPTY的stack，这样会妨碍List.isEmpty的检查
+            if (!stack.isEmpty()) {
+                stacks.add(stack);
+            }
         }
         return stacks;
     }

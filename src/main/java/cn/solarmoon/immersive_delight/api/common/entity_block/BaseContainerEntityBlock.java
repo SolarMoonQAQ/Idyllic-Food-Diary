@@ -1,10 +1,10 @@
 package cn.solarmoon.immersive_delight.api.common.entity_block;
 
 import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseContainerBlockEntity;
-import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseTankContainerBlockEntity;
-import cn.solarmoon.immersive_delight.network.serializer.ClientPackSerializer;
-import cn.solarmoon.immersive_delight.util.ContainerHelper;
-import cn.solarmoon.immersive_delight.util.LevelSummonHelper;
+import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseTCBlockEntity;
+import cn.solarmoon.immersive_delight.api.network.serializer.ClientPackSerializer;
+import cn.solarmoon.immersive_delight.util.ContainerUtil;
+import cn.solarmoon.immersive_delight.api.util.LevelSummonUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionHand;
@@ -41,7 +41,7 @@ public abstract class BaseContainerEntityBlock extends BasicEntityBlock {
      * 手不为空时存入，为空时疯狂取出
      */
     public boolean storage(BlockEntity blockEntity, Player player, InteractionHand hand) {
-        if (blockEntity instanceof BaseTankContainerBlockEntity tc) {
+        if (blockEntity instanceof BaseTCBlockEntity tc) {
             ItemStack heldItem = player.getItemInHand(hand);
             if (!heldItem.isEmpty()) {
                 ItemStack result = tc.insertItem(heldItem);
@@ -50,7 +50,7 @@ public abstract class BaseContainerEntityBlock extends BasicEntityBlock {
                 return !result.equals(heldItem);
             } else {
                 ItemStack result = tc.extractItem();
-                LevelSummonHelper.addItemToInventory(player, result);
+                LevelSummonUtil.addItemToInventory(player, result);
                 tc.setChanged();
                 return !result.equals(heldItem);
             }
@@ -94,7 +94,7 @@ public abstract class BaseContainerEntityBlock extends BasicEntityBlock {
         ItemStack stack = super.getCloneItemStack(level, pos, state);
         BlockEntity blockEntity = level.getBlockEntity(pos);
         if(blockEntity == null) return stack;
-        ContainerHelper.setInventory(stack, blockEntity);
+        ContainerUtil.setInventory(stack, blockEntity);
         return stack;
     }
 
@@ -107,7 +107,7 @@ public abstract class BaseContainerEntityBlock extends BasicEntityBlock {
         BlockEntity blockEntity = builder.getOptionalParameter(LootContextParams.BLOCK_ENTITY);
         ItemStack stack = new ItemStack(this);
         if(blockEntity != null) {
-            ContainerHelper.setInventory(stack, blockEntity);
+            ContainerUtil.setInventory(stack, blockEntity);
             return Collections.singletonList(stack);
         }
         return super.getDrops(state, builder);

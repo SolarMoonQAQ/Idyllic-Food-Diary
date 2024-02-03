@@ -1,6 +1,6 @@
 package cn.solarmoon.immersive_delight.common.items;
 
-import cn.solarmoon.immersive_delight.common.IMBlocks;
+import cn.solarmoon.immersive_delight.common.registry.IMBlocks;
 import cn.solarmoon.immersive_delight.common.entities.DurianEntity;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;

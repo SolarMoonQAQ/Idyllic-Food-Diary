@@ -1,9 +1,8 @@
 package cn.solarmoon.immersive_delight.common.recipes;
 
-import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseTankContainerBlockEntity;
+import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseTCBlockEntity;
 import cn.solarmoon.immersive_delight.util.Util;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.RegistryAccess;
@@ -31,8 +30,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static cn.solarmoon.immersive_delight.common.IMRecipes.SOUP_POT_RECIPE;
-import static cn.solarmoon.immersive_delight.common.IMRecipes.SOUP_POT_RECIPE_SERIALIZER;
+import static cn.solarmoon.immersive_delight.common.registry.IMRecipes.SOUP_POT_RECIPE;
+import static cn.solarmoon.immersive_delight.common.registry.IMRecipes.SOUP_POT_RECIPE_SERIALIZER;
 
 public class SoupPotRecipe implements Recipe<RecipeWrapper> {
 
@@ -71,7 +70,7 @@ public class SoupPotRecipe implements Recipe<RecipeWrapper> {
      * 输入液体及量完全匹配
      * 下方为热源
      */
-    public boolean inputMatches(BaseTankContainerBlockEntity ct, RecipeWrapper inv, Level level, BlockPos pos) {
+    public boolean inputMatches(BaseTCBlockEntity ct, RecipeWrapper inv, Level level, BlockPos pos) {
         List<ItemStack> stacks = new ArrayList<>();
         for (int i = 0; i < 9; i++) {
             ItemStack stack = inv.getItem(i);

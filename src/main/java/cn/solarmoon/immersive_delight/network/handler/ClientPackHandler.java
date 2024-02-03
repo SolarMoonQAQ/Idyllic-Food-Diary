@@ -1,9 +1,9 @@
 package cn.solarmoon.immersive_delight.network.handler;
 
 import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseContainerBlockEntity;
-import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseTankContainerBlockEntity;
+import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseTCBlockEntity;
 import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseTankBlockEntity;
-import cn.solarmoon.immersive_delight.network.serializer.ClientPackSerializer;
+import cn.solarmoon.immersive_delight.api.network.serializer.ClientPackSerializer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
@@ -58,7 +58,7 @@ public class ClientPackHandler {
                 if (level == null || pos == null) return;
                 BlockEntity blockEntity = level.getBlockEntity(pos);
                 if(blockEntity instanceof BaseContainerBlockEntity c) {
-                    c.inventory.deserializeNBT(tag.getCompound("inventory"));
+                    c.setInventory(tag);
                 }
             }
             case "updateTBlock" -> {
@@ -71,9 +71,9 @@ public class ClientPackHandler {
             case "updateTCBlock" -> {
                 if (level == null || pos == null) return;
                 BlockEntity blockEntity = level.getBlockEntity(pos);
-                if(blockEntity instanceof BaseTankContainerBlockEntity tc) {
+                if(blockEntity instanceof BaseTCBlockEntity tc) {
                     tc.setFluid(fluidStack);
-                    tc.inventory.deserializeNBT(tag.getCompound("inventory"));
+                    tc.setInventory(tag);
                 }
             }
             case "updateUpStep" -> {

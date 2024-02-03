@@ -1,7 +1,7 @@
 package cn.solarmoon.immersive_delight.common.level.feature;
 
-import cn.solarmoon.immersive_delight.common.IMBlocks;
-import cn.solarmoon.immersive_delight.common.IMFeatures;
+import cn.solarmoon.immersive_delight.common.registry.IMBlocks;
+import cn.solarmoon.immersive_delight.common.registry.IMFeatures;
 import cn.solarmoon.immersive_delight.api.common.level.feature.abstract_feature.BaseTreeFeature;
 import cn.solarmoon.immersive_delight.api.common.level.feature.configuration.BaseTreeConfig;
 import net.minecraft.core.BlockPos;

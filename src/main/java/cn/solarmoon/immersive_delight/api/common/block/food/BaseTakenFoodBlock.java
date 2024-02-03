@@ -1,8 +1,8 @@
 package cn.solarmoon.immersive_delight.api.common.block.food;
 
 import cn.solarmoon.immersive_delight.api.common.block.BaseWaterBlock;
-import cn.solarmoon.immersive_delight.api.util.TextUtil;
-import cn.solarmoon.immersive_delight.util.LevelSummonHelper;
+import cn.solarmoon.immersive_delight.api.util.LevelSummonUtil;
+import cn.solarmoon.immersive_delight.util.CoreUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -17,7 +17,6 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
@@ -107,16 +106,14 @@ public abstract class BaseTakenFoodBlock extends BaseWaterBlock {
                     level.setBlock(pos, leftBlock.defaultBlockState(), 3);
                 }
 
-                heldItem.shrink(1);
+                if (!this.container.equals(Items.AIR)) heldItem.shrink(1);
 
-                if (!this.container.equals(Items.AIR))
-                    LevelSummonHelper.addItemToInventoryPerfectly(player, this.getFood(), heldItem, hand);
-                else LevelSummonHelper.addItemToInventory(player, this.getFood());
+                LevelSummonUtil.addItemToInventory(player, this.getFood());
 
                 level.playSound(null, pos, SoundEvents.ARMOR_EQUIP_LEATHER, SoundSource.PLAYERS);
 
                 return InteractionResult.SUCCESS;
-            } else player.displayClientMessage(TextUtil.translation("message", "container_required", this.getContainer().getHoverName()), true);
+            } else player.displayClientMessage(CoreUtil.translation("message", "container_required", this.getContainer().getHoverName()), true);
         }
         return InteractionResult.PASS;
     }

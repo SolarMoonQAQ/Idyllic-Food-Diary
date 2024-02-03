@@ -1,9 +1,8 @@
 package cn.solarmoon.immersive_delight.client.ItemRenderer;
 
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
-import cn.solarmoon.immersive_delight.api.util.FluidHelper;
-import cn.solarmoon.immersive_delight.api.util.TextUtil;
-import cn.solarmoon.immersive_delight.common.IMItems;
+import cn.solarmoon.immersive_delight.api.util.FluidUtil;
+import cn.solarmoon.immersive_delight.common.registry.IMItems;
 import cn.solarmoon.immersive_delight.api.common.item.BaseTankItem;
 import cn.solarmoon.immersive_delight.util.*;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -61,8 +60,8 @@ public class TankableTooltipRenderer implements ClientTooltipComponent {
         if(couldBeRendered()) {
 
             ItemStack stack = tankTooltip.itemStack;
-            IFluidHandlerItem stackTank = FluidHelper.getTank(stack);
-            FluidStack fluidStack = FluidHelper.getFluidStack(stack);
+            IFluidHandlerItem stackTank = FluidUtil.getTank(stack);
+            FluidStack fluidStack = FluidUtil.getFluidStack(stack);
 
             RenderSystem.enableDepthTest();
             RenderSystem.enableBlend();
@@ -106,7 +105,7 @@ public class TankableTooltipRenderer implements ClientTooltipComponent {
             guiGraphics.drawString(font, str1, x + 2 + deltaF, y + 4 + height + hOffset, 0xFFFFFF);
             guiGraphics.drawString(font, str2, x + str1Length + 3 + deltaF, y + 4 + height + hOffset, 0xFFFFFF);
         } else {
-            guiGraphics.drawString(font, TextUtil.translation("tooltip", "fluid_empty"), x + 2 + deltaF, y + 4 + height + hOffset, 0xFFFFFF);
+            guiGraphics.drawString(font, CoreUtil.translation("tooltip", "fluid_empty"), x + 2 + deltaF, y + 4 + height + hOffset, 0xFFFFFF);
         }
     }
 
@@ -114,7 +113,7 @@ public class TankableTooltipRenderer implements ClientTooltipComponent {
      * 渲染物品
      */
     public void drawItem(ItemStack stack, PoseStack poseStack, GuiGraphics guiGraphics, int x, int y) {
-        ItemStackHandler inventory = ContainerHelper.getInventory(stack);
+        ItemStackHandler inventory = ContainerUtil.getInventory(stack);
         ItemStack stackIn = inventory.getStackInSlot(0);
         if (!stackIn.isEmpty()) {
             poseStack.translate(0,0,2);
@@ -147,8 +146,8 @@ public class TankableTooltipRenderer implements ClientTooltipComponent {
      */
     public void drawFluid(FluidStack fluidStack, GuiGraphics guiGraphics, IFluidHandlerItem stackTank, int x, int y) {
         if(!fluidStack.isEmpty()) {
-            TextureAtlasSprite fluidStillSprite = FluidRenderHelper.FluidRenderMap.getFluidTexture(fluidStack, FluidRenderHelper.FluidRenderMap.FluidFlow.STILL);
-            float[] color = FluidRenderHelper.FluidRenderMap.getColorARGB(fluidStack);
+            TextureAtlasSprite fluidStillSprite = FluidRenderUtil.FluidRenderMap.getFluidTexture(fluidStack, FluidRenderUtil.FluidRenderMap.FluidFlow.STILL);
+            float[] color = FluidRenderUtil.FluidRenderMap.getColorARGB(fluidStack);
 
             RenderSystem.setShaderTexture(0, InventoryMenu.BLOCK_ATLAS);
             RenderSystem.setShaderColor(color[0], color[1], color[2], color[3]);
@@ -165,7 +164,7 @@ public class TankableTooltipRenderer implements ClientTooltipComponent {
             bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
 
             for (int i = 0; i < count; i++) {
-                float percentage = FluidHelper.getScale(stackTank);
+                float percentage = FluidUtil.getScale(stackTank);
 
                 if (percentage > (float) i / count) {
                     float reduction = 0;

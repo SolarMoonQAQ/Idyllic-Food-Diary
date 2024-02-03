@@ -1,7 +1,7 @@
 package cn.solarmoon.immersive_delight.common.items;
 
 import cn.solarmoon.immersive_delight.api.common.item.specific.AbstractBowlFoodItem;
-import cn.solarmoon.immersive_delight.common.IMBlocks;
+import cn.solarmoon.immersive_delight.common.registry.IMBlocks;
 import net.minecraft.world.food.FoodProperties;
 
 public class CangshuMuttonSoupItem extends AbstractBowlFoodItem {

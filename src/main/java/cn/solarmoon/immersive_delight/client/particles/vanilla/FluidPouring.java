@@ -1,7 +1,7 @@
 package cn.solarmoon.immersive_delight.client.particles.vanilla;
 
-import cn.solarmoon.immersive_delight.util.Util;
-import cn.solarmoon.immersive_delight.util.VecAlgorithm;
+import cn.solarmoon.immersive_delight.util.CoreUtil;
+import cn.solarmoon.immersive_delight.util.VecUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
@@ -32,14 +32,14 @@ public class FluidPouring {
         double d0=0,d1=0,d2=0;
         if (flag) {
             particle = ParticleTypes.ENTITY_EFFECT;
-            ResourceLocation potionId = new ResourceLocation(Util.extract(fluidStack.getTag().toString(), "Potion"));
+            ResourceLocation potionId = new ResourceLocation(cn.solarmoon.immersive_delight.api.util.TextUtil.extract(fluidStack.getTag().toString(), "Potion"));
             Potion potion = ForgeRegistries.POTIONS.getValue(potionId);
             if (potion != null) {
                 int color = potion.getEffects().get(0).getEffect().getColor();
                 d0 = (double)(color >> 16 & 255) / 255.0D;
                 d1 = (double)(color >> 8 & 255) / 255.0D;
                 d2 = (double)(color & 255) / 255.0D;
-                Util.deBug(potion.getEffects().get(0).getEffect().getDisplayName().getString());
+                CoreUtil.deBug(potion.getEffects().get(0).getEffect().getDisplayName().getString());
             }
         } else if (fluidStack.getFluid().getBucket().getDefaultInstance().is(Items.MILK_BUCKET)) {
             particle = new BlockParticleOption(ParticleTypes.BLOCK, Blocks.WHITE_WOOL.defaultBlockState());
@@ -47,9 +47,9 @@ public class FluidPouring {
         LocalPlayer player = mc.player;
         ClientLevel level = mc.level;
         if(player == null) return;
-        Vec3 spawnPos = VecAlgorithm.getSpawnPosFrontPlayer(player, 0.5);
-        Vec3 spawnPos2 = VecAlgorithm.getSpawnPosFrontPlayer(player, 1.5);
-        Vec3 spawnPos3 = VecAlgorithm.getSpawnPosFrontPlayer(player, 3);
+        Vec3 spawnPos = VecUtil.getSpawnPosFrontPlayer(player, 0.5);
+        Vec3 spawnPos2 = VecUtil.getSpawnPosFrontPlayer(player, 1.5);
+        Vec3 spawnPos3 = VecUtil.getSpawnPosFrontPlayer(player, 3);
         if (level != null) {
             for (int i = 0; i < fluidAmount / 30; i++) {
                 Vec3 lookVec = player.getLookAngle();

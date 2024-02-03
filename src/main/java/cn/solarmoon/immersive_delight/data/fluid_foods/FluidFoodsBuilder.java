@@ -1,8 +1,6 @@
 package cn.solarmoon.immersive_delight.data.fluid_foods;
 
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
-import cn.solarmoon.immersive_delight.data.fluid_effects.FluidEffectsBuilder;
-import cn.solarmoon.immersive_delight.data.fluid_effects.serializer.FluidEffect;
 import cn.solarmoon.immersive_delight.data.fluid_foods.serializer.FluidFood;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -11,7 +9,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
-import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.Map;
 
@@ -19,14 +16,9 @@ public class FluidFoodsBuilder extends SimpleJsonResourceReloadListener {
 
     private static final Gson gson = new GsonBuilder().create();
     private static final String directory = "fluid_foods";
-    public static final FluidFoodsBuilder INSTANCE;
 
     public FluidFoodsBuilder() {
         super(gson, directory);
-    }
-
-    static {
-        INSTANCE = new FluidFoodsBuilder();
     }
 
     /**

@@ -3,7 +3,7 @@ package cn.solarmoon.immersive_delight.common.events;
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
 import cn.solarmoon.immersive_delight.data.tags.IMBlockTags;
 import cn.solarmoon.immersive_delight.init.Config;
-import cn.solarmoon.immersive_delight.network.serializer.ServerPackSerializer;
+import cn.solarmoon.immersive_delight.api.network.serializer.ServerPackSerializer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
@@ -22,7 +22,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import static cn.solarmoon.immersive_delight.client.particles.vanilla.Sweep.sweep;
-import static cn.solarmoon.immersive_delight.common.IMItems.ROLLING_PIN;
+import static cn.solarmoon.immersive_delight.common.registry.IMItems.ROLLING_PIN;
 
 public class RollingPinEvent {
 
@@ -53,7 +53,7 @@ public class RollingPinEvent {
      * @param radius 0就根据配置文件来，其它的就是独自设置
      */
     public static void harvest(int radius, Player player, Level level) {
-        int r = Config.areaHarvestRadius.get();
+        int r = 2;
         if(radius == 0) radius = r;
         // 遍历玩家周围半径的方块
         BlockPos playerPos = player.blockPosition();

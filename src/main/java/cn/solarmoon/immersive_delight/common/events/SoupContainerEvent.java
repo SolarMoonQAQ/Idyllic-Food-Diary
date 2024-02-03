@@ -1,10 +1,10 @@
 package cn.solarmoon.immersive_delight.common.events;
 
 import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseTankBlockEntity;
-import cn.solarmoon.immersive_delight.api.util.FluidHelper;
+import cn.solarmoon.immersive_delight.api.util.FluidUtil;
 import cn.solarmoon.immersive_delight.data.fluid_foods.serializer.FluidFood;
 import cn.solarmoon.immersive_delight.data.tags.IMBlockTags;
-import cn.solarmoon.immersive_delight.util.LevelSummonHelper;
+import cn.solarmoon.immersive_delight.api.util.LevelSummonUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -12,7 +12,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -48,7 +47,7 @@ public class SoupContainerEvent {
                 //保证容量充足，并且液体符合配方液体
                 if (fluidStackInTank.getAmount() >= amount && container.equals(heldStack.getItem())) {
                     if (!player.isCreative()) {
-                        LevelSummonHelper.addItemToInventoryPerfectly(player, food, pos, heldStack, hand);
+                        LevelSummonUtil.addItemToInventory(player, food, pos);
                         heldStack.shrink(1);
                     }
                     t.tank.drain(amount, IFluidHandler.FluidAction.EXECUTE);
@@ -76,10 +75,10 @@ public class SoupContainerEvent {
                 if (fluidFood == null) return;
                 FluidStack put = new FluidStack(fluidFood.getFluid(), fluidFood.fluidAmount);
 
-                if (fluidFood.getFood().equals(heldStack.getItem()) && FluidHelper.canStillPut(t.tank, put)) {
+                if (fluidFood.getFood().equals(heldStack.getItem()) && FluidUtil.canStillPut(t.tank, put)) {
                     if (!player.isCreative()) {
                         ItemStack container = fluidFood.getContainer().getDefaultInstance();
-                        LevelSummonHelper.addItemToInventoryPerfectly(player, container, heldStack, hand);
+                        LevelSummonUtil.addItemToInventory(player, container);
                         heldStack.shrink(1);
                     }
                     t.tank.fill(put, IFluidHandler.FluidAction.EXECUTE);

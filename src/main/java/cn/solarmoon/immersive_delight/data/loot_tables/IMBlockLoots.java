@@ -1,8 +1,7 @@
 package cn.solarmoon.immersive_delight.data.loot_tables;
 
-import cn.solarmoon.immersive_delight.common.IMBlocks;
-import cn.solarmoon.immersive_delight.common.IMEntityBlocks;
-import cn.solarmoon.immersive_delight.common.IMItems;
+import cn.solarmoon.immersive_delight.common.registry.IMBlocks;
+import cn.solarmoon.immersive_delight.common.registry.IMItems;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.block.Block;

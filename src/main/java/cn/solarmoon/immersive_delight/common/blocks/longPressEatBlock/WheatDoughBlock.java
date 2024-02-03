@@ -1,9 +1,9 @@
 package cn.solarmoon.immersive_delight.common.blocks.longPressEatBlock;
 
 import cn.solarmoon.immersive_delight.api.common.block.food.BaseLongPressEatFoodBlock;
-import cn.solarmoon.immersive_delight.network.serializer.ClientPackSerializer;
-import cn.solarmoon.immersive_delight.common.IMBlocks;
-import cn.solarmoon.immersive_delight.compat.farmersdelight.FarmersDelight;
+import cn.solarmoon.immersive_delight.api.network.serializer.ClientPackSerializer;
+import cn.solarmoon.immersive_delight.common.registry.IMBlocks;
+import cn.solarmoon.immersive_delight.compat.farmersdelight.util.FarmersUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
@@ -102,7 +102,7 @@ public class WheatDoughBlock extends BaseLongPressEatFoodBlock {
      */
     @Override
     public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
-        return FarmersDelight.getDough() == null ? super.getDrops(state, builder) : List.of(FarmersDelight.getDough().getDefaultInstance());
+        return FarmersUtil.getDough() == null ? super.getDrops(state, builder) : List.of(FarmersUtil.getDough().getDefaultInstance());
     }
 
     /**
@@ -110,7 +110,7 @@ public class WheatDoughBlock extends BaseLongPressEatFoodBlock {
      */
     @Override
     public Item asItem() {
-        return FarmersDelight.getDough() == null ? super.asItem() : FarmersDelight.getDough();
+        return FarmersUtil.getDough() == null ? super.asItem() : FarmersUtil.getDough();
     }
 
 }

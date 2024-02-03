@@ -17,14 +17,9 @@ public class FluidEffectsBuilder extends SimpleJsonResourceReloadListener {
 
     private static final Gson gson = new GsonBuilder().create();
     private static final String directory = "fluid_effects";
-    public static final FluidEffectsBuilder INSTANCE;
 
     public FluidEffectsBuilder() {
         super(gson, directory);
-    }
-
-    static {
-        INSTANCE = new FluidEffectsBuilder();
     }
 
     /**

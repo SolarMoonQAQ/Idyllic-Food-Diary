@@ -1,6 +1,6 @@
 package cn.solarmoon.immersive_delight.common.recipes;
 
-import cn.solarmoon.immersive_delight.util.RecipeHelper;
+import cn.solarmoon.immersive_delight.api.util.RecipeUtil;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -24,8 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static cn.solarmoon.immersive_delight.common.IMRecipes.ROLLING_RECIPE;
-import static cn.solarmoon.immersive_delight.common.IMRecipes.ROLLING_RECIPE_SERIALIZER;
+import static cn.solarmoon.immersive_delight.common.registry.IMRecipes.ROLLING_RECIPE;
+import static cn.solarmoon.immersive_delight.common.registry.IMRecipes.ROLLING_RECIPE_SERIALIZER;
 
 
 public class RollingPinRecipe implements Recipe<RecipeWrapper> {
@@ -34,9 +34,9 @@ public class RollingPinRecipe implements Recipe<RecipeWrapper> {
     private final Ingredient input;
     private final int time;
     private final Ingredient output;
-    private final NonNullList<RecipeHelper.ChanceResult> results;
+    private final NonNullList<RecipeUtil.ChanceResult> results;
 
-    public RollingPinRecipe(ResourceLocation id, Ingredient input, int time, Ingredient output, NonNullList<RecipeHelper.ChanceResult> results) {
+    public RollingPinRecipe(ResourceLocation id, Ingredient input, int time, Ingredient output, NonNullList<RecipeUtil.ChanceResult> results) {
         this.id = id;
         this.input = input;
         this.time = time;
@@ -78,11 +78,11 @@ public class RollingPinRecipe implements Recipe<RecipeWrapper> {
 
     public List<ItemStack> getResults() {
         return getRollableResults().stream()
-                .map(RecipeHelper.ChanceResult::stack)
+                .map(RecipeUtil.ChanceResult::stack)
                 .collect(Collectors.toList());
     }
 
-    public NonNullList<RecipeHelper.ChanceResult> getRollableResults() {
+    public NonNullList<RecipeUtil.ChanceResult> getRollableResults() {
         return this.results;
     }
 
@@ -91,8 +91,8 @@ public class RollingPinRecipe implements Recipe<RecipeWrapper> {
      */
     public List<ItemStack> rollResults(RandomSource rand, int fortuneLevel) {
         List<ItemStack> results = new ArrayList<>();
-        NonNullList<RecipeHelper.ChanceResult> rollableResults = getRollableResults();
-        for (RecipeHelper.ChanceResult output : rollableResults) {
+        NonNullList<RecipeUtil.ChanceResult> rollableResults = getRollableResults();
+        for (RecipeUtil.ChanceResult output : rollableResults) {
             ItemStack stack = output.rollOutput(rand, fortuneLevel);
             if (!stack.isEmpty())
                 results.add(stack);
@@ -125,7 +125,7 @@ public class RollingPinRecipe implements Recipe<RecipeWrapper> {
 
         if (!id.equals(that.id)) return false;
         if (!input.equals(that.input)) return false;
-        if (getTime() != that.getTime()) return false;
+        if (time != that.time) return false;
         if (!output.equals(that.output)) return false;
         return getResults().equals(that.getResults());
     }
@@ -134,7 +134,7 @@ public class RollingPinRecipe implements Recipe<RecipeWrapper> {
     public int hashCode() {
         int result = id.hashCode();
         result = 31 * result + input.hashCode();
-        result = 31 * result + getTime();
+        result = 31 * result + time;
         result = 31 * result + (output != null ? output.hashCode() : 0);
         result = 31 * result + getResults().hashCode();
         return result;
@@ -147,10 +147,10 @@ public class RollingPinRecipe implements Recipe<RecipeWrapper> {
         public Serializer() {
         }
 
-        private static NonNullList<RecipeHelper.ChanceResult> readResults(JsonArray resultArray) {
-            NonNullList<RecipeHelper.ChanceResult> results = NonNullList.create();
+        private static NonNullList<RecipeUtil.ChanceResult> readResults(JsonArray resultArray) {
+            NonNullList<RecipeUtil.ChanceResult> results = NonNullList.create();
             for (JsonElement result : resultArray) {
-                results.add(RecipeHelper.ChanceResult.deserialize(result));
+                results.add(RecipeUtil.ChanceResult.deserialize(result));
             }
             return results;
         }
@@ -167,7 +167,7 @@ public class RollingPinRecipe implements Recipe<RecipeWrapper> {
                 output = Ingredient.fromJson(json.get("output"));
             }
 
-            NonNullList<RecipeHelper.ChanceResult> results = NonNullList.create();
+            NonNullList<RecipeUtil.ChanceResult> results = NonNullList.create();
             if (json.has("result")) {
                 results = readResults(GsonHelper.getAsJsonArray(json, "result"));
             }
@@ -189,8 +189,8 @@ public class RollingPinRecipe implements Recipe<RecipeWrapper> {
             }
 
             int i = buffer.readVarInt();
-            NonNullList<RecipeHelper.ChanceResult> resultsIn = NonNullList.withSize(i, RecipeHelper.ChanceResult.EMPTY);
-            resultsIn.replaceAll(ignored -> RecipeHelper.ChanceResult.read(buffer));
+            NonNullList<RecipeUtil.ChanceResult> resultsIn = NonNullList.withSize(i, RecipeUtil.ChanceResult.EMPTY);
+            resultsIn.replaceAll(ignored -> RecipeUtil.ChanceResult.read(buffer));
 
             return new RollingPinRecipe(recipeId, input, time, output, resultsIn);
         }
@@ -208,7 +208,7 @@ public class RollingPinRecipe implements Recipe<RecipeWrapper> {
             }
 
             buffer.writeVarInt(recipe.results.size());
-            for (RecipeHelper.ChanceResult result : recipe.results) {
+            for (RecipeUtil.ChanceResult result : recipe.results) {
                 result.write(buffer);
             }
 

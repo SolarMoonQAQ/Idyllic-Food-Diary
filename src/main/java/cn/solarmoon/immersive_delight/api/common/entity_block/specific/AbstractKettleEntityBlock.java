@@ -2,11 +2,13 @@ package cn.solarmoon.immersive_delight.api.common.entity_block.specific;
 
 import cn.solarmoon.immersive_delight.api.common.entity_block.BaseTankEntityBlock;
 import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseTankBlockEntity;
-import cn.solarmoon.immersive_delight.client.IMSounds;
+import cn.solarmoon.immersive_delight.common.registry.IMSounds;
+import cn.solarmoon.immersive_delight.common.registry.IMRecipes;
 import cn.solarmoon.immersive_delight.common.entity_blocks.KettleEntityBlock;
 import cn.solarmoon.immersive_delight.common.recipes.KettleRecipe;
 import cn.solarmoon.immersive_delight.data.tags.IMFluidTags;
-import cn.solarmoon.immersive_delight.util.RecipeHelper;
+import cn.solarmoon.immersive_delight.api.util.RecipeUtil;
+import cn.solarmoon.immersive_delight.util.CoreUtil;
 import cn.solarmoon.immersive_delight.util.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -66,7 +68,7 @@ public abstract class AbstractKettleEntityBlock extends BaseTankEntityBlock {
             KettleRecipe kettleRecipe = getCheckedRecipe(level, pos, blockEntity);
             if (kettleRecipe != null) {
                 tankBlockEntity.time++;
-                Util.deBug("Time："+ tankBlockEntity.time, level);
+                CoreUtil.deBug("Time："+ tankBlockEntity.time, level);
                 if (tankBlockEntity.time > kettleRecipe.getTime()) {
                     FluidStack fluidStack = new FluidStack(kettleRecipe.getOutputFluid(), tankBlockEntity.maxCapacity);
                     tankBlockEntity.tank.setFluid(fluidStack);
@@ -124,7 +126,7 @@ public abstract class AbstractKettleEntityBlock extends BaseTankEntityBlock {
     public KettleRecipe getCheckedRecipe(Level level, BlockPos pos ,BlockEntity blockEntity) {
         if(blockEntity instanceof BaseTankBlockEntity tankBlockEntity) {
             FluidStack fluidStack = tankBlockEntity.tank.getFluid();
-            for (KettleRecipe kettleRecipe : RecipeHelper.GetRecipes.kettleRecipes(level)) {
+            for (KettleRecipe kettleRecipe : RecipeUtil.getRecipes(level, IMRecipes.KETTLE_RECIPE.get())) {
                 if(kettleRecipe.inputMatches(level, fluidStack, pos)) {
                     return kettleRecipe;
                 }

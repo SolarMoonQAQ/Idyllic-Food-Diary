@@ -1,8 +1,7 @@
 package cn.solarmoon.immersive_delight.api.util;
 
-import cn.solarmoon.immersive_delight.ImmersiveDelight;
-import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.Component;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 public class TextUtil {
 
@@ -20,13 +19,14 @@ public class TextUtil {
         return thousands + hundreds + tens + ones;
     }
 
-    public static Component translation(String string1, String string2, Object... objects) {
-        return Component.translatable(string1 + "." + ImmersiveDelight.MOD_ID + "." + string2, objects);
+    /**
+     * 提取tag中的词条（其实未必是tag中的词条，该方法只是能提取类似minecraft:这样和它冒号后的内容）
+     * @param tag 要提取的tag
+     * @param extractTag 指定一个词条
+     * @return 返回词条对应的条目
+     */
+    public static String extract(String tag, String extractTag) {
+        JsonObject jsonObject = JsonParser.parseString(tag).getAsJsonObject();
+        return jsonObject.get(extractTag).getAsString();
     }
-
-    public static Component translation(String string1, String string2, ChatFormatting format, Object... objects) {
-        return Component.translatable(string1 + "." + ImmersiveDelight.MOD_ID + "." + string2, objects)
-                .withStyle(format);
-    }
-
 }

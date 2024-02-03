@@ -22,8 +22,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import static cn.solarmoon.immersive_delight.common.IMRecipes.KETTLE_RECIPE;
-import static cn.solarmoon.immersive_delight.common.IMRecipes.KETTLE_RECIPE_SERIALIZER;
+import static cn.solarmoon.immersive_delight.common.registry.IMRecipes.KETTLE_RECIPE;
+import static cn.solarmoon.immersive_delight.common.registry.IMRecipes.KETTLE_RECIPE_SERIALIZER;
 
 public class KettleRecipe implements Recipe<RecipeWrapper> {
 

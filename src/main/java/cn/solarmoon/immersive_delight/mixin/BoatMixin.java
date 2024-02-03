@@ -1,6 +1,6 @@
 package cn.solarmoon.immersive_delight.mixin;
 
-import cn.solarmoon.immersive_delight.api.util.FluidHelper;
+import cn.solarmoon.immersive_delight.api.util.FluidUtil;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraftforge.common.extensions.IForgeBoat;
@@ -19,14 +19,14 @@ public class BoatMixin implements IForgeBoat {
     public boolean canBoatInFluid(FluidState state)
     {
         return state.supportsBoating(((Boat) (Object) this))
-                || FluidHelper.IMFluidsMatch(state.getFluidType());
+                || FluidUtil.IMFluidsMatch(state.getFluidType());
     }
 
     @Override
     public boolean canBoatInFluid(FluidType type)
     {
         return type.supportsBoating(((Boat) (Object) this))
-                || FluidHelper.IMFluidsMatch(type);
+                || FluidUtil.IMFluidsMatch(type);
     }
 
 }

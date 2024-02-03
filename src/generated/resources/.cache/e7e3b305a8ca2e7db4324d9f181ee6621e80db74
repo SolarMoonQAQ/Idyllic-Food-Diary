@@ -1,9 +1,10 @@
-// 1.20.1	2024-01-16T09:43:15.4816798	Tags for minecraft:item mod id immersive_delight
+// 1.20.1	2024-02-03T20:06:11.2250739	Tags for minecraft:item mod id immersive_delight
 1a0745227f09e0a4d077e0216b3d43859bc657d7 data/farmersdelight/tags/items/tools/knives.json
 1a0745227f09e0a4d077e0216b3d43859bc657d7 data/forge/tags/items/tools/axes.json
 1a0745227f09e0a4d077e0216b3d43859bc657d7 data/forge/tags/items/tools/cleavers.json
 1a0745227f09e0a4d077e0216b3d43859bc657d7 data/forge/tags/items/tools/knives.json
 1a0745227f09e0a4d077e0216b3d43859bc657d7 data/forge/tags/items/tools/swords.json
-16eb6a62cf18b8e5e8bd50469c86ec47274eb4c8 data/immersive_delight/tags/items/dough.json
+fa3f2afb18215a6dd5eaf253456ea5078ce82a01 data/immersive_delight/tags/items/dough.json
+81f3e483f4bcdc44da45e2e4c2149babbdd215d4 data/immersive_delight/tags/items/tea.json
 1a0745227f09e0a4d077e0216b3d43859bc657d7 data/minecraft/tags/items/axes.json
 1a0745227f09e0a4d077e0216b3d43859bc657d7 data/minecraft/tags/items/swords.json

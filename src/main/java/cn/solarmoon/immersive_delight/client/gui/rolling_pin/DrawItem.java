@@ -1,10 +1,17 @@
 package cn.solarmoon.immersive_delight.client.gui.rolling_pin;
 
-import cn.solarmoon.immersive_delight.client.events.RollingPinClientEvent;
+import cn.solarmoon.immersive_delight.api.common.capability.serializable.RecipeSelectorData;
+import cn.solarmoon.immersive_delight.api.util.CapabilityUtil;
+import cn.solarmoon.immersive_delight.client.event.RollingPinClientEvent;
+import cn.solarmoon.immersive_delight.common.registry.IMCapabilities;
+import cn.solarmoon.immersive_delight.common.registry.IMItems;
+import cn.solarmoon.immersive_delight.common.items.RollingPinItem;
+import cn.solarmoon.immersive_delight.api.util.ItemHelper;
 import cn.solarmoon.immersive_delight.util.RollingPinHelper;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -26,10 +33,17 @@ public class DrawItem {
 
         graphics.pose().pushPose();
 
-        boolean show = RollingPinHelper.holdRollingCheck()
+        LocalPlayer player = mc.player;
+
+        ItemHelper finder = new ItemHelper(player);
+        RollingPinItem pin = finder.getItemInHand(IMItems.ROLLING_PIN.get());
+
+        RecipeSelectorData selector = CapabilityUtil.getData(player, IMCapabilities.PLAYER_DATA).getRecipeSelectorData();
+
+        boolean show = player != null
                        && RollingPinHelper.hitResultRecipeCheck()
-                       && mc.player != null
-                       && mc.player.isCrouching();
+                       && player.isHolding(IMItems.ROLLING_PIN.get())
+                       && player.isCrouching();
 
         // 更新alpha值
         float delta = mc.getDeltaFrameTime();
@@ -44,11 +58,8 @@ public class DrawItem {
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, alpha);
 
         ItemStack icon = ItemStack.EMPTY;
-        if (RollingPinClientEvent.possibleOutputs != null && show) {
-            int size = RollingPinClientEvent.possibleOutputs.size();
-            if(size > 0) {
-                icon = RollingPinClientEvent.possibleOutputs.get(RollingPinClientEvent.currentRecipeIndex % size);
-            }
+        if (!pin.getOptionalOutputs().isEmpty() && show) {
+            icon = pin.getOptionalOutputs().get(selector.getIndex());
             //渲染名称
             graphics.renderTooltip(mc.font, icon, x+40, y+9);
         }

@@ -1,18 +1,18 @@
 package cn.solarmoon.immersive_delight.api.common.entity_block.specific;
 
 import cn.solarmoon.immersive_delight.api.common.entity_block.BaseTCEntityBlock;
+import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseTCBlockEntity;
 import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseTankBlockEntity;
-import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseTankContainerBlockEntity;
 import cn.solarmoon.immersive_delight.api.common.item.specific.AbstractCupItem;
-import cn.solarmoon.immersive_delight.api.util.FluidHelper;
+import cn.solarmoon.immersive_delight.api.util.FluidUtil;
+import cn.solarmoon.immersive_delight.api.util.RecipeUtil;
 import cn.solarmoon.immersive_delight.common.recipes.CupRecipe;
+import cn.solarmoon.immersive_delight.common.registry.IMRecipes;
 import cn.solarmoon.immersive_delight.data.fluid_effects.serializer.FluidEffect;
 import cn.solarmoon.immersive_delight.data.fluid_foods.serializer.FluidFood;
 import cn.solarmoon.immersive_delight.data.tags.IMFluidTags;
-import cn.solarmoon.immersive_delight.init.Config;
+import cn.solarmoon.immersive_delight.util.CoreUtil;
 import cn.solarmoon.immersive_delight.util.CountingDevice;
-import cn.solarmoon.immersive_delight.util.RecipeHelper;
-import cn.solarmoon.immersive_delight.util.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -67,7 +67,7 @@ public abstract class AbstractCupEntityBlock extends BaseTCEntityBlock {
         //计数装置
         CompoundTag playerTag = CountingDevice.player(player, pos, level);
         if(canEat(tankEntity, player)) {
-            Util.deBug("点击次数：" + CountingDevice.getCount(playerTag), level);
+            CoreUtil.deBug("点击次数：" + CountingDevice.getCount(playerTag), level);
         }
 
         //自动检测是否是流体容器，进行液体存取
@@ -93,7 +93,7 @@ public abstract class AbstractCupEntityBlock extends BaseTCEntityBlock {
                     tank.drain(getDrinkVolume(tank.getFluid()), IFluidHandler.FluidAction.EXECUTE);
                     tankEntity.setChanged();
                     CountingDevice.resetCount(playerTag, -1);
-                    Util.deBug("已有tag：" + blockEntity.getPersistentData(), level);
+                    CoreUtil.deBug("已有tag：" + blockEntity.getPersistentData(), level);
                     if(!level.isClientSide) level.playSound(null, pos, SoundEvents.GENERIC_DRINK, SoundSource.PLAYERS, 1F, 1F);
                 }
                 return InteractionResult.SUCCESS;
@@ -123,10 +123,10 @@ public abstract class AbstractCupEntityBlock extends BaseTCEntityBlock {
      */
     @Override
     public boolean storage(BlockEntity blockEntity, Player player, InteractionHand hand) {
-        if(blockEntity instanceof BaseTankContainerBlockEntity cupBlockEntity) {
+        if(blockEntity instanceof BaseTCBlockEntity cupBlockEntity) {
             ItemStack heldItem = player.getItemInHand(hand);
             if (!heldItem.isEmpty() && cupBlockEntity.inventory.getStackInSlot(0).isEmpty()) {
-                List<CupRecipe> recipes = RecipeHelper.GetRecipes.CupRecipes(player.level());
+                List<CupRecipe> recipes = RecipeUtil.getRecipes(player.level(), IMRecipes.CUP_RECIPE.get());
                 for (var recipe :recipes) {
                     Ingredient ingredient = recipe.getInputIngredient();
                     if (ingredient.test(heldItem)) {
@@ -150,14 +150,14 @@ public abstract class AbstractCupEntityBlock extends BaseTCEntityBlock {
         if (fluidFood != null) {
             return fluidFood.fluidAmount;
         }
-        return Config.drinkingConsumption.get();
+        return 50;
     }
 
     /**
      * @return 设置需要右键多少下喝一下（默认2）
      */
     public int getPressCount() {
-        return Config.useAmountForDrinking.get() - 1;
+        return 2 - 1;
     }
 
     /**
@@ -192,12 +192,12 @@ public abstract class AbstractCupEntityBlock extends BaseTCEntityBlock {
         }
 
         //配方
-        if(blockEntity instanceof BaseTankContainerBlockEntity cupBlockEntity) {
+        if(blockEntity instanceof BaseTCBlockEntity cupBlockEntity) {
             CupRecipe recipe = getCheckedRecipe(level, pos, blockEntity);
             if(recipe != null) {
-                FluidStack fluidStack = FluidHelper.getFluidStack(blockEntity);
+                FluidStack fluidStack = FluidUtil.getFluidStack(blockEntity);
                 cupBlockEntity.time++;
-                Util.deBug("Time：" + cupBlockEntity.time, level);
+                CoreUtil.deBug("Time：" + cupBlockEntity.time, level);
                 if (cupBlockEntity.time > recipe.getTime()) {
                     //选取最小容量输出
                     int amount = Math.min(fluidStack.getAmount(), recipe.getFluidAmount());
@@ -219,10 +219,10 @@ public abstract class AbstractCupEntityBlock extends BaseTCEntityBlock {
         if(blockEntity instanceof BaseTankBlockEntity tankBlockEntity) {
             FluidStack fluidStack = tankBlockEntity.tank.getFluid();
             ItemStack stackIn = ItemStack.EMPTY;
-            if (tankBlockEntity instanceof BaseTankContainerBlockEntity cupBlockEntity) {
+            if (tankBlockEntity instanceof BaseTCBlockEntity cupBlockEntity) {
                 stackIn = cupBlockEntity.inventory.getStackInSlot(0);
             }
-            List<CupRecipe> recipes = RecipeHelper.GetRecipes.CupRecipes(level);
+            List<CupRecipe> recipes = RecipeUtil.getRecipes(level, IMRecipes.CUP_RECIPE.get());
             for (var recipe : recipes) {
                 if (recipe.inputMatches(level, fluidStack, stackIn, pos)) {
                     return recipe;
@@ -238,7 +238,7 @@ public abstract class AbstractCupEntityBlock extends BaseTCEntityBlock {
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
         BlockEntity blockEntity = level.getBlockEntity(pos);
-        if (blockEntity instanceof BaseTankContainerBlockEntity cup) {
+        if (blockEntity instanceof BaseTCBlockEntity cup) {
             Vec3 spoutPos = pos.getCenter();
             FluidStack fluidStack = cup.tank.getFluid();
             if(!fluidStack.isEmpty() && fluidStack.getFluid().defaultFluidState().is(IMFluidTags.WARM_FLUID)) {

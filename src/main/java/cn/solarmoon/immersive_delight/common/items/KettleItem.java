@@ -1,6 +1,6 @@
 package cn.solarmoon.immersive_delight.common.items;
 
-import cn.solarmoon.immersive_delight.common.IMEntityBlocks;
+import cn.solarmoon.immersive_delight.common.registry.IMEntityBlocks;
 import cn.solarmoon.immersive_delight.api.common.item.specific.AbstractKettleItem;
 
 /**

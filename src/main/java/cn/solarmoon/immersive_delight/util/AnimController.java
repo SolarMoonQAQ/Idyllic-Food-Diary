@@ -9,8 +9,9 @@ import dev.kosmx.playerAnim.api.layered.modifier.AbstractFadeModifier;
 import dev.kosmx.playerAnim.core.util.Ease;
 import dev.kosmx.playerAnim.minecraftApi.PlayerAnimationAccess;
 import dev.kosmx.playerAnim.minecraftApi.PlayerAnimationRegistry;
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
 
 import java.util.Objects;
 
@@ -18,10 +19,17 @@ import java.util.Objects;
 @SuppressWarnings("unchecked")
 public class AnimController {
 
+    private AbstractClientPlayer player;
+
+    public AnimController(Entity entity) {
+        if (entity instanceof AbstractClientPlayer clientPlayer) {
+            this.player = clientPlayer;
+        }
+    }
+
     public void playAnim(int length , String anim) {
-        Minecraft mc = Minecraft.getInstance();
-        if(mc.player == null) return;
-        ModifierLayer<IAnimation> animation = (ModifierLayer<IAnimation>) PlayerAnimationAccess.getPlayerAssociatedData(mc.player).get(new ResourceLocation(ImmersiveDelight.MOD_ID, "animation"));
+        if (player == null) return;
+        ModifierLayer<IAnimation> animation = (ModifierLayer<IAnimation>) PlayerAnimationAccess.getPlayerAssociatedData(player).get(new ResourceLocation(ImmersiveDelight.MOD_ID, "animation"));
         if(animation == null) return;
         if(animation.isActive()) return;
         animation.replaceAnimationWithFade(AbstractFadeModifier.functionalFadeIn(length, (modelName, type, value) -> value),
@@ -30,9 +38,8 @@ public class AnimController {
     }
 
     public void stopAnim(int length) {
-        Minecraft mc = Minecraft.getInstance();
-        if(mc.player == null) return;
-        ModifierLayer<IAnimation> animation = (ModifierLayer<IAnimation>) PlayerAnimationAccess.getPlayerAssociatedData(mc.player).get(new ResourceLocation(ImmersiveDelight.MOD_ID, "animation"));
+        if (player == null) return;
+        ModifierLayer<IAnimation> animation = (ModifierLayer<IAnimation>) PlayerAnimationAccess.getPlayerAssociatedData(player).get(new ResourceLocation(ImmersiveDelight.MOD_ID, "animation"));
         if(animation == null) return;
         animation.replaceAnimationWithFade(AbstractFadeModifier.standardFadeIn(length, Ease.INOUTCUBIC), null);
     }

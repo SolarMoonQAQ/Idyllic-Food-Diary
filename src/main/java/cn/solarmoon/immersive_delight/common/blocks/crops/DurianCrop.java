@@ -1,7 +1,7 @@
 package cn.solarmoon.immersive_delight.common.blocks.crops;
 
-import cn.solarmoon.immersive_delight.common.IMBlocks;
-import cn.solarmoon.immersive_delight.common.IMItems;
+import cn.solarmoon.immersive_delight.common.registry.IMBlocks;
+import cn.solarmoon.immersive_delight.common.registry.IMItems;
 import cn.solarmoon.immersive_delight.api.common.block.crop.BaseFruitCrop;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

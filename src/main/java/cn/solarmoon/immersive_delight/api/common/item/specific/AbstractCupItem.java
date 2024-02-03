@@ -3,16 +3,15 @@ package cn.solarmoon.immersive_delight.api.common.item.specific;
 import cn.solarmoon.immersive_delight.api.client.ItemRenderer.ICustomItemRendererProvider;
 import cn.solarmoon.immersive_delight.api.client.ItemRenderer.ItemStackRenderer;
 import cn.solarmoon.immersive_delight.api.common.item.BaseTankItem;
+import cn.solarmoon.immersive_delight.api.util.FluidUtil;
+import cn.solarmoon.immersive_delight.api.util.TextUtil;
 import cn.solarmoon.immersive_delight.client.ItemRenderer.LittleCupItemRenderer;
-import cn.solarmoon.immersive_delight.compat.create.Create;
+import cn.solarmoon.immersive_delight.compat.create.util.PotionUtil;
 import cn.solarmoon.immersive_delight.data.fluid_effects.serializer.FluidEffect;
 import cn.solarmoon.immersive_delight.data.fluid_effects.serializer.FoodValue;
 import cn.solarmoon.immersive_delight.data.fluid_effects.serializer.PotionEffect;
 import cn.solarmoon.immersive_delight.data.fluid_foods.serializer.FluidFood;
-import cn.solarmoon.immersive_delight.init.Config;
-import cn.solarmoon.immersive_delight.api.util.FluidHelper;
-import cn.solarmoon.immersive_delight.api.util.TextUtil;
-import cn.solarmoon.immersive_delight.util.Util;
+import cn.solarmoon.immersive_delight.util.CoreUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
@@ -89,7 +88,7 @@ public abstract class AbstractCupItem extends BaseTankItem implements ICustomIte
      */
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
-        IFluidHandlerItem tankStack = FluidHelper.getTank(stack);
+        IFluidHandlerItem tankStack = FluidUtil.getTank(stack);
         int tankAmount = tankStack.getFluidInTank(0).getAmount();
         if(tankAmount >= getDrinkVolume(tankStack.getFluidInTank(0))) {
             FluidStack fluidStack = tankStack.getFluidInTank(0);
@@ -107,14 +106,14 @@ public abstract class AbstractCupItem extends BaseTankItem implements ICustomIte
         //根据液体id获取对应的FluidEffect数据
         String fluidId = fluidStack.getFluid().getFluidType().toString();
         String fluidTag = fluidStack.getTag() != null ? fluidStack.getTag().toString() : "empty";
-        Util.deBug("喝下液体：" + fluidId + " " + fluidTag, level);
+        CoreUtil.deBug("喝下液体：" + fluidId + " " + fluidTag, level);
 
         //机械动力联动：根据药水tag获取药水效果
-        Create.applyPotionFluidEffect(fluidTag, entity, level);
+        PotionUtil.applyPotionFluidEffect(fluidTag, entity, level);
 
         FluidEffect fluidEffect = FluidEffect.get(fluidId);
         if(fluidEffect != null) {
-            Util.deBug("数据已读取", level);
+            CoreUtil.deBug("数据已读取", level);
             //获取potion（因为多种药水效果并行所以为s）
             List<PotionEffect> potionEffects = fluidEffect.effects;
             //如果clear为true则先清空药水效果
@@ -145,7 +144,7 @@ public abstract class AbstractCupItem extends BaseTankItem implements ICustomIte
                     if (rand <= chance) {
                         if(!level.isClientSide) entity.addEffect(mobEffectInstance);
                     }
-                    Util.deBug("存在药水效果：" + mobEffectInstance, level);
+                    CoreUtil.deBug("存在药水效果：" + mobEffectInstance, level);
                 }
             }
         }
@@ -160,7 +159,7 @@ public abstract class AbstractCupItem extends BaseTankItem implements ICustomIte
         if (fluidFood != null) {
             return fluidFood.fluidAmount;
         }
-        return Config.drinkingConsumption.get();
+        return 50;
     }
 
     /**
@@ -212,26 +211,14 @@ public abstract class AbstractCupItem extends BaseTankItem implements ICustomIte
                     components.add(base);
                 }
             }
-            if(fluidEffect.clear) components.add(TextUtil.translation("tooltip", "fluid_effect_clear", ChatFormatting.BLUE));
-            if(fluidEffect.extinguishing) components.add(TextUtil.translation("tooltip", "fluid_effect_extinguishing", ChatFormatting.BLUE));
-            if(fluidEffect.fire > 0) components.add(TextUtil.translation("tooltip", "fluid_effect_fire", ChatFormatting.BLUE, fluidEffect.fire));
+            if(fluidEffect.clear) components.add(CoreUtil.translation("tooltip", "fluid_effect_clear", ChatFormatting.BLUE));
+            if(fluidEffect.extinguishing) components.add(CoreUtil.translation("tooltip", "fluid_effect_extinguishing", ChatFormatting.BLUE));
+            if(fluidEffect.fire > 0) components.add(CoreUtil.translation("tooltip", "fluid_effect_fire", ChatFormatting.BLUE, fluidEffect.fire));
         }
 
         //Create药水效果显示
-        FluidStack fluidStack = FluidHelper.getFluidStack(stack);
-        String fluidTag = fluidStack.getTag() != null ? fluidStack.getTag().toString() : "empty";
-        List<MobEffectInstance> effects = Create.getEffects(fluidTag);
-        for (var effect : effects) {
-            String name = effect.getEffect().getDisplayName().getString();
-            int seconds = effect.getDuration();
-            int minutes = seconds / 60;
-            seconds = seconds % 60;
-            String time = String.format("(%02d:%02d)", minutes, seconds);
-            int amplifier = effect.getAmplifier() + 1;
-            String levelRoman = TextUtil.toRoman(amplifier);
-            Component base = Component.literal(name + " " + levelRoman + " " + time).withStyle(ChatFormatting.BLUE);
-            components.add(base);
-        }
+        FluidStack fluidStack = FluidUtil.getFluidStack(stack);
+        PotionUtil.addPotionHoverText(fluidStack, components);
     }
 
     /**

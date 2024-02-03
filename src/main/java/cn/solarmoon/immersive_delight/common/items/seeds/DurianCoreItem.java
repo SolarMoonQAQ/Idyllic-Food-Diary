@@ -1,6 +1,6 @@
 package cn.solarmoon.immersive_delight.common.items.seeds;
 
-import cn.solarmoon.immersive_delight.common.IMBlocks;
+import cn.solarmoon.immersive_delight.common.registry.IMBlocks;
 import net.minecraft.world.item.ItemNameBlockItem;
 
 public class DurianCoreItem extends ItemNameBlockItem {

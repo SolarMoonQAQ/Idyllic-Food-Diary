@@ -1,6 +1,10 @@
 {
   "values": [
     "immersive_delight:wheat_dough",
-    "immersive_delight:flatbread_dough"
+    "immersive_delight:flatbread_dough",
+    {
+      "id": "farmersdelight:wheat_dough",
+      "required": false
+    }
   ]
 }

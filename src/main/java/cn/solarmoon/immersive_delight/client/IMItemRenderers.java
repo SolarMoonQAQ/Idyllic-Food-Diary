@@ -22,28 +22,10 @@ import org.apache.commons.lang3.tuple.Pair;
 import java.util.List;
 import java.util.Map;
 
-import static cn.solarmoon.immersive_delight.common.IMItems.ROLLING_PIN;
+import static cn.solarmoon.immersive_delight.common.registry.IMItems.ROLLING_PIN;
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class IMItemRenderers {
-
-    /**
-     * tooltip渲染注册
-     */
-    @SubscribeEvent
-    public static void tooltipRegister(RegisterClientTooltipComponentFactoriesEvent event) {
-        event.register(TankableTooltipRenderer.TankTooltip.class, TankableTooltipRenderer::new);
-    }
-
-    /**
-     * tooltip渲染实际应用
-     */
-    @SubscribeEvent
-    public void gatherTooltips(RenderTooltipEvent.GatherComponents event) {
-        TankableTooltipRenderer.TankTooltip tankTooltip = new TankableTooltipRenderer.TankTooltip(event.getItemStack());
-        //位置限定在系列名之上
-        event.getTooltipElements().add(Math.max(event.getTooltipElements().size() - 1, 1) , Either.right(tankTooltip));
-    }
 
     private static final List<Pair<ModelResourceLocation, ModelResourceLocation>> PERSPECTIVE_MODEL_LIST = Lists.newArrayList();
 
