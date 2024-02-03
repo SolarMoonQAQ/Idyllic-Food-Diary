@@ -2,16 +2,15 @@ package cn.solarmoon.immersive_delight.common.registry;
 
 
 import cn.solarmoon.immersive_delight.api.registry.BaseFluidRegistry;
-import cn.solarmoon.immersive_delight.common.fluids.*;
-import cn.solarmoon.immersive_delight.common.fluids.no_bucket.CangShuMuttonSoupFluid;
-import cn.solarmoon.immersive_delight.common.fluids.no_bucket.MushroomStewFluid;
+import cn.solarmoon.immersive_delight.common.fluid.*;
+import cn.solarmoon.immersive_delight.common.fluid.no_bucket.CangShuMuttonSoupFluid;
+import cn.solarmoon.immersive_delight.common.fluid.no_bucket.MushroomStewFluid;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
-import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;

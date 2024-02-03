@@ -1,8 +1,8 @@
 package cn.solarmoon.immersive_delight.network.handler;
 
-import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseContainerBlockEntity;
-import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseTCBlockEntity;
-import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseTankBlockEntity;
+import cn.solarmoon.immersive_delight.api.common.entity_block.entity.BaseContainerBlockEntity;
+import cn.solarmoon.immersive_delight.api.common.entity_block.entity.BaseTCBlockEntity;
+import cn.solarmoon.immersive_delight.api.common.entity_block.entity.BaseTankBlockEntity;
 import cn.solarmoon.immersive_delight.api.network.serializer.ClientPackSerializer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -20,7 +20,7 @@ import net.minecraftforge.fluids.FluidStack;
 
 import java.util.List;
 
-import static cn.solarmoon.immersive_delight.client.particles.vanilla.Wave.wave;
+import static cn.solarmoon.immersive_delight.client.particle.vanilla.Wave.wave;
 
 
 public class ClientPackHandler {

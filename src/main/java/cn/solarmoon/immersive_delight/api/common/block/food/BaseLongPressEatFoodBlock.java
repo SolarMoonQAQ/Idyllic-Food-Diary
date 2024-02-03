@@ -25,7 +25,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Objects;
 
 import static cn.solarmoon.immersive_delight.common.registry.IMItems.ROLLING_PIN;
-import static cn.solarmoon.immersive_delight.client.particles.vanilla.Eat.eat;
+import static cn.solarmoon.immersive_delight.client.particle.vanilla.Eat.eat;
 
 
 /**

@@ -2,11 +2,10 @@ package cn.solarmoon.immersive_delight.common.registry;
 
 
 import cn.solarmoon.immersive_delight.api.registry.BaseObjectRegistry;
-import cn.solarmoon.immersive_delight.common.effects.FleetOfFootEffect;
-import cn.solarmoon.immersive_delight.common.effects.RefreshmentEffect;
-import cn.solarmoon.immersive_delight.common.effects.SnugEffect;
+import cn.solarmoon.immersive_delight.common.effect.FleetOfFootEffect;
+import cn.solarmoon.immersive_delight.common.effect.RefreshmentEffect;
+import cn.solarmoon.immersive_delight.common.effect.SnugEffect;
 import net.minecraft.world.effect.MobEffect;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;

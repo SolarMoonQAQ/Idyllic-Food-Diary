@@ -2,13 +2,13 @@ package cn.solarmoon.immersive_delight.common.registry;
 
 
 import cn.solarmoon.immersive_delight.api.registry.BaseObjectRegistry;
-import cn.solarmoon.immersive_delight.common.items.*;
-import cn.solarmoon.immersive_delight.common.items.sapling.AppleSaplingItem;
-import cn.solarmoon.immersive_delight.common.items.sapling.DurianSaplingItem;
-import cn.solarmoon.immersive_delight.common.items.seeds.AppleCoreItem;
-import cn.solarmoon.immersive_delight.common.items.seeds.BlackTeaSeedsItem;
-import cn.solarmoon.immersive_delight.common.items.seeds.DurianCoreItem;
-import cn.solarmoon.immersive_delight.common.items.seeds.GreenTeaSeedsItem;
+import cn.solarmoon.immersive_delight.common.item.*;
+import cn.solarmoon.immersive_delight.common.item.sapling.AppleSaplingItem;
+import cn.solarmoon.immersive_delight.common.item.sapling.DurianSaplingItem;
+import cn.solarmoon.immersive_delight.common.item.seeds.AppleCoreItem;
+import cn.solarmoon.immersive_delight.common.item.seeds.BlackTeaSeedsItem;
+import cn.solarmoon.immersive_delight.common.item.seeds.DurianCoreItem;
+import cn.solarmoon.immersive_delight.common.item.seeds.GreenTeaSeedsItem;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;

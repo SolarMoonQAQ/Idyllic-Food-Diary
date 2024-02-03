@@ -2,10 +2,10 @@ package cn.solarmoon.immersive_delight.common.registry;
 
 
 import cn.solarmoon.immersive_delight.api.registry.BaseEventRegistry;
-import cn.solarmoon.immersive_delight.common.events.CleaverEvent;
-import cn.solarmoon.immersive_delight.common.events.RollingPinEvent;
-import cn.solarmoon.immersive_delight.common.events.SnugEffectEvent;
-import cn.solarmoon.immersive_delight.common.events.SoupContainerEvent;
+import cn.solarmoon.immersive_delight.common.event.CleaverEvent;
+import cn.solarmoon.immersive_delight.common.event.RollingPinEvent;
+import cn.solarmoon.immersive_delight.common.event.SnugEffectEvent;
+import cn.solarmoon.immersive_delight.common.event.SoupContainerEvent;
 
 public class IMCommonEvents extends BaseEventRegistry {
 

@@ -2,16 +2,16 @@ package cn.solarmoon.immersive_delight.common.registry;
 
 
 import cn.solarmoon.immersive_delight.api.registry.BaseObjectRegistry;
-import cn.solarmoon.immersive_delight.common.blocks.*;
-import cn.solarmoon.immersive_delight.common.blocks.crops.AppleCrop;
-import cn.solarmoon.immersive_delight.common.blocks.crops.BlackTeaCrop;
-import cn.solarmoon.immersive_delight.common.blocks.crops.DurianCrop;
-import cn.solarmoon.immersive_delight.common.blocks.crops.GreenTeaCrop;
-import cn.solarmoon.immersive_delight.common.blocks.longPressEatBlock.CangshuMuttonSoupBlock;
-import cn.solarmoon.immersive_delight.common.blocks.longPressEatBlock.FlatbreadDoughBlock;
-import cn.solarmoon.immersive_delight.common.blocks.longPressEatBlock.WheatDoughBlock;
-import cn.solarmoon.immersive_delight.common.blocks.saplings.AppleSaplingBlock;
-import cn.solarmoon.immersive_delight.common.blocks.saplings.DurianSaplingBlock;
+import cn.solarmoon.immersive_delight.common.block.*;
+import cn.solarmoon.immersive_delight.common.block.crop.AppleCrop;
+import cn.solarmoon.immersive_delight.common.block.crop.BlackTeaCrop;
+import cn.solarmoon.immersive_delight.common.block.crop.DurianCrop;
+import cn.solarmoon.immersive_delight.common.block.crop.GreenTeaCrop;
+import cn.solarmoon.immersive_delight.common.block.longPressEatBlock.CangshuMuttonSoupBlock;
+import cn.solarmoon.immersive_delight.common.block.longPressEatBlock.FlatbreadDoughBlock;
+import cn.solarmoon.immersive_delight.common.block.longPressEatBlock.WheatDoughBlock;
+import cn.solarmoon.immersive_delight.common.block.sapling.AppleSaplingBlock;
+import cn.solarmoon.immersive_delight.common.block.sapling.DurianSaplingBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;

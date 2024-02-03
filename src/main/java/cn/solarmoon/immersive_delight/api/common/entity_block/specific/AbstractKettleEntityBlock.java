@@ -1,10 +1,10 @@
 package cn.solarmoon.immersive_delight.api.common.entity_block.specific;
 
 import cn.solarmoon.immersive_delight.api.common.entity_block.BaseTankEntityBlock;
-import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseTankBlockEntity;
+import cn.solarmoon.immersive_delight.api.common.entity_block.entity.BaseTankBlockEntity;
 import cn.solarmoon.immersive_delight.common.registry.IMSounds;
 import cn.solarmoon.immersive_delight.common.registry.IMRecipes;
-import cn.solarmoon.immersive_delight.common.entity_blocks.KettleEntityBlock;
+import cn.solarmoon.immersive_delight.common.entity_block.KettleEntityBlock;
 import cn.solarmoon.immersive_delight.common.recipes.KettleRecipe;
 import cn.solarmoon.immersive_delight.data.tags.IMFluidTags;
 import cn.solarmoon.immersive_delight.api.util.RecipeUtil;

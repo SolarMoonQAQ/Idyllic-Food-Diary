@@ -1,10 +1,9 @@
 package cn.solarmoon.immersive_delight.common.registry;
 
 import cn.solarmoon.immersive_delight.api.registry.BaseObjectRegistry;
-import cn.solarmoon.immersive_delight.common.entity_blocks.*;
-import cn.solarmoon.immersive_delight.common.entity_blocks.entities.*;
+import cn.solarmoon.immersive_delight.common.entity_block.*;
+import cn.solarmoon.immersive_delight.common.entity_block.entities.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;

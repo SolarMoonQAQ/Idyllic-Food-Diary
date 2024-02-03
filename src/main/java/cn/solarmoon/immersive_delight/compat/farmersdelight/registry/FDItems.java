@@ -1,6 +1,6 @@
 package cn.solarmoon.immersive_delight.compat.farmersdelight.registry;
 
-import cn.solarmoon.immersive_delight.common.items.WheatDoughItem;
+import cn.solarmoon.immersive_delight.common.item.WheatDoughItem;
 import cn.solarmoon.immersive_delight.compat.farmersdelight.FarmersDelight;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.fml.common.Mod;

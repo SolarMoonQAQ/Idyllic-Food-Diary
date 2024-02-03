@@ -1,6 +1,6 @@
 package cn.solarmoon.immersive_delight.common.recipes;
 
-import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseTCBlockEntity;
+import cn.solarmoon.immersive_delight.api.common.entity_block.entity.BaseTCBlockEntity;
 import cn.solarmoon.immersive_delight.util.Util;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;

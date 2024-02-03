@@ -3,7 +3,7 @@ package cn.solarmoon.immersive_delight.client.event;
 import cn.solarmoon.immersive_delight.api.common.item.specific.AbstractCupItem;
 import cn.solarmoon.immersive_delight.api.common.item.specific.AbstractKettleItem;
 import cn.solarmoon.immersive_delight.api.network.serializer.ServerPackSerializer;
-import cn.solarmoon.immersive_delight.common.items.SoupPotItem;
+import cn.solarmoon.immersive_delight.common.item.SoupPotItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
@@ -13,7 +13,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 
-import static cn.solarmoon.immersive_delight.client.particles.vanilla.FluidPouring.fluidPouring;
+import static cn.solarmoon.immersive_delight.client.particle.vanilla.FluidPouring.fluidPouring;
 
 /**
  * shift+左键把水倒空

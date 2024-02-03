@@ -5,7 +5,7 @@ import cn.solarmoon.immersive_delight.api.util.CapabilityUtil;
 import cn.solarmoon.immersive_delight.client.event.RollingPinClientEvent;
 import cn.solarmoon.immersive_delight.common.registry.IMCapabilities;
 import cn.solarmoon.immersive_delight.common.registry.IMItems;
-import cn.solarmoon.immersive_delight.common.items.RollingPinItem;
+import cn.solarmoon.immersive_delight.common.item.RollingPinItem;
 import cn.solarmoon.immersive_delight.api.util.ItemHelper;
 import cn.solarmoon.immersive_delight.util.RollingPinHelper;
 import com.mojang.blaze3d.systems.RenderSystem;

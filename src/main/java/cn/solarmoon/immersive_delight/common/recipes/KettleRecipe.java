@@ -1,6 +1,6 @@
 package cn.solarmoon.immersive_delight.common.recipes;
 
-import cn.solarmoon.immersive_delight.api.common.entity_block.entities.BaseTankBlockEntity;
+import cn.solarmoon.immersive_delight.api.common.entity_block.entity.BaseTankBlockEntity;
 import cn.solarmoon.immersive_delight.util.Util;
 import com.google.gson.JsonObject;
 import net.minecraft.core.BlockPos;
