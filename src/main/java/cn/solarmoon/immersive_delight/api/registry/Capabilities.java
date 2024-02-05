@@ -1,9 +1,8 @@
-package cn.solarmoon.immersive_delight.common.registry;
+package cn.solarmoon.immersive_delight.api.registry;
 
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
 import cn.solarmoon.immersive_delight.api.common.capability.IPlayerData;
 import cn.solarmoon.immersive_delight.api.common.capability.PlayerData;
-import cn.solarmoon.immersive_delight.api.registry.BaseEventRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -14,7 +13,7 @@ import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
-public class IMCapabilities extends BaseEventRegistry {
+public class Capabilities extends BaseEventRegistry {
 
     public static final Capability<IPlayerData> PLAYER_DATA = CapabilityManager.get(new CapabilityToken<>(){});
 
@@ -33,7 +32,7 @@ public class IMCapabilities extends BaseEventRegistry {
 
     @Override
     public void addRegistry() {
-        events.add(new IMCapabilities());
+        events.add(new Capabilities());
     }
 
 }

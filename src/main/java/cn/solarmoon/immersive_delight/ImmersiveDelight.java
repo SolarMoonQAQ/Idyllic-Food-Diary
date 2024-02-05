@@ -81,8 +81,6 @@ public class ImmersiveDelight {
 
     @SubscribeEvent
     public void onFMLCommonSetupEvent(final FMLCommonSetupEvent event) {
-        //forge能力
-        new IMCapabilities().register();
         //双端事件
         new IMCommonEvents().register();
         //网络包

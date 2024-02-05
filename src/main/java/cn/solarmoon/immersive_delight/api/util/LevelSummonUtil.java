@@ -1,9 +1,7 @@
 package cn.solarmoon.immersive_delight.api.util;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -11,19 +9,19 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.List;
 import java.util.Random;
 
 public class LevelSummonUtil {
 
     /**
      * 生成基础掉落物
-     * 坐标位置
+     * 坐标中心位置
      * 固定概率掉落
      */
-    public static void summonDrop(Item item, Level level, BlockPos pos, int origin, int bound) {
+    public static void summonDrop(Item item, Level level, BlockPos pos, int min, int max) {
         Random rand = new Random();
-        ItemEntity drop = new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(item, rand.nextInt(origin,bound)));
-        setMovement(drop);
+        ItemEntity drop = new ItemEntity(level, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, new ItemStack(item, rand.nextInt(min,max)));
         level.addFreshEntity(drop);
     }
 
@@ -35,17 +33,41 @@ public class LevelSummonUtil {
     public static void summonDrop(Item item, Level level, Vec3 vec3, int origin, int bound) {
         Random rand = new Random();
         ItemEntity drop = new ItemEntity(level, vec3.x, vec3.y, vec3.z, new ItemStack(item, rand.nextInt(origin,bound)));
-        setMovement(drop);
         level.addFreshEntity(drop);
     }
 
     /**
      * 生成基础掉落物
+     * 坐标中心位置（不包括y）
      */
     public static void summonDrop(Item item, Level level, BlockPos pos, int amount) {
-        ItemEntity drop = new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(item, amount));
-        setMovement(drop);
+        ItemEntity drop = new ItemEntity(level, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, new ItemStack(item, amount));
         level.addFreshEntity(drop);
+    }
+
+    /**
+     * 生成基础掉落物
+     * 坐标中心位置（不包括y）
+     * 附带一个自定义初速度
+     */
+    public static void summonDrop(Item item, Level level, BlockPos pos, Vec3 movement, int amount) {
+        ItemEntity drop = new ItemEntity(level, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, new ItemStack(item, amount));
+        drop.setDeltaMovement(movement);
+        level.addFreshEntity(drop);
+    }
+
+    /**
+     * 生成基础掉落物
+     * 坐标中心位置（不包括y）
+     * 附带一个自定义初速度
+     * 直接生成一整个列表的掉落物
+     */
+    public static void summonDrop(List<Item> items, Level level, BlockPos pos, Vec3 movement, int amount) {
+        for (Item item : items) {
+            ItemEntity drop = new ItemEntity(level, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, new ItemStack(item, amount));
+            drop.setDeltaMovement(movement);
+            level.addFreshEntity(drop);
+        }
     }
 
     /**
@@ -53,7 +75,6 @@ public class LevelSummonUtil {
      */
     public static void summonDrop(Item item, Level level, Vec3 vec3, int amount) {
         ItemEntity drop = new ItemEntity(level, vec3.x, vec3.y, vec3.z, new ItemStack(item, amount));
-        setMovement(drop);
         level.addFreshEntity(drop);
     }
 
@@ -62,9 +83,21 @@ public class LevelSummonUtil {
      * 以坐标为生成点
      */
     public static void summonDrop(ItemStack stack, Level level, BlockPos pos) {
-        ItemEntity drop = new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(), stack);
-        setMovement(drop);
+        ItemEntity drop = new ItemEntity(level, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, stack);
         level.addFreshEntity(drop);
+    }
+
+    /**
+     * 生成基础掉落物
+     * 以坐标中心（不包括y）为生成点
+     * 附带一个初速度
+     */
+    public static void summonDrop(List<ItemStack> stacks, Level level, BlockPos pos, Vec3 movement) {
+        for (ItemStack stack : stacks) {
+            ItemEntity drop = new ItemEntity(level, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, stack);
+            drop.setDeltaMovement(movement);
+            level.addFreshEntity(drop);
+        }
     }
 
     /**
@@ -73,20 +106,18 @@ public class LevelSummonUtil {
      */
     public static void summonDrop(ItemStack item, Level level, Vec3 vec3) {
         ItemEntity drop = new ItemEntity(level, vec3.x, vec3.y, vec3.z, item);
-        setMovement(drop);
         level.addFreshEntity(drop);
     }
 
     /**
-     * 像原版掉落物一样给予掉落物随机运动轨迹
+     * 生成基础掉落物
+     * 以三维坐标为生成点（更为精细）
+     * 直接生成一整个列表的掉落物
      */
-    public static void setMovement(Entity entity) {
-        Level level = entity.level();
-        RandomSource random = level.random;
-        entity.setDeltaMovement(
-                (0.5 - random.nextFloat()) * 0.2,
-                0.2,
-                (0.5 - random.nextFloat()) * 0.2);
+    public static void summonDrop(List<ItemStack> stacks, Level level, Vec3 vec3) {
+        for (ItemStack stack : stacks) {
+            summonDrop(stack, level, vec3);
+        }
     }
 
     /**

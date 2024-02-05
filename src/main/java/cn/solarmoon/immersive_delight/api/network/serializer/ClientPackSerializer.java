@@ -1,7 +1,6 @@
 package cn.solarmoon.immersive_delight.api.network.serializer;
 
 import cn.solarmoon.immersive_delight.api.network.PackToClient;
-import cn.solarmoon.immersive_delight.network.handler.ClientPackHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -19,7 +18,7 @@ import java.util.Objects;
 import java.util.function.Supplier;
 
 
-public record ClientPackSerializer(@Nullable BlockPos pos, List<ItemStack> stacks, FluidStack fluidStack, CompoundTag tag, float f, String message) {
+public record ClientPackSerializer(@Nullable BlockPos pos, List<ItemStack> stacks, FluidStack fluidStack, CompoundTag tag, float f, String string, String message) {
 
     public void encode(FriendlyByteBuf buf) {
         buf.writeUtf(message);
@@ -33,6 +32,7 @@ public record ClientPackSerializer(@Nullable BlockPos pos, List<ItemStack> stack
         buf.writeFluidStack(fluidStack);
         buf.writeNbt(tag);
         buf.writeFloat(f);
+        buf.writeUtf(string);
     }
 
     public static ClientPackSerializer decode(FriendlyByteBuf buf) {
@@ -48,40 +48,47 @@ public record ClientPackSerializer(@Nullable BlockPos pos, List<ItemStack> stack
         FluidStack fluidStack = buf.readFluidStack();
         CompoundTag tag = buf.readNbt();
         float f = buf.readFloat();
-        return new ClientPackSerializer(pos, stacks, fluidStack, tag, f ,message);
+        String string = buf.readUtf();
+        return new ClientPackSerializer(pos, stacks, fluidStack, tag, f, string, message);
     }
 
     public static void sendPacket(BlockPos pos, List<ItemStack> stacks, FluidStack fluidStack, CompoundTag tag, float f, String message) {
-        PackToClient.INSTANCE.send(PacketDistributor.ALL.noArg(), new ClientPackSerializer(pos, stacks, fluidStack, tag, f, message));
+        PackToClient.INSTANCE.send(PacketDistributor.ALL.noArg(), new ClientPackSerializer(pos, stacks, fluidStack, tag, f, "", message));
     }
 
     public static void sendPacket(BlockPos pos, List<ItemStack> stacks, FluidStack fluidStack, float f, String message) {
-        PackToClient.INSTANCE.send(PacketDistributor.ALL.noArg(), new ClientPackSerializer(pos, stacks, fluidStack, new CompoundTag(), f, message));
+        PackToClient.INSTANCE.send(PacketDistributor.ALL.noArg(), new ClientPackSerializer(pos, stacks, fluidStack, new CompoundTag(), f, "", message));
     }
 
     public static void sendPacket(BlockPos pos, List<ItemStack> stacks, float f, String message) {
-        PackToClient.INSTANCE.send(PacketDistributor.ALL.noArg(), new ClientPackSerializer(pos, stacks, FluidStack.EMPTY, new CompoundTag(), f, message));
+        PackToClient.INSTANCE.send(PacketDistributor.ALL.noArg(), new ClientPackSerializer(pos, stacks, FluidStack.EMPTY, new CompoundTag(), f, "", message));
     }
 
     public static void sendPacket(BlockPos pos, float f, String message) {
-        PackToClient.INSTANCE.send(PacketDistributor.ALL.noArg(), new ClientPackSerializer(pos, new ArrayList<>(), FluidStack.EMPTY, new CompoundTag(), f, message));
+        PackToClient.INSTANCE.send(PacketDistributor.ALL.noArg(), new ClientPackSerializer(pos, new ArrayList<>(), FluidStack.EMPTY, new CompoundTag(), f, "", message));
     }
 
     public static void sendPacket(BlockPos pos, FluidStack fluidStack, CompoundTag tag, String message) {
-        PackToClient.INSTANCE.send(PacketDistributor.ALL.noArg(), new ClientPackSerializer(pos, new ArrayList<>(), fluidStack, tag, 0, message));
+        PackToClient.INSTANCE.send(PacketDistributor.ALL.noArg(), new ClientPackSerializer(pos, new ArrayList<>(), fluidStack, tag, 0, "", message));
     }
 
     public static void sendPacket(BlockPos pos, FluidStack fluidStack, String message) {
-        PackToClient.INSTANCE.send(PacketDistributor.ALL.noArg(), new ClientPackSerializer(pos, new ArrayList<>(), fluidStack, new CompoundTag(), 0, message));
+        PackToClient.INSTANCE.send(PacketDistributor.ALL.noArg(), new ClientPackSerializer(pos, new ArrayList<>(), fluidStack, new CompoundTag(), 0, "", message));
     }
 
     public static void sendPacket(BlockPos pos, CompoundTag tag, String message) {
-        PackToClient.INSTANCE.send(PacketDistributor.ALL.noArg(), new ClientPackSerializer(pos, new ArrayList<>(), FluidStack.EMPTY, tag, 0, message));
+        PackToClient.INSTANCE.send(PacketDistributor.ALL.noArg(), new ClientPackSerializer(pos, new ArrayList<>(), FluidStack.EMPTY, tag, 0, "", message));
+    }
+
+    public static void sendPacket(int i, String string, String message) {
+        PackToClient.INSTANCE.send(PacketDistributor.ALL.noArg(), new ClientPackSerializer(new BlockPos(0, 0 ,0), new ArrayList<>(), FluidStack.EMPTY, new CompoundTag(), i, string, message));
     }
 
     public static void handle(ClientPackSerializer packet, Supplier<NetworkEvent.Context> supplier) {
         NetworkEvent.Context context = supplier.get();
-        context.enqueueWork(() -> DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientPackHandler.clientPackHandler(packet)));
+        for (var pack : PackToClient.clientPackHandlers) {
+            context.enqueueWork(() -> DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> pack.handle(packet)));
+        }
         supplier.get().setPacketHandled(true);
     }
 

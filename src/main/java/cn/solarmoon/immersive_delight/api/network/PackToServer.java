@@ -6,15 +6,20 @@ import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class PackToServer implements INetWorkReg {
 
     public static SimpleChannel INSTANCE;
+    public static List<IServerPackHandler> serverPackHandlers = new ArrayList<>();
 
     private int packetID = 0;
     private final SimpleChannel network;
 
     public PackToServer(ResourceLocation name) {
-        this.network = NetworkRegistry.ChannelBuilder.named(name)
+        network = NetworkRegistry.ChannelBuilder.named(name)
                 .networkProtocolVersion(() -> "1")
                 .clientAcceptedVersions(string -> true)
                 .serverAcceptedVersions(string -> true)
@@ -28,6 +33,11 @@ public class PackToServer implements INetWorkReg {
 
     private int id() {
         return packetID++;
+    }
+
+    public PackToServer addHandler(IServerPackHandler... handlers) {
+        Collections.addAll(serverPackHandlers, handlers);
+        return this;
     }
 
     @Override

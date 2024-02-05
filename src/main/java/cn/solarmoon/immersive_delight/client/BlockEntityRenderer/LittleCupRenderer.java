@@ -1,5 +1,6 @@
 package cn.solarmoon.immersive_delight.client.BlockEntityRenderer;
 
+import cn.solarmoon.immersive_delight.api.client.blockEntityRenderer.BaseBlockEntityRenderer;
 import cn.solarmoon.immersive_delight.api.common.entity_block.entity.BaseTCBlockEntity;
 import cn.solarmoon.immersive_delight.api.common.entity_block.specific.AbstractCupEntityBlock;
 import cn.solarmoon.immersive_delight.api.util.FluidUtil;
@@ -16,12 +17,10 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 
-public class LittleCupRenderer<E extends BaseTCBlockEntity> implements BlockEntityRenderer<E> {
-
-    private final ItemRenderer itemRenderer;
+public class LittleCupRenderer extends BaseBlockEntityRenderer<BaseTCBlockEntity> {
 
     public LittleCupRenderer(BlockEntityRendererProvider.Context context) {
-        this.itemRenderer = context.getItemRenderer();
+        super(context);
     }
 
     @SuppressWarnings("ConstantConditions")

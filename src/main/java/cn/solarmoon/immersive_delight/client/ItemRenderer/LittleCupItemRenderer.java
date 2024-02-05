@@ -1,6 +1,6 @@
 package cn.solarmoon.immersive_delight.client.ItemRenderer;
 
-import cn.solarmoon.immersive_delight.api.client.ItemRenderer.ItemStackRenderer;
+import cn.solarmoon.immersive_delight.api.client.ItemRenderer.BaseItemRenderer;
 import cn.solarmoon.immersive_delight.util.ContainerUtil;
 import cn.solarmoon.immersive_delight.api.util.FluidUtil;
 import cn.solarmoon.immersive_delight.util.FluidRenderAnotherUtil;
@@ -22,7 +22,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.items.ItemStackHandler;
 
-public class LittleCupItemRenderer extends ItemStackRenderer {
+public class LittleCupItemRenderer extends BaseItemRenderer {
 
     @Override
     public void renderByItem(ItemStack stack, ItemDisplayContext context, PoseStack poseStack, MultiBufferSource buffer, int light, int overlay) {

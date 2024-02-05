@@ -1,4 +1,4 @@
-package cn.solarmoon.immersive_delight.init.client;
+package cn.solarmoon.immersive_delight.common.registry.client;
 
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
 import dev.kosmx.playerAnim.api.layered.IAnimation;
@@ -17,7 +17,7 @@ import static cn.solarmoon.immersive_delight.ImmersiveDelight.MOD_ID;
 
 
 @Mod.EventBusSubscriber(modid = ImmersiveDelight.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
-public class Animation {
+public class IMAnimations {
 
     @SubscribeEvent
     public static void animationRegister(final FMLClientSetupEvent event) {

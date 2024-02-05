@@ -1,7 +1,6 @@
 package cn.solarmoon.immersive_delight.api.registry;
 
 import net.minecraft.world.level.material.Fluid;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.registries.DeferredRegister;

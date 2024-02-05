@@ -1,7 +1,7 @@
 package cn.solarmoon.immersive_delight.api.common.capability;
 
 import cn.solarmoon.immersive_delight.api.common.capability.serializable.RecipeSelectorData;
-import cn.solarmoon.immersive_delight.common.registry.IMCapabilities;
+import cn.solarmoon.immersive_delight.api.registry.Capabilities;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Player;
@@ -34,7 +34,7 @@ public class PlayerData implements ICapabilitySerializable<CompoundTag>, IPlayer
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if (cap == IMCapabilities.PLAYER_DATA) {
+        if (cap == Capabilities.PLAYER_DATA) {
             return playerData.cast();
         }
         return LazyOptional.empty();
@@ -52,7 +52,7 @@ public class PlayerData implements ICapabilitySerializable<CompoundTag>, IPlayer
     @Override
     public void deserializeNBT(CompoundTag nbt) {
 
-        recipeSelectorData.deserializeNBT(nbt);
+        recipeSelectorData.deserializeNBT(nbt.getCompound("recipeSelectorData"));
 
     }
 

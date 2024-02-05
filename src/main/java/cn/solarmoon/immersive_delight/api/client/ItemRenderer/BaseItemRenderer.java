@@ -10,9 +10,9 @@ import net.minecraft.world.item.ItemStack;
 /**
  * 基本物品渲染，只是简化了一些操作
  */
-public abstract class ItemStackRenderer extends BlockEntityWithoutLevelRenderer {
+public abstract class BaseItemRenderer extends BlockEntityWithoutLevelRenderer {
 
-    public ItemStackRenderer() {
+    public BaseItemRenderer() {
         super(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
     }
 

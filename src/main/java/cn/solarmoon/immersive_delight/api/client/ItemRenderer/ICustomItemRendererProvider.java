@@ -10,6 +10,6 @@ import java.util.function.Supplier;
  */
 public interface ICustomItemRendererProvider extends ItemLike {
 
-    Supplier<ItemStackRenderer> getRendererFactory();
+    Supplier<BaseItemRenderer> getRendererFactory();
 
 }

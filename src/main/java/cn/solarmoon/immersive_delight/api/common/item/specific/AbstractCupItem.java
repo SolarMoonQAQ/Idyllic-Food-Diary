@@ -1,7 +1,7 @@
 package cn.solarmoon.immersive_delight.api.common.item.specific;
 
 import cn.solarmoon.immersive_delight.api.client.ItemRenderer.ICustomItemRendererProvider;
-import cn.solarmoon.immersive_delight.api.client.ItemRenderer.ItemStackRenderer;
+import cn.solarmoon.immersive_delight.api.client.ItemRenderer.BaseItemRenderer;
 import cn.solarmoon.immersive_delight.api.common.item.BaseTankItem;
 import cn.solarmoon.immersive_delight.api.util.FluidUtil;
 import cn.solarmoon.immersive_delight.api.util.TextUtil;
@@ -225,7 +225,7 @@ public abstract class AbstractCupItem extends BaseTankItem implements ICustomIte
      * 应用模型渲染
      */
     @Override
-    public Supplier<ItemStackRenderer> getRendererFactory() {
+    public Supplier<BaseItemRenderer> getRendererFactory() {
         return LittleCupItemRenderer::new;
     }
 

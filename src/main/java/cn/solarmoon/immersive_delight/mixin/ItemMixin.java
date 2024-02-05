@@ -1,8 +1,13 @@
 package cn.solarmoon.immersive_delight.mixin;
 
 import cn.solarmoon.immersive_delight.api.client.ItemRenderer.ICustomItemRendererProvider;
+import cn.solarmoon.immersive_delight.api.common.capability.serializable.RecipeSelectorData;
 import cn.solarmoon.immersive_delight.api.common.item.IOptionalRecipeItem;
+import cn.solarmoon.immersive_delight.api.network.serializer.ClientPackSerializer;
+import cn.solarmoon.immersive_delight.api.util.CapabilityUtil;
+import cn.solarmoon.immersive_delight.api.registry.Capabilities;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -28,6 +33,9 @@ public abstract class ItemMixin {
         return null;
     }
 
+    /**
+     * IClientItemExtensions接口实现，获取手中物品渲染器
+     */
     @Inject(remap = false, method = "initializeClient", at = @At("HEAD"))
     public void initializeClient(Consumer<IClientItemExtensions> consumer, CallbackInfo ci) {
         if(this instanceof ICustomItemRendererProvider provider) {
@@ -42,14 +50,25 @@ public abstract class ItemMixin {
         }
     }
 
+    /**
+     * IOptionalRecipeItem接口实现，随时更新目视配方
+     */
     @Inject(method = "inventoryTick", at = @At("HEAD"))
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int slot, boolean isHeld, CallbackInfo ci) {
-        if (stack.getItem() instanceof IOptionalRecipeItem<?> crStack) {
+        if (stack.getItem() instanceof IOptionalRecipeItem<?> orStack) {
 
-            if (entity instanceof Player player) {
+            if (entity instanceof Player player && isHeld) {
                 BlockHitResult hit = getPlayerPOVHitResult(level, player, ClipContext.Fluid.NONE);
                 assert hit != null;
-                crStack.recipeCheckAndUpdate(level, hit, isHeld);
+                orStack.recipeCheckAndUpdate(level, hit);
+
+                //客户端同步配方选择序列数
+                if (player instanceof ServerPlayer sp) {
+                    RecipeSelectorData selector = CapabilityUtil.getData(sp, Capabilities.PLAYER_DATA).getRecipeSelectorData();
+                    ClientPackSerializer.sendPacket(selector.getIndex(orStack.getRecipeType()), orStack.getRecipeType().toString(), "syncIndex");
+                    ClientPackSerializer.sendPacket(selector.getRecipeIndex(orStack.getRecipeType()), orStack.getRecipeType().toString(), "syncRIndex");
+                }
+
             }
 
         }

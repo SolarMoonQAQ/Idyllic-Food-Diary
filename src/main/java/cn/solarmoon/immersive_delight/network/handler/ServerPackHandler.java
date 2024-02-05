@@ -1,11 +1,13 @@
 package cn.solarmoon.immersive_delight.network.handler;
 
+import cn.solarmoon.immersive_delight.api.common.item.IOptionalRecipeItem;
+import cn.solarmoon.immersive_delight.api.network.IServerPackHandler;
 import cn.solarmoon.immersive_delight.api.util.CapabilityUtil;
 import cn.solarmoon.immersive_delight.api.util.DamageUtil;
 import cn.solarmoon.immersive_delight.api.util.FluidUtil;
 import cn.solarmoon.immersive_delight.common.registry.IMSounds;
 import cn.solarmoon.immersive_delight.api.common.item.BaseTankItem;
-import cn.solarmoon.immersive_delight.common.registry.IMCapabilities;
+import cn.solarmoon.immersive_delight.api.registry.Capabilities;
 import cn.solarmoon.immersive_delight.common.registry.IMDamageTypes;
 import cn.solarmoon.immersive_delight.compat.create.util.PotionUtil;
 import cn.solarmoon.immersive_delight.data.fluid_effects.serializer.FluidEffect;
@@ -13,7 +15,6 @@ import cn.solarmoon.immersive_delight.data.fluid_effects.serializer.PotionEffect
 import cn.solarmoon.immersive_delight.api.network.serializer.ServerPackSerializer;
 import cn.solarmoon.immersive_delight.data.tags.IMFluidTags;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -33,9 +34,10 @@ import net.minecraftforge.network.NetworkEvent;
 import java.util.List;
 import java.util.Random;
 
-public class ServerPackHandler {
-    public static void serverPackHandler(ServerPackSerializer packet, NetworkEvent.Context context) {
+public class ServerPackHandler implements IServerPackHandler {
 
+    @Override
+    public void handle(ServerPackSerializer packet, NetworkEvent.Context context) {
         //快乐的定义时间
         ServerPlayer player = context.getSender();
         Level level = null;
@@ -44,44 +46,8 @@ public class ServerPackHandler {
         }
         BlockPos pos = packet.pos();
         ItemStack stack = packet.stack();
-        Block block = null;
-        if (level != null) {
-            if (pos != null) {
-                block = level.getBlockState(pos).getBlock();
-            }
-        }
-        Block realBlock = packet.block();
         //处理
         switch (packet.message()) {
-            //结束使用物品
-            case "stopUse" -> {
-                if(player == null) return;
-                player.stopUsingItem();
-            }
-            //擀面结束的输出
-            case "rollingOutput" -> {
-                if(realBlock == null || level == null || pos == null || stack == null) return;
-                level.destroyBlock(pos, false);
-                level.setBlock(pos, realBlock.defaultBlockState(), 3);
-            }
-            case "rollingResults" -> {
-                if(level == null || pos == null || stack == null) return;
-                double maxY = level.getBlockState(pos).getShape(level, pos).max(Direction.Axis.Y);
-                ItemEntity itemEntity = new ItemEntity(level, pos.getX() + 0.5, pos.getY() + maxY / 2, pos.getZ() + 0.5, stack);
-                level.addFreshEntity(itemEntity);
-            }
-            //擀面杖收割技能
-            case "sweepHarvest" -> {
-                if(level == null || pos == null || stack == null) return;
-                ItemEntity itemEntity = new ItemEntity(level, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, block.asItem().getDefaultInstance());
-                itemEntity.setDeltaMovement(itemEntity.getDeltaMovement().add(0, 0.2, 0));
-                level.destroyBlock(pos, false);
-                for(int i = 0; i < 5; i++) {
-                    level.playSound(null, pos, SoundEvents.ARROW_SHOOT, SoundSource.BLOCKS, 2.0f, (1.1f- (float) i /5));
-                }
-                level.addFreshEntity(itemEntity);
-                stack.hurtAndBreak(1, player, (entity) -> entity.broadcastBreakEvent(entity.getUsedItemHand()));
-            }
             //倒水技能
             case "pouring" -> {
                 if(player == null || pos == null) return;
@@ -119,17 +85,18 @@ public class ServerPackHandler {
                 if(!level.isClientSide) level.playSound(null, pos, SoundEvents.AMBIENT_UNDERWATER_EXIT, SoundSource.PLAYERS, 0.8f, 1f);
             }
             case "updateIndex" -> {
-                CapabilityUtil.getData(player, IMCapabilities.PLAYER_DATA).getRecipeSelectorData().setIndex(packet.i());
+                if (stack.getItem() instanceof IOptionalRecipeItem<?> op) {
+                    CapabilityUtil.getData(player, Capabilities.PLAYER_DATA).getRecipeSelectorData().setIndex(packet.i(), op.getRecipeType());
+                }
             }
             case "updateRecipeIndex" -> {
-                CapabilityUtil.getData(player, IMCapabilities.PLAYER_DATA).getRecipeSelectorData().setRecipeIndex(packet.i());
+                if (stack.getItem() instanceof IOptionalRecipeItem<?> op) {
+                    CapabilityUtil.getData(player, Capabilities.PLAYER_DATA).getRecipeSelectorData().setRecipeIndex(packet.i(), op.getRecipeType());
+                }
             }
         }
     }
 
-    /**
-     * 为了和block的use方法互通
-     */
     public static void commonUse(FluidStack fluidStack, Level level, LivingEntity entity) {
         //根据液体id获取对应的FluidEffect数据
         String fluidId = fluidStack.getFluid().getFluidType().toString();
@@ -168,5 +135,4 @@ public class ServerPackHandler {
         }
 
     }
-
 }

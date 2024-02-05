@@ -10,11 +10,17 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 import org.jetbrains.annotations.NotNull;
@@ -89,11 +95,16 @@ public class RollingPinRecipe implements Recipe<RecipeWrapper> {
     /**
      * 根据幸运等级对results进行随机选取并输出最终结果
      */
-    public List<ItemStack> rollResults(RandomSource rand, int fortuneLevel) {
+    public List<ItemStack> rollResults(Player player) {
+        int fortuneLevel = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.BLOCK_FORTUNE, player.getItemInHand(InteractionHand.MAIN_HAND));
+        MobEffectInstance luckEffect = player.getEffect(MobEffects.LUCK);
+        int luckPotionLevel = (luckEffect != null) ? luckEffect.getAmplifier() + 1 : 0;
+        RandomSource rand = player.getRandom();
+        int luck = fortuneLevel + luckPotionLevel;
         List<ItemStack> results = new ArrayList<>();
         NonNullList<RecipeUtil.ChanceResult> rollableResults = getRollableResults();
         for (RecipeUtil.ChanceResult output : rollableResults) {
-            ItemStack stack = output.rollOutput(rand, fortuneLevel);
+            ItemStack stack = output.rollOutput(rand, luck);
             if (!stack.isEmpty())
                 results.add(stack);
         }

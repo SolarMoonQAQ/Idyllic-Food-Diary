@@ -22,7 +22,6 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
@@ -48,10 +47,10 @@ public abstract class BasicEntityBlock extends BaseEntityBlock implements Simple
     public boolean getThis(Player player, Level level, BlockPos pos, BlockState state, InteractionHand hand) {
         ItemStack heldItem = player.getItemInHand(hand);
         if(hand.equals(InteractionHand.MAIN_HAND) && heldItem.isEmpty() && player.isCrouching()) {
-            ItemStack drop = getCloneItemStack(level, pos, state);
+            ItemStack copy = getCloneItemStack(level, pos, state);
             level.removeBlock(pos, false);
             level.playSound(player, pos, SoundEvents.ARMOR_EQUIP_LEATHER, SoundSource.PLAYERS, 1F, 1F);
-            player.setItemInHand(hand, drop);
+            player.setItemInHand(hand, copy);
             return true;
         }
         return false;
