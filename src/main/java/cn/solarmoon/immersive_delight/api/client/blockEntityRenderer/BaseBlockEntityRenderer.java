@@ -13,7 +13,7 @@ public abstract class BaseBlockEntityRenderer<E extends BlockEntity> implements 
 
      public BaseBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
         this.itemRenderer = context.getItemRenderer();
-    }
+     }
 
     @Override
     public abstract void render(E blockEntity, float tickDelta, PoseStack poseStack, MultiBufferSource buffer, int light, int overlay);

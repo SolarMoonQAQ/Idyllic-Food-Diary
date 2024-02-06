@@ -1,6 +1,8 @@
 package cn.solarmoon.immersive_delight.common.effect;
 
 import cn.solarmoon.immersive_delight.api.network.serializer.ClientPackSerializer;
+import cn.solarmoon.immersive_delight.common.registry.IMPacks;
+import cn.solarmoon.immersive_delight.util.namespace.NETList;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
@@ -38,7 +40,7 @@ public class FleetOfFootEffect extends MobEffect {
     @Override
     public void removeAttributeModifiers(LivingEntity entity, AttributeMap map, int amplifier) {
         super.removeAttributeModifiers(entity, map, amplifier);
-        ClientPackSerializer.sendPacket(entity.getOnPos(), new ArrayList<>(), FluidStack.EMPTY, 0.6f, "updateUpStep");
+        IMPacks.CLIENT_PACK.getSender().send(NETList.SYNC_UP_STEP, 0.6f);
         entity.setMaxUpStep(0.6f);
     }
 

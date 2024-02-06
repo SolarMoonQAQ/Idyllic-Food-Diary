@@ -69,7 +69,7 @@ public class DurianTreeFeature extends BaseTreeFeature {
 
     @Override
     public BlockState getProduct() {
-        return IMBlocks.DURIAN.get().defaultBlockState();
+        return IMBlocks.DURIAN_CROP.get().defaultBlockState();
     }
 
     public static class DurianTreeGrower extends AbstractTreeGrower {

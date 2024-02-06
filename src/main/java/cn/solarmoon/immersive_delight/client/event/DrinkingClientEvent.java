@@ -1,12 +1,12 @@
 package cn.solarmoon.immersive_delight.client.event;
 
-import cn.solarmoon.immersive_delight.api.common.item.specific.AbstractCupItem;
-import cn.solarmoon.immersive_delight.api.common.item.specific.AbstractKettleItem;
-import cn.solarmoon.immersive_delight.api.network.serializer.ServerPackSerializer;
+import cn.solarmoon.immersive_delight.common.item.core.AbstractCupItem;
+import cn.solarmoon.immersive_delight.common.item.core.AbstractKettleItem;
 import cn.solarmoon.immersive_delight.common.item.SoupPotItem;
+import cn.solarmoon.immersive_delight.common.registry.IMPacks;
+import cn.solarmoon.immersive_delight.util.namespace.NETList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -29,7 +29,7 @@ public class DrinkingClientEvent {
         BlockPos pos = event.getPos();
         if(stack.getItem() instanceof AbstractCupItem || stack.getItem() instanceof AbstractKettleItem || stack.getItem() instanceof SoupPotItem) {
             if(event.getEntity().isCrouching()) {
-                ServerPackSerializer.sendPacket(pos, Blocks.AIR, stack, "pouring");
+                IMPacks.SERVER_PACK.getSender().send(NETList.POURING, pos);
                 IFluidHandlerItem tankStack = stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM, null).orElse(null);
                 FluidStack fluidStack = tankStack.getFluidInTank(0);
                 int tankAmount = fluidStack.getAmount();

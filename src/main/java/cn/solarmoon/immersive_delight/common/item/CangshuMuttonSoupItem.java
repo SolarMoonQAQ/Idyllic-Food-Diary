@@ -1,6 +1,6 @@
 package cn.solarmoon.immersive_delight.common.item;
 
-import cn.solarmoon.immersive_delight.api.common.item.specific.AbstractBowlFoodItem;
+import cn.solarmoon.immersive_delight.common.item.core.AbstractBowlFoodItem;
 import cn.solarmoon.immersive_delight.common.registry.IMBlocks;
 import net.minecraft.world.food.FoodProperties;
 

@@ -6,7 +6,9 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SaplingBlock;
 
 public class DurianSaplingBlock extends SaplingBlock {
+
     public DurianSaplingBlock() {
         super(new DurianTreeFeature.DurianTreeGrower() , Block.Properties.copy(Blocks.OAK_SAPLING));
     }
+
 }

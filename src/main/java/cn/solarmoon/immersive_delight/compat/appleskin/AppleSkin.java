@@ -1,7 +1,7 @@
-package cn.solarmoon.immersive_delight.compat.apple_skin;
+package cn.solarmoon.immersive_delight.compat.appleskin;
 
 import cn.solarmoon.immersive_delight.api.compat.BaseCompat;
-import cn.solarmoon.immersive_delight.compat.apple_skin.event.ShowCupFoodValueEvent;
+import cn.solarmoon.immersive_delight.compat.appleskin.event.ShowCupFoodValueEvent;
 
 /**
  * 苹果皮

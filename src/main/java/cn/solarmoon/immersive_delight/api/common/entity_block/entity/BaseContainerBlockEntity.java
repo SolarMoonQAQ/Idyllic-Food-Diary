@@ -1,5 +1,6 @@
 package cn.solarmoon.immersive_delight.api.common.entity_block.entity;
 
+import cn.solarmoon.immersive_delight.api.util.namespace.NBTList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -40,13 +41,13 @@ public class BaseContainerBlockEntity extends BlockEntity {
     @Override
     public void saveAdditional(CompoundTag tag) {
         super.saveAdditional(tag);
-        tag.put("inventory", inventory.serializeNBT());
+        tag.put(NBTList.INVENTORY, inventory.serializeNBT());
     }
 
     @Override
     public void load(CompoundTag tag) {
         super.load(tag);
-        inventory.deserializeNBT(tag.getCompound("inventory"));
+        inventory.deserializeNBT(tag.getCompound(NBTList.INVENTORY));
     }
 
     /**
@@ -64,14 +65,14 @@ public class BaseContainerBlockEntity extends BlockEntity {
      * 从stack中读取inventory信息
      */
     public void setInventory(ItemStack stack) {
-        inventory.deserializeNBT(stack.getOrCreateTag().getCompound("inventory"));
+        inventory.deserializeNBT(stack.getOrCreateTag().getCompound(NBTList.INVENTORY));
     }
 
     /**
      * 从tag中读取inventory信息
      */
     public void setInventory(CompoundTag tag) {
-        inventory.deserializeNBT(tag.getCompound("inventory"));
+        inventory.deserializeNBT(tag.getCompound(NBTList.INVENTORY));
     }
 
     /**

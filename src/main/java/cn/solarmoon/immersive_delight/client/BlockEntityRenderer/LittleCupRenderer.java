@@ -2,7 +2,7 @@ package cn.solarmoon.immersive_delight.client.BlockEntityRenderer;
 
 import cn.solarmoon.immersive_delight.api.client.blockEntityRenderer.BaseBlockEntityRenderer;
 import cn.solarmoon.immersive_delight.api.common.entity_block.entity.BaseTCBlockEntity;
-import cn.solarmoon.immersive_delight.api.common.entity_block.specific.AbstractCupEntityBlock;
+import cn.solarmoon.immersive_delight.common.entity_block.core.AbstractCupEntityBlock;
 import cn.solarmoon.immersive_delight.api.util.FluidUtil;
 import cn.solarmoon.immersive_delight.util.FluidRenderUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -10,9 +10,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;

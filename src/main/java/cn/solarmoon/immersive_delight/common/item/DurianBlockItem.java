@@ -1,7 +1,7 @@
 package cn.solarmoon.immersive_delight.common.item;
 
 import cn.solarmoon.immersive_delight.common.registry.IMBlocks;
-import cn.solarmoon.immersive_delight.common.entities.DurianEntity;
+import cn.solarmoon.immersive_delight.common.entity.DurianEntity;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.core.BlockPos;
@@ -26,7 +26,7 @@ public class DurianBlockItem extends BlockItem implements Vanishable {
     private final Multimap<Attribute, AttributeModifier> defaultModifiers;
 
     public DurianBlockItem() {
-        super(IMBlocks.DURIAN_BLOCK.get(), new Properties().durability(64));
+        super(IMBlocks.DURIAN.get(), new Properties().durability(64));
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", 5.0, AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", -2.4, AttributeModifier.Operation.ADDITION));

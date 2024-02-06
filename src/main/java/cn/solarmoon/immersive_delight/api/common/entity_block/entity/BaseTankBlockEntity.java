@@ -1,5 +1,6 @@
 package cn.solarmoon.immersive_delight.api.common.entity_block.entity;
 
+import cn.solarmoon.immersive_delight.api.util.namespace.NBTList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -27,8 +28,6 @@ public abstract class BaseTankBlockEntity extends BlockEntity {
     public FluidTank tank;
 
     public int maxCapacity;
-
-    public static final String NBT_FLUID = "Fluid";
 
     public BaseTankBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, int maxCapacity) {
         super(type, pos, state);
@@ -58,13 +57,20 @@ public abstract class BaseTankBlockEntity extends BlockEntity {
     }
 
     /**
+     * 一个根据tag强制设置储罐内容物的方法
+     */
+    public void setFluid(CompoundTag tag) {
+        tank.readFromNBT(tag.getCompound(NBTList.FLUID));
+    }
+
+    /**
      * 配合setChanged调用，用以同步各类信息（主要是tag信息）
      * @param tag 读取save的tag
      */
     @Override
     public void load(CompoundTag tag) {
         super.load(tag);
-        CompoundTag fluid = tag.getCompound(NBT_FLUID);
+        CompoundTag fluid = tag.getCompound(NBTList.FLUID);
         tank.readFromNBT(fluid);
     }
 
@@ -77,7 +83,7 @@ public abstract class BaseTankBlockEntity extends BlockEntity {
         super.saveAdditional(tag);
         CompoundTag fluid = new CompoundTag();
         tank.writeToNBT(fluid);
-        tag.put(NBT_FLUID, fluid);
+        tag.put(NBTList.FLUID, fluid);
     }
 
     public void setChanged() {

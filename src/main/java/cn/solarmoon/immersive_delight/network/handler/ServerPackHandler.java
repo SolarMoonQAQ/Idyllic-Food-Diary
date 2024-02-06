@@ -1,35 +1,33 @@
 package cn.solarmoon.immersive_delight.network.handler;
 
+import cn.solarmoon.immersive_delight.api.common.item.BaseTankItem;
 import cn.solarmoon.immersive_delight.api.common.item.IOptionalRecipeItem;
 import cn.solarmoon.immersive_delight.api.network.IServerPackHandler;
+import cn.solarmoon.immersive_delight.api.registry.Capabilities;
 import cn.solarmoon.immersive_delight.api.util.CapabilityUtil;
 import cn.solarmoon.immersive_delight.api.util.DamageUtil;
 import cn.solarmoon.immersive_delight.api.util.FluidUtil;
-import cn.solarmoon.immersive_delight.common.registry.IMSounds;
-import cn.solarmoon.immersive_delight.api.common.item.BaseTankItem;
-import cn.solarmoon.immersive_delight.api.registry.Capabilities;
 import cn.solarmoon.immersive_delight.common.registry.IMDamageTypes;
+import cn.solarmoon.immersive_delight.common.registry.IMSounds;
 import cn.solarmoon.immersive_delight.compat.create.util.PotionUtil;
 import cn.solarmoon.immersive_delight.data.fluid_effects.serializer.FluidEffect;
 import cn.solarmoon.immersive_delight.data.fluid_effects.serializer.PotionEffect;
-import cn.solarmoon.immersive_delight.api.network.serializer.ServerPackSerializer;
 import cn.solarmoon.immersive_delight.data.tags.IMFluidTags;
+import cn.solarmoon.immersive_delight.util.namespace.NETList;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
-import net.minecraftforge.network.NetworkEvent;
 
 import java.util.List;
 import java.util.Random;
@@ -37,20 +35,11 @@ import java.util.Random;
 public class ServerPackHandler implements IServerPackHandler {
 
     @Override
-    public void handle(ServerPackSerializer packet, NetworkEvent.Context context) {
-        //快乐的定义时间
-        ServerPlayer player = context.getSender();
-        Level level = null;
-        if (player != null) {
-            level = player.level();
-        }
-        BlockPos pos = packet.pos();
-        ItemStack stack = packet.stack();
-        //处理
-        switch (packet.message()) {
+    public void handle(ServerPlayer player, ServerLevel level, BlockPos pos, ItemStack stack, float f, String message) {
+        switch (message) {
+
             //倒水技能
-            case "pouring" -> {
-                if(player == null || pos == null) return;
+            case NETList.POURING -> {
                 ItemStack itemStack = player.getMainHandItem();
                 if(itemStack.getItem() instanceof BaseTankItem) {
                     IFluidHandlerItem tankStack = FluidUtil.getTank(itemStack);
@@ -75,23 +64,14 @@ public class ServerPackHandler implements IServerPackHandler {
                     }
                 }
             }
-            //出入水音效
-            case "playSoundInWater" -> {
-                if(pos == null || level == null) return;
-                if(!level.isClientSide) level.playSound(null, pos, SoundEvents.AMBIENT_UNDERWATER_ENTER, SoundSource.PLAYERS, 0.6f, 1f);
-            }
-            case "playSoundOutWater" -> {
-                if(pos == null || level == null) return;
-                if(!level.isClientSide) level.playSound(null, pos, SoundEvents.AMBIENT_UNDERWATER_EXIT, SoundSource.PLAYERS, 0.8f, 1f);
-            }
-            case "updateIndex" -> {
+            case NETList.SYNC_INDEX -> {
                 if (stack.getItem() instanceof IOptionalRecipeItem<?> op) {
-                    CapabilityUtil.getData(player, Capabilities.PLAYER_DATA).getRecipeSelectorData().setIndex(packet.i(), op.getRecipeType());
+                    CapabilityUtil.getData(player, Capabilities.PLAYER_DATA).getRecipeSelectorData().setIndex((int) f, op.getRecipeType());
                 }
             }
-            case "updateRecipeIndex" -> {
+            case NETList.SYNC_RECIPE_INDEX -> {
                 if (stack.getItem() instanceof IOptionalRecipeItem<?> op) {
-                    CapabilityUtil.getData(player, Capabilities.PLAYER_DATA).getRecipeSelectorData().setRecipeIndex(packet.i(), op.getRecipeType());
+                    CapabilityUtil.getData(player, Capabilities.PLAYER_DATA).getRecipeSelectorData().setRecipeIndex((int) f, op.getRecipeType());
                 }
             }
         }
@@ -135,4 +115,5 @@ public class ServerPackHandler implements IServerPackHandler {
         }
 
     }
+
 }

@@ -30,7 +30,7 @@ public class DurianCrop extends BaseFruitCrop {
      */
     @Override
     public Item getHarvestItem() {
-        return IMItems.DURIAN_BLOCK.get();
+        return IMItems.DURIAN.get();
     }
 
     /**
@@ -39,7 +39,7 @@ public class DurianCrop extends BaseFruitCrop {
     @Override
     public BlockState updateShape(BlockState state1, Direction direction, BlockState state2, LevelAccessor level, BlockPos pos1, BlockPos pos2) {
         BlockState newState = Blocks.AIR.defaultBlockState();
-        if (state1.getValue(BaseFruitCrop.AGE).equals(3)) newState = IMBlocks.DURIAN_BLOCK.get().defaultBlockState();
+        if (state1.getValue(BaseFruitCrop.AGE).equals(3)) newState = IMBlocks.DURIAN.get().defaultBlockState();
         return !state1.canSurvive(level, pos1) ? newState : super.updateShape(state1, direction, state2, level, pos1, pos2);
     }
 

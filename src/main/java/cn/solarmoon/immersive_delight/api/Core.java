@@ -2,6 +2,7 @@ package cn.solarmoon.immersive_delight.api;
 
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
 import cn.solarmoon.immersive_delight.api.registry.Capabilities;
+import cn.solarmoon.immersive_delight.api.registry.Packs;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -13,6 +14,7 @@ public class Core {
     public static void onFMLCommonSetupEvent(final FMLCommonSetupEvent event) {
         //forge能力
         new Capabilities().register();
+        new Packs().register();
     }
 
 }

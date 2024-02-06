@@ -1,4 +1,4 @@
-package cn.solarmoon.immersive_delight.api.common.entity_block.specific;
+package cn.solarmoon.immersive_delight.common.entity_block.core;
 
 import cn.solarmoon.immersive_delight.api.common.entity_block.BaseTCEntityBlock;
 import cn.solarmoon.immersive_delight.api.common.entity_block.entity.BaseTankBlockEntity;

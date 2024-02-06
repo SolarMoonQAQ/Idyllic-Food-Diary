@@ -1,6 +1,6 @@
 package cn.solarmoon.immersive_delight.client.EntityRenderer;
 
-import cn.solarmoon.immersive_delight.common.entities.DurianEntity;
+import cn.solarmoon.immersive_delight.common.entity.DurianEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderer;

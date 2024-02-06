@@ -1,9 +1,9 @@
-package cn.solarmoon.immersive_delight.api.common.entity_block.specific;
+package cn.solarmoon.immersive_delight.common.entity_block.core;
 
 import cn.solarmoon.immersive_delight.api.common.entity_block.BaseTCEntityBlock;
 import cn.solarmoon.immersive_delight.api.common.entity_block.entity.BaseTCBlockEntity;
 import cn.solarmoon.immersive_delight.api.common.entity_block.entity.BaseTankBlockEntity;
-import cn.solarmoon.immersive_delight.api.common.item.specific.AbstractCupItem;
+import cn.solarmoon.immersive_delight.common.item.core.AbstractCupItem;
 import cn.solarmoon.immersive_delight.api.util.FluidUtil;
 import cn.solarmoon.immersive_delight.api.util.RecipeUtil;
 import cn.solarmoon.immersive_delight.common.recipes.CupRecipe;

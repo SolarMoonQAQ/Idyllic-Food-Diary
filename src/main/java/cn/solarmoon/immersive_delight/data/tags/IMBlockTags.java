@@ -41,7 +41,7 @@ public class IMBlockTags extends BlockTagsProvider {
         ).replace(false);
         //可被斧子挖
         tag(BlockTags.MINEABLE_WITH_AXE).add(
-                IMBlocks.DURIAN_BLOCK.get()
+                IMBlocks.DURIAN.get()
         ).replace(false);
         //可被刀挖
         tag(MINEABLE_WITH_CLEAVER).add(

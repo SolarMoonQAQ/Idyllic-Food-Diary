@@ -5,6 +5,6 @@ import net.minecraft.world.item.ItemNameBlockItem;
 
 public class DurianCoreItem extends ItemNameBlockItem {
     public DurianCoreItem() {
-        super(IMBlocks.DURIAN.get(), new Properties());
+        super(IMBlocks.DURIAN_CROP.get(), new Properties());
     }
 }

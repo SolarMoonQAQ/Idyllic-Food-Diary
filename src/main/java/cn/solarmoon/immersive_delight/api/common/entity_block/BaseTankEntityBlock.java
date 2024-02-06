@@ -1,11 +1,14 @@
 package cn.solarmoon.immersive_delight.api.common.entity_block;
 
 import cn.solarmoon.immersive_delight.api.common.entity_block.entity.BaseTankBlockEntity;
-import cn.solarmoon.immersive_delight.api.network.serializer.ClientPackSerializer;
 import cn.solarmoon.immersive_delight.api.util.FluidUtil;
+import cn.solarmoon.immersive_delight.api.util.namespace.NETList;
+import cn.solarmoon.immersive_delight.common.registry.IMPacks;
 import cn.solarmoon.immersive_delight.common.registry.IMSounds;
 import cn.solarmoon.immersive_delight.compat.create.util.PotionUtil;
+import cn.solarmoon.immersive_delight.api.util.namespace.NBTList;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -98,7 +101,9 @@ public abstract class BaseTankEntityBlock extends BasicEntityBlock {
     public void tick(Level level, BlockPos pos, BlockState state, BlockEntity blockEntity) {
         //防止放入液体时液体值和物品未在客户端同步 而 造成的 假右键操作
         if (blockEntity instanceof BaseTankBlockEntity t) {
-            ClientPackSerializer.sendPacket(pos, t.tank.getFluid(), "updateTBlock");
+            CompoundTag tag = new CompoundTag();
+            tag.put(NBTList.FLUID, t.tank.writeToNBT(new CompoundTag()));
+            IMPacks.CLIENT_PACK.getSender().send(NETList.SYNC_T_BLOCK, pos, tag);
         }
     }
 

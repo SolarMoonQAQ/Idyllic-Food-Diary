@@ -2,10 +2,9 @@ package cn.solarmoon.immersive_delight.common.registry;
 
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
 import cn.solarmoon.immersive_delight.api.registry.BaseObjectRegistry;
-import cn.solarmoon.immersive_delight.common.entities.DurianEntity;
+import cn.solarmoon.immersive_delight.common.entity.DurianEntity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;

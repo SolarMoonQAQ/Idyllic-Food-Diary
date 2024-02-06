@@ -2,7 +2,7 @@ package cn.solarmoon.immersive_delight;
 
 import cn.solarmoon.immersive_delight.common.registry.*;
 import cn.solarmoon.immersive_delight.common.registry.client.*;
-import cn.solarmoon.immersive_delight.compat.apple_skin.AppleSkin;
+import cn.solarmoon.immersive_delight.compat.appleskin.AppleSkin;
 import cn.solarmoon.immersive_delight.compat.create.Create;
 import cn.solarmoon.immersive_delight.compat.farmersdelight.FarmersDelight;
 import cn.solarmoon.immersive_delight.data.fluid_effects.FluidEffectsBuilder;

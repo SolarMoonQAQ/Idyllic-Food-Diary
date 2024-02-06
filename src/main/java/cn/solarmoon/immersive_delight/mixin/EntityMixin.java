@@ -74,11 +74,9 @@ public abstract class EntityMixin {
                 tag.putBoolean("fullInFluid", false);
             }
             if (isFullInWater && !tag.getBoolean("fullInFluid")) {
-                if (!level.isClientSide)
-                    level.playSound(null, this.getOnPos(), SoundEvents.AMBIENT_UNDERWATER_ENTER, SoundSource.PLAYERS, 1f, 1f);
+                level.playSound(null, this.getOnPos(), SoundEvents.AMBIENT_UNDERWATER_ENTER, SoundSource.PLAYERS, 1f, 1f);
             } else if (!isFullInWater && tag.getBoolean("fullInFluid")) {
-                if (!level.isClientSide)
-                    level.playSound(null, this.getOnPos(), SoundEvents.AMBIENT_UNDERWATER_EXIT, SoundSource.PLAYERS, 1f, 1f);
+                level.playSound(null, this.getOnPos(), SoundEvents.AMBIENT_UNDERWATER_EXIT, SoundSource.PLAYERS, 1f, 1f);
             }
             tag.putBoolean("fullInFluid", isFullInWater);
         }

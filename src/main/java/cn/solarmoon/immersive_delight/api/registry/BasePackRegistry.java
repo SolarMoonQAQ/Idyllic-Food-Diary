@@ -1,6 +1,6 @@
 package cn.solarmoon.immersive_delight.api.registry;
 
-import cn.solarmoon.immersive_delight.api.network.INetWorkReg;
+import cn.solarmoon.immersive_delight.api.network.NetworkPack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,21 +10,21 @@ import java.util.List;
  */
 public abstract class BasePackRegistry {
 
-    protected List<INetWorkReg> packs;
+    protected List<NetworkPack> packs;
 
     public BasePackRegistry() {
         this.packs = new ArrayList<>();
     }
 
     /**
-     * 这里默认只能添加到服务端和客户端的包各一个
+     * 使用packs来添加NetworkPack
      */
     public abstract void addRegistry();
 
     public void register() {
         addRegistry();
-        for (INetWorkReg pack : packs) {
-            pack.register();
+        for (NetworkPack pack : packs) {
+            pack.build();
         }
     }
 

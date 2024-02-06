@@ -3,9 +3,10 @@ package cn.solarmoon.immersive_delight.mixin;
 import cn.solarmoon.immersive_delight.api.client.ItemRenderer.ICustomItemRendererProvider;
 import cn.solarmoon.immersive_delight.api.common.capability.serializable.RecipeSelectorData;
 import cn.solarmoon.immersive_delight.api.common.item.IOptionalRecipeItem;
-import cn.solarmoon.immersive_delight.api.network.serializer.ClientPackSerializer;
-import cn.solarmoon.immersive_delight.api.util.CapabilityUtil;
 import cn.solarmoon.immersive_delight.api.registry.Capabilities;
+import cn.solarmoon.immersive_delight.api.util.CapabilityUtil;
+import cn.solarmoon.immersive_delight.common.registry.IMPacks;
+import cn.solarmoon.immersive_delight.util.namespace.NETList;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -65,8 +66,8 @@ public abstract class ItemMixin {
                 //客户端同步配方选择序列数
                 if (player instanceof ServerPlayer sp) {
                     RecipeSelectorData selector = CapabilityUtil.getData(sp, Capabilities.PLAYER_DATA).getRecipeSelectorData();
-                    ClientPackSerializer.sendPacket(selector.getIndex(orStack.getRecipeType()), orStack.getRecipeType().toString(), "syncIndex");
-                    ClientPackSerializer.sendPacket(selector.getRecipeIndex(orStack.getRecipeType()), orStack.getRecipeType().toString(), "syncRIndex");
+                    IMPacks.CLIENT_PACK.getSender().send(NETList.SYNC_INDEX, selector.getIndex(orStack.getRecipeType()), orStack.getRecipeType().toString());
+                    IMPacks.CLIENT_PACK.getSender().send(NETList.SYNC_RECIPE_INDEX, selector.getRecipeIndex(orStack.getRecipeType()), orStack.getRecipeType().toString());
                 }
 
             }

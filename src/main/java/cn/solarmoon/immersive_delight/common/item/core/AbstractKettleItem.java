@@ -1,4 +1,4 @@
-package cn.solarmoon.immersive_delight.api.common.item.specific;
+package cn.solarmoon.immersive_delight.common.item.core;
 
 import cn.solarmoon.immersive_delight.api.common.item.BaseTankItem;
 import cn.solarmoon.immersive_delight.api.util.FluidUtil;

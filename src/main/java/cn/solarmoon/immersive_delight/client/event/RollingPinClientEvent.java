@@ -2,14 +2,15 @@ package cn.solarmoon.immersive_delight.client.event;
 
 import cn.solarmoon.immersive_delight.api.common.capability.IPlayerData;
 import cn.solarmoon.immersive_delight.api.common.capability.serializable.RecipeSelectorData;
-import cn.solarmoon.immersive_delight.api.network.serializer.ServerPackSerializer;
 import cn.solarmoon.immersive_delight.api.registry.Capabilities;
 import cn.solarmoon.immersive_delight.api.util.CapabilityUtil;
 import cn.solarmoon.immersive_delight.api.util.ItemHelper;
 import cn.solarmoon.immersive_delight.client.gui.RollingPinGui;
 import cn.solarmoon.immersive_delight.common.item.RollingPinItem;
 import cn.solarmoon.immersive_delight.common.recipes.RollingPinRecipe;
+import cn.solarmoon.immersive_delight.common.registry.IMPacks;
 import cn.solarmoon.immersive_delight.util.CoreUtil;
+import cn.solarmoon.immersive_delight.util.namespace.NETList;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.item.ItemStack;
@@ -61,8 +62,8 @@ public class RollingPinClientEvent {
             RollingPinGui.startScale();
             recipeSelectorData.setIndex(index, recipe.getType());
             recipeSelectorData.setRecipeIndex(recipeIndex, recipe.getType());
-            ServerPackSerializer.sendPacket(pin.getDefaultInstance(), index, "updateIndex");
-            ServerPackSerializer.sendPacket(pin.getDefaultInstance(), recipeIndex, "updateRecipeIndex");
+            IMPacks.SERVER_PACK.getSender().send(NETList.SYNC_INDEX, index, pin.getDefaultInstance());
+            IMPacks.SERVER_PACK.getSender().send(NETList.SYNC_RECIPE_INDEX, recipeIndex, pin.getDefaultInstance());
             CoreUtil.deBug(index + "//" + recipeIndex);
             event.setCanceled(true);
         }

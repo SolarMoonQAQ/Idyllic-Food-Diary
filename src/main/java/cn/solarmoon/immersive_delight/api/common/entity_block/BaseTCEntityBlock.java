@@ -1,13 +1,15 @@
 package cn.solarmoon.immersive_delight.api.common.entity_block;
 
 import cn.solarmoon.immersive_delight.api.common.entity_block.entity.BaseTCBlockEntity;
-import cn.solarmoon.immersive_delight.common.registry.IMSounds;
 import cn.solarmoon.immersive_delight.api.common.entity_block.entity.BaseTankBlockEntity;
-import cn.solarmoon.immersive_delight.api.network.serializer.ClientPackSerializer;
-import cn.solarmoon.immersive_delight.compat.create.util.PotionUtil;
-import cn.solarmoon.immersive_delight.util.ContainerUtil;
 import cn.solarmoon.immersive_delight.api.util.FluidUtil;
 import cn.solarmoon.immersive_delight.api.util.LevelSummonUtil;
+import cn.solarmoon.immersive_delight.api.util.namespace.NETList;
+import cn.solarmoon.immersive_delight.common.registry.IMPacks;
+import cn.solarmoon.immersive_delight.common.registry.IMSounds;
+import cn.solarmoon.immersive_delight.compat.create.util.PotionUtil;
+import cn.solarmoon.immersive_delight.util.ContainerUtil;
+import cn.solarmoon.immersive_delight.api.util.namespace.NBTList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
@@ -135,8 +137,9 @@ public abstract class BaseTCEntityBlock extends BasicEntityBlock {
         //防止放入液体时液体值和物品未在客户端同步 而 造成的 假右键操作
         if (blockEntity instanceof BaseTCBlockEntity ct) {
             CompoundTag tag = new CompoundTag();
-            tag.put("inventory", ct.inventory.serializeNBT());
-            ClientPackSerializer.sendPacket(pos, ct.tank.getFluid(), tag, "updateTCBlock");
+            tag.put(NBTList.INVENTORY, ct.inventory.serializeNBT());
+            tag.put(NBTList.FLUID, ct.tank.writeToNBT(new CompoundTag()));
+            IMPacks.CLIENT_PACK.getSender().send(NETList.SYNC_TC_BLOCK, pos, tag);
         }
     }
 

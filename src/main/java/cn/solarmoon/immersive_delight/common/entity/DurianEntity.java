@@ -1,4 +1,4 @@
-package cn.solarmoon.immersive_delight.common.entities;
+package cn.solarmoon.immersive_delight.common.entity;
 
 import cn.solarmoon.immersive_delight.common.registry.IMEntityTypes;
 import cn.solarmoon.immersive_delight.common.registry.IMItems;
@@ -47,7 +47,7 @@ public class DurianEntity extends AbstractArrow {
     }
 
     public ItemStack getItem() {
-        return IMItems.DURIAN_BLOCK.get().getDefaultInstance();
+        return IMItems.DURIAN.get().getDefaultInstance();
     }
 
     @Override
