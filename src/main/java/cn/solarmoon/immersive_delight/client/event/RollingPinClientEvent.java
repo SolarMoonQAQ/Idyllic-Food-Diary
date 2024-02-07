@@ -9,23 +9,19 @@ import cn.solarmoon.immersive_delight.client.gui.RollingPinGui;
 import cn.solarmoon.immersive_delight.common.item.RollingPinItem;
 import cn.solarmoon.immersive_delight.common.recipes.RollingPinRecipe;
 import cn.solarmoon.immersive_delight.common.registry.IMPacks;
+import cn.solarmoon.immersive_delight.common.registry.IMRecipes;
 import cn.solarmoon.immersive_delight.util.CoreUtil;
 import cn.solarmoon.immersive_delight.util.namespace.NETList;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import static cn.solarmoon.immersive_delight.common.registry.IMItems.ROLLING_PIN;
 
-@OnlyIn(Dist.CLIENT)
-public class RollingPinClientEvent {
 
-    private int index;
-    private int recipeIndex;
+public class RollingPinClientEvent {
 
     @SubscribeEvent
     public void chooseOutPut(InputEvent.MouseScrollingEvent event) {
@@ -41,6 +37,9 @@ public class RollingPinClientEvent {
             // 模边界算法，触底反弹
             int size = pin.getOptionalOutputs().size();
             int sizeRecipe = pin.getMatchingRecipes().size();
+
+            int index = recipeSelectorData.getIndex(IMRecipes.ROLLING_RECIPE.get());
+            int recipeIndex = recipeSelectorData.getRecipeIndex(IMRecipes.ROLLING_RECIPE.get());
 
             RollingPinRecipe recipe = pin.getMatchingRecipes().get(recipeIndex % sizeRecipe);
 

@@ -1,7 +1,7 @@
 package cn.solarmoon.immersive_delight.common.registry;
 
 
-import cn.solarmoon.immersive_delight.api.registry.BaseObjectRegistry;
+import cn.solarmoon.immersive_delight.api.registry.core.BaseObjectRegistry;
 import cn.solarmoon.immersive_delight.common.effect.FleetOfFootEffect;
 import cn.solarmoon.immersive_delight.common.effect.RefreshmentEffect;
 import cn.solarmoon.immersive_delight.common.effect.SnugEffect;

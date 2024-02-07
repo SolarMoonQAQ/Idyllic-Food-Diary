@@ -1,7 +1,7 @@
 package cn.solarmoon.immersive_delight.common.recipes;
 
 import cn.solarmoon.immersive_delight.api.common.entity_block.entity.BaseTCBlockEntity;
-import cn.solarmoon.immersive_delight.util.Util;
+import cn.solarmoon.immersive_delight.util.FarmerUtil;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import net.minecraft.core.BlockPos;
@@ -83,7 +83,7 @@ public class SoupPotRecipe implements Recipe<RecipeWrapper> {
             if ( ( ( getInputFluid() != null && getInputFluid().equals(ctStack.getFluid()) )
                     || ( getInputFluidTag() != null && ctStack.getFluid().defaultFluidState().is(getInputFluidTag()) ) )
                     && inputFluidAmount == ct.tank.getFluidAmount()) {
-                return Util.isHeatSource(level.getBlockState(pos.below()));
+                return FarmerUtil.isHeatSource(level.getBlockState(pos.below()));
             }
         }
         return false;

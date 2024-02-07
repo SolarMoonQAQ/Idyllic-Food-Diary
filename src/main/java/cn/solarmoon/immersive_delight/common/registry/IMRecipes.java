@@ -1,7 +1,7 @@
 package cn.solarmoon.immersive_delight.common.registry;
 
 
-import cn.solarmoon.immersive_delight.api.registry.BaseRecipeRegistry;
+import cn.solarmoon.immersive_delight.api.registry.core.BaseRecipeRegistry;
 import cn.solarmoon.immersive_delight.common.recipes.*;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -47,16 +47,5 @@ public class IMRecipes extends BaseRecipeRegistry {
     public static final String SOUP_POT_ID = "soup_pot";
     public static final RegistryObject<RecipeType<SoupPotRecipe>> SOUP_POT_RECIPE = RECIPE_TYPES.register(SOUP_POT_ID, () -> registerRecipeType(SOUP_POT_ID));
     public static final RegistryObject<RecipeSerializer<?>> SOUP_POT_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register(SOUP_POT_ID, SoupPotRecipe.Serializer::new);
-
-
-
-    public static <T extends Recipe<?>> RecipeType<T> registerRecipeType(final String identifier) {
-        return new RecipeType<>()
-        {
-            public String toString() {
-                return MOD_ID + ":" + identifier;
-            }
-        };
-    }
 
 }

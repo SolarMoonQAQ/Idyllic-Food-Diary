@@ -1,26 +1,16 @@
 package cn.solarmoon.immersive_delight;
 
+import cn.solarmoon.immersive_delight.api.registry.core.BaseFMLEventRegistry;
+import cn.solarmoon.immersive_delight.api.registry.Capabilities;
 import cn.solarmoon.immersive_delight.common.registry.*;
 import cn.solarmoon.immersive_delight.common.registry.client.*;
 import cn.solarmoon.immersive_delight.compat.appleskin.AppleSkin;
 import cn.solarmoon.immersive_delight.compat.create.Create;
 import cn.solarmoon.immersive_delight.compat.farmersdelight.FarmersDelight;
-import cn.solarmoon.immersive_delight.data.fluid_effects.FluidEffectsBuilder;
-import cn.solarmoon.immersive_delight.data.fluid_foods.FluidFoodsBuilder;
 import cn.solarmoon.immersive_delight.init.Config;
-import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
-import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
-import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.loading.FMLEnvironment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -57,17 +47,24 @@ public class ImmersiveDelight {
         new IMFeatures().register(bus);
         //生物
         new IMEntityTypes().register(bus);
+        //网络包
+        new IMPacks().register();
 
-        bus.addListener(this::onFMLCommonSetupEvent);
-        if (FMLEnvironment.dist.isClient()) {
-            bus.addListener(this::onFMLClientSetupEvent);
-            bus.addListener(this::registerEntityRenderers);
-            bus.addListener(this::tooltipRegister);
-            bus.addListener(this::registerParticles);
-            bus.addListener(this::registerGUI);
-        }
-
-        MinecraftForge.EVENT_BUS.register(this);
+        //客户端事件
+        new IMClientEvents().register(bus);
+        //双端事件
+        new IMCommonEvents().register(bus);
+        new Capabilities().register(bus);
+        //方块实体渲染
+        new IMBlockEntityRenderers().register(bus);
+        //实体渲染
+        new IMEntityRenderers().register(bus);
+        //gui
+        new IMGui().register(bus);
+        //tooltip
+        new IMTooltipRenderers().register(bus);
+        //数据包
+        new IMDataPacks().register();
 
         //配置文件
         Config.register();
@@ -76,58 +73,6 @@ public class ImmersiveDelight {
         new FarmersDelight().register(bus);
         new AppleSkin().register(bus);
         new Create().register(bus);
-
-    }
-
-    @SubscribeEvent
-    public void onFMLCommonSetupEvent(final FMLCommonSetupEvent event) {
-        //双端事件
-        new IMCommonEvents().register();
-        //网络包
-        new IMPacks().register();
-    }
-
-    @SubscribeEvent
-    public void onFMLClientSetupEvent(final FMLClientSetupEvent event) {
-        //客户端事件
-        new IMClientEvents().register();
-    }
-
-    @SubscribeEvent
-    public void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
-        //方块实体渲染
-        new IMBlockEntityRenderers().register(event);
-        //实体渲染
-        new IMEntityRenderers().register(event);
-    }
-
-    @SubscribeEvent
-    public void registerParticles(RegisterParticleProvidersEvent event) {
-        //粒子
-        new IMParticles().register(event);
-    }
-
-    @SubscribeEvent
-    public void registerGUI(RegisterGuiOverlaysEvent event) {
-        //gui
-        new IMGui().register(event);
-    }
-
-    /**
-     * tooltip渲染注册
-     */
-    @SubscribeEvent
-    public void tooltipRegister(RegisterClientTooltipComponentFactoriesEvent event) {
-        //tooltip
-        new IMTooltipRenderers().register(event);
-    }
-
-    @SubscribeEvent
-    public void onAddReloadListener(AddReloadListenerEvent event) {
-        //液体效果
-        event.addListener(new FluidEffectsBuilder());
-        //流体类食物（碗装汤类）
-        event.addListener(new FluidFoodsBuilder());
     }
 
 }

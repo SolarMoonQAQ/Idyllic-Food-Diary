@@ -1,12 +1,11 @@
 package cn.solarmoon.immersive_delight.common.entity_block.core;
 
 import cn.solarmoon.immersive_delight.api.common.entity_block.BaseTCEntityBlock;
-import cn.solarmoon.immersive_delight.api.common.entity_block.entity.BaseTankBlockEntity;
 import cn.solarmoon.immersive_delight.api.common.entity_block.entity.BaseTCBlockEntity;
-import cn.solarmoon.immersive_delight.common.registry.IMRecipes;
-import cn.solarmoon.immersive_delight.common.recipes.SoupPotRecipe;
+import cn.solarmoon.immersive_delight.api.common.entity_block.entity.BaseTankBlockEntity;
 import cn.solarmoon.immersive_delight.api.util.RecipeUtil;
-import cn.solarmoon.immersive_delight.util.CoreUtil;
+import cn.solarmoon.immersive_delight.common.recipes.SoupPotRecipe;
+import cn.solarmoon.immersive_delight.common.registry.IMRecipes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -64,7 +63,7 @@ public abstract class AbstractSoupPotEntityBlock extends BaseTCEntityBlock {
             SoupPotRecipe recipe = getCheckedRecipe(tc, level, pos);
             if (recipe != null) {
                 tc.time++;
-                CoreUtil.deBug("Time：" + tc.time, level);
+                tc.recipeTime = recipe.getTime();
                 if(tc.time >= recipe.getTime()) {
                     FluidStack newF = new FluidStack(recipe.getOutputFluid(), recipe.outputFluidAmount);
                     tc.setFluid(newF);
@@ -85,7 +84,10 @@ public abstract class AbstractSoupPotEntityBlock extends BaseTCEntityBlock {
                     tc.time = 0;
                     tc.setChanged();
                 }
-            } else tc.time = 0;
+            } else {
+                tc.time = 0;
+                tc.recipeTime = 0;
+            }
         }
     }
 

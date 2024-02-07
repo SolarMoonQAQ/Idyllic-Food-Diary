@@ -75,8 +75,8 @@ public abstract class BaseTCBlockEntity extends BaseTankBlockEntity {
     }
 
     /**
-     * 插入容纳的物品（按物品栈插入）
-     * 逻辑为从第一格开始尝试插入直到插入成功
+     * 插入容纳的物品（按物品栈插入）<br/>
+     * 逻辑为从第一格开始尝试插入直到插入成功<br/>
      * 会返回计算消耗后的物品栈，因此不要再用shrink！用setItem！
      */
     public ItemStack insertItem(ItemStack itemStack) {
@@ -91,9 +91,9 @@ public abstract class BaseTCBlockEntity extends BaseTankBlockEntity {
     }
 
     /**
-     * 从中提取物品
-     * 默认逻辑从最后一栏开始提取，按物品栈提取
-     * 注意，这个只适用于空手提取
+     * 从中提取物品<br/>
+     * 默认逻辑从最后一栏开始提取，按物品栈提取<br/>
+     * 注意，如果用setItemInHand，那么只适用于空手提取，addInventory就无所谓
      */
     public ItemStack extractItem() {
         int maxSlots = inventory.getSlots();
@@ -123,7 +123,7 @@ public abstract class BaseTCBlockEntity extends BaseTankBlockEntity {
     }
 
     /**
-     * 获取容器的最大物品量
+     * 获取容器的最大物品量<br/>
      * 默认所有槽位容量都是相等的
      */
     public int maxStackCount() {

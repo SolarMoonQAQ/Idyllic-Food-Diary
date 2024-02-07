@@ -1,7 +1,7 @@
 package cn.solarmoon.immersive_delight.common.registry;
 
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
-import cn.solarmoon.immersive_delight.api.registry.BaseObjectRegistry;
+import cn.solarmoon.immersive_delight.api.registry.core.BaseObjectRegistry;
 import cn.solarmoon.immersive_delight.common.level.feature.AppleTreeFeature;
 import cn.solarmoon.immersive_delight.common.level.feature.DurianTreeFeature;
 import net.minecraft.core.registries.Registries;
@@ -10,12 +10,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-
-import static cn.solarmoon.immersive_delight.ImmersiveDelight.MOD_ID;
 
 public class IMFeatures extends BaseObjectRegistry<Feature<?>> {
 

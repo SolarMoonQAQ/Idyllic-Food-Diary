@@ -86,10 +86,7 @@ public class PotionUtil {
         List<MobEffectInstance> effects = getEffects(fluidTag);
         for (var effect : effects) {
             String name = effect.getEffect().getDisplayName().getString();
-            int seconds = effect.getDuration();
-            int minutes = seconds / 60;
-            seconds = seconds % 60;
-            String time = String.format("(%02d:%02d)", minutes, seconds);
+            String time = TextUtil.toMinuteFormat(effect.getDuration(), true);
             int amplifier = effect.getAmplifier() + 1;
             String levelRoman = TextUtil.toRoman(amplifier);
             Component base = Component.literal(name + " " + levelRoman + " " + time).withStyle(ChatFormatting.BLUE);

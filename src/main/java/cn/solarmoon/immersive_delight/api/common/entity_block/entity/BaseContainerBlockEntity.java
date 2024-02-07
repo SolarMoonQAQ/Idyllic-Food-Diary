@@ -76,8 +76,8 @@ public class BaseContainerBlockEntity extends BlockEntity {
     }
 
     /**
-     * 插入容纳的物品（按物品栈插入）
-     * 逻辑为从第一格开始尝试插入直到插入成功
+     * 插入容纳的物品（按物品栈插入）<br/>
+     * 逻辑为从第一格开始尝试插入直到插入成功<br/>
      * 会返回计算消耗后的物品栈，因此不要再用shrink！用setItem！
      */
     public ItemStack insertItem(ItemStack itemStack) {

@@ -1,7 +1,7 @@
 package cn.solarmoon.immersive_delight.common.registry;
 
 
-import cn.solarmoon.immersive_delight.api.registry.BaseObjectRegistry;
+import cn.solarmoon.immersive_delight.api.registry.core.BaseObjectRegistry;
 import cn.solarmoon.immersive_delight.common.item.*;
 import cn.solarmoon.immersive_delight.common.item.sapling.AppleSaplingItem;
 import cn.solarmoon.immersive_delight.common.item.sapling.DurianSaplingItem;

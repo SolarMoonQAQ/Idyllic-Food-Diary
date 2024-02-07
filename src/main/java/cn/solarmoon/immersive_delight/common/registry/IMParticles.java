@@ -1,6 +1,6 @@
 package cn.solarmoon.immersive_delight.common.registry;
 
-import cn.solarmoon.immersive_delight.api.registry.BaseParticleRegistry;
+import cn.solarmoon.immersive_delight.api.registry.core.BaseParticleRegistry;
 import net.minecraft.client.particle.BubbleParticle;
 import net.minecraft.client.particle.SplashParticle;
 import net.minecraft.core.particles.ParticleType;
@@ -25,10 +25,10 @@ public class IMParticles extends BaseParticleRegistry {
     public static final RegistryObject<SimpleParticleType> HOT_MILK_SPLASH = PARTICLE_TYPES.register("hot_milk_splash", () -> new SimpleParticleType(true));
 
     @Override
-    public void register(RegisterParticleProvidersEvent event) {
+    public void addRegistry() {
         //继承原版的
-        engine.register(HOT_MILK_BUBBLE.get(), BubbleParticle.Provider::new);
-        engine.register(HOT_MILK_SPLASH.get(), SplashParticle.Provider::new);
+        add(HOT_MILK_BUBBLE.get(), BubbleParticle.Provider::new);
+        add(HOT_MILK_SPLASH.get(), SplashParticle.Provider::new);
     }
 
 }

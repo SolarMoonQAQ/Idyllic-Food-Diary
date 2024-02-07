@@ -11,6 +11,9 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.HashMap;
 
+/**
+ * 配方选择数据，拥有对应配方->数字的hashmap，一般用于IOptionalRecipeItem的配方滚轮选取
+ */
 public class RecipeSelectorData implements INBTSerializable<CompoundTag> {
 
     private final HashMap<RecipeType<?>, Integer> indexOfRecipe;

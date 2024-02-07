@@ -24,8 +24,8 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 /**
- * 碗装食物类，可以绑定data的液体效果，也能放置对应方块
- * 默认16格堆叠
+ * 碗装食物类，可以绑定data的液体效果，也能放置对应方块<br/>
+ * 默认16格堆叠<br/>
  * 需要自己给食物属性！
  */
 public class AbstractBowlFoodItem extends BlockItem {
@@ -69,10 +69,7 @@ public class AbstractBowlFoodItem extends BlockItem {
             if (potionEffects != null) {
                 for (var effect : potionEffects) {
                     String name = effect.getEffect().getEffect().getDisplayName().getString();
-                    int seconds = effect.duration;
-                    int minutes = seconds / 60;
-                    seconds = seconds % 60;
-                    String time = String.format("(%02d:%02d)", minutes, seconds);
+                    String time = TextUtil.toMinuteFormat(effect.duration, true);
                     int amplifier = effect.amplifier + 1;
                     String levelRoman = TextUtil.toRoman(amplifier);
                     Component base = Component.literal(name + " " + levelRoman + " " + time).withStyle(ChatFormatting.BLUE);

@@ -1,7 +1,7 @@
 package cn.solarmoon.immersive_delight.common.recipes;
 
 import cn.solarmoon.immersive_delight.api.common.entity_block.entity.BaseTankBlockEntity;
-import cn.solarmoon.immersive_delight.util.Util;
+import cn.solarmoon.immersive_delight.util.FarmerUtil;
 import com.google.gson.JsonObject;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.RegistryAccess;
@@ -54,7 +54,7 @@ public class KettleRecipe implements Recipe<RecipeWrapper> {
         BlockEntity blockEntity = level.getBlockEntity(pos);
         if (fluid != null) {
             BlockState state = level.getBlockState(pos.below());
-            boolean isHeated = Util.isHeatSource(state);
+            boolean isHeated = FarmerUtil.isHeatSource(state);
             if(blockEntity instanceof BaseTankBlockEntity tankBlockEntity) {
                 FluidStack fluidStack = new FluidStack(fluid, tankBlockEntity.maxCapacity);
                 return fluidStack.equals(fluidStackIn) && isHeated && fluidStack.getAmount() == fluidStackIn.getAmount();

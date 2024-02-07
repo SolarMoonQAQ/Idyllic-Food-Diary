@@ -1,6 +1,6 @@
 package cn.solarmoon.immersive_delight.common.registry;
 
-import cn.solarmoon.immersive_delight.api.registry.BaseObjectRegistry;
+import cn.solarmoon.immersive_delight.api.registry.core.BaseObjectRegistry;
 import cn.solarmoon.immersive_delight.common.entity_block.*;
 import cn.solarmoon.immersive_delight.common.entity_block.entities.*;
 import cn.solarmoon.immersive_delight.util.namespace.BLOCKENTITYList;

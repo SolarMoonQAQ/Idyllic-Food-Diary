@@ -1,4 +1,4 @@
-package cn.solarmoon.immersive_delight.api.registry;
+package cn.solarmoon.immersive_delight.api.registry.core;
 
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.eventbus.api.IEventBus;

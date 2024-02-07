@@ -18,11 +18,11 @@ import net.minecraftforge.items.wrapper.RecipeWrapper;
 import java.util.List;
 
 /**
- * 手持实现该接口物品时，对目视方块进行配方匹配检测。
- * 一般情况下为了实现完整效果，需要对具体物品搭建桥梁：
- * boolean recipeMatches
- * List<T> matchingRecipes
- * List<T> optionalRecipes
+ * 手持实现该接口物品时，对目视方块进行配方匹配检测。<br/>
+ * 一般情况下为了实现完整效果，需要对具体物品搭建桥梁：<br/>
+ * boolean recipeMatches<br/>
+ * List<T> matchingRecipes<br/>
+ * List<T> optionalRecipes<br/>
  */
 public interface IOptionalRecipeItem<T extends Recipe<RecipeWrapper>> {
 
@@ -92,7 +92,7 @@ public interface IOptionalRecipeItem<T extends Recipe<RecipeWrapper>> {
     }
 
     /**
-     * 物品栏中tick，用以时刻调用配方检测，当然也可单独在某些特定位置更新配方
+     * 物品栏中tick，用以时刻调用配方检测，当然也可单独在某些特定位置更新配方<br/>
      * 显然这是每个stack单独调用的（见mixin），因此只要是其中的方法，不必担心不独立的问题
      */
     default void recipeCheckAndUpdate(Level level, BlockHitResult hit) {

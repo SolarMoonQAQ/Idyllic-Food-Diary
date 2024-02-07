@@ -41,7 +41,7 @@ import java.util.function.Supplier;
 
 
 /**
- * 作为可饮用方块的对应物品的基本抽象类
+ * 作为可饮用方块的对应物品的基本抽象类<br/>
  * 基本实现了绝大部分本模组杯子物品所需的功能，简单继承即可使用
  */
 public abstract class AbstractCupItem extends BaseTankItem implements ICustomItemRendererProvider {

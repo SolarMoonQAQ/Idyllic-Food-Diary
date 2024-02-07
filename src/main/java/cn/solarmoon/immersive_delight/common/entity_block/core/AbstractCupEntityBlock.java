@@ -195,9 +195,9 @@ public abstract class AbstractCupEntityBlock extends BaseTCEntityBlock {
         if(blockEntity instanceof BaseTCBlockEntity cupBlockEntity) {
             CupRecipe recipe = getCheckedRecipe(level, pos, blockEntity);
             if(recipe != null) {
+                cupBlockEntity.recipeTime = recipe.getTime();
                 FluidStack fluidStack = FluidUtil.getFluidStack(blockEntity);
                 cupBlockEntity.time++;
-                CoreUtil.deBug("Time：" + cupBlockEntity.time, level);
                 if (cupBlockEntity.time > recipe.getTime()) {
                     //选取最小容量输出
                     int amount = Math.min(fluidStack.getAmount(), recipe.getFluidAmount());
@@ -207,7 +207,10 @@ public abstract class AbstractCupEntityBlock extends BaseTCEntityBlock {
                     cupBlockEntity.extractItem();
                     cupBlockEntity.setChanged();
                 }
-            } else cupBlockEntity.time = 0;
+            } else {
+                cupBlockEntity.time = 0;
+                cupBlockEntity.recipeTime = 0;
+            }
         }
 
     }

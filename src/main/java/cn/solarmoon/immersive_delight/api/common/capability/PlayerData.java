@@ -11,6 +11,9 @@ import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * 与玩家绑定的数据
+ */
 public class PlayerData implements ICapabilitySerializable<CompoundTag>, IPlayerData {
 
     private final Player player;

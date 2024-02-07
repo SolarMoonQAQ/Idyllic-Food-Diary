@@ -95,5 +95,12 @@
 
   "immersive_delight.player.pouring_water": "倒水",
   "immersive_delight.player.water_splashing": "泼水",
-  "immersive_delight.block.boiling_water": "水壶 : 沸腾"
+  "immersive_delight.block.boiling_water": "水壶 : 沸腾",
+
+
+
+  "config.jade.plugin_immersive_delight.kettle": "水壶信息",
+  "config.jade.plugin_immersive_delight.soup_pot": "汤锅信息",
+  "config.jade.plugin_immersive_delight.cup": "水杯信息",
+  "config.jade.plugin_immersive_delight.rolling_pin": "擀面杖进度"
 }

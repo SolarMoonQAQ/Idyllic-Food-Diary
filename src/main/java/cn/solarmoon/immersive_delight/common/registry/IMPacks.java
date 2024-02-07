@@ -2,7 +2,7 @@ package cn.solarmoon.immersive_delight.common.registry;
 
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
 import cn.solarmoon.immersive_delight.api.network.NetworkPack;
-import cn.solarmoon.immersive_delight.api.registry.BasePackRegistry;
+import cn.solarmoon.immersive_delight.api.registry.core.BasePackRegistry;
 import cn.solarmoon.immersive_delight.network.handler.ClientPackHandler;
 import cn.solarmoon.immersive_delight.network.handler.ServerPackHandler;
 import net.minecraft.resources.ResourceLocation;
@@ -17,8 +17,8 @@ public class IMPacks extends BasePackRegistry {
 
     @Override
     public void addRegistry() {
-        packs.add(CLIENT_PACK);
-        packs.add(SERVER_PACK);
+        add(CLIENT_PACK);
+        add(SERVER_PACK);
     }
 
 }

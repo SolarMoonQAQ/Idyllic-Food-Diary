@@ -4,7 +4,7 @@ import cn.solarmoon.immersive_delight.compat.farmersdelight.util.FarmersUtil;
 import cn.solarmoon.immersive_delight.data.tags.IMBlockTags;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class Util {
+public class FarmerUtil {
 
     /**
      * 检查是否为热源

@@ -37,8 +37,8 @@ public abstract class BaseFluid extends ForgeFlowingFluid {
     }
 
     /**
-     * 与水一致
-     * 特质音效、粒子动画等
+     * 与水一致<br/>
+     * 特指音效、粒子动画等
      */
     @Override
     public void animateTick(Level level, BlockPos pos, FluidState state, RandomSource randomSource) {

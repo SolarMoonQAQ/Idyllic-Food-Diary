@@ -15,15 +15,17 @@ import net.minecraftforge.fluids.capability.templates.FluidTank;
 
 
 /**
- * 基本的储罐类抽象实体
- * 没有多余的功能，只是添加一个储罐
+ * 基本的储罐类抽象实体<br/>
+ * 没有多余的功能，只是添加一个储罐<br/>
  * 可以与大部分液体类工具/方块交互
  */
 public abstract class BaseTankBlockEntity extends BlockEntity {
 
     public int ticks;
     public float lastScale;
+
     public int time;
+    public int recipeTime;
 
     public FluidTank tank;
 
@@ -86,6 +88,7 @@ public abstract class BaseTankBlockEntity extends BlockEntity {
         tag.put(NBTList.FLUID, fluid);
     }
 
+    @Override
     public void setChanged() {
         super.setChanged();
         ticks = 0;

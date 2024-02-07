@@ -3,6 +3,7 @@ package cn.solarmoon.immersive_delight.api.registry;
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
 import cn.solarmoon.immersive_delight.api.network.NetworkPack;
 import cn.solarmoon.immersive_delight.api.network.handler.BaseClientPackHandler;
+import cn.solarmoon.immersive_delight.api.registry.core.BasePackRegistry;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.Collection;
@@ -16,7 +17,7 @@ public class Packs extends BasePackRegistry {
 
     @Override
     public void addRegistry() {
-        packs.add(BASE_CLIENT_PACK);
+        add(BASE_CLIENT_PACK);
     }
 
     private static final Map<ResourceLocation, NetworkPack> packMap = new HashMap<>();

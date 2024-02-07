@@ -1,7 +1,7 @@
 package cn.solarmoon.immersive_delight.common.registry;
 
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
-import cn.solarmoon.immersive_delight.api.registry.BaseObjectRegistry;
+import cn.solarmoon.immersive_delight.api.registry.core.BaseObjectRegistry;
 import cn.solarmoon.immersive_delight.util.CoreUtil;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;

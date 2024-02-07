@@ -19,6 +19,18 @@ public class TextUtil {
         return thousands + hundreds + tens + ones;
     }
 
+    public static String toMinuteFormat(int i) {
+        int seconds = i;
+        int minutes = seconds / 60;
+        seconds = seconds % 60;
+        return String.format("%02d:%02d", minutes, seconds);
+    }
+
+    public static String toMinuteFormat(int i, boolean needBracket) {
+        if (needBracket) return "(" + toMinuteFormat(i) + ")";
+        else return toMinuteFormat(i);
+    }
+
     /**
      * 提取tag中的词条（其实未必是tag中的词条，该方法只是能提取类似minecraft:这样和它冒号后的内容）
      * @param tag 要提取的tag

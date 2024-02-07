@@ -2,7 +2,7 @@ package cn.solarmoon.immersive_delight.common.registry;
 
 
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
-import cn.solarmoon.immersive_delight.api.registry.BaseObjectRegistry;
+import cn.solarmoon.immersive_delight.api.registry.core.BaseObjectRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraftforge.registries.DeferredRegister;

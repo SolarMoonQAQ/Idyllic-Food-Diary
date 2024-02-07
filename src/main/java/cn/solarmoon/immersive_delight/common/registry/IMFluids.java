@@ -1,7 +1,7 @@
 package cn.solarmoon.immersive_delight.common.registry;
 
 
-import cn.solarmoon.immersive_delight.api.registry.BaseFluidRegistry;
+import cn.solarmoon.immersive_delight.api.registry.core.BaseFluidRegistry;
 import cn.solarmoon.immersive_delight.common.fluid.*;
 import cn.solarmoon.immersive_delight.common.fluid.no_bucket.CangShuMuttonSoupFluid;
 import cn.solarmoon.immersive_delight.common.fluid.no_bucket.MushroomStewFluid;

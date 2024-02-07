@@ -1,9 +1,13 @@
-package cn.solarmoon.immersive_delight.api.registry;
+package cn.solarmoon.immersive_delight.api.registry.core;
 
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 
+/**
+ * 原版实例注册表
+ * @param <T> 要注册的实例类型
+ */
 public class BaseObjectRegistry<T> {
 
     protected DeferredRegister<T> objects;

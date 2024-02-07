@@ -1,5 +1,6 @@
-package cn.solarmoon.immersive_delight.api.common.fluid;
+package cn.solarmoon.immersive_delight.common.fluid.core;
 
+import cn.solarmoon.immersive_delight.api.common.fluid.BaseFluid;
 import cn.solarmoon.immersive_delight.api.util.DamageUtil;
 import cn.solarmoon.immersive_delight.common.registry.IMDamageTypes;
 import cn.solarmoon.immersive_delight.common.registry.IMEffects;
@@ -23,7 +24,7 @@ import net.minecraft.world.level.material.FluidState;
 
 import java.util.function.Supplier;
 
-public abstract class BaseHotFluid {
+public abstract class AbstractHotFluid {
 
     public static class FluidBlock extends BaseFluid.FluidBlock {
 

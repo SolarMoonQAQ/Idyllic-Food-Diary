@@ -5,6 +5,7 @@ import cn.solarmoon.immersive_delight.api.common.item.IOptionalRecipeItem;
 import cn.solarmoon.immersive_delight.api.util.LevelSummonUtil;
 import cn.solarmoon.immersive_delight.common.recipes.RollingPinRecipe;
 import cn.solarmoon.immersive_delight.common.registry.IMRecipes;
+import cn.solarmoon.immersive_delight.compat.jade.impl.IJadeRecipeProgressItem;
 import cn.solarmoon.immersive_delight.data.tags.IMBlockTags;
 import cn.solarmoon.immersive_delight.util.AnimController;
 import net.minecraft.core.BlockPos;
@@ -32,7 +33,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
@@ -44,15 +44,15 @@ import static cn.solarmoon.immersive_delight.client.particle.vanilla.Rolling.rol
 import static cn.solarmoon.immersive_delight.client.particle.vanilla.Sweep.sweep;
 
 
-public class RollingPinItem extends SwordItem implements IOptionalRecipeItem<RollingPinRecipe> {
+public class RollingPinItem extends SwordItem implements IOptionalRecipeItem<RollingPinRecipe>, IJadeRecipeProgressItem {
 
     private boolean recipeMatches;
     private final List<RollingPinRecipe> matchingRecipes;
     /**
-     * 涵盖了所有匹配配方的可输出物品的集合
+     * 涵盖了所有匹配配方的单个可输出物品的集合
      */
     private final List<ItemStack> optionalOutputs;
-    private int time;
+    public int recipeTime;
     private BlockPos equalBlockPos;
     private ItemStack equalOutput;
 
@@ -70,20 +70,12 @@ public class RollingPinItem extends SwordItem implements IOptionalRecipeItem<Rol
      */
     @Override
     public int getUseDuration(@NotNull ItemStack stack) {
-        if (stack.getItem() instanceof RollingPinItem pin) {
-            return pin.time;
-        }
-        return 0;
-    }
-
-    @Override
-    public @NotNull UseAnim getUseAnimation(@NotNull ItemStack stack) {
-        return UseAnim.NONE;
+        return recipeTime;
     }
 
     /**
-     * 擀面杖只能用于擀面配方中已有的方块
-     * 这一步用于决定擀面杖是否开始使用并激活动作
+     * 擀面杖只能用于擀面配方中已有的方块<br/>
+     * 这一步用于决定擀面杖是否开始使用并激活动作<br/>
      * 并从配方中读取相应的time值
      */
     @Override
@@ -98,23 +90,24 @@ public class RollingPinItem extends SwordItem implements IOptionalRecipeItem<Rol
             //限制擀面空间
             if (equalBlockPos.equals(exceptPos) || equalBlockPos.equals(exceptPos.above())) {
                 if (recipeMatches()) {
-                    pin.time = getSelectedRecipe(player).getTime();
+                    pin.recipeTime = getSelectedRecipe(player).getTime();
                     player.startUsingItem(hand);
                     pin.equalOutput = pin.getSelectedOutput(player);
                 } else {
-                    pin.time = 0;
+                    pin.recipeTime = 0;
                 }
             }
         }
         return InteractionResult.FAIL;
     }
 
+
+    private int tickCounter = 0;
     /**
-     * 使用时持续播放动画
-     * 这一步用于在使用期间，如果发生视角转移（也就是目视方块配方不匹配擀面配方了）等情况，就停止使用
+     * 使用时持续播放动画<br/>
+     * 这一步用于在使用期间，如果发生视角转移（也就是目视方块配方不匹配擀面配方了）等情况，就停止使用<br/>
      * 同时在使用期间，每3tick就播放一次擀面声音（擀面+被擀方块的混合声）
      */
-    private int tickCounter = 0;
     @Override
     public void onUseTick(@NotNull Level level, @NotNull LivingEntity entity, @NotNull ItemStack stack, int i) {
         if (stack.getItem() instanceof RollingPinItem pin) {
@@ -145,7 +138,7 @@ public class RollingPinItem extends SwordItem implements IOptionalRecipeItem<Rol
         new AnimController(entity).stopAnim(10);
         entity.stopUsingItem();
         if (stack.getItem() instanceof RollingPinItem pin && entity instanceof Player player) {
-            if (getUseDuration(entity.getUseItem()) - entity.getUseItemRemainingTicks() >= pin.time && pin.time > 0) {
+            if (pin.recipeTime > 0) {
 
                 BlockPos pos = pin.equalBlockPos;
 
@@ -166,6 +159,7 @@ public class RollingPinItem extends SwordItem implements IOptionalRecipeItem<Rol
 
                 //减少耐久度
                 stack.hurtAndBreak(1, entity, (e) -> e.broadcastBreakEvent(e.getUsedItemHand()));
+                pin.recipeTime = 0;
             }
         }
         return stack;
@@ -289,5 +283,9 @@ public class RollingPinItem extends SwordItem implements IOptionalRecipeItem<Rol
         return matchingRecipes;
     }
 
+    @Override
+    public int getRecipeTime() {
+        return recipeTime;
+    }
 }
 

@@ -2,14 +2,13 @@ package cn.solarmoon.immersive_delight.common.entity_block.core;
 
 import cn.solarmoon.immersive_delight.api.common.entity_block.BaseTankEntityBlock;
 import cn.solarmoon.immersive_delight.api.common.entity_block.entity.BaseTankBlockEntity;
-import cn.solarmoon.immersive_delight.common.registry.IMSounds;
-import cn.solarmoon.immersive_delight.common.registry.IMRecipes;
+import cn.solarmoon.immersive_delight.api.util.RecipeUtil;
 import cn.solarmoon.immersive_delight.common.entity_block.KettleEntityBlock;
 import cn.solarmoon.immersive_delight.common.recipes.KettleRecipe;
+import cn.solarmoon.immersive_delight.common.registry.IMRecipes;
+import cn.solarmoon.immersive_delight.common.registry.IMSounds;
 import cn.solarmoon.immersive_delight.data.tags.IMFluidTags;
-import cn.solarmoon.immersive_delight.api.util.RecipeUtil;
-import cn.solarmoon.immersive_delight.util.CoreUtil;
-import cn.solarmoon.immersive_delight.util.Util;
+import cn.solarmoon.immersive_delight.util.FarmerUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -67,15 +66,18 @@ public abstract class AbstractKettleEntityBlock extends BaseTankEntityBlock {
         if (blockEntity instanceof BaseTankBlockEntity tankBlockEntity) {
             KettleRecipe kettleRecipe = getCheckedRecipe(level, pos, blockEntity);
             if (kettleRecipe != null) {
+                tankBlockEntity.recipeTime = kettleRecipe.getTime();
                 tankBlockEntity.time++;
-                CoreUtil.deBug("Time："+ tankBlockEntity.time, level);
                 if (tankBlockEntity.time > kettleRecipe.getTime()) {
                     FluidStack fluidStack = new FluidStack(kettleRecipe.getOutputFluid(), tankBlockEntity.maxCapacity);
                     tankBlockEntity.tank.setFluid(fluidStack);
                     tankBlockEntity.time = 0;
                     tankBlockEntity.setChanged();
                 }
-            } else tankBlockEntity.time = 0;
+            } else {
+                tankBlockEntity.time = 0;
+                tankBlockEntity.recipeTime = 0;
+            }
         }
 
         makeParticle(level, pos, state, blockEntity);
@@ -87,7 +89,7 @@ public abstract class AbstractKettleEntityBlock extends BaseTankEntityBlock {
      */
     public void makeParticle(Level level, BlockPos pos, BlockState state, BlockEntity blockEntity) {
         BlockState stateBelow = level.getBlockState(pos.below());
-        boolean isHeated = Util.isHeatSource(stateBelow);
+        boolean isHeated = FarmerUtil.isHeatSource(stateBelow);
         Direction face = state.getValue(KettleEntityBlock.FACING);
         float delta1 = 0.5f;
         float delta2 = 0.5f;
