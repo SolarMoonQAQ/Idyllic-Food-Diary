@@ -1,8 +1,8 @@
 package cn.solarmoon.immersive_delight.client.event;
 
-import cn.solarmoon.immersive_delight.common.item.core.AbstractCupItem;
-import cn.solarmoon.immersive_delight.common.item.core.AbstractKettleItem;
-import cn.solarmoon.immersive_delight.common.item.SoupPotItem;
+import cn.solarmoon.immersive_delight.common.item.base.AbstractCupItem;
+import cn.solarmoon.immersive_delight.common.item.base.AbstractKettleItem;
+import cn.solarmoon.immersive_delight.common.item.block_item.SoupPotItem;
 import cn.solarmoon.immersive_delight.common.registry.IMPacks;
 import cn.solarmoon.immersive_delight.util.namespace.NETList;
 import net.minecraft.core.BlockPos;

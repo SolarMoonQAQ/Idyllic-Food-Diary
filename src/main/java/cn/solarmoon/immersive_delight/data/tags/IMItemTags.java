@@ -2,6 +2,7 @@ package cn.solarmoon.immersive_delight.data.tags;
 
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
 import cn.solarmoon.immersive_delight.common.registry.IMItems;
+import cn.solarmoon.immersive_delight.compat.farmersdelight.registry.FDItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
@@ -32,10 +33,8 @@ public class IMItemTags extends ItemTagsProvider {
         tag(ROLLING_DOUGH).add(
                 IMItems.WHEAT_DOUGH.get(),
                 IMItems.FLATBREAD_DOUGH.get()
-        ).replace(false);
-        //擀面杖配方（农夫乐事兼容）
-        tag(ROLLING_DOUGH).addOptional(
-                new ResourceLocation("farmersdelight", "wheat_dough")
+        ).addOptional(
+                FDItems.WHEAT_DOUGH.getId()
         ).replace(false);
         //刀类物品
         tag(FORGE_KNIVES).add(
@@ -67,12 +66,28 @@ public class IMItemTags extends ItemTagsProvider {
                 IMItems.BLACK_TEA_LEAVES.get(),
                 IMItems.GREEN_TEA_LEAVES.get()
         ).replace(false);
+        tag(CUP).add(
+                IMItems.CELADON_CUP.get(),
+                IMItems.JADE_CHINA_CUP.get()
+        ).replace(false);
+        //TOOLTIP渲染流体框
+        tag(TOOLTIP_FLUID_RENDER).add(
+                IMItems.CELADON_CUP.get(),
+                IMItems.JADE_CHINA_CUP.get(),
+                IMItems.KETTLE.get(),
+                IMItems.SOUP_POT.get()
+        ).replace(false);
     }
 
+    //特殊效果
     public static final TagKey<Item> ROLLING_DOUGH = itemTag("dough");
+    public static final TagKey<Item> TOOLTIP_FLUID_RENDER = itemTag("tooltip_fluid_render");
 
+    //一般配方标识等
     public static final TagKey<Item> TEA = itemTag("tea");
+    public static final TagKey<Item> CUP = itemTag("cup");
 
+    //forge通用
     public static final TagKey<Item> FORGE_AXES = itemForgeTag("tools/axes");
     public static final TagKey<Item> FORGE_SWORDS = itemForgeTag("tools/swords");
     public static final TagKey<Item> FORGE_KNIVES = itemForgeTag("tools/knives");

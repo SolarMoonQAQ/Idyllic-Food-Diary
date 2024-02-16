@@ -4,6 +4,7 @@
     "minecraft:magma_block",
     "minecraft:lava",
     "minecraft:campfire",
-    "minecraft:soul_campfire"
+    "minecraft:soul_campfire",
+    "minecraft:furnace"
   ]
 }

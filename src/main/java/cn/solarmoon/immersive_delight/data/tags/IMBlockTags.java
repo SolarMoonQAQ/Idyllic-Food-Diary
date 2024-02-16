@@ -2,7 +2,6 @@ package cn.solarmoon.immersive_delight.data.tags;
 
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
 import cn.solarmoon.immersive_delight.common.registry.IMBlocks;
-import cn.solarmoon.immersive_delight.common.registry.IMEntityBlocks;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -36,12 +35,13 @@ public class IMBlockTags extends BlockTagsProvider {
         ).replace(false);
         //可被镐子挖
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
-                IMEntityBlocks.KETTLE.get(),
-                IMEntityBlocks.SOUP_POT.get()
+                IMBlocks.KETTLE.get(),
+                IMBlocks.SOUP_POT.get()
         ).replace(false);
         //可被斧子挖
         tag(BlockTags.MINEABLE_WITH_AXE).add(
-                IMBlocks.DURIAN.get()
+                IMBlocks.DURIAN.get(),
+                IMBlocks.CUTTING_BOARD.get()
         ).replace(false);
         //可被刀挖
         tag(MINEABLE_WITH_CLEAVER).add(
@@ -57,11 +57,16 @@ public class IMBlockTags extends BlockTagsProvider {
                 Blocks.MAGMA_BLOCK,
                 Blocks.LAVA,
                 Blocks.CAMPFIRE,
-                Blocks.SOUL_CAMPFIRE
+                Blocks.SOUL_CAMPFIRE,
+                Blocks.FURNACE
         ).replace(false);
         //汤容器
         tag(SOUP_CONTAINER).add(
-                IMEntityBlocks.SOUP_POT.get()
+                IMBlocks.SOUP_POT.get()
+        ).replace(false);
+        //砧板大类
+        tag(CUTTING_BOARD).add(
+                IMBlocks.CUTTING_BOARD.get()
         ).replace(false);
     }
 
@@ -69,6 +74,7 @@ public class IMBlockTags extends BlockTagsProvider {
     public static final TagKey<Block> HEAT_SOURCE = blockTag("heat_source");
     public static final TagKey<Block> MINEABLE_WITH_CLEAVER = blockTag("mineable/cleaver");
     public static final TagKey<Block> SOUP_CONTAINER = blockTag("soup_container");
+    public static final TagKey<Block> CUTTING_BOARD = blockTag("cutting_board");
 
     private static TagKey<Block> blockTag(String path) {
         return BlockTags.create(new ResourceLocation(ImmersiveDelight.MOD_ID, path));

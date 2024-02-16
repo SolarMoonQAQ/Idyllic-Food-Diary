@@ -1,0 +1,26 @@
+{
+  "type": "immersive_delight:cleaver",
+  "input": {
+    "tag": "immersive_delight:dough"
+  },
+  "result": [
+    {
+      "item": "minecraft:diamond",
+      "count": 2
+    },
+    {
+      "item": "minecraft:diamond",
+      "count": 2
+    },
+    {
+      "item": "minecraft:diamond",
+      "count": 1,
+      "chance": 0.5
+    },
+    {
+      "item": "minecraft:diamond",
+      "count": 1,
+      "chance": 0.2
+    }
+  ]
+}

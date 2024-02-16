@@ -1,8 +1,9 @@
 package cn.solarmoon.immersive_delight.compat.jade.provider;
 
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
-import cn.solarmoon.immersive_delight.api.common.entity_block.entity.BaseTankBlockEntity;
-import cn.solarmoon.immersive_delight.api.util.TextUtil;
+import cn.solarmoon.solarmoon_core.common.entity_block.entity.BaseTankBlockEntity;
+import cn.solarmoon.solarmoon_core.common.entity_block.entity.iutor.ITimeRecipeBlockEntity;
+import cn.solarmoon.solarmoon_core.util.TextUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -27,11 +28,11 @@ public class TankClassRecipeProgressProvider implements IBlockComponentProvider,
 
     @Override
     public void appendTooltip(ITooltip iTooltip, BlockAccessor blockAccessor, IPluginConfig iPluginConfig) {
-        BaseTankBlockEntity t = (BaseTankBlockEntity) blockAccessor.getBlockEntity();
-        float scale = (float) t.time / t.recipeTime;
-        if (t.time != 0) {
-            int time = t.time / 20;
-            int needTime = t.recipeTime / 20;
+        ITimeRecipeBlockEntity<?> t = (ITimeRecipeBlockEntity<?>) blockAccessor.getBlockEntity();
+        float scale = (float) t.getTime() / t.getRecipeTime();
+        if (t.getTime() != 0) {
+            int time = t.getTime() / 20;
+            int needTime = t.getRecipeTime() / 20;
             IElementHelper ehp = iTooltip.getElementHelper();
             IElement progress = ehp.progress(
                     scale,

@@ -1,24 +1,25 @@
 package cn.solarmoon.immersive_delight.common.registry;
 
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
-import cn.solarmoon.immersive_delight.api.network.NetworkPack;
-import cn.solarmoon.immersive_delight.api.registry.core.BasePackRegistry;
 import cn.solarmoon.immersive_delight.network.handler.ClientPackHandler;
 import cn.solarmoon.immersive_delight.network.handler.ServerPackHandler;
-import net.minecraft.resources.ResourceLocation;
+import cn.solarmoon.solarmoon_core.registry.core.IRegister;
+import cn.solarmoon.solarmoon_core.registry.object.NetPackEntry;
 
 
-public class IMPacks extends BasePackRegistry {
+public enum IMPacks implements IRegister {
+    INSTANCE;
 
-    public final static NetworkPack CLIENT_PACK = new NetworkPack(new ResourceLocation(ImmersiveDelight.MOD_ID, "client"), NetworkPack.Side.CLIENT)
-            .addHandler(new ClientPackHandler());
-    public final static NetworkPack SERVER_PACK = new NetworkPack(new ResourceLocation(ImmersiveDelight.MOD_ID, "server"), NetworkPack.Side.SERVER)
-            .addHandler(new ServerPackHandler());
+    public final static NetPackEntry CLIENT_PACK = ImmersiveDelight.REGISTRY.netPack()
+            .id("client")
+            .side(NetPackEntry.Side.CLIENT)
+            .addHandler(new ClientPackHandler())
+            .build();
 
-    @Override
-    public void addRegistry() {
-        add(CLIENT_PACK);
-        add(SERVER_PACK);
-    }
+    public final static NetPackEntry SERVER_PACK = ImmersiveDelight.REGISTRY.netPack()
+            .id("server")
+            .side(NetPackEntry.Side.SERVER)
+            .addHandler(new ServerPackHandler())
+            .build();
 
 }

@@ -1,30 +1,24 @@
 package cn.solarmoon.immersive_delight.common.registry;
 
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
-import cn.solarmoon.immersive_delight.api.registry.core.BaseObjectRegistry;
+import cn.solarmoon.immersive_delight.client.entity_renderer.DurianEntityRenderer;
 import cn.solarmoon.immersive_delight.common.entity.DurianEntity;
+import cn.solarmoon.solarmoon_core.registry.core.IRegister;
+import cn.solarmoon.solarmoon_core.registry.object.EntityEntry;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 
-import static cn.solarmoon.immersive_delight.ImmersiveDelight.MOD_ID;
+public enum IMEntityTypes implements IRegister {
+    INSTANCE;
 
-public class IMEntityTypes extends BaseObjectRegistry<EntityType<?>> {
-
-    public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, MOD_ID);
-
-    public IMEntityTypes() {
-        super(ENTITY_TYPES);
-    }
-
-    public static final RegistryObject<EntityType<DurianEntity>> DURIAN_ENTITY = ENTITY_TYPES.register("durian", () -> EntityType.Builder
-            .<DurianEntity>of(DurianEntity::new, MobCategory.MISC)
-            .sized(0.8F, 0.8F)
-            .clientTrackingRange(4)
-            .updateInterval(20)
-            .build(ImmersiveDelight.MOD_ID + "durian")
-    );
+    public static final EntityEntry<DurianEntity> DURIAN_ENTITY = ImmersiveDelight.REGISTRY.entity()
+            .id("durian")
+            .builder(EntityType.Builder
+                    .<DurianEntity>of(DurianEntity::new, MobCategory.MISC)
+                    .sized(0.8F, 0.8F)
+                    .clientTrackingRange(4)
+                    .updateInterval(20))
+            .renderer(DurianEntityRenderer::new)
+            .build();
 
 }

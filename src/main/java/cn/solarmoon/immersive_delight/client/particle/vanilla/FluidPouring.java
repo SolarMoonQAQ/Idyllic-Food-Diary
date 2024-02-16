@@ -1,7 +1,8 @@
 package cn.solarmoon.immersive_delight.client.particle.vanilla;
 
-import cn.solarmoon.immersive_delight.util.CoreUtil;
+import cn.solarmoon.immersive_delight.ImmersiveDelight;
 import cn.solarmoon.immersive_delight.util.VecUtil;
+import cn.solarmoon.solarmoon_core.util.TextUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
@@ -32,14 +33,14 @@ public class FluidPouring {
         double d0=0,d1=0,d2=0;
         if (flag) {
             particle = ParticleTypes.ENTITY_EFFECT;
-            ResourceLocation potionId = new ResourceLocation(cn.solarmoon.immersive_delight.api.util.TextUtil.extract(fluidStack.getTag().toString(), "Potion"));
+            ResourceLocation potionId = new ResourceLocation(TextUtil.extractTag(fluidStack.getTag().toString(), "Potion"));
             Potion potion = ForgeRegistries.POTIONS.getValue(potionId);
             if (potion != null) {
                 int color = potion.getEffects().get(0).getEffect().getColor();
                 d0 = (double)(color >> 16 & 255) / 255.0D;
                 d1 = (double)(color >> 8 & 255) / 255.0D;
                 d2 = (double)(color & 255) / 255.0D;
-                CoreUtil.deBug(potion.getEffects().get(0).getEffect().getDisplayName().getString());
+                ImmersiveDelight.DEBUG.send(potion.getEffects().get(0).getEffect().getDisplayName().getString());
             }
         } else if (fluidStack.getFluid().getBucket().getDefaultInstance().is(Items.MILK_BUCKET)) {
             particle = new BlockParticleOption(ParticleTypes.BLOCK, Blocks.WHITE_WOOL.defaultBlockState());

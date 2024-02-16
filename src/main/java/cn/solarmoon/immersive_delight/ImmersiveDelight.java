@@ -1,13 +1,14 @@
 package cn.solarmoon.immersive_delight;
 
-import cn.solarmoon.immersive_delight.api.registry.core.BaseFMLEventRegistry;
-import cn.solarmoon.immersive_delight.api.registry.Capabilities;
+import cn.solarmoon.immersive_delight.client.registry.*;
 import cn.solarmoon.immersive_delight.common.registry.*;
-import cn.solarmoon.immersive_delight.common.registry.client.*;
 import cn.solarmoon.immersive_delight.compat.appleskin.AppleSkin;
 import cn.solarmoon.immersive_delight.compat.create.Create;
 import cn.solarmoon.immersive_delight.compat.farmersdelight.FarmersDelight;
-import cn.solarmoon.immersive_delight.init.Config;
+import cn.solarmoon.immersive_delight.common.registry.Config;
+import cn.solarmoon.solarmoon_core.registry.core.ObjectRegistry;
+import cn.solarmoon.solarmoon_core.util.static_utor.Debug;
+import cn.solarmoon.solarmoon_core.util.static_utor.Translator;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -22,39 +23,42 @@ public class ImmersiveDelight {
 
     public static final String MOD_ID = "immersive_delight";
     public static final Logger LOGGER = LoggerFactory.getLogger("Immersive Delight");
+    public static Debug DEBUG = new Debug("[§6沉浸乐事§f] ", Config.deBug);
+    public static final Translator TRANSLATOR = new Translator(MOD_ID);
+    public static final ObjectRegistry REGISTRY = new ObjectRegistry(MOD_ID).create();
+
 
     public ImmersiveDelight() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         //物品
-        new IMItems().register(bus);
+        IMItems.INSTANCE.register();
         //方块
-        new IMBlocks().register(bus);
+        IMBlocks.INSTANCE.register();
         //方块实体
-        new IMEntityBlocks().register(bus);
-        //流体（就这个没base成功，全是静态搞不定）
-        new IMFluids.specialRegister().register(bus);
+        IMBlockEntities.INSTANCE.register();
+        //流体
+        IMFluids.INSTANCE.register();
         //药水效果
-        new IMEffects().register(bus);
+        IMEffects.INSTANCE.register();
         //TBA栏
-        new IMCreativeModeTab().register(bus);
+        IMCreativeModeTab.INSTANCE.register();
         //配方
-        new IMRecipes().register(bus);
+        IMRecipes.INSTANCE.register();
         //粒子
-        new IMParticles().register(bus);
+        IMParticles.INSTANCE.register();
         //音效
-        new IMSounds().register(bus);
+        IMSounds.INSTANCE.register();
         //生成
-        new IMFeatures().register(bus);
+        IMFeatures.INSTANCE.register();
         //生物
-        new IMEntityTypes().register(bus);
+        IMEntityTypes.INSTANCE.register();
         //网络包
-        new IMPacks().register();
+        IMPacks.INSTANCE.register();
 
         //客户端事件
         new IMClientEvents().register(bus);
         //双端事件
         new IMCommonEvents().register(bus);
-        new Capabilities().register(bus);
         //方块实体渲染
         new IMBlockEntityRenderers().register(bus);
         //实体渲染
@@ -67,7 +71,7 @@ public class ImmersiveDelight {
         new IMDataPacks().register();
 
         //配置文件
-        Config.register();
+        new Config().register();
 
         //—————————————————————————联动—————————————————————————//
         new FarmersDelight().register(bus);

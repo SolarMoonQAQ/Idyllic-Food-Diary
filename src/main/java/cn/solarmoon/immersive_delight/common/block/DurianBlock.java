@@ -1,6 +1,5 @@
 package cn.solarmoon.immersive_delight.common.block;
 
-import cn.solarmoon.immersive_delight.api.util.DamageUtil;
 import cn.solarmoon.immersive_delight.common.registry.IMDamageTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
@@ -40,7 +39,7 @@ public class DurianBlock extends FallingBlock implements Fallable {
 
     @Override
     public DamageSource getFallDamageSource(Entity entity) {
-        return DamageUtil.getSimpleDamageSource(entity.level(), IMDamageTypes.falling_durian);
+        return IMDamageTypes.FALLING_DURIAN.getSimple(entity.level());
     }
 
 }

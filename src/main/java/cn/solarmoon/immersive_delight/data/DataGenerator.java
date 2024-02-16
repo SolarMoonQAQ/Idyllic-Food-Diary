@@ -4,7 +4,6 @@ import cn.solarmoon.immersive_delight.data.loot_tables.IMBlockLoots;
 import cn.solarmoon.immersive_delight.data.tags.IMBlockTags;
 import cn.solarmoon.immersive_delight.data.tags.IMFluidTags;
 import cn.solarmoon.immersive_delight.data.tags.IMItemTags;
-import cn.solarmoon.immersive_delight.data.worldgen.TreeBootstrap;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
@@ -47,12 +46,6 @@ public class DataGenerator {
         generator.addProvider(event.includeServer(), new LootTableProvider(output, Collections.emptySet(), List.of(
                 new LootTableProvider.SubProviderEntry(IMBlockLoots::new, LootContextParamSets.BLOCK)
         )));
-
-        RegistrySetBuilder builder = new RegistrySetBuilder();
-        builder.add(Registries.CONFIGURED_FEATURE, TreeBootstrap::Configured);
-        builder.add(Registries.PLACED_FEATURE, TreeBootstrap::Placed);
-
-        generator.addProvider(event.includeServer(), new DatapackBuiltinEntriesProvider(output, event.getLookupProvider(), builder, Set.of(MOD_ID)));
     }
 
 }

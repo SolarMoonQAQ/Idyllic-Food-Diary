@@ -1,9 +1,7 @@
 package cn.solarmoon.immersive_delight.client;
 
-import cn.solarmoon.immersive_delight.client.ItemRenderer.PerspectiveBakedModelRenderer;
-import cn.solarmoon.immersive_delight.client.ItemRenderer.TankableTooltipRenderer;
+import cn.solarmoon.immersive_delight.client.Item_renderer.PerspectiveBakedModelRenderer;
 import com.google.common.collect.Lists;
-import com.mojang.datafixers.util.Either;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.core.registries.Registries;
@@ -11,8 +9,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ModelEvent;
-import net.minecraftforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
-import net.minecraftforge.client.event.RenderTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;

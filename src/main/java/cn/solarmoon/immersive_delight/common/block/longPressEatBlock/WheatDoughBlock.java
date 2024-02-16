@@ -1,8 +1,6 @@
 package cn.solarmoon.immersive_delight.common.block.longPressEatBlock;
 
-import cn.solarmoon.immersive_delight.api.common.block.food.BaseLongPressEatFoodBlock;
-import cn.solarmoon.immersive_delight.api.network.serializer.ClientPackSerializer;
-import cn.solarmoon.immersive_delight.client.particle.vanilla.Wave;
+import cn.solarmoon.immersive_delight.common.block.base.AbstractLongPressEatFoodBlock;
 import cn.solarmoon.immersive_delight.common.registry.IMBlocks;
 import cn.solarmoon.immersive_delight.compat.farmersdelight.util.FarmersUtil;
 import net.minecraft.core.BlockPos;
@@ -18,7 +16,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -29,16 +26,14 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static cn.solarmoon.immersive_delight.client.particle.vanilla.Wave.wave;
 
 /**
  * 面团方块
  */
-public class WheatDoughBlock extends BaseLongPressEatFoodBlock {
+public class WheatDoughBlock extends AbstractLongPressEatFoodBlock {
 
     public static final IntegerProperty FALL_COUNT = IntegerProperty.create("fall_count", 0, 10);
 
@@ -89,10 +84,9 @@ public class WheatDoughBlock extends BaseLongPressEatFoodBlock {
     /**
      * 碰撞箱
      */
-    protected static final VoxelShape SHAPE = Block.box(4.0D, 0.0D, 4.0D, 12.0D, 4.0D, 12.0D);
     @Override
     public @NotNull VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
-        return SHAPE;
+        return Block.box(4.0D, 0.0D, 4.0D, 12.0D, 4.0D, 12.0D);
     }
 
     /**

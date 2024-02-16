@@ -1,6 +1,5 @@
 package cn.solarmoon.immersive_delight.client.particle.vanilla;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ItemParticleOption;

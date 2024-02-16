@@ -29,32 +29,32 @@ public class IMFluidTags extends FluidTagsProvider {
     protected void registerModTags() {
         //热水
         tag(HOT_FLUID).add(
-                IMFluids.HotWater.FLUID_STILL.get(),
-                IMFluids.HotWater.FLUID_FLOWING.get(),
-                IMFluids.HotMilk.FLUID_STILL.get(),
-                IMFluids.HotMilk.FLUID_FLOWING.get(),
+                IMFluids.HOT_WATER.getStill(),
+                IMFluids.HOT_WATER.getFlowing(),
+                IMFluids.HOT_MILK.getStill(),
+                IMFluids.HOT_MILK.getFlowing(),
                 Fluids.LAVA.getFlowing(),
                 Fluids.LAVA.getSource()
         ).replace(false);
         //温水
         tag(WARM_FLUID).add(
-                IMFluids.BlackTea.FLUID_STILL.get(),
-                IMFluids.BlackTea.FLUID_FLOWING.get(),
-                IMFluids.GreenTea.FLUID_STILL.get(),
-                IMFluids.GreenTea.FLUID_FLOWING.get(),
-                IMFluids.MilkTea.FLUID_STILL.get(),
-                IMFluids.MilkTea.FLUID_FLOWING.get(),
-                IMFluids.CangShuMuttonSoup.FLUID_STILL.get(),
-                IMFluids.CangShuMuttonSoup.FLUID_FLOWING.get(),
-                IMFluids.MushroomStew.FLUID_STILL.get(),
-                IMFluids.MushroomStew.FLUID_FLOWING.get()
+                IMFluids.BLACK_TEA.getStill(),
+                IMFluids.BLACK_TEA.getFlowing(),
+                IMFluids.GREEN_TEA.getStill(),
+                IMFluids.GREEN_TEA.getFlowing(),
+                IMFluids.MILK_TEA.getStill(),
+                IMFluids.MILK_TEA.getFlowing(),
+                IMFluids.CANGSHU_MUTTON_SOUP_FLUID.getStill(),
+                IMFluids.CANGSHU_MUTTON_SOUP_FLUID.getFlowing(),
+                IMFluids.MUSHROOM_STEW_FLUID.getStill(),
+                IMFluids.MUSHROOM_STEW_FLUID.getFlowing()
         )
                 .addTag(HOT_FLUID)
                 .replace(false);
         //原版水
         tag(FluidTags.WATER).add(
-                IMFluids.HotWater.FLUID_STILL.get(),
-                IMFluids.HotWater.FLUID_FLOWING.get()
+                IMFluids.HOT_WATER.getStill(),
+                IMFluids.HOT_WATER.getFlowing()
         ).replace(false);
     }
 

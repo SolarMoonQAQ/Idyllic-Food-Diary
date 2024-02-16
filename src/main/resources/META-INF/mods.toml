@@ -26,3 +26,10 @@ logoFile="logo.png"
     ordering="NONE"
     side="BOTH"
 
+[[dependencies.${mod_id}]]
+    modId="solarmoon_core"
+    mandatory=true
+    versionRange="[0.0.1,)"
+    ordering="NONE"
+    side="BOTH"
+

@@ -1,8 +1,8 @@
 package cn.solarmoon.immersive_delight.compat.jade.provider;
 
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
-import cn.solarmoon.immersive_delight.api.util.TextUtil;
-import cn.solarmoon.immersive_delight.compat.jade.impl.IJadeRecipeProgressItem;
+import cn.solarmoon.solarmoon_core.common.item.iutor.ITimeRecipeItem;
+import cn.solarmoon.solarmoon_core.util.TextUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -26,7 +26,7 @@ public enum OptionalRecipeItemProgressProvider implements JadeTooltipCollectedCa
         if (PluginConfig.INSTANCE.get(pinId)) {
             Player player = accessor.getPlayer();
             ItemStack stack = player.getUseItem();
-            if (stack.getItem() instanceof IJadeRecipeProgressItem rp) {
+            if (stack.getItem() instanceof ITimeRecipeItem rp) {
                 float scale = (float) player.getTicksUsingItem() / rp.getRecipeTime();
                 if (rp.getRecipeTime() != 0) {
                     int time = player.getTicksUsingItem() / 20;

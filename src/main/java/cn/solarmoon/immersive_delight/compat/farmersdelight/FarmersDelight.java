@@ -1,7 +1,7 @@
 package cn.solarmoon.immersive_delight.compat.farmersdelight;
 
-import cn.solarmoon.immersive_delight.api.compat.BaseCompat;
 import cn.solarmoon.immersive_delight.compat.farmersdelight.registry.FDItems;
+import cn.solarmoon.solarmoon_core.compat.BaseCompat;
 
 /**
  * 农夫乐事
@@ -14,7 +14,7 @@ public class FarmersDelight extends BaseCompat {
 
     @Override
     public void addRegistry() {
-        modObjects.add(FDItems.FD_ITEMS);
+        add(FDItems.FD_ITEMS);
     }
 
 }

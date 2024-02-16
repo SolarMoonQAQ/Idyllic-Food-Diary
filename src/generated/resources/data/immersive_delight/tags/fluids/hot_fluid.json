@@ -1,8 +1,8 @@
 {
   "values": [
-    "immersive_delight:hot_water",
+    "immersive_delight:hot_water_still",
     "immersive_delight:hot_water_flowing",
-    "immersive_delight:hot_milk",
+    "immersive_delight:hot_milk_still",
     "immersive_delight:hot_milk_flowing",
     "minecraft:flowing_lava",
     "minecraft:lava"

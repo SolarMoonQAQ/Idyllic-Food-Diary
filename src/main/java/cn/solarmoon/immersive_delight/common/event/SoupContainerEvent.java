@@ -1,10 +1,10 @@
 package cn.solarmoon.immersive_delight.common.event;
 
-import cn.solarmoon.immersive_delight.api.common.entity_block.entity.BaseTankBlockEntity;
-import cn.solarmoon.immersive_delight.api.util.FluidUtil;
 import cn.solarmoon.immersive_delight.data.fluid_foods.serializer.FluidFood;
 import cn.solarmoon.immersive_delight.data.tags.IMBlockTags;
-import cn.solarmoon.immersive_delight.api.util.LevelSummonUtil;
+import cn.solarmoon.solarmoon_core.common.entity_block.entity.BaseTankBlockEntity;
+import cn.solarmoon.solarmoon_core.util.FluidUtil;
+import cn.solarmoon.solarmoon_core.util.LevelSummonUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -35,7 +35,7 @@ public class SoupContainerEvent {
 
         if (state.is(IMBlockTags.SOUP_CONTAINER)) {
             if (blockEntity instanceof BaseTankBlockEntity t) {
-                FluidStack fluidStackInTank = t.tank.getFluid();
+                FluidStack fluidStackInTank = t.getTank().getFluid();
                 Fluid fluid = fluidStackInTank.getFluid();
                 //下面这一行已经相当于检查了液体类型是否匹配
                 FluidFood fluidFood = FluidFood.getByFluid(fluid);
@@ -50,7 +50,7 @@ public class SoupContainerEvent {
                         LevelSummonUtil.addItemToInventory(player, food, pos);
                         heldStack.shrink(1);
                     }
-                    t.tank.drain(amount, IFluidHandler.FluidAction.EXECUTE);
+                    t.getTank().drain(amount, IFluidHandler.FluidAction.EXECUTE);
                     player.swing(hand);
                     level.playSound(null, pos, SoundEvents.BUCKET_FILL, SoundSource.BLOCKS);
                     event.setCanceled(true);
@@ -75,13 +75,13 @@ public class SoupContainerEvent {
                 if (fluidFood == null) return;
                 FluidStack put = new FluidStack(fluidFood.getFluid(), fluidFood.fluidAmount);
 
-                if (fluidFood.getFood().equals(heldStack.getItem()) && FluidUtil.canStillPut(t.tank, put)) {
+                if (fluidFood.getFood().equals(heldStack.getItem()) && FluidUtil.canStillPut(t.getTank(), put)) {
                     if (!player.isCreative()) {
                         ItemStack container = fluidFood.getContainer().getDefaultInstance();
                         LevelSummonUtil.addItemToInventory(player, container);
                         heldStack.shrink(1);
                     }
-                    t.tank.fill(put, IFluidHandler.FluidAction.EXECUTE);
+                    t.getTank().fill(put, IFluidHandler.FluidAction.EXECUTE);
                     player.swing(hand);
                     level.playSound(null, pos, SoundEvents.BUCKET_EMPTY, SoundSource.BLOCKS);
                     event.setCanceled(true);

@@ -1,81 +1,170 @@
 package cn.solarmoon.immersive_delight.common.registry;
 
 
-import cn.solarmoon.immersive_delight.api.registry.core.BaseObjectRegistry;
+import cn.solarmoon.immersive_delight.ImmersiveDelight;
 import cn.solarmoon.immersive_delight.common.item.*;
+import cn.solarmoon.immersive_delight.common.item.block_item.*;
+import cn.solarmoon.immersive_delight.common.item.food_block_item.CangshuMuttonSoupItem;
+import cn.solarmoon.immersive_delight.common.item.food_block_item.FlatbreadDoughItem;
+import cn.solarmoon.immersive_delight.common.item.food_block_item.WheatDoughItem;
+import cn.solarmoon.immersive_delight.common.item.recipe_item.ChineseCleaverItem;
+import cn.solarmoon.immersive_delight.common.item.recipe_item.RollingPinItem;
 import cn.solarmoon.immersive_delight.common.item.sapling.AppleSaplingItem;
 import cn.solarmoon.immersive_delight.common.item.sapling.DurianSaplingItem;
-import cn.solarmoon.immersive_delight.common.item.seeds.AppleCoreItem;
-import cn.solarmoon.immersive_delight.common.item.seeds.BlackTeaSeedsItem;
-import cn.solarmoon.immersive_delight.common.item.seeds.DurianCoreItem;
-import cn.solarmoon.immersive_delight.common.item.seeds.GreenTeaSeedsItem;
-import cn.solarmoon.immersive_delight.util.namespace.BLOCKENTITYList;
-import cn.solarmoon.immersive_delight.util.namespace.BLOCKList;
-import net.minecraft.world.item.Item;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
-
-import static cn.solarmoon.immersive_delight.ImmersiveDelight.MOD_ID;
+import cn.solarmoon.immersive_delight.common.item.seed.*;
+import cn.solarmoon.solarmoon_core.registry.core.IRegister;
+import cn.solarmoon.solarmoon_core.registry.object.ItemEntry;
 
 @SuppressWarnings("unused")
-public class IMItems extends BaseObjectRegistry<Item> {
-
-    //注册物品
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MOD_ID);
-
-    public IMItems() {
-        super(ITEMS);
-    }
+public enum IMItems implements IRegister {
+    INSTANCE;
 
     //擀面杖
-    public static final RegistryObject<RollingPinItem> ROLLING_PIN = ITEMS.register("rolling_pin", RollingPinItem::new);
+    public static final ItemEntry<RollingPinItem> ROLLING_PIN = ImmersiveDelight.REGISTRY.item()
+            .id("rolling_pin")
+            .bound(RollingPinItem::new)
+            .build();
+
     //中式菜刀
-    public static final RegistryObject<ChineseCleaverItem> CHINESE_CLEAVER = ITEMS.register("chinese_cleaver", ChineseCleaverItem::new);
+    public static final ItemEntry<ChineseCleaverItem> CHINESE_CLEAVER = ImmersiveDelight.REGISTRY.item()
+            .id("chinese_cleaver")
+            .bound(ChineseCleaverItem::new)
+            .build();
 
     //青瓷杯
-    public static final RegistryObject<CeladonCupItem> CELADON_CUP = ITEMS.register(BLOCKENTITYList.CELADON_CUP, CeladonCupItem::new);
+    public static final ItemEntry<CeladonCupItem> CELADON_CUP = ImmersiveDelight.REGISTRY.item()
+            .id("celadon_cup")
+            .bound(CeladonCupItem::new)
+            .build();
+
     //玉瓷杯
-    public static final RegistryObject<JadeChinaCupItem> JADE_CHINA_CUP = ITEMS.register(BLOCKENTITYList.JADE_CHINA_CUP, JadeChinaCupItem::new);
+    public static final ItemEntry<JadeChinaCupItem> JADE_CHINA_CUP = ImmersiveDelight.REGISTRY.item()
+            .id("jade_china_cup")
+            .bound(JadeChinaCupItem::new)
+            .build();
+
     //水壶
-    public static final RegistryObject<KettleItem> KETTLE = ITEMS.register(BLOCKENTITYList.KETTLE, KettleItem::new);
+    public static final ItemEntry<KettleItem> KETTLE = ImmersiveDelight.REGISTRY.item()
+            .id("kettle")
+            .bound(KettleItem::new)
+            .build();
+
     //汤锅
-    public static final RegistryObject<SoupPotItem> SOUP_POT = ITEMS.register(BLOCKENTITYList.SOUP_POT, SoupPotItem::new);
+    public static final ItemEntry<SoupPotItem> SOUP_POT = ImmersiveDelight.REGISTRY.item()
+            .id("soup_pot")
+            .bound(SoupPotItem::new)
+            .build();
+
+    //砧板
+    public static final ItemEntry<CuttingBoardItem> CUTTING_BOARD = ImmersiveDelight.REGISTRY.item()
+            .id("cutting_board")
+            .bound(CuttingBoardItem::new)
+            .build();
 
     //食物————————————————————————————————————————
 
     //面团
-    public static final RegistryObject<WheatDoughItem> WHEAT_DOUGH = ITEMS.register(BLOCKList.WHEAT_DOUGH,WheatDoughItem::new);
+    public static final ItemEntry<WheatDoughItem> WHEAT_DOUGH = ImmersiveDelight.REGISTRY.item()
+            .id("wheat_dough")
+            .bound(WheatDoughItem::new)
+            .build();
 
     //面饼
-    public static final RegistryObject<FlatbreadDoughItem> FLATBREAD_DOUGH = ITEMS.register(BLOCKList.FLATBREAD_DOUGH, FlatbreadDoughItem::new);
+    public static final ItemEntry<FlatbreadDoughItem> FLATBREAD_DOUGH = ImmersiveDelight.REGISTRY.item()
+            .id("flatbread_dough")
+            .bound(FlatbreadDoughItem::new)
+            .build();
 
     //藏书羊肉汤
-    public static final RegistryObject<CangshuMuttonSoupItem> CANGSHU_MUTTON_SOUP = ITEMS.register(BLOCKList.CANGSHU_MUTTON_SOUP, CangshuMuttonSoupItem::new);
+    public static final ItemEntry<CangshuMuttonSoupItem> CANGSHU_MUTTON_SOUP = ImmersiveDelight.REGISTRY.item()
+            .id("cangshu_mutton_soup")
+            .bound(CangshuMuttonSoupItem::new)
+            .build();
 
     //作物————————————————————————————————————————
 
     //红茶叶
-    public static final RegistryObject<BlackTeaLeavesItem> BLACK_TEA_LEAVES = ITEMS.register("black_tea_leaves", BlackTeaLeavesItem::new);
+    public static final ItemEntry<BlackTeaLeavesItem> BLACK_TEA_LEAVES = ImmersiveDelight.REGISTRY.item()
+            .id("black_tea_leaves")
+            .bound(BlackTeaLeavesItem::new)
+            .build();
+
     //红茶种子
-    public static final RegistryObject<BlackTeaSeedsItem> BLACK_TEA_SEEDS = ITEMS.register("black_tea_seeds", BlackTeaSeedsItem::new);
+    public static final ItemEntry<BlackTeaSeedsItem> BLACK_TEA_SEEDS = ImmersiveDelight.REGISTRY.item()
+            .id("black_tea_seeds")
+            .bound(BlackTeaSeedsItem::new)
+            .build();
+
     //绿茶叶
-    public static final RegistryObject<GreenTeaLeavesItem> GREEN_TEA_LEAVES = ITEMS.register("green_tea_leaves", GreenTeaLeavesItem::new);
+    public static final ItemEntry<GreenTeaLeavesItem> GREEN_TEA_LEAVES = ImmersiveDelight.REGISTRY.item()
+            .id("green_tea_leaves")
+            .bound(GreenTeaLeavesItem::new)
+            .build();
+
     //绿茶种子
-    public static final RegistryObject<GreenTeaSeedsItem> GREEN_TEA_SEEDS = ITEMS.register("green_tea_seeds", GreenTeaSeedsItem::new);
+    public static final ItemEntry<GreenTeaSeedsItem> GREEN_TEA_SEEDS = ImmersiveDelight.REGISTRY.item()
+            .id("green_tea_seeds")
+            .bound(GreenTeaSeedsItem::new)
+            .build();
+
     //苹果核
-    public static final RegistryObject<AppleCoreItem> APPLE_CORE = ITEMS.register("apple_core", AppleCoreItem::new);
+    public static final ItemEntry<AppleCoreItem> APPLE_CORE = ImmersiveDelight.REGISTRY.item()
+            .id("apple_core")
+            .bound(AppleCoreItem::new)
+            .build();
+
     //苹果树苗
-    public static final RegistryObject<AppleSaplingItem> APPLE_TREE_SAPLING = ITEMS.register(BLOCKList.APPLE_SAPLING, AppleSaplingItem::new);
+    public static final ItemEntry<AppleSaplingItem> APPLE_SAPLING = ImmersiveDelight.REGISTRY.item()
+            .id("apple_sapling")
+            .bound(AppleSaplingItem::new)
+            .build();
+
     //榴莲块
-    public static final RegistryObject<DurianBlockItem> DURIAN = ITEMS.register(BLOCKList.DURIAN, DurianBlockItem::new);
+    public static final ItemEntry<DurianItem> DURIAN = ImmersiveDelight.REGISTRY.item()
+            .id("durian")
+            .bound(DurianItem::new)
+            .build();
+
     //榴莲种子
-    public static final RegistryObject<DurianCoreItem> DURIAN_CORE = ITEMS.register("durian_core", DurianCoreItem::new);
+    public static final ItemEntry<DurianCoreItem> DURIAN_CORE = ImmersiveDelight.REGISTRY.item()
+            .id("durian_core")
+            .bound(DurianCoreItem::new)
+            .build();
+
     //榴莲树苗
-    public static final RegistryObject<DurianSaplingItem> DURIAN_SAPLING = ITEMS.register(BLOCKList.DURIAN_SAPLING, DurianSaplingItem::new);
+    public static final ItemEntry<DurianSaplingItem> DURIAN_SAPLING = ImmersiveDelight.REGISTRY.item()
+            .id("durian_sapling")
+            .bound(DurianSaplingItem::new)
+            .build();
+
     //榴莲肉
-    public static final RegistryObject<DurianFleshItem> DURIAN_FLESH = ITEMS.register("durian_flesh", DurianFleshItem::new);
+    public static final ItemEntry<DurianFleshItem> DURIAN_FLESH = ImmersiveDelight.REGISTRY.item()
+            .id("durian_flesh")
+            .bound(DurianFleshItem::new)
+            .build();
+
     //榴莲壳
-    public static final RegistryObject<DurianShellItem> DURIAN_SHELL = ITEMS.register("durian_shell", DurianShellItem::new);
+    public static final ItemEntry<DurianShellItem> DURIAN_SHELL = ImmersiveDelight.REGISTRY.item()
+            .id("durian_shell")
+            .bound(DurianShellItem::new)
+            .build();
+
+    //蒜瓣
+    public static final ItemEntry<GarlicCloveItem> GARLIC_CLOVE = ImmersiveDelight.REGISTRY.item()
+            .id("garlic_clove")
+            .bound(GarlicCloveItem::new)
+            .build();
+
+    //蒜苗
+    public static final ItemEntry<GarlicSproutsItem> GARLIC_SPROUTS = ImmersiveDelight.REGISTRY.item()
+            .id("garlic_sprouts")
+            .bound(GarlicSproutsItem::new)
+            .build();
+
+    //大蒜
+    public static final ItemEntry<GarlicItem> GARLIC = ImmersiveDelight.REGISTRY.item()
+            .id("garlic")
+            .bound(GarlicItem::new)
+            .build();
 
 }

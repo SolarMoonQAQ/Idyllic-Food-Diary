@@ -9,6 +9,9 @@
     },
     {
       "item": "minecraft:mutton"
+    },
+    {
+      "item": "immersive_delight:garlic_sprouts"
     }
   ],
   "input_fluid": {

@@ -2,7 +2,7 @@ package cn.solarmoon.immersive_delight.common.entity;
 
 import cn.solarmoon.immersive_delight.common.registry.IMEntityTypes;
 import cn.solarmoon.immersive_delight.common.registry.IMItems;
-import cn.solarmoon.immersive_delight.api.util.LevelSummonUtil;
+import cn.solarmoon.solarmoon_core.util.LevelSummonUtil;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;

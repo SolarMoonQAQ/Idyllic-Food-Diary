@@ -1,6 +1,6 @@
 package cn.solarmoon.immersive_delight.compat.create;
 
-import cn.solarmoon.immersive_delight.api.compat.BaseCompat;
+import cn.solarmoon.solarmoon_core.compat.BaseCompat;
 
 /**
  * 机械动力

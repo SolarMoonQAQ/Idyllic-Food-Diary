@@ -1,8 +1,8 @@
 package cn.solarmoon.immersive_delight.mixin;
 
-import cn.solarmoon.immersive_delight.api.util.FluidUtil;
 import cn.solarmoon.immersive_delight.common.registry.IMParticles;
 import cn.solarmoon.immersive_delight.common.registry.IMFluids;
+import cn.solarmoon.immersive_delight.util.FluidTypeUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -66,7 +66,7 @@ public abstract class EntityMixin {
     public void tick(CallbackInfo ci) {
         //第一次完全进入/出水判别 (模组液体)
         //这个限制 活体
-        boolean isFullInWater = FluidUtil.IMFluidsMatch(getEyeInFluidType());
+        boolean isFullInWater = FluidTypeUtil.IMFluidsMatch(getEyeInFluidType());
         Entity entity = ((Entity)(Object)this);
         if (entity instanceof LivingEntity) {
             CompoundTag tag = entity.getPersistentData();
@@ -89,7 +89,7 @@ public abstract class EntityMixin {
     @Inject(method = "tick", at = @At("HEAD"))
     public void tick2(CallbackInfo ci) {
         Entity entity = ((Entity)(Object)this);
-        boolean isInFluid = FluidUtil.isInFluid(entity);
+        boolean isInFluid = FluidTypeUtil.isInFluid(entity);
         //游泳音效
         if(isInFluid) {
             this.waterSwimSound();
@@ -123,7 +123,7 @@ public abstract class EntityMixin {
             double d0 = (this.random.nextDouble() * 2.0D - 1.0D) * (double)this.dimensions.width;
             double d1 = (this.random.nextDouble() * 2.0D - 1.0D) * (double)this.dimensions.width;
             ParticleOptions particleBubble = ParticleTypes.BUBBLE;
-            if (entity.isInFluidType(IMFluids.HotMilk.FLUID_TYPE.get())) {
+            if (entity.isInFluidType(IMFluids.HOT_MILK.getType())) {
                 particleBubble = IMParticles.HOT_MILK_BUBBLE.get();
             }
             this.level().addParticle(particleBubble, this.getX() + d0, f2 + 1.0F, this.getZ() + d1, vec3.x, vec3.y - this.random.nextDouble() * (double)0.2F, vec3.z);
@@ -133,7 +133,7 @@ public abstract class EntityMixin {
             double d2 = (this.random.nextDouble() * 2.0D - 1.0D) * (double)this.dimensions.width;
             double d3 = (this.random.nextDouble() * 2.0D - 1.0D) * (double)this.dimensions.width;
             ParticleOptions particleSplash = ParticleTypes.SPLASH;
-            if (entity.isInFluidType(IMFluids.HotMilk.FLUID_TYPE.get())) {
+            if (entity.isInFluidType(IMFluids.HOT_MILK.getType())) {
                 particleSplash = IMParticles.HOT_MILK_SPLASH.get();
             }
             this.level().addParticle(particleSplash, this.getX() + d2, f2 + 1.0F, this.getZ() + d3, vec3.x, vec3.y, vec3.z);

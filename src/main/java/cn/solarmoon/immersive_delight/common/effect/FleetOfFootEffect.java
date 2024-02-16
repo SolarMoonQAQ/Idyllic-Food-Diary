@@ -1,6 +1,5 @@
 package cn.solarmoon.immersive_delight.common.effect;
 
-import cn.solarmoon.immersive_delight.api.network.serializer.ClientPackSerializer;
 import cn.solarmoon.immersive_delight.common.registry.IMPacks;
 import cn.solarmoon.immersive_delight.util.namespace.NETList;
 import net.minecraft.world.effect.MobEffect;
@@ -9,9 +8,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraftforge.fluids.FluidStack;
-
-import java.util.ArrayList;
 
 /**
  * 健步如飞

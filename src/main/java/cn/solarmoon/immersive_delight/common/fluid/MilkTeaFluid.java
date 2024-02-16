@@ -1,38 +1,12 @@
 package cn.solarmoon.immersive_delight.common.fluid;
 
-import cn.solarmoon.immersive_delight.api.common.fluid.BaseFluid;
-import net.minecraftforge.fluids.ForgeFlowingFluid;
+import cn.solarmoon.immersive_delight.common.registry.IMFluids;
+import cn.solarmoon.solarmoon_core.common.fluid.SimpleFluid;
 
-import static cn.solarmoon.immersive_delight.common.registry.IMFluids.MilkTea.*;
+public class MilkTeaFluid extends SimpleFluid {
 
-public class MilkTeaFluid {
-    public static class FluidBlock extends BaseFluid.FluidBlock {
-        public FluidBlock() {
-            super(FLUID_STILL);
-        }
+    public MilkTeaFluid() {
+        super(IMFluids.MILK_TEA);
     }
 
-    public static class Flowing extends BaseFluid.Flowing {
-        public Flowing() {
-            super(makeProperties());
-        }
-    }
-
-    public static class Source extends BaseFluid.Source {
-        public Source() {
-            super(makeProperties());
-        }
-    }
-
-    public static class Bucket extends BaseFluid.Bucket {
-        public Bucket() {
-            super(FLUID_STILL);
-        }
-    }
-
-    private static ForgeFlowingFluid.Properties makeProperties() {
-        return new ForgeFlowingFluid.Properties(FLUID_TYPE, FLUID_STILL, FLUID_FLOWING)
-                .bucket(BUCKET)
-                .block(FLUID_BLOCK);
-    }
 }

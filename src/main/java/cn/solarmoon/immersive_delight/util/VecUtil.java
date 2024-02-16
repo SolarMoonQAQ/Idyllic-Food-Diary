@@ -14,4 +14,13 @@ public class VecUtil {
         return player.position().add(0, player.getEyeHeight(), 0).add(inFrontVec);
     }
 
+    /**
+     * 计算玩家面前一段距离的坐标位置
+     */
+    public static Vec3 getSpawnPosFrontPlayer(Player player, double distanceInFront, double yOffset) {
+        Vec3 lookVec = player.getLookAngle();
+        Vec3 inFrontVec = lookVec.scale(distanceInFront);
+        return player.position().add(0, player.getEyeHeight() + yOffset, 0).add(inFrontVec);
+    }
+
 }

@@ -12,8 +12,8 @@ public class SnugEffectEvent {
     @SubscribeEvent
     public void extraHeal(LivingHealEvent event) {
         LivingEntity living = event.getEntity();
-        if (living.hasEffect(IMEffects.Snug.get())) {
-            int amplifier = Objects.requireNonNull(living.getEffect(IMEffects.Snug.get())).getAmplifier();
+        if (living.hasEffect(IMEffects.SNUG.get())) {
+            int amplifier = Objects.requireNonNull(living.getEffect(IMEffects.SNUG.get())).getAmplifier();
             // 计算额外的回血量，每级增加百分之二十
             float extraHealAmount = event.getAmount() * 0.2F * (amplifier + 1);
             // 增加额外的回血量

@@ -1,6 +1,6 @@
 package cn.solarmoon.immersive_delight.common.block.longPressEatBlock;
 
-import cn.solarmoon.immersive_delight.api.common.block.food.BaseLongPressEatFoodBlock;
+import cn.solarmoon.immersive_delight.common.block.base.AbstractLongPressEatFoodBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
@@ -11,7 +11,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
-public class CangshuMuttonSoupBlock extends BaseLongPressEatFoodBlock {
+public class CangshuMuttonSoupBlock extends AbstractLongPressEatFoodBlock {
 
     public CangshuMuttonSoupBlock() {
         super(Blocks.BAMBOO, Block.Properties.of()
@@ -22,7 +22,7 @@ public class CangshuMuttonSoupBlock extends BaseLongPressEatFoodBlock {
 
     @Override
     public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
-        return SHAPE;
+        return Block.box(4.0D, 0.0D, 4.0D, 12.0D, 4.0D, 12.0D);
     }
 
 }

@@ -2,8 +2,8 @@ package cn.solarmoon.immersive_delight.common.level.feature;
 
 import cn.solarmoon.immersive_delight.common.registry.IMBlocks;
 import cn.solarmoon.immersive_delight.common.registry.IMFeatures;
-import cn.solarmoon.immersive_delight.api.common.level.feature.abstract_feature.BaseTreeFeature;
-import cn.solarmoon.immersive_delight.api.common.level.feature.configuration.BaseTreeConfig;
+import cn.solarmoon.solarmoon_core.common.level.feature.abstract_feature.BaseTreeFeature;
+import cn.solarmoon.solarmoon_core.common.level.feature.configuration.BaseTreeConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.RandomSource;
@@ -47,14 +47,14 @@ public class AppleTreeFeature extends BaseTreeFeature {
 
     @Override
     public BlockState getProduct() {
-        return IMBlocks.APPLE.get().defaultBlockState();
+        return IMBlocks.APPLE_CROP.get().defaultBlockState();
     }
 
     public static class AppleTreeGrower extends AbstractTreeGrower {
         @Override
         @Nullable
         protected ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource randomIn, boolean beehiveIn) {
-            return IMFeatures.Configured.APPLE_TREE;
+            return IMFeatures.APPLE_TREE.getConfigKey();
         }
     }
 

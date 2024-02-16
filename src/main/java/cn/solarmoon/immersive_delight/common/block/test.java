@@ -1,6 +1,7 @@
 package cn.solarmoon.immersive_delight.common.block;
 
-import cn.solarmoon.immersive_delight.api.common.block.food.BaseTakenFoodBlock;
+
+import cn.solarmoon.immersive_delight.common.block.base.AbstractTakenFoodBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
@@ -10,7 +11,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class test extends BaseTakenFoodBlock {
+public class test extends AbstractTakenFoodBlock {
     public test() {
         super(4, Items.APPLE, Items.BOWL, Block.Properties.copy(Blocks.CAKE));
     }

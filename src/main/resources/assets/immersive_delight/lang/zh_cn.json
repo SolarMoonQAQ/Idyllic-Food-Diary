@@ -25,6 +25,11 @@
   "item.immersive_delight.durian_flesh": "榴莲肉",
   "item.immersive_delight.durian_shell": "榴莲壳",
 
+  "block.immersive_delight.garlic": "大蒜",
+  "block.immersive_delight.garlic_crop": "大蒜",
+  "item.immersive_delight.garlic_clove": "蒜瓣",
+  "item.immersive_delight.garlic_sprouts": "蒜苗",
+
 
 
   "block.immersive_delight.wheat_dough": "面团",
@@ -43,6 +48,8 @@
 
   "block.immersive_delight.soup_pot": "汤锅",
   "block.immersive_delight.soup_pot_with_fluid": "装有%s的汤锅",
+
+  "block.immersive_delight.cutting_board": "砧板",
 
 
 
@@ -96,6 +103,10 @@
   "immersive_delight.player.pouring_water": "倒水",
   "immersive_delight.player.water_splashing": "泼水",
   "immersive_delight.block.boiling_water": "水壶 : 沸腾",
+
+
+
+  "jei.immersive_delight.chance": "概率：%s%%",
 
 
 

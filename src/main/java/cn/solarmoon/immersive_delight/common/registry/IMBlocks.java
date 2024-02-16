@@ -1,58 +1,131 @@
 package cn.solarmoon.immersive_delight.common.registry;
 
 
-import cn.solarmoon.immersive_delight.api.registry.core.BaseObjectRegistry;
-import cn.solarmoon.immersive_delight.common.block.*;
-import cn.solarmoon.immersive_delight.common.block.crop.AppleCrop;
-import cn.solarmoon.immersive_delight.common.block.crop.BlackTeaCrop;
-import cn.solarmoon.immersive_delight.common.block.crop.DurianCrop;
-import cn.solarmoon.immersive_delight.common.block.crop.GreenTeaCrop;
+import cn.solarmoon.immersive_delight.ImmersiveDelight;
+import cn.solarmoon.immersive_delight.common.block.DurianBlock;
+import cn.solarmoon.immersive_delight.common.block.GarlicBlock;
+import cn.solarmoon.immersive_delight.common.block.crop.*;
+import cn.solarmoon.immersive_delight.common.block.entity_block.*;
 import cn.solarmoon.immersive_delight.common.block.longPressEatBlock.CangshuMuttonSoupBlock;
 import cn.solarmoon.immersive_delight.common.block.longPressEatBlock.FlatbreadDoughBlock;
 import cn.solarmoon.immersive_delight.common.block.longPressEatBlock.WheatDoughBlock;
 import cn.solarmoon.immersive_delight.common.block.sapling.AppleSaplingBlock;
 import cn.solarmoon.immersive_delight.common.block.sapling.DurianSaplingBlock;
-import cn.solarmoon.immersive_delight.util.namespace.BLOCKList;
-import net.minecraft.world.level.block.Block;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import cn.solarmoon.immersive_delight.common.block.test;
+import cn.solarmoon.solarmoon_core.registry.core.IRegister;
+import cn.solarmoon.solarmoon_core.registry.object.BlockEntry;
 
-import static cn.solarmoon.immersive_delight.ImmersiveDelight.MOD_ID;
-
-@SuppressWarnings("unused")
-public class IMBlocks extends BaseObjectRegistry<Block> {
-
-    //方块
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MOD_ID);
-
-    public IMBlocks() {
-        super(BLOCKS);
-    }
+public enum IMBlocks implements IRegister {
+    INSTANCE;
 
     //面团
-    public static final RegistryObject<WheatDoughBlock> WHEAT_DOUGH = BLOCKS.register(BLOCKList.WHEAT_DOUGH, WheatDoughBlock::new);
+    public static final BlockEntry<WheatDoughBlock> WHEAT_DOUGH = ImmersiveDelight.REGISTRY.block()
+            .id("wheat_dough")
+            .bound(WheatDoughBlock::new)
+            .build();
+
     //面饼
-    public static final RegistryObject<FlatbreadDoughBlock> FLATBREAD_DOUGH = BLOCKS.register(BLOCKList.FLATBREAD_DOUGH, FlatbreadDoughBlock::new);
+    public static final BlockEntry<FlatbreadDoughBlock> FLATBREAD_DOUGH = ImmersiveDelight.REGISTRY.block()
+            .id("flatbread_dough")
+            .bound(FlatbreadDoughBlock::new)
+            .build();
+
     //藏书羊肉汤
-    public static final RegistryObject<CangshuMuttonSoupBlock> CANGSHU_MUTTON_SOUP = BLOCKS.register(BLOCKList.CANGSHU_MUTTON_SOUP, CangshuMuttonSoupBlock::new);
+    public static final BlockEntry<CangshuMuttonSoupBlock> CANGSHU_MUTTON_SOUP = ImmersiveDelight.REGISTRY.block()
+            .id("cangshu_mutton_soup")
+            .bound(CangshuMuttonSoupBlock::new)
+            .build();
 
     //
-    public static final RegistryObject<test> test = BLOCKS.register("test", test::new);
-
+    public static final BlockEntry<test> test = ImmersiveDelight.REGISTRY.block()
+            .id("test")
+            .bound(test::new)
+            .build();
 
     //苹果树苗
-    public static final RegistryObject<AppleSaplingBlock> APPLE_SAPLING = BLOCKS.register(BLOCKList.APPLE_SAPLING, AppleSaplingBlock::new);
-    //苹果
-    public static final RegistryObject<AppleCrop> APPLE = BLOCKS.register("apple_crop", AppleCrop::new);
+    public static final BlockEntry<AppleSaplingBlock> APPLE_SAPLING = ImmersiveDelight.REGISTRY.block()
+            .id("apple_sapling")
+            .bound(AppleSaplingBlock::new)
+            .build();
+
+    //苹果作物
+    public static final BlockEntry<AppleCropBlock> APPLE_CROP = ImmersiveDelight.REGISTRY.block()
+            .id("apple_crop")
+            .bound(AppleCropBlock::new)
+            .build();
+
     //绿茶
-    public static final RegistryObject<GreenTeaCrop> GREEN_TEA_TREE = BLOCKS.register("green_tea_tree", GreenTeaCrop::new);
+    public static final BlockEntry<GreenTeaTreeCropBlock> GREEN_TEA_TREE = ImmersiveDelight.REGISTRY.block()
+            .id("green_tea_tree")
+            .bound(GreenTeaTreeCropBlock::new)
+            .build();
+
     //红茶
-    public static final RegistryObject<BlackTeaCrop> BLACK_TEA_TREE = BLOCKS.register("black_tea_tree", BlackTeaCrop::new);
-    //榴莲
-    public static final RegistryObject<DurianCrop> DURIAN_CROP = BLOCKS.register("durian_crop", DurianCrop::new);
+    public static final BlockEntry<BlackTeaTreeCropBlock> BLACK_TEA_TREE = ImmersiveDelight.REGISTRY.block()
+            .id("black_tea_tree")
+            .bound(BlackTeaTreeCropBlock::new)
+            .build();
+
+    //榴莲作物
+    public static final BlockEntry<DurianCropBlock> DURIAN_CROP = ImmersiveDelight.REGISTRY.block()
+            .id("durian_crop")
+            .bound(DurianCropBlock::new)
+            .build();
+
     //榴莲方块
-    public static final RegistryObject<DurianBlock> DURIAN = BLOCKS.register(BLOCKList.DURIAN, DurianBlock::new);
+    public static final BlockEntry<DurianBlock> DURIAN = ImmersiveDelight.REGISTRY.block()
+            .id("durian")
+            .bound(DurianBlock::new)
+            .build();
+
     //榴莲树苗
-    public static final RegistryObject<DurianSaplingBlock> DURIAN_SAPLING = BLOCKS.register(BLOCKList.DURIAN_SAPLING, DurianSaplingBlock::new);
+    public static final BlockEntry<DurianSaplingBlock> DURIAN_SAPLING = ImmersiveDelight.REGISTRY.block()
+            .id("durian_sapling")
+            .bound(DurianSaplingBlock::new)
+            .build();
+
+    //大蒜作物
+    public static final BlockEntry<GarlicBlock> GARLIC_CROP = ImmersiveDelight.REGISTRY.block()
+            .id("garlic_crop")
+            .bound(GarlicCropBlock::new)
+            .build();
+
+    //大蒜
+    public static final BlockEntry<GarlicBlock> GARLIC = ImmersiveDelight.REGISTRY.block()
+            .id("garlic")
+            .bound(GarlicBlock::new)
+            .build();
+
+    //————————————————————————————————————————————————————————————————————————————————//
+
+    //青瓷杯
+    public static final BlockEntry<CeladonCupEntityBlock> CELADON_CUP = ImmersiveDelight.REGISTRY.block()
+            .id("celadon_cup")
+            .bound(CeladonCupEntityBlock::new)
+            .build();
+
+    //玉瓷杯
+    public static final BlockEntry<JadeChinaCupEntityBlock> JADE_CHINA_CUP = ImmersiveDelight.REGISTRY.block()
+            .id("jade_china_cup")
+            .bound(JadeChinaCupEntityBlock::new)
+            .build();
+
+    //水壶
+    public static final BlockEntry<KettleEntityBlock> KETTLE = ImmersiveDelight.REGISTRY.block()
+            .id("kettle")
+            .bound(KettleEntityBlock::new)
+            .build();
+
+    //汤锅
+    public static final BlockEntry<SoupPotEntityBlock> SOUP_POT = ImmersiveDelight.REGISTRY.block()
+            .id("soup_pot")
+            .bound(SoupPotEntityBlock::new)
+            .build();
+
+    //砧板
+    public static final BlockEntry<CuttingBoardEntityBlock> CUTTING_BOARD = ImmersiveDelight.REGISTRY.block()
+            .id("cutting_board")
+            .bound(CuttingBoardEntityBlock::new)
+            .build();
+
 }

@@ -1,9 +1,9 @@
 package cn.solarmoon.immersive_delight.compat.jade;
 
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
-import cn.solarmoon.immersive_delight.common.entity_block.core.AbstractCupEntityBlock;
-import cn.solarmoon.immersive_delight.common.entity_block.core.AbstractKettleEntityBlock;
-import cn.solarmoon.immersive_delight.common.entity_block.core.AbstractSoupPotEntityBlock;
+import cn.solarmoon.immersive_delight.common.block.base.AbstractCupEntityBlock;
+import cn.solarmoon.immersive_delight.common.block.base.AbstractKettleEntityBlock;
+import cn.solarmoon.immersive_delight.common.block.base.AbstractSoupPotEntityBlock;
 import cn.solarmoon.immersive_delight.compat.jade.provider.OptionalRecipeItemProgressProvider;
 import cn.solarmoon.immersive_delight.compat.jade.provider.TankClassRecipeProgressProvider;
 import net.minecraft.resources.ResourceLocation;
