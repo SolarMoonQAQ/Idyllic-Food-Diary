@@ -1,4 +1,4 @@
-package cn.solarmoon.immersive_delight.common.block.base;
+package cn.solarmoon.immersive_delight.common.block.base.entity_block;
 
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
 import cn.solarmoon.immersive_delight.common.block_entity.base.AbstractCupBlockEntity;
@@ -10,8 +10,8 @@ import cn.solarmoon.immersive_delight.data.fluid_effects.serializer.FluidEffect;
 import cn.solarmoon.immersive_delight.data.fluid_foods.serializer.FluidFood;
 import cn.solarmoon.immersive_delight.data.tags.IMFluidTags;
 import cn.solarmoon.solarmoon_core.common.block.entity_block.BaseTCEntityBlock;
-import cn.solarmoon.solarmoon_core.common.entity_block.entity.BaseTCBlockEntity;
-import cn.solarmoon.solarmoon_core.common.entity_block.entity.BaseTankBlockEntity;
+import cn.solarmoon.solarmoon_core.common.block_entity.BaseTCBlockEntity;
+import cn.solarmoon.solarmoon_core.common.block_entity.BaseTankBlockEntity;
 import cn.solarmoon.solarmoon_core.util.CountingDevice;
 import cn.solarmoon.solarmoon_core.util.FluidUtil;
 import cn.solarmoon.solarmoon_core.util.RecipeUtil;

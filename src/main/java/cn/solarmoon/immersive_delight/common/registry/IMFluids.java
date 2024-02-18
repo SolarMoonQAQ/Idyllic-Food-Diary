@@ -2,10 +2,7 @@ package cn.solarmoon.immersive_delight.common.registry;
 
 
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
-import cn.solarmoon.immersive_delight.common.fluid.BlackTeaFluid;
-import cn.solarmoon.immersive_delight.common.fluid.GreenTeaFluid;
-import cn.solarmoon.immersive_delight.common.fluid.HotMilkFluid;
-import cn.solarmoon.immersive_delight.common.fluid.MilkTeaFluid;
+import cn.solarmoon.immersive_delight.common.fluid.*;
 import cn.solarmoon.immersive_delight.common.fluid.no_bucket.CangShuMuttonSoupFluid;
 import cn.solarmoon.immersive_delight.common.fluid.no_bucket.MushroomStewFluid;
 import cn.solarmoon.solarmoon_core.registry.core.IRegister;
@@ -18,10 +15,10 @@ public enum IMFluids implements IRegister {
     //热水
     public static final FluidEntry HOT_WATER = ImmersiveDelight.REGISTRY.fluid()
             .id("hot_water")
-            .bound(() -> new HotMilkFluid().new FluidBlock())
-            .still(() -> new HotMilkFluid().new Source())
-            .flowing(() -> new HotMilkFluid().new Flowing())
-            .bucket(() -> new HotMilkFluid().new Bucket())
+            .bound(() -> new HotWaterFluid().new FluidBlock())
+            .still(() -> new HotWaterFluid().new Source())
+            .flowing(() -> new HotWaterFluid().new Flowing())
+            .bucket(() -> new HotWaterFluid().new Bucket())
             .build();
 
     //热牛奶

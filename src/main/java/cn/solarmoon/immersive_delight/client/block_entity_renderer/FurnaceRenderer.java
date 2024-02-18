@@ -1,5 +1,6 @@
 package cn.solarmoon.immersive_delight.client.block_entity_renderer;
 
+import cn.solarmoon.immersive_delight.util.PoseStackUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -34,14 +35,10 @@ public class FurnaceRenderer<E extends AbstractFurnaceBlockEntity> implements Bl
                   stack1 = e.getItem(1),
                   stack2 = e.getItem(2);
 
-        Quaternionf angle = (e.getBlockState().getValue(AbstractFurnaceBlock.FACING)).getRotation();
-        Quaternionf rotationZ = new Quaternionf(new AxisAngle4f((float)Math.PI, 0.0f, 0.0f, 1.0f));
-        Quaternionf result = angle.mul(rotationZ);
-
         poseStack.pushPose();
         poseStack.translate(0.5f, 1.01f, 0.5f);
         poseStack.scale(1,1,1);
-        poseStack.mulPose(result);
+        PoseStackUtil.rotateByDirection(e.getBlockState().getValue(AbstractFurnaceBlock.FACING), poseStack);
         itemRenderer.renderStatic(stack0, ItemDisplayContext.GROUND, light, overlay, poseStack, buffer, level, (int) e.getBlockPos().asLong());
         poseStack.popPose();
 

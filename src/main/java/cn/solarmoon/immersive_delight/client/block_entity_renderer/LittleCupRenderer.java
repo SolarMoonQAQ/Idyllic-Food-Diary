@@ -1,6 +1,6 @@
 package cn.solarmoon.immersive_delight.client.block_entity_renderer;
 
-import cn.solarmoon.immersive_delight.common.block.base.AbstractCupEntityBlock;
+import cn.solarmoon.immersive_delight.common.block.base.entity_block.AbstractCupEntityBlock;
 import cn.solarmoon.immersive_delight.common.block_entity.LittleCupBlockEntity;
 import cn.solarmoon.immersive_delight.util.FluidRenderUtil;
 import cn.solarmoon.solarmoon_core.client.blockEntityRenderer.BaseBlockEntityRenderer;

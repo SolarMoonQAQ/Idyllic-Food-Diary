@@ -2,9 +2,9 @@ package cn.solarmoon.immersive_delight.common.block_entity.base;
 
 import cn.solarmoon.immersive_delight.common.recipe.SoupPotRecipe;
 import cn.solarmoon.immersive_delight.common.registry.IMRecipes;
-import cn.solarmoon.solarmoon_core.common.entity_block.entity.BaseTCBlockEntity;
-import cn.solarmoon.solarmoon_core.common.entity_block.entity.iutor.ITimeRecipeBlockEntity;
-import cn.solarmoon.solarmoon_core.util.RecipeUtil;
+import cn.solarmoon.solarmoon_core.common.block_entity.BaseTCBlockEntity;
+import cn.solarmoon.solarmoon_core.common.block_entity.IContainerBlockEntity;
+import cn.solarmoon.solarmoon_core.common.block_entity.iutor.ITimeRecipeBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -13,7 +13,7 @@ import net.minecraftforge.items.wrapper.RecipeWrapper;
 
 import java.util.List;
 
-public abstract class AbstractSoupPotBlockEntity extends BaseTCBlockEntity implements ITimeRecipeBlockEntity<SoupPotRecipe> {
+public abstract class AbstractSoupPotBlockEntity extends BaseTCBlockEntity implements ITimeRecipeBlockEntity<SoupPotRecipe>, IContainerBlockEntity {
 
     private int time;
     private int recipeTime;
@@ -47,7 +47,7 @@ public abstract class AbstractSoupPotBlockEntity extends BaseTCBlockEntity imple
      */
     @Override
     public SoupPotRecipe getCheckedRecipe(Level level, BlockPos pos) {
-        List<SoupPotRecipe> recipes = RecipeUtil.getRecipes(level, IMRecipes.SOUP_POT.get());
+        List<SoupPotRecipe> recipes = level.getRecipeManager().getAllRecipesFor(IMRecipes.SOUP_POT.get());
         for (var recipe : recipes) {
             if (recipe.inputMatches(this, new RecipeWrapper(this.getInventory()), level, pos)) {
                 return recipe;

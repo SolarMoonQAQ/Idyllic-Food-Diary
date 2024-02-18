@@ -61,6 +61,12 @@ public enum IMItems implements IRegister {
             .bound(CuttingBoardItem::new)
             .build();
 
+    //烧烤架
+    public static final ItemEntry<GrillItem> GRILL = ImmersiveDelight.REGISTRY.item()
+            .id("grill")
+            .bound(GrillItem::new)
+            .build();
+
     //食物————————————————————————————————————————
 
     //面团

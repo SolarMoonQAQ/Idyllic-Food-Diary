@@ -1,8 +1,7 @@
 package cn.solarmoon.immersive_delight.compat.jade.provider;
 
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
-import cn.solarmoon.solarmoon_core.common.entity_block.entity.BaseTankBlockEntity;
-import cn.solarmoon.solarmoon_core.common.entity_block.entity.iutor.ITimeRecipeBlockEntity;
+import cn.solarmoon.solarmoon_core.common.block_entity.iutor.ITimeRecipeBlockEntity;
 import cn.solarmoon.solarmoon_core.util.TextUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;

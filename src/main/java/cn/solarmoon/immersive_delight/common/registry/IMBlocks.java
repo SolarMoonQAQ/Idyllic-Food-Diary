@@ -128,4 +128,10 @@ public enum IMBlocks implements IRegister {
             .bound(CuttingBoardEntityBlock::new)
             .build();
 
+    //烧烤架
+    public static final BlockEntry<CuttingBoardEntityBlock> GRILL = ImmersiveDelight.REGISTRY.block()
+            .id("grill")
+            .bound(GrillEntityBlock::new)
+            .build();
+
 }

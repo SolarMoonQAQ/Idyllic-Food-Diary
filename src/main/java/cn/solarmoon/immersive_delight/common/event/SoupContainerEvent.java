@@ -2,7 +2,7 @@ package cn.solarmoon.immersive_delight.common.event;
 
 import cn.solarmoon.immersive_delight.data.fluid_foods.serializer.FluidFood;
 import cn.solarmoon.immersive_delight.data.tags.IMBlockTags;
-import cn.solarmoon.solarmoon_core.common.entity_block.entity.BaseTankBlockEntity;
+import cn.solarmoon.solarmoon_core.common.block_entity.BaseTankBlockEntity;
 import cn.solarmoon.solarmoon_core.util.FluidUtil;
 import cn.solarmoon.solarmoon_core.util.LevelSummonUtil;
 import net.minecraft.core.BlockPos;
@@ -33,28 +33,27 @@ public class SoupContainerEvent {
         ItemStack heldStack = event.getItemStack();
         InteractionHand hand = event.getHand();
 
-        if (state.is(IMBlockTags.SOUP_CONTAINER)) {
-            if (blockEntity instanceof BaseTankBlockEntity t) {
-                FluidStack fluidStackInTank = t.getTank().getFluid();
-                Fluid fluid = fluidStackInTank.getFluid();
-                //下面这一行已经相当于检查了液体类型是否匹配
-                FluidFood fluidFood = FluidFood.getByFluid(fluid);
-                if(fluidFood == null) return;
-                int amount = fluidFood.fluidAmount;
-                ItemStack food = fluidFood.getFood().getDefaultInstance();
-                Item container = fluidFood.getContainer();
+        if (state.is(IMBlockTags.SOUP_CONTAINER) && blockEntity != null) {
+            IFluidHandler tank = FluidUtil.getTank(blockEntity);
+            FluidStack fluidStackInTank = tank.getFluidInTank(0);
+            Fluid fluid = fluidStackInTank.getFluid();
+            //下面这一行已经相当于检查了液体类型是否匹配
+            FluidFood fluidFood = FluidFood.getByFluid(fluid);
+            if(fluidFood == null) return;
+            int amount = fluidFood.fluidAmount;
+            ItemStack food = fluidFood.getFood().getDefaultInstance();
+            Item container = fluidFood.getContainer();
 
-                //保证容量充足，并且液体符合配方液体
-                if (fluidStackInTank.getAmount() >= amount && container.equals(heldStack.getItem())) {
-                    if (!player.isCreative()) {
-                        LevelSummonUtil.addItemToInventory(player, food, pos);
-                        heldStack.shrink(1);
-                    }
-                    t.getTank().drain(amount, IFluidHandler.FluidAction.EXECUTE);
-                    player.swing(hand);
-                    level.playSound(null, pos, SoundEvents.BUCKET_FILL, SoundSource.BLOCKS);
-                    event.setCanceled(true);
+            //保证容量充足，并且液体符合配方液体
+            if (fluidStackInTank.getAmount() >= amount && container.equals(heldStack.getItem())) {
+                if (!player.isCreative()) {
+                    LevelSummonUtil.addItemToInventory(player, food, pos);
+                    heldStack.shrink(1);
                 }
+                tank.drain(amount, IFluidHandler.FluidAction.EXECUTE);
+                player.swing(hand);
+                level.playSound(null, pos, SoundEvents.BUCKET_FILL, SoundSource.BLOCKS);
+                event.setCanceled(true);
             }
         }
     }

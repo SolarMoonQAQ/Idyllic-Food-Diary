@@ -1,4 +1,4 @@
-package cn.solarmoon.immersive_delight.common.block.base;
+package cn.solarmoon.immersive_delight.common.block.base.entity_block;
 
 import cn.solarmoon.immersive_delight.common.block_entity.base.AbstractSoupPotBlockEntity;
 import cn.solarmoon.immersive_delight.common.recipe.SoupPotRecipe;

@@ -2,8 +2,8 @@ package cn.solarmoon.immersive_delight.common.block_entity.base;
 
 import cn.solarmoon.immersive_delight.common.recipe.KettleRecipe;
 import cn.solarmoon.immersive_delight.common.registry.IMRecipes;
-import cn.solarmoon.solarmoon_core.common.entity_block.entity.BaseTankBlockEntity;
-import cn.solarmoon.solarmoon_core.common.entity_block.entity.iutor.ITimeRecipeBlockEntity;
+import cn.solarmoon.solarmoon_core.common.block_entity.BaseTankBlockEntity;
+import cn.solarmoon.solarmoon_core.common.block_entity.iutor.ITimeRecipeBlockEntity;
 import cn.solarmoon.solarmoon_core.util.RecipeUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;

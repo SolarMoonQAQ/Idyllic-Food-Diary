@@ -1,4 +1,4 @@
-package cn.solarmoon.immersive_delight.common.block.base;
+package cn.solarmoon.immersive_delight.common.block.base.entity_block;
 
 import cn.solarmoon.solarmoon_core.common.block.entity_block.BaseContainerEntityBlock;
 import net.minecraft.core.BlockPos;

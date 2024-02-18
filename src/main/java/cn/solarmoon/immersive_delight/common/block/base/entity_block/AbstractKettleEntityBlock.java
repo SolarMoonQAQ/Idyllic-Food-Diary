@@ -1,4 +1,4 @@
-package cn.solarmoon.immersive_delight.common.block.base;
+package cn.solarmoon.immersive_delight.common.block.base.entity_block;
 
 import cn.solarmoon.immersive_delight.common.block.entity_block.KettleEntityBlock;
 import cn.solarmoon.immersive_delight.common.block_entity.base.AbstractKettleBlockEntity;
@@ -7,7 +7,7 @@ import cn.solarmoon.immersive_delight.common.registry.IMSounds;
 import cn.solarmoon.immersive_delight.data.tags.IMFluidTags;
 import cn.solarmoon.immersive_delight.util.FarmerUtil;
 import cn.solarmoon.solarmoon_core.common.block.entity_block.BaseTankEntityBlock;
-import cn.solarmoon.solarmoon_core.common.entity_block.entity.BaseTankBlockEntity;
+import cn.solarmoon.solarmoon_core.common.block_entity.BaseTankBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -92,13 +92,10 @@ public abstract class AbstractKettleEntityBlock extends BaseTankEntityBlock {
     public void makeParticle(Level level, BlockPos pos, BlockState state, BlockEntity blockEntity) {
         BlockState stateBelow = level.getBlockState(pos.below());
         boolean isHeated = FarmerUtil.isHeatSource(stateBelow);
+
         Direction face = state.getValue(KettleEntityBlock.FACING);
-        float delta1 = 0.5f;
-        float delta2 = 0.5f;
-        if (face.equals(Direction.NORTH)) {delta1 = 0.5f; delta2 = 0f;}
-        if (face.equals(Direction.SOUTH)) {delta1 = -0.5f; delta2 = 0f;}
-        if (face.equals(Direction.EAST)) {delta1 = 0f; delta2 = 0.5f;}
-        if (face.equals(Direction.WEST)) {delta1 = 0f; delta2 = -0.5f;}
+        float delta1 = -face.getStepZ() * 0.5f;
+        float delta2 = face.getStepX() * 0.5f;
         Vec3 spoutPos = pos.getCenter().add(delta1, 0.07, delta2);
 
         if (blockEntity instanceof BaseTankBlockEntity tankBlockEntity) {

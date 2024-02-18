@@ -1,5 +1,6 @@
 package cn.solarmoon.immersive_delight.network.handler;
 
+import cn.solarmoon.immersive_delight.common.block_entity.base.AbstractGrillBlockEntity;
 import cn.solarmoon.immersive_delight.common.registry.IMDamageTypes;
 import cn.solarmoon.immersive_delight.common.registry.IMSounds;
 import cn.solarmoon.immersive_delight.compat.create.util.PotionUtil;
@@ -15,6 +16,7 @@ import cn.solarmoon.solarmoon_core.util.CapabilityUtil;
 import cn.solarmoon.solarmoon_core.util.FluidUtil;
 import cn.solarmoon.solarmoon_core.util.namespace.SolarNETList;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -23,6 +25,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.fluids.FluidStack;
@@ -35,7 +38,7 @@ import java.util.Random;
 public class ServerPackHandler implements IServerPackHandler {
 
     @Override
-    public void handle(ServerPlayer player, ServerLevel level, BlockPos pos, ItemStack stack, float f, String message) {
+    public void handle(ServerPlayer player, ServerLevel level, BlockPos pos, ItemStack stack, CompoundTag nbt, float f, int[] ints, String string, List<ItemStack> stacks, String message) {
         switch (message) {
 
             //倒水技能
@@ -72,6 +75,18 @@ public class ServerPackHandler implements IServerPackHandler {
             case SolarNETList.SYNC_RECIPE_INDEX -> {
                 if (stack.getItem() instanceof IOptionalRecipeItem<?> op) {
                     CapabilityUtil.getData(player, SolarCapabilities.PLAYER_DATA).getRecipeSelectorData().setRecipeIndex((int) f, op.getRecipeType());
+                }
+            }
+            case NETList.SYNC_SLOT_SET -> {
+                BlockEntity blockEntity = level.getBlockEntity(pos);
+                if (blockEntity instanceof AbstractGrillBlockEntity grill) {
+                    grill.setInventory(nbt);
+                }
+            }
+            case NETList.GRILL_INSERT_COAL -> {
+                BlockEntity blockEntity = level.getBlockEntity(pos);
+                if (blockEntity instanceof AbstractGrillBlockEntity grill) {
+                    grill.getInventory().insertItem((int) f, stack, false);
                 }
             }
         }

@@ -1,6 +1,6 @@
 package cn.solarmoon.immersive_delight.common.recipe;
 
-import cn.solarmoon.solarmoon_core.common.entity_block.entity.BaseTCBlockEntity;
+import cn.solarmoon.solarmoon_core.common.block_entity.BaseTCBlockEntity;
 import com.google.gson.JsonObject;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.RegistryAccess;

@@ -1,11 +1,9 @@
 package cn.solarmoon.immersive_delight.common.registry;
 
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
+import cn.solarmoon.immersive_delight.client.block_entity_renderer.GrillRenderer;
 import cn.solarmoon.immersive_delight.client.block_entity_renderer.LittleCupRenderer;
-import cn.solarmoon.immersive_delight.common.block_entity.CuttingBoardBlockEntity;
-import cn.solarmoon.immersive_delight.common.block_entity.KettleBlockEntity;
-import cn.solarmoon.immersive_delight.common.block_entity.LittleCupBlockEntity;
-import cn.solarmoon.immersive_delight.common.block_entity.SoupPotBlockEntity;
+import cn.solarmoon.immersive_delight.common.block_entity.*;
 import cn.solarmoon.solarmoon_core.registry.core.IRegister;
 import cn.solarmoon.solarmoon_core.registry.object.BlockEntityEntry;
 
@@ -39,6 +37,14 @@ public enum IMBlockEntities implements IRegister {
             .id("cutting_board")
             .bound(CuttingBoardBlockEntity::new)
             .validBlock(IMBlocks.CUTTING_BOARD.getObject())
+            .build();
+
+    //烧烤架
+    public static final BlockEntityEntry<CuttingBoardBlockEntity> GRILL = ImmersiveDelight.REGISTRY.blockEntity()
+            .id("grill")
+            .bound(GrillBlockEntity::new)
+            .validBlock(IMBlocks.GRILL.getObject())
+            .renderer(GrillRenderer::new)
             .build();
 
 }
