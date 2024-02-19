@@ -18,6 +18,13 @@ public enum IMBlockEntities implements IRegister {
             .renderer(LittleCupRenderer::new)
             .build();
 
+    //锡纸盒
+    public static final BlockEntityEntry<TinFoilBoxBlockEntity> TIN_FOIL_BOX = ImmersiveDelight.REGISTRY.blockEntity()
+            .id("tin_foil_box")
+            .bound(TinFoilBoxBlockEntity::new)
+            .validBlock(IMBlocks.TIN_FOIL_BOX.getObject())
+            .build();
+
     //水壶
     public static final BlockEntityEntry<KettleBlockEntity> KETTLE = ImmersiveDelight.REGISTRY.blockEntity()
             .id("kettle")

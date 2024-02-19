@@ -17,11 +17,11 @@ import snownee.jade.api.ui.IElement;
 import snownee.jade.api.ui.IElementHelper;
 import snownee.jade.impl.ui.ProgressStyle;
 
-public class TankClassRecipeProgressProvider implements IBlockComponentProvider, IServerDataProvider<BlockAccessor> {
+public class TimeRecipeProgressProvider implements IBlockComponentProvider, IServerDataProvider<BlockAccessor> {
 
     private final String configId;
 
-    public TankClassRecipeProgressProvider(String configId) {
+    public TimeRecipeProgressProvider(String configId) {
         this.configId = configId;
     }
 

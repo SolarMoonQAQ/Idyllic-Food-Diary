@@ -39,4 +39,10 @@ public enum IMRecipes implements IRegister {
             .serializer(SoupPotRecipe.Serializer::new)
             .build();
 
+    //锡纸烧
+    public static final RecipeEntry<TinFoilGrillingRecipe> TIN_FOIL_GRILLING = ImmersiveDelight.REGISTRY.recipe()
+            .id("tin_foil_grilling")
+            .serializer(TinFoilGrillingRecipe.Serializer::new)
+            .build();
+
 }

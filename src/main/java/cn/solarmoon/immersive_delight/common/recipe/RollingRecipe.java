@@ -22,7 +22,7 @@ import org.jetbrains.annotations.Nullable;
 import static cn.solarmoon.immersive_delight.common.registry.IMRecipes.ROLLING;
 
 
-public class RollingRecipe implements Recipe<RecipeWrapper>, IResultsRecipe {
+public class RollingRecipe implements Recipe<RecipeWrapper>, IChanceResultRecipe {
 
     private final ResourceLocation id;
     private final Ingredient input;

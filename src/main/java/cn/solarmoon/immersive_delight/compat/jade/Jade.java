@@ -4,8 +4,9 @@ import cn.solarmoon.immersive_delight.ImmersiveDelight;
 import cn.solarmoon.immersive_delight.common.block.base.entity_block.AbstractCupEntityBlock;
 import cn.solarmoon.immersive_delight.common.block.base.entity_block.AbstractKettleEntityBlock;
 import cn.solarmoon.immersive_delight.common.block.base.entity_block.AbstractSoupPotEntityBlock;
+import cn.solarmoon.immersive_delight.common.block.base.entity_block.AbstractTinFoilBoxEntityBlock;
 import cn.solarmoon.immersive_delight.compat.jade.provider.OptionalRecipeItemProgressProvider;
-import cn.solarmoon.immersive_delight.compat.jade.provider.TankClassRecipeProgressProvider;
+import cn.solarmoon.immersive_delight.compat.jade.provider.TimeRecipeProgressProvider;
 import net.minecraft.resources.ResourceLocation;
 import snownee.jade.api.IWailaClientRegistration;
 import snownee.jade.api.IWailaPlugin;
@@ -17,9 +18,10 @@ public class Jade implements IWailaPlugin {
 
     @Override
     public void registerClient(IWailaClientRegistration registration) {
-        registration.registerBlockComponent(new TankClassRecipeProgressProvider("kettle"), AbstractKettleEntityBlock.class);
-        registration.registerBlockComponent(new TankClassRecipeProgressProvider("soup_pot"), AbstractSoupPotEntityBlock.class);
-        registration.registerBlockComponent(new TankClassRecipeProgressProvider("cup"), AbstractCupEntityBlock.class);
+        registration.registerBlockComponent(new TimeRecipeProgressProvider("kettle"), AbstractKettleEntityBlock.class);
+        registration.registerBlockComponent(new TimeRecipeProgressProvider("soup_pot"), AbstractSoupPotEntityBlock.class);
+        registration.registerBlockComponent(new TimeRecipeProgressProvider("cup"), AbstractCupEntityBlock.class);
+        registration.registerBlockComponent(new TimeRecipeProgressProvider("tin_foil_grilling"), AbstractTinFoilBoxEntityBlock.class);
 
         ResourceLocation pinId = new ResourceLocation(ImmersiveDelight.MOD_ID, "rolling_pin");
         WailaClientRegistration.INSTANCE.addConfig(pinId, true);

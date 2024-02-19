@@ -49,6 +49,12 @@ public enum IMItems implements IRegister {
             .bound(KettleItem::new)
             .build();
 
+    //锡纸盒
+    public static final ItemEntry<TinFoilBoxItem> TIN_FOIL_BOX = ImmersiveDelight.REGISTRY.item()
+            .id("tin_foil_box")
+            .bound(TinFoilBoxItem::new)
+            .build();
+
     //汤锅
     public static final ItemEntry<SoupPotItem> SOUP_POT = ImmersiveDelight.REGISTRY.item()
             .id("soup_pot")

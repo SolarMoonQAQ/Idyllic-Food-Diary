@@ -110,6 +110,12 @@ public enum IMBlocks implements IRegister {
             .bound(JadeChinaCupEntityBlock::new)
             .build();
 
+    //锡纸盒
+    public static final BlockEntry<TinFoilBoxEntityBlock> TIN_FOIL_BOX = ImmersiveDelight.REGISTRY.block()
+            .id("tin_foil_box")
+            .bound(TinFoilBoxEntityBlock::new)
+            .build();
+
     //水壶
     public static final BlockEntry<KettleEntityBlock> KETTLE = ImmersiveDelight.REGISTRY.block()
             .id("kettle")

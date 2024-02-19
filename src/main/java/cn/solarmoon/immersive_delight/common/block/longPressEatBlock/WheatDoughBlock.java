@@ -3,6 +3,7 @@ package cn.solarmoon.immersive_delight.common.block.longPressEatBlock;
 import cn.solarmoon.immersive_delight.common.block.base.AbstractLongPressEatFoodBlock;
 import cn.solarmoon.immersive_delight.common.registry.IMBlocks;
 import cn.solarmoon.immersive_delight.compat.farmersdelight.util.FarmersUtil;
+import cn.solarmoon.immersive_delight.util.BlockUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -69,7 +70,8 @@ public class WheatDoughBlock extends AbstractLongPressEatFoodBlock {
         if (fallDistance > 5 || fallCount >= 2) {
             if (entity instanceof LivingEntity) {
                 level.destroyBlock(pos, false);
-                level.setBlock(pos, IMBlocks.FLATBREAD_DOUGH.get().defaultBlockState(), 3);
+                BlockState toState = IMBlocks.FLATBREAD_DOUGH.get().defaultBlockState();
+                BlockUtil.setBlockWithDirection(state, toState, level, pos); //保持朝向
                 level.playSound(null, pos, SoundEvents.WOOL_BREAK, SoundSource.BLOCKS, 3.0F, 0.5F);
                 if (level.isClientSide) wave(particle, pos, 5, 10, Math.max(fallDistance / 5, 2), 0.8);
             }

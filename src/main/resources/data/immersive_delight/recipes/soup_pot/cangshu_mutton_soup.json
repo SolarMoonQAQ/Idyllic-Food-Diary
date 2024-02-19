@@ -18,7 +18,7 @@
     "tag": "minecraft:water",
     "amount": 2000
   },
-  "time": 500,
+  "time": 6000,
   "output_fluid": {
     "id": "immersive_delight:cangshu_mutton_soup_fluid",
     "amount": 2000

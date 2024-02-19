@@ -29,7 +29,7 @@ import java.util.Arrays;
 
 /**
  * 主要用于获取液体贴图模型等
- * 方法取自于Mekanism，感谢作者。
+ * Credit: Mekanism - <a href="https://github.com/mekanism/Mekanism">...</a>。
  */
 public class FluidRenderUtil {
 
@@ -65,10 +65,6 @@ public class FluidRenderUtil {
     }
 
     /**
-     * Source from MIT open source <a href="https://github.com/mekanism/Mekanism/tree/1.15x">...</a>
-     * <p>
-     * <a href="https://github.com/mekanism/Mekanism/blob/1.15x/LICENSE">...</a>
-     * <p>
      * 原理：获取贴图对六个面分别进行渲染
      */
     public static class Model3D {
@@ -110,10 +106,6 @@ public class FluidRenderUtil {
 
 
     /**
-     * Source from MIT open source <a href="https://github.com/mekanism/Mekanism/tree/1.15x">...</a>
-     * <p>
-     * <a href="https://github.com/mekanism/Mekanism/blob/1.15x/LICENSE">...</a>
-     * <p>
      * 获取流体对应贴图
      */
     public static class FluidRenderMap<V> extends Object2ObjectOpenCustomHashMap<FluidStack, V> {
@@ -255,9 +247,6 @@ public class FluidRenderUtil {
             throw new RuntimeException("Was given a null axis! That was probably not intentional, consider this a bug! (Vector = " + vector + ")");
         }
 
-        /**
-         * model 3d cube is the fluid
-         */
         public static void renderCube(Model3D cube, PoseStack matrix, VertexConsumer buffer, int argb, int light) {
             float red = FluidRenderMap.getColorARGB(argb)[0];
             float green = FluidRenderMap.getColorARGB(argb)[1];

@@ -54,6 +54,8 @@
 
   "block.immersive_delight.grill": "烧烤架",
 
+  "block.immersive_delight.tin_foil_box": "锡纸盒",
+
 
 
   "item.immersive_delight.hot_water_bucket": "热水桶",
@@ -116,5 +118,7 @@
   "config.jade.plugin_immersive_delight.kettle": "水壶信息",
   "config.jade.plugin_immersive_delight.soup_pot": "汤锅信息",
   "config.jade.plugin_immersive_delight.cup": "水杯信息",
+  "config.jade.plugin_immersive_delight.tin_foil_grilling": "锡纸烧信息",
   "config.jade.plugin_immersive_delight.rolling_pin": "擀面杖进度"
+
 }

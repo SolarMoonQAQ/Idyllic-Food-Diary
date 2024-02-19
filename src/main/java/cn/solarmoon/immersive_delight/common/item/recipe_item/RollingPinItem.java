@@ -5,6 +5,7 @@ import cn.solarmoon.immersive_delight.common.recipe.RollingRecipe;
 import cn.solarmoon.immersive_delight.common.registry.IMRecipes;
 import cn.solarmoon.immersive_delight.data.tags.IMBlockTags;
 import cn.solarmoon.immersive_delight.util.AnimController;
+import cn.solarmoon.immersive_delight.util.BlockUtil;
 import cn.solarmoon.solarmoon_core.common.item.IOptionalRecipeItem;
 import cn.solarmoon.solarmoon_core.common.item.iutor.ITimeRecipeItem;
 import cn.solarmoon.solarmoon_core.util.LevelSummonUtil;
@@ -46,6 +47,7 @@ import java.util.List;
 
 import static cn.solarmoon.immersive_delight.client.particle.vanilla.Rolling.rolling;
 import static cn.solarmoon.immersive_delight.client.particle.vanilla.Sweep.sweep;
+import static cn.solarmoon.solarmoon_core.common.block.entity_block.BasicEntityBlock.FACING;
 
 
 public class RollingPinItem extends SwordItem implements IOptionalRecipeItem<RollingRecipe>, ITimeRecipeItem {
@@ -154,9 +156,11 @@ public class RollingPinItem extends SwordItem implements IOptionalRecipeItem<Rol
                 RollingRecipe recipe = pin.getSelectedRecipe(entity);
                 if (recipe != null) {
                     if (recipe.getOutput() != null) {
+                        BlockState originState = level.getBlockState(pin.equalBlockPos);
                         BlockState state = Block.byItem(pin.equalOutput.getItem()).defaultBlockState();
                         level.destroyBlock(pos, false);
-                        level.setBlock(pos, state, 3);
+                        //使朝向一致
+                        BlockUtil.setBlockWithDirection(originState, state, level, pos);
                     }
 
                     List<ItemStack> results = recipe.rollResults(player);

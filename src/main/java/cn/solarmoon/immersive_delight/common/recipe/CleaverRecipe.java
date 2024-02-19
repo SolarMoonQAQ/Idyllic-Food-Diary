@@ -21,7 +21,7 @@ import org.jetbrains.annotations.Nullable;
 
 import static cn.solarmoon.immersive_delight.common.registry.IMRecipes.CLEAVER;
 
-public class CleaverRecipe implements Recipe<RecipeWrapper>, IResultsRecipe {
+public class CleaverRecipe implements Recipe<RecipeWrapper>, IChanceResultRecipe {
 
     private final ResourceLocation id;
     private final Ingredient input;

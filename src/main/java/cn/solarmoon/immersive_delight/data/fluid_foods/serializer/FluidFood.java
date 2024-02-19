@@ -7,6 +7,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,6 +31,7 @@ public class FluidFood {
     /**
      * 根据液体获取对应fluidFood
      */
+    @Nullable
     public static FluidFood getByFluid(Fluid fluid) {
         return MAP.get(fluid);
     }
@@ -37,6 +39,7 @@ public class FluidFood {
     /**
      * 根据食物item获取对应fluidFood
      */
+    @Nullable
     public static FluidFood getByFood(Item item) {
         return MAP2.get(item);
     }

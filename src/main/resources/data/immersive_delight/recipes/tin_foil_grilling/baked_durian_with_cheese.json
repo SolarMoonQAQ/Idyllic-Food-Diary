@@ -1,0 +1,10 @@
+{
+  "type": "immersive_delight:tin_foil_grilling",
+  "input": [
+    {
+      "item": "immersive_delight:durian_flesh"
+    }
+  ],
+  "time": 200,
+  "output": "minecraft:chest"
+}

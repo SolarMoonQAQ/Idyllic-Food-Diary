@@ -93,8 +93,6 @@ public abstract class AbstractGrillEntityBlock extends BaseContainerEntityBlock 
             //直接存入64，不知道为什么蹲下右键不触发
             ItemStack result = grill.getInventory().insertItem(6, heldItem, false);
             if (!result.equals(heldItem)) {
-                //必须同步（很迷，明明抽象类里都不需要）
-                IMPacks.SERVER_PACK.getSender().send(NETList.GRILL_INSERT_COAL, pos, result, 6);
                 if (!player.isCreative()) player.setItemInHand(hand, result);
                 level.playSound(null, pos, SoundEvents.LANTERN_STEP, SoundSource.BLOCKS);
                 grill.setChanged();
@@ -198,10 +196,6 @@ public abstract class AbstractGrillEntityBlock extends BaseContainerEntityBlock 
                     grill.getTimes()[i] = 0;
                 }
             }
-            //燃烧声音
-            if (state.getValue(LIT) && level.getRandom().nextInt(10) == 1) {
-                level.playSound(null, pos, SoundEvents.FURNACE_FIRE_CRACKLE, SoundSource.BLOCKS);
-            }
             //消耗煤炭，控制lit属性
             if (state.getValue(LIT)) {
                 //有燃料就保存其燃烧时间，并且消耗一个
@@ -231,7 +225,7 @@ public abstract class AbstractGrillEntityBlock extends BaseContainerEntityBlock 
     }
 
     /**
-     * 烧烤粒子
+     * 烧烤粒子/燃烧声音
      */
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
@@ -249,6 +243,8 @@ public abstract class AbstractGrillEntityBlock extends BaseContainerEntityBlock 
                     level.addParticle(ParticleTypes.SMOKE, v1.x, v1.y, v1.z, 0, 0.03, 0);
                 }
             }
+            //燃烧声音
+            level.playLocalSound(pos, SoundEvents.FURNACE_FIRE_CRACKLE, SoundSource.BLOCKS, 1f, 1f, false);
         }
     }
 

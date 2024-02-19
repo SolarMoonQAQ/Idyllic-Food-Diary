@@ -6,6 +6,7 @@ import cn.solarmoon.immersive_delight.common.registry.IMSounds;
 import cn.solarmoon.immersive_delight.compat.create.util.PotionUtil;
 import cn.solarmoon.immersive_delight.data.fluid_effects.serializer.FluidEffect;
 import cn.solarmoon.immersive_delight.data.fluid_effects.serializer.PotionEffect;
+import cn.solarmoon.immersive_delight.data.fluid_foods.serializer.FluidFood;
 import cn.solarmoon.immersive_delight.data.tags.IMFluidTags;
 import cn.solarmoon.immersive_delight.util.namespace.NETList;
 import cn.solarmoon.solarmoon_core.common.item.IOptionalRecipeItem;
@@ -48,7 +49,13 @@ public class ServerPackHandler implements IServerPackHandler {
                     IFluidHandlerItem tankStack = FluidUtil.getTank(itemStack);
                     FluidStack fluidStack = tankStack.getFluidInTank(0);
                     int fluidAmount = fluidStack.getAmount();
-                    if(fluidAmount > 0) {
+                    FluidFood fluidFood = FluidFood.getByFluid(fluidStack.getFluid());
+                    //要产生效果至少要符合最低的标准量
+                    int needAmount = 50;
+                    if (fluidFood != null) {
+                        needAmount = fluidFood.fluidAmount;
+                    }
+                    if(fluidAmount >= needAmount) {
                         Vec3 lookVec = player.getLookAngle();
                         Vec3 inFrontVec = lookVec.scale(1);
                         Vec3 from = player.position().add(0, 1, 0).add(inFrontVec);
@@ -92,6 +99,9 @@ public class ServerPackHandler implements IServerPackHandler {
         }
     }
 
+    /**
+     * 从喝水方法中扒的，区别是这里没有饱食度效果
+     */
     public static void commonUse(FluidStack fluidStack, Level level, LivingEntity entity) {
         //根据液体id获取对应的FluidEffect数据
         String fluidId = fluidStack.getFluid().getFluidType().toString();

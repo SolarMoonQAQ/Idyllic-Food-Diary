@@ -49,7 +49,7 @@ public abstract class AbstractSoupPotBlockEntity extends BaseTCBlockEntity imple
     public SoupPotRecipe getCheckedRecipe(Level level, BlockPos pos) {
         List<SoupPotRecipe> recipes = level.getRecipeManager().getAllRecipesFor(IMRecipes.SOUP_POT.get());
         for (var recipe : recipes) {
-            if (recipe.inputMatches(this, new RecipeWrapper(this.getInventory()), level, pos)) {
+            if (recipe.inputMatches(this, level, pos)) {
                 return recipe;
             }
         }

@@ -69,14 +69,8 @@ public class SoupPotRecipe implements Recipe<RecipeWrapper> {
      * 输入液体及量完全匹配
      * 下方为热源
      */
-    public boolean inputMatches(BaseTCBlockEntity ct, RecipeWrapper inv, Level level, BlockPos pos) {
-        List<ItemStack> stacks = new ArrayList<>();
-        for (int i = 0; i < inv.getContainerSize(); i++) {
-            ItemStack stack = inv.getItem(i);
-            if (!stack.isEmpty()) {
-                stacks.add(stack);
-            }
-        }
+    public boolean inputMatches(BaseTCBlockEntity ct, Level level, BlockPos pos) {
+        List<ItemStack> stacks = ct.getStacks();
         if (RecipeMatcher.findMatches(stacks, inputIngredients) != null) {
             FluidStack ctStack = ct.getTank().getFluid();
             if ( ( ( getInputFluid() != null && getInputFluid().equals(ctStack.getFluid()) )
@@ -138,7 +132,6 @@ public class SoupPotRecipe implements Recipe<RecipeWrapper> {
         return SOUP_POT.get();
     }
 
-    //配方哈希值比较
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
