@@ -1,6 +1,6 @@
 package cn.solarmoon.immersive_delight.client.block_entity_renderer;
 
-import cn.solarmoon.immersive_delight.util.PoseStackUtil;
+import cn.solarmoon.solarmoon_core.util.PoseStackUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;

@@ -4,7 +4,7 @@ import cn.solarmoon.immersive_delight.common.block_entity.GrillBlockEntity;
 import cn.solarmoon.immersive_delight.common.block_entity.base.AbstractGrillBlockEntity;
 import cn.solarmoon.immersive_delight.common.registry.IMBlockEntities;
 import cn.solarmoon.immersive_delight.common.registry.IMPacks;
-import cn.solarmoon.immersive_delight.util.VecUtil;
+import cn.solarmoon.solarmoon_core.util.VecUtil;
 import cn.solarmoon.immersive_delight.util.namespace.NETList;
 import cn.solarmoon.solarmoon_core.common.block.entity_block.BaseContainerEntityBlock;
 import cn.solarmoon.solarmoon_core.common.block.entity_block.BasicEntityBlock;

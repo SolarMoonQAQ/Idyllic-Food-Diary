@@ -1,7 +1,7 @@
 package cn.solarmoon.immersive_delight.client.particle.vanilla;
 
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
-import cn.solarmoon.immersive_delight.util.VecUtil;
+import cn.solarmoon.solarmoon_core.util.VecUtil;
 import cn.solarmoon.solarmoon_core.util.TextUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;

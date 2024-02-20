@@ -4,7 +4,7 @@ import cn.solarmoon.immersive_delight.ImmersiveDelight;
 import cn.solarmoon.immersive_delight.common.block_entity.base.AbstractTinFoilBoxBlockEntity;
 import cn.solarmoon.immersive_delight.common.recipe.TinFoilGrillingRecipe;
 import cn.solarmoon.immersive_delight.common.registry.IMBlockEntities;
-import cn.solarmoon.immersive_delight.util.BlockUtil;
+import cn.solarmoon.solarmoon_core.util.BlockUtil;
 import cn.solarmoon.solarmoon_core.common.block.entity_block.BaseContainerEntityBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

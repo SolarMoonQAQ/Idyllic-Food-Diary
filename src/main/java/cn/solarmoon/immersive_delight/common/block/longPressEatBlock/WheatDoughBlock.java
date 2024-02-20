@@ -3,7 +3,7 @@ package cn.solarmoon.immersive_delight.common.block.longPressEatBlock;
 import cn.solarmoon.immersive_delight.common.block.base.AbstractLongPressEatFoodBlock;
 import cn.solarmoon.immersive_delight.common.registry.IMBlocks;
 import cn.solarmoon.immersive_delight.compat.farmersdelight.util.FarmersUtil;
-import cn.solarmoon.immersive_delight.util.BlockUtil;
+import cn.solarmoon.solarmoon_core.util.BlockUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;

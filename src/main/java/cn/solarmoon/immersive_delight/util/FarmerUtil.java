@@ -2,6 +2,7 @@ package cn.solarmoon.immersive_delight.util;
 
 import cn.solarmoon.immersive_delight.compat.farmersdelight.util.FarmersUtil;
 import cn.solarmoon.immersive_delight.data.tags.IMBlockTags;
+import cn.solarmoon.solarmoon_core.util.VecUtil;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;

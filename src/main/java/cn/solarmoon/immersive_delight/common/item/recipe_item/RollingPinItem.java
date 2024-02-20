@@ -5,7 +5,7 @@ import cn.solarmoon.immersive_delight.common.recipe.RollingRecipe;
 import cn.solarmoon.immersive_delight.common.registry.IMRecipes;
 import cn.solarmoon.immersive_delight.data.tags.IMBlockTags;
 import cn.solarmoon.immersive_delight.util.AnimController;
-import cn.solarmoon.immersive_delight.util.BlockUtil;
+import cn.solarmoon.solarmoon_core.util.BlockUtil;
 import cn.solarmoon.solarmoon_core.common.item.IOptionalRecipeItem;
 import cn.solarmoon.solarmoon_core.common.item.iutor.ITimeRecipeItem;
 import cn.solarmoon.solarmoon_core.util.LevelSummonUtil;

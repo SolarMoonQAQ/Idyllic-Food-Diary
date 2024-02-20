@@ -7,18 +7,25 @@ import cn.solarmoon.immersive_delight.common.registry.IMRecipes;
 import cn.solarmoon.immersive_delight.compat.jei.category.Cleaver;
 import cn.solarmoon.solarmoon_core.compat.jei.BaseJEI;
 import mezz.jei.api.JeiPlugin;
+import mezz.jei.api.constants.RecipeTypes;
+import mezz.jei.api.recipe.RecipeType;
 import net.minecraft.resources.ResourceLocation;
 
 @JeiPlugin
 public class JEI extends BaseJEI {
 
+    @Override
     public void register() {
         add(
-                builder(CleaverRecipe.class)
+                builder()
+                        .boundCategory(new Cleaver())
                         .recipeType(IMRecipes.CLEAVER.get())
                         .addRecipeCatalyst(IMItems.CHINESE_CLEAVER.get())
                         .emptyBackground(117, 57)
-                        .build("cleaver", new Cleaver())
+                        .build("cleaver", CleaverRecipe.class),
+                builder()
+                        .recipeType(RecipeTypes.CAMPFIRE_COOKING)
+                        .addRecipeCatalyst(IMItems.GRILL.get())
         );
     }
 
