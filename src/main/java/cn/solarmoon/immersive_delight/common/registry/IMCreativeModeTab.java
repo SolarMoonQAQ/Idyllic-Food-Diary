@@ -10,7 +10,7 @@ import net.minecraftforge.registries.RegistryObject;
 public enum IMCreativeModeTab implements IRegister {
     INSTANCE;
 
-    public static final CreativeTabEntry CREATIVE_TAB = ImmersiveDelight.REGISTRY.creativeTabEntry()
+    public static final CreativeTabEntry CREATIVE_TAB = ImmersiveDelight.REGISTRY.creativeTab()
             .id(ImmersiveDelight.MOD_ID)
             .builder(CreativeModeTab.builder()
                             .title(ImmersiveDelight.TRANSLATOR.set("creative_mode_tab", "main"))

@@ -1,5 +1,6 @@
 package cn.solarmoon.immersive_delight.client.Item_renderer;
 
+import cn.solarmoon.immersive_delight.common.item.base.AbstractCupItem;
 import cn.solarmoon.immersive_delight.util.FluidRenderAnotherUtil;
 import cn.solarmoon.immersive_delight.util.FluidRenderUtil;
 import cn.solarmoon.solarmoon_core.client.ItemRenderer.BaseItemRenderer;
@@ -37,7 +38,6 @@ public class LittleCupItemRenderer extends BaseItemRenderer {
         //渲染物品
         poseStack.pushPose();
         poseStack.translate(0.5, 0.15, 0.5);
-        //根据面朝方向决定旋转角
         poseStack.mulPose(Axis.YP.rotationDegrees(45));
         poseStack.scale(0.5f, 0.5f, 0.5f);
         ItemStackHandler inventory = ContainerUtil.getInventory(stack);

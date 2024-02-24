@@ -16,6 +16,9 @@ dependencies {
     implementation fg.deobf("com.tterrag.registrate:Registrate:${registrate_version}")
     //动画库
     implementation fg.deobf("dev.kosmx.player-anim:player-animation-lib-forge:1.0.2-rc1+1.20")
+    //帕秋莉手册
+    compileOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}:api")
+    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}")
 }
 
 repositories {
@@ -53,6 +56,9 @@ repositories {
     }
     maven {
         url "https://maven.ryanliptak.com/"
+    }
+    maven {
+        url 'https://maven.blamejared.com'
     }
     flatDir {
         dir 'lib'

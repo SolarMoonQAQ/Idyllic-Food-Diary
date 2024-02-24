@@ -1,0 +1,12 @@
+{
+  "name": "immersive_delight.effect.refreshment",
+  "category": "immersive_delight:effect",
+  "icon": "immersive_delight:textures/mob_effect/refreshment.png",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "immersive_delight.effect.refreshment.page.1"
+    }
+  ]
+}

@@ -1,32 +1,47 @@
 package cn.solarmoon.immersive_delight.common.block;
 
 import cn.solarmoon.immersive_delight.common.registry.IMDamageTypes;
+import cn.solarmoon.solarmoon_core.common.block.IHorizontalFacingBlock;
+import cn.solarmoon.solarmoon_core.common.block.IWaterLoggedBlock;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.FallingBlockEntity;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Fallable;
-import net.minecraft.world.level.block.FallingBlock;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * 掉落方块
  * 砸人很痛的哦！
  */
-public class DurianBlock extends FallingBlock implements Fallable {
+public class DurianBlock extends FallingBlock implements Fallable, IWaterLoggedBlock, IHorizontalFacingBlock {
 
     public DurianBlock() {
         super(BlockBehaviour.Properties.of().sound(SoundType.STONE).strength(1.0f));
     }
 
     @Override
+    public VoxelShape getShape(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, @NotNull CollisionContext collisionContext) {
+        return Block.box(3.0D, 0.0D, 3.0D, 13.0D, 12.5D, 13.0D);
+    }
+
+    @Override
     protected void falling(FallingBlockEntity blockEntity) {
-        blockEntity. setHurtsEntities(2.0F, 40);
+        blockEntity.setHurtsEntities(2.0F, 40);
     }
 
     /**

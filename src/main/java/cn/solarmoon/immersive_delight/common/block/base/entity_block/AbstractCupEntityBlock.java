@@ -2,13 +2,13 @@ package cn.solarmoon.immersive_delight.common.block.base.entity_block;
 
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
 import cn.solarmoon.immersive_delight.common.block_entity.base.AbstractCupBlockEntity;
-import cn.solarmoon.immersive_delight.common.item.base.AbstractCupItem;
 import cn.solarmoon.immersive_delight.common.recipe.CupRecipe;
 import cn.solarmoon.immersive_delight.common.registry.IMRecipes;
 import cn.solarmoon.immersive_delight.common.registry.IMSounds;
 import cn.solarmoon.immersive_delight.data.fluid_effects.serializer.FluidEffect;
 import cn.solarmoon.immersive_delight.data.fluid_foods.serializer.FluidFood;
 import cn.solarmoon.immersive_delight.data.tags.IMFluidTags;
+import cn.solarmoon.immersive_delight.util.FarmerUtil;
 import cn.solarmoon.solarmoon_core.common.block.entity_block.BaseTCEntityBlock;
 import cn.solarmoon.solarmoon_core.common.block_entity.BaseTCBlockEntity;
 import cn.solarmoon.solarmoon_core.common.block_entity.BaseTankBlockEntity;
@@ -97,7 +97,7 @@ public abstract class AbstractCupEntityBlock extends BaseTCEntityBlock {
                 //能吃却不能吃 不让用
                 if(!canEat(blockEntity, player)) return InteractionResult.PASS;
                 if(CountingDevice.getCount(playerTag) >= getPressCount()) {
-                    AbstractCupItem.commonUse(tank.getFluid(), level, player);
+                    FarmerUtil.commonDrink(tank.getFluid(), level, player);
                     tank.drain(getDrinkVolume(tank.getFluid()), IFluidHandler.FluidAction.EXECUTE);
                     tankEntity.setChanged();
                     CountingDevice.resetCount(playerTag, -1);

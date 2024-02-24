@@ -4,23 +4,20 @@ import cn.solarmoon.immersive_delight.ImmersiveDelight;
 import cn.solarmoon.immersive_delight.client.Item_renderer.LittleCupItemRenderer;
 import cn.solarmoon.immersive_delight.compat.create.util.PotionUtil;
 import cn.solarmoon.immersive_delight.data.fluid_effects.serializer.FluidEffect;
-import cn.solarmoon.immersive_delight.data.fluid_effects.serializer.FoodValue;
 import cn.solarmoon.immersive_delight.data.fluid_effects.serializer.PotionEffect;
 import cn.solarmoon.immersive_delight.data.fluid_foods.serializer.FluidFood;
+import cn.solarmoon.immersive_delight.util.FarmerUtil;
 import cn.solarmoon.solarmoon_core.client.ItemRenderer.BaseItemRenderer;
-import cn.solarmoon.solarmoon_core.client.ItemRenderer.ICustomItemRendererProvider;
+import cn.solarmoon.solarmoon_core.client.ItemRenderer.IItemInventoryRendererProvider;
 import cn.solarmoon.solarmoon_core.common.item.IContainerItem;
 import cn.solarmoon.solarmoon_core.common.item.ITankItem;
 import cn.solarmoon.solarmoon_core.util.FluidUtil;
 import cn.solarmoon.solarmoon_core.util.TextUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
@@ -34,7 +31,6 @@ import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Random;
 import java.util.function.Supplier;
 
 
@@ -42,7 +38,7 @@ import java.util.function.Supplier;
  * 作为可饮用方块的对应物品的基本抽象类<br/>
  * 基本实现了绝大部分本模组杯子物品所需的功能，简单继承即可使用
  */
-public abstract class AbstractCupItem extends BlockItem implements ITankItem, IContainerItem, ICustomItemRendererProvider {
+public abstract class AbstractCupItem extends BlockItem implements ITankItem, IContainerItem, IItemInventoryRendererProvider {
 
     public AbstractCupItem(Block block, Properties properties) {
         super(block, properties
@@ -90,63 +86,10 @@ public abstract class AbstractCupItem extends BlockItem implements ITankItem, IC
         int tankAmount = tankStack.getFluidInTank(0).getAmount();
         if(tankAmount >= getDrinkVolume(tankStack.getFluidInTank(0))) {
             FluidStack fluidStack = tankStack.getFluidInTank(0);
-            commonUse(fluidStack, level, entity);
+            FarmerUtil.commonDrink(fluidStack, level, entity);
             tankStack.drain(getDrinkVolume(tankStack.getFluidInTank(0)), IFluidHandler.FluidAction.EXECUTE);
         } else if (tankAmount > 0) tankStack.drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.EXECUTE);
         return stack;
-    }
-
-    /**
-     * 为了和block的use方法互通
-     * 相当于应用所有液体效果
-     */
-    public static void commonUse(FluidStack fluidStack, Level level, LivingEntity entity) {
-        //根据液体id获取对应的FluidEffect数据
-        String fluidId = fluidStack.getFluid().getFluidType().toString();
-        String fluidTag = fluidStack.getTag() != null ? fluidStack.getTag().toString() : "empty";
-        ImmersiveDelight.DEBUG.send("喝下液体：" + fluidId + " " + fluidTag, level);
-
-        //机械动力联动：根据药水tag获取药水效果
-        PotionUtil.applyPotionFluidEffect(fluidTag, entity, level);
-
-        FluidEffect fluidEffect = FluidEffect.get(fluidId);
-        if(fluidEffect != null) {
-            ImmersiveDelight.DEBUG.send("数据已读取", level);
-            //获取potion（因为多种药水效果并行所以为s）
-            List<PotionEffect> potionEffects = fluidEffect.effects;
-            //如果clear为true则先清空药水效果
-            if(fluidEffect.clear) if(!level.isClientSide) entity.removeAllEffects();
-            //如果fire不为0就点燃
-            if(fluidEffect.fire > 0) if(!level.isClientSide) entity.setSecondsOnFire(fluidEffect.fire);
-            //如果extinguishing为true就灭火
-            if(fluidEffect.extinguishing) if(!level.isClientSide) entity.clearFire();
-            //如果foodValue有作用就加饱食度
-            if(fluidEffect.getFoodValue().isValid()) {
-                if(entity instanceof Player player) {
-                    if(player.canEat(false) || fluidEffect.canAlwaysDrink) {
-                        FoodValue foodValue = fluidEffect.getFoodValue();
-                        if(!level.isClientSide) {
-                            player.getFoodData().eat(foodValue.hunger, foodValue.saturation);
-                            level.playSound(null, player.getOnPos(), SoundEvents.PLAYER_BURP, SoundSource.PLAYERS, 1F, 1F);
-                        }
-                    }
-                }
-            }
-            //把每种药水效果按概率应用于玩家
-            if(potionEffects != null) {
-                for (var potion : potionEffects) {
-                    MobEffectInstance mobEffectInstance = potion.getEffect();
-                    double chance = potion.getChance();
-                    Random random = new Random();
-                    double rand = random.nextDouble();
-                    if (rand <= chance) {
-                        if(!level.isClientSide) entity.addEffect(mobEffectInstance);
-                    }
-                    ImmersiveDelight.DEBUG.send("存在药水效果：" + mobEffectInstance, level);
-                }
-            }
-        }
-
     }
 
     /**

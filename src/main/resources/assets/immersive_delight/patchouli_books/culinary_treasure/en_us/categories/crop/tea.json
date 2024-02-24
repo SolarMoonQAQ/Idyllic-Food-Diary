@@ -1,0 +1,7 @@
+{
+  "name": "immersive_delight.crop.tea",
+  "description": "immersive_delight.crop.tea.desc",
+  "icon": "immersive_delight:green_tea_leaf",
+  "parent": "immersive_delight:crop",
+  "sortnum":1
+}

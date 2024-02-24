@@ -47,8 +47,8 @@ public class IMBlockLoots extends BlockLootSubProvider {
 
         //作物专项
         //类浆果丛类，用打的方式只掉种子
-        dropOther(IMBlocks.BLACK_TEA_TREE.get(), IMItems.BLACK_TEA_SEEDS.get());
-        dropOther(IMBlocks.GREEN_TEA_TREE.get(), IMItems.GREEN_TEA_SEEDS.get());
+        dropOther(IMBlocks.BLACK_TEA_PLANT.get(), IMItems.BLACK_TEA_SEEDS.get());
+        dropOther(IMBlocks.GREEN_TEA_PLANT.get(), IMItems.GREEN_TEA_SEEDS.get());
         dropOther(IMBlocks.APPLE_CROP.get(), IMItems.APPLE_CORE.get());
         dropOther(IMBlocks.DURIAN_CROP.get(), IMItems.DURIAN_CORE.get());
         //类小麦类，正常作物

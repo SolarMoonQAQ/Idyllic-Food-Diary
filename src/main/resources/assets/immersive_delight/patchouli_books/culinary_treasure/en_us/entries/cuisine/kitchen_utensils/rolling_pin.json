@@ -1,0 +1,24 @@
+{
+  "name": "immersive_delight.cuisine.kitchen_utensils.rolling_pin",
+  "category": "immersive_delight:cuisine/kitchen_utensils",
+  "icon": "immersive_delight:rolling_pin",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "immersive_delight.cuisine.kitchen_utensils.rolling_pin.page.1"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "immersive_delight.cuisine.kitchen_utensils.rolling_pin.page.2.title",
+      "text": "immersive_delight.cuisine.kitchen_utensils.rolling_pin.page.2"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": {
+        "item": "immersive_delight:rolling_pin"
+      },
+      "text": "immersive_delight.cuisine.kitchen_utensils.rolling_pin.page.3"
+    }
+  ]
+}

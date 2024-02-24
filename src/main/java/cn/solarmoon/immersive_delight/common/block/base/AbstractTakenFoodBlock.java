@@ -18,6 +18,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.phys.BlockHitResult;
@@ -54,10 +55,7 @@ public abstract class AbstractTakenFoodBlock extends BaseWaterBlock {
         this.food = food;
         this.container = container;
         this.leftBlock = Block.byItem(container);
-        this.registerDefaultState(this.getStateDefinition().any()
-                .setValue(REMAIN, maxRemain)
-                .setValue(FACING, Direction.NORTH)
-                .setValue(WATERLOGGED, false));
+        this.registerDefaultState(this.getStateDefinition().any().setValue(REMAIN, maxRemain));
     }
 
     /**
@@ -74,10 +72,7 @@ public abstract class AbstractTakenFoodBlock extends BaseWaterBlock {
         this.food = food;
         this.container = container;
         this.leftBlock = leftBlock;
-        this.registerDefaultState(this.getStateDefinition().any()
-                .setValue(REMAIN, maxRemain)
-                .setValue(FACING, Direction.NORTH)
-                .setValue(WATERLOGGED, false));
+        this.registerDefaultState(this.getStateDefinition().any().setValue(REMAIN, maxRemain));
     }
 
     /**
@@ -90,10 +85,7 @@ public abstract class AbstractTakenFoodBlock extends BaseWaterBlock {
         this.food = food;
         this.container = Items.AIR;
         this.leftBlock = Block.byItem(container);
-        this.registerDefaultState(this.getStateDefinition().any()
-                .setValue(REMAIN, maxRemain)
-                .setValue(FACING, Direction.NORTH)
-                .setValue(WATERLOGGED, false));
+        this.registerDefaultState(this.getStateDefinition().any().setValue(REMAIN, maxRemain));
     }
 
     public ItemStack getFood() {return new ItemStack(food);}
@@ -127,10 +119,10 @@ public abstract class AbstractTakenFoodBlock extends BaseWaterBlock {
         return InteractionResult.PASS;
     }
 
-    public List<Property<?>> getProperties() {
-        List<Property<?>> properties = super.getProperties();
-        properties.add(REMAIN);
-        return properties;
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        super.createBlockStateDefinition(builder);
+        builder.add(REMAIN);
     }
 
     /**

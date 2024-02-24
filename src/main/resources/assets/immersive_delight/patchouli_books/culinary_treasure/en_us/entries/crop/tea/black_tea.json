@@ -1,0 +1,17 @@
+{
+  "name": "immersive_delight.crop.tea.black_tea",
+  "category": "immersive_delight:crop/tea",
+  "icon": "immersive_delight:black_tea_leaf",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "immersive_delight.crop.tea.black_tea.page.1"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "immersive_delight:black_tea_leaf,immersive_delight:black_tea_seeds",
+      "title": "immersive_delight.crop.tea.black_tea.page.2.title"
+    }
+  ]
+}

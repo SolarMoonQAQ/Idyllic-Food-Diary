@@ -107,8 +107,10 @@ public abstract class AbstractGrillEntityBlock extends BaseContainerEntityBlock 
             int c = i > 3 ? -1 : 1; //转变竖直方向
             int index = i > 3 ? i - 3 : i; //i>3时触底反弹
             Vec3 center = pos.getCenter();
-            Vec3 base1 = center.add(-0.5 + 1/3f * (index - 1), 0.5, -0.5 * c);
-            Vec3 base2 = center.add(-0.5 + 1/3f * index, 1.3, 0);
+            int blockScale = 14; //将整个矩形范围往内缩放
+            double scale = blockScale / 16d;
+            Vec3 base1 = center.add(-0.5 * scale + 1/3f * scale * (index - 1), 0.4375, -0.5 * scale * c);
+            Vec3 base2 = center.add(-0.5 * scale + 1/3f * scale * index, 0.4375, 0);
             Vec3 v1 = VecUtil.rotateVec(base1, center, direction);
             Vec3 v2 = VecUtil.rotateVec(base2, center, direction);
             if (VecUtil.inRange(hit.getLocation(), v1, v2)) {

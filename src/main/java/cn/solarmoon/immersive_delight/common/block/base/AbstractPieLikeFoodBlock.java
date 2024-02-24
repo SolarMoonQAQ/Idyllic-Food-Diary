@@ -10,6 +10,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.phys.BlockHitResult;
@@ -30,10 +31,7 @@ public abstract class AbstractPieLikeFoodBlock extends BaseWaterBlock {
         super(properties);
         this.count = count;
         this.blockLeft = Blocks.AIR;
-        this.registerDefaultState(this.getStateDefinition().any()
-                .setValue(REMAIN, count)
-                .setValue(FACING, Direction.NORTH)
-                .setValue(WATERLOGGED, false));
+        this.registerDefaultState(this.getStateDefinition().any().setValue(REMAIN, count));
     }
 
     /**
@@ -44,10 +42,7 @@ public abstract class AbstractPieLikeFoodBlock extends BaseWaterBlock {
         super(properties);
         this.count = count;
         this.blockLeft = blockLeft;
-        this.registerDefaultState(this.getStateDefinition().any()
-                .setValue(REMAIN, count)
-                .setValue(FACING, Direction.NORTH)
-                .setValue(WATERLOGGED, false));
+        this.registerDefaultState(this.getStateDefinition().any().setValue(REMAIN, count));
     }
 
     @Override
@@ -71,10 +66,10 @@ public abstract class AbstractPieLikeFoodBlock extends BaseWaterBlock {
         return InteractionResult.PASS;
     }
 
-    public List<Property<?>> getProperties() {
-        List<Property<?>> properties = super.getProperties();
-        properties.add(REMAIN);
-        return properties;
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        super.createBlockStateDefinition(builder);
+        builder.add(REMAIN);
     }
 
 

@@ -4,7 +4,7 @@
 	"parent": "immersive_delight:item/model/rolling_pin",
 	"textures": {
 		"1": "immersive_delight:item/model/rolling_pin",
-		"particle": "immersive_delight:item/model/rolling_pin"
+		"particle": "immersive_delight:item/rolling_pin"
 	},
 	"elements": [
 		{

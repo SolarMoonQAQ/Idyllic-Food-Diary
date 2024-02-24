@@ -1,7 +1,7 @@
 {
   "type": "immersive_delight:cup",
   "input_ingredient": {
-    "item": "immersive_delight:black_tea_leaves"
+    "item": "immersive_delight:black_tea_leaf"
   },
   "input_fluid": "immersive_delight:hot_water",
   "fluid_amount": 250,

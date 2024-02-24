@@ -1,0 +1,13 @@
+{
+  "name": "immersive_delight.equipment.bathrobe",
+  "category": "immersive_delight:equipment",
+  "icon": "immersive_delight:bathrobe",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "immersive_delight:bathrobe",
+      "text": "immersive_delight.equipment.bathrobe.page.1"
+    }
+  ]
+}

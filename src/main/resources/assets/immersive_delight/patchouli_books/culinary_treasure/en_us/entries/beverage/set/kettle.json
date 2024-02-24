@@ -1,0 +1,27 @@
+{
+  "name": "immersive_delight.beverage.set.kettle",
+  "category": "immersive_delight:beverage/set",
+  "icon": "immersive_delight:kettle",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "immersive_delight.beverage.set.kettle.page.1"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "immersive_delight:textures/patchouli/entries/kettle.png"
+      ],
+      "border": true,
+      "title": "immersive_delight.beverage.set.kettle.page.2.title"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": {
+        "item": "immersive_delight:kettle"
+      },
+      "text": "immersive_delight.beverage.set.kettle.page.3"
+    }
+  ]
+}

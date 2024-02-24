@@ -4,6 +4,7 @@ import cn.solarmoon.immersive_delight.ImmersiveDelight;
 import cn.solarmoon.immersive_delight.compat.create.util.PotionUtil;
 import cn.solarmoon.immersive_delight.data.fluid_effects.serializer.FluidEffect;
 import cn.solarmoon.immersive_delight.data.fluid_effects.serializer.PotionEffect;
+import cn.solarmoon.immersive_delight.util.FarmerUtil;
 import cn.solarmoon.solarmoon_core.util.TextUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -50,7 +51,7 @@ public class AbstractBowlFoodItem extends BlockItem {
         Fluid fluid = ForgeRegistries.FLUIDS.getValue(new ResourceLocation(fluidBound));
         if (fluid != null) {
             FluidStack fluidStack = new FluidStack(fluid, 250);
-            AbstractCupItem.commonUse(fluidStack, level, entity);
+            FarmerUtil.commonDrink(fluidStack, level, entity);
         }
         ItemStack itemStack = super.finishUsingItem(stack, level, entity);
         return entity instanceof Player && ((Player)entity).getAbilities().instabuild ? itemStack : new ItemStack(Items.BOWL);

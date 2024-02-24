@@ -54,6 +54,8 @@ public class ImmersiveDelight {
         IMEntityTypes.INSTANCE.register();
         //网络包
         IMPacks.INSTANCE.register();
+        //渲染层
+        IMLayers.INSTANCE.register();
 
         //客户端事件
         new IMClientEvents().register(bus);

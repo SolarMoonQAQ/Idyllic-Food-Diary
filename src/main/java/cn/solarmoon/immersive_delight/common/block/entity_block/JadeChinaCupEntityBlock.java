@@ -21,9 +21,6 @@ public class JadeChinaCupEntityBlock extends AbstractCupEntityBlock {
         );
     }
 
-    /**
-     * 碰撞箱
-     */
     protected static final VoxelShape[] SHAPE = new VoxelShape[]{
             Block.box(6.5D, 0.0D, 6.5D, 9.5D, 0.5D, 9.5D),
             Block.box(6.0D, 0.5D, 6.0D, 10.0D, 4.5D, 10.0D)

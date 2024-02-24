@@ -2,16 +2,19 @@ package cn.solarmoon.immersive_delight.common.registry;
 
 
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
-import cn.solarmoon.immersive_delight.common.item.*;
+import cn.solarmoon.immersive_delight.common.item.CulinaryTreasureItem;
 import cn.solarmoon.immersive_delight.common.item.block_item.*;
+import cn.solarmoon.immersive_delight.common.item.equipment.BathrobeItem;
 import cn.solarmoon.immersive_delight.common.item.food_block_item.CangshuMuttonSoupItem;
 import cn.solarmoon.immersive_delight.common.item.food_block_item.FlatbreadDoughItem;
 import cn.solarmoon.immersive_delight.common.item.food_block_item.WheatDoughItem;
+import cn.solarmoon.immersive_delight.common.item.product.*;
 import cn.solarmoon.immersive_delight.common.item.recipe_item.ChineseCleaverItem;
 import cn.solarmoon.immersive_delight.common.item.recipe_item.RollingPinItem;
 import cn.solarmoon.immersive_delight.common.item.sapling.AppleSaplingItem;
 import cn.solarmoon.immersive_delight.common.item.sapling.DurianSaplingItem;
 import cn.solarmoon.immersive_delight.common.item.seed.*;
+import cn.solarmoon.immersive_delight.compat.patchouli.Patchouli;
 import cn.solarmoon.solarmoon_core.registry.core.IRegister;
 import cn.solarmoon.solarmoon_core.registry.object.ItemEntry;
 
@@ -73,6 +76,12 @@ public enum IMItems implements IRegister {
             .bound(GrillItem::new)
             .build();
 
+    //盘子
+    public static final ItemEntry<PlateItem> PLATE = ImmersiveDelight.REGISTRY.item()
+            .id("plate")
+            .bound(PlateItem::new)
+            .build();
+
     //食物————————————————————————————————————————
 
     //面团
@@ -96,9 +105,9 @@ public enum IMItems implements IRegister {
     //作物————————————————————————————————————————
 
     //红茶叶
-    public static final ItemEntry<BlackTeaLeavesItem> BLACK_TEA_LEAVES = ImmersiveDelight.REGISTRY.item()
-            .id("black_tea_leaves")
-            .bound(BlackTeaLeavesItem::new)
+    public static final ItemEntry<BlackTeaLeafItem> BLACK_TEA_LEAVES = ImmersiveDelight.REGISTRY.item()
+            .id("black_tea_leaf")
+            .bound(BlackTeaLeafItem::new)
             .build();
 
     //红茶种子
@@ -108,9 +117,9 @@ public enum IMItems implements IRegister {
             .build();
 
     //绿茶叶
-    public static final ItemEntry<GreenTeaLeavesItem> GREEN_TEA_LEAVES = ImmersiveDelight.REGISTRY.item()
-            .id("green_tea_leaves")
-            .bound(GreenTeaLeavesItem::new)
+    public static final ItemEntry<GreenTeaLeafItem> GREEN_TEA_LEAVES = ImmersiveDelight.REGISTRY.item()
+            .id("green_tea_leaf")
+            .bound(GreenTeaLeafItem::new)
             .build();
 
     //绿茶种子
@@ -177,6 +186,22 @@ public enum IMItems implements IRegister {
     public static final ItemEntry<GarlicItem> GARLIC = ImmersiveDelight.REGISTRY.item()
             .id("garlic")
             .bound(GarlicItem::new)
+            .build();
+
+    //装备————————————————————————————————————————————————————————————————————————————————
+
+    public static final ItemEntry<BathrobeItem> BATHROBE = ImmersiveDelight.REGISTRY.item()
+            .id("bathrobe")
+            .bound(BathrobeItem::new)
+            .build();
+
+    //其它————————————————————————————————————————————————————————————————————————————————
+
+    //帕秋莉手册联动
+    public static final ItemEntry<CulinaryTreasureItem> CULINARY_TREASURE = ImmersiveDelight.REGISTRY.item()
+            .id("culinary_treasure")
+            .bound(CulinaryTreasureItem::new)
+            .condition(Patchouli.isLoaded())
             .build();
 
 }

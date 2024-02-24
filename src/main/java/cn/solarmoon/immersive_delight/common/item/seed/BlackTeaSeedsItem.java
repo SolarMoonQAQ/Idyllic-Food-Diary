@@ -6,7 +6,7 @@ import net.minecraft.world.item.ItemNameBlockItem;
 public class BlackTeaSeedsItem extends ItemNameBlockItem {
 
     public BlackTeaSeedsItem() {
-        super(IMBlocks.BLACK_TEA_TREE.get(), new Properties());
+        super(IMBlocks.BLACK_TEA_PLANT.get(), new Properties());
     }
 
 }

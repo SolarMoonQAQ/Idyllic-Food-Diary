@@ -1,6 +1,6 @@
 package cn.solarmoon.immersive_delight.client.registry;
 
-import cn.solarmoon.immersive_delight.client.Item_renderer.TankableTooltipRenderer;
+import cn.solarmoon.immersive_delight.client.tooltip.TankableTooltipRenderer;
 import cn.solarmoon.solarmoon_core.registry.base.BaseTooltipRegistry;
 
 public class IMTooltipRenderers extends BaseTooltipRegistry {

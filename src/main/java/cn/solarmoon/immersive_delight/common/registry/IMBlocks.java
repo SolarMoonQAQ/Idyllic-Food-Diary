@@ -55,15 +55,15 @@ public enum IMBlocks implements IRegister {
             .build();
 
     //绿茶
-    public static final BlockEntry<GreenTeaTreeCropBlock> GREEN_TEA_TREE = ImmersiveDelight.REGISTRY.block()
-            .id("green_tea_tree")
-            .bound(GreenTeaTreeCropBlock::new)
+    public static final BlockEntry<GreenTeaPlantCropBlock> GREEN_TEA_PLANT = ImmersiveDelight.REGISTRY.block()
+            .id("green_tea_plant")
+            .bound(GreenTeaPlantCropBlock::new)
             .build();
 
     //红茶
-    public static final BlockEntry<BlackTeaTreeCropBlock> BLACK_TEA_TREE = ImmersiveDelight.REGISTRY.block()
-            .id("black_tea_tree")
-            .bound(BlackTeaTreeCropBlock::new)
+    public static final BlockEntry<BlackTeaTreePlantBlock> BLACK_TEA_PLANT = ImmersiveDelight.REGISTRY.block()
+            .id("black_tea_plant")
+            .bound(BlackTeaTreePlantBlock::new)
             .build();
 
     //榴莲作物
@@ -138,6 +138,12 @@ public enum IMBlocks implements IRegister {
     public static final BlockEntry<CuttingBoardEntityBlock> GRILL = ImmersiveDelight.REGISTRY.block()
             .id("grill")
             .bound(GrillEntityBlock::new)
+            .build();
+
+    //盘子
+    public static final BlockEntry<PlateEntityBlock> PLATE = ImmersiveDelight.REGISTRY.block()
+            .id("plate")
+            .bound(PlateEntityBlock::new)
             .build();
 
 }

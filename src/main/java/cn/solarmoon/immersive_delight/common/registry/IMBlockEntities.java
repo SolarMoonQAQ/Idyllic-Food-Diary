@@ -3,6 +3,7 @@ package cn.solarmoon.immersive_delight.common.registry;
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
 import cn.solarmoon.immersive_delight.client.block_entity_renderer.GrillRenderer;
 import cn.solarmoon.immersive_delight.client.block_entity_renderer.LittleCupRenderer;
+import cn.solarmoon.immersive_delight.client.block_entity_renderer.PlateRenderer;
 import cn.solarmoon.immersive_delight.common.block_entity.*;
 import cn.solarmoon.solarmoon_core.registry.core.IRegister;
 import cn.solarmoon.solarmoon_core.registry.object.BlockEntityEntry;
@@ -52,6 +53,14 @@ public enum IMBlockEntities implements IRegister {
             .bound(GrillBlockEntity::new)
             .validBlock(IMBlocks.GRILL.getObject())
             .renderer(GrillRenderer::new)
+            .build();
+
+    //盘子
+    public static final BlockEntityEntry<PlateBlockEntity> PLATE = ImmersiveDelight.REGISTRY.blockEntity()
+            .id("plate")
+            .bound(PlateBlockEntity::new)
+            .validBlock(IMBlocks.PLATE.getObject())
+            .renderer(PlateRenderer::new)
             .build();
 
 }

@@ -1,0 +1,7 @@
+{
+  "name": "immersive_delight.beverage.set",
+  "description": "immersive_delight.beverage.set.desc",
+  "icon": "immersive_delight:jade_china_cup",
+  "parent": "immersive_delight:beverage",
+  "sortnum":0
+}

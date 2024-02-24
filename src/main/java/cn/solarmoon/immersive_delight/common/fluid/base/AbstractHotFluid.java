@@ -2,6 +2,7 @@ package cn.solarmoon.immersive_delight.common.fluid.base;
 
 import cn.solarmoon.immersive_delight.common.registry.IMDamageTypes;
 import cn.solarmoon.immersive_delight.common.registry.IMEffects;
+import cn.solarmoon.immersive_delight.common.registry.IMItems;
 import cn.solarmoon.immersive_delight.util.FluidTypeUtil;
 import cn.solarmoon.solarmoon_core.common.fluid.BaseFluid;
 import cn.solarmoon.solarmoon_core.registry.object.FluidEntry;
@@ -14,6 +15,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -42,7 +44,8 @@ public abstract class AbstractHotFluid {
             //效果
             if(entity instanceof LivingEntity living) {
                 int enchantmentLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.FIRE_PROTECTION, living);
-                if (living.hasEffect(MobEffects.FIRE_RESISTANCE) || enchantmentLevel >= 4) {
+                //良好的温泉体验需要：火焰保护等级之和大于等于4 / 或是有火焰保护药水 / 或是穿着浴衣
+                if (living.hasEffect(MobEffects.FIRE_RESISTANCE) || enchantmentLevel >= 4 || living.getItemBySlot(EquipmentSlot.CHEST).is(IMItems.BATHROBE.get())) {
                     //给2级的十秒温暖效果 和 1级的十秒生命恢复
                     //生命恢复只能间断给予，不然会瞬满血，为了美观图标不可见
                     living.addEffect(new MobEffectInstance(IMEffects.SNUG.get(), 200, 1));

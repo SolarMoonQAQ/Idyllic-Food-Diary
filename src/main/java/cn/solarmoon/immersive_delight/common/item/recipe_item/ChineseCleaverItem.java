@@ -49,7 +49,7 @@ public class ChineseCleaverItem extends DiggerItem implements IOptionalRecipeIte
     private final List<ItemStack> optionalOutputs;
 
     public ChineseCleaverItem() {
-        super(4, -2.4f, Tiers.IRON, IMBlockTags.MINEABLE_WITH_CLEAVER, new Item.Properties().durability(2048));
+        super(3, -2.4f, Tiers.IRON, IMBlockTags.MINEABLE_WITH_CLEAVER, new Item.Properties().durability(2048));
         this.matchingRecipes = new ArrayList<>();
         this.optionalOutputs = new ArrayList<>();
     }

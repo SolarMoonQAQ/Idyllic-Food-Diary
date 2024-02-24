@@ -1,0 +1,13 @@
+{
+  "name": "immersive_delight.beverage.drinkable.hot_water",
+  "category": "immersive_delight:beverage/drinkable",
+  "icon": "immersive_delight:hot_water_bucket",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "immersive_delight:jade_china_cup{Fluid:{Amount:250,FluidName:\"immersive_delight:hot_water\"}}",
+      "text": "immersive_delight.beverage.drinkable.hot_water.page.1"
+    }
+  ]
+}

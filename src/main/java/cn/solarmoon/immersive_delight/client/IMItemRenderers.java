@@ -1,6 +1,5 @@
 package cn.solarmoon.immersive_delight.client;
 
-import cn.solarmoon.immersive_delight.client.Item_renderer.PerspectiveBakedModelRenderer;
 import com.google.common.collect.Lists;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
@@ -18,6 +17,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import java.util.List;
 import java.util.Map;
 
+import static cn.solarmoon.immersive_delight.common.registry.IMItems.CHINESE_CLEAVER;
 import static cn.solarmoon.immersive_delight.common.registry.IMItems.ROLLING_PIN;
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -29,6 +29,7 @@ public final class IMItemRenderers {
     public static void register(RegisterEvent event) {
         if (event.getRegistryKey().equals(Registries.ITEM)) {
             addInHandModel(ROLLING_PIN.get());
+            addInHandModel(CHINESE_CLEAVER.get());
         }
     }
 

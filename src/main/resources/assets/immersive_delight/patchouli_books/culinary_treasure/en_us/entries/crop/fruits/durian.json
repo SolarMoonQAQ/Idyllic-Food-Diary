@@ -1,0 +1,22 @@
+{
+  "name": "immersive_delight.crop.fruits.durian",
+  "category": "immersive_delight:crop/fruits",
+  "icon": "immersive_delight:durian",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "immersive_delight.crop.fruits.durian.page.1"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "immersive_delight:durian,immersive_delight:durian_core,immersive_delight:durian_sapling,immersive_delight:durian_flesh,immersive_delight:durian_shell",
+      "title": "immersive_delight.crop.fruits.durian.page.2.title"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "immersive_delight:durian",
+      "text": "immersive_delight.crop.fruits.durian.page.3"
+    }
+  ]
+}

@@ -90,12 +90,6 @@ public class ServerPackHandler implements IServerPackHandler {
                     grill.setInventory(nbt);
                 }
             }
-            case NETList.GRILL_INSERT_COAL -> {
-                BlockEntity blockEntity = level.getBlockEntity(pos);
-                if (blockEntity instanceof AbstractGrillBlockEntity grill) {
-                    grill.getInventory().insertItem((int) f, stack, false);
-                }
-            }
         }
     }
 

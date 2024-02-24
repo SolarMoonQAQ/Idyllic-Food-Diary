@@ -1,0 +1,12 @@
+{
+  "name": "immersive_delight.effect.fleet_of_foot",
+  "category": "immersive_delight:effect",
+  "icon": "immersive_delight:textures/mob_effect/fleet_of_foot.png",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "immersive_delight.effect.fleet_of_foot.page.1"
+    }
+  ]
+}
