@@ -9,6 +9,7 @@ import cn.solarmoon.solarmoon_core.util.RecipeUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fluids.FluidStack;
@@ -30,7 +31,10 @@ public abstract class AbstractCupBlockEntity extends BaseTCBlockEntity implement
      * 获取匹配的配方（杯中有物品阶段的匹配），不匹配返回null
      */
     @Override
-    public CupRecipe getCheckedRecipe(Level level, BlockPos pos) {
+    public CupRecipe getCheckedRecipe() {
+        Level level = getLevel();
+        if (level == null) return null;
+        BlockPos pos = getBlockPos();
         FluidStack fluidStack = getTank().getFluid();
         ItemStack stackIn = getInventory().getStackInSlot(0);
         List<CupRecipe> recipes = RecipeUtil.getRecipes(level, IMRecipes.CUP.get());

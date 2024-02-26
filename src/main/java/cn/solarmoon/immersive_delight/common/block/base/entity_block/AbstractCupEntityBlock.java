@@ -189,7 +189,7 @@ public abstract class AbstractCupEntityBlock extends BaseTCEntityBlock {
 
         //配方
         if(blockEntity instanceof AbstractCupBlockEntity cup) {
-            CupRecipe recipe = cup.getCheckedRecipe(level, pos);
+            CupRecipe recipe = cup.getCheckedRecipe();
             int time = cup.getTime();
             if(recipe != null) {
                 cup.setRecipeTime(recipe.getTime());

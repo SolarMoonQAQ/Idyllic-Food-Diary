@@ -64,7 +64,7 @@ public abstract class AbstractSoupPotEntityBlock extends BaseTCEntityBlock {
         super.tick(level, pos, state, blockEntity);
 
         if (blockEntity instanceof AbstractSoupPotBlockEntity soupPot) {
-            SoupPotRecipe recipe = soupPot.getCheckedRecipe(level, pos);
+            SoupPotRecipe recipe = soupPot.getCheckedRecipe();
             int time = soupPot.getTime();
             if (recipe != null) {
                 time++;

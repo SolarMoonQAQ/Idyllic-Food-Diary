@@ -22,12 +22,6 @@ public class ClientPackHandler implements IClientPackHandler {
             case NETList.SYNC_UP_STEP -> {
                 player.setMaxUpStep(f);
             }
-            case NETList.SYNC_INDEX_TIME -> {
-                BlockEntity blockEntity = level.getBlockEntity(pos);
-                if (blockEntity instanceof AbstractGrillBlockEntity grill) {
-                    grill.setTimes(ints);
-                }
-            }
             case NETList.SYNC_BURN_TIME -> {
                 BlockEntity blockEntity = level.getBlockEntity(pos);
                 if (blockEntity instanceof AbstractGrillBlockEntity grill) {

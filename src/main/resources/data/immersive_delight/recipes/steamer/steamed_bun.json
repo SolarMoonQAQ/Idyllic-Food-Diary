@@ -1,0 +1,8 @@
+{
+  "type": "immersive_delight:steamer",
+  "input": {
+    "item": "immersive_delight:wheat_dough"
+  },
+  "time": 400,
+  "output": "immersive_delight:steamed_bun"
+}

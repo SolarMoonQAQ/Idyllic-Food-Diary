@@ -20,6 +20,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
@@ -35,7 +36,7 @@ public abstract class AbstractHotFluid {
     public class FluidBlock extends BaseFluid.FluidBlock {
 
         public FluidBlock() {
-            super(fluidEntry.getStillObject());
+            super(fluidEntry::getStill);
         }
 
         @Override

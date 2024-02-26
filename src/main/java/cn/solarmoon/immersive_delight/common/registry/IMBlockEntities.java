@@ -7,6 +7,7 @@ import cn.solarmoon.immersive_delight.client.block_entity_renderer.PlateRenderer
 import cn.solarmoon.immersive_delight.common.block_entity.*;
 import cn.solarmoon.solarmoon_core.registry.core.IRegister;
 import cn.solarmoon.solarmoon_core.registry.object.BlockEntityEntry;
+import net.minecraft.world.level.block.Block;
 
 public enum IMBlockEntities implements IRegister {
     INSTANCE;
@@ -15,7 +16,7 @@ public enum IMBlockEntities implements IRegister {
     public static final BlockEntityEntry<LittleCupBlockEntity> LITTLE_CUP = ImmersiveDelight.REGISTRY.blockEntity()
             .id("little_cup")
             .bound(LittleCupBlockEntity::new)
-            .validBlock(IMBlocks.CELADON_CUP.getObject(), IMBlocks.JADE_CHINA_CUP.getObject())
+            .validBlock(() -> new Block[]{IMBlocks.CELADON_CUP.get(), IMBlocks.JADE_CHINA_CUP.get()})
             .renderer(LittleCupRenderer::new)
             .build();
 
@@ -23,35 +24,35 @@ public enum IMBlockEntities implements IRegister {
     public static final BlockEntityEntry<TinFoilBoxBlockEntity> TIN_FOIL_BOX = ImmersiveDelight.REGISTRY.blockEntity()
             .id("tin_foil_box")
             .bound(TinFoilBoxBlockEntity::new)
-            .validBlock(IMBlocks.TIN_FOIL_BOX.getObject())
+            .validBlock(() -> new Block[]{IMBlocks.TIN_FOIL_BOX.get()})
             .build();
 
     //水壶
     public static final BlockEntityEntry<KettleBlockEntity> KETTLE = ImmersiveDelight.REGISTRY.blockEntity()
             .id("kettle")
             .bound(KettleBlockEntity::new)
-            .validBlock(IMBlocks.KETTLE.getObject())
+            .validBlock(() -> new Block[]{IMBlocks.KETTLE.get()})
             .build();
 
     //汤锅
     public static final BlockEntityEntry<SoupPotBlockEntity> SOUP_POT = ImmersiveDelight.REGISTRY.blockEntity()
             .id("soup_pot")
             .bound(SoupPotBlockEntity::new)
-            .validBlock(IMBlocks.SOUP_POT.getObject())
+            .validBlock(() -> new Block[]{IMBlocks.SOUP_POT.get()})
             .build();
 
     //砧板
     public static final BlockEntityEntry<CuttingBoardBlockEntity> CUTTING_BOARD = ImmersiveDelight.REGISTRY.blockEntity()
             .id("cutting_board")
             .bound(CuttingBoardBlockEntity::new)
-            .validBlock(IMBlocks.CUTTING_BOARD.getObject())
+            .validBlock(() -> new Block[]{IMBlocks.CUTTING_BOARD.get()})
             .build();
 
     //烧烤架
     public static final BlockEntityEntry<CuttingBoardBlockEntity> GRILL = ImmersiveDelight.REGISTRY.blockEntity()
             .id("grill")
             .bound(GrillBlockEntity::new)
-            .validBlock(IMBlocks.GRILL.getObject())
+            .validBlock(() -> new Block[]{IMBlocks.GRILL.get()})
             .renderer(GrillRenderer::new)
             .build();
 
@@ -59,8 +60,22 @@ public enum IMBlockEntities implements IRegister {
     public static final BlockEntityEntry<PlateBlockEntity> PLATE = ImmersiveDelight.REGISTRY.blockEntity()
             .id("plate")
             .bound(PlateBlockEntity::new)
-            .validBlock(IMBlocks.PLATE.getObject())
+            .validBlock(() -> new Block[]{IMBlocks.PLATE.get()})
             .renderer(PlateRenderer::new)
+            .build();
+
+    //蒸笼
+    public static final BlockEntityEntry<SteamerBlockEntity> STEAMER = ImmersiveDelight.REGISTRY.blockEntity()
+            .id("steamer")
+            .bound(SteamerBlockEntity::new)
+            .validBlock(() -> new Block[]{IMBlocks.STEAMER.get()})
+            .build();
+
+    //蒸笼底座
+    public static final BlockEntityEntry<SteamerBaseBlockEntity> STEAMER_BASE = ImmersiveDelight.REGISTRY.blockEntity()
+            .id("steamer_base")
+            .bound(SteamerBaseBlockEntity::new)
+            .validBlock(() -> new Block[]{IMBlocks.STEAMER_BASE.get()})
             .build();
 
 }

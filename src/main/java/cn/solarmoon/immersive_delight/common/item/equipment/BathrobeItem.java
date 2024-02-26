@@ -19,7 +19,7 @@ public class BathrobeItem extends ArmorItem implements IItemArmorModelProvider {
     public BathrobeItem() {
         super(new BaseArmorMaterial(
                 ImmersiveDelight.MOD_ID + "bathrobe",
-                512, 2, 1,0, 15,
+                512, 3, 1,0, 15,
                 SoundEvents.ARMOR_EQUIP_LEATHER, Ingredient.of(ItemTags.WOOL)
                 ),
                 Type.CHESTPLATE,

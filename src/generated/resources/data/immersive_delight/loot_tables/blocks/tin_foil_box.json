@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "immersive_delight:black_tea_seeds"
+          "name": "immersive_delight:tin_foil_box"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "immersive_delight:blocks/black_tea_tree"
+  "random_sequence": "immersive_delight:blocks/tin_foil_box"
 }

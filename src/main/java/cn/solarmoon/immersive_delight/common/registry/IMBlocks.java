@@ -4,10 +4,12 @@ package cn.solarmoon.immersive_delight.common.registry;
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
 import cn.solarmoon.immersive_delight.common.block.DurianBlock;
 import cn.solarmoon.immersive_delight.common.block.GarlicBlock;
+import cn.solarmoon.immersive_delight.common.block.SteamerLidBlock;
 import cn.solarmoon.immersive_delight.common.block.crop.*;
 import cn.solarmoon.immersive_delight.common.block.entity_block.*;
 import cn.solarmoon.immersive_delight.common.block.longPressEatBlock.CangshuMuttonSoupBlock;
 import cn.solarmoon.immersive_delight.common.block.longPressEatBlock.FlatbreadDoughBlock;
+import cn.solarmoon.immersive_delight.common.block.longPressEatBlock.SteamedBunBlock;
 import cn.solarmoon.immersive_delight.common.block.longPressEatBlock.WheatDoughBlock;
 import cn.solarmoon.immersive_delight.common.block.sapling.AppleSaplingBlock;
 import cn.solarmoon.immersive_delight.common.block.sapling.DurianSaplingBlock;
@@ -28,6 +30,12 @@ public enum IMBlocks implements IRegister {
     public static final BlockEntry<FlatbreadDoughBlock> FLATBREAD_DOUGH = ImmersiveDelight.REGISTRY.block()
             .id("flatbread_dough")
             .bound(FlatbreadDoughBlock::new)
+            .build();
+
+    //馒头
+    public static final BlockEntry<SteamedBunBlock> STEAMED_BUN = ImmersiveDelight.REGISTRY.block()
+            .id("steamed_bun")
+            .bound(SteamedBunBlock::new)
             .build();
 
     //藏书羊肉汤
@@ -144,6 +152,24 @@ public enum IMBlocks implements IRegister {
     public static final BlockEntry<PlateEntityBlock> PLATE = ImmersiveDelight.REGISTRY.block()
             .id("plate")
             .bound(PlateEntityBlock::new)
+            .build();
+
+    //蒸笼
+    public static final BlockEntry<SteamerEntityBlock> STEAMER = ImmersiveDelight.REGISTRY.block()
+            .id("steamer")
+            .bound(SteamerEntityBlock::new)
+            .build();
+
+    //蒸笼底座
+    public static final BlockEntry<SteamerBaseEntityBlock> STEAMER_BASE = ImmersiveDelight.REGISTRY.block()
+            .id("steamer_base")
+            .bound(SteamerBaseEntityBlock::new)
+            .build();
+
+    //蒸笼盖
+    public static final BlockEntry<SteamerLidBlock> STEAMER_LID = ImmersiveDelight.REGISTRY.block()
+            .id("steamer_lid")
+            .bound(SteamerLidBlock::new)
             .build();
 
 }

@@ -48,7 +48,7 @@ public abstract class AbstractTinFoilBoxEntityBlock extends BaseContainerEntityB
     @Override
     public void tick(Level level, BlockPos pos, BlockState state, BlockEntity blockEntity) {
         if (blockEntity instanceof AbstractTinFoilBoxBlockEntity tinFoil) {
-            TinFoilGrillingRecipe recipe = tinFoil.getCheckedRecipe(level, pos);
+            TinFoilGrillingRecipe recipe = tinFoil.getCheckedRecipe();
             if (recipe != null) {
                 tinFoil.setRecipeTime(recipe.time());
                 tinFoil.setTime(tinFoil.getTime() + 1);

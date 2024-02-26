@@ -1,6 +1,5 @@
 package cn.solarmoon.immersive_delight.common.block_entity.base;
 
-import cn.solarmoon.immersive_delight.ImmersiveDelight;
 import cn.solarmoon.immersive_delight.common.recipe.TinFoilGrillingRecipe;
 import cn.solarmoon.immersive_delight.common.registry.IMRecipes;
 import cn.solarmoon.solarmoon_core.common.block_entity.BaseContainerBlockEntity;
@@ -42,7 +41,10 @@ public abstract class AbstractTinFoilBoxBlockEntity extends BaseContainerBlockEn
     }
 
     @Override
-    public TinFoilGrillingRecipe getCheckedRecipe(Level level, BlockPos pos) {
+    public TinFoilGrillingRecipe getCheckedRecipe() {
+        Level level = getLevel();
+        if (level == null) return null;
+        BlockPos pos = getBlockPos();
         List<TinFoilGrillingRecipe> recipes = level.getRecipeManager().getAllRecipesFor(IMRecipes.TIN_FOIL_GRILLING.get());
         for (var recipe : recipes) {
             if (recipe.inputMatches(this, pos, level)) {

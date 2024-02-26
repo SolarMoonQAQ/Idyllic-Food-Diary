@@ -44,9 +44,8 @@ public class KettleRecipe implements Recipe<RecipeWrapper> {
     }
 
     /**
-     * 检查容器内液体是否匹配配方输入
+     * 检查容器内液体是否匹配配方输入<br/>
      * 并且容器下方有热源
-     * 并且容量要为最大容量
      */
     public boolean inputMatches(Level level, FluidStack fluidStackIn, BlockPos pos) {
         Fluid fluid = ForgeRegistries.FLUIDS.getValue(new ResourceLocation(input));
@@ -56,7 +55,7 @@ public class KettleRecipe implements Recipe<RecipeWrapper> {
             boolean isHeated = FarmerUtil.isHeatSource(state);
             if(blockEntity instanceof AbstractKettleBlockEntity kettle) {
                 FluidStack fluidStack = new FluidStack(fluid, kettle.getMaxCapacity());
-                return !fluidStack.isEmpty() && fluidStack.equals(fluidStackIn) && isHeated && fluidStack.getAmount() == fluidStackIn.getAmount();
+                return !fluidStack.isEmpty() && fluidStack.equals(fluidStackIn) && isHeated;
             }
         }
         return false;

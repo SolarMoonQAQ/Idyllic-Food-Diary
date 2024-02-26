@@ -38,6 +38,7 @@
 
   "block.immersive_delight.wheat_dough": "面团",
   "block.immersive_delight.flatbread_dough": "面饼",
+  "block.immersive_delight.steamed_bun": "馒头",
 
   "block.immersive_delight.cangshu_mutton_soup": "藏书羊肉汤",
 
@@ -55,6 +56,8 @@
   "block.immersive_delight.grill": "烧烤架",
   "block.immersive_delight.tin_foil_box": "锡纸盒",
   "block.immersive_delight.plate": "盘子",
+  "block.immersive_delight.steamer": "蒸笼",
+  "block.immersive_delight.steamer_base": "蒸笼底座",
 
 
 
@@ -121,7 +124,12 @@
   "config.jade.plugin_immersive_delight.soup_pot": "汤锅信息",
   "config.jade.plugin_immersive_delight.cup": "水杯信息",
   "config.jade.plugin_immersive_delight.tin_foil_grilling": "锡纸烧信息",
+  "config.jade.plugin_immersive_delight.grill": "烧烤架信息",
+  "config.jade.plugin_immersive_delight.steamer_base": "蒸笼底座信息",
+  "config.jade.plugin_immersive_delight.steamer": "蒸笼信息",
   "config.jade.plugin_immersive_delight.rolling_pin": "擀面杖进度",
+
+  "jade.immersive_delight.steamer_base.working": "蒸水中...（速率：%smB/秒）",
 
 
 
@@ -143,7 +151,7 @@
   "immersive_delight.beverage.set.cup.page.4": "液体容量：250mB$(br)物品容量：1x1$(br)可以$(7)[空手蹲下+右键]$()取走$(br)需要$(7)[蹲下+右键]$()放置",
   "immersive_delight.beverage.set.cup.page.5": "液体容量：250mB$(br)物品容量：1x1$(br)可以$(7)[空手蹲下+右键]$()取走$(br)需要$(7)[蹲下+右键]$()放置",
   "immersive_delight.beverage.set.kettle": "水壶",
-  "immersive_delight.beverage.set.kettle.page.1": "水壶是具有倾倒液体和装取液体双重功能的容器，只要将其拿在手中，对着$(l:immersive_delight:beverage/set/cup)杯子$()右键即可倾倒液体，对着液体源右键即可装取液体。当然你也可以用桶来放入液体，但是无法再用桶取出。$(br)同时水壶也拥有加热液体的功能，当液体加热完成后，会产生大量的水蒸气粒子，并伴随着水沸腾的声音。$(br)而要让水壶加热，需要倒入足够的可加热液体，并且水壶下方需要有任一热源方块。",
+  "immersive_delight.beverage.set.kettle.page.1": "水壶是具有倾倒液体和装取液体双重功能的容器，只要将其拿在手中，对着$(l:immersive_delight:beverage/set/cup)杯子$()右键即可倾倒液体，对着液体源右键即可装取液体。当然你也可以用桶来放入液体，但是无法再用桶取出。$(br)同时水壶也拥有加热液体的功能，当液体加热完成后，会产生大量的水蒸气粒子，并伴随着水沸腾的声音。$(br)而要让水壶加热，需要倒入任意量的可加热液体，并且水壶下方需要有任一热源方块。",
   "immersive_delight.beverage.set.kettle.page.2.title": "水烧开时的水壶",
   "immersive_delight.beverage.set.kettle.page.3": "液体容量：1000mB$(br)可以$(7)[空手蹲下+右键]$()取走",
 
@@ -224,7 +232,7 @@
   "immersive_delight.crop.fruits.durian": "榴莲",
   "immersive_delight.crop.fruits.durian.page.1": "种子：榴莲核$(br)种子生长条件：丛林木下方$(br)产物：榴莲$(br)树苗：榴莲树苗",
   "immersive_delight.crop.fruits.durian.page.2.title": "相关物品展示",
-  "immersive_delight.crop.fruits.durian.page.3": "可用菜刀劈开，劈开后获得榴莲肉和榴莲壳。$(br)打掉成熟榴莲作物的根部会让榴莲坠落到地上而非直接转为物品形式。$(br)$(o)$(7)嘿，说你呢，小心别被砸成海绵宝宝了！",
+  "immersive_delight.crop.fruits.durian.page.3": "是坠落方块，具有64点耐久，可以拿来揍人，也可以长按右键丢出去揍人，丢出去后砸到地上会裂开。$(br)可用菜刀劈开，劈开后获得榴莲肉和榴莲壳。$(br)打掉成熟榴莲作物的根部会让榴莲坠落到地上而非直接转为物品形式。$(br)$(o)$(7)嘿，说你呢，小心别被砸成海绵宝宝了！",
 
 
   "immersive_delight.effect": "效果",
@@ -244,5 +252,5 @@
   "immersive_delight.equipment.desc": "此处为您展示了本模组所添加或修改的所有装备。",
 
   "immersive_delight.equipment.bathrobe": "浴衣",
-  "immersive_delight.equipment.bathrobe.page.1": "耐久：512$(br)护甲值：2$(br)盔甲韧性：1$(br)效果：当穿上浴衣后，可以免疫过热温泉（$(l:immersive_delight:beverage/drinkable/hot_water)热水$()、$(l:immersive_delight:beverage/drinkable/hot_milk)热牛奶$()）的伤害并获得该温泉的增益效果。"
+  "immersive_delight.equipment.bathrobe.page.1": "耐久：512$(br)护甲值：3$(br)盔甲韧性：1$(br)效果：当穿上浴衣后，可以免疫过热温泉（$(l:immersive_delight:beverage/drinkable/hot_water)热水$()、$(l:immersive_delight:beverage/drinkable/hot_milk)热牛奶$()）的伤害并获得该温泉的增益效果。"
 }

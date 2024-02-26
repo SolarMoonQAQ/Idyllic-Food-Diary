@@ -4,6 +4,7 @@ import cn.solarmoon.immersive_delight.common.block_entity.GrillBlockEntity;
 import cn.solarmoon.immersive_delight.common.block_entity.base.AbstractGrillBlockEntity;
 import cn.solarmoon.immersive_delight.common.registry.IMBlockEntities;
 import cn.solarmoon.immersive_delight.common.registry.IMPacks;
+import cn.solarmoon.solarmoon_core.common.block.ILitBlock;
 import cn.solarmoon.solarmoon_core.util.VecUtil;
 import cn.solarmoon.immersive_delight.util.namespace.NETList;
 import cn.solarmoon.solarmoon_core.common.block.entity_block.BaseContainerEntityBlock;
@@ -42,19 +43,10 @@ import net.minecraftforge.items.ItemStackHandler;
 
 import java.util.List;
 
-public abstract class AbstractGrillEntityBlock extends BaseContainerEntityBlock {
-
-    public static final BooleanProperty LIT = BlockStateProperties.LIT;
+public abstract class AbstractGrillEntityBlock extends BaseContainerEntityBlock implements ILitBlock {
 
     public AbstractGrillEntityBlock(Properties properties) {
-        super(properties.lightLevel((state) -> state.getValue(BlockStateProperties.LIT) ? 13 : 0));//点燃才亮
-        registerDefaultState(getStateDefinition().any().setValue(LIT, false).setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false));
-    }
-
-    @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        super.createBlockStateDefinition(builder);
-        builder.add(LIT);
+        super(properties.lightLevel((state) -> state.getValue(LIT) ? 13 : 0));//点燃才亮
     }
 
     /**
@@ -168,34 +160,24 @@ public abstract class AbstractGrillEntityBlock extends BaseContainerEntityBlock 
         super.tick(level, pos, state, blockEntity);
         if (blockEntity instanceof AbstractGrillBlockEntity grill) {
             ItemStackHandler inv = grill.getInventory();
-            List<CampfireCookingRecipe> recipes = level.getRecipeManager().getAllRecipesFor(RecipeType.CAMPFIRE_COOKING);
             for (int i = 0; i < inv.getSlots(); i++) {
-                boolean hasTrueTest = false;  // 标志变量
-                ItemStack stack = inv.getStackInSlot(i);
-                for (var recipe : recipes) {
-                    Ingredient in = recipe.getIngredients().get(0);
-                    if (in.test(stack) && state.getValue(LIT)) {
-                        hasTrueTest = true;
-                        int time = grill.getTimes()[i];
-                        grill.getTimes()[i] = time + 1;
-                        //初始化世界时同步配方数组到客户端，当然这里逻辑是随时同步
-                        if (!level.isClientSide) {
-                            IMPacks.CLIENT_PACK.getSender().send(NETList.SYNC_INDEX_TIME, pos, grill.getTimes());
-                        }
-                        if (time >= recipe.getCookingTime() / 3) {
-                            ItemStack out = recipe.getResultItem(level.registryAccess());
-                            inv.setStackInSlot(i, out);
-                            //这里设置slot必须在服务端侧同步（不知道为什么）
-                            CompoundTag nbt = new CompoundTag();
-                            nbt.put(SolarNBTList.INVENTORY, inv.serializeNBT());
-                            if (level.isClientSide) IMPacks.SERVER_PACK.getSender().send(NETList.SYNC_SLOT_SET, pos, nbt);
-                            grill.getTimes()[i] = 0;
-                            grill.setChanged();
-                        }
+                CampfireCookingRecipe recipe = grill.getCheckedRecipe(i);
+                if (recipe != null) {
+                    grill.getRecipeTimes()[i] = recipe.getCookingTime() / 3;
+                    grill.getTimes()[i] = grill.getTimes()[i]+ 1;
+                    if (grill.getTimes()[i] >= recipe.getCookingTime() / 3) {
+                        ItemStack out = recipe.getResultItem(level.registryAccess());
+                        inv.setStackInSlot(i, out);
+                        //这里设置slot必须在服务端侧同步（不知道为什么）
+                        CompoundTag nbt = new CompoundTag();
+                        nbt.put(SolarNBTList.INVENTORY, inv.serializeNBT());
+                        if (level.isClientSide) IMPacks.SERVER_PACK.getSender().send(NETList.SYNC_SLOT_SET, pos, nbt);
+                        grill.getTimes()[i] = 0;
+                        grill.setChanged();
                     }
-                }
-                if (!hasTrueTest) {
+                } else {
                     grill.getTimes()[i] = 0;
+                    grill.getRecipeTimes()[i] = 0;
                 }
             }
             //消耗煤炭，控制lit属性

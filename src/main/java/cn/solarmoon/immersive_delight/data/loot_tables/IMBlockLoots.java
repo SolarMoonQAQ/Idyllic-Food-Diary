@@ -42,6 +42,9 @@ public class IMBlockLoots extends BlockLootSubProvider {
         dropSelf(IMBlocks.KETTLE.get());
         dropSelf(IMBlocks.SOUP_POT.get());
         dropSelf(IMBlocks.CUTTING_BOARD.get());
+        dropSelf(IMBlocks.GRILL.get());
+        dropSelf(IMBlocks.STEAMER.get());
+        dropSelf(IMBlocks.TIN_FOIL_BOX.get());
 
 
 

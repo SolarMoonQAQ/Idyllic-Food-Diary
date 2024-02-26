@@ -7,6 +7,7 @@ import cn.solarmoon.immersive_delight.common.item.block_item.*;
 import cn.solarmoon.immersive_delight.common.item.equipment.BathrobeItem;
 import cn.solarmoon.immersive_delight.common.item.food_block_item.CangshuMuttonSoupItem;
 import cn.solarmoon.immersive_delight.common.item.food_block_item.FlatbreadDoughItem;
+import cn.solarmoon.immersive_delight.common.item.food_block_item.SteamedBunItem;
 import cn.solarmoon.immersive_delight.common.item.food_block_item.WheatDoughItem;
 import cn.solarmoon.immersive_delight.common.item.product.*;
 import cn.solarmoon.immersive_delight.common.item.recipe_item.ChineseCleaverItem;
@@ -82,6 +83,24 @@ public enum IMItems implements IRegister {
             .bound(PlateItem::new)
             .build();
 
+    //蒸笼
+    public static final ItemEntry<SteamerItem> STEAMER = ImmersiveDelight.REGISTRY.item()
+            .id("steamer")
+            .bound(SteamerItem::new)
+            .build();
+
+    //蒸笼底座
+    public static final ItemEntry<SteamerBaseItem> STEAMER_BASE = ImmersiveDelight.REGISTRY.item()
+            .id("steamer_base")
+            .bound(SteamerBaseItem::new)
+            .build();
+
+    //蒸笼盖
+    public static final ItemEntry<SteamerLidItem> STEAMER_LID = ImmersiveDelight.REGISTRY.item()
+            .id("steamer_lid")
+            .bound(SteamerLidItem::new)
+            .build();
+
     //食物————————————————————————————————————————
 
     //面团
@@ -94,6 +113,12 @@ public enum IMItems implements IRegister {
     public static final ItemEntry<FlatbreadDoughItem> FLATBREAD_DOUGH = ImmersiveDelight.REGISTRY.item()
             .id("flatbread_dough")
             .bound(FlatbreadDoughItem::new)
+            .build();
+
+    //馒头
+    public static final ItemEntry<SteamedBunItem> STEAMED_BUN = ImmersiveDelight.REGISTRY.item()
+            .id("steamed_bun")
+            .bound(SteamedBunItem::new)
             .build();
 
     //藏书羊肉汤

@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "immersive_delight:green_tea_seeds"
+          "name": "immersive_delight:steamer"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "immersive_delight:blocks/green_tea_tree"
+  "random_sequence": "immersive_delight:blocks/steamer"
 }

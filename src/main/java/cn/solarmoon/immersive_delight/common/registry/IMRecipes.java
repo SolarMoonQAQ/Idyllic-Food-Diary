@@ -45,4 +45,10 @@ public enum IMRecipes implements IRegister {
             .serializer(TinFoilGrillingRecipe.Serializer::new)
             .build();
 
+    //蒸笼
+    public static final RecipeEntry<SteamerRecipe> STEAMER = ImmersiveDelight.REGISTRY.recipe()
+            .id("steamer")
+            .serializer(SteamerRecipe.Serializer::new)
+            .build();
+
 }

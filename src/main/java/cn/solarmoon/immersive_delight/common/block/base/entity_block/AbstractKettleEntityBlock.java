@@ -62,15 +62,15 @@ public abstract class AbstractKettleEntityBlock extends BaseTankEntityBlock {
         super.tick(level, pos, state, blockEntity);
 
         //工作中
-        //生成一个最大容积的新液体
+        //生成一个匹配生成前容积的新液体
         if (blockEntity instanceof AbstractKettleBlockEntity kettle) {
-            KettleRecipe kettleRecipe = kettle.getCheckedRecipe(level, pos);
+            KettleRecipe kettleRecipe = kettle.getCheckedRecipe();
             int time = kettle.getTime();
             if (kettleRecipe != null) {
                 kettle.setRecipeTime(kettleRecipe.getTime());
                 time++;
                 if (time > kettleRecipe.getTime()) {
-                    FluidStack fluidStack = new FluidStack(kettleRecipe.getOutputFluid(), kettle.getMaxCapacity());
+                    FluidStack fluidStack = new FluidStack(kettleRecipe.getOutputFluid(), kettle.getTank().getFluidAmount());
                     kettle.getTank().setFluid(fluidStack);
                     time = 0;
                     kettle.setChanged();

@@ -2,12 +2,11 @@ package cn.solarmoon.immersive_delight.util.namespace;
 
 public class NBTList {
 
-    public static final String SINGLE_STACK_TIME = "CookingTime";
-    public static final String TIME_INDEX = "timeIndex";
-    public static final String TIME_VALUE = "timeValue";
-    public static final String BURNING_TIME = "burningTime";
-    public static final String BURNING_TIME_SAVING = "burningTimeSaving";
-
-
+    public static final String BURNING_TIME = "BurningTime";
+    public static final String BURNING_TIME_SAVING = "BurningTimeSaving";
+    public static final String DRAIN_TICK = "DrainTick";
+    public static final String BOIL_TICK = "BoilTick";
+    public static final String SECOND_INV = "SecondInventory";
+    public static final String HAS_LID = "HasLid";
 
 }

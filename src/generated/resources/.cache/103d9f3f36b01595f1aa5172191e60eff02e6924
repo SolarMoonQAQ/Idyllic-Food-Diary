@@ -1,5 +1,7 @@
-// 1.20.1	2024-02-16T19:12:55.4212876	Registries
+// 1.20.1	2024-02-26T22:58:06.6980677	Registries
 80776747a9c0d0aef36beb16223fa2f0a2433ff6 data/immersive_delight/worldgen/configured_feature/apple_tree.json
 2a2c9068b616132c8cd5a0a9770e1ff797ec5296 data/immersive_delight/worldgen/configured_feature/durian_tree.json
+e66514da2ec41d5d6fc840fcacc426f2ace0ede8 data/immersive_delight/worldgen/configured_feature/green_tea.json
 ed2e7fe5e5a7fd795ed917415a8b0808c4095973 data/immersive_delight/worldgen/placed_feature/apple_tree.json
 14398361dc0551547c782aed50efd93cc5f3d80f data/immersive_delight/worldgen/placed_feature/durian_tree.json
+4d9716f5566f7d60c9d71bb6c613851b0712e06a data/immersive_delight/worldgen/placed_feature/green_tea.json
