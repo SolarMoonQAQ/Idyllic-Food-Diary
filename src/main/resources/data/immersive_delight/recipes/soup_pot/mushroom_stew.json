@@ -27,7 +27,7 @@
     }
   ],
   "input_fluid": {
-    "tag": "minecraft:water",
+    "id": "immersive_delight:hot_water",
     "amount": 2000
   },
   "time": 200,

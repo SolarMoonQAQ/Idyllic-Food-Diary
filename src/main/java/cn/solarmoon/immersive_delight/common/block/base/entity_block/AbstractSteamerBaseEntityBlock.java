@@ -46,7 +46,7 @@ public abstract class AbstractSteamerBaseEntityBlock extends BaseTankEntityBlock
         super.tick(level, pos, state, blockEntity);
         AbstractSteamerBaseBlockEntity steamerBase = (AbstractSteamerBaseBlockEntity) blockEntity;
         steamerBase.tryBoilWater();
-        steamerBase.tryDrainHotWater();
+        steamerBase.tryDrainHotFluid();
     }
 
     @Override

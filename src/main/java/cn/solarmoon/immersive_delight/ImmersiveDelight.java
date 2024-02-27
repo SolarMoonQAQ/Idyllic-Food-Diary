@@ -75,6 +75,8 @@ public class ImmersiveDelight {
         //配置文件
         new Config().register();
 
+        bus.addListener(Composter::onFMLSetup);
+
         //—————————————————————————联动—————————————————————————//
         new FarmersDelight().register(bus);
         new AppleSkin().register(bus);

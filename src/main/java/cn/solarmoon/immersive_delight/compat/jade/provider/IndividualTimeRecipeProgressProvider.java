@@ -2,6 +2,7 @@ package cn.solarmoon.immersive_delight.compat.jade.provider;
 
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
 import cn.solarmoon.immersive_delight.common.block_entity.base.AbstractGrillBlockEntity;
+import cn.solarmoon.immersive_delight.common.block_entity.base.AbstractSteamerBlockEntity;
 import cn.solarmoon.solarmoon_core.common.block_entity.BaseContainerBlockEntity;
 import cn.solarmoon.solarmoon_core.common.block_entity.IContainerBlockEntity;
 import cn.solarmoon.solarmoon_core.common.block_entity.iutor.IIndividualTimeRecipeBlockEntity;
@@ -47,6 +48,12 @@ public class IndividualTimeRecipeProgressProvider implements IBlockComponentProv
                 n++;
                 iTooltip.append(Component.literal(TextUtil.toMinuteFormat(time) + "/" + TextUtil.toMinuteFormat(needTime)).withStyle(ChatFormatting.WHITE));
             }
+        }
+
+        if (blockAccessor.getBlockEntity() instanceof AbstractSteamerBlockEntity steamer) {
+            iTooltip.add(ImmersiveDelight.TRANSLATOR.set("jade", "steamer_base.working"));
+            if (steamer.canWork()) iTooltip.append(Component.literal("✔").withStyle(ChatFormatting.GREEN));
+            else if (!steamer.canWork()) iTooltip.append(Component.literal("✖").withStyle(ChatFormatting.RED));
         }
     }
 

@@ -2,6 +2,8 @@ package cn.solarmoon.immersive_delight.common.recipe;
 
 import cn.solarmoon.immersive_delight.common.block_entity.base.AbstractKettleBlockEntity;
 import cn.solarmoon.immersive_delight.util.FarmerUtil;
+import cn.solarmoon.solarmoon_core.common.block_entity.ITankBlockEntity;
+import cn.solarmoon.solarmoon_core.common.fluid.BaseFluid;
 import com.google.gson.JsonObject;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.RegistryAccess;
@@ -24,8 +26,12 @@ import org.jetbrains.annotations.Nullable;
 
 import static cn.solarmoon.immersive_delight.common.registry.IMRecipes.KETTLE;
 
+/**
+ * 烧水配方，所有烧东西的容器可通用，以水壶为基准，也就是1000mB为基准
+ */
 public class KettleRecipe implements Recipe<RecipeWrapper> {
 
+    private final static int BaseFluidAmount = 1000;
     private final ResourceLocation id;
     private final String input;
     private final int time;
@@ -45,20 +51,33 @@ public class KettleRecipe implements Recipe<RecipeWrapper> {
 
     /**
      * 检查容器内液体是否匹配配方输入<br/>
-     * 并且容器下方有热源
+     * 并且容器下方有热源，不要求数量，毕竟烧水多少都行
      */
-    public boolean inputMatches(Level level, FluidStack fluidStackIn, BlockPos pos) {
+    public boolean inputMatches(Level level, BlockPos pos) {
         Fluid fluid = ForgeRegistries.FLUIDS.getValue(new ResourceLocation(input));
         BlockEntity blockEntity = level.getBlockEntity(pos);
         if (fluid != null) {
             BlockState state = level.getBlockState(pos.below());
             boolean isHeated = FarmerUtil.isHeatSource(state);
-            if(blockEntity instanceof AbstractKettleBlockEntity kettle) {
-                FluidStack fluidStack = new FluidStack(fluid, kettle.getMaxCapacity());
+            if(blockEntity instanceof ITankBlockEntity container) {
+                FluidStack fluidStackIn = container.getTank().getFluid();
+                FluidStack fluidStack = new FluidStack(fluid, container.getMaxCapacity());//这里get容量没有任何意义，只是占个位，实际上不会检测容量
                 return !fluidStack.isEmpty() && fluidStack.equals(fluidStackIn) && isHeated;
             }
         }
         return false;
+    }
+
+    /**
+     * 把烧水时间和当前要烧的水的容量绑定（实现动态烧水时间）
+     */
+    public int getActualTime(Level level, BlockPos pos) {
+        BlockEntity blockEntity = level.getBlockEntity(pos);
+        if (blockEntity instanceof ITankBlockEntity container) {
+            double scale = (double) container.getTank().getFluidAmount() / BaseFluidAmount;
+            return (int) (time * scale);
+        }
+        return time;
     }
 
     /**

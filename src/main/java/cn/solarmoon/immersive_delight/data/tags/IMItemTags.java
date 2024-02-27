@@ -8,6 +8,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -77,6 +78,8 @@ public class IMItemTags extends ItemTagsProvider {
                 IMItems.KETTLE.get(),
                 IMItems.SOUP_POT.get()
         ).replace(false);
+        //小型花
+        copy(BlockTags.SMALL_FLOWERS, ItemTags.SMALL_FLOWERS);
     }
 
     //特殊效果

@@ -1,19 +1,28 @@
 package cn.solarmoon.immersive_delight.common.block.base.entity_block;
 
 import cn.solarmoon.immersive_delight.common.block_entity.base.AbstractSoupPotBlockEntity;
+import cn.solarmoon.immersive_delight.common.recipe.KettleRecipe;
 import cn.solarmoon.immersive_delight.common.recipe.SoupPotRecipe;
+import cn.solarmoon.immersive_delight.common.registry.IMRecipes;
+import cn.solarmoon.immersive_delight.data.fluid_foods.serializer.FluidFood;
 import cn.solarmoon.solarmoon_core.common.block.entity_block.BaseTCEntityBlock;
+import cn.solarmoon.solarmoon_core.common.block_entity.IContainerBlockEntity;
+import cn.solarmoon.solarmoon_core.util.LevelSummonUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.fluids.FluidStack;
+
+import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * 汤锅
@@ -28,8 +37,7 @@ public abstract class AbstractSoupPotEntityBlock extends BaseTCEntityBlock {
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         BlockEntity blockEntity = level.getBlockEntity(pos);
-
-        if(blockEntity == null) return InteractionResult.FAIL;
+        if(blockEntity == null) return InteractionResult.PASS;
 
         //空手shift+右键快速拿
         if(getThis(player, level, pos, state, hand)) {
@@ -50,7 +58,7 @@ public abstract class AbstractSoupPotEntityBlock extends BaseTCEntityBlock {
         }
 
         //存取任意单个物品
-        if(storage(blockEntity, player, hand)) {
+        if(hand.equals(InteractionHand.MAIN_HAND) && storage(blockEntity, player, hand, 1, 1)) {
             level.playSound(null, pos, SoundEvents.LANTERN_STEP, SoundSource.BLOCKS);
             blockEntity.setChanged();
             return InteractionResult.SUCCESS;
@@ -93,6 +101,11 @@ public abstract class AbstractSoupPotEntityBlock extends BaseTCEntityBlock {
             } else {
                 soupPot.setTime(0);
                 soupPot.setRecipeTime(0);
+
+                List<KettleRecipe> boilRecipes = level.getRecipeManager().getAllRecipesFor(IMRecipes.KETTLE.get());
+                for (var boilRecipe : boilRecipes) {
+                    boilRecipe.inputMatches(level, pos);
+                }
             }
         }
     }

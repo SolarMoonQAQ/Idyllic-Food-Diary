@@ -29,9 +29,9 @@ public class SteamerBaseProvider implements IBlockComponentProvider, IServerData
     public void appendTooltip(ITooltip iTooltip, BlockAccessor blockAccessor, IPluginConfig iPluginConfig) {
         AbstractSteamerBaseBlockEntity steamerBase = (AbstractSteamerBaseBlockEntity) blockAccessor.getBlockEntity();
         if (steamerBase.isBoiling()) {
-            float scale = (float) steamerBase.boilTick / 400f;
-            int time = steamerBase.boilTick / 20;
-            int needTime = 400 / 20;
+            float scale = (float) steamerBase.getTime() / steamerBase.getRecipeTime();
+            int time = steamerBase.getTime() / 20;
+            int needTime = steamerBase.getRecipeTime() / 20;
             IElementHelper ehp = iTooltip.getElementHelper();
             IElement progress = ehp.progress(
                     scale,
@@ -41,9 +41,12 @@ public class SteamerBaseProvider implements IBlockComponentProvider, IServerData
                     true
             );
             iTooltip.add(progress);
-        } else if (steamerBase.isWorking()) {
-            iTooltip.add(ImmersiveDelight.TRANSLATOR.set("jade", "steamer_base.working", 5));
+        } else if (steamerBase.isEvaporating()) {
+            iTooltip.add(ImmersiveDelight.TRANSLATOR.set("jade", "steamer_base.evaporating", 5));
         }
+        iTooltip.add(ImmersiveDelight.TRANSLATOR.set("jade", "steamer_base.working"));
+        if (steamerBase.isWorking()) iTooltip.append(Component.literal("✔").withStyle(ChatFormatting.GREEN));
+        else if (!steamerBase.isWorking()) iTooltip.append(Component.literal("✖").withStyle(ChatFormatting.RED));
     }
 
     @Override

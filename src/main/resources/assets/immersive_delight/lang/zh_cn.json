@@ -58,6 +58,7 @@
   "block.immersive_delight.plate": "盘子",
   "block.immersive_delight.steamer": "蒸笼",
   "block.immersive_delight.steamer_base": "蒸笼底座",
+  "block.immersive_delight.steamer_lid": "蒸笼盖",
 
 
 
@@ -129,7 +130,8 @@
   "config.jade.plugin_immersive_delight.steamer": "蒸笼信息",
   "config.jade.plugin_immersive_delight.rolling_pin": "擀面杖进度",
 
-  "jade.immersive_delight.steamer_base.working": "蒸水中...（速率：%smB/秒）",
+  "jade.immersive_delight.steamer_base.evaporating": "蒸发中...（速率：%smB/秒）",
+  "jade.immersive_delight.steamer_base.working": "是否上汽：",
 
 
 
@@ -190,7 +192,7 @@
   "immersive_delight.cuisine.kitchen_utensils.cutting_board.page.1": "砧板是一种有着一格物品存储的容器，一般配合$(l:immersive_delight:cuisine/kitchen_utensils/cleaver)菜刀$()使用，主要用于$(l:immersive_delight:cuisine/kitchen_utensils/cleaver)菜刀$()分割一些仅有物品形式的物品。但基本上所有$(l:immersive_delight:cuisine/kitchen_utensils/cleaver)菜刀$()能分割的物品，放在砧板上也能被$(l:immersive_delight:cuisine/kitchen_utensils/cleaver)菜刀$()分割。",
   "immersive_delight.cuisine.kitchen_utensils.cutting_board.page.2": "物品容量：1x1$(br)",
   "immersive_delight.cuisine.kitchen_utensils.soup_pot": "汤锅",
-  "immersive_delight.cuisine.kitchen_utensils.soup_pot.page.1": "汤锅是一种可以存储物品+液体的容器，当输入的液体和物品同时满足配方所需，并且下方存在热源方块时，便会开始烹煮。手中拿着物品右键可以存入，空手右键可以取出。液体可以存入也能取出。$(br)当烹饪完成，大部分汤锅配方产出的液体，都可以用碗盛出，这时候你就能喝上热腾腾的汤了！",
+  "immersive_delight.cuisine.kitchen_utensils.soup_pot.page.1": "汤锅是一种可以存储物品+液体的容器，接受$(l:immersive_delight:beverage/set/kettle)水壶$()配方。当输入的液体和物品同时满足配方所需，并且下方存在热源方块时，便会开始烹煮。手中拿着物品右键可以存入，空手右键可以取出。液体可以存入也能取出。$(br)当烹饪完成，大部分汤锅配方产出的液体，都可以用碗盛出，这时候你就能喝上热腾腾的汤了！",
   "immersive_delight.cuisine.kitchen_utensils.soup_pot.page.2": "液体容量：2000mB$(br)物品容量：1x9$(br)可以$(7)[空手蹲下+右键]$()取走",
   "immersive_delight.cuisine.kitchen_utensils.grill": "烧烤架",
   "immersive_delight.cuisine.kitchen_utensils.grill.page.1": "烧烤架是一种可以存储物品+燃料的容器，具有六个物品槽位。与一般的交互容器不同，只有当你拿着要烤制的物品对准了烤架上表面的要放置的槽位区域，才能正确放到你想要的区域，取出同理，只是需要换成空手。至于燃料方面，只要拿着煤炭类物品，就会优先放置煤炭，空手对着不是上表面的区域可以取出煤炭，蹲下右键可以一次取出一组。",
@@ -199,6 +201,11 @@
   "immersive_delight.cuisine.kitchen_utensils.tin_foil_box": "锡纸盒",
   "immersive_delight.cuisine.kitchen_utensils.tin_foil_box.page.1": "锡纸盒是一种可以存储六个物品的容器，手中持有物品右键即可放入，空手右键即可取出。$(br)当锡纸盒内的物品匹配配方，且下方有热源，锡纸盒便会开始烤制。",
   "immersive_delight.cuisine.kitchen_utensils.tin_foil_box.page.2": "物品容量：1x6$(br)可以$(7)[空手蹲下+右键]$()取走",
+  "immersive_delight.cuisine.kitchen_utensils.steamer": "蒸笼",
+  "immersive_delight.cuisine.kitchen_utensils.steamer.page.1": "蒸笼是一整个套件的厨具，你需要蒸笼底座，蒸笼，和蒸笼盖子这一整套才能让蒸笼正常工作。$(br)蒸笼一套是可以无限垂直堆叠的，只需要保证最下方为蒸笼底座，水蒸气便会传导至连接的所有蒸笼。$(br)要让蒸笼开始工作，需要连接的所有蒸笼套件都处于$(l)上汽$()状态。",
+  "immersive_delight.cuisine.kitchen_utensils.steamer.page.2": "蒸笼底座是蒸水的厨具，拥有2000mB容量，其接受$(l:immersive_delight:beverage/set/kettle)水壶$()配方。当液体被烧开时，将会以5mB/秒的速率对液体进行蒸发。若蒸发的是$(l:immersive_delight:beverage/drinkable/hot_water)热水$()，此组件便会处于$(l)上汽$()状态。",
+  "immersive_delight.cuisine.kitchen_utensils.steamer.page.3": "蒸笼是类似半砖一样可以堆叠连接的厨具，用蒸笼直接对着蒸笼右键即可堆叠。拥有四个1容量物品槽。蒸笼可以$(7)[空手蹲下+右键]$()一层层的取走。当蒸笼最下方的底座处于上汽状态，且蒸笼盖上了盖子，那么此组件就会处于$(l)上汽$()状态",
+  "immersive_delight.cuisine.kitchen_utensils.steamer.page.4": "蒸笼盖只是一个用来给蒸笼加盖防止蒸汽流失的工具，但要注意给蒸笼盖盖子是直接对着蒸笼右键，而非用方块形式的盖子放在蒸笼上方。同时蒸笼盖只能盖最上层的蒸笼，尝试盖在连接处会导致盖子弹走。",
 
   "immersive_delight.cuisine.delicacies": "美食",
   "immersive_delight.cuisine.delicacies.desc": "此处将为您介绍本模组所有可制作的美食，享受吧！",

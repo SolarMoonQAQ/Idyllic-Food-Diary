@@ -1,7 +1,7 @@
 {
-  "type": "immersive_delight:green_tea",
+  "type": "immersive_delight:wild_garlic",
   "config": {
-    "age_random": 5,
+    "age_random": 0,
     "primary_feature": {
       "feature": {
         "type": "minecraft:simple_block",
@@ -9,11 +9,7 @@
           "to_place": {
             "type": "minecraft:simple_state_provider",
             "state": {
-              "Name": "immersive_delight:green_tea_plant",
-              "Properties": {
-                "age": "0",
-                "facing": "north"
-              }
+              "Name": "immersive_delight:wild_garlic"
             }
           }
         }
@@ -49,7 +45,7 @@
           "to_place": {
             "type": "minecraft:simple_state_provider",
             "state": {
-              "Name": "minecraft:fern"
+              "Name": "minecraft:grass"
             }
           }
         }

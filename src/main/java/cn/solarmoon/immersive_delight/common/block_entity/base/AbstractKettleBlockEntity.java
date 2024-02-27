@@ -52,7 +52,6 @@ public abstract class AbstractKettleBlockEntity extends BaseTankBlockEntity impl
         Level level = getLevel();
         if (level == null) return null;
         BlockPos pos = getBlockPos();
-        FluidStack fluidStack = getTank().getFluid();
         //液体量改变时配方时间重置
         int amount = getTank().getFluidAmount();
         if (amount != lastFluidAmount) {
@@ -60,11 +59,38 @@ public abstract class AbstractKettleBlockEntity extends BaseTankBlockEntity impl
             return null;
         }
         for (KettleRecipe kettleRecipe : RecipeUtil.getRecipes(level, IMRecipes.KETTLE.get())) {
-            if(kettleRecipe.inputMatches(level, fluidStack, pos)) {
+            if(kettleRecipe.inputMatches(level, pos)) {
                 return kettleRecipe;
             }
         }
         return null;
+    }
+
+    /**
+     * 接受的水壶配方<br/>
+     * 用于tick中，连接底部为热源，连接底部为水就尝试把水烧开<br/>
+     * 同时要防止多个蒸笼同时执行这个操作
+     */
+    public void tryBoilWater() {
+        KettleRecipe kettleRecipe = getCheckedRecipe();
+        Level level = getLevel();
+        BlockPos pos = getBlockPos();
+        if (level == null) return;
+        int time = getTime();
+        if (kettleRecipe != null) {
+            setRecipeTime(kettleRecipe.getActualTime(level, pos));
+            time++;
+            if (time > kettleRecipe.getActualTime(level, pos)) {
+                FluidStack fluidStack = new FluidStack(kettleRecipe.getOutputFluid(), getTank().getFluidAmount());
+                getTank().setFluid(fluidStack);
+                time = 0;
+                setChanged();
+            }
+            setTime(time);
+        } else {
+            setTime(0);
+            setRecipeTime(0);
+        }
     }
 
 }

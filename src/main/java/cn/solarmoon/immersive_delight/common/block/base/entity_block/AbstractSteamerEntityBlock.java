@@ -9,14 +9,20 @@ import cn.solarmoon.immersive_delight.common.registry.IMRecipes;
 import cn.solarmoon.immersive_delight.util.namespace.NBTList;
 import cn.solarmoon.solarmoon_core.common.block.IStackBlock;
 import cn.solarmoon.solarmoon_core.common.block.entity_block.BaseContainerEntityBlock;
+import cn.solarmoon.solarmoon_core.common.block_entity.IContainerBlockEntity;
 import cn.solarmoon.solarmoon_core.util.ContainerUtil;
+import cn.solarmoon.solarmoon_core.util.FluidUtil;
 import cn.solarmoon.solarmoon_core.util.LevelSummonUtil;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -31,6 +37,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 
@@ -101,26 +108,26 @@ public class AbstractSteamerEntityBlock extends BaseContainerEntityBlock impleme
                 steamer.clearInv(2);
                 steamer.setChanged();
                 level.setBlock(pos, state.setValue(HAS_LID, false).setValue(STACK, 1), 3);
-                return InteractionResult.SUCCESS;
             } else if (state.getValue(STACK) == 1) {
                 ItemStack get = steamer.getItem(1);
                 player.setItemInHand(hand, get);
                 level.removeBlock(pos, false);
-                return InteractionResult.SUCCESS;
             }
+            level.playSound(null, pos, SoundEvents.ARMOR_EQUIP_LEATHER, SoundSource.PLAYERS, 0.5f, 1);
+            return InteractionResult.SUCCESS;
         }
         //----------------------------------------存储物品-------------------------------------------//
         //匹配配方才能手动放置
         for (var recipe : level.getRecipeManager().getAllRecipesFor(IMRecipes.STEAMER.get())) {
             if (recipe.input().test(heldItem)) {
-                if (putItem(steamer, player, hand)) {
+                if (putItem(steamer, player, hand, 1)) {
                     level.playSound(null, pos, state.getSoundType().getPlaceSound(), SoundSource.PLAYERS);
                     steamer.setChanged();
                     return InteractionResult.SUCCESS;
                 }
             }
         }
-        if (takeItem(steamer, player, hand)) {
+        if (takeItem(steamer, player, hand, 1)) {
             level.playSound(null, pos, state.getSoundType().getPlaceSound(), SoundSource.PLAYERS);
             steamer.setChanged();
             return InteractionResult.SUCCESS;

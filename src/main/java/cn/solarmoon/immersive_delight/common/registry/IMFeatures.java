@@ -55,7 +55,31 @@ public enum IMFeatures implements IRegister {
     public static final FeatureEntry<WildCropConfig> GREEN_TEA = ImmersiveDelight.REGISTRY.feature()
             .id("green_tea")
             .bound(WildCropFeature::new)
-            .config(() -> WildCropConfig.create(IMBlocks.GREEN_TEA_PLANT.get(), Blocks.ALLIUM, BlockPredicate.matchesTag(BLOCK_BELOW, BlockTags.DIRT)))
+            .config(() -> WildCropConfig.createBaseWithAge(5, IMBlocks.GREEN_TEA_PLANT.get(), Blocks.FERN, BlockPredicate.matchesTag(BLOCK_BELOW, BlockTags.DIRT)))
+            .placement(() -> List.of(
+                    RarityFilter.onAverageOnceEvery(120),
+                    InSquarePlacement.spread(),
+                    PlacementUtils.HEIGHTMAP,
+                    BiomeFilter.biome()
+            ))
+            .build();
+
+    public static final FeatureEntry<WildCropConfig> BLACK_TEA = ImmersiveDelight.REGISTRY.feature()
+            .id("black_tea")
+            .bound(WildCropFeature::new)
+            .config(() -> WildCropConfig.createBaseWithAge(5, IMBlocks.BLACK_TEA_PLANT.get(), Blocks.LILY_OF_THE_VALLEY, BlockPredicate.matchesTag(BLOCK_BELOW, BlockTags.DIRT)))
+            .placement(() -> List.of(
+                    RarityFilter.onAverageOnceEvery(120),
+                    InSquarePlacement.spread(),
+                    PlacementUtils.HEIGHTMAP,
+                    BiomeFilter.biome()
+            ))
+            .build();
+
+    public static final FeatureEntry<WildCropConfig> WILD_GARLIC = ImmersiveDelight.REGISTRY.feature()
+            .id("wild_garlic")
+            .bound(WildCropFeature::new)
+            .config(() -> WildCropConfig.createBase(IMBlocks.WILD_GARLIC.get(), Blocks.GRASS, BlockPredicate.matchesTag(BLOCK_BELOW, BlockTags.DIRT)))
             .placement(() -> List.of(
                     RarityFilter.onAverageOnceEvery(120),
                     InSquarePlacement.spread(),

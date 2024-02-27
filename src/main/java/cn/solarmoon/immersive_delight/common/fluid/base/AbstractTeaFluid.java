@@ -31,7 +31,7 @@ public class AbstractTeaFluid extends SimpleFluid {
             super.entityInside(state, level, pos, entity);
             //效果
             if(entity instanceof LivingEntity living) {
-                living.addEffect(new MobEffectInstance(IMEffects.TEA_AROMA.get(), 200, 0));
+                living.addEffect(new MobEffectInstance(IMEffects.TEA_AROMA.get(), 200, 0, false, false, true));
             }
         }
 

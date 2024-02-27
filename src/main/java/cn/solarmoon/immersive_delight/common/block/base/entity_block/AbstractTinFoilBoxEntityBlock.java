@@ -36,7 +36,7 @@ public abstract class AbstractTinFoilBoxEntityBlock extends BaseContainerEntityB
             return InteractionResult.SUCCESS;
         }
 
-        if (storage(foilBox, player, hand)) {
+        if (storage(foilBox, player, hand, 1, 1)) {
             level.playSound(null, pos, SoundEvents.BAMBOO_WOOD_STEP, SoundSource.PLAYERS, 0.5f, 1.2f);
             foilBox.setChanged();
             return InteractionResult.SUCCESS;

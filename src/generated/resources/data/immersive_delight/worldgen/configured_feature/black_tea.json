@@ -1,5 +1,5 @@
 {
-  "type": "immersive_delight:green_tea",
+  "type": "immersive_delight:black_tea",
   "config": {
     "age_random": 5,
     "primary_feature": {
@@ -9,7 +9,7 @@
           "to_place": {
             "type": "minecraft:simple_state_provider",
             "state": {
-              "Name": "immersive_delight:green_tea_plant",
+              "Name": "immersive_delight:black_tea_plant",
               "Properties": {
                 "age": "0",
                 "facing": "north"
@@ -49,7 +49,7 @@
           "to_place": {
             "type": "minecraft:simple_state_provider",
             "state": {
-              "Name": "minecraft:fern"
+              "Name": "minecraft:lily_of_the_valley"
             }
           }
         }

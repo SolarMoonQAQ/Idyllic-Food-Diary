@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#minecraft:is_mountain",
+  "features": "immersive_delight:black_tea",
+  "step": "vegetal_decoration"
+}

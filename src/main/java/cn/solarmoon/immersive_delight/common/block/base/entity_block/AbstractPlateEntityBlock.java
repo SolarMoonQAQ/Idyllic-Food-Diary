@@ -28,7 +28,7 @@ public class AbstractPlateEntityBlock extends BaseContainerEntityBlock {
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult blockHitResult) {
         AbstractPlateBlockEntity plate = (AbstractPlateBlockEntity) level.getBlockEntity(pos);
         if (plate == null) return InteractionResult.PASS;
-        if (storage(plate, player, hand)) {
+        if (storage(plate, player, hand, 1, 1)) {
             level.playSound(null, pos, SoundEvents.ARMOR_EQUIP_LEATHER, SoundSource.PLAYERS, 0.5f, 1f);
             return InteractionResult.SUCCESS;
         }

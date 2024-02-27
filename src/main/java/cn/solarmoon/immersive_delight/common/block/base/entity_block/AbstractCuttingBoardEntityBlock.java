@@ -23,12 +23,12 @@ public abstract class AbstractCuttingBoardEntityBlock extends BaseContainerEntit
         BlockEntity blockEntity = level.getBlockEntity(pos);
         if (blockEntity == null) return InteractionResult.PASS;
 
-        if (putItem(blockEntity, player, hand)) {
+        if (putItem(blockEntity, player, hand, 1)) {
             level.playSound(null, pos, SoundEvents.WOOD_PLACE, SoundSource.PLAYERS);
             blockEntity.setChanged();
             return InteractionResult.SUCCESS;
         }
-        if (takeItem(blockEntity, player, hand)) {
+        if (takeItem(blockEntity, player, hand, 1)) {
             level.playSound(null, pos, SoundEvents.WOOD_HIT, SoundSource.PLAYERS);
             blockEntity.setChanged();
             return InteractionResult.SUCCESS;

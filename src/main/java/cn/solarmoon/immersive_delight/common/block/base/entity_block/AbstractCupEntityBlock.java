@@ -61,6 +61,7 @@ public abstract class AbstractCupEntityBlock extends BaseTCEntityBlock {
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         BlockEntity blockEntity = level.getBlockEntity(pos);
         BaseTankBlockEntity tankEntity = (BaseTankBlockEntity) blockEntity;
+        ItemStack heldItem = player.getItemInHand(hand);
         if(tankEntity == null) return InteractionResult.FAIL;
         FluidTank tank = tankEntity.getTank();
 
@@ -80,9 +81,20 @@ public abstract class AbstractCupEntityBlock extends BaseTCEntityBlock {
             return InteractionResult.SUCCESS;
         }
 
-        //存取任意单个物品
-        if(storage(blockEntity, player, hand)) {
-            level.playSound(null , pos, SoundEvents.ARMOR_EQUIP_LEATHER, SoundSource.PLAYERS, 0.2f, 1f);
+        //存取任意单个物品，需要匹配配方的输入才允许输入
+        List<CupRecipe> recipes = RecipeUtil.getRecipes(player.level(), IMRecipes.CUP.get());
+        for (var recipe :recipes) {
+            Ingredient ingredient = recipe.getInputIngredient();
+            if (ingredient.test(heldItem)) {
+                if (putItem(blockEntity, player, hand, 1)) {
+                    level.playSound(null, pos, SoundEvents.ARMOR_EQUIP_LEATHER, SoundSource.PLAYERS, 0.2f, 1f);
+                    blockEntity.setChanged();
+                    return InteractionResult.SUCCESS;
+                }
+            }
+        }
+        if (takeItem(blockEntity, player, hand, 1)) {
+            level.playSound(null, pos, SoundEvents.ARMOR_EQUIP_LEATHER, SoundSource.PLAYERS, 0.2f, 1f);
             blockEntity.setChanged();
             return InteractionResult.SUCCESS;
         }
@@ -117,31 +129,6 @@ public abstract class AbstractCupEntityBlock extends BaseTCEntityBlock {
         }
 
         return InteractionResult.PASS;
-    }
-
-    /**
-     * 可放入和配方输入匹配的物品，如果有物品且空手就取出
-     * 物品的nbt自然需要保存
-     */
-    @Override
-    public boolean storage(BlockEntity blockEntity, Player player, InteractionHand hand) {
-        if(blockEntity instanceof BaseTCBlockEntity cupBlockEntity) {
-            ItemStack heldItem = player.getItemInHand(hand);
-            if (!heldItem.isEmpty() && cupBlockEntity.getInventory().getStackInSlot(0).isEmpty()) {
-                List<CupRecipe> recipes = RecipeUtil.getRecipes(player.level(), IMRecipes.CUP.get());
-                for (var recipe :recipes) {
-                    Ingredient ingredient = recipe.getInputIngredient();
-                    if (ingredient.test(heldItem)) {
-                        player.setItemInHand(hand, cupBlockEntity.insertItem(heldItem));
-                        return true;
-                    }
-                }
-            } else if (!cupBlockEntity.getInventory().getStackInSlot(0).isEmpty() && heldItem.isEmpty()) {
-                player.setItemInHand(hand, cupBlockEntity.extractItem());
-                return true;
-            }
-        }
-        return false;
     }
 
     /**
@@ -201,7 +188,7 @@ public abstract class AbstractCupEntityBlock extends BaseTCEntityBlock {
                     FluidStack fluidStackOut = new FluidStack(recipe.getOutputFluid(), amount);
                     cup.getTank().setFluid(fluidStackOut);
                     cup.setTime(0);
-                    cup.extractItem();
+                    cup.extractItem(1);
                     cup.setChanged();
                 }
                 cup.setTime(time);

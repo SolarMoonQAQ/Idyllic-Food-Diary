@@ -15,8 +15,8 @@ public class TeaAromaEffect extends MobEffect {
     @Override
     public void applyEffectTick(LivingEntity entity, int amplifier) {
         super.applyEffectTick(entity, amplifier);
-        if (entity.getRandom().nextInt(1000) == 500) {
-            entity.addEffect(new MobEffectInstance(IMEffects.REFRESHMENT.get(), 10, 0));
+        if (entity.getRandom().nextInt(1000) == 500 && !entity.level().isClientSide) {
+            entity.addEffect(new MobEffectInstance(IMEffects.REFRESHMENT.get(), 20, 0));
         }
     }
 

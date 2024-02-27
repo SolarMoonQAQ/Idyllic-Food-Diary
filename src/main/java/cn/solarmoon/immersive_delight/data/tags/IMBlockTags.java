@@ -68,6 +68,10 @@ public class IMBlockTags extends BlockTagsProvider {
         tag(CUTTING_BOARD).add(
                 IMBlocks.CUTTING_BOARD.get()
         ).replace(false);
+        //小型花
+        tag(BlockTags.SMALL_FLOWERS).add(
+                IMBlocks.WILD_GARLIC.get()
+        );
     }
 
     public static final TagKey<Block> CAN_BE_ROLLED = blockTag("can_be_rolled");

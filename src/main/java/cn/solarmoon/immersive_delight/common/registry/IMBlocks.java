@@ -14,6 +14,8 @@ import cn.solarmoon.immersive_delight.common.block.longPressEatBlock.WheatDoughB
 import cn.solarmoon.immersive_delight.common.block.sapling.AppleSaplingBlock;
 import cn.solarmoon.immersive_delight.common.block.sapling.DurianSaplingBlock;
 import cn.solarmoon.immersive_delight.common.block.test;
+import cn.solarmoon.immersive_delight.common.block.base.crop.AbstractWildCropBlock;
+import cn.solarmoon.immersive_delight.common.block.wild_crop.WildGarlicBlock;
 import cn.solarmoon.solarmoon_core.registry.core.IRegister;
 import cn.solarmoon.solarmoon_core.registry.object.BlockEntry;
 
@@ -102,6 +104,14 @@ public enum IMBlocks implements IRegister {
     public static final BlockEntry<GarlicBlock> GARLIC = ImmersiveDelight.REGISTRY.block()
             .id("garlic")
             .bound(GarlicBlock::new)
+            .build();
+
+    //————————————————————————————————————————————————————————————————————————————————//
+
+    //野生大蒜
+    public static final BlockEntry<WildGarlicBlock> WILD_GARLIC = ImmersiveDelight.REGISTRY.block()
+            .id("wild_garlic")
+            .bound(WildGarlicBlock::new)
             .build();
 
     //————————————————————————————————————————————————————————————————————————————————//

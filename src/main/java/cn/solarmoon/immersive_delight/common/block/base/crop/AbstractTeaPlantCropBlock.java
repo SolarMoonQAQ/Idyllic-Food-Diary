@@ -29,7 +29,6 @@ public abstract class AbstractTeaPlantCropBlock extends BaseBushCropBlock implem
         return true;
     }
 
-
     /**
      * 接触后给予茶香效果
      */
@@ -37,7 +36,7 @@ public abstract class AbstractTeaPlantCropBlock extends BaseBushCropBlock implem
     public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
         super.entityInside(state, level, pos, entity);
         if (entity instanceof LivingEntity le) {
-            le.addEffect(new MobEffectInstance(IMEffects.TEA_AROMA.get(), 200, 0));
+            le.addEffect(new MobEffectInstance(IMEffects.TEA_AROMA.get(), 200, 0, false, false, true));
         }
     }
 

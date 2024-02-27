@@ -58,7 +58,7 @@ public abstract class AbstractGrillEntityBlock extends BaseContainerEntityBlock 
         AbstractGrillBlockEntity grill = (AbstractGrillBlockEntity) level.getBlockEntity(pos);
         ItemStack heldItem = player.getItemInHand(hand);
         if (grill == null) return InteractionResult.PASS;
-
+        //------------------------------------打火石点燃----------------------------------------//
         //打火石等点燃
         if (!state.getValue(LIT)) {
             if (heldItem.getItem() instanceof FlintAndSteelItem) {
@@ -79,7 +79,7 @@ public abstract class AbstractGrillEntityBlock extends BaseContainerEntityBlock 
                 return InteractionResult.SUCCESS;
             }
         }
-
+        //------------------------------------存入煤炭----------------------------------------//
         //存入煤炭
         if (heldItem.is(ItemTags.COALS)) {
             //直接存入64，不知道为什么蹲下右键不触发
@@ -91,7 +91,7 @@ public abstract class AbstractGrillEntityBlock extends BaseContainerEntityBlock 
                 return InteractionResult.SUCCESS;
             }
         }
-
+        //------------------------------------指哪取哪----------------------------------------//
         //存入其余食物
         //根据方向变换选框位置
         for (int i = 1; i <= 6; i++) {
@@ -138,6 +138,7 @@ public abstract class AbstractGrillEntityBlock extends BaseContainerEntityBlock 
                 }
             }
         }
+        //------------------------------------取出煤炭----------------------------------------//
         //选框在别的区域就尝试取出煤炭
         if (heldItem.isEmpty()) {
             //蹲下取64个，站着取1个
@@ -152,6 +153,7 @@ public abstract class AbstractGrillEntityBlock extends BaseContainerEntityBlock 
                 return InteractionResult.SUCCESS;
             }
         }
+        //----------------------------------------------------------------------------//
         return InteractionResult.PASS;
     }
 

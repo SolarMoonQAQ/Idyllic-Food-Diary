@@ -213,6 +213,13 @@ public enum IMItems implements IRegister {
             .bound(GarlicItem::new)
             .build();
 
+    //野生作物————————————————————————————————————————————————————————————————————————————
+    //野生大蒜
+    public static final ItemEntry<WildGarlicItem> WILD_GARLIC = ImmersiveDelight.REGISTRY.item()
+            .id("wild_garlic")
+            .bound(WildGarlicItem::new)
+            .build();
+
     //装备————————————————————————————————————————————————————————————————————————————————
 
     public static final ItemEntry<BathrobeItem> BATHROBE = ImmersiveDelight.REGISTRY.item()

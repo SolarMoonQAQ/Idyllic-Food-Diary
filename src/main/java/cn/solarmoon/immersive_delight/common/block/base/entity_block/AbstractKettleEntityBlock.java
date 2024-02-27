@@ -60,30 +60,12 @@ public abstract class AbstractKettleEntityBlock extends BaseTankEntityBlock {
     @Override
     public void tick(Level level, BlockPos pos, BlockState state, BlockEntity blockEntity) {
         super.tick(level, pos, state, blockEntity);
-
+        AbstractKettleBlockEntity kettle = (AbstractKettleBlockEntity) blockEntity;
         //工作中
         //生成一个匹配生成前容积的新液体
-        if (blockEntity instanceof AbstractKettleBlockEntity kettle) {
-            KettleRecipe kettleRecipe = kettle.getCheckedRecipe();
-            int time = kettle.getTime();
-            if (kettleRecipe != null) {
-                kettle.setRecipeTime(kettleRecipe.getTime());
-                time++;
-                if (time > kettleRecipe.getTime()) {
-                    FluidStack fluidStack = new FluidStack(kettleRecipe.getOutputFluid(), kettle.getTank().getFluidAmount());
-                    kettle.getTank().setFluid(fluidStack);
-                    time = 0;
-                    kettle.setChanged();
-                }
-                kettle.setTime(time);
-            } else {
-                kettle.setTime(0);
-                kettle.setRecipeTime(0);
-            }
-        }
-
+        kettle.tryBoilWater();
+        //里面是hot类型的液体就冒热气
         makeParticle(level, pos, state, blockEntity);
-
     }
 
     /**

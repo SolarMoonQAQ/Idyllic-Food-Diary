@@ -46,8 +46,6 @@ public class IMBlockLoots extends BlockLootSubProvider {
         dropSelf(IMBlocks.STEAMER.get());
         dropSelf(IMBlocks.TIN_FOIL_BOX.get());
 
-
-
         //作物专项
         //类浆果丛类，用打的方式只掉种子
         dropOther(IMBlocks.BLACK_TEA_PLANT.get(), IMItems.BLACK_TEA_SEEDS.get());
