@@ -100,7 +100,7 @@ public class SoupPotRecipe implements Recipe<RecipeWrapper> {
     }
 
     public Fluid getInputFluid() {
-        return Objects.equals(inputFluidTag, AIR) ? null : ForgeRegistries.FLUIDS.getValue(new ResourceLocation(inputFluid));
+        return Objects.equals(inputFluid, AIR) ? null : ForgeRegistries.FLUIDS.getValue(new ResourceLocation(inputFluid));
     }
 
     public Fluid getOutputFluid() {

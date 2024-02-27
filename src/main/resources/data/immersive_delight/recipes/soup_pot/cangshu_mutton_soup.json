@@ -15,7 +15,7 @@
     }
   ],
   "input_fluid": {
-    "tag": "immersive_delight:hot_water",
+    "id": "immersive_delight:hot_water",
     "amount": 2000
   },
   "time": 6000,

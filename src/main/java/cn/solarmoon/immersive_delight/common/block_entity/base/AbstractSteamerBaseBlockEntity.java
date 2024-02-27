@@ -22,7 +22,6 @@ public class AbstractSteamerBaseBlockEntity extends BaseTankBlockEntity implemen
     private int boilTime;
     private int recipeTime;
     private int drainTick;
-    private int lastFluidAmount;
 
     public AbstractSteamerBaseBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, 2000, pos, state);
@@ -147,12 +146,6 @@ public class AbstractSteamerBaseBlockEntity extends BaseTankBlockEntity implemen
         Level level = getLevel();
         if (level == null) return null;
         BlockPos pos = getBlockPos();
-        //液体量改变时配方时间重置
-        int amount = getTank().getFluidAmount();
-        if (amount != lastFluidAmount) {
-            lastFluidAmount = amount;
-            return null;
-        }
         for (KettleRecipe kettleRecipe : RecipeUtil.getRecipes(level, IMRecipes.KETTLE.get())) {
             if(kettleRecipe.inputMatches(level, pos)) {
                 return kettleRecipe;

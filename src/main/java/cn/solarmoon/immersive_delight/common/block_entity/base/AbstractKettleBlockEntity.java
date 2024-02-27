@@ -17,8 +17,6 @@ public abstract class AbstractKettleBlockEntity extends BaseTankBlockEntity impl
     private int time;
     private int recipeTime;
 
-    private int lastFluidAmount;
-
     public AbstractKettleBlockEntity(BlockEntityType<?> type, int maxCapacity, BlockPos pos, BlockState state) {
         super(type, maxCapacity, pos, state);
     }
@@ -52,12 +50,6 @@ public abstract class AbstractKettleBlockEntity extends BaseTankBlockEntity impl
         Level level = getLevel();
         if (level == null) return null;
         BlockPos pos = getBlockPos();
-        //液体量改变时配方时间重置
-        int amount = getTank().getFluidAmount();
-        if (amount != lastFluidAmount) {
-            lastFluidAmount = amount;
-            return null;
-        }
         for (KettleRecipe kettleRecipe : RecipeUtil.getRecipes(level, IMRecipes.KETTLE.get())) {
             if(kettleRecipe.inputMatches(level, pos)) {
                 return kettleRecipe;

@@ -1,6 +1,7 @@
 package cn.solarmoon.immersive_delight.compat.jade.provider;
 
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
+import cn.solarmoon.immersive_delight.common.block_entity.base.AbstractSoupPotBlockEntity;
 import cn.solarmoon.solarmoon_core.common.block_entity.iutor.ITimeRecipeBlockEntity;
 import cn.solarmoon.solarmoon_core.util.TextUtil;
 import net.minecraft.ChatFormatting;
@@ -42,6 +43,27 @@ public class TimeRecipeProgressProvider implements IBlockComponentProvider, ISer
             );
             iTooltip.add(progress);
         }
+
+        if (blockAccessor.getBlockEntity() instanceof AbstractSoupPotBlockEntity soupPot) {
+            if (soupPot.isBoiling()) {
+                soupPotBoil(soupPot, iTooltip);
+            }
+        }
+    }
+
+    private void soupPotBoil(AbstractSoupPotBlockEntity soupPot, ITooltip iTooltip) {
+        float scale = (float) soupPot.boilTime / soupPot.boilRecipeTime;
+        int time = soupPot.boilTime / 20;
+        int needTime = soupPot.boilRecipeTime / 20;
+        IElementHelper ehp = iTooltip.getElementHelper();
+        IElement progress = ehp.progress(
+                scale,
+                Component.literal(TextUtil.toMinuteFormat(time) + "/" + TextUtil.toMinuteFormat(needTime)).withStyle(ChatFormatting.WHITE),
+                new ProgressStyle(),
+                BoxStyle.DEFAULT,
+                true
+        );
+        iTooltip.add(progress);
     }
 
     @Override

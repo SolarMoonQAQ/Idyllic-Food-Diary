@@ -70,43 +70,38 @@ public abstract class AbstractSoupPotEntityBlock extends BaseTCEntityBlock {
     @Override
     public void tick(Level level, BlockPos pos, BlockState state, BlockEntity blockEntity) {
         super.tick(level, pos, state, blockEntity);
-
-        if (blockEntity instanceof AbstractSoupPotBlockEntity soupPot) {
-            SoupPotRecipe recipe = soupPot.getCheckedRecipe();
-            int time = soupPot.getTime();
-            if (recipe != null) {
-                time++;
-                soupPot.setRecipeTime(recipe.getTime());
-                if(time >= recipe.getTime()) {
-                    FluidStack newF = new FluidStack(recipe.getOutputFluid(), recipe.outputFluidAmount);
-                    soupPot.setFluid(newF);
-                    //清除所有满足配方输入的输入物
-                    for (var in :recipe.getInputIngredients()) {
-                        for (var stack : soupPot.getStacks()) {
-                            if (in.test(stack)) {
-                                stack.shrink(1);
-                            }
+        AbstractSoupPotBlockEntity soupPot = (AbstractSoupPotBlockEntity) blockEntity;
+        SoupPotRecipe recipe = soupPot.getCheckedRecipe();
+        int time = soupPot.getTime();
+        if (recipe != null) {
+            time++;
+            soupPot.setRecipeTime(recipe.getTime());
+            if(time >= recipe.getTime()) {
+                FluidStack newF = new FluidStack(recipe.getOutputFluid(), recipe.outputFluidAmount);
+                soupPot.setFluid(newF);
+                //清除所有满足配方输入的输入物
+                for (var in :recipe.getInputIngredients()) {
+                    for (var stack : soupPot.getStacks()) {
+                        if (in.test(stack)) {
+                            stack.shrink(1);
                         }
                     }
-                    //输出物
-                    if (!recipe.outputItems.isEmpty()) {
-                        for (var out : recipe.outputItems) {
-                            soupPot.insertItem(out.getDefaultInstance());
-                        }
-                    }
-                    soupPot.setTime(0);
-                    soupPot.setChanged();
                 }
-                soupPot.setTime(time);
-            } else {
+                //输出物
+                if (!recipe.outputItems.isEmpty()) {
+                    for (var out : recipe.outputItems) {
+                        soupPot.insertItem(out.getDefaultInstance());
+                    }
+                }
                 soupPot.setTime(0);
-                soupPot.setRecipeTime(0);
-
-                List<KettleRecipe> boilRecipes = level.getRecipeManager().getAllRecipesFor(IMRecipes.KETTLE.get());
-                for (var boilRecipe : boilRecipes) {
-                    boilRecipe.inputMatches(level, pos);
-                }
+                soupPot.setChanged();
             }
+            soupPot.setTime(time);
+        } else {
+            soupPot.setTime(0);
+            soupPot.setRecipeTime(0);
+
+            soupPot.tryBoilWater();
         }
     }
 
