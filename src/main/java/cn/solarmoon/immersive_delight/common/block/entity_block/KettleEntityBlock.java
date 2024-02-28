@@ -21,7 +21,7 @@ public class KettleEntityBlock extends AbstractKettleEntityBlock {
     public KettleEntityBlock() {
         super(Block.Properties.of()
                 .sound(SoundType.LANTERN)
-                .strength(1.0f, 6.0F)
+                .strength(2f, 6.0F)
                 .mapColor(MapColor.METAL)
         );
     }

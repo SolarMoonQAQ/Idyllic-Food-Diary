@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * 拥有七个槽位，前六个限量1，可放任意物品，最后一个只能存入煤炭类物品，限量64
  */
-public class AbstractGrillBlockEntity extends BlockEntity implements IContainerBlockEntity, IIndividualTimeRecipeBlockEntity<CampfireCookingRecipe> {
+public abstract class AbstractGrillBlockEntity extends BlockEntity implements IContainerBlockEntity, IIndividualTimeRecipeBlockEntity<CampfireCookingRecipe> {
 
     private int[] times;
     private int[] recipeTimes;

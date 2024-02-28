@@ -10,8 +10,13 @@
     },
     {
       "type": "patchouli:spotlight",
-      "item": "immersive_delight:garlic,immersive_delight:garlic_sprouts,immersive_delight:garlic_clove",
+      "item": "immersive_delight:garlic,immersive_delight:garlic_sprouts,immersive_delight:garlic_clove,immersive_delight:wild_garlic",
       "title": "immersive_delight.crop.general_crops.garlic.page.2.title"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "immersive_delight:garlic",
+      "text": "immersive_delight.crop.general_crops.garlic.page.3"
     }
   ]
 }

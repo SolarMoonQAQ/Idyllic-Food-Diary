@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public class CuttingBoardBlockEntity extends BaseContainerBlockEntity {
 
     public CuttingBoardBlockEntity(BlockPos pos, BlockState state) {
-        super(IMBlockEntities.CUTTING_BOARD.get(), 9, 1, pos, state);
+        super(IMBlockEntities.CUTTING_BOARD.get(), 1, 1, pos, state);
     }
 
 }

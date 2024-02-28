@@ -14,7 +14,7 @@ public class SteamerBaseEntityBlock extends AbstractSteamerBaseEntityBlock {
 
 
     public SteamerBaseEntityBlock() {
-        super(BlockBehaviour.Properties.of().sound(SoundType.BAMBOO).strength(1).noOcclusion());
+        super(BlockBehaviour.Properties.of().sound(SoundType.BAMBOO).strength(2).noOcclusion());
     }
 
     @Override

@@ -49,7 +49,9 @@ public class ChineseCleaverItem extends DiggerItem implements IOptionalRecipeIte
     private final List<ItemStack> optionalOutputs;
 
     public ChineseCleaverItem() {
-        super(3, -2.4f, Tiers.IRON, IMBlockTags.MINEABLE_WITH_CLEAVER, new Item.Properties().durability(2048));
+        super(3, -2.4f, Tiers.IRON,
+                IMBlockTags.MINEABLE_WITH_CLEAVER,
+                new Item.Properties().durability(2048));
         this.matchingRecipes = new ArrayList<>();
         this.optionalOutputs = new ArrayList<>();
     }
@@ -111,10 +113,14 @@ public class ChineseCleaverItem extends DiggerItem implements IOptionalRecipeIte
     }
 
     /**
-     * 可挖蜘蛛网
+     * 可挖蜘蛛网、小大花类
      */
+    @Override
     public boolean isCorrectToolForDrops(BlockState state) {
-        return super.isCorrectToolForDrops(state) || state.is(Blocks.COBWEB);
+        return super.isCorrectToolForDrops(state)
+                || state.is(Blocks.COBWEB)
+                || state.is(BlockTags.SMALL_FLOWERS)
+                || state.is(BlockTags.TALL_FLOWERS);
     }
 
     @Override

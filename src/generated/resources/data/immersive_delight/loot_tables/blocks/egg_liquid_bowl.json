@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "immersive_delight:steamer"
+          "name": "immersive_delight:egg_liquid_bowl"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "immersive_delight:blocks/steamer"
+  "random_sequence": "immersive_delight:blocks/egg_liquid_bowl"
 }

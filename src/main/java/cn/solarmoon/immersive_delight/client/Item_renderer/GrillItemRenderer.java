@@ -17,6 +17,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.items.ItemStackHandler;
@@ -40,12 +42,22 @@ public class GrillItemRenderer extends BaseItemRenderer {
                 poseStack.pushPose();
                 int c = i > 3 ? -1 : 1; //转变竖直方向
                 int index = i > 3 ? i - 3 : i; //i>3时触底反弹
+                int blockScale = 14;
+                double scale = blockScale / 16d;
                 Vec3 center = new Vec3(0.5, 0, 0.5);
-                Vec3 base1 = center.add(-0.5 + 1 / 6f + 1 / 3f * (index - 1), 0.9375, -0.2 * c);
+                Vec3 base1 = center.add((-0.5 + 1 / 6f + 1 / 3f * (index - 1)) * scale, 0.9375, -0.25 * scale * c);
                 poseStack.translate(base1.x, base1.y, base1.z);
-                poseStack.scale(0.65F, 0.65F, 0.65F);
+                poseStack.scale(0.6F, 0.6F, 0.6F);
+                BlockState state = Block.byItem(stack.getItem()).defaultBlockState();
                 poseStack.mulPose(Axis.XP.rotationDegrees(-90));
-                itemRenderer.renderStatic(stack, ItemDisplayContext.GROUND, light, overlay, poseStack, buffer, null, 0);
+                if (!state.is(Blocks.AIR)) {
+                    poseStack.scale(0.5F, 0.5F, 0.5F);
+                    poseStack.translate(-0.5, 0.5, 0);
+                    poseStack.mulPose(Axis.XP.rotation((float) Math.PI / 2));
+                    blockRenderer.renderSingleBlock(state, poseStack, buffer, light, overlay);
+                } else {
+                    itemRenderer.renderStatic(stack, ItemDisplayContext.GROUND, light, overlay, poseStack, buffer, null, 0);
+                }
                 poseStack.popPose();
             }
         }

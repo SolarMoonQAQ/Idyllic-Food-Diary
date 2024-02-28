@@ -1,5 +1,6 @@
 package cn.solarmoon.immersive_delight.compat.create;
 
+import cn.solarmoon.immersive_delight.compat.create.registry.CItems;
 import cn.solarmoon.solarmoon_core.compat.BaseCompat;
 
 /**
@@ -13,7 +14,7 @@ public class Create extends BaseCompat {
 
     @Override
     public void addRegistry() {
-
+        add(CItems.C_ITEMS);
     }
 
 }

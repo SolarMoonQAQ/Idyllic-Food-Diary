@@ -12,6 +12,11 @@
       "type": "patchouli:spotlight",
       "item": "immersive_delight:apple_core,immersive_delight:apple_sapling,minecraft:apple",
       "title": "immersive_delight.crop.fruits.apple.page.2.title"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:apple",
+      "text": "immersive_delight.crop.fruits.apple.page.3"
     }
   ]
 }

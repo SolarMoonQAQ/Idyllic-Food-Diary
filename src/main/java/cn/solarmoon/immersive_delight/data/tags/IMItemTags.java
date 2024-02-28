@@ -12,6 +12,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
@@ -34,8 +35,6 @@ public class IMItemTags extends ItemTagsProvider {
         tag(ROLLING_DOUGH).add(
                 IMItems.WHEAT_DOUGH.get(),
                 IMItems.FLATBREAD_DOUGH.get()
-        ).addOptional(
-                FDItems.WHEAT_DOUGH.getId()
         ).replace(false);
         //刀类物品
         tag(FORGE_KNIVES).add(
@@ -80,6 +79,14 @@ public class IMItemTags extends ItemTagsProvider {
         ).replace(false);
         //小型花
         copy(BlockTags.SMALL_FLOWERS, ItemTags.SMALL_FLOWERS);
+        //面团
+        tag(FORGE_DOUGH).add(
+                IMItems.WHEAT_DOUGH.get()
+        ).replace(false);
+        //蛋
+        tag(FORGE_EGGS).add(
+                Items.EGG
+        ).replace(false);
     }
 
     //特殊效果
@@ -91,22 +98,24 @@ public class IMItemTags extends ItemTagsProvider {
     public static final TagKey<Item> CUP = itemTag("cup");
 
     //forge通用
-    public static final TagKey<Item> FORGE_AXES = itemForgeTag("tools/axes");
-    public static final TagKey<Item> FORGE_SWORDS = itemForgeTag("tools/swords");
-    public static final TagKey<Item> FORGE_KNIVES = itemForgeTag("tools/knives");
-    public static final TagKey<Item> FORGE_CLEAVERS = itemForgeTag("tools/cleavers");
+    public static final TagKey<Item> FORGE_AXES = forgeTag("tools/axes");
+    public static final TagKey<Item> FORGE_SWORDS = forgeTag("tools/swords");
+    public static final TagKey<Item> FORGE_KNIVES = forgeTag("tools/knives");
+    public static final TagKey<Item> FORGE_CLEAVERS = forgeTag("tools/cleavers");
+    public static final TagKey<Item> FORGE_DOUGH = forgeTag("dough");
+    public static final TagKey<Item> FORGE_EGGS = forgeTag("eggs");
 
-    public static final TagKey<Item> FD_KNIVES = itemFDTag("tools/knives");
+    public static final TagKey<Item> FD_KNIVES = fdTag("tools/knives");
 
     private static TagKey<Item> itemTag(String path) {
         return ItemTags.create(new ResourceLocation(ImmersiveDelight.MOD_ID, path));
     }
 
-    private static TagKey<Item> itemForgeTag(String path) {
+    private static TagKey<Item> forgeTag(String path) {
         return ItemTags.create(new ResourceLocation("forge", path));
     }
 
-    private static TagKey<Item> itemFDTag(String path) {
+    private static TagKey<Item> fdTag(String path) {
         return ItemTags.create(new ResourceLocation("farmersdelight", path));
     }
 

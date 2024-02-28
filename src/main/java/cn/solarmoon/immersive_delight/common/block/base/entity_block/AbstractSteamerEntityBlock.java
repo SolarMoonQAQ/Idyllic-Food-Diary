@@ -44,7 +44,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AbstractSteamerEntityBlock extends BaseContainerEntityBlock implements IStackBlock {
+public abstract class AbstractSteamerEntityBlock extends BaseContainerEntityBlock implements IStackBlock {
 
     public static final BooleanProperty HAS_LID = BooleanProperty.create("has_lid");
 

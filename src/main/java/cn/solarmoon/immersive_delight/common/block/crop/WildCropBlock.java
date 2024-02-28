@@ -1,4 +1,4 @@
-package cn.solarmoon.immersive_delight.common.block.base.crop;
+package cn.solarmoon.immersive_delight.common.block.crop;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -21,10 +21,10 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 /**
  * Credit: Farmer's delight - <a href="https://github.com/vectorwing/FarmersDelight/tree/1.20">...</a>
  */
-public class AbstractWildCropBlock extends FlowerBlock implements BonemealableBlock {
+public class WildCropBlock extends FlowerBlock implements BonemealableBlock {
     protected static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 13.0D, 14.0D);
 
-    public AbstractWildCropBlock(MobEffect suspiciousStewEffect, int effectDuration) {
+    public WildCropBlock(MobEffect suspiciousStewEffect, int effectDuration) {
         super(suspiciousStewEffect, effectDuration, Block.Properties.copy(Blocks.TALL_GRASS));
     }
 

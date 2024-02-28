@@ -21,7 +21,7 @@ import java.util.List;
 
 import static cn.solarmoon.immersive_delight.common.block.base.entity_block.AbstractSteamerEntityBlock.HAS_LID;
 
-public class AbstractSteamerBlockEntity extends BaseContainerBlockEntity implements IIndividualTimeRecipeBlockEntity<SteamerRecipe> {
+public abstract class AbstractSteamerBlockEntity extends BaseContainerBlockEntity implements IIndividualTimeRecipeBlockEntity<SteamerRecipe> {
 
     private final ItemStackHandler inventory;
     private int[] times;

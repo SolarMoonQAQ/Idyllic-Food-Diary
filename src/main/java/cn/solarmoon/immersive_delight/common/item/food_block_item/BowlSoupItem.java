@@ -1,4 +1,4 @@
-package cn.solarmoon.immersive_delight.common.item.base;
+package cn.solarmoon.immersive_delight.common.item.food_block_item;
 
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
 import cn.solarmoon.immersive_delight.compat.create.util.PotionUtil;
@@ -12,6 +12,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -30,20 +31,32 @@ import java.util.List;
  * 默认16格堆叠<br/>
  * 需要自己给食物属性！
  */
-public class AbstractBowlFoodItem extends BlockItem {
+public class BowlSoupItem extends BlockItem {
 
     public final String fluidBound;
 
     /**
      * @param fluidBound 绑定的液体对应效果，格式同minecraft:water
      */
-    public AbstractBowlFoodItem(String fluidBound, Block block, Properties properties) {
-        super(block, properties.craftRemainder(Items.BOWL).stacksTo(16));
+    public BowlSoupItem(String fluidBound, Block block, Properties properties) {
+        super(block, properties.craftRemainder(Items.BOWL)
+                .stacksTo(16)
+                .craftRemainder(Items.BOWL));
         this.fluidBound = fluidBound;
     }
 
-    public AbstractBowlFoodItem(Block block, Properties properties) {
-        super(block, properties.craftRemainder(Items.BOWL).stacksTo(16));
+    public BowlSoupItem(String fluidBound, Block block, int nutrition, float saturation) {
+        super(block, new Properties().food(
+                new FoodProperties.Builder()
+                        .nutrition(nutrition).saturationMod(saturation).build()
+        ).stacksTo(16).craftRemainder(Items.BOWL));
+        this.fluidBound = fluidBound;
+    }
+
+    public BowlSoupItem(Block block, Properties properties) {
+        super(block, properties.craftRemainder(Items.BOWL)
+                .stacksTo(16)
+                .craftRemainder(Items.BOWL));
         this.fluidBound = "empty";
     }
 

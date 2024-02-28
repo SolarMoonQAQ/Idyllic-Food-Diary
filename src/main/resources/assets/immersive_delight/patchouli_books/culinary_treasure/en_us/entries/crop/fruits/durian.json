@@ -17,6 +17,11 @@
       "type": "patchouli:spotlight",
       "item": "immersive_delight:durian",
       "text": "immersive_delight.crop.fruits.durian.page.3"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "immersive_delight:durian_flesh",
+      "text": "immersive_delight.crop.fruits.durian.page.4"
     }
   ]
 }

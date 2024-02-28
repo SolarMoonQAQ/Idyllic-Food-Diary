@@ -3,12 +3,11 @@ package cn.solarmoon.immersive_delight.common.registry;
 
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
 import cn.solarmoon.immersive_delight.common.item.CulinaryTreasureItem;
+import cn.solarmoon.immersive_delight.common.item.food_block_item.BowlSoupItem;
+import cn.solarmoon.immersive_delight.common.item.food_block_item.TinFoilBoxFoodItem;
 import cn.solarmoon.immersive_delight.common.item.block_item.*;
 import cn.solarmoon.immersive_delight.common.item.equipment.BathrobeItem;
-import cn.solarmoon.immersive_delight.common.item.food_block_item.CangshuMuttonSoupItem;
-import cn.solarmoon.immersive_delight.common.item.food_block_item.FlatbreadDoughItem;
-import cn.solarmoon.immersive_delight.common.item.food_block_item.SteamedBunItem;
-import cn.solarmoon.immersive_delight.common.item.food_block_item.WheatDoughItem;
+import cn.solarmoon.immersive_delight.common.item.food_block_item.*;
 import cn.solarmoon.immersive_delight.common.item.product.*;
 import cn.solarmoon.immersive_delight.common.item.recipe_item.ChineseCleaverItem;
 import cn.solarmoon.immersive_delight.common.item.recipe_item.RollingPinItem;
@@ -16,6 +15,7 @@ import cn.solarmoon.immersive_delight.common.item.sapling.AppleSaplingItem;
 import cn.solarmoon.immersive_delight.common.item.sapling.DurianSaplingItem;
 import cn.solarmoon.immersive_delight.common.item.seed.*;
 import cn.solarmoon.immersive_delight.compat.patchouli.Patchouli;
+import cn.solarmoon.immersive_delight.util.useful_data.FoodProperty;
 import cn.solarmoon.solarmoon_core.registry.core.IRegister;
 import cn.solarmoon.solarmoon_core.registry.object.ItemEntry;
 
@@ -115,6 +115,20 @@ public enum IMItems implements IRegister {
             .bound(FlatbreadDoughItem::new)
             .build();
 
+    //碗装蛋液
+    public static final ItemEntry<BowlSoupItem> EGG_LIQUID_BOWL = ImmersiveDelight.REGISTRY.item()
+            .id("egg_liquid_bowl")
+            .bound(() -> new BowlFoodItem(IMBlocks.EGG_LIQUID_BOWL.get(),
+                    FoodProperty.PRIMARY_HUNGER_PRODUCT))
+            .build();
+
+    //鸡蛋羹
+    public static final ItemEntry<BowlSoupItem> STEAMED_EGG_CUSTARD = ImmersiveDelight.REGISTRY.item()
+            .id("steamed_egg_custard")
+            .bound(() -> new BowlFoodItem(IMBlocks.STEAMED_EGG_CUSTARD.get(),
+                    5, 0.75f))
+            .build();
+
     //馒头
     public static final ItemEntry<SteamedBunItem> STEAMED_BUN = ImmersiveDelight.REGISTRY.item()
             .id("steamed_bun")
@@ -122,9 +136,18 @@ public enum IMItems implements IRegister {
             .build();
 
     //藏书羊肉汤
-    public static final ItemEntry<CangshuMuttonSoupItem> CANGSHU_MUTTON_SOUP = ImmersiveDelight.REGISTRY.item()
+    public static final ItemEntry<BowlSoupItem> CANGSHU_MUTTON_SOUP = ImmersiveDelight.REGISTRY.item()
             .id("cangshu_mutton_soup")
-            .bound(CangshuMuttonSoupItem::new)
+            .bound(() -> new BowlSoupItem("immersive_delight:cangshu_mutton_soup_fluid",
+                    IMBlocks.CANGSHU_MUTTON_SOUP.get(),
+                    6, 1.5f))
+            .build();
+
+    //锡纸烧榴莲
+    public static final ItemEntry<TinFoilBoxFoodItem> ROASTED_DURIAN_IN_TIN_FOIL_BOX = ImmersiveDelight.REGISTRY.item()
+            .id("tin_foil_cooked_durian")
+            .bound(() -> new TinFoilBoxFoodItem(IMBlocks.TIN_FOIL_COOKED_DURIAN.get(),
+                    6, 0.75f))
             .build();
 
     //作物————————————————————————————————————————

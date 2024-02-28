@@ -6,17 +6,22 @@ import cn.solarmoon.solarmoon_core.common.block.entity_block.BasicEntityBlock;
 import cn.solarmoon.solarmoon_core.util.PoseStackUtil;
 import cn.solarmoon.solarmoon_core.util.VecUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.items.ItemStackHandler;
 
 import static cn.solarmoon.immersive_delight.common.block.base.entity_block.AbstractGrillEntityBlock.LIT;
+import static cn.solarmoon.solarmoon_core.common.block.IHorizontalFacingBlock.FACING;
 
 public class GrillRenderer <E extends GrillBlockEntity> extends BaseBlockEntityRenderer<E> {
 
@@ -26,14 +31,15 @@ public class GrillRenderer <E extends GrillBlockEntity> extends BaseBlockEntityR
 
     @Override
     public void render(E grill, float v, PoseStack poseStack, MultiBufferSource buffer, int light, int overlay) {
-        renderFood(grill, poseStack, buffer, overlay);
+        renderFood(grill, poseStack, buffer, light, overlay);
         renderCoal(grill, poseStack, buffer, overlay);
         renderFire(grill, poseStack, buffer, light, overlay);
     }
 
-    private void renderFood(E grill, PoseStack poseStack, MultiBufferSource buffer, int overlay) {
-        Direction direction = grill.getBlockState().getValue(BasicEntityBlock.FACING).getOpposite();
+    private void renderFood(E grill, PoseStack poseStack, MultiBufferSource buffer, int light, int overlay) {
+        Direction direction = grill.getBlockState().getValue(FACING).getOpposite();
         ItemStackHandler inventory = grill.getInventory();
+        Level level = grill.getLevel();
         int posLong = (int) grill.getBlockPos().asLong();
         for (int i = 1; i <= 6; i++) {
             ItemStack stack = inventory.getStackInSlot(i - 1);
@@ -49,8 +55,17 @@ public class GrillRenderer <E extends GrillBlockEntity> extends BaseBlockEntityR
                 poseStack.translate(v1.x, v1.y, v1.z);
                 poseStack.scale(0.325F, 0.325F, 0.325F);
                 PoseStackUtil.rotateByDirection(direction.getOpposite(), poseStack);
-                if (grill.getLevel() != null)
-                    itemRenderer.renderStatic(stack, ItemDisplayContext.FIXED, LevelRenderer.getLightColor(grill.getLevel(), grill.getBlockPos().above()), overlay, poseStack, buffer, grill.getLevel(), posLong + i);
+                if (level != null) {
+                    BlockState state = Block.byItem(stack.getItem()).defaultBlockState();
+                    if (!state.is(Blocks.AIR)) {
+                        poseStack.scale(0.9F, 0.9F, 0.9F);
+                        poseStack.translate(-0.5, -0.5, 0);
+                        poseStack.mulPose(Axis.XP.rotation(-(float) Math.PI / 2));
+                        blockRenderDispatcher.renderSingleBlock(state, poseStack, buffer, light, overlay);
+                    } else {
+                        itemRenderer.renderStatic(stack, ItemDisplayContext.FIXED, LevelRenderer.getLightColor(level, grill.getBlockPos().above()), overlay, poseStack, buffer, level, posLong + i);
+                    }
+                }
                 poseStack.popPose();
             }
         }

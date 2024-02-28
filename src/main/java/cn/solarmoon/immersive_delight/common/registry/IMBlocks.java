@@ -7,17 +7,12 @@ import cn.solarmoon.immersive_delight.common.block.GarlicBlock;
 import cn.solarmoon.immersive_delight.common.block.SteamerLidBlock;
 import cn.solarmoon.immersive_delight.common.block.crop.*;
 import cn.solarmoon.immersive_delight.common.block.entity_block.*;
-import cn.solarmoon.immersive_delight.common.block.longPressEatBlock.CangshuMuttonSoupBlock;
-import cn.solarmoon.immersive_delight.common.block.longPressEatBlock.FlatbreadDoughBlock;
-import cn.solarmoon.immersive_delight.common.block.longPressEatBlock.SteamedBunBlock;
-import cn.solarmoon.immersive_delight.common.block.longPressEatBlock.WheatDoughBlock;
+import cn.solarmoon.immersive_delight.common.block.long_press_eat_block.*;
 import cn.solarmoon.immersive_delight.common.block.sapling.AppleSaplingBlock;
 import cn.solarmoon.immersive_delight.common.block.sapling.DurianSaplingBlock;
-import cn.solarmoon.immersive_delight.common.block.test;
-import cn.solarmoon.immersive_delight.common.block.base.crop.AbstractWildCropBlock;
-import cn.solarmoon.immersive_delight.common.block.wild_crop.WildGarlicBlock;
 import cn.solarmoon.solarmoon_core.registry.core.IRegister;
 import cn.solarmoon.solarmoon_core.registry.object.BlockEntry;
+import net.minecraft.world.effect.MobEffects;
 
 public enum IMBlocks implements IRegister {
     INSTANCE;
@@ -34,6 +29,18 @@ public enum IMBlocks implements IRegister {
             .bound(FlatbreadDoughBlock::new)
             .build();
 
+    //碗装蛋液
+    public static final BlockEntry<BowlFoodUnShapeBlock> EGG_LIQUID_BOWL = ImmersiveDelight.REGISTRY.block()
+            .id("egg_liquid_bowl")
+            .bound(BowlFoodUnShapeBlock::new)
+            .build();
+
+    //鸡蛋羹
+    public static final BlockEntry<BowlFoodUnShapeBlock> STEAMED_EGG_CUSTARD = ImmersiveDelight.REGISTRY.block()
+            .id("steamed_egg_custard")
+            .bound(BowlFoodUnShapeBlock::new)
+            .build();
+
     //馒头
     public static final BlockEntry<SteamedBunBlock> STEAMED_BUN = ImmersiveDelight.REGISTRY.block()
             .id("steamed_bun")
@@ -41,16 +48,18 @@ public enum IMBlocks implements IRegister {
             .build();
 
     //藏书羊肉汤
-    public static final BlockEntry<CangshuMuttonSoupBlock> CANGSHU_MUTTON_SOUP = ImmersiveDelight.REGISTRY.block()
+    public static final BlockEntry<BowlSoupBlock> CANGSHU_MUTTON_SOUP = ImmersiveDelight.REGISTRY.block()
             .id("cangshu_mutton_soup")
-            .bound(CangshuMuttonSoupBlock::new)
+            .bound(BowlSoupBlock::new)
             .build();
 
-    //
-    public static final BlockEntry<test> test = ImmersiveDelight.REGISTRY.block()
-            .id("test")
-            .bound(test::new)
+    //榴莲锡纸烧
+    public static final BlockEntry<TinFoilBoxFoodBlock> TIN_FOIL_COOKED_DURIAN = ImmersiveDelight.REGISTRY.block()
+            .id("tin_foil_cooked_durian")
+            .bound(TinFoilBoxFoodBlock::new)
             .build();
+
+    //------------------------------------------------------------------------------------------//
 
     //苹果树苗
     public static final BlockEntry<AppleSaplingBlock> APPLE_SAPLING = ImmersiveDelight.REGISTRY.block()
@@ -109,9 +118,9 @@ public enum IMBlocks implements IRegister {
     //————————————————————————————————————————————————————————————————————————————————//
 
     //野生大蒜
-    public static final BlockEntry<WildGarlicBlock> WILD_GARLIC = ImmersiveDelight.REGISTRY.block()
+    public static final BlockEntry<WildCropBlock> WILD_GARLIC = ImmersiveDelight.REGISTRY.block()
             .id("wild_garlic")
-            .bound(WildGarlicBlock::new)
+            .bound(() -> new WildCropBlock(MobEffects.UNLUCK, 8))
             .build();
 
     //————————————————————————————————————————————————————————————————————————————————//

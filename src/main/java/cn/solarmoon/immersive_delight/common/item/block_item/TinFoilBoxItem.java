@@ -7,7 +7,7 @@ import net.minecraft.world.item.BlockItem;
 public class TinFoilBoxItem extends BlockItem implements IContainerItem {
 
     public TinFoilBoxItem() {
-        super(IMBlocks.TIN_FOIL_BOX.get(), new Properties().stacksTo(1));
+        super(IMBlocks.TIN_FOIL_BOX.get(), new Properties());
     }
 
 }

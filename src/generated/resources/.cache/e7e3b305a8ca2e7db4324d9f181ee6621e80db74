@@ -1,11 +1,13 @@
-// 1.20.1	2024-02-27T20:45:56.4622982	Tags for minecraft:item mod id immersive_delight
+// 1.20.1	2024-02-28T21:29:51.459498	Tags for minecraft:item mod id immersive_delight
 1a0745227f09e0a4d077e0216b3d43859bc657d7 data/farmersdelight/tags/items/tools/knives.json
+89f43d46d4c18a997613263e5da1dd7071fa6e16 data/forge/tags/items/dough.json
+d66078fe03c4a07a0a12934d4bb5bbf3b63a223e data/forge/tags/items/eggs.json
 1a0745227f09e0a4d077e0216b3d43859bc657d7 data/forge/tags/items/tools/axes.json
 1a0745227f09e0a4d077e0216b3d43859bc657d7 data/forge/tags/items/tools/cleavers.json
 1a0745227f09e0a4d077e0216b3d43859bc657d7 data/forge/tags/items/tools/knives.json
 1a0745227f09e0a4d077e0216b3d43859bc657d7 data/forge/tags/items/tools/swords.json
 fca1f7a06d1ce3e755eca59ba3c357699deea10b data/immersive_delight/tags/items/cup.json
-fa3f2afb18215a6dd5eaf253456ea5078ce82a01 data/immersive_delight/tags/items/dough.json
+16eb6a62cf18b8e5e8bd50469c86ec47274eb4c8 data/immersive_delight/tags/items/dough.json
 dcc7b929c594da5b82d0abd9b9c2afef0011adc7 data/immersive_delight/tags/items/tea.json
 9f8201772630998141fba1f7bb540e121d65ecbb data/immersive_delight/tags/items/tooltip_fluid_render.json
 1a0745227f09e0a4d077e0216b3d43859bc657d7 data/minecraft/tags/items/axes.json

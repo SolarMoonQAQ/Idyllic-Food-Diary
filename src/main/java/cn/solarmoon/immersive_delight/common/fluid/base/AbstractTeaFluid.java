@@ -11,7 +11,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class AbstractTeaFluid extends SimpleFluid {
+public abstract class AbstractTeaFluid extends SimpleFluid {
 
     private final FluidEntry fluidEntry;
 

@@ -2,6 +2,7 @@ package cn.solarmoon.immersive_delight.common.block.base;
 
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
 import cn.solarmoon.solarmoon_core.common.block.BaseWaterBlock;
+import cn.solarmoon.solarmoon_core.util.BlockUtil;
 import cn.solarmoon.solarmoon_core.util.CountingDevice;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -36,7 +37,6 @@ import static cn.solarmoon.immersive_delight.common.registry.IMItems.ROLLING_PIN
 public abstract class AbstractLongPressEatFoodBlock extends BaseWaterBlock {
 
     private final int eatCount;
-    private final Block blockLeft;
 
     /**
      * 默认吃5下，吃完后变为空气方块
@@ -44,33 +44,21 @@ public abstract class AbstractLongPressEatFoodBlock extends BaseWaterBlock {
     public AbstractLongPressEatFoodBlock(BlockBehaviour.Properties properties) {
         super(properties);
         this.eatCount = 4;
-        this.blockLeft = Blocks.AIR;
-    }
-
-    /**
-     * @param blockLeft 吃完后需要替换的方块
-     */
-    public AbstractLongPressEatFoodBlock(Block blockLeft, BlockBehaviour.Properties properties) {
-        super(properties);
-        this.eatCount = 4;
-        this.blockLeft = blockLeft;
     }
 
     /**
      * @param eatCount 需要右键的次数才能吃，注意这里吃5下需要填4，因为0也算一下
-     * @param blockLeft 吃完后需要替换的方块
      */
-    public AbstractLongPressEatFoodBlock(int eatCount, Block blockLeft, BlockBehaviour.Properties properties) {
+    public AbstractLongPressEatFoodBlock(int eatCount, BlockBehaviour.Properties properties) {
         super(properties);
         this.eatCount = eatCount;
-        this.blockLeft = blockLeft;
     }
 
     /**
      * 长按右键吃掉该方块
      */
     @Override
-    public @NotNull InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         ItemStack heldItem = player.getItemInHand(hand);
         if (player.canEat(false) && !heldItem.is(ROLLING_PIN.get())) {
 
@@ -92,7 +80,7 @@ public abstract class AbstractLongPressEatFoodBlock extends BaseWaterBlock {
                 player.eat(level, food);
 
                 //设置结束方块
-                level.setBlock(pos, this.blockLeft.defaultBlockState(), 3);
+                BlockUtil.setBlockWithDirection(state, getBlockLeft().defaultBlockState(), level, pos);
                 //重置计数
                 CountingDevice.resetCount(playerTag);
             }
@@ -107,6 +95,13 @@ public abstract class AbstractLongPressEatFoodBlock extends BaseWaterBlock {
      */
     public SoundEvent getEatSound() {
         return SoundEvents.GENERIC_EAT;
+    }
+
+    /**
+     * @return 决定吃完后留下的方块
+     */
+    public Block getBlockLeft() {
+        return Blocks.AIR;
     }
 
     /**

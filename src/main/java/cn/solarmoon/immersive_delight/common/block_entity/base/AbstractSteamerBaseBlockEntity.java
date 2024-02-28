@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 
-public class AbstractSteamerBaseBlockEntity extends BaseTankBlockEntity implements ITimeRecipeBlockEntity<KettleRecipe> {
+public abstract class AbstractSteamerBaseBlockEntity extends BaseTankBlockEntity implements ITimeRecipeBlockEntity<KettleRecipe> {
 
     private int boilTime;
     private int recipeTime;

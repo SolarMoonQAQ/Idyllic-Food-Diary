@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "farmersdelight:wheat_dough"
+          "name": "create:dough"
         }
       ],
       "rolls": 1.0

@@ -1,0 +1,12 @@
+{
+  "name": "immersive_delight.special_mechanics.splash_water",
+  "category": "immersive_delight:special_mechanics",
+  "icon": "minecraft:water_bucket",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "immersive_delight.special_mechanics.splash_water.page.1"
+    }
+  ]
+}

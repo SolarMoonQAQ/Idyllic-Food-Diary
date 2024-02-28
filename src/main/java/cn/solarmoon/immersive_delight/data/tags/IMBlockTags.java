@@ -31,17 +31,22 @@ public class IMBlockTags extends BlockTagsProvider {
         tag(CAN_BE_ROLLED).add(
                 IMBlocks.WHEAT_DOUGH.get(),
                 IMBlocks.FLATBREAD_DOUGH.get(),
-                Blocks.CAKE
+                Blocks.CAKE,
+                IMBlocks.STEAMED_BUN.get()
         ).replace(false);
         //可被镐子挖
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
                 IMBlocks.KETTLE.get(),
-                IMBlocks.SOUP_POT.get()
+                IMBlocks.SOUP_POT.get(),
+                IMBlocks.GRILL.get()
         ).replace(false);
         //可被斧子挖
         tag(BlockTags.MINEABLE_WITH_AXE).add(
                 IMBlocks.DURIAN.get(),
-                IMBlocks.CUTTING_BOARD.get()
+                IMBlocks.CUTTING_BOARD.get(),
+                IMBlocks.STEAMER_BASE.get(),
+                IMBlocks.STEAMER.get(),
+                IMBlocks.STEAMER_LID.get()
         ).replace(false);
         //可被刀挖
         tag(MINEABLE_WITH_CLEAVER).add(

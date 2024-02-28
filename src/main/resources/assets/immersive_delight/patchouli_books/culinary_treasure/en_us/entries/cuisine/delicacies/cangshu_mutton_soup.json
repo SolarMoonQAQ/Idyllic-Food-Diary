@@ -2,7 +2,7 @@
   "name": "immersive_delight.cuisine.delicacies.cangshu_mutton_soup",
   "category": "immersive_delight:cuisine/delicacies",
   "icon": "immersive_delight:cangshu_mutton_soup",
-  "sortnum": 0,
+  "sortnum": 3,
   "pages": [
     {
       "type": "patchouli:spotlight",

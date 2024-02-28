@@ -12,13 +12,16 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class TinFoilBoxEntityBlock extends AbstractTinFoilBoxEntityBlock {
 
+    public static final Properties DEFAULT_PROPERTIES = BlockBehaviour.Properties.of().sound(SoundType.BAMBOO).strength(1f);
+    public static final VoxelShape DEFAULT_SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 16.0D, 15.0D);
+
     public TinFoilBoxEntityBlock() {
-        super(BlockBehaviour.Properties.of().sound(SoundType.BAMBOO).strength(1f));
+        super(DEFAULT_PROPERTIES);
     }
 
     @Override
     public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
-        return Block.box(1.0D, 0.0D, 1.0D, 15.0D, 16.0D, 15.0D);
+        return DEFAULT_SHAPE;
     }
 
 }

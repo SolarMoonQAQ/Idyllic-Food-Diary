@@ -1,7 +1,8 @@
-package cn.solarmoon.immersive_delight.common.block.longPressEatBlock;
+package cn.solarmoon.immersive_delight.common.block.long_press_eat_block;
 
 import cn.solarmoon.immersive_delight.common.block.base.AbstractLongPressEatFoodBlock;
 import cn.solarmoon.immersive_delight.common.registry.IMBlocks;
+import cn.solarmoon.immersive_delight.common.registry.IMItems;
 import cn.solarmoon.immersive_delight.compat.farmersdelight.util.FarmersUtil;
 import cn.solarmoon.solarmoon_core.util.BlockUtil;
 import net.minecraft.core.BlockPos;
@@ -42,7 +43,7 @@ public class WheatDoughBlock extends AbstractLongPressEatFoodBlock {
         super(Block.Properties
                 .copy(Blocks.CAKE)
                 .destroyTime(1f));
-        this.registerDefaultState(this.getStateDefinition().any().setValue(FALL_COUNT, 0).setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false));
+        this.registerDefaultState(this.getStateDefinition().any().setValue(FALL_COUNT, 0));
     }
 
     /**
@@ -92,19 +93,19 @@ public class WheatDoughBlock extends AbstractLongPressEatFoodBlock {
     }
 
     /**
-     * 如果农夫乐事加载，则生成农夫乐事的面团
+     * 保证多模组联动下掉落的只有自己的面团
      */
     @Override
     public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
-        return FarmersUtil.getDough() == null ? super.getDrops(state, builder) : List.of(FarmersUtil.getDough().getDefaultInstance());
+        return List.of(IMItems.WHEAT_DOUGH.get().getDefaultInstance());
     }
 
     /**
-     * 农夫乐事加载则换为农夫乐事面团
+     * 保证多模组联动下指向自己的面团
      */
     @Override
     public Item asItem() {
-        return FarmersUtil.getDough() == null ? super.asItem() : FarmersUtil.getDough();
+        return IMItems.WHEAT_DOUGH.get();
     }
 
     @Override

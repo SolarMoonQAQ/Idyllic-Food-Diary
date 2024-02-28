@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 public class SteamerEntityBlock extends AbstractSteamerEntityBlock {
 
     public SteamerEntityBlock() {
-        super(BlockBehaviour.Properties.of().sound(SoundType.BAMBOO).strength(1).noOcclusion());
+        super(BlockBehaviour.Properties.of().sound(SoundType.BAMBOO).strength(2).noOcclusion());
     }
 
 }

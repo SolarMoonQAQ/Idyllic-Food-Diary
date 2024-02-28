@@ -33,13 +33,16 @@
   "block.immersive_delight.garlic_crop": "大蒜",
   "item.immersive_delight.garlic_clove": "蒜瓣",
   "item.immersive_delight.garlic_sprouts": "蒜苗",
+  "block.immersive_delight.wild_garlic": "野生大蒜",
 
 
 
   "block.immersive_delight.wheat_dough": "面团",
   "block.immersive_delight.flatbread_dough": "面饼",
+  "block.immersive_delight.egg_liquid_bowl": "碗装蛋液",
+  "block.immersive_delight.steamed_egg_custard": "蒸鸡蛋羹",
   "block.immersive_delight.steamed_bun": "馒头",
-
+  "block.immersive_delight.tin_foil_cooked_durian": "锡纸烧榴莲",
   "block.immersive_delight.cangshu_mutton_soup": "藏书羊肉汤",
 
 
@@ -150,12 +153,12 @@
   "immersive_delight.beverage.set.cup.page.1": "杯子可以承装几乎所有液体，同时这也意味着只要能被倒入杯子的几乎所有液体都可以被饮用，使用$(l:immersive_delight:beverage/set/kettle)水壶$()可以将液体倒入杯子。你可以将杯子放在地上或是就这么拿在手中然后使用右键饮用。一般而言，大部分液体的一次喝取量都在50mB，如果喝取的量低于这个值，那么就不会获得该液体对应的效果。",
   "immersive_delight.beverage.set.cup.page.2.title": "泡茶",
   "immersive_delight.beverage.set.cup.page.3": "杯子当然具有泡茶功能，一般情况下每个杯子都具有1格的物品槽位，可以拿着可冲泡的物品对着方块形式的杯子右键即可将冲泡物放入杯子，然后倒入所需液体，等待一小段时间，液体便冲泡完成。",
-  "immersive_delight.beverage.set.cup.page.4": "液体容量：250mB$(br)物品容量：1x1$(br)可以$(7)[空手蹲下+右键]$()取走$(br)需要$(7)[蹲下+右键]$()放置",
-  "immersive_delight.beverage.set.cup.page.5": "液体容量：250mB$(br)物品容量：1x1$(br)可以$(7)[空手蹲下+右键]$()取走$(br)需要$(7)[蹲下+右键]$()放置",
+  "immersive_delight.beverage.set.cup.page.4": "液体容量：250mB$(br)物品容量：1x1$(br)可以$(5)[空手蹲下+右键]$()取走$(br)需要$(5)[蹲下+右键]$()放置",
+  "immersive_delight.beverage.set.cup.page.5": "液体容量：250mB$(br)物品容量：1x1$(br)可以$(5)[空手蹲下+右键]$()取走$(br)需要$(5)[蹲下+右键]$()放置",
   "immersive_delight.beverage.set.kettle": "水壶",
   "immersive_delight.beverage.set.kettle.page.1": "水壶是具有倾倒液体和装取液体双重功能的容器，只要将其拿在手中，对着$(l:immersive_delight:beverage/set/cup)杯子$()右键即可倾倒液体，对着液体源右键即可装取液体。当然你也可以用桶来放入液体，但是无法再用桶取出。$(br)同时水壶也拥有加热液体的功能，当液体加热完成后，会产生大量的水蒸气粒子，并伴随着水沸腾的声音。$(br)而要让水壶加热，需要倒入任意量的可加热液体，并且水壶下方需要有任一热源方块。",
   "immersive_delight.beverage.set.kettle.page.2.title": "水烧开时的水壶",
-  "immersive_delight.beverage.set.kettle.page.3": "液体容量：1000mB$(br)可以$(7)[空手蹲下+右键]$()取走",
+  "immersive_delight.beverage.set.kettle.page.3": "液体容量：1000mB$(br)可以$(5)[空手蹲下+右键]$()取走",
 
   "immersive_delight.beverage.drinkable": "饮料",
   "immersive_delight.beverage.drinkable.desc": "此处包含了大部分由本模组添加或修改过的液体饮料。（但是别忘了，几乎所有液体都能饮用）$(br)除去喝本身，这些饮料还可作为液体方块放置，玩家可以在其中泡温泉，或许能获得独特的效果。",
@@ -181,7 +184,7 @@
   "immersive_delight.cuisine.kitchen_utensils": "厨具",
   "immersive_delight.cuisine.kitchen_utensils.desc": "工欲善其事，必先利其器。",
   "immersive_delight.cuisine.kitchen_utensils.cleaver": "菜刀",
-  "immersive_delight.cuisine.kitchen_utensils.cleaver.page.1": "菜刀的攻击能力和铁剑一致，方块破坏能力和铁斧一致，因此其相当于剑和斧的结合体。其使用只需要对着输入物右键即可。对于方块类型的食材可以直接分割，而对于只有物品形式的食材，则只能放置在$(l:immersive_delight:cuisine/kitchen_utensils/cutting_board)砧板$()上进行分割。$(br)当你想要分割出不同的产物时，只需要拿着菜刀对准要分割的方块（或是存有那个物品的砧板）并且蹲下，就会弹出选框界面，此时便可用鼠标滚轮选择输出产物。",
+  "immersive_delight.cuisine.kitchen_utensils.cleaver.page.1": "菜刀相当于剑和斧的结合体，并且还能像剪刀一样采集部分方块。其使用只需要对着输入物右键即可。对于方块类型的食材可以直接分割，而对于只有物品形式的食材，则只能放置在$(l:immersive_delight:cuisine/kitchen_utensils/cutting_board)砧板$()上进行分割。$(br)当你想要分割出不同的产物时，只需要拿着菜刀对准要分割的方块（或是存有那个物品的砧板）并且蹲下，就会弹出选框界面，此时便可用鼠标滚轮选择输出产物。",
   "immersive_delight.cuisine.kitchen_utensils.cleaver.page.2": "耐久：2048",
   "immersive_delight.cuisine.kitchen_utensils.rolling_pin": "擀面杖",
   "immersive_delight.cuisine.kitchen_utensils.rolling_pin.page.1": "擀面杖是大部分面点的加工工具，用于将面团擀成各式各样的形态。拿着擀面杖对着可以擀的方块长按右键，便会开始擀面。$(br)当你想要擀出不同的产物时，只需要拿着擀面杖对准要擀的方块并且蹲下，就会弹出选框界面，此时便可用鼠标滚轮选择输出产物。",
@@ -193,25 +196,39 @@
   "immersive_delight.cuisine.kitchen_utensils.cutting_board.page.2": "物品容量：1x1$(br)",
   "immersive_delight.cuisine.kitchen_utensils.soup_pot": "汤锅",
   "immersive_delight.cuisine.kitchen_utensils.soup_pot.page.1": "汤锅是一种可以存储物品+液体的容器，接受$(l:immersive_delight:beverage/set/kettle)水壶$()配方。当输入的液体和物品同时满足配方所需，并且下方存在热源方块时，便会开始烹煮。手中拿着物品右键可以存入，空手右键可以取出。液体可以存入也能取出。$(br)当烹饪完成，大部分汤锅配方产出的液体，都可以用碗盛出，这时候你就能喝上热腾腾的汤了！",
-  "immersive_delight.cuisine.kitchen_utensils.soup_pot.page.2": "液体容量：2000mB$(br)物品容量：1x9$(br)可以$(7)[空手蹲下+右键]$()取走",
+  "immersive_delight.cuisine.kitchen_utensils.soup_pot.page.2": "液体容量：2000mB$(br)物品容量：1x9$(br)可以$(5)[空手蹲下+右键]$()取走",
   "immersive_delight.cuisine.kitchen_utensils.grill": "烧烤架",
   "immersive_delight.cuisine.kitchen_utensils.grill.page.1": "烧烤架是一种可以存储物品+燃料的容器，具有六个物品槽位。与一般的交互容器不同，只有当你拿着要烤制的物品对准了烤架上表面的要放置的槽位区域，才能正确放到你想要的区域，取出同理，只是需要换成空手。至于燃料方面，只要拿着煤炭类物品，就会优先放置煤炭，空手对着不是上表面的区域可以取出煤炭，蹲下右键可以一次取出一组。",
   "immersive_delight.cuisine.kitchen_utensils.grill.page.2": "当烧烤架存有煤炭时，拿着打火石便可将其点燃，燃料燃烧时间和在熔炉里一致。$(br)烧烤架配方继承自营火配方，但是$(l)烤制时间比营火快三倍$()。$(br)漏斗交互方面，烧烤架的漏斗交互是比较智能的，煤炭会自动存入燃料槽，其余物品会存入前六个槽。",
   "immersive_delight.cuisine.kitchen_utensils.grill.page.3": "物品容量：1x6 + 64x1$(br)",
   "immersive_delight.cuisine.kitchen_utensils.tin_foil_box": "锡纸盒",
   "immersive_delight.cuisine.kitchen_utensils.tin_foil_box.page.1": "锡纸盒是一种可以存储六个物品的容器，手中持有物品右键即可放入，空手右键即可取出。$(br)当锡纸盒内的物品匹配配方，且下方有热源，锡纸盒便会开始烤制。",
-  "immersive_delight.cuisine.kitchen_utensils.tin_foil_box.page.2": "物品容量：1x6$(br)可以$(7)[空手蹲下+右键]$()取走",
+  "immersive_delight.cuisine.kitchen_utensils.tin_foil_box.page.2": "物品容量：1x6$(br)可以$(5)[空手蹲下+右键]$()取走",
   "immersive_delight.cuisine.kitchen_utensils.steamer": "蒸笼",
   "immersive_delight.cuisine.kitchen_utensils.steamer.page.1": "蒸笼是一整个套件的厨具，你需要蒸笼底座，蒸笼，和蒸笼盖子这一整套才能让蒸笼正常工作。$(br)蒸笼一套是可以无限垂直堆叠的，只需要保证最下方为蒸笼底座，水蒸气便会传导至连接的所有蒸笼。$(br)要让蒸笼开始工作，需要连接的所有蒸笼套件都处于$(l)上汽$()状态。",
   "immersive_delight.cuisine.kitchen_utensils.steamer.page.2": "蒸笼底座是蒸水的厨具，拥有2000mB容量，其接受$(l:immersive_delight:beverage/set/kettle)水壶$()配方。当液体被烧开时，将会以5mB/秒的速率对液体进行蒸发。若蒸发的是$(l:immersive_delight:beverage/drinkable/hot_water)热水$()，此组件便会处于$(l)上汽$()状态。",
-  "immersive_delight.cuisine.kitchen_utensils.steamer.page.3": "蒸笼是类似半砖一样可以堆叠连接的厨具，用蒸笼直接对着蒸笼右键即可堆叠。拥有四个1容量物品槽。蒸笼可以$(7)[空手蹲下+右键]$()一层层的取走。当蒸笼最下方的底座处于上汽状态，且蒸笼盖上了盖子，那么此组件就会处于$(l)上汽$()状态",
+  "immersive_delight.cuisine.kitchen_utensils.steamer.page.3": "蒸笼是类似半砖一样可以堆叠连接的厨具，用蒸笼直接对着蒸笼右键即可堆叠。拥有四个1容量物品槽。蒸笼可以$(5)[空手蹲下+右键]$()一层层的取走。当蒸笼最下方的底座处于上汽状态，且蒸笼盖上了盖子，那么此组件就会处于$(l)上汽$()状态",
   "immersive_delight.cuisine.kitchen_utensils.steamer.page.4": "蒸笼盖只是一个用来给蒸笼加盖防止蒸汽流失的工具，但要注意给蒸笼盖盖子是直接对着蒸笼右键，而非用方块形式的盖子放在蒸笼上方。同时蒸笼盖只能盖最上层的蒸笼，尝试盖在连接处会导致盖子弹走。",
+
+  "immersive_delight.cuisine.preparatory_food": "初加工食物",
+  "immersive_delight.cuisine.preparatory_food.desc": "初加工食物，在这里也可以认为是预制食物，指那些已经进行了一定加工但还能继续精加工的食物。初加工食物作为一些食物的“中转站”而存在，但其本身已经到了可以食用（至少看上去）的地步。",
+  "immersive_delight.cuisine.preparatory_food.wheat_dough": "面团",
+  "immersive_delight.cuisine.preparatory_food.wheat_dough.page.1": "可以$(5)[蹲下+右键]$()放置食用$(br)方块形式的面团比较敏感，当任何活体在上方累计踩了三下后，面团就会被踩成面饼。同时，如果生物从大于5格的地方摔到面团上，面团也会被压成面饼。",
+  "immersive_delight.cuisine.preparatory_food.flatbread_dough": "面饼",
+  "immersive_delight.cuisine.preparatory_food.flatbread_dough.page.1": "可以$(5)[蹲下+右键]$()放置食用$(br)",
+  "immersive_delight.cuisine.preparatory_food.egg_liquid_bowl": "碗装蛋液",
+  "immersive_delight.cuisine.preparatory_food.egg_liquid_bowl.page.1": "可以$(5)[蹲下+右键]$()放置食用$(br)",
 
   "immersive_delight.cuisine.delicacies": "美食",
   "immersive_delight.cuisine.delicacies.desc": "此处将为您介绍本模组所有可制作的美食，享受吧！",
   "immersive_delight.cuisine.delicacies.cangshu_mutton_soup": "藏书羊肉汤",
-  "immersive_delight.cuisine.delicacies.cangshu_mutton_soup.page.1": "食用后获得：$(l:immersive_delight:effect/snug)温暖$()、力量$(br)$(o)$(7)藏书羊肉历史悠久，以其独特的烧煮技艺，烹调成各式羊肉菜肴，因其肉香汤鲜、味美可口、营养丰富而深受人们喜爱，是冬令进补佳品。",
-
+  "immersive_delight.cuisine.delicacies.cangshu_mutton_soup.page.1": "可以$(5)[蹲下+右键]$()放置食用$(br)食用后获得：$(l:immersive_delight:effect/snug)温暖$()、力量$(br)$(o)$(7)藏书羊肉历史悠久，以其独特的烧煮技艺，烹调成各式羊肉菜肴，因其肉香汤鲜、味美可口、营养丰富而深受人们喜爱，是冬令进补佳品。",
+  "immersive_delight.cuisine.delicacies.tin_foil_cooked_durian": "锡纸烧榴莲",
+  "immersive_delight.cuisine.delicacies.tin_foil_cooked_durian.page.1": "可以$(5)[蹲下+右键]$()放置食用$(br)",
+  "immersive_delight.cuisine.delicacies.steamed_bun": "馒头",
+  "immersive_delight.cuisine.delicacies.steamed_bun.page.1": "可以$(5)[蹲下+右键]$()放置食用$(br)",
+  "immersive_delight.cuisine.delicacies.steamed_egg_custard": "蒸鸡蛋羹",
+  "immersive_delight.cuisine.delicacies.steamed_egg_custard.page.1": "可以$(5)[蹲下+右键]$()放置食用$(br)",
 
   "immersive_delight.crop": "农作物",
   "immersive_delight.crop.desc": "食之根本在于自然生长的万物，从自然循环中摄取能量，这是食的必经之路。同时美食家们为了探求美味的秘诀，也发掘出了许多美味的作物......",
@@ -219,28 +236,30 @@
   "immersive_delight.crop.general_crops": "一般作物",
   "immersive_delight.crop.general_crops.desc": "此处将为您介绍本模组的一般作物",
   "immersive_delight.crop.general_crops.garlic": "大蒜",
-  "immersive_delight.crop.general_crops.garlic.page.1": "种子：蒜瓣$(br)产物：大蒜、蒜苗",
+  "immersive_delight.crop.general_crops.garlic.page.1": "种子：蒜瓣$(br)产物：大蒜、蒜苗$(br)$(3)野生大蒜可在森林中找到。$()",
   "immersive_delight.crop.general_crops.garlic.page.2.title": "相关物品展示",
+  "immersive_delight.crop.general_crops.garlic.page.3": "大蒜可以拿在手中用右键剥皮，可以剥出蒜瓣。$(br)同时方块形式的大蒜可以互相堆叠，一格最多堆叠5个大蒜。空手右键可以取出堆叠的大蒜。",
 
   "immersive_delight.crop.tea": "茶",
   "immersive_delight.crop.tea.desc": "茶，具有千年以上的食用历史，茶叶长于茶树，无论用于冲泡亦或是作为食材香料，皆为上品。",
   "immersive_delight.crop.tea.black_tea": "红茶",
-  "immersive_delight.crop.tea.black_tea.page.1": "种子：红茶种子$(br)产物：红茶叶$(br)$(br)当接触茶树时，会获得$(l:immersive_delight:effect/tea_aroma)茶香$()效果",
+  "immersive_delight.crop.tea.black_tea.page.1": "种子：红茶种子$(br)产物：红茶叶$(br)$(3)红茶树可在山中找到。$()$(br)$(br)当接触茶树时，会获得$(l:immersive_delight:effect/tea_aroma)茶香$()效果",
   "immersive_delight.crop.tea.black_tea.page.2.title": "相关物品展示",
   "immersive_delight.crop.tea.green_tea": "绿茶",
-  "immersive_delight.crop.tea.green_tea.page.1": "种子：绿茶种子$(br)产物：绿茶叶$(br)$(br)当接触茶树时，会获得$(l:immersive_delight:effect/tea_aroma)茶香$()效果",
+  "immersive_delight.crop.tea.green_tea.page.1": "种子：绿茶种子$(br)产物：绿茶叶$(br)$(3)绿茶树可在平原中找到。$()$(br)$(br)当接触茶树时，会获得$(l:immersive_delight:effect/tea_aroma)茶香$()效果",
   "immersive_delight.crop.tea.green_tea.page.2.title": "相关物品展示",
 
   "immersive_delight.crop.fruits": "水果",
   "immersive_delight.crop.fruits.desc": "此处将为您展示本模组所添加或修改的大部分水果",
   "immersive_delight.crop.fruits.apple": "苹果",
-  "immersive_delight.crop.fruits.apple.page.1": "种子：苹果核$(br)种子生长条件：橡树树叶下方$(br)产物：苹果$(br)树苗：苹果树苗",
+  "immersive_delight.crop.fruits.apple.page.1": "种子：苹果核$(br)种子生长条件：橡树树叶下方$(br)产物：苹果$(br)树苗：苹果树苗$(br)$(3)苹果树可在森林中找到。$()",
   "immersive_delight.crop.fruits.apple.page.2.title": "相关物品展示",
+  "immersive_delight.crop.fruits.apple.page.3": "当苹果食用完后会吐出一粒苹果核。",
   "immersive_delight.crop.fruits.durian": "榴莲",
-  "immersive_delight.crop.fruits.durian.page.1": "种子：榴莲核$(br)种子生长条件：丛林木下方$(br)产物：榴莲$(br)树苗：榴莲树苗",
+  "immersive_delight.crop.fruits.durian.page.1": "种子：榴莲核$(br)种子生长条件：丛林木下方$(br)产物：榴莲$(br)树苗：榴莲树苗$(br)$(3)榴莲树可在丛林中找到。$()",
   "immersive_delight.crop.fruits.durian.page.2.title": "相关物品展示",
   "immersive_delight.crop.fruits.durian.page.3": "是坠落方块，具有64点耐久，可以拿来揍人，也可以长按右键丢出去揍人，丢出去后砸到地上会裂开。$(br)可用菜刀劈开，劈开后获得榴莲肉和榴莲壳。$(br)打掉成熟榴莲作物的根部会让榴莲坠落到地上而非直接转为物品形式。$(br)$(o)$(7)嘿，说你呢，小心别被砸成海绵宝宝了！",
-
+  "immersive_delight.crop.fruits.durian.page.4": "当榴莲肉食用完后会吐出一粒榴莲核。",
 
   "immersive_delight.effect": "效果",
   "immersive_delight.effect.desc": "此处为您展示了本模组所添加或修改的所有药水效果。",
@@ -259,5 +278,12 @@
   "immersive_delight.equipment.desc": "此处为您展示了本模组所添加或修改的所有装备。",
 
   "immersive_delight.equipment.bathrobe": "浴衣",
-  "immersive_delight.equipment.bathrobe.page.1": "耐久：512$(br)护甲值：3$(br)盔甲韧性：1$(br)效果：当穿上浴衣后，可以免疫过热温泉（$(l:immersive_delight:beverage/drinkable/hot_water)热水$()、$(l:immersive_delight:beverage/drinkable/hot_milk)热牛奶$()）的伤害并获得该温泉的增益效果。"
+  "immersive_delight.equipment.bathrobe.page.1": "耐久：512$(br)效果：当穿上浴衣后，可以免疫过热温泉（$(l:immersive_delight:beverage/drinkable/hot_water)热水$()、$(l:immersive_delight:beverage/drinkable/hot_milk)热牛奶$()）的伤害并获得该温泉的增益效果。",
+
+
+  "immersive_delight.special_mechanics": "特殊机制",
+  "immersive_delight.special_mechanics.desc": "此处向您介绍一些本模组的特殊机制。",
+
+  "immersive_delight.special_mechanics.splash_water": "泼水",
+  "immersive_delight.special_mechanics.splash_water.page.1": "大部分能存储液体的容器都可以$(5)[蹲下+左键空气]$()来将液体一次性全部倾倒出去，并且会给被水泼到的生物给予除了恢复饥饿值以外所有的该液体饮用时的效果。"
 }

@@ -30,6 +30,10 @@ public class IMBlockLoots extends BlockLootSubProvider {
         dropSelf(IMBlocks.FLATBREAD_DOUGH.get());
         dropSelf(IMBlocks.WHEAT_DOUGH.get());
         dropSelf(IMBlocks.CANGSHU_MUTTON_SOUP.get());
+        dropSelf(IMBlocks.TIN_FOIL_COOKED_DURIAN.get());
+        dropSelf(IMBlocks.EGG_LIQUID_BOWL.get());
+        dropSelf(IMBlocks.STEAMED_EGG_CUSTARD.get());
+        dropSelf(IMBlocks.STEAMED_BUN.get());
 
         dropSelf(IMBlocks.DURIAN.get());
         dropSelf(IMBlocks.GARLIC.get());
@@ -43,7 +47,10 @@ public class IMBlockLoots extends BlockLootSubProvider {
         dropSelf(IMBlocks.SOUP_POT.get());
         dropSelf(IMBlocks.CUTTING_BOARD.get());
         dropSelf(IMBlocks.GRILL.get());
-        dropSelf(IMBlocks.STEAMER.get());
+        //dropSelf(IMBlocks.STEAMER.get()); <-自定义
+        dropSelf(IMBlocks.STEAMER_BASE.get());
+        dropSelf(IMBlocks.STEAMER_LID.get());
+        dropSelf(IMBlocks.PLATE.get());
         dropSelf(IMBlocks.TIN_FOIL_BOX.get());
 
         //作物专项
@@ -56,11 +63,11 @@ public class IMBlockLoots extends BlockLootSubProvider {
         cropDrop(IMBlocks.GARLIC_CROP.get(), IMItems.GARLIC.get(), Items.AIR); //大蒜不掉种子（因为是蒜瓣）
     }
 
-    public void cropDrop(Block block, Item product, Item seed) {
+    private void cropDrop(Block block, Item product, Item seed) {
         add(block, createCropDrops(block, product, seed, cropConditionBuilder(block, CropBlock.AGE)));
     }
 
-    public LootItemCondition.Builder cropConditionBuilder(Block block, IntegerProperty ageProperty) {
+    private LootItemCondition.Builder cropConditionBuilder(Block block, IntegerProperty ageProperty) {
         return LootItemBlockStatePropertyCondition
                 .hasBlockStateProperties(block)
                 .setProperties(
