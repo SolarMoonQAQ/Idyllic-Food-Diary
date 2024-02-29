@@ -1,0 +1,15 @@
+{
+  "name": "immersive_delight.cuisine.delicacies.pumpkin_soup",
+  "category": "immersive_delight:cuisine/delicacies",
+  "icon": "immersive_delight:pumpkin_soup",
+  "sortnum": 9,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": {
+        "item": "immersive_delight:pumpkin_soup"
+      },
+      "text": "immersive_delight.cuisine.delicacies.pumpkin_soup.page.1"
+    }
+  ]
+}

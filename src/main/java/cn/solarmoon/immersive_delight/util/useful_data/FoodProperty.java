@@ -14,4 +14,9 @@ public class FoodProperty {
                     new MobEffectInstance(MobEffects.HUNGER, 600, 0), 0.3F)
             .build();
 
+    public static FoodProperties PRIMARY_HUNGER_PRODUCT_1 = new FoodProperties.Builder()
+            .nutrition(3).saturationMod(0.2F).effect(() ->
+                    new MobEffectInstance(MobEffects.HUNGER, 600, 0), 0.3F)
+            .build();
+
 }

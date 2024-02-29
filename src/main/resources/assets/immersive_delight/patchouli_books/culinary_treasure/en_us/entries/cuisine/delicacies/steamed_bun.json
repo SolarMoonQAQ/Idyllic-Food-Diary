@@ -2,7 +2,7 @@
   "name": "immersive_delight.cuisine.delicacies.steamed_bun",
   "category": "immersive_delight:cuisine/delicacies",
   "icon": "immersive_delight:steamed_bun",
-  "sortnum": 0,
+  "sortnum": 1,
   "pages": [
     {
       "type": "patchouli:spotlight",

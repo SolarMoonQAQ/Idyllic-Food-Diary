@@ -1,0 +1,12 @@
+{
+  "type": "immersive_delight:cleaver",
+  "input": {
+    "item": "minecraft:beef"
+  },
+  "result": [
+    {
+      "item": "immersive_delight:raw_diced_beef",
+      "count": 4
+    }
+  ]
+}

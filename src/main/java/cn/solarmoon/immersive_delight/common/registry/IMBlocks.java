@@ -13,6 +13,8 @@ import cn.solarmoon.immersive_delight.common.block.sapling.DurianSaplingBlock;
 import cn.solarmoon.solarmoon_core.registry.core.IRegister;
 import cn.solarmoon.solarmoon_core.registry.object.BlockEntry;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 
 public enum IMBlocks implements IRegister {
     INSTANCE;
@@ -47,16 +49,34 @@ public enum IMBlocks implements IRegister {
             .bound(SteamedBunBlock::new)
             .build();
 
+    //蘑菇煲
+    public static final BlockEntry<BowlSoupBlock> MUSHROOM_STEW = ImmersiveDelight.REGISTRY.block()
+            .id("mushroom_stew")
+            .bound(() -> new BowlSoupBlock(){public Item asItem() {return Items.MUSHROOM_STEW;}})
+            .build();
+
+    //甜菜汤
+    public static final BlockEntry<BowlSoupBlock> BEETROOT_SOUP = ImmersiveDelight.REGISTRY.block()
+            .id("beetroot_soup")
+            .bound(() -> new BowlSoupBlock(){public Item asItem() {return Items.BEETROOT_SOUP;}})
+            .build();
+
+    //南瓜汤
+    public static final BlockEntry<BowlSoupBlock> PUMPKIN_SOUP = ImmersiveDelight.REGISTRY.block()
+            .id("pumpkin_soup")
+            .bound(BowlSoupBlock::new)
+            .build();
+
     //藏书羊肉汤
     public static final BlockEntry<BowlSoupBlock> CANGSHU_MUTTON_SOUP = ImmersiveDelight.REGISTRY.block()
             .id("cangshu_mutton_soup")
             .bound(BowlSoupBlock::new)
             .build();
 
-    //榴莲锡纸烧
-    public static final BlockEntry<TinFoilBoxFoodBlock> TIN_FOIL_COOKED_DURIAN = ImmersiveDelight.REGISTRY.block()
-            .id("tin_foil_cooked_durian")
-            .bound(TinFoilBoxFoodBlock::new)
+    //紫菜蛋花汤
+    public static final BlockEntry<BowlSoupBlock> SEAWEED_EGG_DROP_SOUP = ImmersiveDelight.REGISTRY.block()
+            .id("seaweed_egg_drop_soup")
+            .bound(BowlSoupBlock::new)
             .build();
 
     //------------------------------------------------------------------------------------------//
@@ -135,12 +155,6 @@ public enum IMBlocks implements IRegister {
     public static final BlockEntry<JadeChinaCupEntityBlock> JADE_CHINA_CUP = ImmersiveDelight.REGISTRY.block()
             .id("jade_china_cup")
             .bound(JadeChinaCupEntityBlock::new)
-            .build();
-
-    //锡纸盒
-    public static final BlockEntry<TinFoilBoxEntityBlock> TIN_FOIL_BOX = ImmersiveDelight.REGISTRY.block()
-            .id("tin_foil_box")
-            .bound(TinFoilBoxEntityBlock::new)
             .build();
 
     //水壶

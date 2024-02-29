@@ -19,7 +19,6 @@ public class Jade implements IWailaPlugin {
         registration.registerBlockComponent(new TimeRecipeProgressProvider("kettle"), AbstractKettleEntityBlock.class);
         registration.registerBlockComponent(new TimeRecipeProgressProvider("soup_pot"), AbstractSoupPotEntityBlock.class);
         registration.registerBlockComponent(new TimeRecipeProgressProvider("cup"), AbstractCupEntityBlock.class);
-        registration.registerBlockComponent(new TimeRecipeProgressProvider("tin_foil_grilling"), AbstractTinFoilBoxEntityBlock.class);
         registration.registerBlockComponent(new SteamerBaseProvider("steamer_base"), AbstractSteamerBaseEntityBlock.class);
         registration.registerBlockComponent(new IndividualTimeRecipeProgressProvider("steamer"), AbstractSteamerEntityBlock.class);
         registration.registerBlockComponent(new IndividualTimeRecipeProgressProvider("grill"), AbstractGrillEntityBlock.class);

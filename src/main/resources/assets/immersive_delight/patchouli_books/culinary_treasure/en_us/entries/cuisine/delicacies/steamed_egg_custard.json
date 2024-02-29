@@ -2,7 +2,7 @@
   "name": "immersive_delight.cuisine.delicacies.steamed_egg_custard",
   "category": "immersive_delight:cuisine/delicacies",
   "icon": "immersive_delight:steamed_egg_custard",
-  "sortnum": 1,
+  "sortnum": 2,
   "pages": [
     {
       "type": "patchouli:spotlight",

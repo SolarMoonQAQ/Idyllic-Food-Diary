@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "category": "food",
+  "cookingtime": 600,
+  "experience": 0.35,
+  "ingredient": {
+    "item": "immersive_delight:raw_mutton_skewer"
+  },
+  "result": "immersive_delight:cooked_mutton_skewer"
+}

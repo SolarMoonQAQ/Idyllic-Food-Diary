@@ -1,0 +1,26 @@
+{
+  "type": "immersive_delight:soup_pot",
+  "input_ingredient": [
+    {
+      "item": "minecraft:pumpkin"
+    },
+    {
+      "item": "minecraft:pumpkin"
+    },
+    {
+      "item": "minecraft:pumpkin"
+    },
+    {
+      "item": "minecraft:pumpkin"
+    }
+  ],
+  "input_fluid": {
+    "id": "immersive_delight:hot_water",
+    "amount": 2000
+  },
+  "time": 600,
+  "output_fluid": {
+    "id": "immersive_delight:pumpkin_soup_fluid",
+    "amount": 2000
+  }
+}

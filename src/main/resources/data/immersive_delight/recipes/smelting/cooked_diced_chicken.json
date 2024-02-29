@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "food",
+  "cookingtime": 200,
+  "experience": 0.35,
+  "ingredient": {
+    "item": "immersive_delight:raw_diced_chicken"
+  },
+  "result": "immersive_delight:cooked_diced_chicken"
+}

@@ -1,0 +1,15 @@
+{
+  "name": "immersive_delight.cuisine.delicacies.cooked_beef_skewer",
+  "category": "immersive_delight:cuisine/delicacies",
+  "icon": "immersive_delight:cooked_beef_skewer",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": {
+        "item": "immersive_delight:cooked_beef_skewer"
+      },
+      "text": "immersive_delight.cuisine.delicacies.cooked_beef_skewer.page.1"
+    }
+  ]
+}

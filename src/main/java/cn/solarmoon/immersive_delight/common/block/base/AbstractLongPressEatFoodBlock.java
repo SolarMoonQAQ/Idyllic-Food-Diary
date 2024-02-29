@@ -1,6 +1,7 @@
 package cn.solarmoon.immersive_delight.common.block.base;
 
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
+import cn.solarmoon.immersive_delight.common.item.food_block_item.BowlSoupItem;
 import cn.solarmoon.solarmoon_core.common.block.BaseWaterBlock;
 import cn.solarmoon.solarmoon_core.util.BlockUtil;
 import cn.solarmoon.solarmoon_core.util.CountingDevice;
@@ -74,8 +75,10 @@ public abstract class AbstractLongPressEatFoodBlock extends BaseWaterBlock {
             if (CountingDevice.getCount(playerTag) >= this.eatCount) {
 
                 ItemStack food = state.getBlock().asItem().getDefaultInstance();
-                //同时应用finishUsing方法，这样可以应用fluidEffect
-                food.getItem().finishUsingItem(food, level, player);
+                //应用汤碗类的fluidEffect
+                if (food.getItem() instanceof BowlSoupItem soup) {
+                    soup.applyFluidEffect(level, player);
+                }
                 //吃掉！
                 player.eat(level, food);
 

@@ -1,0 +1,6 @@
+{
+  "fluid": "immersive_delight:beetroot_soup_fluid",
+  "fluid_amount": 250,
+  "food": "minecraft:beetroot_soup",
+  "container": "minecraft:bowl"
+}

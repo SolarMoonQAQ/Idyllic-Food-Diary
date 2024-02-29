@@ -1,17 +1,28 @@
 package cn.solarmoon.immersive_delight.mixin;
 
+import cn.solarmoon.immersive_delight.common.registry.IMBlocks;
 import cn.solarmoon.immersive_delight.common.registry.IMItems;
 import cn.solarmoon.immersive_delight.util.FarmerUtil;
+import cn.solarmoon.solarmoon_core.common.block.IHorizontalFacingBlock;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.Objects;
 
 @Mixin(Item.class)
 public class ItemMixin {
@@ -23,6 +34,37 @@ public class ItemMixin {
     public void appleSpit(ItemStack stack, Level level, LivingEntity entity, CallbackInfoReturnable<ItemStack> cir) {
         if (stack.is(Items.APPLE) && entity instanceof Player player) {
             FarmerUtil.spit(IMItems.APPLE_CORE.get(), 1, player);
+        }
+    }
+
+    /**
+     * 蘑菇煲和甜菜汤的放置
+     */
+    @Inject(method = "useOn", at = @At("HEAD"))
+    public void useOn(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir) {
+        ItemStack stack = context.getItemInHand();
+        Player player = context.getPlayer();
+        Level level = context.getLevel();
+        Direction direction = context.getHorizontalDirection().getOpposite();
+        BlockPos pos = context.getClickedPos().relative(context.getClickedFace());
+        if (player != null && player.isCrouching() && level.getBlockState(pos).canBeReplaced()) {
+            if (stack.is(Items.MUSHROOM_STEW)) {
+                stack.shrink(1);
+                level.setBlock(pos,
+                        IMBlocks.MUSHROOM_STEW.get()
+                                .defaultBlockState()
+                                .setValue(IHorizontalFacingBlock.FACING, direction), 3);
+                level.playSound(null, pos, SoundEvents.BAMBOO_PLACE, SoundSource.BLOCKS);
+                player.swing(context.getHand());
+            } else if (stack.is(Items.BEETROOT_SOUP)) {
+                stack.shrink(1);
+                level.setBlock(pos,
+                        IMBlocks.BEETROOT_SOUP.get()
+                                .defaultBlockState()
+                                .setValue(IHorizontalFacingBlock.FACING, direction), 3);
+                level.playSound(null, pos, SoundEvents.BAMBOO_PLACE, SoundSource.BLOCKS);
+                player.swing(context.getHand());
+            }
         }
     }
 

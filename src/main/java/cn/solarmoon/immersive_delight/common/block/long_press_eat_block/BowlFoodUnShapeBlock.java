@@ -52,7 +52,7 @@ public class BowlFoodUnShapeBlock extends AbstractLongPressEatFoodBlock {
 
     @Override
     public Block getBlockLeft() {
-        return IMBlocks.TIN_FOIL_BOX.get();
+        return IMBlocks.STEAMED_EGG_CUSTARD.get();
     }
 
     @Override

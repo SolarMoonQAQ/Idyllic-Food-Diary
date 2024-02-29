@@ -3,8 +3,7 @@ package cn.solarmoon.immersive_delight.common.registry;
 
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
 import cn.solarmoon.immersive_delight.common.fluid.*;
-import cn.solarmoon.immersive_delight.common.fluid.no_bucket.CangShuMuttonSoupFluid;
-import cn.solarmoon.immersive_delight.common.fluid.no_bucket.MushroomStewFluid;
+import cn.solarmoon.immersive_delight.common.fluid.no_bucket.*;
 import cn.solarmoon.solarmoon_core.registry.core.IRegister;
 import cn.solarmoon.solarmoon_core.registry.object.FluidEntry;
 
@@ -65,12 +64,36 @@ public enum IMFluids implements IRegister {
             .flowing(() -> new MushroomStewFluid().new Flowing())
             .build();
 
+    //甜菜汤
+    public static final FluidEntry BEETROOT_SOUP_FLUID = ImmersiveDelight.REGISTRY.fluid()
+            .id("beetroot_soup_fluid")
+            .bound(() -> new BeetrootSoupFluid().new FluidBlock())
+            .still(() -> new BeetrootSoupFluid().new Source())
+            .flowing(() -> new BeetrootSoupFluid().new Flowing())
+            .build();
+
+    //南瓜汤
+    public static final FluidEntry PUMPKIN_SOUP_FLUID = ImmersiveDelight.REGISTRY.fluid()
+            .id("pumpkin_soup_fluid")
+            .bound(() -> new PumpkinSoupFluid().new FluidBlock())
+            .still(() -> new PumpkinSoupFluid().new Source())
+            .flowing(() -> new PumpkinSoupFluid().new Flowing())
+            .build();
+
     //藏书羊肉汤
     public static final FluidEntry CANGSHU_MUTTON_SOUP_FLUID = ImmersiveDelight.REGISTRY.fluid()
             .id("cangshu_mutton_soup_fluid")
             .bound(() -> new CangShuMuttonSoupFluid().new FluidBlock())
             .still(() -> new CangShuMuttonSoupFluid().new Source())
             .flowing(() -> new CangShuMuttonSoupFluid().new Flowing())
+            .build();
+
+    //紫菜蛋花汤
+    public static final FluidEntry SEAWEED_EGG_DROP_SOUP_FLUID = ImmersiveDelight.REGISTRY.fluid()
+            .id("seaweed_egg_drop_soup_fluid")
+            .bound(() -> new SeaweedEggDropSoupFluid().new FluidBlock())
+            .still(() -> new SeaweedEggDropSoupFluid().new Source())
+            .flowing(() -> new SeaweedEggDropSoupFluid().new Flowing())
             .build();
 
 }

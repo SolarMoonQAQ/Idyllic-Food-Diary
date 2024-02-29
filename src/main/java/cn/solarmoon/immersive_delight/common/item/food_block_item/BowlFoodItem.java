@@ -1,6 +1,5 @@
 package cn.solarmoon.immersive_delight.common.item.food_block_item;
 
-import cn.solarmoon.immersive_delight.common.registry.IMItems;
 import cn.solarmoon.solarmoon_core.util.LevelSummonUtil;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -32,7 +31,7 @@ public class BowlFoodItem extends BlockItem {
 
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity living) {
-        if (living instanceof Player player) {
+        if (living instanceof Player player && !player.isCreative()) {
             LevelSummonUtil.addItemToInventory(player, new ItemStack(Items.BOWL));
         }
         return super.finishUsingItem(stack, level, living);

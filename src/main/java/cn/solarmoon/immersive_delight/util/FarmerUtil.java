@@ -55,7 +55,7 @@ public class FarmerUtil {
      * 为了和block的use方法互通
      * 相当于应用所有液体效果
      */
-    public static void commonDrink(FluidStack fluidStack, Level level, LivingEntity entity) {
+    public static void commonDrink(FluidStack fluidStack, Level level, LivingEntity entity, boolean needFood) {
         //根据液体id获取对应的FluidEffect数据
         String fluidId = fluidStack.getFluid().getFluidType().toString();
         String fluidTag = fluidStack.getTag() != null ? fluidStack.getTag().toString() : "empty";
@@ -76,7 +76,7 @@ public class FarmerUtil {
             //如果extinguishing为true就灭火
             if(fluidEffect.extinguishing) if(!level.isClientSide) entity.clearFire();
             //如果foodValue有作用就加饱食度
-            if(fluidEffect.getFoodValue().isValid()) {
+            if(fluidEffect.getFoodValue().isValid() && needFood) {
                 if(entity instanceof Player player) {
                     if(player.canEat(false) || fluidEffect.canAlwaysDrink) {
                         FoodValue foodValue = fluidEffect.getFoodValue();
@@ -103,4 +103,5 @@ public class FarmerUtil {
         }
 
     }
+
 }

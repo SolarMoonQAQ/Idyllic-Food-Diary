@@ -30,7 +30,10 @@ public class IMBlockLoots extends BlockLootSubProvider {
         dropSelf(IMBlocks.FLATBREAD_DOUGH.get());
         dropSelf(IMBlocks.WHEAT_DOUGH.get());
         dropSelf(IMBlocks.CANGSHU_MUTTON_SOUP.get());
-        dropSelf(IMBlocks.TIN_FOIL_COOKED_DURIAN.get());
+        dropSelf(IMBlocks.BEETROOT_SOUP.get());
+        dropSelf(IMBlocks.MUSHROOM_STEW.get());
+        dropSelf(IMBlocks.SEAWEED_EGG_DROP_SOUP.get());
+        dropSelf(IMBlocks.PUMPKIN_SOUP.get());
         dropSelf(IMBlocks.EGG_LIQUID_BOWL.get());
         dropSelf(IMBlocks.STEAMED_EGG_CUSTARD.get());
         dropSelf(IMBlocks.STEAMED_BUN.get());
@@ -51,7 +54,6 @@ public class IMBlockLoots extends BlockLootSubProvider {
         dropSelf(IMBlocks.STEAMER_BASE.get());
         dropSelf(IMBlocks.STEAMER_LID.get());
         dropSelf(IMBlocks.PLATE.get());
-        dropSelf(IMBlocks.TIN_FOIL_BOX.get());
 
         //作物专项
         //类浆果丛类，用打的方式只掉种子

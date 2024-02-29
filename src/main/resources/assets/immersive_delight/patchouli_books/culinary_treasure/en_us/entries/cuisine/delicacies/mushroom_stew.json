@@ -1,0 +1,15 @@
+{
+  "name": "immersive_delight.cuisine.delicacies.mushroom_stew",
+  "category": "immersive_delight:cuisine/delicacies",
+  "icon": "minecraft:mushroom_stew",
+  "sortnum": 7,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": {
+        "item": "minecraft:mushroom_stew"
+      },
+      "text": "immersive_delight.cuisine.delicacies.mushroom_stew.page.1"
+    }
+  ]
+}

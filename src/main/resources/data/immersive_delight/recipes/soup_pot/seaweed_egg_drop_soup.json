@@ -1,0 +1,32 @@
+{
+  "type": "immersive_delight:soup_pot",
+  "input_ingredient": [
+    {
+      "item": "minecraft:kelp"
+    },
+    {
+      "item": "minecraft:kelp"
+    },
+    {
+      "item": "minecraft:kelp"
+    },
+    {
+      "tag": "forge:eggs"
+    },
+    {
+      "tag": "forge:eggs"
+    },
+    {
+      "tag": "forge:eggs"
+    }
+  ],
+  "input_fluid": {
+    "id": "immersive_delight:hot_water",
+    "amount": 2000
+  },
+  "time": 600,
+  "output_fluid": {
+    "id": "immersive_delight:seaweed_egg_drop_soup_fluid",
+    "amount": 2000
+  }
+}

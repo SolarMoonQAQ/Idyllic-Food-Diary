@@ -4,10 +4,10 @@ package cn.solarmoon.immersive_delight.common.registry;
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
 import cn.solarmoon.immersive_delight.common.item.CulinaryTreasureItem;
 import cn.solarmoon.immersive_delight.common.item.food_block_item.BowlSoupItem;
-import cn.solarmoon.immersive_delight.common.item.food_block_item.TinFoilBoxFoodItem;
 import cn.solarmoon.immersive_delight.common.item.block_item.*;
 import cn.solarmoon.immersive_delight.common.item.equipment.BathrobeItem;
 import cn.solarmoon.immersive_delight.common.item.food_block_item.*;
+import cn.solarmoon.immersive_delight.common.item.food_item.BaseFoodItem;
 import cn.solarmoon.immersive_delight.common.item.product.*;
 import cn.solarmoon.immersive_delight.common.item.recipe_item.ChineseCleaverItem;
 import cn.solarmoon.immersive_delight.common.item.recipe_item.RollingPinItem;
@@ -51,12 +51,6 @@ public enum IMItems implements IRegister {
     public static final ItemEntry<KettleItem> KETTLE = ImmersiveDelight.REGISTRY.item()
             .id("kettle")
             .bound(KettleItem::new)
-            .build();
-
-    //锡纸盒
-    public static final ItemEntry<TinFoilBoxItem> TIN_FOIL_BOX = ImmersiveDelight.REGISTRY.item()
-            .id("tin_foil_box")
-            .bound(TinFoilBoxItem::new)
             .build();
 
     //汤锅
@@ -135,6 +129,22 @@ public enum IMItems implements IRegister {
             .bound(SteamedBunItem::new)
             .build();
 
+    //南瓜汤
+    public static final ItemEntry<BowlSoupItem> PUMPKIN_SOUP = ImmersiveDelight.REGISTRY.item()
+            .id("pumpkin_soup")
+            .bound(() -> new BowlSoupItem("immersive_delight:pumpkin_soup_fluid",
+                    IMBlocks.PUMPKIN_SOUP.get(),
+                    6, 0.6f))
+            .build();
+
+    //紫菜蛋花汤
+    public static final ItemEntry<BowlSoupItem> SEAWEED_EGG_DROP_SOUP = ImmersiveDelight.REGISTRY.item()
+            .id("seaweed_egg_drop_soup")
+            .bound(() -> new BowlSoupItem("immersive_delight:seaweed_egg_drop_soup_fluid",
+                    IMBlocks.SEAWEED_EGG_DROP_SOUP.get(),
+                    6, 0.6f))
+            .build();
+
     //藏书羊肉汤
     public static final ItemEntry<BowlSoupItem> CANGSHU_MUTTON_SOUP = ImmersiveDelight.REGISTRY.item()
             .id("cangshu_mutton_soup")
@@ -143,11 +153,108 @@ public enum IMItems implements IRegister {
                     6, 1.5f))
             .build();
 
-    //锡纸烧榴莲
-    public static final ItemEntry<TinFoilBoxFoodItem> ROASTED_DURIAN_IN_TIN_FOIL_BOX = ImmersiveDelight.REGISTRY.item()
-            .id("tin_foil_cooked_durian")
-            .bound(() -> new TinFoilBoxFoodItem(IMBlocks.TIN_FOIL_COOKED_DURIAN.get(),
-                    6, 0.75f))
+    //--//
+
+    //生羊肉丁
+    public static final ItemEntry<BaseFoodItem> RAW_DICED_MUTTON = ImmersiveDelight.REGISTRY.item()
+            .id("raw_diced_mutton")
+            .bound(() -> new BaseFoodItem(FoodProperty.PRIMARY_HUNGER_PRODUCT))
+            .build();
+
+    //生牛肉丁
+    public static final ItemEntry<BaseFoodItem> RAW_DICED_BEEF = ImmersiveDelight.REGISTRY.item()
+            .id("raw_diced_beef")
+            .bound(() -> new BaseFoodItem(FoodProperty.PRIMARY_HUNGER_PRODUCT))
+            .build();
+
+    //生猪肉丁
+    public static final ItemEntry<BaseFoodItem> RAW_DICED_PORK = ImmersiveDelight.REGISTRY.item()
+            .id("raw_diced_pork")
+            .bound(() -> new BaseFoodItem(FoodProperty.PRIMARY_HUNGER_PRODUCT))
+            .build();
+
+    //生鸡肉丁
+    public static final ItemEntry<BaseFoodItem> RAW_DICED_CHICKEN = ImmersiveDelight.REGISTRY.item()
+            .id("raw_diced_chicken")
+            .bound(() -> new BaseFoodItem(FoodProperty.PRIMARY_HUNGER_PRODUCT))
+            .build();
+
+    //熟羊肉丁
+    public static final ItemEntry<BaseFoodItem> COOKED_DICED_MUTTON = ImmersiveDelight.REGISTRY.item()
+            .id("cooked_diced_mutton")
+            .bound(() -> new BaseFoodItem(4, 0.5f))
+            .build();
+
+    //熟牛肉丁
+    public static final ItemEntry<BaseFoodItem> COOKED_DICED_BEEF = ImmersiveDelight.REGISTRY.item()
+            .id("cooked_diced_beef")
+            .bound(() -> new BaseFoodItem(4, 0.5f))
+            .build();
+
+    //熟猪肉丁
+    public static final ItemEntry<BaseFoodItem> COOKED_DICED_PORK = ImmersiveDelight.REGISTRY.item()
+            .id("cooked_diced_pork")
+            .bound(() -> new BaseFoodItem(4, 0.5f))
+            .build();
+
+    //熟鸡肉丁
+    public static final ItemEntry<BaseFoodItem> COOKED_DICED_CHICKEN = ImmersiveDelight.REGISTRY.item()
+            .id("cooked_diced_chicken")
+            .bound(() -> new BaseFoodItem(4, 0.5f))
+            .build();
+
+    //生羊肉串
+    public static final ItemEntry<BaseFoodItem> RAW_MUTTON_SKEWER = ImmersiveDelight.REGISTRY.item()
+            .id("raw_mutton_skewer")
+            .bound(() -> new BaseFoodItem(FoodProperty.PRIMARY_HUNGER_PRODUCT_1))
+            .build();
+
+    //生牛肉串
+    public static final ItemEntry<BaseFoodItem> RAW_BEEF_SKEWER = ImmersiveDelight.REGISTRY.item()
+            .id("raw_beef_skewer")
+            .bound(() -> new BaseFoodItem(FoodProperty.PRIMARY_HUNGER_PRODUCT_1))
+            .build();
+
+    //生猪肉串
+    public static final ItemEntry<BaseFoodItem> RAW_PORK_SKEWER = ImmersiveDelight.REGISTRY.item()
+            .id("raw_pork_skewer")
+            .bound(() -> new BaseFoodItem(FoodProperty.PRIMARY_HUNGER_PRODUCT_1))
+            .build();
+
+    //生鸡肉串
+    public static final ItemEntry<BaseFoodItem> RAW_CHICKEN_SKEWER = ImmersiveDelight.REGISTRY.item()
+            .id("raw_chicken_skewer")
+            .bound(() -> new BaseFoodItem(FoodProperty.PRIMARY_HUNGER_PRODUCT_1))
+            .build();
+
+    //烤羊肉串
+    public static final ItemEntry<BaseFoodItem> COOKED_MUTTON_SKEWER = ImmersiveDelight.REGISTRY.item()
+            .id("cooked_mutton_skewer")
+            .bound(() -> new BaseFoodItem(6, 0.5f))
+            .build();
+
+    //烤牛肉串
+    public static final ItemEntry<BaseFoodItem> COOKED_BEEF_SKEWER = ImmersiveDelight.REGISTRY.item()
+            .id("cooked_beef_skewer")
+            .bound(() -> new BaseFoodItem(6, 0.5f))
+            .build();
+
+    //烤猪肉串
+    public static final ItemEntry<BaseFoodItem> COOKED_PORK_SKEWER = ImmersiveDelight.REGISTRY.item()
+            .id("cooked_pork_skewer")
+            .bound(() -> new BaseFoodItem(6, 0.5f))
+            .build();
+
+    //烤鸡肉串
+    public static final ItemEntry<BaseFoodItem> COOKED_CHICKEN_SKEWER = ImmersiveDelight.REGISTRY.item()
+            .id("cooked_chicken_skewer")
+            .bound(() -> new BaseFoodItem(6, 0.5f))
+            .build();
+
+    //烤榴莲
+    public static final ItemEntry<BaseFoodItem> ROASTED_DURIAN = ImmersiveDelight.REGISTRY.item()
+            .id("roasted_durian")
+            .bound(() -> new BaseFoodItem(6, 0.75f))
             .build();
 
     //作物————————————————————————————————————————

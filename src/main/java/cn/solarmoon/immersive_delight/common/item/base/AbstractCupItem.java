@@ -86,7 +86,7 @@ public abstract class AbstractCupItem extends BlockItem implements ITankItem, IC
         int tankAmount = tankStack.getFluidInTank(0).getAmount();
         if(tankAmount >= getDrinkVolume(tankStack.getFluidInTank(0))) {
             FluidStack fluidStack = tankStack.getFluidInTank(0);
-            FarmerUtil.commonDrink(fluidStack, level, entity);
+            FarmerUtil.commonDrink(fluidStack, level, entity, true);
             tankStack.drain(getDrinkVolume(tankStack.getFluidInTank(0)), IFluidHandler.FluidAction.EXECUTE);
         } else if (tankAmount > 0) tankStack.drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.EXECUTE);
         return stack;

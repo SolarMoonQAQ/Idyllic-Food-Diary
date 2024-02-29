@@ -1,0 +1,12 @@
+{
+  "type": "immersive_delight:cleaver",
+  "input": {
+    "item": "minecraft:mutton"
+  },
+  "result": [
+    {
+      "item": "immersive_delight:raw_diced_mutton",
+      "count": 4
+    }
+  ]
+}

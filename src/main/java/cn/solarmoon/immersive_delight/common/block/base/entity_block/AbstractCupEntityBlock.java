@@ -109,7 +109,7 @@ public abstract class AbstractCupEntityBlock extends BaseTCEntityBlock {
                 //能吃却不能吃 不让用
                 if(!canEat(blockEntity, player)) return InteractionResult.PASS;
                 if(CountingDevice.getCount(playerTag) >= getPressCount()) {
-                    FarmerUtil.commonDrink(tank.getFluid(), level, player);
+                    FarmerUtil.commonDrink(tank.getFluid(), level, player, true);
                     tank.drain(getDrinkVolume(tank.getFluid()), IFluidHandler.FluidAction.EXECUTE);
                     tankEntity.setChanged();
                     CountingDevice.resetCount(playerTag, -1);

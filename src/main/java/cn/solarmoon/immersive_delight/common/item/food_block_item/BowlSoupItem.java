@@ -62,15 +62,22 @@ public class BowlSoupItem extends BlockItem {
 
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
-        Fluid fluid = ForgeRegistries.FLUIDS.getValue(new ResourceLocation(fluidBound));
-        if (fluid != null) {
-            FluidStack fluidStack = new FluidStack(fluid, 250);
-            FarmerUtil.commonDrink(fluidStack, level, entity);
-        }
-        if (entity instanceof Player player) {
+        applyFluidEffect(level, entity);
+        if (entity instanceof Player player && !player.isCreative()) {
             LevelSummonUtil.addItemToInventory(player, new ItemStack(Items.BOWL));
         }
         return super.finishUsingItem(stack, level, entity);
+    }
+
+    /**
+     * 应用液体效果
+     */
+    public void applyFluidEffect(Level level, LivingEntity entity) {
+        Fluid fluid = ForgeRegistries.FLUIDS.getValue(new ResourceLocation(fluidBound));
+        if (fluid != null) {
+            FluidStack fluidStack = new FluidStack(fluid, 250);
+            FarmerUtil.commonDrink(fluidStack, level, entity, false);
+        }
     }
 
     /**

@@ -83,8 +83,9 @@ public abstract class AbstractGrillEntityBlock extends BaseContainerEntityBlock 
         //存入煤炭
         if (heldItem.is(ItemTags.COALS)) {
             //直接存入64，不知道为什么蹲下右键不触发
-            ItemStack result = grill.getInventory().insertItem(6, heldItem, false);
-            if (!result.equals(heldItem)) {
+            ItemStack stack = heldItem.copy(); //科比防止假存储
+            ItemStack result = grill.getInventory().insertItem(6, stack, false);
+            if (!result.equals(stack)) {
                 if (!player.isCreative()) player.setItemInHand(hand, result);
                 level.playSound(null, pos, SoundEvents.LANTERN_STEP, SoundSource.BLOCKS);
                 grill.setChanged();
