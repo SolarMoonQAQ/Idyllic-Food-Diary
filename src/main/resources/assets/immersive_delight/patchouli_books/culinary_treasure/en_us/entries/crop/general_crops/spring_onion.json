@@ -1,0 +1,17 @@
+{
+  "name": "immersive_delight.crop.general_crops.spring_onion",
+  "category": "immersive_delight:crop/general_crops",
+  "icon": "immersive_delight:ginger",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "immersive_delight.crop.general_crops.spring_onion.page.1"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "immersive_delight:spring_onion,immersive_delight:wild_spring_onion",
+      "title": "immersive_delight.crop.general_crops.spring_onion.page.2.title"
+    }
+  ]
+}

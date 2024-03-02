@@ -3,5 +3,5 @@
   "description": "immersive_delight.cuisine.preparatory_food.desc",
   "icon": "immersive_delight:wheat_dough",
   "parent": "immersive_delight:cuisine",
-  "sortnum":1
+  "sortnum":2
 }

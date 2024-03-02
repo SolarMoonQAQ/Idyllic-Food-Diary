@@ -1,13 +1,14 @@
 package cn.solarmoon.immersive_delight.common.block.base;
 
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
-import cn.solarmoon.immersive_delight.common.item.food_block_item.BowlSoupItem;
+import cn.solarmoon.immersive_delight.common.item.food_block_item.BowlFoodItem;
+import cn.solarmoon.immersive_delight.data.tags.IMItemTags;
 import cn.solarmoon.solarmoon_core.common.block.BaseWaterBlock;
+import cn.solarmoon.solarmoon_core.common.block.IBedPartBlock;
 import cn.solarmoon.solarmoon_core.util.BlockUtil;
 import cn.solarmoon.solarmoon_core.util.CountingDevice;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -22,6 +23,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BedPart;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 
@@ -61,31 +63,41 @@ public abstract class AbstractLongPressEatFoodBlock extends BaseWaterBlock {
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         ItemStack heldItem = player.getItemInHand(hand);
+
+        if (getBlockLeft().asItem().getDefaultInstance().is(IMItemTags.FOOD_CONTAINER) && getThis(player, level, pos, state, hand)) {
+            level.playSound(null, pos, SoundEvents.ARMOR_EQUIP_LEATHER, SoundSource.PLAYERS, 0.5f, 1);
+            return InteractionResult.SUCCESS;
+        }
+
         if (player.canEat(false) && !heldItem.is(ROLLING_PIN.get())) {
 
             //计数装置
-            CompoundTag playerTag = CountingDevice.player(player, pos, level);
-            ImmersiveDelight.DEBUG.send("点击次数：" + CountingDevice.getCount(playerTag), level);
+            CountingDevice counting = new CountingDevice(player, pos);
+            ImmersiveDelight.DEBUG.send("点击次数：" + counting.getCount(), level);
 
             //吃的声音
             level.playSound(player, pos, getEatSound(), SoundSource.PLAYERS, 1.0F, 1.0F);
             //吃的粒子效果
             if(level.isClientSide) eatParticle(pos);
 
-            if (CountingDevice.getCount(playerTag) >= this.eatCount) {
+            if (counting.getCount() >= this.eatCount) {
 
                 ItemStack food = state.getBlock().asItem().getDefaultInstance();
                 //应用汤碗类的fluidEffect
-                if (food.getItem() instanceof BowlSoupItem soup) {
+                if (food.getItem() instanceof BowlFoodItem soup) {
                     soup.applyFluidEffect(level, player);
                 }
                 //吃掉！
                 player.eat(level, food);
 
                 //设置结束方块
-                BlockUtil.setBlockWithDirection(state, getBlockLeft().defaultBlockState(), level, pos);
+                BlockState stateTo = getBlockLeft().defaultBlockState();
+                if (getBlockLeft() instanceof IBedPartBlock) {
+                    BlockUtil.setBedPartBlock(state, stateTo, level, pos);
+                } // 双方块特殊放置
+                else BlockUtil.setBlockWithDirection(state, stateTo, level, pos);
                 //重置计数
-                CountingDevice.resetCount(playerTag);
+                counting.resetCount();
             }
 
             return InteractionResult.SUCCESS;

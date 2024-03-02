@@ -1,0 +1,8 @@
+{
+  "type": "immersive_delight:steamer",
+  "input": {
+    "item": "immersive_delight:uncooked_steamed_salmon"
+  },
+  "time": 1200,
+  "output": "immersive_delight:steamed_salmon"
+}

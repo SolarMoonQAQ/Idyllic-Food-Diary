@@ -1,0 +1,12 @@
+{
+  "type": "immersive_delight:cleaver",
+  "input": {
+    "item": "immersive_delight:ginger"
+  },
+  "result": [
+    {
+      "item": "immersive_delight:ginger_slice",
+      "count": 2
+    }
+  ]
+}

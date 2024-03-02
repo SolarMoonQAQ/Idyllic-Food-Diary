@@ -37,37 +37,4 @@ public class ItemMixin {
         }
     }
 
-    /**
-     * 蘑菇煲和甜菜汤的放置
-     */
-    @Inject(method = "useOn", at = @At("HEAD"))
-    public void useOn(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir) {
-        ItemStack stack = context.getItemInHand();
-        Player player = context.getPlayer();
-        Level level = context.getLevel();
-        Direction direction = context.getHorizontalDirection().getOpposite();
-        BlockPos pos = context.getClickedPos().relative(context.getClickedFace());
-        if (player != null && player.isCrouching() && level.getBlockState(pos).canBeReplaced()) {
-            if (stack.is(Items.MUSHROOM_STEW)) {
-                stack.shrink(1);
-                level.setBlock(pos,
-                        IMBlocks.MUSHROOM_STEW.get()
-                                .defaultBlockState()
-                                .setValue(IHorizontalFacingBlock.FACING, direction), 3);
-                level.playSound(null, pos, SoundEvents.BAMBOO_PLACE, SoundSource.BLOCKS);
-                player.swing(context.getHand());
-            } else if (stack.is(Items.BEETROOT_SOUP)) {
-                stack.shrink(1);
-                level.setBlock(pos,
-                        IMBlocks.BEETROOT_SOUP.get()
-                                .defaultBlockState()
-                                .setValue(IHorizontalFacingBlock.FACING, direction), 3);
-                level.playSound(null, pos, SoundEvents.BAMBOO_PLACE, SoundSource.BLOCKS);
-                player.swing(context.getHand());
-            }
-        }
-    }
-
-
-
 }

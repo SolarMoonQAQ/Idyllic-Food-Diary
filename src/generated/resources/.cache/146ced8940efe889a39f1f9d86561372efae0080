@@ -1,6 +1,7 @@
-// 1.20.1	2024-02-28T18:52:34.1081845	Tags for minecraft:block mod id immersive_delight
+// 1.20.1	2024-03-02T00:30:51.1319208	Tags for minecraft:block mod id immersive_delight
 6ad9bbe07f51538ba5f83b07ada6662728e175b6 data/immersive_delight/tags/blocks/can_be_rolled.json
 e4031dc5ae03f26564cf99b7159a3964aec56852 data/immersive_delight/tags/blocks/cutting_board.json
+644c1a96bbca1966552d0210724cc9d5fd2659b8 data/immersive_delight/tags/blocks/food_container.json
 a69ac5ef832121d535a9ca155435a40f483cab64 data/immersive_delight/tags/blocks/heat_source.json
 9843f525d7481f0e5e03777944d5d2aae0334ee5 data/immersive_delight/tags/blocks/mineable/cleaver.json
 cad9a5a9cd7fbcadde48916b4099150eb7a19e7f data/immersive_delight/tags/blocks/soup_container.json

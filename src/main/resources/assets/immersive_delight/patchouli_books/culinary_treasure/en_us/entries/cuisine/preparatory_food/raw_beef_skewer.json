@@ -2,7 +2,7 @@
   "name": "immersive_delight.cuisine.preparatory_food.raw_beef_skewer",
   "category": "immersive_delight:cuisine/preparatory_food",
   "icon": "immersive_delight:raw_beef_skewer",
-  "sortnum": 7,
+  "sortnum": 10,
   "pages": [
     {
       "type": "patchouli:spotlight",

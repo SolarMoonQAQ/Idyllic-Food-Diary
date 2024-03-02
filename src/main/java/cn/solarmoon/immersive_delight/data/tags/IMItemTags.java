@@ -1,6 +1,7 @@
 package cn.solarmoon.immersive_delight.data.tags;
 
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
+import cn.solarmoon.immersive_delight.common.registry.IMBlocks;
 import cn.solarmoon.immersive_delight.common.registry.IMItems;
 import cn.solarmoon.immersive_delight.compat.farmersdelight.registry.FDItems;
 import net.minecraft.core.HolderLookup;
@@ -87,11 +88,17 @@ public class IMItemTags extends ItemTagsProvider {
         tag(FORGE_EGGS).add(
                 Items.EGG
         ).replace(false);
+        //食物容器，目前知道可以用于是否在特殊食物类中使用getThis
+        tag(FOOD_CONTAINER).add(
+                IMItems.LONG_PORCELAIN_PLATE.get(),
+                Items.BOWL
+        );
     }
 
     //特殊效果
     public static final TagKey<Item> ROLLING_DOUGH = itemTag("dough");
     public static final TagKey<Item> TOOLTIP_FLUID_RENDER = itemTag("tooltip_fluid_render");
+    public static final TagKey<Item> FOOD_CONTAINER = itemTag("food_container");
 
     //一般配方标识等
     public static final TagKey<Item> TEA = itemTag("tea");

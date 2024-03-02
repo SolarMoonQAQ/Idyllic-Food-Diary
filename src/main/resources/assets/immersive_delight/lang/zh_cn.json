@@ -29,7 +29,15 @@
   "item.immersive_delight.durian_flesh": "榴莲肉",
   "item.immersive_delight.durian_shell": "榴莲壳",
 
-  "block.immersive_delight.garlic": "大蒜",
+  "item.immersive_delight.spring_onion": "小葱",
+  "block.immersive_delight.spring_onion_crop": "小葱",
+  "block.immersive_delight.wild_spring_onion": "野生小葱",
+  "item.immersive_delight.ginger": "姜",
+  "block.immersive_delight.ginger_crop": "姜",
+  "item.immersive_delight.ginger_slice": "姜片",
+  "item.immersive_delight.shredded_ginger": "姜丝",
+  "block.immersive_delight.wild_ginger": "野生姜",
+  "item.immersive_delight.garlic": "大蒜",
   "block.immersive_delight.garlic_crop": "大蒜",
   "item.immersive_delight.garlic_clove": "蒜瓣",
   "item.immersive_delight.garlic_sprouts": "蒜苗",
@@ -68,6 +76,10 @@
   "block.immersive_delight.seaweed_egg_drop_soup": "紫菜蛋花汤",
   "block.immersive_delight.cangshu_mutton_soup": "藏书羊肉汤",
 
+  "block.immersive_delight.long_porcelain_plate": "长瓷盘",
+  "block.immersive_delight.uncooked_steamed_salmon": "未烹饪的清蒸鲑鱼",
+  "block.immersive_delight.steamed_salmon": "清蒸鲑鱼",
+
 
 
   "block.immersive_delight.celadon_cup": "青瓷杯",
@@ -80,10 +92,12 @@
   "block.immersive_delight.soup_pot_with_fluid": "装有%s的汤锅",
   "block.immersive_delight.cutting_board": "砧板",
   "block.immersive_delight.grill": "烧烤架",
-  "block.immersive_delight.plate": "盘子",
+  "block.immersive_delight.service_plate": "餐盘",
   "block.immersive_delight.steamer": "蒸笼",
   "block.immersive_delight.steamer_base": "蒸笼底座",
   "block.immersive_delight.steamer_lid": "蒸笼盖",
+
+  "block.immersive_delight.bowl": "碗",
 
 
 
@@ -231,8 +245,17 @@
   "immersive_delight.cuisine.kitchen_utensils.steamer.page.3": "蒸笼是类似半砖一样可以堆叠连接的厨具，用蒸笼直接对着蒸笼右键即可堆叠。拥有四个1容量物品槽。蒸笼可以$(5)[空手蹲下+右键]$()一层层的取走。当蒸笼最下方的底座处于上汽状态，且蒸笼盖上了盖子，那么此组件就会处于$(l)上汽$()状态",
   "immersive_delight.cuisine.kitchen_utensils.steamer.page.4": "蒸笼盖只是一个用来给蒸笼加盖防止蒸汽流失的工具，但要注意给蒸笼盖盖子是直接对着蒸笼右键，而非用方块形式的盖子放在蒸笼上方。同时蒸笼盖只能盖最上层的蒸笼，尝试盖在连接处会导致盖子弹走。",
 
+  "immersive_delight.cuisine.tableware": "餐具",
+  "immersive_delight.cuisine.tableware.desc": "一方面，食物需要合适的餐具进行盛放，另一方面，部分餐具也能提升进食的体验。此处将为您展示本模组添加或修改的餐具。",
+  "immersive_delight.cuisine.tableware.bowl": "碗",
+  "immersive_delight.cuisine.tableware.bowl.page.1": "对于任何碗/碗装食物：$(br)需要$(5)[蹲下+右键]$()放置$(br)可以$(5)[空手蹲下+右键]$()取走$(br)$(br)为了更契合原版的设计，碗本身并不被设计为一个存储容器，只作为特定食物的基底而存在。",
+  "immersive_delight.cuisine.tableware.long_porcelain_plate": "长瓷盘",
+  "immersive_delight.cuisine.tableware.long_porcelain_plate.page.1": "对于任何盘/盘装食物：可以$(5)[空手蹲下+右键]$()取走$(br)$(br)长瓷盘为双格的食物容器，可以盛更为丰盛的菜品。",
+  "immersive_delight.cuisine.tableware.service_plate": "餐盘",
+  "immersive_delight.cuisine.tableware.service_plate.page.1": "不同于基础容器（如$(l:immersive_delight:cuisine/tableware/bowl)碗$()），餐盘拥有64x1的存储空间并且只接受可食用物品。可以拿着物品右键放入，物品会不断地向上叠高，$(5)[空手右键]$()可以食用其中食物，$(5)[空手蹲下+右键]$()可以逐个取出食物。",
+
   "immersive_delight.cuisine.preparatory_food": "初加工食物",
-  "immersive_delight.cuisine.preparatory_food.desc": "初加工食物，在这里也可以认为是预制食物，指那些已经进行了一定加工但还能继续精加工的食物。初加工食物作为一些食物的“中转站”而存在，食用效率较低。",
+  "immersive_delight.cuisine.preparatory_food.desc": "初加工食物，在这里也可以认为是预制食物或是辅料，指那些已经进行了一定加工但还能继续精加工的食物。初加工食物作为一些食物的“中转站”而存在，食用效率较低。",
   "immersive_delight.cuisine.preparatory_food.wheat_dough": "面团",
   "immersive_delight.cuisine.preparatory_food.wheat_dough.page.1": "可以$(5)[蹲下+右键]$()放置食用$(br)方块形式的面团比较敏感，当任何活体在上方累计踩了三下后，面团就会被踩成面饼。同时，如果生物从大于5格的地方摔到面团上，面团也会被压成面饼。",
   "immersive_delight.cuisine.preparatory_food.flatbread_dough": "面饼",
@@ -249,6 +272,13 @@
   "immersive_delight.cuisine.preparatory_food.raw_diced_chicken": "生鸡肉丁",
   "immersive_delight.cuisine.preparatory_food.raw_diced_chicken.page.1": "",
 
+  "immersive_delight.cuisine.preparatory_food.garlic_clove": "蒜瓣",
+  "immersive_delight.cuisine.preparatory_food.garlic_clove.page.1": "",
+  "immersive_delight.cuisine.preparatory_food.ginger_slice": "姜片",
+  "immersive_delight.cuisine.preparatory_food.ginger_slice.page.1": "",
+  "immersive_delight.cuisine.preparatory_food.shredded_ginger": "姜丝",
+  "immersive_delight.cuisine.preparatory_food.shredded_ginger.page.1": "",
+
   "immersive_delight.cuisine.preparatory_food.raw_mutton_skewer": "生羊肉串",
   "immersive_delight.cuisine.preparatory_food.raw_mutton_skewer.page.1": "",
   "immersive_delight.cuisine.preparatory_food.raw_beef_skewer": "生牛肉串",
@@ -257,6 +287,9 @@
   "immersive_delight.cuisine.preparatory_food.raw_pork_skewer.page.1": "",
   "immersive_delight.cuisine.preparatory_food.raw_chicken_skewer": "生鸡肉串",
   "immersive_delight.cuisine.preparatory_food.raw_chicken_skewer.page.1": "",
+
+  "immersive_delight.cuisine.preparatory_food.uncooked_steamed_salmon": "未烹饪的清蒸鲑鱼",
+  "immersive_delight.cuisine.preparatory_food.uncooked_steamed_salmon.page.1": "可以$(5)[蹲下+右键]$()放置食用$(br)可以$(5)[空手蹲下+右键]$()取走",
 
   "immersive_delight.cuisine.delicacies": "美食",
   "immersive_delight.cuisine.delicacies.desc": "此处将为您介绍本模组所有可制作的美食，享受吧！",
@@ -297,15 +330,24 @@
   "immersive_delight.cuisine.delicacies.cangshu_mutton_soup": "藏书羊肉汤",
   "immersive_delight.cuisine.delicacies.cangshu_mutton_soup.page.1": "可以$(5)[蹲下+右键]$()放置食用$(br)可以$(5)[空手蹲下+右键]$()取走$(br)食用后获得：$(l:immersive_delight:effect/snug)温暖$()、力量$(br)$(o)$(7)藏书羊肉历史悠久，以其独特的烧煮技艺，烹调成各式羊肉菜肴，因其肉香汤鲜、味美可口、营养丰富而深受人们喜爱，是冬令进补佳品。",
 
+  "immersive_delight.cuisine.delicacies.steamed_salmon": "清蒸鲑鱼",
+  "immersive_delight.cuisine.delicacies.steamed_salmon.page.1": "大餐$(br)放置后右键食用$(br)可以$(5)[空手蹲下+右键]$()取走$(br)可食用数：5",
+
   "immersive_delight.crop": "农作物",
   "immersive_delight.crop.desc": "食之根本在于自然生长的万物，从自然循环中摄取能量，这是食的必经之路。同时美食家们为了探求美味的秘诀，也发掘出了许多美味的作物......",
 
   "immersive_delight.crop.general_crops": "一般作物",
   "immersive_delight.crop.general_crops.desc": "此处将为您介绍本模组的一般作物",
+  "immersive_delight.crop.general_crops.spring_onion": "小葱",
+  "immersive_delight.crop.general_crops.spring_onion.page.1": "种子：小葱$(br)产物：小葱$(br)$(3)野生小葱可在平原中找到。$()",
+  "immersive_delight.crop.general_crops.spring_onion.page.2.title": "相关物品展示",
+  "immersive_delight.crop.general_crops.ginger": "姜",
+  "immersive_delight.crop.general_crops.ginger.page.1": "种子：姜$(br)产物：姜$(br)$(3)野生姜可在森林、萨瓦纳草原中找到。$()",
+  "immersive_delight.crop.general_crops.ginger.page.2.title": "相关物品展示",
   "immersive_delight.crop.general_crops.garlic": "大蒜",
   "immersive_delight.crop.general_crops.garlic.page.1": "种子：蒜瓣$(br)产物：大蒜、蒜苗$(br)$(3)野生大蒜可在森林中找到。$()",
   "immersive_delight.crop.general_crops.garlic.page.2.title": "相关物品展示",
-  "immersive_delight.crop.general_crops.garlic.page.3": "大蒜可以拿在手中用右键剥皮，可以剥出蒜瓣。$(br)同时方块形式的大蒜可以互相堆叠，一格最多堆叠5个大蒜。空手右键可以取出堆叠的大蒜。",
+  "immersive_delight.crop.general_crops.garlic.page.3": "大蒜可以拿在手中用右键剥皮，可以剥出蒜瓣。",
 
   "immersive_delight.crop.tea": "茶",
   "immersive_delight.crop.tea.desc": "茶，具有千年以上的食用历史，茶叶长于茶树，无论用于冲泡亦或是作为食材香料，皆为上品。",

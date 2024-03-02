@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "create:dough"
+          "name": "immersive_delight:wheat_dough"
         }
       ],
       "rolls": 1.0

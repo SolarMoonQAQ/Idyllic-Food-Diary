@@ -50,4 +50,5 @@ public class GarlicCropBlock extends BaseCropBlock {
         }
         return drops;
     }
+
 }

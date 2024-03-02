@@ -1,0 +1,15 @@
+{
+  "name": "immersive_delight.cuisine.preparatory_food.uncooked_steamed_salmon",
+  "category": "immersive_delight:cuisine/preparatory_food",
+  "icon": "immersive_delight:uncooked_steamed_salmon",
+  "sortnum": 14,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": {
+        "item": "immersive_delight:uncooked_steamed_salmon"
+      },
+      "text": "immersive_delight.cuisine.preparatory_food.uncooked_steamed_salmon.page.1"
+    }
+  ]
+}

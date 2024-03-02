@@ -2,7 +2,7 @@
   "name": "immersive_delight.cuisine.preparatory_food.raw_diced_beef",
   "category": "immersive_delight:cuisine/preparatory_food",
   "icon": "immersive_delight:raw_diced_beef",
-  "sortnum": 3,
+  "sortnum": 6,
   "pages": [
     {
       "type": "patchouli:spotlight",

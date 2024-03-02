@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "covered=false,stack=1,facing=north": { "model": "immersive_delight:block/steamer_1", "y": 180 },
+    "covered=false,stack=1,facing=south": { "model": "immersive_delight:block/steamer_1", "y": 0 },
+    "covered=false,stack=1,facing=east": { "model": "immersive_delight:block/steamer_1", "y": 90 },
+    "covered=false,stack=1,facing=west": { "model": "immersive_delight:block/steamer_1", "y": 270 },
+    "covered=false,stack=2,facing=north": { "model": "immersive_delight:block/steamer_2", "y": 180 },
+    "covered=false,stack=2,facing=south": { "model": "immersive_delight:block/steamer_2", "y": 0 },
+    "covered=false,stack=2,facing=east": { "model": "immersive_delight:block/steamer_2", "y": 90 },
+    "covered=false,stack=2,facing=west": { "model": "immersive_delight:block/steamer_2", "y": 270 },
+    "covered=true,stack=1,facing=north": { "model": "immersive_delight:block/steamer_1_covered", "y": 180 },
+    "covered=true,stack=1,facing=south": { "model": "immersive_delight:block/steamer_1_covered", "y": 0 },
+    "covered=true,stack=1,facing=east": { "model": "immersive_delight:block/steamer_1_covered", "y": 90 },
+    "covered=true,stack=1,facing=west": { "model": "immersive_delight:block/steamer_1_covered", "y": 270 },
+    "covered=true,stack=2,facing=north": { "model": "immersive_delight:block/steamer_2_covered", "y": 180 },
+    "covered=true,stack=2,facing=south": { "model": "immersive_delight:block/steamer_2_covered", "y": 0 },
+    "covered=true,stack=2,facing=east": { "model": "immersive_delight:block/steamer_2_covered", "y": 90 },
+    "covered=true,stack=2,facing=west": { "model": "immersive_delight:block/steamer_2_covered", "y": 270 }
+  }
+}

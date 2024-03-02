@@ -46,7 +46,7 @@ import java.util.List;
 
 public abstract class AbstractSteamerEntityBlock extends BaseContainerEntityBlock implements IStackBlock {
 
-    public static final BooleanProperty HAS_LID = BooleanProperty.create("has_lid");
+    public static final BooleanProperty HAS_LID = BooleanProperty.create("covered");
 
 
     public AbstractSteamerEntityBlock(Properties properties) {

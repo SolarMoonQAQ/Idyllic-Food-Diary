@@ -2,7 +2,7 @@
   "name": "immersive_delight.crop.general_crops.garlic",
   "category": "immersive_delight:crop/general_crops",
   "icon": "immersive_delight:garlic",
-  "sortnum": 0,
+  "sortnum": 2,
   "pages": [
     {
       "type": "patchouli:text",

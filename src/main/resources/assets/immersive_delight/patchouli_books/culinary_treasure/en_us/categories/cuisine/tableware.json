@@ -1,0 +1,7 @@
+{
+  "name": "immersive_delight.cuisine.tableware",
+  "description": "immersive_delight.cuisine.tableware.desc",
+  "icon": "minecraft:bowl",
+  "parent": "immersive_delight:cuisine",
+  "sortnum":1
+}

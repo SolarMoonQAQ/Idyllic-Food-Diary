@@ -1,7 +1,10 @@
 package cn.solarmoon.immersive_delight.common.block.base;
 
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
+import cn.solarmoon.immersive_delight.data.tags.IMItemTags;
 import cn.solarmoon.solarmoon_core.common.block.BaseWaterBlock;
+import cn.solarmoon.solarmoon_core.common.block.IBedPartBlock;
+import cn.solarmoon.solarmoon_core.util.BlockUtil;
 import cn.solarmoon.solarmoon_core.util.LevelSummonUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -17,6 +20,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
@@ -94,6 +98,12 @@ public abstract class AbstractTakenFoodBlock extends BaseWaterBlock {
 
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+
+        if (getBlockLeft().asItem().getDefaultInstance().is(IMItemTags.FOOD_CONTAINER) && getThis(player, level, pos, state, hand)) {
+            level.playSound(null, pos, SoundEvents.ARMOR_EQUIP_LEATHER, SoundSource.PLAYERS, 0.5f, 1);
+            return InteractionResult.SUCCESS;
+        }
+
         ItemStack heldItem = player.getItemInHand(hand);
         int remain = state.getValue(REMAIN);
         if (remain > 0) {
@@ -104,7 +114,11 @@ public abstract class AbstractTakenFoodBlock extends BaseWaterBlock {
                 level.setBlock(pos, targetState, 3);
 
                 if (targetState.getValue(REMAIN) == 0) {
-                    level.setBlock(pos, leftBlock.defaultBlockState(), 3);
+                    BlockState stateTo = getBlockLeft().defaultBlockState();
+                    if (getBlockLeft() instanceof IBedPartBlock) {
+                        BlockUtil.setBedPartBlock(state, stateTo, level, pos);
+                    } // 双方块特殊放置
+                    else BlockUtil.setBlockWithDirection(state, stateTo, level, pos);
                 }
 
                 if (!this.container.equals(Items.AIR)) heldItem.shrink(1);
@@ -117,6 +131,13 @@ public abstract class AbstractTakenFoodBlock extends BaseWaterBlock {
             } else player.displayClientMessage(ImmersiveDelight.TRANSLATOR.set("message", "container_required", this.getContainer().getHoverName()), true);
         }
         return InteractionResult.PASS;
+    }
+
+    /**
+     * @return 决定吃完后留下的方块
+     */
+    public Block getBlockLeft() {
+        return Blocks.AIR;
     }
 
     @Override

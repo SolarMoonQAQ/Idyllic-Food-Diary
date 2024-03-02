@@ -1,0 +1,17 @@
+{
+  "name": "immersive_delight.crop.general_crops.ginger",
+  "category": "immersive_delight:crop/general_crops",
+  "icon": "immersive_delight:ginger",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "immersive_delight.crop.general_crops.ginger.page.1"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "immersive_delight:ginger,immersive_delight:wild_ginger",
+      "title": "immersive_delight.crop.general_crops.ginger.page.2.title"
+    }
+  ]
+}

@@ -32,29 +32,8 @@ public class BowlSoupBlock extends AbstractLongPressEatFoodBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        if (getThis(player, level, pos, state, hand)) return InteractionResult.SUCCESS;
-        return super.use(state, level, pos, player, hand, hit);
-    }
-
-    /**
-     * 把方块快速拿到空手里
-     */
-    public boolean getThis(Player player, Level level, BlockPos pos, BlockState state, InteractionHand hand) {
-        ItemStack heldItem = player.getItemInHand(hand);
-        if(hand.equals(InteractionHand.MAIN_HAND) && heldItem.isEmpty() && player.isCrouching()) {
-            ItemStack copy = getCloneItemStack(level, pos, state);
-            level.removeBlock(pos, false);
-            level.playSound(player, pos, SoundEvents.ARMOR_EQUIP_LEATHER, SoundSource.PLAYERS, 1F, 1F);
-            player.setItemInHand(hand, copy);
-            return true;
-        }
-        return false;
-    }
-
-    @Override
     public Block getBlockLeft() {
-        return IMBlocks.STEAMED_EGG_CUSTARD.get();
+        return IMBlocks.BOWL.get();
     }
 
     @Override
@@ -67,8 +46,4 @@ public class BowlSoupBlock extends AbstractLongPressEatFoodBlock {
         return Block.box(4.0D, 0.0D, 4.0D, 12.0D, 4.0D, 12.0D);
     }
 
-    @Override
-    public Item asItem() {
-        return super.asItem();
-    }
 }

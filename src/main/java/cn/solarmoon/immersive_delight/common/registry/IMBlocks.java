@@ -2,8 +2,11 @@ package cn.solarmoon.immersive_delight.common.registry;
 
 
 import cn.solarmoon.immersive_delight.ImmersiveDelight;
-import cn.solarmoon.immersive_delight.common.block.DurianBlock;
-import cn.solarmoon.immersive_delight.common.block.GarlicBlock;
+import cn.solarmoon.immersive_delight.common.block.BowlBlock;
+import cn.solarmoon.immersive_delight.common.block.LongPorcelainPlateBlock;
+import cn.solarmoon.immersive_delight.common.block.consume_food_block.SteamedSalmonBlock;
+import cn.solarmoon.immersive_delight.common.block.long_press_eat_block.uncooked.UncookedSteamedSalmonBlock;
+import cn.solarmoon.immersive_delight.common.block.product.DurianBlock;
 import cn.solarmoon.immersive_delight.common.block.SteamerLidBlock;
 import cn.solarmoon.immersive_delight.common.block.crop.*;
 import cn.solarmoon.immersive_delight.common.block.entity_block.*;
@@ -32,15 +35,15 @@ public enum IMBlocks implements IRegister {
             .build();
 
     //碗装蛋液
-    public static final BlockEntry<BowlFoodUnShapeBlock> EGG_LIQUID_BOWL = ImmersiveDelight.REGISTRY.block()
+    public static final BlockEntry<BowlFoodShapedBlock> EGG_LIQUID_BOWL = ImmersiveDelight.REGISTRY.block()
             .id("egg_liquid_bowl")
-            .bound(BowlFoodUnShapeBlock::new)
+            .bound(BowlFoodShapedBlock::new)
             .build();
 
     //鸡蛋羹
-    public static final BlockEntry<BowlFoodUnShapeBlock> STEAMED_EGG_CUSTARD = ImmersiveDelight.REGISTRY.block()
+    public static final BlockEntry<BowlFoodShapedBlock> STEAMED_EGG_CUSTARD = ImmersiveDelight.REGISTRY.block()
             .id("steamed_egg_custard")
-            .bound(BowlFoodUnShapeBlock::new)
+            .bound(BowlFoodShapedBlock::new)
             .build();
 
     //馒头
@@ -123,19 +126,37 @@ public enum IMBlocks implements IRegister {
             .bound(DurianSaplingBlock::new)
             .build();
 
+    //葱作物
+    public static final BlockEntry<SpringOnionCropBlock> SPRING_ONION_CROP = ImmersiveDelight.REGISTRY.block()
+            .id("spring_onion_crop")
+            .bound(SpringOnionCropBlock::new)
+            .build();
+
     //大蒜作物
-    public static final BlockEntry<GarlicBlock> GARLIC_CROP = ImmersiveDelight.REGISTRY.block()
+    public static final BlockEntry<GarlicCropBlock> GARLIC_CROP = ImmersiveDelight.REGISTRY.block()
             .id("garlic_crop")
             .bound(GarlicCropBlock::new)
             .build();
 
-    //大蒜
-    public static final BlockEntry<GarlicBlock> GARLIC = ImmersiveDelight.REGISTRY.block()
-            .id("garlic")
-            .bound(GarlicBlock::new)
+    //姜作物
+    public static final BlockEntry<GingerCropBlock> GINGER_CROP = ImmersiveDelight.REGISTRY.block()
+            .id("ginger_crop")
+            .bound(GingerCropBlock::new)
             .build();
 
     //————————————————————————————————————————————————————————————————————————————————//
+
+    //野生葱
+    public static final BlockEntry<WildCropBlock> WILD_SPRING_ONION = ImmersiveDelight.REGISTRY.block()
+            .id("wild_spring_onion")
+            .bound(() -> new WildCropBlock(MobEffects.BLINDNESS, 8))
+            .build();
+
+    //野生姜
+    public static final BlockEntry<WildCropBlock> WILD_GINGER = ImmersiveDelight.REGISTRY.block()
+            .id("wild_ginger")
+            .bound(() -> new WildCropBlock(MobEffects.DIG_SPEED, 8))
+            .build();
 
     //野生大蒜
     public static final BlockEntry<WildCropBlock> WILD_GARLIC = ImmersiveDelight.REGISTRY.block()
@@ -182,9 +203,9 @@ public enum IMBlocks implements IRegister {
             .build();
 
     //盘子
-    public static final BlockEntry<PlateEntityBlock> PLATE = ImmersiveDelight.REGISTRY.block()
-            .id("plate")
-            .bound(PlateEntityBlock::new)
+    public static final BlockEntry<ServicePlateEntityBlock> SERVICE_PLATE = ImmersiveDelight.REGISTRY.block()
+            .id("service_plate")
+            .bound(ServicePlateEntityBlock::new)
             .build();
 
     //蒸笼
@@ -203,6 +224,34 @@ public enum IMBlocks implements IRegister {
     public static final BlockEntry<SteamerLidBlock> STEAMER_LID = ImmersiveDelight.REGISTRY.block()
             .id("steamer_lid")
             .bound(SteamerLidBlock::new)
+            .build();
+
+    //-----------------------------------------------------------------------
+
+    //碗
+    public static final BlockEntry<BowlBlock> BOWL = ImmersiveDelight.REGISTRY.block()
+            .id("bowl")
+            .bound(BowlBlock::new)
+            .build();
+
+    //长瓷盘
+    public static final BlockEntry<LongPorcelainPlateBlock> LONG_PORCELAIN_PLATE = ImmersiveDelight.REGISTRY.block()
+            .id("long_porcelain_plate")
+            .bound(LongPorcelainPlateBlock::new)
+            .build();
+
+    //-----------------------------------------------------------------------
+
+    //未烹饪的清蒸鲑鱼
+    public static final BlockEntry<UncookedSteamedSalmonBlock> UNCOOKED_STEAMED_SALMON = ImmersiveDelight.REGISTRY.block()
+            .id("uncooked_steamed_salmon")
+            .bound(UncookedSteamedSalmonBlock::new)
+            .build();
+
+    //清蒸鲑鱼
+    public static final BlockEntry<SteamedSalmonBlock> STEAMED_SALMON = ImmersiveDelight.REGISTRY.block()
+            .id("steamed_salmon")
+            .bound(SteamedSalmonBlock::new)
             .build();
 
 }

@@ -7,6 +7,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.data.BlockTagsProvider;
@@ -77,6 +78,11 @@ public class IMBlockTags extends BlockTagsProvider {
         tag(BlockTags.SMALL_FLOWERS).add(
                 IMBlocks.WILD_GARLIC.get()
         );
+        //食物容器，目前知道可以用于是否在特殊食物类中使用getThis
+        tag(FOOD_CONTAINER).add(
+                IMBlocks.LONG_PORCELAIN_PLATE.get(),
+                IMBlocks.BOWL.get()
+        );
     }
 
     public static final TagKey<Block> CAN_BE_ROLLED = blockTag("can_be_rolled");
@@ -84,6 +90,7 @@ public class IMBlockTags extends BlockTagsProvider {
     public static final TagKey<Block> MINEABLE_WITH_CLEAVER = blockTag("mineable/cleaver");
     public static final TagKey<Block> SOUP_CONTAINER = blockTag("soup_container");
     public static final TagKey<Block> CUTTING_BOARD = blockTag("cutting_board");
+    public static final TagKey<Block> FOOD_CONTAINER = blockTag("food_container");
 
     private static TagKey<Block> blockTag(String path) {
         return BlockTags.create(new ResourceLocation(ImmersiveDelight.MOD_ID, path));

@@ -76,6 +76,30 @@ public enum IMFeatures implements IRegister {
             ))
             .build();
 
+    public static final FeatureEntry<WildCropConfig> WILD_SPRING_ONION = ImmersiveDelight.REGISTRY.feature()
+            .id("wild_spring_onion")
+            .bound(WildCropFeature::new)
+            .config(() -> WildCropConfig.createBase(IMBlocks.WILD_SPRING_ONION.get(), Blocks.ALLIUM, BlockPredicate.matchesTag(BLOCK_BELOW, BlockTags.DIRT)))
+            .placement(() -> List.of(
+                    RarityFilter.onAverageOnceEvery(120),
+                    InSquarePlacement.spread(),
+                    PlacementUtils.HEIGHTMAP,
+                    BiomeFilter.biome()
+            ))
+            .build();
+
+    public static final FeatureEntry<WildCropConfig> WILD_GINGER = ImmersiveDelight.REGISTRY.feature()
+            .id("wild_ginger")
+            .bound(WildCropFeature::new)
+            .config(() -> WildCropConfig.createBase(IMBlocks.WILD_GINGER.get(), Blocks.GRASS, BlockPredicate.matchesTag(BLOCK_BELOW, BlockTags.DIRT)))
+            .placement(() -> List.of(
+                    RarityFilter.onAverageOnceEvery(120),
+                    InSquarePlacement.spread(),
+                    PlacementUtils.HEIGHTMAP,
+                    BiomeFilter.biome()
+            ))
+            .build();
+
     public static final FeatureEntry<WildCropConfig> WILD_GARLIC = ImmersiveDelight.REGISTRY.feature()
             .id("wild_garlic")
             .bound(WildCropFeature::new)

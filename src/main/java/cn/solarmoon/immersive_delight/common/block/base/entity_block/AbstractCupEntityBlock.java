@@ -69,9 +69,9 @@ public abstract class AbstractCupEntityBlock extends BaseTCEntityBlock {
         if(getThis(player, level, pos, state, hand)) return InteractionResult.SUCCESS;
 
         //计数装置
-        CompoundTag playerTag = CountingDevice.player(player, pos, level);
+        CountingDevice counting = new CountingDevice(player, pos);
         if(canEat(blockEntity, player)) {
-            ImmersiveDelight.DEBUG.send("点击次数：" + CountingDevice.getCount(playerTag), level);
+            ImmersiveDelight.DEBUG.send("点击次数：" + counting.getCount(), level);
         }
 
         //只能存不能取液体
@@ -108,20 +108,20 @@ public abstract class AbstractCupEntityBlock extends BaseTCEntityBlock {
             if (tankAmount >= getDrinkVolume(tank.getFluid())) {
                 //能吃却不能吃 不让用
                 if(!canEat(blockEntity, player)) return InteractionResult.PASS;
-                if(CountingDevice.getCount(playerTag) >= getPressCount()) {
+                if(counting.getCount() >= getPressCount()) {
                     FarmerUtil.commonDrink(tank.getFluid(), level, player, true);
                     tank.drain(getDrinkVolume(tank.getFluid()), IFluidHandler.FluidAction.EXECUTE);
                     tankEntity.setChanged();
-                    CountingDevice.resetCount(playerTag, -1);
+                    counting.setCount(-1);
                     ImmersiveDelight.DEBUG.send("已有tag：" + blockEntity.getPersistentData(), level);
                     if(!level.isClientSide) level.playSound(null, pos, SoundEvents.GENERIC_DRINK, SoundSource.PLAYERS, 1F, 1F);
                 }
                 return InteractionResult.SUCCESS;
             } else if (tankAmount > 0) {
-                if(CountingDevice.getCount(playerTag) >= getPressCount()) {
+                if(counting.getCount() >= getPressCount()) {
                     tank.drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.EXECUTE);
                     tankEntity.setChanged();
-                    CountingDevice.resetCount(playerTag, -1);
+                    counting.setCount(-1);
                     if(!level.isClientSide) level.playSound(null, pos, SoundEvents.GENERIC_DRINK, SoundSource.PLAYERS, 1F, 1F);
                 }
                 return InteractionResult.SUCCESS;

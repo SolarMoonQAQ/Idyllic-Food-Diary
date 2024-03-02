@@ -1,0 +1,15 @@
+{
+  "name": "immersive_delight.cuisine.tableware.service_plate",
+  "category": "immersive_delight:cuisine/tableware",
+  "icon": "immersive_delight:service_plate",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": {
+        "item": "immersive_delight:service_plate"
+      },
+      "text": "immersive_delight.cuisine.tableware.service_plate.page.1"
+    }
+  ]
+}

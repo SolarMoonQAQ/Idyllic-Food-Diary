@@ -2,7 +2,7 @@
   "name": "immersive_delight.cuisine.preparatory_food.raw_diced_mutton",
   "category": "immersive_delight:cuisine/preparatory_food",
   "icon": "immersive_delight:raw_diced_mutton",
-  "sortnum": 5,
+  "sortnum": 8,
   "pages": [
     {
       "type": "patchouli:spotlight",

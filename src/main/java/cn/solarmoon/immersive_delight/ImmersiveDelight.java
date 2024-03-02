@@ -2,6 +2,8 @@ package cn.solarmoon.immersive_delight;
 
 import cn.solarmoon.immersive_delight.client.registry.*;
 import cn.solarmoon.immersive_delight.common.registry.*;
+import cn.solarmoon.immersive_delight.common.registry.ability.Composter;
+import cn.solarmoon.immersive_delight.common.registry.ability.Placer;
 import cn.solarmoon.immersive_delight.compat.appleskin.AppleSkin;
 import cn.solarmoon.immersive_delight.compat.create.Create;
 import cn.solarmoon.immersive_delight.compat.farmersdelight.FarmersDelight;
@@ -73,8 +75,8 @@ public class ImmersiveDelight {
         new IMDataPacks().register();
 
         //配置文件
-        new Config().register();
-
+        Config.register();
+        bus.addListener(Placer::onFMLSetup);
         bus.addListener(Composter::onFMLSetup);
 
         //—————————————————————————联动—————————————————————————//

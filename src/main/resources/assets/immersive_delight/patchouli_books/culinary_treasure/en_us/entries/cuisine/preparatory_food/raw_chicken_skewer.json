@@ -2,7 +2,7 @@
   "name": "immersive_delight.cuisine.preparatory_food.raw_chicken_skewer",
   "category": "immersive_delight:cuisine/preparatory_food",
   "icon": "immersive_delight:raw_chicken_skewer",
-  "sortnum": 10,
+  "sortnum": 13,
   "pages": [
     {
       "type": "patchouli:spotlight",
