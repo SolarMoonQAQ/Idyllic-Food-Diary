@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CHJ",
+    " # ",
+    " P "
+  ],
+  "key": {
+    "C": {
+      "item": "idyllic_food_diary:spring_onion"
+    },
+    "H": {
+      "item": "minecraft:lily_pad"
+    },
+    "J": {
+      "item": "idyllic_food_diary:ginger_slice"
+    },
+    "#": {
+      "item": "minecraft:chicken"
+    },
+    "P": {
+      "item": "idyllic_food_diary:wooden_plate"
+    }
+  },
+  "result": {
+    "item": "idyllic_food_diary:uncooked_steamed_lotus_leaf_chicken"
+  }
+}

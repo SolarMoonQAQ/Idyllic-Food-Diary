@@ -1,0 +1,11 @@
+{
+  "fluid": "idyllic_food_diary:hot_water",
+  "effects" : [
+    {
+      "id": "idyllic_food_diary:snug",
+      "duration": "60",
+      "amplifier": "0"
+    }
+  ],
+  "extinguishing": true
+}

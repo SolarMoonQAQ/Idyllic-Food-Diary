@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "block": "idyllic_food_diary:roasted_suckling_pig",
+          "condition": "minecraft:block_state_property",
+          "properties": {
+            "part": "head"
+          }
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "idyllic_food_diary:roasted_suckling_pig"
+        }
+      ],
+      "name": "pool1",
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "idyllic_food_diary:blocks/roasted_suckling_pig"
+}

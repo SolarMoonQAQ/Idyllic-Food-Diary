@@ -1,7 +1,0 @@
-{
-  "name": "immersive_delight.crop.general_crops",
-  "description": "immersive_delight.crop.general_crops.desc",
-  "icon": "immersive_delight:garlic",
-  "parent": "immersive_delight:crop",
-  "sortnum":0
-}

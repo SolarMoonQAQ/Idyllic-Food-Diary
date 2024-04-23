@@ -1,0 +1,16 @@
+{
+  "fluid": "idyllic_food_diary:green_tea",
+  "effects" : [
+    {
+      "id": "idyllic_food_diary:snug",
+      "duration": "60",
+      "amplifier": "0"
+    },
+    {
+      "id": "idyllic_food_diary:fleet_of_foot",
+      "duration": "90",
+      "amplifier": "1"
+    }
+  ],
+  "extinguishing": true
+}

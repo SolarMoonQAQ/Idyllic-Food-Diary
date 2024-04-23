@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#forge:is_plains",
+  "features": "idyllic_food_diary:wild_spring_onion",
+  "step": "vegetal_decoration"
+}

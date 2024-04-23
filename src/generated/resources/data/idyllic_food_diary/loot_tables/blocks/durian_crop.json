@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "idyllic_food_diary:durian_core"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "idyllic_food_diary:blocks/durian_crop"
+}

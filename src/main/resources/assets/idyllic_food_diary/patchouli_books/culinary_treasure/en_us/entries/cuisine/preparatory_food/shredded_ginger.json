@@ -1,0 +1,15 @@
+{
+  "name": "idyllic_food_diary.cuisine.preparatory_food.shredded_ginger",
+  "category": "idyllic_food_diary:cuisine/preparatory_food",
+  "icon": "idyllic_food_diary:shredded_ginger",
+  "sortnum": 5,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": {
+        "item": "idyllic_food_diary:shredded_ginger"
+      },
+      "text": "idyllic_food_diary.cuisine.preparatory_food.shredded_ginger.page.1"
+    }
+  ]
+}

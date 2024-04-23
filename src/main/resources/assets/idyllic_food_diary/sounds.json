@@ -1,0 +1,20 @@
+{
+  "player.pouring_water": {
+    "subtitle": "idyllic_food_diary.player.pouring_water",
+    "sounds": [
+      "idyllic_food_diary:player/pouring_water"
+    ]
+  },
+  "player.water_splashing": {
+    "subtitle": "idyllic_food_diary.player.water_splashing",
+    "sounds": [
+      "idyllic_food_diary:player/water_splashing"
+    ]
+  },
+  "block.boiling_water": {
+    "subtitle": "idyllic_food_diary.block.boiling_water",
+    "sounds": [
+      "idyllic_food_diary:block/boiling_water"
+    ]
+  }
+}

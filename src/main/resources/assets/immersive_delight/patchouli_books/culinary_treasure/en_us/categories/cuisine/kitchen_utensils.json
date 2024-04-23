@@ -1,7 +1,0 @@
-{
-  "name": "immersive_delight.cuisine.kitchen_utensils",
-  "description": "immersive_delight.cuisine.kitchen_utensils.desc",
-  "icon": "immersive_delight:soup_pot",
-  "parent": "immersive_delight:cuisine",
-  "sortnum":0
-}

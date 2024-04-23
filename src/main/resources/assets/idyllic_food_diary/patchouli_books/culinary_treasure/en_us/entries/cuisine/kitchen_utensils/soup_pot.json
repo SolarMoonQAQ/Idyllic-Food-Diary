@@ -1,0 +1,19 @@
+{
+  "name": "idyllic_food_diary.cuisine.kitchen_utensils.soup_pot",
+  "category": "idyllic_food_diary:cuisine/kitchen_utensils",
+  "icon": "idyllic_food_diary:soup_pot",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "idyllic_food_diary.cuisine.kitchen_utensils.soup_pot.page.1"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": {
+        "item": "idyllic_food_diary:soup_pot"
+      },
+      "text": "idyllic_food_diary.cuisine.kitchen_utensils.soup_pot.page.2"
+    }
+  ]
+}

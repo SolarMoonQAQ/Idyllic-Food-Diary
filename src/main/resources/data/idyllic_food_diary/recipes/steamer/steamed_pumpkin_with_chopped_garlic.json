@@ -1,0 +1,10 @@
+{
+  "type": "idyllic_food_diary:steamer",
+  "input": {
+    "item": "idyllic_food_diary:uncooked_steamed_pumpkin_with_chopped_garlic"
+  },
+  "time": 600,
+  "output": {
+    "item": "idyllic_food_diary:steamed_pumpkin_with_chopped_garlic"
+  }
+}

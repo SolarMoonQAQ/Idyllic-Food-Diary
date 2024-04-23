@@ -1,7 +1,0 @@
-{
-  "name": "immersive_delight.beverage.drinkable",
-  "description": "immersive_delight.beverage.drinkable.desc",
-  "icon": "immersive_delight:black_tea_bucket",
-  "parent": "immersive_delight:beverage",
-  "sortnum":1
-}

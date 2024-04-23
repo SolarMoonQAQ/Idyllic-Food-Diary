@@ -1,8 +1,0 @@
-{
-  "variants": {
-    "facing=north": { "model": "immersive_delight:block/jade_china_cup" },
-    "facing=south": { "model": "immersive_delight:block/jade_china_cup", "y": 180 },
-    "facing=east": { "model": "immersive_delight:block/jade_china_cup", "y": 90 },
-    "facing=west": { "model": "immersive_delight:block/jade_china_cup", "y": 270 }
-  }
-}

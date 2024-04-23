@@ -1,0 +1,13 @@
+{
+  "name": "idyllic_food_diary.beverage.drinkable.lava",
+  "category": "idyllic_food_diary:beverage/drinkable",
+  "icon": "minecraft:lava_bucket",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "idyllic_food_diary:jade_china_cup{Fluid:{Amount:250,FluidName:\"minecraft:lava\"}}",
+      "text": "idyllic_food_diary.beverage.drinkable.lava.page.1"
+    }
+  ]
+}

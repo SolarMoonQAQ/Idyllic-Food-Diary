@@ -1,0 +1,47 @@
+{
+  "name": "idyllic_food_diary.cuisine.tableware.general_container",
+  "category": "idyllic_food_diary:cuisine/tableware",
+  "icon": "minecraft:bowl",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "idyllic_food_diary.cuisine.tableware.general_container.page.1"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": {
+        "item": "minecraft:bowl"
+      },
+      "text": "idyllic_food_diary.cuisine.tableware.general_container.page.2"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": {
+        "item": "idyllic_food_diary:wooden_plate"
+      },
+      "text": "idyllic_food_diary.cuisine.tableware.general_container.page.3"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": {
+        "item": "idyllic_food_diary:long_wooden_plate"
+      },
+      "text": "idyllic_food_diary.cuisine.tableware.general_container.page.4"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": {
+        "item": "idyllic_food_diary:porcelain_plate"
+      },
+      "text": "idyllic_food_diary.cuisine.tableware.general_container.page.5"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": {
+        "item": "idyllic_food_diary:long_porcelain_plate"
+      },
+      "text": "idyllic_food_diary.cuisine.tableware.general_container.page.6"
+    }
+  ]
+}

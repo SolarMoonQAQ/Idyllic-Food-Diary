@@ -1,9 +1,12 @@
 {
   "values": [
-    "immersive_delight:durian",
-    "immersive_delight:cutting_board",
-    "immersive_delight:steamer_base",
-    "immersive_delight:steamer",
-    "immersive_delight:steamer_lid"
+    "idyllic_food_diary:durian",
+    "idyllic_food_diary:cutting_board",
+    "idyllic_food_diary:steamer_base",
+    "idyllic_food_diary:steamer",
+    "idyllic_food_diary:steamer_lid",
+    "idyllic_food_diary:bowl",
+    "idyllic_food_diary:wooden_plate",
+    "idyllic_food_diary:long_wooden_plate"
   ]
 }

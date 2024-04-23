@@ -1,0 +1,12 @@
+{
+  "type": "idyllic_food_diary:cleaver",
+  "input": {
+    "item": "minecraft:porkchop"
+  },
+  "result": [
+    {
+      "item": "idyllic_food_diary:minced_pork",
+      "count": 2
+    }
+  ]
+}

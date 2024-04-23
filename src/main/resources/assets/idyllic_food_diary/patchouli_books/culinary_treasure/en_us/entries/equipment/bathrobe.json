@@ -1,0 +1,13 @@
+{
+  "name": "idyllic_food_diary.equipment.bathrobe",
+  "category": "idyllic_food_diary:equipment",
+  "icon": "idyllic_food_diary:bathrobe",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "idyllic_food_diary:bathrobe",
+      "text": "idyllic_food_diary.equipment.bathrobe.page.1"
+    }
+  ]
+}

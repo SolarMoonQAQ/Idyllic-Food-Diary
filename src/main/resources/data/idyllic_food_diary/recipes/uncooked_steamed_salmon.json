@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CJC",
+    " # ",
+    " P "
+  ],
+  "key": {
+    "C": {
+      "item": "idyllic_food_diary:spring_onion"
+    },
+    "J": {
+      "item": "idyllic_food_diary:shredded_ginger"
+    },
+    "#": {
+      "item": "minecraft:salmon"
+    },
+    "P": {
+      "item": "idyllic_food_diary:long_porcelain_plate"
+    }
+  },
+  "result": {
+    "item": "idyllic_food_diary:uncooked_steamed_salmon"
+  }
+}

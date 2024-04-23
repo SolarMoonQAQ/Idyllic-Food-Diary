@@ -1,8 +1,0 @@
-{
-  "type": "immersive_delight:steamer",
-  "input": {
-    "item": "immersive_delight:egg_liquid_bowl"
-  },
-  "time": 400,
-  "output": "immersive_delight:steamed_egg_custard"
-}

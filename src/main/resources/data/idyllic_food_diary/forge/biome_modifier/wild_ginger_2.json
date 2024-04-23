@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#minecraft:is_savanna",
+  "features": "idyllic_food_diary:wild_ginger",
+  "step": "vegetal_decoration"
+}

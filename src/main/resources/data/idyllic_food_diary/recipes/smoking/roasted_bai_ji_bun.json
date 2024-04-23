@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smoking",
+  "category": "food",
+  "cookingtime": 100,
+  "experience": 0.35,
+  "ingredient": {
+    "item": "idyllic_food_diary:bai_ji_bun"
+  },
+  "result": "idyllic_food_diary:roasted_bai_ji_bun"
+}

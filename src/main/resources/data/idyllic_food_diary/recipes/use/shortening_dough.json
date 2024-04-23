@@ -1,0 +1,12 @@
+{
+  "type": "solarmoon_core:use",
+  "ingredient": {
+    "tag": "forge:milk"
+  },
+  "input_block": {
+    "id": "idyllic_food_diary:wheat_dough"
+  },
+  "output_block": {
+    "id": "idyllic_food_diary:shortening_dough"
+  }
+}

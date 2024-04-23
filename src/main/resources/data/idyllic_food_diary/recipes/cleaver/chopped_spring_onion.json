@@ -1,0 +1,12 @@
+{
+  "type": "idyllic_food_diary:cleaver",
+  "input": {
+    "item": "idyllic_food_diary:spring_onion"
+  },
+  "result": [
+    {
+      "item": "idyllic_food_diary:chopped_spring_onion",
+      "count": 1
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "type": "idyllic_food_diary:soup_pot",
+  "ingredients": [
+    {
+      "item": "minecraft:kelp"
+    },
+    {
+      "item": "minecraft:kelp"
+    },
+    {
+      "tag": "forge:eggs"
+    },
+    {
+      "tag": "forge:eggs"
+    }
+  ],
+  "input_fluid": {
+    "id": "idyllic_food_diary:hot_water",
+    "amount": 1000
+  },
+  "time": 600,
+  "output_fluid": {
+    "id": "idyllic_food_diary:seaweed_egg_drop_soup_fluid",
+    "amount": 1000
+  }
+}

@@ -19,6 +19,9 @@ dependencies {
     //帕秋莉手册
     compileOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}:api")
     runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}")
+    //curios
+    runtimeOnly fg.deobf("top.theillusivec4.curios:${curios_version}")
+    compileOnly fg.deobf("top.theillusivec4.curios:${curios_version}:api")
 }
 
 repositories {
@@ -59,6 +62,9 @@ repositories {
     }
     maven {
         url 'https://maven.blamejared.com'
+    }
+    maven {
+        url = "https://maven.theillusivec4.top/"
     }
     flatDir {
         dir 'lib'

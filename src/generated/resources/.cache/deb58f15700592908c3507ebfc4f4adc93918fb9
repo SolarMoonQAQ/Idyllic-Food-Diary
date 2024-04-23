@@ -1,0 +1,4 @@
+// 1.20.1	2024-04-23T13:05:46.3352988	Tags for minecraft:fluid mod id idyllic_food_diary
+8f29593648e9759893d7371fc317dfa9e2bdecac data/idyllic_food_diary/tags/fluids/hot_fluid.json
+29c42c7dc9e961ceeda51770a40d8f8653428e82 data/idyllic_food_diary/tags/fluids/warm_fluid.json
+01bd79099834b6fdf7e181743cf919953b426dfb data/minecraft/tags/fluids/water.json

@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "block": "idyllic_food_diary:long_porcelain_plate",
+          "condition": "minecraft:block_state_property",
+          "properties": {
+            "part": "head"
+          }
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "idyllic_food_diary:long_porcelain_plate"
+        }
+      ],
+      "name": "pool1",
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "idyllic_food_diary:blocks/long_porcelain_plate"
+}

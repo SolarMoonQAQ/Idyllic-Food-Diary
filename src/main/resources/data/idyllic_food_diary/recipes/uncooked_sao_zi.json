@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "idyllic_food_diary:minced_pork"
+    },
+    {
+      "item": "idyllic_food_diary:chopped_spring_onion"
+    },
+    {
+      "item": "idyllic_food_diary:chopped_ginger"
+    },
+    {
+      "item": "idyllic_food_diary:chopped_garlic"
+    }
+  ],
+  "result": {
+    "item": "idyllic_food_diary:uncooked_sao_zi"
+  }
+}

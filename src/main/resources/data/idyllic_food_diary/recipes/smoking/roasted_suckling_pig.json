@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smoking",
+  "category": "food",
+  "cookingtime": 600,
+  "experience": 1.00,
+  "ingredient": {
+    "item": "idyllic_food_diary:uncooked_roasted_suckling_pig"
+  },
+  "result": "idyllic_food_diary:roasted_suckling_pig"
+}

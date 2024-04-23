@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "idyllic_food_diary:sao_zi"
+    },
+    {
+      "item": "idyllic_food_diary:roasted_bai_ji_bun"
+    }
+  ],
+  "result": {
+    "item": "idyllic_food_diary:rougamo"
+  }
+}

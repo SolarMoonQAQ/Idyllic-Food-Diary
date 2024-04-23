@@ -1,0 +1,23 @@
+{
+  "name": "idyllic_food_diary.cuisine.kitchen_utensils.grill",
+  "category": "idyllic_food_diary:cuisine/kitchen_utensils",
+  "icon": "idyllic_food_diary:grill",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "idyllic_food_diary.cuisine.kitchen_utensils.grill.page.1"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "idyllic_food_diary.cuisine.kitchen_utensils.grill.page.2"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": {
+        "item": "idyllic_food_diary:grill"
+      },
+      "text": "idyllic_food_diary.cuisine.kitchen_utensils.grill.page.3"
+    }
+  ]
+}

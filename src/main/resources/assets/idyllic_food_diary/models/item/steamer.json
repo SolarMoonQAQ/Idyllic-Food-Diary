@@ -1,0 +1,54 @@
+{
+  "parent": "builtin/entity",
+  "textures": {
+    "particle": "idyllic_food_diary:block/steamer"
+  },
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [70, 0, 0],
+      "translation": [0, 3.25, 1.75],
+      "scale": [0.5, 0.5, 0.5]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [70, 0, 0],
+      "translation": [0, 3.25, 1.75],
+      "scale": [0.5, 0.5, 0.5]
+    },
+    "firstperson_righthand": {
+      "rotation": [0, 6, 3],
+      "translation": [2.25, 0, -3.25],
+      "scale": [0.7, 0.7, 0.7]
+    },
+    "firstperson_lefthand": {
+      "rotation": [0, 6, 3],
+      "translation": [2.25, 0, -3.25],
+      "scale": [0.7, 0.7, 0.7]
+    },
+    "ground": {
+      "scale": [0.5, 0.5, 0.5]
+    },
+    "gui": {
+      "rotation": [30, 45, 0],
+      "scale": [0.6, 0.6, 0.6]
+    },
+    "head": {
+      "translation": [0, 14, 0]
+    }
+  },
+  "groups": [
+    {
+      "name": "bone",
+      "origin": [8, 0, 8],
+      "color": 0,
+      "nbt": "{}",
+      "children": []
+    },
+    {
+      "name": "bone",
+      "origin": [8, 0, 8],
+      "color": 0,
+      "nbt": "{}",
+      "children": [0, 1, 2, 3, 4, 5]
+    }
+  ]
+}

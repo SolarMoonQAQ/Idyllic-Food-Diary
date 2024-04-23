@@ -1,0 +1,26 @@
+{
+  "type": "idyllic_food_diary:soup_pot",
+  "ingredients": [
+    {
+      "item": "minecraft:red_mushroom"
+    },
+    {
+      "item": "minecraft:brown_mushroom"
+    },
+    {
+      "item": "minecraft:red_mushroom"
+    },
+    {
+      "item": "minecraft:brown_mushroom"
+    }
+  ],
+  "input_fluid": {
+    "id": "idyllic_food_diary:hot_water",
+    "amount": 1000
+  },
+  "time": 600,
+  "output_fluid": {
+    "id": "idyllic_food_diary:mushroom_stew_fluid",
+    "amount": 1000
+  }
+}

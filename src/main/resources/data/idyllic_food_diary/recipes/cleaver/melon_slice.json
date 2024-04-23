@@ -1,0 +1,12 @@
+{
+  "type": "idyllic_food_diary:cleaver",
+  "input": {
+    "item": "minecraft:melon"
+  },
+  "result": [
+    {
+      "item": "minecraft:melon_slice",
+      "count": 9
+    }
+  ]
+}

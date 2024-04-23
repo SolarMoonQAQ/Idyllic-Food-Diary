@@ -1,0 +1,12 @@
+{
+  "name": "idyllic_food_diary.effect.fleet_of_foot",
+  "category": "idyllic_food_diary:effect",
+  "icon": "idyllic_food_diary:textures/mob_effect/fleet_of_foot.png",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "idyllic_food_diary.effect.fleet_of_foot.page.1"
+    }
+  ]
+}

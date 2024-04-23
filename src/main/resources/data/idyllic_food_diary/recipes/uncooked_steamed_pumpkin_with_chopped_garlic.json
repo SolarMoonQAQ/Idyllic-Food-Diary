@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CJC",
+    "###",
+    "#P#"
+  ],
+  "key": {
+    "C": {
+      "item": "idyllic_food_diary:chopped_garlic"
+    },
+    "J": {
+      "item": "idyllic_food_diary:chopped_spring_onion"
+    },
+    "#": {
+      "item": "idyllic_food_diary:pumpkin_slice"
+    },
+    "P": {
+      "item": "idyllic_food_diary:porcelain_plate"
+    }
+  },
+  "result": {
+    "item": "idyllic_food_diary:uncooked_steamed_pumpkin_with_chopped_garlic"
+  }
+}

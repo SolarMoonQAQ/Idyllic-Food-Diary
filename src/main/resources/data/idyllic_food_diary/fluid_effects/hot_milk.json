@@ -1,0 +1,16 @@
+{
+  "fluid": "idyllic_food_diary:hot_milk",
+  "clear": true,
+  "effects" : [
+    {
+      "id": "idyllic_food_diary:snug",
+      "duration": "60",
+      "amplifier": "4"
+    }
+  ],
+  "food_value": {
+    "hunger": 2,
+    "saturation": 1
+  },
+  "can_always_drink": true
+}

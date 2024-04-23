@@ -1,0 +1,12 @@
+{
+  "name": "idyllic_food_diary.special_mechanics.splash_water",
+  "category": "idyllic_food_diary:special_mechanics",
+  "icon": "minecraft:water_bucket",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "idyllic_food_diary.special_mechanics.splash_water.page.1"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SSS",
+    "S#S",
+    "SSS"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:oak_sapling"
+    },
+    "S": {
+      "item": "idyllic_food_diary:apple_core"
+    }
+  },
+  "result": {
+    "item": "idyllic_food_diary:apple_sapling"
+  }
+}

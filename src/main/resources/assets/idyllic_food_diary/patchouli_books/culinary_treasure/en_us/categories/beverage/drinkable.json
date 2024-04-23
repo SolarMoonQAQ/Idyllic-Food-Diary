@@ -1,0 +1,7 @@
+{
+  "name": "idyllic_food_diary.beverage.drinkable",
+  "description": "idyllic_food_diary.beverage.drinkable.desc",
+  "icon": "idyllic_food_diary:black_tea_bucket",
+  "parent": "idyllic_food_diary:beverage",
+  "sortnum":1
+}

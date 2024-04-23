@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "idyllic_food_diary:durian_flesh"
+    }
+  ],
+  "result": {
+    "item": "idyllic_food_diary:durian_core"
+  }
+}

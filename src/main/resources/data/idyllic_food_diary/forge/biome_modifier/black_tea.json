@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#minecraft:is_mountain",
+  "features": "idyllic_food_diary:black_tea",
+  "step": "vegetal_decoration"
+}

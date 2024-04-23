@@ -1,7 +1,0 @@
-{
-  "name": "immersive_delight.crop.fruits",
-  "description": "immersive_delight.crop.fruits.desc",
-  "icon": "minecraft:apple",
-  "parent": "immersive_delight:crop",
-  "sortnum":2
-}

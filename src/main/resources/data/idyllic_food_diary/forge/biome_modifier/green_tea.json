@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#forge:is_plains",
+  "features": "idyllic_food_diary:green_tea",
+  "step": "vegetal_decoration"
+}

@@ -1,0 +1,70 @@
+{
+	"credit": "Made with Blockbench",
+	"render_type": "minecraft:cutout",
+	"parent": "idyllic_food_diary:block/flatbread_dough",
+	"texture_size": [32, 32],
+	"textures": {
+		"1": "idyllic_food_diary:block/flatbread_dough",
+		"particle": "idyllic_food_diary:block/particle/flatbread_dough"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 0],
+			"to": [16, 1, 16],
+			"faces": {
+				"north": {"uv": [8, 0, 16, 0.5], "texture": "#1"},
+				"east": {"uv": [8, 0.5, 16, 1], "texture": "#1"},
+				"south": {"uv": [8, 1, 16, 1.5], "texture": "#1"},
+				"west": {"uv": [8, 1.5, 16, 2], "texture": "#1"},
+				"up": {"uv": [8, 8, 0, 0], "texture": "#1"},
+				"down": {"uv": [8, 8, 0, 16], "texture": "#1"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [87.25, 0, 0],
+			"translation": [0, 2, 3.75],
+			"scale": [0.5, 0.5, 0.5]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [87.25, 0, 0],
+			"translation": [0, 2, 3.75],
+			"scale": [0.5, 0.5, 0.5]
+		},
+		"firstperson_righthand": {
+			"rotation": [52.75, 0, 0],
+			"translation": [3.75, 4, 3.5],
+			"scale": [0.7, 0.7, 0.7]
+		},
+		"firstperson_lefthand": {
+			"rotation": [53, 0, 0],
+			"translation": [1.75, 4.75, 6.25],
+			"scale": [0.7, 0.7, 0.7]
+		},
+		"ground": {
+			"scale": [0.5, 0.5, 0.5]
+		},
+		"gui": {
+			"rotation": [24, -44, 0],
+			"translation": [0.25, 2.75, 0],
+			"scale": [0.6, 0.6, 0.6]
+		},
+		"head": {
+			"translation": [0, 14, 0]
+		},
+		"fixed": {
+			"rotation": [90, 0, 0],
+			"translation": [0, 0, 6.25],
+			"scale": [0.7, 0.7, 0.7]
+		}
+	},
+	"groups": [
+		{
+			"name": "group",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [0]
+		}
+	]
+}

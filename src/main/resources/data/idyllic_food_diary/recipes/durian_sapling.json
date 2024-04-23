@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SSS",
+    "S#S",
+    "SSS"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:jungle_sapling"
+    },
+    "S": {
+      "item": "idyllic_food_diary:durian_core"
+    }
+  },
+  "result": {
+    "item": "idyllic_food_diary:durian_sapling"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "idyllic_food_diary:garlic"
+    }
+  ],
+  "result": {
+    "item": "idyllic_food_diary:garlic_clove",
+    "count": 3
+  }
+}

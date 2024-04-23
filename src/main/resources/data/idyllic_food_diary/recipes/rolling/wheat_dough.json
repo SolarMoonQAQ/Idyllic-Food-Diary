@@ -1,0 +1,10 @@
+{
+  "type": "idyllic_food_diary:rolling",
+  "input": {
+    "tag": "idyllic_food_diary:dough"
+  },
+  "time": 40,
+  "output": {
+    "id": "idyllic_food_diary:wheat_dough"
+  }
+}

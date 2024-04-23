@@ -1,0 +1,14 @@
+{
+  "name": "idyllic_food_diary.cuisine.preparatory_food.uncooked_food",
+  "category": "idyllic_food_diary:cuisine/preparatory_food",
+  "icon": "idyllic_food_diary:uncooked_roasted_suckling_pig",
+  "sortnum": 9,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "idyllic_food_diary:uncooked_roasted_suckling_pig,idyllic_food_diary:uncooked_steamed_salmon,idyllic_food_diary:uncooked_steamed_pumpkin_with_chopped_garlic,idyllic_food_diary:uncooked_steamed_chicken_with_mushroom,idyllic_food_diary:uncooked_steamed_lotus_leaf_chicken",
+      "title": "idyllic_food_diary.cuisine.preparatory_food.uncooked_food",
+      "text": "idyllic_food_diary.cuisine.preparatory_food.uncooked_food.page.1"
+    }
+  ]
+}

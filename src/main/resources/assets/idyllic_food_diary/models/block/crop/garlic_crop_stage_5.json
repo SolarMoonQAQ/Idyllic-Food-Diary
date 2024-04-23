@@ -1,0 +1,7 @@
+{
+  "parent": "idyllic_food_diary:base/crop_cross",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "cross": "idyllic_food_diary:block/crop/garlic_crop_stage_5"
+  }
+}

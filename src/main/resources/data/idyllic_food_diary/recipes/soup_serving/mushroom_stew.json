@@ -1,0 +1,13 @@
+{
+  "type": "idyllic_food_diary:soup_serving",
+  "container": {
+    "item": "minecraft:bowl"
+  },
+  "fluid": {
+    "id": "idyllic_food_diary:mushroom_stew_fluid",
+    "amount": 250
+  },
+  "result": {
+    "item": "minecraft:mushroom_stew"
+  }
+}

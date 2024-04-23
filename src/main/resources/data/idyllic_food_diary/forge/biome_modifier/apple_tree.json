@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#minecraft:is_forest",
+  "features": "idyllic_food_diary:apple_tree",
+  "step": "vegetal_decoration"
+}

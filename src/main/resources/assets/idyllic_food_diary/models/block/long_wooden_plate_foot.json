@@ -1,0 +1,66 @@
+{
+	"credit": "Made with Blockbench",
+	"render_type": "minecraft:cutout",
+	"parent": "idyllic_food_diary:block/long_wooden_plate",
+	"texture_size": [64, 64],
+	"textures": {
+		"3": "idyllic_food_diary:block/long_wooden_plate_foot",
+		"particle": "idyllic_food_diary:block/particle/long_wooden_plate_foot"
+	},
+	"elements": [
+		{
+			"from": [1, 0, 1],
+			"to": [15, 1, 16],
+			"faces": {
+				"north": {"uv": [3.75, 3.75, 7.25, 4], "texture": "#3"},
+				"east": {"uv": [0, 3.75, 3.75, 4], "texture": "#3"},
+				"south": {"uv": [11, 3.75, 14.5, 4], "texture": "#3"},
+				"west": {"uv": [7.25, 3.75, 11, 4], "texture": "#3"},
+				"up": {"uv": [7.25, 3.75, 3.75, 0], "texture": "#3"},
+				"down": {"uv": [10.75, 0, 7.25, 3.75], "texture": "#3"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [107, 0, 0],
+			"translation": [0, 2.25, 6.25],
+			"scale": [0.6, 0.6, 0.6]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [96.5, 0, 0],
+			"translation": [0, 1.75, 5.5],
+			"scale": [0.6, 0.6, 0.6]
+		},
+		"firstperson_righthand": {
+			"rotation": [19, -90, 0],
+			"translation": [2.5, 9.5, 5.75]
+		},
+		"firstperson_lefthand": {
+			"rotation": [64, 90, -34],
+			"translation": [1.25, 7.25, 4.75]
+		},
+		"ground": {
+			"translation": [0, 1, 0],
+			"scale": [0.6, 0.6, 0.6]
+		},
+		"gui": {
+			"rotation": [90, -180, 0]
+		},
+		"head": {
+			"translation": [0, 13.75, 0]
+		},
+		"fixed": {
+			"rotation": [-90, 0, 0],
+			"translation": [0, 0, -6.5]
+		}
+	},
+	"groups": [
+		{
+			"name": "group",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [0]
+		}
+	]
+}

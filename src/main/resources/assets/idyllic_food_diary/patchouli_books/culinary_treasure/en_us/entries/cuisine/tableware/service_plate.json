@@ -1,0 +1,15 @@
+{
+  "name": "idyllic_food_diary.cuisine.tableware.service_plate",
+  "category": "idyllic_food_diary:cuisine/tableware",
+  "icon": "idyllic_food_diary:service_plate",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": {
+        "item": "idyllic_food_diary:service_plate"
+      },
+      "text": "idyllic_food_diary.cuisine.tableware.service_plate.page.1"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "type": "idyllic_food_diary:cup",
+  "ingredient": {
+    "item": "idyllic_food_diary:black_tea_leaf"
+  },
+  "input_fluid": {
+    "id": "idyllic_food_diary:hot_water",
+    "amount": 250
+  },
+  "time": 100,
+  "output_fluid": {
+    "id": "idyllic_food_diary:black_tea",
+    "amount": 250
+  }
+}

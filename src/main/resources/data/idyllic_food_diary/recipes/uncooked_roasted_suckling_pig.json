@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "TTT",
+    "###",
+    " P "
+  ],
+  "key": {
+    "T": {
+      "item": "minecraft:sugar"
+    },
+    "#": {
+      "item": "minecraft:porkchop"
+    },
+    "P": {
+      "item": "idyllic_food_diary:long_wooden_plate"
+    }
+  },
+  "result": {
+    "item": "idyllic_food_diary:uncooked_roasted_suckling_pig"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "idyllic_food_diary:black_tea_leaf"
+    }
+  ],
+  "result": {
+    "item": "idyllic_food_diary:black_tea_seeds"
+  }
+}

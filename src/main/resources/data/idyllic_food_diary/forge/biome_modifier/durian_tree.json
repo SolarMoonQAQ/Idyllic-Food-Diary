@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#minecraft:is_jungle",
+  "features": "idyllic_food_diary:durian_tree",
+  "step": "vegetal_decoration"
+}

@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " M ",
+    "S#S",
+    " P "
+  ],
+  "key": {
+    "M": {
+      "tag": "forge:milk"
+    },
+    "S": {
+      "item": "minecraft:sugar"
+    },
+    "#": {
+      "tag": "forge:eggs"
+    },
+    "P": {
+      "item": "idyllic_food_diary:pie_crust"
+    }
+  },
+  "result": {
+    "item": "minecraft:cake"
+  }
+}

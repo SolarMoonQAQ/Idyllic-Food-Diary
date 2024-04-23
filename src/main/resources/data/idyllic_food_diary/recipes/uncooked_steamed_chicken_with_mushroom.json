@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BRB",
+    "###",
+    "JPJ"
+  ],
+  "key": {
+    "B": {
+      "item": "minecraft:brown_mushroom"
+    },
+    "R": {
+      "item": "minecraft:red_mushroom"
+    },
+    "J": {
+      "item": "idyllic_food_diary:ginger_slice"
+    },
+    "#": {
+      "item": "idyllic_food_diary:chicken_cuts"
+    },
+    "P": {
+      "item": "idyllic_food_diary:porcelain_plate"
+    }
+  },
+  "result": {
+    "item": "idyllic_food_diary:uncooked_steamed_chicken_with_mushroom"
+  }
+}

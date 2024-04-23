@@ -1,7 +1,9 @@
 {
   "values": [
-    "immersive_delight:kettle",
-    "immersive_delight:soup_pot",
-    "immersive_delight:grill"
+    "idyllic_food_diary:kettle",
+    "idyllic_food_diary:soup_pot",
+    "idyllic_food_diary:grill",
+    "idyllic_food_diary:porcelain_plate",
+    "idyllic_food_diary:long_porcelain_plate"
   ]
 }

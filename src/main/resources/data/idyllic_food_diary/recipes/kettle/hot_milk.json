@@ -1,0 +1,10 @@
+{
+  "type": "idyllic_food_diary:kettle",
+  "input": {
+    "id": "minecraft:milk"
+  },
+  "time": 400,
+  "output": {
+    "id": "idyllic_food_diary:hot_milk"
+  }
+}

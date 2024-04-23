@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "idyllic_food_diary:pumpkin_slice"
+    }
+  ],
+  "result": {
+    "item": "minecraft:pumpkin_seeds"
+  }
+}

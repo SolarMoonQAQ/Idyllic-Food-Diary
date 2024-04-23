@@ -1,6 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": "#forge:is_plains",
-  "features": "immersive_delight:green_tea",
-  "step": "vegetal_decoration"
-}

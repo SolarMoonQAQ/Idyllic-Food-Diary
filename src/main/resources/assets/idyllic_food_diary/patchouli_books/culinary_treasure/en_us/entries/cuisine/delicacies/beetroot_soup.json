@@ -1,0 +1,15 @@
+{
+  "name": "idyllic_food_diary.cuisine.delicacies.beetroot_soup",
+  "category": "idyllic_food_diary:cuisine/delicacies",
+  "icon": "minecraft:beetroot_soup",
+  "sortnum": 8,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": {
+        "item": "minecraft:beetroot_soup"
+      },
+      "text": "idyllic_food_diary.cuisine.delicacies.beetroot_soup.page.1"
+    }
+  ]
+}

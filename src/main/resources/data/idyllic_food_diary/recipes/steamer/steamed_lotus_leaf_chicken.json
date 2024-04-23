@@ -1,0 +1,10 @@
+{
+  "type": "idyllic_food_diary:steamer",
+  "input": {
+    "item": "idyllic_food_diary:uncooked_steamed_lotus_leaf_chicken"
+  },
+  "time": 1200,
+  "output": {
+    "item": "idyllic_food_diary:steamed_lotus_leaf_chicken"
+  }
+}
