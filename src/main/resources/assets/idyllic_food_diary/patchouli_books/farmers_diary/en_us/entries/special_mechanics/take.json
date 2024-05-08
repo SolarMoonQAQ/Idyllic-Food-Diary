@@ -1,0 +1,12 @@
+{
+  "name": "idyllic_food_diary.special_mechanics.take",
+  "category": "idyllic_food_diary:special_mechanics",
+  "icon": "idyllic_food_diary:textures/patchouli/icon/take.png",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "idyllic_food_diary.special_mechanics.take.page.1"
+    }
+  ]
+}

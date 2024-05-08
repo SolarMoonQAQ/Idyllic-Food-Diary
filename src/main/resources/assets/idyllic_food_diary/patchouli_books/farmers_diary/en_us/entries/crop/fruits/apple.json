@@ -1,0 +1,23 @@
+{
+  "name": "idyllic_food_diary.crop.fruits.apple",
+  "category": "idyllic_food_diary:crop/fruits",
+  "icon": "minecraft:apple",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:apple",
+      "text": "idyllic_food_diary.crop.fruits.apple.page.1"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "idyllic_food_diary:apple_core",
+      "text": "idyllic_food_diary.crop.fruits.apple.page.2"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "idyllic_food_diary:apple_sapling",
+      "text": "idyllic_food_diary.crop.fruits.apple.page.3"
+    }
+  ]
+}

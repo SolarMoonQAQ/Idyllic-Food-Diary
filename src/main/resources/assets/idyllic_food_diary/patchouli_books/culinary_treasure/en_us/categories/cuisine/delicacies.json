@@ -1,7 +1,0 @@
-{
-  "name": "idyllic_food_diary.cuisine.delicacies",
-  "description": "idyllic_food_diary.cuisine.delicacies.desc",
-  "icon": "idyllic_food_diary:cangshu_mutton_soup",
-  "parent": "idyllic_food_diary:cuisine",
-  "sortnum":3
-}

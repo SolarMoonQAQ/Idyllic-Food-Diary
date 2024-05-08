@@ -1,7 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "idyllic_food_diary:item/bathrobe_overlay",
-    "layer1": "idyllic_food_diary:item/bathrobe"
+    "layer0": "idyllic_food_diary:item/bathrobe"
   }
 }

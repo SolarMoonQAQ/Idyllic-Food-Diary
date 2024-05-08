@@ -1,7 +1,0 @@
-{
-  "name": "idyllic_food_diary.cuisine.tableware",
-  "description": "idyllic_food_diary.cuisine.tableware.desc",
-  "icon": "minecraft:bowl",
-  "parent": "idyllic_food_diary:cuisine",
-  "sortnum":1
-}

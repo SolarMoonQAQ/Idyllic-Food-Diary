@@ -1,0 +1,18 @@
+{
+  "variants": {
+    "facing=north,interaction=3": { "model": "idyllic_food_diary:block/feast/steamed_chicken_with_mushroom_3", "y": 180  },
+    "facing=south,interaction=3": { "model": "idyllic_food_diary:block/feast/steamed_chicken_with_mushroom_3"},
+    "facing=east,interaction=3": { "model": "idyllic_food_diary:block/feast/steamed_chicken_with_mushroom_3", "y": 270 },
+    "facing=west,interaction=3": { "model": "idyllic_food_diary:block/feast/steamed_chicken_with_mushroom_3", "y": 90 },
+
+    "facing=north,interaction=2": { "model": "idyllic_food_diary:block/feast/steamed_chicken_with_mushroom_2", "y": 180  },
+    "facing=south,interaction=2": { "model": "idyllic_food_diary:block/feast/steamed_chicken_with_mushroom_2"},
+    "facing=east,interaction=2": { "model": "idyllic_food_diary:block/feast/steamed_chicken_with_mushroom_2", "y": 270 },
+    "facing=west,interaction=2": { "model": "idyllic_food_diary:block/feast/steamed_chicken_with_mushroom_2", "y": 90 },
+
+    "facing=north,interaction=1": { "model": "idyllic_food_diary:block/feast/steamed_chicken_with_mushroom_1", "y": 180  },
+    "facing=south,interaction=1": { "model": "idyllic_food_diary:block/feast/steamed_chicken_with_mushroom_1"},
+    "facing=east,interaction=1": { "model": "idyllic_food_diary:block/feast/steamed_chicken_with_mushroom_1", "y": 270 },
+    "facing=west,interaction=1": { "model": "idyllic_food_diary:block/feast/steamed_chicken_with_mushroom_1", "y": 90 }
+  }
+}

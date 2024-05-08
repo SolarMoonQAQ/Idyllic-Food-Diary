@@ -1,6 +1,6 @@
 {
   "type": "idyllic_food_diary:rolling",
-  "input": {
+  "ingredient": {
     "tag": "idyllic_food_diary:dough"
   },
   "time": 40,

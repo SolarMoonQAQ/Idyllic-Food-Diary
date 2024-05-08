@@ -1,0 +1,13 @@
+{
+  "name": "idyllic_food_diary.crop.general_crops.ginger",
+  "category": "idyllic_food_diary:crop/general_crops",
+  "icon": "idyllic_food_diary:ginger",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "idyllic_food_diary:wild_ginger",
+      "text": "idyllic_food_diary.crop.general_crops.ginger.page.1"
+    }
+  ]
+}

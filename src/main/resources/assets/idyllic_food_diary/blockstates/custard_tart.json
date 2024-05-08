@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "idyllic_food_diary:block/custard_tart" },
+    "facing=south": { "model": "idyllic_food_diary:block/custard_tart", "y": 180 },
+    "facing=east": { "model": "idyllic_food_diary:block/custard_tart", "y": 90 },
+    "facing=west": { "model": "idyllic_food_diary:block/custard_tart", "y": 270 }
+  }
+}

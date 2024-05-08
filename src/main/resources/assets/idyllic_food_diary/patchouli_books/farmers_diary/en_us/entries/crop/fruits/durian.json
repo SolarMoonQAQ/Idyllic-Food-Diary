@@ -1,0 +1,33 @@
+{
+  "name": "idyllic_food_diary.crop.fruits.durian",
+  "category": "idyllic_food_diary:crop/fruits",
+  "icon": "idyllic_food_diary:durian",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "idyllic_food_diary:durian",
+      "text": "idyllic_food_diary.crop.fruits.durian.page.1"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "idyllic_food_diary:durian_flesh",
+      "text": "idyllic_food_diary.crop.fruits.durian.page.2"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "idyllic_food_diary:durian_core",
+      "text": "idyllic_food_diary.crop.fruits.durian.page.3"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "idyllic_food_diary:durian_shell",
+      "text": "idyllic_food_diary.crop.fruits.durian.page.4"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "idyllic_food_diary:durian_sapling",
+      "text": "idyllic_food_diary.crop.fruits.durian.page.5"
+    }
+  ]
+}

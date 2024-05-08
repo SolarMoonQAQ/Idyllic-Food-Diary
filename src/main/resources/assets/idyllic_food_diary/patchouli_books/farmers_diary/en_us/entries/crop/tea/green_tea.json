@@ -1,0 +1,18 @@
+{
+  "name": "idyllic_food_diary.crop.tea.green_tea",
+  "category": "idyllic_food_diary:crop/tea",
+  "icon": "idyllic_food_diary:green_tea_leaf",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "idyllic_food_diary:green_tea_leaf",
+      "text": "idyllic_food_diary.crop.tea.green_tea.page.1"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "idyllic_food_diary:green_tea_seeds",
+      "text": "idyllic_food_diary.crop.tea.green_tea.page.2"
+    }
+  ]
+}

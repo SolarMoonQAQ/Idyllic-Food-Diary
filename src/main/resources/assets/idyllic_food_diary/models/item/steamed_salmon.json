@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "idyllic_food_diary:item/steamed_salmon"
+  }
+}

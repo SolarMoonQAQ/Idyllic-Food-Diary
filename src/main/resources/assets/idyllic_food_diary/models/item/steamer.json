@@ -25,7 +25,8 @@
       "scale": [0.7, 0.7, 0.7]
     },
     "ground": {
-      "scale": [0.5, 0.5, 0.5]
+      "translation": [0, 1.25, 0],
+      "scale": [0.35, 0.35, 0.35]
     },
     "gui": {
       "rotation": [30, 45, 0],
@@ -34,21 +35,5 @@
     "head": {
       "translation": [0, 14, 0]
     }
-  },
-  "groups": [
-    {
-      "name": "bone",
-      "origin": [8, 0, 8],
-      "color": 0,
-      "nbt": "{}",
-      "children": []
-    },
-    {
-      "name": "bone",
-      "origin": [8, 0, 8],
-      "color": 0,
-      "nbt": "{}",
-      "children": [0, 1, 2, 3, 4, 5]
-    }
-  ]
+  }
 }

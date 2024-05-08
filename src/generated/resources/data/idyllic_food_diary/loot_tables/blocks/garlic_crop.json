@@ -27,7 +27,7 @@
             },
             {
               "type": "minecraft:item",
-              "name": "minecraft:air"
+              "name": "idyllic_food_diary:garlic_clove"
             }
           ]
         }
@@ -36,30 +36,19 @@
     },
     {
       "bonus_rolls": 0.0,
-      "conditions": [
-        {
-          "block": "idyllic_food_diary:garlic_crop",
-          "condition": "minecraft:block_state_property",
-          "properties": {
-            "age": "7"
-          }
-        }
-      ],
       "entries": [
         {
           "type": "minecraft:item",
-          "functions": [
+          "conditions": [
             {
-              "enchantment": "minecraft:fortune",
-              "formula": "minecraft:binomial_with_bonus_count",
-              "function": "minecraft:apply_bonus",
-              "parameters": {
-                "extra": 3,
-                "probability": 0.5714286
+              "block": "idyllic_food_diary:garlic_crop",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "age": "7"
               }
             }
           ],
-          "name": "minecraft:air"
+          "name": "idyllic_food_diary:garlic_sprouts"
         }
       ],
       "rolls": 1.0

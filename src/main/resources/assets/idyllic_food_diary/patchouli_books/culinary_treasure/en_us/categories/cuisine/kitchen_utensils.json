@@ -1,7 +1,0 @@
-{
-  "name": "idyllic_food_diary.cuisine.kitchen_utensils",
-  "description": "idyllic_food_diary.cuisine.kitchen_utensils.desc",
-  "icon": "idyllic_food_diary:soup_pot",
-  "parent": "idyllic_food_diary:cuisine",
-  "sortnum":0
-}

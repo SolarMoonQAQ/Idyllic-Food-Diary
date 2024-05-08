@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "idyllic_food_diary:block/roasted_bai_ji_bun", "y": 180  },
+    "facing=south": { "model": "idyllic_food_diary:block/roasted_bai_ji_bun"},
+    "facing=east": { "model": "idyllic_food_diary:block/roasted_bai_ji_bun", "y": 270 },
+    "facing=west": { "model": "idyllic_food_diary:block/roasted_bai_ji_bun", "y": 90 }
+  }
+}

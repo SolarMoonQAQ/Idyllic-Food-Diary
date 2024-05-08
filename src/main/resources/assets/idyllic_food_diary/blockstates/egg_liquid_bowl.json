@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "idyllic_food_diary:block/egg_liquid_bowl", "y": 180  },
+    "facing=south": { "model": "idyllic_food_diary:block/egg_liquid_bowl"},
+    "facing=east": { "model": "idyllic_food_diary:block/egg_liquid_bowl", "y": 270 },
+    "facing=west": { "model": "idyllic_food_diary:block/egg_liquid_bowl", "y": 90 }
+  }
+}

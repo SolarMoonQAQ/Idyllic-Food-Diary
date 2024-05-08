@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "idyllic_food_diary:block/pie_crust", "y": 180  },
+    "facing=south": { "model": "idyllic_food_diary:block/pie_crust"},
+    "facing=east": { "model": "idyllic_food_diary:block/pie_crust", "y": 270 },
+    "facing=west": { "model": "idyllic_food_diary:block/pie_crust", "y": 90 }
+  }
+}

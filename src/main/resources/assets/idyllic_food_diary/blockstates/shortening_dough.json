@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "idyllic_food_diary:block/shortening_dough", "y": 180  },
+    "facing=south": { "model": "idyllic_food_diary:block/shortening_dough"},
+    "facing=east": { "model": "idyllic_food_diary:block/shortening_dough", "y": 270 },
+    "facing=west": { "model": "idyllic_food_diary:block/shortening_dough", "y": 90 }
+  }
+}

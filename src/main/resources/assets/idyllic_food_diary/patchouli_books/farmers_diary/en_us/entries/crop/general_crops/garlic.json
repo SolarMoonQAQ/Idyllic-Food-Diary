@@ -1,0 +1,23 @@
+{
+  "name": "idyllic_food_diary.crop.general_crops.garlic",
+  "category": "idyllic_food_diary:crop/general_crops",
+  "icon": "idyllic_food_diary:garlic",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "idyllic_food_diary:wild_garlic",
+      "text": "idyllic_food_diary.crop.general_crops.garlic.page.1"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "idyllic_food_diary:garlic",
+      "text": "idyllic_food_diary.crop.general_crops.garlic.page.2"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "idyllic_food_diary:garlic_sprouts",
+      "text": "idyllic_food_diary.crop.general_crops.garlic.page.3"
+    }
+  ]
+}

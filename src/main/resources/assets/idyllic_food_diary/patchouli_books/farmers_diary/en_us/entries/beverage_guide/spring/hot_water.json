@@ -1,0 +1,12 @@
+{
+  "name": "idyllic_food_diary.beverage_guide.spring.hot_water",
+  "category": "idyllic_food_diary:beverage_guide/spring",
+  "icon": "idyllic_food_diary:hot_water_bucket",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "idyllic_food_diary.beverage_guide.spring.hot_water.page.1"
+    }
+  ]
+}

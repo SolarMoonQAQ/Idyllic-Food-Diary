@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "idyllic_food_diary:block/steamed_egg_custard" },
+    "facing=south": { "model": "idyllic_food_diary:block/steamed_egg_custard", "y": 180 },
+    "facing=east": { "model": "idyllic_food_diary:block/steamed_egg_custard", "y": 90 },
+    "facing=west": { "model": "idyllic_food_diary:block/steamed_egg_custard", "y": 270 }
+  }
+}

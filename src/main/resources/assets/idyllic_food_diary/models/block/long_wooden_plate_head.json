@@ -5,7 +5,7 @@
 	"texture_size": [64, 64],
 	"textures": {
 		"1": "idyllic_food_diary:block/long_wooden_plate_head",
-		"particle": "idyllic_food_diary:block/particle/long_wooden_plate_head"
+		"particle": "idyllic_food_diary:item/long_wooden_plate"
 	},
 	"elements": [
 		{

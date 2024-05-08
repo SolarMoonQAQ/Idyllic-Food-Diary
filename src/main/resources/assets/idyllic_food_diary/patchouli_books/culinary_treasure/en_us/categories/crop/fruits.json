@@ -1,7 +1,0 @@
-{
-  "name": "idyllic_food_diary.crop.fruits",
-  "description": "idyllic_food_diary.crop.fruits.desc",
-  "icon": "minecraft:apple",
-  "parent": "idyllic_food_diary:crop",
-  "sortnum":2
-}

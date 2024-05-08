@@ -1,11 +1,10 @@
 {
 	"credit": "Made with Blockbench",
-	"render_type": "minecraft:cutout",
 	"parent": "idyllic_food_diary:block/wooden_plate",
-	"texture_size": [64, 64],
+	"render_type": "minecraft:cutout",
 	"textures": {
 		"0": "idyllic_food_diary:block/wooden_plate",
-		"particle": "idyllic_food_diary:block/particle/wooden_plate"
+		"particle": "idyllic_food_diary:item/wooden_plate"
 	},
 	"elements": [
 		{
@@ -60,7 +59,15 @@
 			"name": "group",
 			"origin": [8, 8, 8],
 			"color": 0,
+			"nbt": "{}",
 			"children": [0]
+		},
+		{
+			"name": "chicken",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"nbt": "{}",
+			"children": []
 		}
 	]
 }

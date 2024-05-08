@@ -1,10 +1,10 @@
 {
   "type": "idyllic_food_diary:steamer",
-  "input": {
+  "ingredient": {
     "item": "idyllic_food_diary:wheat_dough"
   },
   "time": 400,
-  "output": {
+  "result": {
     "item": "idyllic_food_diary:steamed_bun"
   }
 }

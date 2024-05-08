@@ -1,7 +1,0 @@
-{
-  "name": "idyllic_food_diary.cuisine.preparatory_food",
-  "description": "idyllic_food_diary.cuisine.preparatory_food.desc",
-  "icon": "idyllic_food_diary:wheat_dough",
-  "parent": "idyllic_food_diary:cuisine",
-  "sortnum":2
-}

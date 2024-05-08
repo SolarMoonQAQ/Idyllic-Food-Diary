@@ -1,6 +1,6 @@
 {
   "type": "idyllic_food_diary:cleaver",
-  "input": {
+  "ingredient": {
     "item": "idyllic_food_diary:shredded_ginger"
   },
   "result": [

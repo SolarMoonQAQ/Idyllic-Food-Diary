@@ -1,0 +1,12 @@
+{
+  "name": "idyllic_food_diary.beverage_guide.spring.green_tea",
+  "category": "idyllic_food_diary:beverage_guide/spring",
+  "icon": "idyllic_food_diary:green_tea_bucket",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "idyllic_food_diary.beverage_guide.spring.green_tea.page.1"
+    }
+  ]
+}

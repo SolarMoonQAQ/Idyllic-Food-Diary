@@ -1,7 +1,0 @@
-{
-  "name": "idyllic_food_diary.beverage.set",
-  "description": "idyllic_food_diary.beverage.set.desc",
-  "icon": "idyllic_food_diary:jade_china_cup",
-  "parent": "idyllic_food_diary:beverage",
-  "sortnum":0
-}

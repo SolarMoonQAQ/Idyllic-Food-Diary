@@ -1,11 +1,11 @@
 {
 	"credit": "Made with Blockbench",
-	"render_type": "minecraft:cutout",
 	"parent": "idyllic_food_diary:block/flatbread_dough",
+	"render_type": "minecraft:cutout",
 	"texture_size": [32, 32],
 	"textures": {
 		"1": "idyllic_food_diary:block/flatbread_dough",
-		"particle": "idyllic_food_diary:block/particle/flatbread_dough"
+		"particle": "idyllic_food_diary:item/flatbread_dough"
 	},
 	"elements": [
 		{
@@ -64,6 +64,7 @@
 			"name": "group",
 			"origin": [8, 8, 8],
 			"color": 0,
+			"nbt": "{}",
 			"children": [0]
 		}
 	]

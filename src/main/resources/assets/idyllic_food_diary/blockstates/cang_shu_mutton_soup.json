@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "idyllic_food_diary:block/cang_shu_mutton_soup", "y": 180  },
+    "facing=south": { "model": "idyllic_food_diary:block/cang_shu_mutton_soup"},
+    "facing=east": { "model": "idyllic_food_diary:block/cang_shu_mutton_soup", "y": 270 },
+    "facing=west": { "model": "idyllic_food_diary:block/cang_shu_mutton_soup", "y": 90 }
+  }
+}

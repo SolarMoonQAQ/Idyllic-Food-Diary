@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "food",
+  "cookingtime": 1200,
+  "experience": 1.2,
+  "ingredient": {
+    "item": "idyllic_food_diary:uncooked_beggars_chicken"
+  },
+  "result": "idyllic_food_diary:beggars_chicken"
+}

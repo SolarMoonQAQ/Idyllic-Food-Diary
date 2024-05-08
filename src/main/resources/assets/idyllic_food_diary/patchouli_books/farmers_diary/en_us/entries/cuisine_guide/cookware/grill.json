@@ -1,0 +1,16 @@
+{
+  "name": "idyllic_food_diary.cuisine_guide.cookware.grill",
+  "category": "idyllic_food_diary:cuisine_guide/cookware",
+  "icon": "idyllic_food_diary:grill",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "idyllic_food_diary.cuisine_guide.cookware.grill.page.1"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "idyllic_food_diary.cuisine_guide.cookware.grill.page.2"
+    }
+  ]
+}

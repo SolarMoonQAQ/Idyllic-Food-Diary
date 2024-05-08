@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "idyllic_food_diary:item/cang_shu_mutton_soup"
+  }
+}

@@ -1,10 +1,10 @@
 {
   "type": "idyllic_food_diary:steamer",
-  "input": {
+  "ingredient": {
     "item": "idyllic_food_diary:uncooked_steamed_chicken_with_mushroom"
   },
   "time": 1200,
-  "output": {
+  "result": {
     "item": "idyllic_food_diary:steamed_chicken_with_mushroom"
   }
 }

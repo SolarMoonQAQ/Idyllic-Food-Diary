@@ -1,7 +1,0 @@
-{
-  "name": "idyllic_food_diary.crop.tea",
-  "description": "idyllic_food_diary.crop.tea.desc",
-  "icon": "idyllic_food_diary:green_tea_leaf",
-  "parent": "idyllic_food_diary:crop",
-  "sortnum":1
-}

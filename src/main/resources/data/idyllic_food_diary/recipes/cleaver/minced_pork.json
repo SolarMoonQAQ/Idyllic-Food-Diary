@@ -1,6 +1,6 @@
 {
   "type": "idyllic_food_diary:cleaver",
-  "input": {
+  "ingredient": {
     "item": "minecraft:porkchop"
   },
   "result": [
