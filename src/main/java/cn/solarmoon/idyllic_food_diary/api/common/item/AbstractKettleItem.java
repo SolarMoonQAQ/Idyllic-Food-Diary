@@ -1,5 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.api.common.item;
 
+import cn.solarmoon.solarmoon_core.api.common.item.IContainerItem;
 import cn.solarmoon.solarmoon_core.api.common.item.ITankItem;
 import cn.solarmoon.solarmoon_core.api.util.FluidUtil;
 import net.minecraft.core.BlockPos;
@@ -31,7 +32,7 @@ import java.util.List;
 /**
  * 具有从液体源接水的功能
  */
-public abstract class AbstractKettleItem extends BlockItem implements ITankItem {
+public abstract class AbstractKettleItem extends BlockItem implements ITankItem, IContainerItem {
 
     public AbstractKettleItem(Block block, Properties properties) {
         super(block, properties.stacksTo(1));

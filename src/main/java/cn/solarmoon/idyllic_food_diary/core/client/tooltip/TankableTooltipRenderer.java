@@ -1,7 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.core.client.tooltip;
 
 import cn.solarmoon.idyllic_food_diary.api.util.FluidRenderUtil;
-import cn.solarmoon.idyllic_food_diary.core.IdyllicFoodDiary;
+import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.core.data.tags.IMItemTags;
 import cn.solarmoon.solarmoon_core.api.client.tooltip.BaseTooltipComponent;
 import cn.solarmoon.solarmoon_core.api.common.item.ITankItem;
@@ -93,7 +93,7 @@ public class TankableTooltipRenderer implements ClientTooltipComponent {
         poseStack.pushPose();
         poseStack.translate(0,0,2);
         if(!fluidStack.isEmpty()) {
-            String str1 = fluidStack.getFluid().getFluidType().getDescription().getString();
+            String str1 = fluidStack.getDisplayName().getString();
             String str2 = fluidStack.getAmount() + "mB";
             int str1Length = font.width(str1);
             guiGraphics.drawString(font, str1, x + 2 + deltaF, y + 4 + height + hOffset, 0xFFFFFF);

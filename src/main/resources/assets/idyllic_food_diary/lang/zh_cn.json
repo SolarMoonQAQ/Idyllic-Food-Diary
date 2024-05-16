@@ -143,9 +143,9 @@
   "effect.idyllic_food_diary.fleet_of_foot": "健步如飞",
 
   "tooltip.idyllic_food_diary.fluid_empty": "空",
-  "tooltip.idyllic_food_diary.fluid_effect_clear": "清空所有效果",
-  "tooltip.idyllic_food_diary.fluid_effect_extinguishing": "扑灭火焰",
-  "tooltip.idyllic_food_diary.fluid_effect_fire": "着火 (%s秒)",
+  "tooltip.idyllic_food_diary.tea_ingredient.clear": "清空所有效果",
+  "tooltip.idyllic_food_diary.tea_ingredient.extinguishing": "扑灭火焰",
+  "tooltip.idyllic_food_diary.tea_ingredient.fire": "着火 %s",
 
   "death.attack.idyllic_food_diary.scald": "%s被烫死了",
   "death.attack.idyllic_food_diary.falling_durian": "%s被榴莲砸穿了",

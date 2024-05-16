@@ -1,25 +1,20 @@
 package cn.solarmoon.idyllic_food_diary.core.common.item.recipe_item;
 
-import cn.solarmoon.idyllic_food_diary.core.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.api.util.AnimController;
 import cn.solarmoon.idyllic_food_diary.core.common.recipe.RollingRecipe;
 import cn.solarmoon.idyllic_food_diary.core.common.registry.IMRecipes;
 import cn.solarmoon.idyllic_food_diary.core.data.tags.IMBlockTags;
 import cn.solarmoon.solarmoon_core.api.common.item.IOptionalRecipeItem;
 import cn.solarmoon.solarmoon_core.api.common.item.iutor.ITimeRecipeItem;
-import cn.solarmoon.solarmoon_core.api.util.BlockUtil;
-import cn.solarmoon.solarmoon_core.api.util.LevelSummonUtil;
+import cn.solarmoon.solarmoon_core.api.util.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
@@ -30,6 +25,7 @@ import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tiers;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
@@ -46,13 +42,9 @@ import java.util.List;
 import java.util.Optional;
 
 import static cn.solarmoon.idyllic_food_diary.api.util.ParticleSpawner.rolling;
-import static cn.solarmoon.idyllic_food_diary.api.util.ParticleSpawner.sweep;
 
 
-public class RollingPinItem extends SwordItem implements IOptionalRecipeItem<RollingRecipe>, ITimeRecipeItem {
-
-    public int recipeTime;
-    private BlockPos equalBlockPos;
+public class RollingPinItem extends SwordItem implements IOptionalRecipeItem<RollingRecipe> {
 
     /**
      * 属性与木剑类似
@@ -66,7 +58,7 @@ public class RollingPinItem extends SwordItem implements IOptionalRecipeItem<Rol
      */
     @Override
     public int getUseDuration(@NotNull ItemStack stack) {
-        return recipeTime;
+        return getRecipeTime(stack);
     }
 
     /**
@@ -80,22 +72,41 @@ public class RollingPinItem extends SwordItem implements IOptionalRecipeItem<Rol
         Player player = context.getPlayer();
         InteractionHand hand = context.getHand();
 
-        if (heldStack.getItem() instanceof RollingPinItem pin && player != null) {
-            pin.equalBlockPos = context.getClickedPos();
+        if (player != null) {
+            setEqualBlockPos(heldStack, context.getClickedPos());
             BlockPos exceptPos = new BlockPos(player.getOnPos().getX() + player.getDirection().getStepX(), player.getOnPos().getY() + 1, player.getOnPos().getZ() + player.getDirection().getStepZ());
             //限制擀面空间
-            if (pin.equalBlockPos.equals(exceptPos) || pin.equalBlockPos.equals(exceptPos.above())) {
-                Optional<RollingRecipe> recipeOp = pin.getSelectedRecipe(heldStack, player);
+            if (getEqualBlockPos(heldStack).equals(exceptPos) || getEqualBlockPos(heldStack).equals(exceptPos.above())) {
+                Optional<RollingRecipe> recipeOp = getSelectedRecipe(heldStack, player);
                 if (recipeOp.isPresent()) {
                     RollingRecipe recipe = recipeOp.get();
-                    pin.recipeTime = recipe.time();
+                    setRecipeTime(heldStack, recipe.time());
                     player.startUsingItem(hand);
-                } else pin.recipeTime = 0;
+                } else setRecipeTime(heldStack, 0);
             }
         }
         return InteractionResult.FAIL;
     }
 
+    public Optional<RollingRecipe> getSelectedRecipe(ItemStack stack, Player player) {
+        return !this.getMatchingRecipes(player).isEmpty() ? Optional.ofNullable(this.getMatchingRecipes(player).get(this.getHitBlockRecipeIndex(stack, player))) : Optional.empty();
+    }
+
+    public static void setRecipeTime(ItemStack pin, int recipeTime) {
+        pin.getOrCreateTag().putInt("RecipeTime", recipeTime);
+    }
+
+    public static void setEqualBlockPos(ItemStack pin, BlockPos pos) {
+        TagUtil.putPos(pin.getOrCreateTag(), pos);
+    }
+
+    public static int getRecipeTime(ItemStack pin) {
+        return pin.getOrCreateTag().getInt("RecipeTime");
+    }
+
+    public static BlockPos getEqualBlockPos(ItemStack pin) {
+        return TagUtil.getBlockPos(pin.getOrCreateTag());
+    }
 
     private int tickCounter = 0;
     /**
@@ -105,7 +116,7 @@ public class RollingPinItem extends SwordItem implements IOptionalRecipeItem<Rol
      */
     @Override
     public void onUseTick(@NotNull Level level, @NotNull LivingEntity entity, @NotNull ItemStack stack, int i) {
-        if (stack.getItem() instanceof RollingPinItem pin && entity instanceof Player player) {
+        if (entity instanceof Player player) {
             new AnimController(entity).playAnim(20, "waving");
             //不匹配配方或是在此期间更换配方就停用
             if (getMatchingRecipes(player).isEmpty()) {
@@ -113,14 +124,14 @@ public class RollingPinItem extends SwordItem implements IOptionalRecipeItem<Rol
                 entity.stopUsingItem();
             }
             if (level.isClientSide) {
-                rolling(pin.equalBlockPos, level);
-            } else pin.tickCounter++;
-            if (pin.tickCounter >= 3) {
-                BlockState state = level.getBlockState(pin.equalBlockPos);
+                rolling(getEqualBlockPos(stack), level);
+            } else tickCounter++;
+            if (tickCounter >= 3) {
+                BlockState state = level.getBlockState(getEqualBlockPos(stack));
                 SoundEvent breakSound = state.getSoundType().getBreakSound();
-                level.playSound(null, pin.equalBlockPos, SoundEvents.WOOD_HIT, SoundSource.BLOCKS, 1.0F, 1.0F);
-                level.playSound(null, pin.equalBlockPos, breakSound, SoundSource.BLOCKS, 1.0F, 1.0F);
-                pin.tickCounter = 0;
+                level.playSound(null, getEqualBlockPos(stack), SoundEvents.WOOD_HIT, SoundSource.BLOCKS, 1.0F, 1.0F);
+                level.playSound(null, getEqualBlockPos(stack), breakSound, SoundSource.BLOCKS, 1.0F, 1.0F);
+                tickCounter = 0;
             }
         }
     }
@@ -133,14 +144,14 @@ public class RollingPinItem extends SwordItem implements IOptionalRecipeItem<Rol
         new AnimController(entity).stopAnim(10);
         entity.stopUsingItem();
         if (stack.getItem() instanceof RollingPinItem pin && entity instanceof Player player) {
-            if (pin.recipeTime > 0) {
+            if (getRecipeTime(stack) > 0) {
 
-                BlockPos pos = pin.equalBlockPos;
+                BlockPos pos = getEqualBlockPos(stack);
 
                 Optional<RollingRecipe> recipeOp = pin.getSelectedRecipe(stack, player);
                 if (recipeOp.isPresent()) {
                     RollingRecipe recipe = recipeOp.get();
-                    BlockState originState = level.getBlockState(pin.equalBlockPos);
+                    BlockState originState = level.getBlockState(pos);
                     BlockState state = recipe.output().defaultBlockState();
                     level.destroyBlock(pos, false);
                     BlockUtil.replaceBlockWithAllState(originState, state, level, pos);
@@ -156,7 +167,7 @@ public class RollingPinItem extends SwordItem implements IOptionalRecipeItem<Rol
 
                 //减少耐久度
                 stack.hurtAndBreak(1, entity, (e) -> e.broadcastBreakEvent(e.getUsedItemHand()));
-                pin.recipeTime = 0;
+                setRecipeTime(stack, 0);
             }
         }
         return stack;
@@ -198,7 +209,7 @@ public class RollingPinItem extends SwordItem implements IOptionalRecipeItem<Rol
                 level.destroyBlock(pos, false);
                 level.playSound(null, pos, SoundEvents.ARROW_SHOOT, SoundSource.BLOCKS, 1.0f, 0.5f);
                 stack.hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(p.getUsedItemHand()));
-                sweep(player);
+                CommonParticleSpawner.sweep(player, level);
             } else if (player.isCrouching()) {
                 int radius = 2;
                 // 遍历玩家周围半径的方块
@@ -256,11 +267,6 @@ public class RollingPinItem extends SwordItem implements IOptionalRecipeItem<Rol
             } else stacks.add(recipe.getResults().get(0));
         }
         return stacks;
-    }
-
-    @Override
-    public int getRecipeTime() {
-        return recipeTime;
     }
 
 }

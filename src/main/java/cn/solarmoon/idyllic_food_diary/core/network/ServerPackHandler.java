@@ -1,7 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.core.network;
 
 import cn.solarmoon.idyllic_food_diary.api.util.ParticleSpawner;
-import cn.solarmoon.idyllic_food_diary.core.IdyllicFoodDiary;
+import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.api.util.FarmerUtil;
 import cn.solarmoon.idyllic_food_diary.api.util.namespace.NETList;
 import cn.solarmoon.idyllic_food_diary.core.common.block_entity.GrillBlockEntity;
@@ -36,21 +36,22 @@ import java.util.List;
 public class ServerPackHandler implements IServerPackHandler {
 
     @Override
-    public void handle(ServerPlayer player, ServerLevel level, BlockPos pos, ItemStack stack, CompoundTag nbt, float f, int[] ints, String string, List<ItemStack> stacks, String message) {
+    public void handle(ServerPlayer player, ServerLevel level, BlockPos pos, ItemStack stack, CompoundTag nbt, FluidStack fluidStack, float f, int[] ints, String string, List<ItemStack> stacks, List<Vec3> vec3List, String message) {
         switch (message) {
             //倒水技能
             case NETList.POURING -> {
                 ItemStack itemStack = player.getMainHandItem(); // 必须使用主手而非发来的item，原因未知
                 if(itemStack.getItem() instanceof ITankItem) {
                     IFluidHandlerItem tankStack = FluidUtil.getTank(itemStack);
-                    FluidStack fluidStack = tankStack.getFluidInTank(0);
-                    int fluidAmount = fluidStack.getAmount();
+                    FluidStack fluidStack0 = tankStack.getFluidInTank(0);
+                    int fluidAmount = fluidStack0.getAmount();
+                    ParticleSpawner.fluidPouring(fluidStack0, player, level);
 
                     //要产生效果至少要符合最低的标准量
                     int needAmount = 50;
                     List<SoupServingRecipe> recipes = level.getRecipeManager().getAllRecipesFor(IMRecipes.SOUP_SERVING.get());
                     for (var recipe : recipes) {
-                        if (fluidStack.getFluid().isSame(recipe.fluidToServe().getFluid())) {
+                        if (fluidStack0.getFluid().isSame(recipe.fluidToServe().getFluid())) {
                             needAmount = recipe.getAmountToServe();
                             break;
                         }
@@ -66,7 +67,7 @@ public class ServerPackHandler implements IServerPackHandler {
                         for(var entity : entities) {
                             if(!entity.equals(player) || player.getXRot() < -30) {
                                 // 众所周知液体穿墙是特性（点名表扬喷溅药水）
-                                FarmerUtil.commonDrink(fluidStack, level, entity, false);
+                                FarmerUtil.commonDrink(fluidStack0, entity, false);
                             }
                         }
                         tankStack.drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.EXECUTE);

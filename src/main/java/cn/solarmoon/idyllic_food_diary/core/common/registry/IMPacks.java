@@ -1,6 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.core.common.registry;
 
-import cn.solarmoon.idyllic_food_diary.core.IdyllicFoodDiary;
+import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.core.network.ClientPackHandler;
 import cn.solarmoon.idyllic_food_diary.core.network.ServerPackHandler;
 import cn.solarmoon.solarmoon_core.api.common.registry.NetPackEntry;

@@ -27,7 +27,6 @@ import java.util.Random;
  */
 public abstract class AbstractKettleEntityBlock extends BasicEntityBlock {
 
-
     protected AbstractKettleEntityBlock(Properties properties) {
         super(properties);
     }
@@ -44,12 +43,19 @@ public abstract class AbstractKettleEntityBlock extends BasicEntityBlock {
             return InteractionResult.SUCCESS;
         }
 
-        //能够装入液体（不能取）
-        if (kettle.putFluid(player, hand, false)) {
+        //液体交互
+        if (kettle.loadFluid(player, hand, false)) {
             level.playSound(null, pos, SoundEvents.BUCKET_FILL, SoundSource.PLAYERS);
             kettle.setChanged();
             return InteractionResult.SUCCESS;
         }
+
+        if (kettle.storage(player, hand, 1, 1)) {
+            level.playSound(null, pos, SoundEvents.ARMOR_EQUIP_LEATHER, SoundSource.PLAYERS);
+            kettle.setChanged();
+            return InteractionResult.SUCCESS;
+        }
+
         return InteractionResult.PASS;
     }
 
@@ -58,6 +64,7 @@ public abstract class AbstractKettleEntityBlock extends BasicEntityBlock {
         super.tick(level, pos, state, blockEntity);
         KettleBlockEntity kettle = (KettleBlockEntity) blockEntity;
         kettle.tryBoilWater();
+        kettle.tryBrewTea();
         //里面是hot类型的液体就冒热气
         makeBoilParticle(level, pos, state, blockEntity);
     }

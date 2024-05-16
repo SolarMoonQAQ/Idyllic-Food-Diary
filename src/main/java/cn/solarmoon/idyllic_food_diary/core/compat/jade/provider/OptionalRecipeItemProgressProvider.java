@@ -1,7 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.core.compat.jade.provider;
 
-import cn.solarmoon.idyllic_food_diary.core.IdyllicFoodDiary;
-import cn.solarmoon.solarmoon_core.api.common.item.iutor.ITimeRecipeItem;
+import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
+import cn.solarmoon.idyllic_food_diary.core.common.item.recipe_item.RollingPinItem;
 import cn.solarmoon.solarmoon_core.api.util.TextUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -26,21 +26,20 @@ public enum OptionalRecipeItemProgressProvider implements JadeTooltipCollectedCa
         if (PluginConfig.INSTANCE.get(pinId)) {
             Player player = accessor.getPlayer();
             ItemStack stack = player.getUseItem();
-            if (stack.getItem() instanceof ITimeRecipeItem rp) {
-                float scale = (float) player.getTicksUsingItem() / rp.getRecipeTime();
-                if (rp.getRecipeTime() != 0) {
-                    int time = player.getTicksUsingItem() / 20;
-                    int needTime = rp.getRecipeTime() / 20;
-                    IElementHelper ehp = iTooltip.getElementHelper();
-                    IElement progress = ehp.progress(
-                            scale,
-                            Component.literal(TextUtil.toMinuteFormat(time) + "/" + TextUtil.toMinuteFormat(needTime)).withStyle(ChatFormatting.WHITE),
-                            new ProgressStyle().color(0xFFDEAD),
-                            BoxStyle.DEFAULT,
-                            true
-                    );
-                    iTooltip.add(progress);
-                }
+            int recipeTime = RollingPinItem.getRecipeTime(stack);
+            float scale = (float) player.getTicksUsingItem() / recipeTime;
+            if (recipeTime != 0) {
+                int time = player.getTicksUsingItem() / 20;
+                int needTime = recipeTime / 20;
+                IElementHelper ehp = iTooltip.getElementHelper();
+                IElement progress = ehp.progress(
+                        scale,
+                        Component.literal(TextUtil.toMinuteFormat(time) + "/" + TextUtil.toMinuteFormat(needTime)).withStyle(ChatFormatting.WHITE),
+                        new ProgressStyle().color(0xFFDEAD),
+                        BoxStyle.DEFAULT,
+                        true
+                );
+                iTooltip.add(progress);
             }
         }
     }

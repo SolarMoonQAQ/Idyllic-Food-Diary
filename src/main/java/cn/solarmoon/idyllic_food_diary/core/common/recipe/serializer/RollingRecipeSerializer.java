@@ -2,7 +2,7 @@ package cn.solarmoon.idyllic_food_diary.core.common.recipe.serializer;
 
 import cn.solarmoon.idyllic_food_diary.core.common.recipe.RollingRecipe;
 import cn.solarmoon.solarmoon_core.api.common.recipe.serializable.ChanceResult;
-import cn.solarmoon.solarmoon_core.api.util.RecipeSerializeHelper;
+import cn.solarmoon.solarmoon_core.api.util.SerializeHelper;
 import com.google.gson.JsonObject;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
@@ -21,8 +21,8 @@ public class RollingRecipeSerializer implements RecipeSerializer<RollingRecipe> 
     public @NotNull RollingRecipe fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
         Ingredient input = Ingredient.fromJson(json.get("ingredient"));
         int time = GsonHelper.getAsInt(json, "time");
-        Block output = RecipeSerializeHelper.readBlock(json, "output", Blocks.AIR);
-        NonNullList<ChanceResult> results = RecipeSerializeHelper.readChanceResults(json, "result");
+        Block output = SerializeHelper.readBlock(json, "output", Blocks.AIR);
+        NonNullList<ChanceResult> results = SerializeHelper.readChanceResults(json, "result");
         return new RollingRecipe(recipeId, input, time, output, results);
     }
 
@@ -31,8 +31,8 @@ public class RollingRecipeSerializer implements RecipeSerializer<RollingRecipe> 
     public RollingRecipe fromNetwork(@NotNull ResourceLocation recipeId, @NotNull FriendlyByteBuf buffer) {
         Ingredient input = Ingredient.fromNetwork(buffer);
         int time = buffer.readInt();
-        Block output = RecipeSerializeHelper.readBlock(buffer);
-        NonNullList<ChanceResult> resultsIn = RecipeSerializeHelper.readChanceResults(buffer);
+        Block output = SerializeHelper.readBlock(buffer);
+        NonNullList<ChanceResult> resultsIn = SerializeHelper.readChanceResults(buffer);
         return new RollingRecipe(recipeId, input, time, output, resultsIn);
     }
 
@@ -40,8 +40,8 @@ public class RollingRecipeSerializer implements RecipeSerializer<RollingRecipe> 
     public void toNetwork(@NotNull FriendlyByteBuf buffer, RollingRecipe recipe) {
         recipe.input().toNetwork(buffer);
         buffer.writeInt(recipe.time());
-        RecipeSerializeHelper.writeBlock(buffer, recipe.output());
-        RecipeSerializeHelper.writeChanceResults(buffer, recipe.chanceResults());
+        SerializeHelper.writeBlock(buffer, recipe.output());
+        SerializeHelper.writeChanceResults(buffer, recipe.chanceResults());
     }
 
 }

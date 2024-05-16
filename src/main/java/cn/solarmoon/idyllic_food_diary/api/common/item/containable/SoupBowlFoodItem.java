@@ -2,7 +2,7 @@ package cn.solarmoon.idyllic_food_diary.api.common.item.containable;
 
 import cn.solarmoon.idyllic_food_diary.api.util.FarmerUtil;
 import cn.solarmoon.idyllic_food_diary.core.compat.create.util.PotionUtil;
-import cn.solarmoon.idyllic_food_diary.core.data.fluid_effects.serializer.FluidEffect;
+import cn.solarmoon.idyllic_food_diary.api.data.serializer.FluidEffect;
 import cn.solarmoon.solarmoon_core.api.util.LevelSummonUtil;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -65,7 +65,7 @@ public class SoupBowlFoodItem extends BlockItem {
         Fluid fluid = ForgeRegistries.FLUIDS.getValue(new ResourceLocation(fluidBound));
         if (fluid != null) {
             FluidStack fluidStack = new FluidStack(fluid, 250);
-            FarmerUtil.commonDrink(fluidStack, level, entity, true);
+            FarmerUtil.commonDrink(fluidStack, entity, true);
         }
     }
 

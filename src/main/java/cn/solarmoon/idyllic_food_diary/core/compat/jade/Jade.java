@@ -1,6 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.core.compat.jade;
 
-import cn.solarmoon.idyllic_food_diary.core.IdyllicFoodDiary;
+import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.api.common.block.entity_block.*;
 import cn.solarmoon.idyllic_food_diary.core.compat.jade.provider.*;
 import cn.solarmoon.solarmoon_core.api.common.block.crop.BaseBushCropBlock;

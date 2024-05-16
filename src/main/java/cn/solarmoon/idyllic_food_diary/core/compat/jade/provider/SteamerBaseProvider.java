@@ -1,6 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.core.compat.jade.provider;
 
-import cn.solarmoon.idyllic_food_diary.core.IdyllicFoodDiary;
+import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.core.common.block_entity.SteamerBaseBlockEntity;
 import cn.solarmoon.solarmoon_core.api.util.TextUtil;
 import net.minecraft.ChatFormatting;

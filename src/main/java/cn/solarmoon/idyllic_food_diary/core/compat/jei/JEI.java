@@ -1,6 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.core.compat.jei;
 
-import cn.solarmoon.idyllic_food_diary.core.IdyllicFoodDiary;
+import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.core.common.recipe.*;
 import cn.solarmoon.idyllic_food_diary.core.common.registry.IMItems;
 import cn.solarmoon.idyllic_food_diary.core.common.registry.IMRecipes;

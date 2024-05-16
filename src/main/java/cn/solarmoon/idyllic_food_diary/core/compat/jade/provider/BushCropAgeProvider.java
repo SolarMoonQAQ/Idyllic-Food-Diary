@@ -1,6 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.core.compat.jade.provider;
 
-import cn.solarmoon.idyllic_food_diary.core.IdyllicFoodDiary;
+import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.solarmoon_core.api.common.block.crop.BaseBushCropBlock;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;

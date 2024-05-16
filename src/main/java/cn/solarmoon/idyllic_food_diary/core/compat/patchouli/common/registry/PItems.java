@@ -1,6 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.core.compat.patchouli.common.registry;
 
-import cn.solarmoon.idyllic_food_diary.core.IdyllicFoodDiary;
+import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.core.compat.patchouli.common.item.FarmersDiaryItem;
 import cn.solarmoon.solarmoon_core.api.common.registry.ItemEntry;
 

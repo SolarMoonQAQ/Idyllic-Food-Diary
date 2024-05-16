@@ -1,6 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.api.common.block.food_block.food_interaction;
 
-import cn.solarmoon.idyllic_food_diary.core.IdyllicFoodDiary;
+import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.api.common.block.BaseInteractionBlock;
 import cn.solarmoon.solarmoon_core.api.util.BlockUtil;
 import cn.solarmoon.solarmoon_core.api.util.LevelSummonUtil;

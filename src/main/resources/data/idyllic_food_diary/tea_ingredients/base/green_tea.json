@@ -1,0 +1,27 @@
+{
+  "ingredient": {
+    "item": "idyllic_food_diary:green_tea_leaf"
+  },
+  "type": "base",
+  "fluid_bound": [
+    {
+      "input": "idyllic_food_diary:hot_water",
+      "output": "idyllic_food_diary:green_tea"
+    }
+  ],
+  "time": "100",
+  "max_brewing_volume": "500",
+  "effects": [
+    {
+      "id": "idyllic_food_diary:snug",
+      "duration": "60",
+      "amplifier": "0"
+    },
+    {
+      "id": "idyllic_food_diary:fleet_of_foot",
+      "duration": "90",
+      "amplifier": "1"
+    }
+  ],
+  "extinguishing": true
+}

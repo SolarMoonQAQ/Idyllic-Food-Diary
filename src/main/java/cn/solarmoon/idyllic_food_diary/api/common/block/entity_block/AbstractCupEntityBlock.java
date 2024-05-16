@@ -1,12 +1,12 @@
 package cn.solarmoon.idyllic_food_diary.api.common.block.entity_block;
 
-import cn.solarmoon.idyllic_food_diary.core.IdyllicFoodDiary;
+import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.api.util.FarmerUtil;
 import cn.solarmoon.idyllic_food_diary.core.common.block_entity.CupBlockEntity;
 import cn.solarmoon.idyllic_food_diary.core.common.recipe.CupRecipe;
 import cn.solarmoon.idyllic_food_diary.core.common.registry.IMRecipes;
 import cn.solarmoon.idyllic_food_diary.core.common.registry.IMSounds;
-import cn.solarmoon.idyllic_food_diary.core.data.fluid_effects.serializer.FluidEffect;
+import cn.solarmoon.idyllic_food_diary.api.data.serializer.FluidEffect;
 import cn.solarmoon.idyllic_food_diary.core.data.tags.IMFluidTags;
 import cn.solarmoon.solarmoon_core.api.common.block.entity_block.BasicEntityBlock;
 import cn.solarmoon.solarmoon_core.api.common.block_entity.BaseTCBlockEntity;
@@ -104,7 +104,7 @@ public abstract class AbstractCupEntityBlock extends BasicEntityBlock {
                 //能吃却不能吃 不让用
                 if(!canEat(blockEntity, player)) return InteractionResult.PASS;
                 if(counting.getCount() >= getPressCount()) {
-                    FarmerUtil.commonDrink(tank.getFluid(), level, player, true);
+                    FarmerUtil.commonDrink(tank.getFluid(), player, true);
                     tank.drain(FarmerUtil.getDrinkVolume(level, tank.getFluid()), IFluidHandler.FluidAction.EXECUTE);
                     cup.setChanged();
                     counting.resetCount();

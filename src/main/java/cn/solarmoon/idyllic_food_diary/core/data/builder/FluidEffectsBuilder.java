@@ -1,7 +1,7 @@
-package cn.solarmoon.idyllic_food_diary.core.data.fluid_effects;
+package cn.solarmoon.idyllic_food_diary.core.data.builder;
 
-import cn.solarmoon.idyllic_food_diary.core.IdyllicFoodDiary;
-import cn.solarmoon.idyllic_food_diary.core.data.fluid_effects.serializer.FluidEffect;
+import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
+import cn.solarmoon.idyllic_food_diary.api.data.serializer.FluidEffect;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;

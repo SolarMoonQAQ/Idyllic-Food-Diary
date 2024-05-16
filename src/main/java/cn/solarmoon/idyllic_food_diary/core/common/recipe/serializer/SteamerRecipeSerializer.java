@@ -1,7 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.core.common.recipe.serializer;
 
 import cn.solarmoon.idyllic_food_diary.core.common.recipe.SteamerRecipe;
-import cn.solarmoon.solarmoon_core.api.util.RecipeSerializeHelper;
+import cn.solarmoon.solarmoon_core.api.util.SerializeHelper;
 import com.google.gson.JsonObject;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -9,6 +9,7 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraftforge.common.crafting.CraftingHelper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -18,7 +19,7 @@ public class SteamerRecipeSerializer implements RecipeSerializer<SteamerRecipe> 
     public @NotNull SteamerRecipe fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
         Ingredient input = Ingredient.fromJson(json.get("ingredient"));
         int time = GsonHelper.getAsInt(json, "time");
-        ItemStack output = RecipeSerializeHelper.readItemStack(json, "result");
+        ItemStack output = SerializeHelper.readItemStack(json, "result");
         return new SteamerRecipe(recipeId, input, time, output);
     }
 

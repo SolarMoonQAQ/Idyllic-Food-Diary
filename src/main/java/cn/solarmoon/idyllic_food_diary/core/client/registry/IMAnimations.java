@@ -1,6 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.core.client.registry;
 
-import cn.solarmoon.idyllic_food_diary.core.IdyllicFoodDiary;
+import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import dev.kosmx.playerAnim.api.layered.IAnimation;
 import dev.kosmx.playerAnim.api.layered.ModifierLayer;
 import dev.kosmx.playerAnim.api.layered.modifier.MirrorModifier;
@@ -13,7 +13,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
-import static cn.solarmoon.idyllic_food_diary.core.IdyllicFoodDiary.MOD_ID;
+import static cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary.MOD_ID;
 
 
 @Mod.EventBusSubscriber(modid = IdyllicFoodDiary.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)

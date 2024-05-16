@@ -17,7 +17,7 @@ import java.util.Optional;
 /**
  * 直接接入就能实现水壶配方
  */
-public interface IKettleRecipe {
+public interface IKettleRecipe extends ITankBlockEntity {
 
     default BlockEntity self() {
         return (BlockEntity) this;
@@ -32,12 +32,10 @@ public interface IKettleRecipe {
             setBoilRecipeTime(kettleRecipe.getActualTime(self()));
             setBoilTime(getBoilTime() + 1);
             if (getBoilTime() > kettleRecipe.getActualTime(self())) {
-                if (self() instanceof ITankBlockEntity tb) {
-                    FluidStack fluidStack = new FluidStack(kettleRecipe.output(), tb.getTank().getFluidAmount());
-                    tb.getTank().setFluid(fluidStack);
-                    setBoilTime(0);
-                    self().setChanged();
-                }
+                FluidStack fluidStack = new FluidStack(kettleRecipe.output(), getTank().getFluidAmount());
+                getTank().setFluid(fluidStack);
+                setBoilTime(0);
+                self().setChanged();
             }
         } else {
             setBoilTime(0);
@@ -56,11 +54,8 @@ public interface IKettleRecipe {
         return recipes.stream().filter(recipe -> {
             BlockState state = level.getBlockState(self().getBlockPos().below());
             boolean isHeated = FarmerUtil.isHeatSource(state);
-            if(self() instanceof ITankBlockEntity container) {
-                FluidStack fluidStackIn = container.getTank().getFluid();
-                return fluidStackIn.getFluid().equals(recipe.input()) && isHeated;
-            }
-            return false;
+            FluidStack fluidStackIn = getTank().getFluid();
+            return fluidStackIn.getFluid().equals(recipe.input()) && isHeated;
         }).findFirst();
     }
 
@@ -78,7 +73,7 @@ public interface IKettleRecipe {
         Level level = self().getLevel();
         if (level != null) {
             BlockState stateBelow = level.getBlockState(self().getBlockPos().below());
-            return FluidUtil.getFluidStack(self()).getFluid().is(IMFluidTags.HOT_FLUID) && FarmerUtil.isHeatSource(stateBelow);
+            return getTank().getFluid().getFluid().is(IMFluidTags.HOT_FLUID) && FarmerUtil.isHeatSource(stateBelow);
         }
         return false;
     }

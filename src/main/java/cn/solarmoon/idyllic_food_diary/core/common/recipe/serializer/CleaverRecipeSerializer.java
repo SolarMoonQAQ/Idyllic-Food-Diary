@@ -2,7 +2,7 @@ package cn.solarmoon.idyllic_food_diary.core.common.recipe.serializer;
 
 import cn.solarmoon.idyllic_food_diary.core.common.recipe.CleaverRecipe;
 import cn.solarmoon.solarmoon_core.api.common.recipe.serializable.ChanceResult;
-import cn.solarmoon.solarmoon_core.api.util.RecipeSerializeHelper;
+import cn.solarmoon.solarmoon_core.api.util.SerializeHelper;
 import com.google.gson.JsonObject;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
@@ -17,7 +17,7 @@ public class CleaverRecipeSerializer implements RecipeSerializer<CleaverRecipe> 
     @Override
     public @NotNull CleaverRecipe fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
         Ingredient input = Ingredient.fromJson(json.get("ingredient"));
-        NonNullList<ChanceResult> results = RecipeSerializeHelper.readChanceResults(json, "result");;
+        NonNullList<ChanceResult> results = SerializeHelper.readChanceResults(json, "result");;
         return new CleaverRecipe(recipeId, input, results);
     }
 
@@ -25,14 +25,14 @@ public class CleaverRecipeSerializer implements RecipeSerializer<CleaverRecipe> 
     @Override
     public CleaverRecipe fromNetwork(@NotNull ResourceLocation recipeId, @NotNull FriendlyByteBuf buffer) {
         Ingredient input = Ingredient.fromNetwork(buffer);
-        NonNullList<ChanceResult> resultsIn = RecipeSerializeHelper.readChanceResults(buffer);
+        NonNullList<ChanceResult> resultsIn = SerializeHelper.readChanceResults(buffer);
         return new CleaverRecipe(recipeId, input, resultsIn);
     }
 
     @Override
     public void toNetwork(@NotNull FriendlyByteBuf buffer, CleaverRecipe recipe) {
         recipe.input().toNetwork(buffer);
-        RecipeSerializeHelper.writeChanceResults(buffer, recipe.chanceResults());
+        SerializeHelper.writeChanceResults(buffer, recipe.chanceResults());
     }
 
 }

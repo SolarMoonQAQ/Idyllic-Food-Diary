@@ -3,7 +3,7 @@ package cn.solarmoon.idyllic_food_diary.api.common.item;
 import cn.solarmoon.idyllic_food_diary.api.util.FarmerUtil;
 import cn.solarmoon.idyllic_food_diary.core.client.Item_renderer.LittleCupItemRenderer;
 import cn.solarmoon.idyllic_food_diary.core.compat.create.util.PotionUtil;
-import cn.solarmoon.idyllic_food_diary.core.data.fluid_effects.serializer.FluidEffect;
+import cn.solarmoon.idyllic_food_diary.api.data.serializer.FluidEffect;
 import cn.solarmoon.solarmoon_core.api.client.ItemRenderer.BaseItemRenderer;
 import cn.solarmoon.solarmoon_core.api.client.ItemRenderer.IItemRendererProvider;
 import cn.solarmoon.solarmoon_core.api.common.item.IContainerItem;
@@ -81,7 +81,7 @@ public abstract class AbstractCupItem extends BlockItem implements ITankItem, IC
         int tankAmount = tankStack.getFluidInTank(0).getAmount();
         if(tankAmount >= FarmerUtil.getDrinkVolume(level, tankStack.getFluidInTank(0))) {
             FluidStack fluidStack = tankStack.getFluidInTank(0);
-            FarmerUtil.commonDrink(fluidStack, level, entity, true);
+            FarmerUtil.commonDrink(fluidStack, entity, true);
             tankStack.drain(FarmerUtil.getDrinkVolume(level, tankStack.getFluidInTank(0)), IFluidHandler.FluidAction.EXECUTE);
         } else if (tankAmount > 0) tankStack.drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.EXECUTE);
         return stack;
@@ -120,13 +120,10 @@ public abstract class AbstractCupItem extends BlockItem implements ITankItem, IC
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
         super.appendHoverText(stack, level, components, flag);
         components.add(1, Component.literal("")); //留空间给tooltip
-
-        //data效果显示
-        FluidEffect fluidEffect = FluidEffect.getFluidEffectFromStack(stack);
-        FarmerUtil.showFluidEffectTooltip(fluidEffect, components);
-
-        //Create药水效果显示
         FluidStack fluidStack = FluidUtil.getFluidStack(stack);
+        //data效果显示
+        FarmerUtil.showTeaIngredientTooltip(fluidStack, components);
+        //Create药水效果显示
         PotionUtil.addPotionHoverText(fluidStack, components);
     }
 

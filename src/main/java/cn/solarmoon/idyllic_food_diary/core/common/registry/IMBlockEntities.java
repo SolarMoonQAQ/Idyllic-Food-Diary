@@ -1,6 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.core.common.registry;
 
-import cn.solarmoon.idyllic_food_diary.core.IdyllicFoodDiary;
+import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.core.common.block_entity.*;
 import cn.solarmoon.solarmoon_core.api.common.registry.BlockEntityEntry;
 import net.minecraft.world.level.block.Block;
@@ -19,7 +19,7 @@ public class IMBlockEntities {
     //水壶
     public static final BlockEntityEntry<KettleBlockEntity> KETTLE = IdyllicFoodDiary.REGISTRY.blockEntity()
             .id("kettle")
-            .bound((pos, state) -> new KettleBlockEntity(1000, pos, state))
+            .bound((pos, state) -> new KettleBlockEntity(1000, 3, 1, pos, state))
             .validBlock(() -> new Block[]{IMBlocks.KETTLE.get()})
             .build();
 

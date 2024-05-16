@@ -1,4 +1,4 @@
-package cn.solarmoon.idyllic_food_diary.core.data.fluid_effects.serializer;
+package cn.solarmoon.idyllic_food_diary.api.data.serializer;
 
 import cn.solarmoon.solarmoon_core.api.data.serializable.FoodValue;
 import cn.solarmoon.solarmoon_core.api.data.serializable.PotionEffect;

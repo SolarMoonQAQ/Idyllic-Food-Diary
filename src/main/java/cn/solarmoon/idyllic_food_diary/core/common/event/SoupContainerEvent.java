@@ -1,6 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.core.common.event;
 
-import cn.solarmoon.idyllic_food_diary.core.IdyllicFoodDiary;
+import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.core.common.recipe.SoupServingRecipe;
 import cn.solarmoon.idyllic_food_diary.core.common.registry.IMRecipes;
 import cn.solarmoon.idyllic_food_diary.core.data.tags.IMBlockTags;

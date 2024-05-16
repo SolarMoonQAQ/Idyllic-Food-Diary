@@ -1,7 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.core.common.registry;
 
 
-import cn.solarmoon.idyllic_food_diary.core.IdyllicFoodDiary;
+import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.api.common.block.food_block.BowlFoodShapedBlock;
 import cn.solarmoon.idyllic_food_diary.api.common.block.food_block.BowlSoupBlock;
 import cn.solarmoon.idyllic_food_diary.api.common.block.food_block.UncookedFoodBlock;

@@ -1,7 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.core.common.recipe.serializer;
 
 import cn.solarmoon.idyllic_food_diary.core.common.recipe.CupRecipe;
-import cn.solarmoon.solarmoon_core.api.util.RecipeSerializeHelper;
+import cn.solarmoon.solarmoon_core.api.util.SerializeHelper;
 import com.google.gson.JsonObject;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -17,9 +17,9 @@ public class CupRecipeSerializer implements RecipeSerializer<CupRecipe> {
     @Override
     public @NotNull CupRecipe fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
         Ingredient ingredient = Ingredient.fromJson(json.get("ingredient"));
-        FluidStack inputFluid = RecipeSerializeHelper.readFluidStack(json, "input_fluid");
+        FluidStack inputFluid = SerializeHelper.readFluidStack(json, "input_fluid");
         final int time = GsonHelper.getAsInt(json, "time");
-        FluidStack outputFluid = RecipeSerializeHelper.readFluidStack(json, "output_fluid");
+        FluidStack outputFluid = SerializeHelper.readFluidStack(json, "output_fluid");
         boolean compareNBT = GsonHelper.getAsBoolean(json, "compare_nbt", false);
         return new CupRecipe(recipeId, ingredient, inputFluid, time, outputFluid, compareNBT);
     }

@@ -1,7 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.api.common.block.entity_block;
 
 import cn.solarmoon.idyllic_food_diary.api.util.ParticleSpawner;
-import cn.solarmoon.idyllic_food_diary.core.IdyllicFoodDiary;
+import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.core.common.block_entity.ServicePlateBlockEntity;
 import cn.solarmoon.idyllic_food_diary.core.common.registry.IMBlockEntities;
 import cn.solarmoon.solarmoon_core.api.common.block.entity_block.BasicEntityBlock;
@@ -50,11 +50,11 @@ public abstract class AbstractServicePlateEntityBlock extends BasicEntityBlock {
             //计数装置
             CountingDevice counting = CapabilityUtil.getData(player, SolarCapabilities.PLAYER_DATA).getCountingDevice();
             counting.setCount(counting.getCount() + 1, pos);
-            IdyllicFoodDiary.DEBUG.send("点击次数：" + counting.getCount());
+            IdyllicFoodDiary.DEBUG.send("点击次数：" + counting.getCount(), player);
             //吃的声音
-            level.playSound(player, pos, getEatSound(), SoundSource.PLAYERS, 1.0F, 1.0F);
+            level.playSound(null, pos, getEatSound(), SoundSource.PLAYERS, 1.0F, 1.0F);
             //吃的粒子效果
-            ParticleSpawner.eat(food, player);
+            ParticleSpawner.eat(food, player, level);
             if (counting.getCount() >= this.eatCount) {
                 //吃掉！
                 ItemStack give = food.finishUsingItem(level, player);

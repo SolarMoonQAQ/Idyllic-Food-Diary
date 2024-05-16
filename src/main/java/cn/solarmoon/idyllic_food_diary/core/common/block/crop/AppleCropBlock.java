@@ -17,7 +17,7 @@ public class AppleCropBlock extends BaseHangingBushCropBlock {
 
     @Override
     public BlockMatcher canSurviveBlock() {
-        return BlockMatcher.create(Blocks.OAK_LEAVES);
+        return BlockMatcher.of(Blocks.OAK_LEAVES);
     }
 
     @Override

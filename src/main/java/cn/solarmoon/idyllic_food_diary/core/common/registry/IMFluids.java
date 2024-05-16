@@ -1,7 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.core.common.registry;
 
 
-import cn.solarmoon.idyllic_food_diary.core.IdyllicFoodDiary;
+import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.core.common.fluid.*;
 import cn.solarmoon.idyllic_food_diary.core.common.fluid.no_bucket.*;
 import cn.solarmoon.solarmoon_core.api.common.registry.FluidEntry;

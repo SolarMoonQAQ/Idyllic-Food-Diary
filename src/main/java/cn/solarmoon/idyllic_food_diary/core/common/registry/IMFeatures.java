@@ -1,6 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.core.common.registry;
 
-import cn.solarmoon.idyllic_food_diary.core.IdyllicFoodDiary;
+import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.core.common.level.config.WildCropConfig;
 import cn.solarmoon.idyllic_food_diary.core.common.level.feature.AppleTreeFeature;
 import cn.solarmoon.idyllic_food_diary.core.common.level.feature.DurianTreeFeature;

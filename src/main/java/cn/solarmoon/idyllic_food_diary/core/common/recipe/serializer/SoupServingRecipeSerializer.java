@@ -1,7 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.core.common.recipe.serializer;
 
 import cn.solarmoon.idyllic_food_diary.core.common.recipe.SoupServingRecipe;
-import cn.solarmoon.solarmoon_core.api.util.RecipeSerializeHelper;
+import cn.solarmoon.solarmoon_core.api.util.SerializeHelper;
 import com.google.gson.JsonObject;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -16,7 +16,7 @@ public class SoupServingRecipeSerializer implements RecipeSerializer<SoupServing
     @Override
     public SoupServingRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
         ItemStack container = CraftingHelper.getItemStack(json.getAsJsonObject("container"), true);
-        FluidStack fluidToServe = RecipeSerializeHelper.readFluidStack(json, "fluid");
+        FluidStack fluidToServe = SerializeHelper.readFluidStack(json, "fluid");
         ItemStack result = CraftingHelper.getItemStack(json.getAsJsonObject("result"), true);
         return new SoupServingRecipe(recipeId, container, fluidToServe, result);
     }

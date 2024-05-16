@@ -17,7 +17,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import static cn.solarmoon.idyllic_food_diary.core.IdyllicFoodDiary.MOD_ID;
+import static cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary.MOD_ID;
 
 /**
  * 用于加载数据

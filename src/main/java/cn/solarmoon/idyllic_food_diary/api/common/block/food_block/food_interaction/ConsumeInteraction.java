@@ -1,6 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.api.common.block.food_block.food_interaction;
 
-import cn.solarmoon.idyllic_food_diary.core.IdyllicFoodDiary;
+import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.api.common.block.BaseInteractionBlock;
 import cn.solarmoon.solarmoon_core.api.common.capability.serializable.player.CountingDevice;
 import cn.solarmoon.solarmoon_core.api.util.BlockUtil;
@@ -97,11 +97,11 @@ public class ConsumeInteraction {
                 //计数装置
                 CountingDevice counting = CapabilityUtil.getData(player, SolarCapabilities.PLAYER_DATA).getCountingDevice();
                 counting.setCount(counting.getCount() + 1, pos);
-                IdyllicFoodDiary.DEBUG.send("点击次数：" + counting.getCount());
+                IdyllicFoodDiary.DEBUG.send("点击次数：" + counting.getCount(), player);
                 //吃的声音
-                level.playSound(player, pos, eatSound, SoundSource.PLAYERS, 1.0F, 1.0F);
+                level.playSound(null, pos, eatSound, SoundSource.PLAYERS, 1.0F, 1.0F);
                 //吃的粒子效果
-                eat(pos, player);
+                eat(pos, player, level);
                 BlockState targetState = state.setValue(BaseInteractionBlock.INTERACTION, remain - 1);
                 if (counting.getCount() >= preEatCount) {
                     level.setBlock(pos, targetState, 3);

@@ -33,8 +33,6 @@ public class DrinkingClientEvent {
         ) {
             if(event.getEntity().isCrouching()) {
                 IMPacks.SERVER_PACK.getSender().send(NETList.POURING, pos, stack);
-                FluidStack fluidStack = FluidUtil.getFluidStack(stack);
-                ParticleSpawner.fluidPouring(fluidStack, event.getEntity());
             }
         }
     }

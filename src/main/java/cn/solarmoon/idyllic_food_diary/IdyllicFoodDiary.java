@@ -1,9 +1,7 @@
-package cn.solarmoon.idyllic_food_diary.core;
+package cn.solarmoon.idyllic_food_diary;
 
-import cn.solarmoon.idyllic_food_diary.core.client.block_entity_renderer.*;
-import cn.solarmoon.idyllic_food_diary.core.client.entity_renderer.DurianEntityRenderer;
 import cn.solarmoon.idyllic_food_diary.core.client.registry.*;
-import cn.solarmoon.idyllic_food_diary.core.common.config.IMCommonConfig;
+import cn.solarmoon.idyllic_food_diary.core.common.registry.IMCommonConfig;
 import cn.solarmoon.idyllic_food_diary.core.common.registry.*;
 import cn.solarmoon.idyllic_food_diary.core.common.registry.ability.*;
 import cn.solarmoon.idyllic_food_diary.core.compat.appleskin.AppleSkin;
@@ -16,29 +14,23 @@ import cn.solarmoon.solarmoon_core.api.util.static_utor.Debug;
 import cn.solarmoon.solarmoon_core.api.util.static_utor.Translator;
 import net.minecraftforge.fml.common.Mod;
 
-import static cn.solarmoon.idyllic_food_diary.core.IdyllicFoodDiary.MOD_ID;
+import static cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary.MOD_ID;
 
 
 @Mod(MOD_ID)
 public class IdyllicFoodDiary extends SolarMoonBase {
 
     public static final String MOD_ID = "idyllic_food_diary";
+    public static final ObjectRegistry REGISTRY = ObjectRegistry.create(MOD_ID);
     public static Debug DEBUG = Debug.create("[§6田园食记§f] ", IMCommonConfig.deBug);
     public static final Translator TRANSLATOR = Translator.create(MOD_ID);
-    public static final ObjectRegistry REGISTRY = ObjectRegistry.create(MOD_ID);
 
     @Override
     public void objectsClientOnly() {
         IMLayers.register();
         IMParticles.register();
-        IMBlockEntities.LITTLE_CUP.renderer(() -> LittleCupRenderer::new);
-        IMBlockEntities.STEAMER_BASE.renderer(() -> SteamerBaseRenderer::new);
-        IMBlockEntities.STEAMER.renderer(() -> SteamerRenderer::new);
-        IMBlockEntities.PLATE.renderer(() -> ServicePlateRenderer::new);
-        IMBlockEntities.GRILL.renderer(() -> GrillRenderer::new);
-        IMBlockEntities.CUTTING_BOARD.renderer(() -> CuttingBoardRenderer::new);
-        IMBlockEntities.SOUP_POT.renderer(() -> SoupPotRenderer::new);
-        IMEntityTypes.DURIAN_ENTITY.renderer(DurianEntityRenderer::new);
+        IMBlockEntityRenderers.register();
+        IMEntityRenderers.register();
     }
 
     @Override
@@ -72,6 +64,11 @@ public class IdyllicFoodDiary extends SolarMoonBase {
     @Override
     public void xData() {
         IMCommonConfig.register();
+    }
+
+    @Override
+    public void abilitiesClientOnly() {
+
     }
 
     @Override

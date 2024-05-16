@@ -34,7 +34,7 @@ public class SteamedChickenWithMushroomBlock extends AbstractInteractiveFoodBloc
     public Either<ObtainInteraction, ConsumeInteraction> getSpecialInteraction(int stageIndex) {
         ObtainInteraction obtain = new ObtainInteraction(
                 new ItemStack(IMItems.STEAMED_CHICKEN_WITH_MUSHROOM_BOWL.get()),
-                ItemMatcher.create(Items.BOWL),
+                ItemMatcher.of(Items.BOWL),
                 ObtainInteraction.DropForm.INVENTORY,
                 ObtainInteraction.ObtainingMethod.SERVE
         );

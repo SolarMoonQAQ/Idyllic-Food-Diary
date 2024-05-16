@@ -1,0 +1,9 @@
+{
+  "ingredient": {
+    "item": "minecraft:magma_block"
+  },
+  "type": "add",
+  "time": "100",
+  "max_brewing_volume": "500",
+  "fire": 10
+}

@@ -26,7 +26,7 @@ public class DurianCropBlock extends BaseHangingBushCropBlock {
      */
     @Override
     public BlockMatcher canSurviveBlock() {
-        return BlockMatcher.create(BlockTags.JUNGLE_LOGS);
+        return BlockMatcher.of(BlockTags.JUNGLE_LOGS);
     }
 
     /**

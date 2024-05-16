@@ -1,6 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.core.common.registry;
 
-import cn.solarmoon.idyllic_food_diary.core.IdyllicFoodDiary;
+import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.core.common.entity.DurianEntity;
 import cn.solarmoon.solarmoon_core.api.common.registry.EntityEntry;
 import net.minecraft.world.entity.EntityType;

@@ -1,6 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.api.util.namespace;
 
-import cn.solarmoon.idyllic_food_diary.core.IdyllicFoodDiary;
+import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import net.minecraft.resources.ResourceLocation;
 
 public class ResList {

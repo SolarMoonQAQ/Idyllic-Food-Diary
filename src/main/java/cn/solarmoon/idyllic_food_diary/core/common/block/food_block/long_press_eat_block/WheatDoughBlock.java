@@ -61,7 +61,7 @@ public class WheatDoughBlock extends AbstractLongPressEatFoodBlock {
         //粒子
         ParticleOptions particle = new BlockParticleOption(ParticleTypes.BLOCK, state);
         if(level.isClientSide) {
-            wave(particle, pos, 2, 5, 0.5, 0);
+            wave(particle, pos, level, 2, 5, 0.5, 0);
         }
 
         //音效
@@ -76,7 +76,7 @@ public class WheatDoughBlock extends AbstractLongPressEatFoodBlock {
                 BlockState toState = IMBlocks.FLATBREAD_DOUGH.get().defaultBlockState();
                 BlockUtil.replaceBlockWithAllState(state, toState, level, pos); //保持朝向
                 level.playSound(null, pos, SoundEvents.WOOL_BREAK, SoundSource.BLOCKS, 3.0F, 0.5F);
-                if (level.isClientSide) wave(particle, pos, 5, 10, Math.max(fallDistance / 5, 2), 0.8);
+                wave(particle, pos, level, 5, 10, Math.max(fallDistance / 5, 2), 0.8);
             }
         } else level.setBlock(pos, state.setValue(getFallCount(), fallCount + 1), 3);
 

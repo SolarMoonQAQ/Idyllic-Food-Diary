@@ -1,7 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.core.common.registry;
 
 
-import cn.solarmoon.idyllic_food_diary.core.IdyllicFoodDiary;
+import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.api.common.item.containable.SimpleFoodContainerBlockItem;
 import cn.solarmoon.idyllic_food_diary.api.common.item.containable.SimpleFoodContainerItem;
 import cn.solarmoon.idyllic_food_diary.api.common.item.containable.SoupBowlFoodItem;

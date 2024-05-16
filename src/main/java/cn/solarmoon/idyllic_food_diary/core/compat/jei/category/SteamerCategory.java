@@ -1,6 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.core.compat.jei.category;
 
-import cn.solarmoon.idyllic_food_diary.core.IdyllicFoodDiary;
+import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.core.common.recipe.SteamerRecipe;
 import cn.solarmoon.idyllic_food_diary.api.util.namespace.ResList;
 import cn.solarmoon.solarmoon_core.api.compat.jei.category.BaseJEICategory;

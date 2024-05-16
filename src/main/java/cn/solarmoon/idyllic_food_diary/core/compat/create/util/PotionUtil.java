@@ -1,6 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.core.compat.create.util;
 
-import cn.solarmoon.idyllic_food_diary.core.IdyllicFoodDiary;
+import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.core.compat.create.Create;
 import cn.solarmoon.solarmoon_core.api.util.TextUtil;
 import net.minecraft.ChatFormatting;

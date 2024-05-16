@@ -39,7 +39,7 @@ public class BeggarsChickenBlock extends AbstractInteractiveFoodBlock {
     public Either<ObtainInteraction, ConsumeInteraction> getSpecialInteraction(int stageIndex) {
         ObtainInteraction obtain = new ObtainInteraction(
                 new ItemStack(IMItems.BEGGARS_CHICKEN_MEAT.get()),
-                ItemMatcher.create(IMItemTags.FORGE_KNIVES),
+                ItemMatcher.of(IMItemTags.FORGE_KNIVES),
                 ObtainInteraction.DropForm.INVENTORY,
                 ObtainInteraction.ObtainingMethod.SPLIT
         );

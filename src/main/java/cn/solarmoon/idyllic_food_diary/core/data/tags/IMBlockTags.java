@@ -1,6 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.core.data.tags;
 
-import cn.solarmoon.idyllic_food_diary.core.IdyllicFoodDiary;
+import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.core.common.registry.IMBlocks;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;

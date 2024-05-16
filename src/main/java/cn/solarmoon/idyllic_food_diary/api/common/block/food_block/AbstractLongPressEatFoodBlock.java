@@ -1,8 +1,8 @@
 package cn.solarmoon.idyllic_food_diary.api.common.block.food_block;
 
-import cn.solarmoon.idyllic_food_diary.api.util.ParticleSpawner;
-import cn.solarmoon.idyllic_food_diary.core.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.api.common.item.containable.SoupBowlFoodItem;
+import cn.solarmoon.idyllic_food_diary.api.util.ParticleSpawner;
+import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.core.data.tags.IMItemTags;
 import cn.solarmoon.solarmoon_core.api.common.block.BaseWaterBlock;
 import cn.solarmoon.solarmoon_core.api.common.capability.serializable.player.CountingDevice;
@@ -29,7 +29,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
-import static cn.solarmoon.idyllic_food_diary.api.util.ParticleSpawner.eat;
 import static cn.solarmoon.idyllic_food_diary.core.common.registry.IMItems.ROLLING_PIN;
 
 
@@ -57,20 +56,24 @@ public abstract class AbstractLongPressEatFoodBlock extends BaseWaterBlock {
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         ItemStack heldItem = player.getItemInHand(hand);
 
+        if (heldItem.is(ROLLING_PIN.get())) {
+            return InteractionResult.PASS;
+        }
+
         if (getBlockLeft().asItem().getDefaultInstance().is(IMItemTags.FOOD_CONTAINER) && getThis(player, level, pos, state, hand, true)) {
             return InteractionResult.SUCCESS;
         }
 
-        if (player.canEat(false) && !heldItem.is(ROLLING_PIN.get())) {
+        if (player.canEat(false)) {
 
             //计数装置
             CountingDevice counting = CapabilityUtil.getData(player, SolarCapabilities.PLAYER_DATA).getCountingDevice();
             counting.setCount(counting.getCount() + 1, pos);
             IdyllicFoodDiary.DEBUG.send("点击次数：" + counting.getCount(), player);
             //吃的声音
-            level.playSound(player, pos, getEatSound(), SoundSource.PLAYERS, 1.0F, 1.0F);
+            level.playSound(null, pos, getEatSound(), SoundSource.PLAYERS, 1.0F, 1.0F);
             //吃的粒子效果
-            ParticleSpawner.eat(pos, player);
+            ParticleSpawner.eat(pos, player, level);
 
             if (counting.getCount() >= getEatCount()) {
 

@@ -1,6 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.core.compat.jade.provider;
 
-import cn.solarmoon.idyllic_food_diary.core.IdyllicFoodDiary;
+import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.api.common.block_entity.IKettleRecipe;
 import cn.solarmoon.solarmoon_core.api.common.block_entity.iutor.ITimeRecipeBlockEntity;
 import cn.solarmoon.solarmoon_core.api.util.TextUtil;
