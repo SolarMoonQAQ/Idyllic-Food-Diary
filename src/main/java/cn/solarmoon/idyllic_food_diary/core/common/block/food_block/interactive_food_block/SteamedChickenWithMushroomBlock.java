@@ -5,7 +5,6 @@ import cn.solarmoon.idyllic_food_diary.api.common.block.food_block.food_interact
 import cn.solarmoon.idyllic_food_diary.api.common.block.food_block.food_interaction.ObtainInteraction;
 import cn.solarmoon.idyllic_food_diary.api.util.useful_data.BlockProperty;
 import cn.solarmoon.idyllic_food_diary.core.common.block.container.PorcelainPlateBlock;
-import cn.solarmoon.idyllic_food_diary.core.common.registry.IMBlocks;
 import cn.solarmoon.idyllic_food_diary.core.common.registry.IMItems;
 import cn.solarmoon.solarmoon_core.api.util.device.ItemMatcher;
 import com.mojang.datafixers.util.Either;
@@ -22,12 +21,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class SteamedChickenWithMushroomBlock extends AbstractInteractiveFoodBlock {
 
     public SteamedChickenWithMushroomBlock() {
-        super(BlockProperty.FOOD_ON_CHINA_PLATE);
-    }
-
-    @Override
-    public Block getBlockLeft() {
-        return IMBlocks.PORCELAIN_PLATE.get();
+        super(BlockProperty.FOOD_ON_CONTAINER);
     }
 
     @Override

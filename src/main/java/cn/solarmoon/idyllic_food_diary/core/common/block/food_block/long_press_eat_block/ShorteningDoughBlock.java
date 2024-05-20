@@ -17,11 +17,6 @@ public class ShorteningDoughBlock extends AbstractLongPressEatFoodBlock {
     }
 
     @Override
-    public Block getBlockLeft() {
-        return Blocks.AIR;
-    }
-
-    @Override
     public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
         return Block.box(4.0D, 0.0D, 4.0D, 12.0D, 4.0D, 12.0D);
     }

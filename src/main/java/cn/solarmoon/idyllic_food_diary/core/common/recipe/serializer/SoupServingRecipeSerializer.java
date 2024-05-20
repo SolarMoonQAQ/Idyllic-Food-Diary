@@ -32,9 +32,9 @@ public class SoupServingRecipeSerializer implements RecipeSerializer<SoupServing
 
     @Override
     public void toNetwork(FriendlyByteBuf buffer, SoupServingRecipe recipe) {
-        buffer.writeItem(recipe.container());
+        buffer.writeItemStack(recipe.container(), false);
         buffer.writeFluidStack(recipe.fluidToServe());
-        buffer.writeItem(recipe.result());
+        buffer.writeItemStack(recipe.result(), false);
     }
 
 }

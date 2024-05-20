@@ -20,11 +20,6 @@ public class BowlSoupBlock extends AbstractLongPressEatFoodBlock {
     }
 
     @Override
-    public Block getBlockLeft() {
-        return IMBlocks.BOWL.get();
-    }
-
-    @Override
     public SoundEvent getEatSound() {
         return SoundEvents.GENERIC_DRINK;
     }

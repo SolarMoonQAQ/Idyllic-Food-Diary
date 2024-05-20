@@ -1,7 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.core.common.item.equipment;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
-import cn.solarmoon.idyllic_food_diary.core.client.humanoid_model.ConjurerHatModel;
+import cn.solarmoon.idyllic_food_diary.core.client.model.humanoid.ConjurerHatModel;
 import cn.solarmoon.idyllic_food_diary.core.client.registry.IMLayers;
 import cn.solarmoon.solarmoon_core.api.common.item.equipment.BaseArmorMaterial;
 import net.minecraft.client.Minecraft;

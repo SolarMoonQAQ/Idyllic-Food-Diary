@@ -3,8 +3,8 @@ package cn.solarmoon.idyllic_food_diary.api.common.block.food_block;
 import cn.solarmoon.idyllic_food_diary.api.common.item.containable.SoupBowlFoodItem;
 import cn.solarmoon.idyllic_food_diary.api.util.ParticleSpawner;
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
+import cn.solarmoon.idyllic_food_diary.core.common.block_entity.FoodBlockEntity;
 import cn.solarmoon.idyllic_food_diary.core.data.tags.IMItemTags;
-import cn.solarmoon.solarmoon_core.api.common.block.BaseWaterBlock;
 import cn.solarmoon.solarmoon_core.api.common.capability.serializable.player.CountingDevice;
 import cn.solarmoon.solarmoon_core.api.util.BlockUtil;
 import cn.solarmoon.solarmoon_core.api.util.CapabilityUtil;
@@ -36,7 +36,7 @@ import static cn.solarmoon.idyllic_food_diary.core.common.registry.IMItems.ROLLI
  * 所有长按右键可以吃掉的方块的抽象基本类，用于一些没有进食模型改变的食物方块
  * 一般这种类型的方块所直接对应的物品就是可食用的，因此为了不妨碍进食需要shift放置
  */
-public abstract class AbstractLongPressEatFoodBlock extends BaseWaterBlock {
+public abstract class AbstractLongPressEatFoodBlock extends FoodEntityBlock {
 
     public AbstractLongPressEatFoodBlock(Properties properties) {
         super(properties);
@@ -55,12 +55,14 @@ public abstract class AbstractLongPressEatFoodBlock extends BaseWaterBlock {
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         ItemStack heldItem = player.getItemInHand(hand);
+        FoodBlockEntity fb = (FoodBlockEntity) level.getBlockEntity(pos);
+        if (fb == null) return InteractionResult.FAIL;
 
         if (heldItem.is(ROLLING_PIN.get())) {
             return InteractionResult.PASS;
         }
 
-        if (getBlockLeft().asItem().getDefaultInstance().is(IMItemTags.FOOD_CONTAINER) && getThis(player, level, pos, state, hand, true)) {
+        if (!fb.getContainer().isEmpty() && getThis(player, level, pos, state, hand, true)) {
             return InteractionResult.SUCCESS;
         }
 
@@ -86,8 +88,7 @@ public abstract class AbstractLongPressEatFoodBlock extends BaseWaterBlock {
                 player.eat(level, food);
 
                 //设置结束方块
-                BlockState stateTo = getBlockLeft().defaultBlockState();
-                BlockUtil.replaceBlockWithAllState(state, stateTo, level, pos);
+                BlockUtil.replaceBlockWithAllState(state, fb.getContainerLeft(), level, pos);
 
                 //设置结束物品
                 LevelSummonUtil.summonDrop(getItemLeft(), level, pos);
@@ -107,11 +108,6 @@ public abstract class AbstractLongPressEatFoodBlock extends BaseWaterBlock {
     public SoundEvent getEatSound() {
         return SoundEvents.GENERIC_EAT;
     }
-
-    /**
-     * @return 决定吃完后留下的方块
-     */
-    public abstract Block getBlockLeft();
 
     public ItemStack getItemLeft() {return ItemStack.EMPTY;}
 

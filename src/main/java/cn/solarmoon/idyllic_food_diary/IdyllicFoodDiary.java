@@ -4,10 +4,10 @@ import cn.solarmoon.idyllic_food_diary.core.client.registry.*;
 import cn.solarmoon.idyllic_food_diary.core.common.registry.IMCommonConfig;
 import cn.solarmoon.idyllic_food_diary.core.common.registry.*;
 import cn.solarmoon.idyllic_food_diary.core.common.registry.ability.*;
-import cn.solarmoon.idyllic_food_diary.core.compat.appleskin.AppleSkin;
-import cn.solarmoon.idyllic_food_diary.core.compat.create.Create;
-import cn.solarmoon.idyllic_food_diary.core.compat.farmersdelight.FarmersDelight;
-import cn.solarmoon.idyllic_food_diary.core.compat.patchouli.Patchouli;
+import cn.solarmoon.idyllic_food_diary.compat.appleskin.AppleSkin;
+import cn.solarmoon.idyllic_food_diary.compat.create.Create;
+import cn.solarmoon.idyllic_food_diary.compat.farmersdelight.FarmersDelight;
+import cn.solarmoon.idyllic_food_diary.compat.patchouli.Patchouli;
 import cn.solarmoon.solarmoon_core.api.ObjectRegistry;
 import cn.solarmoon.solarmoon_core.api.SolarMoonBase;
 import cn.solarmoon.solarmoon_core.api.util.static_utor.Debug;
@@ -59,6 +59,7 @@ public class IdyllicFoodDiary extends SolarMoonBase {
     public void eventObjects() {
         new IMCommonEvents().register();
         new IMDataPacks().register();
+        new IMCapabilities().register();
     }
 
     @Override

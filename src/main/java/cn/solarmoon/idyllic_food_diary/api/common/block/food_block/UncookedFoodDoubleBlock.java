@@ -14,8 +14,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
  */
 public class UncookedFoodDoubleBlock extends UncookedFoodBlock implements IBedPartBlock {
 
-    public UncookedFoodDoubleBlock(Block blockLeft, VoxelShape shape, Properties properties) {
-        super(blockLeft, shape, properties);
+    public UncookedFoodDoubleBlock(VoxelShape shape, Properties properties) {
+        super(shape, properties);
     }
 
     public UncookedFoodDoubleBlock(Block blockLeft, PropertyDispatch.QuadFunction<BlockState, BlockGetter, BlockPos, CollisionContext, VoxelShape> shapeConsumerFunction, Properties properties) {

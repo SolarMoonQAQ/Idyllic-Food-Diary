@@ -1,7 +1,8 @@
 package cn.solarmoon.idyllic_food_diary.api.common.block.food_block.food_interaction;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
-import cn.solarmoon.idyllic_food_diary.api.common.block.BaseInteractionBlock;
+import cn.solarmoon.idyllic_food_diary.api.common.block.food_block.BaseInteractionBlock;
+import cn.solarmoon.idyllic_food_diary.core.common.block_entity.FoodBlockEntity;
 import cn.solarmoon.solarmoon_core.api.util.BlockUtil;
 import cn.solarmoon.solarmoon_core.api.util.LevelSummonUtil;
 import cn.solarmoon.solarmoon_core.api.util.device.ItemMatcher;
@@ -11,6 +12,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -24,7 +26,6 @@ public class ObtainInteraction {
     private ItemMatcher matcher;
     private DropForm dropForm;
     private ObtainingMethod method;
-    private Block blockLeft;
     private SoundEvent sound;
 
     public ObtainInteraction(ItemStack drop, ItemMatcher matcher, DropForm dropForm, ObtainingMethod method) {
@@ -32,25 +33,14 @@ public class ObtainInteraction {
         this.matcher = matcher;
         this.dropForm = dropForm;
         this.method = method;
-        this.blockLeft = Blocks.AIR;
         this.sound = SoundEvents.ARMOR_EQUIP_LEATHER;
     }
 
-    public ObtainInteraction(ItemStack drop, ItemMatcher matcher, DropForm dropForm, ObtainingMethod method, Block blockLeft) {
+    public ObtainInteraction(ItemStack drop, ItemMatcher matcher, DropForm dropForm, ObtainingMethod method, SoundEvent sound) {
         this.drop = drop;
         this.matcher = matcher;
         this.dropForm = dropForm;
         this.method = method;
-        this.blockLeft = blockLeft;
-        this.sound = SoundEvents.ARMOR_EQUIP_LEATHER;
-    }
-
-    public ObtainInteraction(ItemStack drop, ItemMatcher matcher, DropForm dropForm, ObtainingMethod method, Block blockLeft, SoundEvent sound) {
-        this.drop = drop;
-        this.matcher = matcher;
-        this.dropForm = dropForm;
-        this.method = method;
-        this.blockLeft = blockLeft;
         this.sound = sound;
     }
 
@@ -71,11 +61,6 @@ public class ObtainInteraction {
 
     public ObtainInteraction setMethod(ObtainingMethod method) {
         this.method = method;
-        return this;
-    }
-
-    public ObtainInteraction setBlockLeft(Block blockLeft) {
-        this.blockLeft = blockLeft;
         return this;
     }
 
@@ -100,10 +85,6 @@ public class ObtainInteraction {
         return method;
     }
 
-    public Block getBlockLeft() {
-        return blockLeft;
-    }
-
     public SoundEvent getSound() {
         return sound;
     }
@@ -113,14 +94,15 @@ public class ObtainInteraction {
      * @return 交互成功返回true
      */
     public boolean doObtain(ItemStack heldItem, Level level, BlockState state, BlockPos pos, Player player, InteractionHand hand) {
+        FoodBlockEntity fb = (FoodBlockEntity) level.getBlockEntity(pos);
+        if (fb == null) return false;
         if (matcher.isItemEqual(heldItem)) {
             // 首先替换方块到下一阶段，如果目标阶段为0则放置留存方块
             int remain = state.getValue(BaseInteractionBlock.INTERACTION);
             BlockState targetState = state.setValue(BaseInteractionBlock.INTERACTION, remain - 1);
             level.setBlock(pos, targetState, 3);
             if (targetState.getValue(BaseInteractionBlock.INTERACTION) == 0) {
-                BlockState stateTo = blockLeft.defaultBlockState();
-                BlockUtil.replaceBlockWithAllState(state, stateTo, level, pos);
+                BlockUtil.replaceBlockWithAllState(state, fb.getContainerLeft(), level, pos);
             }
             // 根据method决定物品是消耗还是消耗耐久
             // 先消耗物品防止挤占槽位
@@ -153,7 +135,6 @@ public class ObtainInteraction {
                 this.matcher,
                 this.dropForm,
                 this.method,
-                this.blockLeft,
                 this.sound
         );
     }

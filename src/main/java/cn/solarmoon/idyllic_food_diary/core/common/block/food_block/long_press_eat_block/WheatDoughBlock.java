@@ -43,11 +43,6 @@ public class WheatDoughBlock extends AbstractLongPressEatFoodBlock {
         this.registerDefaultState(this.getStateDefinition().any().setValue(FALL_COUNT, 0));
     }
 
-    @Override
-    public Block getBlockLeft() {
-        return Blocks.AIR;
-    }
-
     /**
      * 踩三下或从大于五格处坠落到上面会压成面饼
      * 减免百分之三十坠落伤害

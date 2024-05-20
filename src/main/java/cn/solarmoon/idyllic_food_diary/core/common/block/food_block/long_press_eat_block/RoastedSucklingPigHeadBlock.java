@@ -20,11 +20,6 @@ public class RoastedSucklingPigHeadBlock extends AbstractLongPressEatFoodBlock {
     }
 
     @Override
-    public Block getBlockLeft() {
-        return Blocks.AIR;
-    }
-
-    @Override
     public ItemStack getItemLeft() {
         return new ItemStack(Items.BONE, 1);
     }

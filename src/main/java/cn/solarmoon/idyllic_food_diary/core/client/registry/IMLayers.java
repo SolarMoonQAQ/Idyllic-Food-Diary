@@ -1,7 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.core.client.registry;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
-import cn.solarmoon.idyllic_food_diary.core.client.humanoid_model.ConjurerHatModel;
+import cn.solarmoon.idyllic_food_diary.core.client.model.humanoid.ConjurerHatModel;
 import cn.solarmoon.solarmoon_core.api.client.registry.LayerEntry;
 
 public class IMLayers {

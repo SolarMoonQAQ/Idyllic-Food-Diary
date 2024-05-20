@@ -1,6 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.core.client.registry;
 
-import cn.solarmoon.idyllic_food_diary.core.client.block_entity_renderer.*;
+import cn.solarmoon.idyllic_food_diary.core.client.renderer.block_entity.*;
 import cn.solarmoon.idyllic_food_diary.core.common.registry.IMBlockEntities;
 
 public class IMBlockEntityRenderers {
@@ -13,6 +13,7 @@ public class IMBlockEntityRenderers {
         IMBlockEntities.GRILL.renderer(() -> GrillRenderer::new);
         IMBlockEntities.CUTTING_BOARD.renderer(() -> CuttingBoardRenderer::new);
         IMBlockEntities.SOUP_POT.renderer(() -> SoupPotRenderer::new);
+        IMBlockEntities.FOOD.renderer(() -> FoodBlockRenderer::new);
     }
 
 }

@@ -1,8 +1,8 @@
 package cn.solarmoon.idyllic_food_diary.api.common.block.food_block;
 
-import cn.solarmoon.idyllic_food_diary.api.common.block.BaseInteractionBlock;
 import cn.solarmoon.idyllic_food_diary.api.common.block.food_block.food_interaction.ConsumeInteraction;
 import cn.solarmoon.idyllic_food_diary.api.common.block.food_block.food_interaction.ObtainInteraction;
+import cn.solarmoon.idyllic_food_diary.core.common.block_entity.FoodBlockEntity;
 import cn.solarmoon.idyllic_food_diary.core.data.tags.IMItemTags;
 import com.mojang.datafixers.util.Either;
 import net.minecraft.core.BlockPos;
@@ -35,9 +35,11 @@ public abstract class AbstractInteractiveFoodBlock extends BaseInteractionBlock 
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         initStageInteraction();
+        FoodBlockEntity fb = (FoodBlockEntity) level.getBlockEntity(pos);
+        if (fb == null) return InteractionResult.FAIL;
 
         // 此处一定是container为基底才能快速拿起
-        if (getBlockLeft().asItem().getDefaultInstance().is(IMItemTags.FOOD_CONTAINER) && getThis(player, level, pos, state, hand, true)) {
+        if (!fb.getContainer().isEmpty() && getThis(player, level, pos, state, hand, true)) {
             return InteractionResult.SUCCESS;
         }
 
@@ -57,20 +59,12 @@ public abstract class AbstractInteractiveFoodBlock extends BaseInteractionBlock 
         return InteractionResult.CONSUME; // 防止右键此类方块时使用手中物品
     }
 
-    /**
-     * @return 决定吃完后留下的方块，有了它无需再在Interaction中单独设置
-     */
-    public abstract Block getBlockLeft();
-
     public void initStageInteraction() {
         for (int i = 1; i <= getMaxInteraction(); i++) {
             Either<ObtainInteraction, ConsumeInteraction> interaction = getSpecialInteraction(i);
-            interaction = interaction.mapLeft(o -> o.setBlockLeft(getBlockLeft()));
-            interaction = interaction.mapRight(c -> c.setBlockLeft(getBlockLeft()));
             getStageInteractionMap().put(i, interaction);
         }
     }
-
 
     /**
      * 设定各个阶段的交互逻辑

@@ -1,7 +1,8 @@
 package cn.solarmoon.idyllic_food_diary.api.common.block.food_block.food_interaction;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
-import cn.solarmoon.idyllic_food_diary.api.common.block.BaseInteractionBlock;
+import cn.solarmoon.idyllic_food_diary.api.common.block.food_block.BaseInteractionBlock;
+import cn.solarmoon.idyllic_food_diary.core.common.block_entity.FoodBlockEntity;
 import cn.solarmoon.solarmoon_core.api.common.capability.serializable.player.CountingDevice;
 import cn.solarmoon.solarmoon_core.api.util.BlockUtil;
 import cn.solarmoon.solarmoon_core.api.util.CapabilityUtil;
@@ -12,6 +13,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
@@ -26,27 +28,17 @@ public class ConsumeInteraction {
 
     private int preEatCount;
     private FoodProperties foodProperty;
-    private Block blockLeft;
     private SoundEvent eatSound;
 
     public ConsumeInteraction(int preEatCount, FoodProperties foodProperty) {
         this.preEatCount = preEatCount;
         this.foodProperty = foodProperty;
-        this.blockLeft = Blocks.AIR;
         this.eatSound = SoundEvents.GENERIC_EAT;
     }
 
-    public ConsumeInteraction(int preEatCount, FoodProperties foodProperty, Block blockLeft) {
+    public ConsumeInteraction(int preEatCount, FoodProperties foodProperty, SoundEvent eatSound) {
         this.preEatCount = preEatCount;
         this.foodProperty = foodProperty;
-        this.blockLeft = blockLeft;
-        this.eatSound = SoundEvents.GENERIC_EAT;
-    }
-
-    public ConsumeInteraction(int preEatCount, FoodProperties foodProperty, Block blockLeft, SoundEvent eatSound) {
-        this.preEatCount = preEatCount;
-        this.foodProperty = foodProperty;
-        this.blockLeft = blockLeft;
         this.eatSound = eatSound;
     }
 
@@ -57,11 +49,6 @@ public class ConsumeInteraction {
 
     public ConsumeInteraction setFoodProperty(FoodProperties foodProperty) {
         this.foodProperty = foodProperty;
-        return this;
-    }
-
-    public ConsumeInteraction setBlockLeft(Block blockLeft) {
-        this.blockLeft = blockLeft;
         return this;
     }
 
@@ -78,10 +65,6 @@ public class ConsumeInteraction {
         return foodProperty;
     }
 
-    public Block getBlockLeft() {
-        return blockLeft;
-    }
-
     public SoundEvent getEatSound() {
         return eatSound;
     }
@@ -91,6 +74,8 @@ public class ConsumeInteraction {
      * @return 交互成功返回true
      */
     public boolean doConsume(ItemStack heldItem, Level level, BlockState state, BlockPos pos, Player player, InteractionHand hand) {
+        FoodBlockEntity fb = (FoodBlockEntity) level.getBlockEntity(pos);
+        if (fb == null) return false;
         if (player.canEat(false)) {
             int remain = state.getValue(BaseInteractionBlock.INTERACTION);
             if (remain > 0) {
@@ -108,8 +93,7 @@ public class ConsumeInteraction {
                     PlayerUtil.eat(player, foodProperty);
                     counting.resetCount();
                     if (targetState.getValue(BaseInteractionBlock.INTERACTION) == 0) {
-                        BlockState stateTo = blockLeft.defaultBlockState();
-                        BlockUtil.replaceBlockWithAllState(state, stateTo, level, pos);
+                        BlockUtil.replaceBlockWithAllState(state, fb.getContainerLeft(), level, pos);
                     }
                 }
                 return true;
@@ -122,7 +106,6 @@ public class ConsumeInteraction {
         return new ConsumeInteraction(
                 this.preEatCount,
                 this.foodProperty,
-                this.blockLeft,
                 this.eatSound
         );
     }

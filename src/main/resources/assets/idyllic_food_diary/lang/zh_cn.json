@@ -1,6 +1,7 @@
 {
   "creative_mode_tab.idyllic_food_diary.main": "田园食记",
 
+  "block.idyllic_food_diary.spice_jar": "调料罐",
   "block.idyllic_food_diary.celadon_cup": "青瓷杯",
   "block.idyllic_food_diary.celadon_cup_with_fluid": "装有%s的青瓷杯",
   "block.idyllic_food_diary.jade_china_cup": "玉瓷杯",
@@ -8,6 +9,7 @@
   "block.idyllic_food_diary.kettle": "水壶",
   "block.idyllic_food_diary.kettle_with_fluid": "装有%s的水壶",
 
+  "item.idyllic_food_diary.salt": "盐",
   "item.idyllic_food_diary.rolling_pin": "擀面杖",
   "item.idyllic_food_diary.chinese_cleaver": "中式菜刀",
   "block.idyllic_food_diary.soup_pot": "汤锅",
@@ -152,6 +154,8 @@
 
   "message.idyllic_food_diary.obtainable_food.container_required": "你需要%s来盛装这个食物",
   "message.idyllic_food_diary.obtainable_food.tool_required": "你需要%s来分割这个食物",
+  "message.idyllic_food_diary.container_required": "你需要一个合适的容器来盛出这个食物",
+  "message.idyllic_food_diary.container_required.empty": "你需要空手来盛出这个食物",
 
   "idyllic_food_diary.player.pouring_water": "倒水",
   "idyllic_food_diary.player.water_splashing": "泼水",

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "idyllic_food_diary:uncooked_steamed_pumpkin_with_chopped_garlic"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "idyllic_food_diary:blocks/uncooked_steamed_pumpkin_with_chopped_garlic"
+}

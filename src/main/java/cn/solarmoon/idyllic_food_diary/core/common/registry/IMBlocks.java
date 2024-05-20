@@ -10,7 +10,7 @@ import cn.solarmoon.idyllic_food_diary.api.util.useful_data.BlockProperty;
 import cn.solarmoon.idyllic_food_diary.core.common.block.SteamerLidBlock;
 import cn.solarmoon.idyllic_food_diary.core.common.block.container.*;
 import cn.solarmoon.idyllic_food_diary.core.common.block.crop.*;
-import cn.solarmoon.idyllic_food_diary.core.common.block.entity_block.*;
+import cn.solarmoon.idyllic_food_diary.core.common.block.cookware.*;
 import cn.solarmoon.idyllic_food_diary.core.common.block.food_block.interactive_food_block.*;
 import cn.solarmoon.idyllic_food_diary.core.common.block.food_block.long_press_eat_block.*;
 import cn.solarmoon.idyllic_food_diary.core.common.block.product.DurianBlock;
@@ -26,6 +26,12 @@ import net.minecraft.world.level.block.SaplingBlock;
 
 public class IMBlocks {
     public static void register() {}
+
+    //调料罐
+    public static final BlockEntry<SpiceJarEntityBlock> SPICE_JAR = IdyllicFoodDiary.REGISTRY.block()
+            .id("spice_jar")
+            .bound(SpiceJarEntityBlock::new)
+            .build();
 
     //面团
     public static final BlockEntry<WheatDoughBlock> WHEAT_DOUGH = IdyllicFoodDiary.REGISTRY.block()
@@ -304,7 +310,6 @@ public class IMBlocks {
     public static final BlockEntry<UncookedFoodBlock> UNCOOKED_CUSTARD_TART = IdyllicFoodDiary.REGISTRY.block()
             .id("uncooked_custard_tart")
             .bound(() -> new UncookedFoodBlock(
-                    Blocks.AIR,
                     CustardTartBlock.SHAPE,
                     BlockProperty.DOUGH))
             .build();
@@ -313,18 +318,16 @@ public class IMBlocks {
     public static final BlockEntry<UncookedFoodBlock> UNCOOKED_STEAMED_PUMPKIN_WITH_CHOPPED_GARLIC = IdyllicFoodDiary.REGISTRY.block()
             .id("uncooked_steamed_pumpkin_with_chopped_garlic")
             .bound(() -> new UncookedFoodBlock(
-                    IMBlocks.PORCELAIN_PLATE.get(),
                     SteamedPumpkinWithChoppedGarlicBlock.SHAPE,
-                    BlockProperty.FOOD_ON_CHINA_PLATE))
+                    BlockProperty.FOOD_ON_CONTAINER))
             .build();
 
     // 未烹饪的香菇蒸鸡
     public static final BlockEntry<UncookedFoodBlock> UNCOOKED_STEAMED_CHICKEN_WITH_MUSHROOM = IdyllicFoodDiary.REGISTRY.block()
             .id("uncooked_steamed_chicken_with_mushroom")
             .bound(() -> new UncookedFoodBlock(
-                    IMBlocks.PORCELAIN_PLATE.get(),
                     SteamedChickenWithMushroomBlock.SHAPE,
-                    BlockProperty.FOOD_ON_CHINA_PLATE))
+                    BlockProperty.FOOD_ON_CONTAINER))
             .build();
 
     // 未烹饪的叫花鸡
@@ -333,7 +336,7 @@ public class IMBlocks {
             .bound(() -> new UncookedFoodBlock(
                     IMBlocks.WOODEN_PLATE.get(),
                     BeggarsChickenBlock::SHAPE,
-                    BlockProperty.FOOD_ON_WOODEN_PLATE))
+                    BlockProperty.FOOD_ON_CONTAINER))
             .build();
 
     // 未烹饪的烤乳猪
@@ -342,7 +345,7 @@ public class IMBlocks {
             .bound(() -> new UncookedFoodDoubleBlock(
                     IMBlocks.LONG_WOODEN_PLATE.get(),
                     RoastedSucklingPigBlock::SHAPE,
-                    BlockProperty.FOOD_ON_DOUBLE_WOODEN_PLATE))
+                    BlockProperty.FOOD_ON_LARGE_CONTAINER))
             .build();
 
     //-----------------------------------------------------------------------

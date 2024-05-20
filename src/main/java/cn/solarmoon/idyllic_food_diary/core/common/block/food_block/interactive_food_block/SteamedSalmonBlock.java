@@ -24,12 +24,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class SteamedSalmonBlock extends AbstractInteractiveFoodBlock implements IBedPartBlock {
 
     public SteamedSalmonBlock() {
-        super(BlockProperty.FOOD_ON_DOUBLE_CHINA_PLATE);
-    }
-
-    @Override
-    public Block getBlockLeft() {
-        return IMBlocks.LONG_PORCELAIN_PLATE.get();
+        super(BlockProperty.FOOD_ON_LARGE_CONTAINER);
     }
 
     @Override

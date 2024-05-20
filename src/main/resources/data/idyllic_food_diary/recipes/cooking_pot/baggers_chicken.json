@@ -1,0 +1,29 @@
+{
+  "type": "idyllic_food_diary:soup_pot",
+  "ingredients": [
+    {
+      "item": "idyllic_food_diary:uncooked_beggars_chicken"
+    },
+    {
+      "item": "idyllic_food_diary:spring_onion"
+    }
+  ],
+  "input_fluid": {
+    "id": "idyllic_food_diary:hot_water",
+    "amount": 250
+  },
+  "with_spices": [
+    {
+      "item": "idyllic_food_diary:salt",
+      "step": "mix",
+      "amount": 1
+    }
+  ],
+  "time": 600,
+  "result": {
+    "item": "idyllic_food_diary:beggars_chicken"
+  },
+  "container": {
+    "tag": "idyllic_food_diary:food_container"
+  }
+}

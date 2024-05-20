@@ -11,31 +11,20 @@ public class BlockProperty {
             .sound(SoundType.WOOL)
             .noOcclusion();
 
-    public static BlockBehaviour.Properties FOOD_ON_CHINA_PLATE = BlockBehaviour.Properties.of()
+    public static BlockBehaviour.Properties FOOD_ON_CONTAINER = BlockBehaviour.Properties.of()
             .strength(1)
-            .sound(SoundType.GLASS)
+            .sound(SoundType.WOOL)
             .noOcclusion();
 
-    public static BlockBehaviour.Properties FOOD_ON_WOODEN_PLATE = BlockBehaviour.Properties.of()
-            .strength(1)
-            .sound(SoundType.BAMBOO)
-            .noOcclusion();
+    public static BlockBehaviour.Properties FOOD_ON_LARGE_CONTAINER = BlockBehaviour.Properties.of()
+            .strength(1.25F)
+            .sound(SoundType.WOOL)
+            .noOcclusion()
+            .pushReaction(PushReaction.DESTROY);
 
     public static BlockBehaviour.Properties FOOD_IN_BOWL = BlockBehaviour.Properties.of()
             .strength(0.5F)
             .sound(SoundType.BAMBOO)
             .noOcclusion();
-
-    public static BlockBehaviour.Properties FOOD_ON_DOUBLE_CHINA_PLATE = BlockBehaviour.Properties.of()
-            .strength(1)
-            .sound(SoundType.GLASS)
-            .noOcclusion()
-            .pushReaction(PushReaction.DESTROY);
-
-    public static BlockBehaviour.Properties FOOD_ON_DOUBLE_WOODEN_PLATE = BlockBehaviour.Properties.of()
-            .strength(1)
-            .sound(SoundType.BAMBOO)
-            .noOcclusion()
-            .pushReaction(PushReaction.DESTROY);
 
 }

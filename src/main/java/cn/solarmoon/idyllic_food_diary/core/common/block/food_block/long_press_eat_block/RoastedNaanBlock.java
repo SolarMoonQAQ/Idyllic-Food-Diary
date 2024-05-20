@@ -17,11 +17,6 @@ public class RoastedNaanBlock extends AbstractLongPressEatFoodBlock {
     }
 
     @Override
-    public Block getBlockLeft() {
-        return Blocks.AIR;
-    }
-
-    @Override
     public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
         return Block.box(0.0D, 0.0D, 0.0D, 16.0D, 1.0D, 16.0D);
     }

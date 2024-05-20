@@ -29,8 +29,4 @@ public class FlatbreadDoughBlock extends AbstractLongPressEatFoodBlock {
         return Block.box(0.0D, 0.0D, 0.0D, 16.0D, 1.0D, 16.0D);
     }
 
-    @Override
-    public Block getBlockLeft() {
-        return Blocks.AIR;
-    }
 }

@@ -1,6 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.core.client.registry;
 
-import cn.solarmoon.idyllic_food_diary.core.client.tooltip.TankableTooltipRenderer;
+import cn.solarmoon.idyllic_food_diary.core.client.renderer.tooltip.TankableTooltipRenderer;
 import cn.solarmoon.solarmoon_core.api.client.registry.BaseTooltipRegistry;
 
 public class IMTooltipRenderers extends BaseTooltipRegistry {

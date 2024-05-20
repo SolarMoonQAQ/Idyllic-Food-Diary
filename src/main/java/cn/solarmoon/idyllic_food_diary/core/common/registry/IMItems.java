@@ -23,6 +23,18 @@ import net.minecraft.world.item.Items;
 public class IMItems {
     public static void register() {}
 
+    // 调料类
+    // 盐
+    public static final ItemEntry<SimpleItem> SALT = IdyllicFoodDiary.REGISTRY.item()
+            .id("salt")
+            .bound(SimpleItem::new)
+            .build();
+
+    public static final ItemEntry<SpiceJarItem> SPICE_JAR = IdyllicFoodDiary.REGISTRY.item()
+            .id("spice_jar")
+            .bound(SpiceJarItem::new)
+            .build();
+
     //茶具
     //青瓷杯
     public static final ItemEntry<CeladonCupItem> CELADON_CUP = IdyllicFoodDiary.REGISTRY.item()

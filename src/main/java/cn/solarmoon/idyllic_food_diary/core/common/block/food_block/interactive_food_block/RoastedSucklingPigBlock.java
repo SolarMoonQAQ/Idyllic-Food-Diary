@@ -24,17 +24,12 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class RoastedSucklingPigBlock extends AbstractInteractiveFoodBlock implements IBedPartBlock {
 
     public RoastedSucklingPigBlock() {
-        super(BlockProperty.FOOD_ON_DOUBLE_WOODEN_PLATE);
+        super(BlockProperty.FOOD_ON_LARGE_CONTAINER);
     }
 
     @Override
     public int getMaxInteraction() {
         return 5;
-    }
-
-    @Override
-    public Block getBlockLeft() {
-        return IMBlocks.LONG_WOODEN_PLATE.get();
     }
 
     @Override

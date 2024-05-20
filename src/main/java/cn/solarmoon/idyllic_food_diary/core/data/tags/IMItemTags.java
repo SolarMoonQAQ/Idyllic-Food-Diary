@@ -92,16 +92,21 @@ public class IMItemTags extends ItemTagsProvider {
                 Items.EGG,
                 IMItems.EGG_LIQUID_BOWL.get()
         ).replace(false);
-        //食物容器，目前知道可以用于是否在特殊食物类中使用getThis
+        // 容器，使得同种菜可以被不同容器盛装
+        // 普通容器，类似盘子
         tag(FOOD_CONTAINER).add(
-                IMItems.LONG_PORCELAIN_PLATE.get(),
-                Items.BOWL
+                IMItems.PORCELAIN_PLATE.get(),
+                IMItems.WOODEN_PLATE.get()
         );
-        //汤容器
+        //汤容器，用于识别其中的液体能否被容器盛出
         copy(IMBlockTags.SOUP_CONTAINER, SOUP_CONTAINER);
         //奶桶类配方标识
         tag(FORGE_MILK).add(
                 Items.MILK_BUCKET
+        );
+        // 调味料，决定是否可以放入调味罐中
+        tag(SPICE).add(
+                IMItems.SALT.get()
         );
     }
 
@@ -111,6 +116,7 @@ public class IMItemTags extends ItemTagsProvider {
     public static final TagKey<Item> TOOLTIP_FLUID_RENDER = itemTag("tooltip_fluid_render");
     public static final TagKey<Item> FOOD_CONTAINER = itemTag("food_container");
     public static final TagKey<Item> SOUP_CONTAINER = itemTag("soup_container");
+    public static final TagKey<Item> SPICE = itemTag("spice");
 
     //一般标识等
     public static final TagKey<Item> CUP = itemTag("cup");

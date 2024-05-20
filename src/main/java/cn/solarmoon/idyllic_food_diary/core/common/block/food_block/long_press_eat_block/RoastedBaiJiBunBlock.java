@@ -17,11 +17,6 @@ public class RoastedBaiJiBunBlock extends AbstractLongPressEatFoodBlock {
     }
 
     @Override
-    public Block getBlockLeft() {
-        return Blocks.AIR;
-    }
-
-    @Override
     public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
         return Block.box(5.0D, 0.0D, 5.0D, 11.0D, 2.0D, 11.0D);
     }

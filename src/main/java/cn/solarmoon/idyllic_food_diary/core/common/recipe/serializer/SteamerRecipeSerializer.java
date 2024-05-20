@@ -36,7 +36,7 @@ public class SteamerRecipeSerializer implements RecipeSerializer<SteamerRecipe> 
     public void toNetwork(@NotNull FriendlyByteBuf buffer, SteamerRecipe recipe) {
         recipe.input().toNetwork(buffer);
         buffer.writeInt(recipe.time());
-        buffer.writeItem(recipe.output());
+        buffer.writeItemStack(recipe.output(), false);
     }
 
 }

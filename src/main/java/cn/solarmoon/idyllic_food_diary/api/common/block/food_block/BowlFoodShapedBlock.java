@@ -18,11 +18,6 @@ public class BowlFoodShapedBlock extends AbstractLongPressEatFoodBlock {
     }
 
     @Override
-    public Block getBlockLeft() {
-        return IMBlocks.BOWL.get();
-    }
-
-    @Override
     public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         return BowlBlock.SHAPE;
     }

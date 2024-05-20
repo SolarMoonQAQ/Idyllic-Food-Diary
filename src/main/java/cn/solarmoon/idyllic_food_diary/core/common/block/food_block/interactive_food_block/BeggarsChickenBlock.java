@@ -27,12 +27,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class BeggarsChickenBlock extends AbstractInteractiveFoodBlock {
 
     public BeggarsChickenBlock() {
-        super(BlockProperty.FOOD_ON_WOODEN_PLATE);
-    }
-
-    @Override
-    public Block getBlockLeft() {
-        return IMBlocks.WOODEN_PLATE.get();
+        super(BlockProperty.FOOD_ON_CONTAINER);
     }
 
     @Override

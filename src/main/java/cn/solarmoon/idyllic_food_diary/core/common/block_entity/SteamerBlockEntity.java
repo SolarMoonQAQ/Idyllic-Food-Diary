@@ -22,7 +22,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 
-import static cn.solarmoon.idyllic_food_diary.api.common.block.entity_block.AbstractSteamerEntityBlock.HAS_LID;
+import static cn.solarmoon.idyllic_food_diary.api.common.block.cookware.AbstractSteamerEntityBlock.HAS_LID;
 import static cn.solarmoon.solarmoon_core.api.common.block.IStackBlock.STACK;
 
 public class SteamerBlockEntity extends BaseContainerBlockEntity implements IIndividualTimeRecipeBlockEntity<SteamerRecipe> {

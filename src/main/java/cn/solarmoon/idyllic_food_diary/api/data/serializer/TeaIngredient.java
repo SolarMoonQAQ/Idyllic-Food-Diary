@@ -160,10 +160,15 @@ public class TeaIngredient {
         return GSON.fromJson(json, TeaIngredient.class);
     }
 
+    @Nullable
     public static List<TeaIngredient> readFromFluidStack(FluidStack fluidStack) {
-        String json = fluidStack.getOrCreateTag().getString("TeaIngredients");
-        java.lang.reflect.Type type = new TypeToken<List<TeaIngredient>>() {}.getType();
-        return GSON.fromJson(json, type);
+        if (!fluidStack.isEmpty()) {
+            String json = fluidStack.getOrCreateTag().getString("TeaIngredients");
+            java.lang.reflect.Type type = new TypeToken<List<TeaIngredient>>() {
+            }.getType();
+            return GSON.fromJson(json, type);
+        }
+        return null;
     }
 
     public void put() {

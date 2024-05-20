@@ -44,7 +44,6 @@ public class SoupContainerEvent {
         if (hand == InteractionHand.MAIN_HAND && state.is(IMBlockTags.SOUP_CONTAINER) && blockEntity != null) { //必须在主手才能用，不然会和取物逻辑有些混淆导致同时执行
             IFluidHandler tank = FluidUtil.getTank(blockEntity);
             Optional<SoupServingRecipe> recipeOptional = getCheckedRecipe(level, heldItem, tank, CheckSource.CONTAINER);
-            IdyllicFoodDiary.DEBUG.send(recipeOptional.isPresent() ? recipeOptional.toString() : "null");
             if (recipeOptional.isPresent()) {
                 SoupServingRecipe recipe = recipeOptional.get();
 
@@ -67,7 +66,6 @@ public class SoupContainerEvent {
         if (hand == InteractionHand.MAIN_HAND && state.is(IMBlockTags.SOUP_CONTAINER) && blockEntity != null) { //必须在主手才能用，不然会和取物逻辑有些混淆导致同时执行
             IFluidHandler t = FluidUtil.getTank(blockEntity);
             Optional<SoupServingRecipe> recipeOptional = getCheckedRecipe(level, heldItem, t, CheckSource.FOOD);
-            IdyllicFoodDiary.DEBUG.send(recipeOptional.isPresent() ? recipeOptional.toString() : "null");
             if (recipeOptional.isPresent()) {
                 SoupServingRecipe recipe = recipeOptional.get();
                 if (!player.isCreative()) {

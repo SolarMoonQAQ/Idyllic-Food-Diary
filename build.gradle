@@ -79,7 +79,7 @@ dependencies {
 repositories {
     mavenCentral()
     maven {
-        url = "https://maven.pkg.github.com/SolarMoonQAQ/SolarMoon-Core"
+        url = "${core_maven_url}"
         credentials {
             username = System.getenv("GITMAVEN_USERNAME")
             password = System.getenv("SolarMoonCore_TOKEN")

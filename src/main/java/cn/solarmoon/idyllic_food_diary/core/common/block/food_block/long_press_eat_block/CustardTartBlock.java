@@ -16,11 +16,6 @@ public class CustardTartBlock extends AbstractLongPressEatFoodBlock {
         super(BlockProperty.DOUGH);
     }
 
-    @Override
-    public Block getBlockLeft() {
-        return Blocks.AIR;
-    }
-
     public static final VoxelShape SHAPE = Block.box(5.0D, 0.0D, 5.0D, 11.0D, 3.0D, 11.0D);
     @Override
     public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {

@@ -1,9 +1,9 @@
 package cn.solarmoon.idyllic_food_diary.core.common.item.block_item;
 
-import cn.solarmoon.idyllic_food_diary.core.client.Item_renderer.SteamerBaseItemRenderer;
+import cn.solarmoon.idyllic_food_diary.core.client.renderer.Item.SteamerBaseItemRenderer;
 import cn.solarmoon.idyllic_food_diary.core.common.registry.IMBlocks;
-import cn.solarmoon.solarmoon_core.api.client.ItemRenderer.BaseItemRenderer;
-import cn.solarmoon.solarmoon_core.api.client.ItemRenderer.IItemRendererProvider;
+import cn.solarmoon.solarmoon_core.api.client.renderer.Item.BaseItemRenderer;
+import cn.solarmoon.solarmoon_core.api.client.renderer.Item.IItemRendererProvider;
 import cn.solarmoon.solarmoon_core.api.common.item.ITankItem;
 import net.minecraft.world.item.BlockItem;
 

@@ -1,11 +1,11 @@
 package cn.solarmoon.idyllic_food_diary.api.common.item;
 
-import cn.solarmoon.idyllic_food_diary.api.util.FarmerUtil;
-import cn.solarmoon.idyllic_food_diary.core.client.Item_renderer.LittleCupItemRenderer;
-import cn.solarmoon.idyllic_food_diary.core.compat.create.util.PotionUtil;
 import cn.solarmoon.idyllic_food_diary.api.data.serializer.FluidEffect;
-import cn.solarmoon.solarmoon_core.api.client.ItemRenderer.BaseItemRenderer;
-import cn.solarmoon.solarmoon_core.api.client.ItemRenderer.IItemRendererProvider;
+import cn.solarmoon.idyllic_food_diary.api.util.FarmerUtil;
+import cn.solarmoon.idyllic_food_diary.compat.create.util.PotionUtil;
+import cn.solarmoon.idyllic_food_diary.core.client.renderer.Item.LittleCupItemRenderer;
+import cn.solarmoon.solarmoon_core.api.client.renderer.Item.BaseItemRenderer;
+import cn.solarmoon.solarmoon_core.api.client.renderer.Item.IItemRendererProvider;
 import cn.solarmoon.solarmoon_core.api.common.item.IContainerItem;
 import cn.solarmoon.solarmoon_core.api.common.item.ITankItem;
 import cn.solarmoon.solarmoon_core.api.util.FluidUtil;

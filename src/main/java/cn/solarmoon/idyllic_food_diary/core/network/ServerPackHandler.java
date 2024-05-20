@@ -14,6 +14,7 @@ import cn.solarmoon.solarmoon_core.api.network.IServerPackHandler;
 import cn.solarmoon.solarmoon_core.api.util.CapabilityUtil;
 import cn.solarmoon.solarmoon_core.api.util.FluidUtil;
 import cn.solarmoon.solarmoon_core.api.util.ItemStackUtil;
+import cn.solarmoon.solarmoon_core.api.util.LevelSummonUtil;
 import cn.solarmoon.solarmoon_core.api.util.namespace.SolarNETList;
 import cn.solarmoon.solarmoon_core.core.common.registry.SolarCapabilities;
 import net.minecraft.core.BlockPos;
@@ -40,7 +41,7 @@ public class ServerPackHandler implements IServerPackHandler {
         switch (message) {
             //倒水技能
             case NETList.POURING -> {
-                ItemStack itemStack = player.getMainHandItem(); // 必须使用主手而非发来的item，原因未知
+                ItemStack itemStack = player.getMainHandItem(); // 必须使用主手而非发来的item，因为发来的item相当于copy了一个，但不再是原来的那个了
                 if(itemStack.getItem() instanceof ITankItem) {
                     IFluidHandlerItem tankStack = FluidUtil.getTank(itemStack);
                     FluidStack fluidStack0 = tankStack.getFluidInTank(0);

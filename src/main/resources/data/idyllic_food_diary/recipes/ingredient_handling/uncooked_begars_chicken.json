@@ -1,0 +1,24 @@
+{
+  "type": "idyllic_food_diary:ingredient_handling",
+  "ingredients": [
+    {
+      "item": "minecraft:chicken"
+    },
+    {
+      "item": "idyllic_food_diary:chopped_spring_onion"
+    },
+    {
+      "item": "idyllic_food_diary:chopped_ginger"
+    },
+    {
+      "item": "idyllic_food_diary:chopped_garlic"
+    }
+  ],
+  "container": {
+    "item": "minecraft:lily_pad"
+  },
+  "order": true,
+  "result": {
+    "item": "idyllic_food_diary:uncooked_beggars_chicken"
+  }
+}

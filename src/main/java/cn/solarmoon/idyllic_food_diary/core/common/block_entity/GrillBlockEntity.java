@@ -1,5 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.core.common.block_entity;
 
+import cn.solarmoon.idyllic_food_diary.api.common.block_entity.ISpiceable;
+import cn.solarmoon.idyllic_food_diary.api.common.capability.serializable.Spice;
 import cn.solarmoon.idyllic_food_diary.core.common.registry.IMBlockEntities;
 import cn.solarmoon.idyllic_food_diary.core.common.registry.IMPacks;
 import cn.solarmoon.idyllic_food_diary.api.util.namespace.NBTList;
@@ -20,6 +22,7 @@ import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

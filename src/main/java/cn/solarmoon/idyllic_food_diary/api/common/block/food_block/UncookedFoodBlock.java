@@ -13,24 +13,16 @@ import net.minecraft.world.phys.shapes.VoxelShape;
  */
 public class UncookedFoodBlock extends AbstractLongPressEatFoodBlock {
 
-    private final Block blockLeft;
     private final PropertyDispatch.QuadFunction<BlockState, BlockGetter, BlockPos, CollisionContext, VoxelShape> shapeConsumerFunction;
 
-    public UncookedFoodBlock(Block blockLeft, VoxelShape shape, Properties properties) {
+    public UncookedFoodBlock(VoxelShape shape, Properties properties) {
         super(properties);
-        this.blockLeft = blockLeft;
         this.shapeConsumerFunction = (a, b, c, d) -> shape;
     }
 
     public UncookedFoodBlock(Block blockLeft, PropertyDispatch.QuadFunction<BlockState, BlockGetter, BlockPos, CollisionContext, VoxelShape> shapeConsumerFunction, Properties properties) {
         super(properties);
-        this.blockLeft = blockLeft;
         this.shapeConsumerFunction = shapeConsumerFunction;
-    }
-
-    @Override
-    public Block getBlockLeft() {
-        return blockLeft;
     }
 
     @Override

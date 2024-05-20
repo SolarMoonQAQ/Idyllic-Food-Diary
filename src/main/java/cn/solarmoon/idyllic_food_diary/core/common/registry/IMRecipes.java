@@ -34,9 +34,9 @@ public class IMRecipes {
             .build();
 
     //汤锅
-    public static final RecipeEntry<SoupPotRecipe> SOUP_POT = IdyllicFoodDiary.REGISTRY.recipe()
+    public static final RecipeEntry<CookingPotRecipe> SOUP_POT = IdyllicFoodDiary.REGISTRY.recipe()
             .id("soup_pot")
-            .serializer(SoupPotRecipeSerializer::new)
+            .serializer(CookingPotRecipeSerializer::new)
             .build();
 
     //蒸笼
@@ -49,6 +49,12 @@ public class IMRecipes {
     public static final RecipeEntry<SoupServingRecipe> SOUP_SERVING = IdyllicFoodDiary.REGISTRY.recipe()
             .id("soup_serving")
             .serializer(SoupServingRecipeSerializer::new)
+            .build();
+
+    //食材处理
+    public static final RecipeEntry<IngredientHandlingRecipe> INGREDIENT_HANDLING = IdyllicFoodDiary.REGISTRY.recipe()
+            .id("ingredient_handling")
+            .serializer(IngredientHandlingRecipeSerializer::new)
             .build();
 
 }
