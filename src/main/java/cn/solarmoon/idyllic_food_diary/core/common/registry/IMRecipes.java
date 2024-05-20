@@ -34,8 +34,8 @@ public class IMRecipes {
             .build();
 
     //汤锅
-    public static final RecipeEntry<CookingPotRecipe> SOUP_POT = IdyllicFoodDiary.REGISTRY.recipe()
-            .id("soup_pot")
+    public static final RecipeEntry<CookingPotRecipe> COOKING_POT = IdyllicFoodDiary.REGISTRY.recipe()
+            .id("cooking_pot")
             .serializer(CookingPotRecipeSerializer::new)
             .build();
 

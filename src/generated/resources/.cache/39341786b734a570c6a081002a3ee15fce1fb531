@@ -1,4 +1,4 @@
-// 1.20.1	2024-05-20T12:05:04.9021255	Tags for minecraft:item mod id idyllic_food_diary
+// 1.20.1	2024-05-20T23:06:22.8718865	Tags for minecraft:item mod id idyllic_food_diary
 cac6de8a1f12e27e4ff2d5c9aa721638137d9b49 data/farmersdelight/tags/items/tools/knives.json
 6f6544bcd44db56581744260c3d25d2e7ba4f007 data/forge/tags/items/dough.json
 cdb80d10b1480d9fcdb2975759f6efb107eb1801 data/forge/tags/items/eggs.json
@@ -10,9 +10,11 @@ cac6de8a1f12e27e4ff2d5c9aa721638137d9b49 data/forge/tags/items/tools/knives.json
 cac6de8a1f12e27e4ff2d5c9aa721638137d9b49 data/forge/tags/items/tools/swords.json
 a1e302b3bf12893b6c75ee390649c02c1744cf3e data/idyllic_food_diary/tags/items/cup.json
 c495f741d0f96b1671772c6053bc40946a8d930c data/idyllic_food_diary/tags/items/dough.json
-78603c01eaf731ffb873cc533557dd433a313a56 data/idyllic_food_diary/tags/items/food_container.json
+d1c2643d9c0c1d3d73a71d2c0a7057a656793d97 data/idyllic_food_diary/tags/items/large_container.json
+78603c01eaf731ffb873cc533557dd433a313a56 data/idyllic_food_diary/tags/items/medium_container.json
 9997afe6af357d6afb60768b5588d25d3610fc2d data/idyllic_food_diary/tags/items/shortening_dough.json
-e5657216860ad030be0ef6283fd7c375f96490c5 data/idyllic_food_diary/tags/items/soup_container.json
+b50d1685dc0955f6edbe50fdf1f840d2054fac9e data/idyllic_food_diary/tags/items/small_container.json
+35342b32d986f72bbada3676ab22b4c582f14949 data/idyllic_food_diary/tags/items/soup_container.json
 5c8c22fdc71cd7367b6cc302ef556d6d09b0e2cd data/idyllic_food_diary/tags/items/spice.json
 f191e6b4631800eb946c0336e115375c5a826150 data/idyllic_food_diary/tags/items/tooltip_fluid_render.json
 cac6de8a1f12e27e4ff2d5c9aa721638137d9b49 data/minecraft/tags/items/axes.json

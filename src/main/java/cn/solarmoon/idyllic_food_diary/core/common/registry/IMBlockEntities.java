@@ -39,7 +39,7 @@ public class IMBlockEntities {
     public static final BlockEntityEntry<CookingPotBlockEntity> SOUP_POT = IdyllicFoodDiary.REGISTRY.blockEntity()
             .id("soup_pot")
             .bound((pos, state) -> new CookingPotBlockEntity(1000, 9, 1, pos, state))
-            .validBlock(() -> new Block[]{IMBlocks.SOUP_POT.get()})
+            .validBlock(() -> new Block[]{IMBlocks.COOKING_POT.get()})
             .build();
 
     //砧板

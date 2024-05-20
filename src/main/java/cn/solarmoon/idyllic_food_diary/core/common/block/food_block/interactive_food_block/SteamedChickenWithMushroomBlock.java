@@ -21,7 +21,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class SteamedChickenWithMushroomBlock extends AbstractInteractiveFoodBlock {
 
     public SteamedChickenWithMushroomBlock() {
-        super(BlockProperty.FOOD_ON_CONTAINER);
+        super(BlockProperty.FOOD_ON_MEDIUM_CONTAINER);
     }
 
     @Override

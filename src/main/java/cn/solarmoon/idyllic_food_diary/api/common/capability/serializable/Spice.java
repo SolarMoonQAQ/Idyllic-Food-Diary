@@ -56,6 +56,9 @@ public class Spice implements INBTSerializable<CompoundTag> {
         this.amount = amount;
     }
 
+    /**
+     * 添加调料量
+     */
     public void add(int count) {
         if (type == Type.FLUID) {
             amount = amount + count * FLUID_STOCK;

@@ -5,12 +5,9 @@ import cn.solarmoon.idyllic_food_diary.api.common.block.food_block.food_interact
 import cn.solarmoon.idyllic_food_diary.api.common.block.food_block.food_interaction.ObtainInteraction;
 import cn.solarmoon.idyllic_food_diary.api.util.VoxelShapeUtil;
 import cn.solarmoon.idyllic_food_diary.api.util.useful_data.BlockProperty;
-import cn.solarmoon.idyllic_food_diary.core.common.block.container.PorcelainPlateBlock;
 import cn.solarmoon.idyllic_food_diary.core.common.block.container.WoodenPlateBlock;
-import cn.solarmoon.idyllic_food_diary.core.common.registry.IMBlocks;
 import cn.solarmoon.idyllic_food_diary.core.common.registry.IMItems;
 import cn.solarmoon.idyllic_food_diary.core.data.tags.IMItemTags;
-import cn.solarmoon.solarmoon_core.api.util.PlayerUtil;
 import cn.solarmoon.solarmoon_core.api.util.device.ItemMatcher;
 import com.mojang.datafixers.util.Either;
 import net.minecraft.core.BlockPos;
@@ -27,7 +24,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class BeggarsChickenBlock extends AbstractInteractiveFoodBlock {
 
     public BeggarsChickenBlock() {
-        super(BlockProperty.FOOD_ON_CONTAINER);
+        super(BlockProperty.FOOD_ON_MEDIUM_CONTAINER);
     }
 
     @Override

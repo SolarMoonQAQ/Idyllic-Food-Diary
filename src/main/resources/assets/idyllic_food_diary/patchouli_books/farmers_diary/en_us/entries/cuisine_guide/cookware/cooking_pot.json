@@ -1,0 +1,12 @@
+{
+  "name": "idyllic_food_diary.cuisine_guide.cookware.cooking_pot",
+  "category": "idyllic_food_diary:cuisine_guide/cookware",
+  "icon": "idyllic_food_diary:cooking_pot",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "idyllic_food_diary.cuisine_guide.cookware.cooking_pot.page.1"
+    }
+  ]
+}

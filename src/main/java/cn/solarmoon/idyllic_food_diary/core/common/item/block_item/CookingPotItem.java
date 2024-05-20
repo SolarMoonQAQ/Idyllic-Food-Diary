@@ -10,10 +10,10 @@ import net.minecraft.world.item.BlockItem;
 
 import java.util.function.Supplier;
 
-public class SoupPotItem extends BlockItem implements ITankItem, IContainerItem, IItemRendererProvider {
+public class CookingPotItem extends BlockItem implements ITankItem, IContainerItem, IItemRendererProvider {
 
-    public SoupPotItem() {
-        super(IMBlocks.SOUP_POT.get(), new Properties().stacksTo(1));
+    public CookingPotItem() {
+        super(IMBlocks.COOKING_POT.get(), new Properties().stacksTo(1));
     }
 
     @Override

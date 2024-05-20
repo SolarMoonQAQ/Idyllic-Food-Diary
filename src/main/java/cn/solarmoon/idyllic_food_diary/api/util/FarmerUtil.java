@@ -2,20 +2,17 @@ package cn.solarmoon.idyllic_food_diary.api.util;
 
 import cn.solarmoon.idyllic_food_diary.api.data.serializer.TeaIngredient;
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
-import cn.solarmoon.idyllic_food_diary.api.util.namespace.NBTList;
 import cn.solarmoon.idyllic_food_diary.core.common.recipe.SoupServingRecipe;
 import cn.solarmoon.idyllic_food_diary.core.common.registry.IMRecipes;
 import cn.solarmoon.idyllic_food_diary.compat.create.util.PotionUtil;
 import cn.solarmoon.idyllic_food_diary.compat.farmersdelight.util.FarmersUtil;
 import cn.solarmoon.idyllic_food_diary.api.data.serializer.FluidEffect;
 import cn.solarmoon.idyllic_food_diary.core.data.tags.IMBlockTags;
-import cn.solarmoon.idyllic_food_diary.core.data.tags.IMItemTags;
 import cn.solarmoon.solarmoon_core.api.data.serializable.FoodValue;
 import cn.solarmoon.solarmoon_core.api.data.serializable.PotionEffect;
 import cn.solarmoon.solarmoon_core.api.util.TextUtil;
 import cn.solarmoon.solarmoon_core.api.util.VecUtil;
 import net.minecraft.ChatFormatting;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -72,30 +69,6 @@ public class FarmerUtil {
         itemEntity.addDeltaMovement(player.getLookAngle().scale(0.3));
         itemEntity.setPickUpDelay(20);
         level.addFreshEntity(itemEntity);
-    }
-
-    /**
-     * @return 获取该物品身上的食物容器信息
-     */
-    public static ItemStack getContainer(ItemStack origin) {
-        CompoundTag tag = origin.getTag();
-        if (tag != null && tag.contains(NBTList.FOOD_CONTAINER)) {
-            return ItemStack.of(tag.getCompound(NBTList.FOOD_CONTAINER));
-        }
-        return ItemStack.EMPTY;
-    }
-
-    /**
-     * 保存食物容器信息到origin身上
-     * @param needContainerTag 是否过滤掉不是容器tag的物品
-     */
-    public static void setContainer(ItemStack origin, ItemStack containerSet, boolean needContainerTag) {
-        if (!needContainerTag || containerSet.is(IMItemTags.FOOD_CONTAINER)) { // 有时候必须是拥有tag的容器才能保存进去，不然像荷叶这样的内容就不好搞定
-            if (!containerSet.isEmpty()) {
-                CompoundTag tag = origin.getOrCreateTag();
-                tag.put(NBTList.FOOD_CONTAINER, containerSet.serializeNBT()); // 此处把容器信息存入了物品
-            }
-        }
     }
 
     /**

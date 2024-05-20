@@ -19,7 +19,7 @@ public abstract class ItemMixin {
 
     @Shadow public abstract SoundEvent getDrinkingSound();
 
-    private Item item = (Item) (Object) this;
+    private final Item item = (Item) (Object) this;
 
     /**
      * 苹果吐子儿

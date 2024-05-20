@@ -232,9 +232,9 @@ public class IMBlocks {
             .build();
 
     //汤锅
-    public static final BlockEntry<SoupPotEntityBlock> SOUP_POT = IdyllicFoodDiary.REGISTRY.block()
-            .id("soup_pot")
-            .bound(SoupPotEntityBlock::new)
+    public static final BlockEntry<CookingPotEntityBlock> COOKING_POT = IdyllicFoodDiary.REGISTRY.block()
+            .id("cooking_pot")
+            .bound(CookingPotEntityBlock::new)
             .build();
 
     //砧板
@@ -319,7 +319,7 @@ public class IMBlocks {
             .id("uncooked_steamed_pumpkin_with_chopped_garlic")
             .bound(() -> new UncookedFoodBlock(
                     SteamedPumpkinWithChoppedGarlicBlock.SHAPE,
-                    BlockProperty.FOOD_ON_CONTAINER))
+                    BlockProperty.FOOD_ON_MEDIUM_CONTAINER))
             .build();
 
     // 未烹饪的香菇蒸鸡
@@ -327,7 +327,7 @@ public class IMBlocks {
             .id("uncooked_steamed_chicken_with_mushroom")
             .bound(() -> new UncookedFoodBlock(
                     SteamedChickenWithMushroomBlock.SHAPE,
-                    BlockProperty.FOOD_ON_CONTAINER))
+                    BlockProperty.FOOD_ON_MEDIUM_CONTAINER))
             .build();
 
     // 未烹饪的叫花鸡
@@ -336,7 +336,7 @@ public class IMBlocks {
             .bound(() -> new UncookedFoodBlock(
                     IMBlocks.WOODEN_PLATE.get(),
                     BeggarsChickenBlock::SHAPE,
-                    BlockProperty.FOOD_ON_CONTAINER))
+                    BlockProperty.FOOD_ON_MEDIUM_CONTAINER))
             .build();
 
     // 未烹饪的烤乳猪

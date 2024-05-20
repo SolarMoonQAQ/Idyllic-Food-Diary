@@ -73,10 +73,10 @@ public class IMItems {
             .bound(CuttingBoardItem::new)
             .build();
 
-    //汤锅
-    public static final ItemEntry<SoupPotItem> SOUP_POT = IdyllicFoodDiary.REGISTRY.item()
-            .id("soup_pot")
-            .bound(SoupPotItem::new)
+    //煮锅
+    public static final ItemEntry<CookingPotItem> COOKING_POT = IdyllicFoodDiary.REGISTRY.item()
+            .id("cooking_pot")
+            .bound(CookingPotItem::new)
             .build();
 
     //烧烤架

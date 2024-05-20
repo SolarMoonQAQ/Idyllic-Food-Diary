@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "idyllic_food_diary:soup_pot"
+          "name": "idyllic_food_diary:cooking_pot"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "idyllic_food_diary:blocks/soup_pot"
+  "random_sequence": "idyllic_food_diary:blocks/cooking_pot"
 }

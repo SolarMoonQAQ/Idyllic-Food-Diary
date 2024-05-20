@@ -1,7 +1,7 @@
 {
   "parent": "builtin/entity",
   "textures": {
-    "particle": "idyllic_food_diary:block/soup_pot"
+    "particle": "idyllic_food_diary:block/cooking_pot"
   },
   "display": {
     "thirdperson_righthand": {

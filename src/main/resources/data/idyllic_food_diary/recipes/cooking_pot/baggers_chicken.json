@@ -1,5 +1,5 @@
 {
-  "type": "idyllic_food_diary:soup_pot",
+  "type": "idyllic_food_diary:cooking_pot",
   "ingredients": [
     {
       "item": "idyllic_food_diary:uncooked_beggars_chicken"
@@ -24,6 +24,6 @@
     "item": "idyllic_food_diary:beggars_chicken"
   },
   "container": {
-    "tag": "idyllic_food_diary:food_container"
+    "tag": "idyllic_food_diary:medium_container"
   }
 }

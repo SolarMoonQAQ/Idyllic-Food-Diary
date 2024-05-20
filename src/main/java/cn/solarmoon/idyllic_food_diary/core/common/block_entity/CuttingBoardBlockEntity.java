@@ -3,6 +3,7 @@ package cn.solarmoon.idyllic_food_diary.core.common.block_entity;
 import cn.solarmoon.idyllic_food_diary.api.common.block_entity.IIngredientHandlingRecipe;
 import cn.solarmoon.idyllic_food_diary.api.common.block_entity.ISpiceable;
 import cn.solarmoon.idyllic_food_diary.api.common.capability.serializable.Spice;
+import cn.solarmoon.idyllic_food_diary.api.common.capability.serializable.SpiceList;
 import cn.solarmoon.idyllic_food_diary.core.common.registry.IMBlockEntities;
 import cn.solarmoon.solarmoon_core.api.common.block_entity.BaseContainerBlockEntity;
 import net.minecraft.core.BlockPos;
@@ -13,14 +14,14 @@ import java.util.List;
 
 public class CuttingBoardBlockEntity extends BaseContainerBlockEntity implements IIngredientHandlingRecipe {
 
-    public List<Spice> spices = new ArrayList<>();
+    public SpiceList spices = new SpiceList();
 
     public CuttingBoardBlockEntity(BlockPos pos, BlockState state) {
         super(IMBlockEntities.CUTTING_BOARD.get(), 9, 1, pos, state);
     }
 
     @Override
-    public List<Spice> getSpices() {
+    public SpiceList getSpices() {
         return spices;
     }
 

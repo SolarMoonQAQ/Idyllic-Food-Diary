@@ -4,6 +4,7 @@ import cn.solarmoon.idyllic_food_diary.api.common.block_entity.ICookingPotRecipe
 import cn.solarmoon.idyllic_food_diary.api.common.block_entity.IKettleRecipe;
 import cn.solarmoon.idyllic_food_diary.api.common.block_entity.ISpiceable;
 import cn.solarmoon.idyllic_food_diary.api.common.capability.serializable.Spice;
+import cn.solarmoon.idyllic_food_diary.api.common.capability.serializable.SpiceList;
 import cn.solarmoon.idyllic_food_diary.core.common.recipe.CookingPotRecipe;
 import cn.solarmoon.idyllic_food_diary.core.common.registry.IMBlockEntities;
 import cn.solarmoon.idyllic_food_diary.core.common.registry.IMRecipes;
@@ -42,7 +43,7 @@ public class CookingPotBlockEntity extends BaseTCBlockEntity implements ICooking
     private ItemStack pendingResult = ItemStack.EMPTY;
     private Ingredient container = Ingredient.EMPTY;
 
-    private final List<Spice> spices = new ArrayList<>();
+    private final SpiceList spices = new SpiceList();
 
     public int boilTime;
     public int boilRecipeTime;
@@ -112,7 +113,7 @@ public class CookingPotBlockEntity extends BaseTCBlockEntity implements ICooking
     }
 
     @Override
-    public List<Spice> getSpices() {
+    public SpiceList getSpices() {
         return spices;
     }
 

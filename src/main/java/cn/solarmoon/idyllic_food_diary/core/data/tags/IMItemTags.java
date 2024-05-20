@@ -93,10 +93,19 @@ public class IMItemTags extends ItemTagsProvider {
                 IMItems.EGG_LIQUID_BOWL.get()
         ).replace(false);
         // 容器，使得同种菜可以被不同容器盛装
+        // 大容器，双格
+        tag(LARGE_CONTAINER).add(
+                IMItems.LONG_PORCELAIN_PLATE.get(),
+                IMItems.LONG_WOODEN_PLATE.get()
+        );
         // 普通容器，类似盘子
-        tag(FOOD_CONTAINER).add(
+        tag(MEDIUM_CONTAINER).add(
                 IMItems.PORCELAIN_PLATE.get(),
                 IMItems.WOODEN_PLATE.get()
+        );
+        // 小容器，类似碗
+        tag(SMALL_CONTAINER).add(
+                Items.BOWL
         );
         //汤容器，用于识别其中的液体能否被容器盛出
         copy(IMBlockTags.SOUP_CONTAINER, SOUP_CONTAINER);
@@ -114,7 +123,9 @@ public class IMItemTags extends ItemTagsProvider {
     public static final TagKey<Item> ROLLING_DOUGH = itemTag("dough");
     public static final TagKey<Item> ROLLING_SHORTENING_DOUGH = itemTag("shortening_dough");
     public static final TagKey<Item> TOOLTIP_FLUID_RENDER = itemTag("tooltip_fluid_render");
-    public static final TagKey<Item> FOOD_CONTAINER = itemTag("food_container");
+    public static final TagKey<Item> LARGE_CONTAINER = itemTag("large_container");
+    public static final TagKey<Item> MEDIUM_CONTAINER = itemTag("medium_container");
+    public static final TagKey<Item> SMALL_CONTAINER = itemTag("small_container");
     public static final TagKey<Item> SOUP_CONTAINER = itemTag("soup_container");
     public static final TagKey<Item> SPICE = itemTag("spice");
 

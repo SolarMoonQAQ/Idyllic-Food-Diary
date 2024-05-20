@@ -40,15 +40,15 @@ public class JEI extends BaseJEI {
                         .boundCategory(new KettleCategory(guiHelper))
                         .recipeType(IMRecipes.KETTLE.get())
                         .addRecipeCatalyst(IMItems.KETTLE.get())
-                        .addRecipeCatalyst(IMItems.SOUP_POT.get())
+                        .addRecipeCatalyst(IMItems.COOKING_POT.get())
                         .addRecipeCatalyst(IMItems.STEAMER_BASE.get())
                         .emptyBackground(117, 57)
                         .title(IdyllicFoodDiary.TRANSLATOR.set("jei", "kettle.title"))
                         .build("kettle", KettleRecipe.class),
                 builder()
                         .boundCategory(new SoupPotCategory(guiHelper))
-                        .recipeType(IMRecipes.SOUP_POT.get())
-                        .addRecipeCatalyst(IMItems.SOUP_POT.get())
+                        .recipeType(IMRecipes.COOKING_POT.get())
+                        .addRecipeCatalyst(IMItems.COOKING_POT.get())
                         .emptyBackground(161, 95)
                         .title(IdyllicFoodDiary.TRANSLATOR.set("jei", "soup_pot.title"))
                         .build("soup_pot", CookingPotRecipe.class),

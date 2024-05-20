@@ -11,40 +11,17 @@ import java.util.Map;
 
 public class SpicesData implements INBTSerializable<CompoundTag> {
 
-    private final List<Spice> spices;
+    private final SpiceList spices;
 
     public SpicesData() {
-        spices = new ArrayList<>();
+        spices = new SpiceList();
     }
 
     /**
      * 注意，一般不用这个方法修改内容物！
      */
-    public List<Spice> getSpices() {
+    public SpiceList getSpices() {
         return spices;
-    }
-
-    /**
-     * 如果只是添加调料，必须用此方法添加，否则不会在原有的基础上添加而是添加一个新的调料元素
-     */
-    public void add(Spice spice) {
-        boolean findSame = false;
-        for (Spice origin : spices) {
-            if (spice.isSame(origin)) {
-                origin.add(spice.getAmount());
-                findSame = true;
-                break;
-            }
-        }
-        if (!findSame) {
-            spices.add(spice);
-        }
-    }
-
-    public void addAll(List<Spice> spices) {
-        for (var spice : spices) {
-            add(spice);
-        }
     }
 
     public boolean isEmpty() {

@@ -1,6 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.core.common.event;
 
-import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
+import cn.solarmoon.idyllic_food_diary.api.util.ContainerHelper;
 import cn.solarmoon.idyllic_food_diary.core.common.recipe.SoupServingRecipe;
 import cn.solarmoon.idyllic_food_diary.core.common.registry.IMRecipes;
 import cn.solarmoon.idyllic_food_diary.core.data.tags.IMBlockTags;
@@ -46,10 +46,11 @@ public class SoupContainerEvent {
             Optional<SoupServingRecipe> recipeOptional = getCheckedRecipe(level, heldItem, tank, CheckSource.CONTAINER);
             if (recipeOptional.isPresent()) {
                 SoupServingRecipe recipe = recipeOptional.get();
-
                 if (!player.isCreative()) {
+                    ItemStack result = recipe.result().copy();
+                    ContainerHelper.setContainer(result, heldItem); // 记录容器信息
                     heldItem.shrink(1);
-                    LevelSummonUtil.addItemToInventory(player, recipe.result().copy(), pos);
+                    LevelSummonUtil.addItemToInventory(player, result, pos);
                 }
                 tank.drain(recipe.getAmountToServe(), IFluidHandler.FluidAction.EXECUTE);
                 blockEntity.setChanged();
@@ -69,8 +70,9 @@ public class SoupContainerEvent {
             if (recipeOptional.isPresent()) {
                 SoupServingRecipe recipe = recipeOptional.get();
                 if (!player.isCreative()) {
+                    ItemStack container = ContainerHelper.getContainer(heldItem); // 返回原有汤物品中存的容器
                     heldItem.shrink(1);
-                    LevelSummonUtil.addItemToInventory(player, recipe.container().copy(), pos);
+                    if (!container.isEmpty()) LevelSummonUtil.addItemToInventory(player, container, pos);
                 }
                 t.fill(recipe.fluidToServe().copy(), IFluidHandler.FluidAction.EXECUTE);
                 blockEntity.setChanged();
@@ -87,7 +89,7 @@ public class SoupContainerEvent {
         switch (source) {
             case CONTAINER -> {
                 return recipes.stream().filter(recipe ->
-                                heldItem.is(recipe.container().getItem())
+                                recipe.container().test(heldItem)
                         && tank.getFluidInTank(0).containsFluid(recipe.fluidToServe())
                 ).findFirst();
             }

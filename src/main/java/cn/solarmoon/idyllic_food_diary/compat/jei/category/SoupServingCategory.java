@@ -30,7 +30,7 @@ public class SoupServingCategory extends BaseJEICategory<SoupServingRecipe> {
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, SoupServingRecipe recipe, IFocusGroup focuses) {
-        builder.addSlot(RecipeIngredientRole.INPUT, slotX, 1).addItemStack(recipe.container());
+        builder.addSlot(RecipeIngredientRole.INPUT, slotX, 1).addIngredients(recipe.container());
         builder.addSlot(RecipeIngredientRole.INPUT, fluidX, allY).addFluidStack(recipe.fluidToServe().getFluid(), recipe.getAmountToServe())
                         .addTooltipCallback((recipeSlotView, tooltip) ->
                                 tooltip.add(IdyllicFoodDiary.TRANSLATOR.set("jei", "fluid_amount", recipe.getAmountToServe())));

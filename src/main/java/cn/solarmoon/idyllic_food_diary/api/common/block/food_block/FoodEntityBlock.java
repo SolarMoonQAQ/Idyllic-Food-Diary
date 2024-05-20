@@ -1,12 +1,10 @@
 package cn.solarmoon.idyllic_food_diary.api.common.block.food_block;
 
-import cn.solarmoon.idyllic_food_diary.api.util.FarmerUtil;
-import cn.solarmoon.idyllic_food_diary.api.util.namespace.NBTList;
+import cn.solarmoon.idyllic_food_diary.api.util.ContainerHelper;
 import cn.solarmoon.idyllic_food_diary.core.common.block_entity.FoodBlockEntity;
 import cn.solarmoon.idyllic_food_diary.core.common.registry.IMBlockEntities;
 import cn.solarmoon.solarmoon_core.api.common.block.entity_block.BasicEntityBlock;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -34,7 +32,7 @@ public abstract class FoodEntityBlock extends BasicEntityBlock {
         super.setPlacedBy(level, pos, state, placer, stack);
         FoodBlockEntity fb = (FoodBlockEntity) level.getBlockEntity(pos);
         if (fb == null) return;
-        fb.setContainer(FarmerUtil.getContainer(stack));
+        fb.setContainer(ContainerHelper.getContainer(stack));
     }
 
     @Override

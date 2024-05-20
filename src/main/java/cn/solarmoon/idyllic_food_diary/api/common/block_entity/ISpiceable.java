@@ -1,6 +1,8 @@
 package cn.solarmoon.idyllic_food_diary.api.common.block_entity;
 
+import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.api.common.capability.serializable.Spice;
+import cn.solarmoon.idyllic_food_diary.api.common.capability.serializable.SpiceList;
 import cn.solarmoon.idyllic_food_diary.api.common.capability.serializable.SpicesData;
 import cn.solarmoon.idyllic_food_diary.core.common.registry.IMCapabilities;
 import cn.solarmoon.solarmoon_core.api.common.block_entity.IContainerBlockEntity;
@@ -25,14 +27,14 @@ public interface ISpiceable extends IContainerBlockEntity {
             for (ItemStack add : getStacks()) {
                 SpicesData addData = CapabilityUtil.getData(add, IMCapabilities.FOOD_ITEM_DATA).getSpicesData();
                 if (addData != null && !addData.isEmpty()) {
-                    addSpices(addData.getSpices());
+                    getSpices().addAll(addData.getSpices()); // 这里是把所有现存物品（不是预存物品）的所有调料混入待加的调料表
                 }
             }
         }
         if (!getSpices().isEmpty()) {
             SpicesData spicesData = CapabilityUtil.getData(stack, IMCapabilities.FOOD_ITEM_DATA).getSpicesData();
             if (spicesData != null) {
-                spicesData.addAll(getSpices());
+                spicesData.getSpices().addAll(getSpices()); // 而这里是应用所有调料到指定物品上
             }
         }
         clearSpices();
@@ -53,48 +55,17 @@ public interface ISpiceable extends IContainerBlockEntity {
     /**
      * @return 返回一个完全独立的模拟的所有待加香料的表
      */
-    default List<Spice> getSpicesToAdd(boolean addSpicesFormContainer) {
-        List<Spice> spices = List.copyOf(getSpices());
+    default SpiceList getSpicesToAdd(boolean addSpicesFormContainer) {
+        SpiceList spices = SpiceList.copyOf(getSpices());
         if (addSpicesFormContainer) {
             for (ItemStack add : getStacks()) {
                 SpicesData addData = CapabilityUtil.getData(add, IMCapabilities.FOOD_ITEM_DATA).getSpicesData();
                 if (addData != null && !addData.isEmpty()) {
-                    addSpices(addData.getSpices(), spices);
+                    spices.addAll(addData.getSpices());
                 }
             }
         }
         return spices;
-    }
-
-    /**
-     * 如果只是添加调料，必须用此方法添加，否则不会在原有的基础上添加而是添加一个新的调料元素
-     */
-    default void addSpice(Spice spice) {
-        addSpice(spice, getSpices());
-    }
-
-    default void addSpice(Spice spice, List<Spice> customSpices) {
-        boolean findSame = false;
-        for (Spice origin : customSpices) {
-            if (spice.isSame(origin)) {
-                origin.add(spice.getAmount());
-                findSame = true;
-                break;
-            }
-        }
-        if (!findSame) {
-            customSpices.add(spice);
-        }
-    }
-
-    default void addSpices(List<Spice> spices, List<Spice> customSpices) {
-        for (var spice : spices) {
-            addSpice(spice, customSpices);
-        }
-    }
-
-    default void addSpices(List<Spice> spices) {
-        addSpices(spices, getSpices());
     }
 
     default void clearSpices() {
@@ -104,7 +75,7 @@ public interface ISpiceable extends IContainerBlockEntity {
     /**
      * 传入一个固定在private的空列表即可，然后不要修改此项！！
      */
-    List<Spice> getSpices();
+    SpiceList getSpices();
 
     Spice.Step getSpiceStep();
 

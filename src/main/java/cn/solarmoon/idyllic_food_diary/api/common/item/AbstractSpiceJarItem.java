@@ -28,7 +28,7 @@ public abstract class AbstractSpiceJarItem extends BlockItem implements IContain
         BlockEntity blockEntity = level.getBlockEntity(pos);
         if (blockEntity instanceof ISpiceable sp && hasEnoughSpice(stack) && !sp.timeToResetSpices()) {
             ItemStackHandler inv = ContainerUtil.getInventory(stack);
-            sp.addSpice(new Spice(inv.extractItem(0, 1, false).getItem(), sp.getSpiceStep()));
+            sp.getSpices().add(new Spice(inv.extractItem(0, 1, false).getItem(), sp.getSpiceStep()));
             ContainerUtil.setInventory(stack, inv);
             return InteractionResult.SUCCESS;
         }

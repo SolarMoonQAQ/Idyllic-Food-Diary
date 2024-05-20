@@ -11,7 +11,7 @@ public class BlockProperty {
             .sound(SoundType.WOOL)
             .noOcclusion();
 
-    public static BlockBehaviour.Properties FOOD_ON_CONTAINER = BlockBehaviour.Properties.of()
+    public static BlockBehaviour.Properties FOOD_ON_MEDIUM_CONTAINER = BlockBehaviour.Properties.of()
             .strength(1)
             .sound(SoundType.WOOL)
             .noOcclusion();
@@ -22,9 +22,9 @@ public class BlockProperty {
             .noOcclusion()
             .pushReaction(PushReaction.DESTROY);
 
-    public static BlockBehaviour.Properties FOOD_IN_BOWL = BlockBehaviour.Properties.of()
+    public static BlockBehaviour.Properties FOOD_ON_SMALL_BOWL = BlockBehaviour.Properties.of()
             .strength(0.5F)
-            .sound(SoundType.BAMBOO)
+            .sound(SoundType.WOOL)
             .noOcclusion();
 
 }

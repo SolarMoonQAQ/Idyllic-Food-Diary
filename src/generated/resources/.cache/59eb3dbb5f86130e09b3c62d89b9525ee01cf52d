@@ -1,4 +1,4 @@
-// 1.20.1	2024-05-17T13:45:18.483116	Loot Tables
+// 1.20.1	2024-05-20T23:06:22.8799032	Loot Tables
 81eae8dfec67eae89476c809921fbde840b65284 data/idyllic_food_diary/loot_tables/blocks/apple_crop.json
 148e61834c37eb7b329e25658d63b3ceca1c15e0 data/idyllic_food_diary/loot_tables/blocks/apple_sapling.json
 0e391e594b35127b299aec7620e44e9ce8f80144 data/idyllic_food_diary/loot_tables/blocks/bai_ji_bun.json
@@ -8,6 +8,7 @@ f0423eef48cca5870df8b6deba968b64809786e0 data/idyllic_food_diary/loot_tables/blo
 7461e8003a82379a749ed402a31c7de4b39bfb30 data/idyllic_food_diary/loot_tables/blocks/bowl.json
 9d83c96dd58bfcb6270f534deb4c569eac05613c data/idyllic_food_diary/loot_tables/blocks/cang_shu_mutton_soup.json
 92755f4c13c18c8fa7d4d851f57f2f088484960d data/idyllic_food_diary/loot_tables/blocks/celadon_cup.json
+ec4555eb88a21a6015bb8deda209d60295bd35af data/idyllic_food_diary/loot_tables/blocks/cooking_pot.json
 b6e33b407544e347b60992f46799535207f98cac data/idyllic_food_diary/loot_tables/blocks/custard_tart.json
 b08ca0cabd33fb4c5066247e12e46d6c9606151e data/idyllic_food_diary/loot_tables/blocks/cutting_board.json
 a348345665427fcd2b4b1ac6f1509441ea6397cd data/idyllic_food_diary/loot_tables/blocks/durian.json
@@ -33,7 +34,6 @@ d9d221dfe8c9cd090d11bd8ecdd0184b1183e63a data/idyllic_food_diary/loot_tables/blo
 4ba19c843541b774ded6adf03b42c89defec0c9d data/idyllic_food_diary/loot_tables/blocks/seaweed_egg_drop_soup.json
 cd3b9ba74a6c62f1b99c13b56862151d54dadbe8 data/idyllic_food_diary/loot_tables/blocks/service_plate.json
 e24f8cc4659906ba9458e5a0f80c156eca9feba9 data/idyllic_food_diary/loot_tables/blocks/shortening_dough.json
-77aac81cc0ccbf4a0e3027c49b9e864e9cbba978 data/idyllic_food_diary/loot_tables/blocks/soup_pot.json
 c0ace74d52288371a167224fcd888a6d84f11949 data/idyllic_food_diary/loot_tables/blocks/spring_onion_crop.json
 4c719e22f39334e7fa338b8d6d082bce9cd75a79 data/idyllic_food_diary/loot_tables/blocks/steamed_bun.json
 ad2524eee8b816ab8e0ff5bcae7c10936c948518 data/idyllic_food_diary/loot_tables/blocks/steamed_chicken_with_mushroom.json

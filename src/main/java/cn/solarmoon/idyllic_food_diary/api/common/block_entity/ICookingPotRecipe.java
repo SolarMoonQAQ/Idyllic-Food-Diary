@@ -1,5 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.api.common.block_entity;
 
+import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.api.util.FarmerUtil;
 import cn.solarmoon.idyllic_food_diary.core.common.recipe.CookingPotRecipe;
 import cn.solarmoon.idyllic_food_diary.core.common.registry.IMRecipes;
@@ -77,7 +78,7 @@ public interface ICookingPotRecipe extends ITimeRecipeBlockEntity<CookingPotReci
         Level level = cookingPot().getLevel();
         BlockPos pos = cookingPot().getBlockPos();
         if (level == null) return Optional.empty();
-        List<CookingPotRecipe> recipes = level.getRecipeManager().getAllRecipesFor(IMRecipes.SOUP_POT.get());
+        List<CookingPotRecipe> recipes = level.getRecipeManager().getAllRecipesFor(IMRecipes.COOKING_POT.get());
         return recipes.stream().filter(recipe -> {
             /*
              * 要求：

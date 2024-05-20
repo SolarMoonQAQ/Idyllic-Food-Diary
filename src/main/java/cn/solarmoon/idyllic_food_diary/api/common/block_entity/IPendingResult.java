@@ -1,8 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.api.common.block_entity;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
-import cn.solarmoon.idyllic_food_diary.api.util.FarmerUtil;
-import cn.solarmoon.idyllic_food_diary.core.data.tags.IMItemTags;
+import cn.solarmoon.idyllic_food_diary.api.util.ContainerHelper;
 import cn.solarmoon.solarmoon_core.api.util.LevelSummonUtil;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -34,7 +33,7 @@ public interface IPendingResult {
         if (hasResult()) {
             if (getContainer().test(heldItem)) {
                 ItemStack result = getResult().split(1);
-                FarmerUtil.setContainer(result, heldItem, true); // 这里保存了容器信息
+                ContainerHelper.setContainer(result, heldItem); // 这里保存了容器信息
                 LevelSummonUtil.addItemToInventory(player, result);
                 if (!player.isCreative()) heldItem.shrink(1);
                 resetContainer();

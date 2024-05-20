@@ -43,7 +43,7 @@ public class IMBlockTags extends BlockTagsProvider {
         //可被镐子挖
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
                 IMBlocks.KETTLE.get(),
-                IMBlocks.SOUP_POT.get(),
+                IMBlocks.COOKING_POT.get(),
                 IMBlocks.GRILL.get(),
                 IMBlocks.PORCELAIN_PLATE.get(),
                 IMBlocks.LONG_PORCELAIN_PLATE.get(),
@@ -81,7 +81,7 @@ public class IMBlockTags extends BlockTagsProvider {
         ).replace(false);
         //汤容器
         tag(SOUP_CONTAINER).add(
-                IMBlocks.SOUP_POT.get()
+                IMBlocks.COOKING_POT.get()
         ).replace(false);
         //砧板大类（决定了菜刀是否可以切割该tag的容器内的第一个物品）
         tag(CUTTING_BOARD).add(

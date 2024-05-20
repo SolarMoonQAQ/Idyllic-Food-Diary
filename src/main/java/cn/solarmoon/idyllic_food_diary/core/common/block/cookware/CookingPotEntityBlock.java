@@ -13,9 +13,9 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class SoupPotEntityBlock extends AbstractCookingPotEntityBlock {
+public class CookingPotEntityBlock extends AbstractCookingPotEntityBlock {
 
-    public SoupPotEntityBlock() {
+    public CookingPotEntityBlock() {
         super(Block.Properties.of()
                 .sound(SoundType.LANTERN)
                 .strength(2f, 6.0F)

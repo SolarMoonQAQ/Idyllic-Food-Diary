@@ -26,7 +26,7 @@ public record CookingPotRecipe(
 
     @Override
     public RecipeEntry<?> getRecipeEntry() {
-        return IMRecipes.SOUP_POT;
+        return IMRecipes.COOKING_POT;
     }
 
     @Override

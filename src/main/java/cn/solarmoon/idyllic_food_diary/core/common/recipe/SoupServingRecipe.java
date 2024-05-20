@@ -5,11 +5,12 @@ import cn.solarmoon.solarmoon_core.api.common.recipe.IConcreteRecipe;
 import cn.solarmoon.solarmoon_core.api.common.registry.RecipeEntry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.fluids.FluidStack;
 
 public record SoupServingRecipe(
         ResourceLocation id,
-        ItemStack container,
+        Ingredient container,
         FluidStack fluidToServe,
         ItemStack result
 ) implements IConcreteRecipe {

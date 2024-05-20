@@ -20,7 +20,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class SteamedPumpkinWithChoppedGarlicBlock extends AbstractInteractiveFoodBlock {
 
     public SteamedPumpkinWithChoppedGarlicBlock() {
-        super(BlockProperty.FOOD_ON_CONTAINER);
+        super(BlockProperty.FOOD_ON_MEDIUM_CONTAINER);
     }
 
     @Override

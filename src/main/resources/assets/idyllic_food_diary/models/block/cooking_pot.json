@@ -1,11 +1,11 @@
 {
 	"credit": "Made with Blockbench",
-	"parent": "idyllic_food_diary:block/soup_pot",
+	"parent": "idyllic_food_diary:block/cooking_pot",
 	"render_type": "minecraft:cutout",
 	"texture_size": [64, 64],
 	"textures": {
-		"2": "idyllic_food_diary:block/soup_pot",
-		"particle": "idyllic_food_diary:block/soup_pot"
+		"2": "idyllic_food_diary:block/cooking_pot",
+		"particle": "idyllic_food_diary:block/cooking_pot"
 	},
 	"elements": [
 		{

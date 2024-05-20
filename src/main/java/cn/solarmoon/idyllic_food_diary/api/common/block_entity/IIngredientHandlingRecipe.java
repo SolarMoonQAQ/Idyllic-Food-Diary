@@ -1,6 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.api.common.block_entity;
 
-import cn.solarmoon.idyllic_food_diary.api.util.FarmerUtil;
+import cn.solarmoon.idyllic_food_diary.api.util.ContainerHelper;
 import cn.solarmoon.idyllic_food_diary.core.common.recipe.IngredientHandlingRecipe;
 import cn.solarmoon.idyllic_food_diary.core.common.registry.IMRecipes;
 import cn.solarmoon.solarmoon_core.api.common.block_entity.IContainerBlockEntity;
@@ -34,7 +34,7 @@ public interface IIngredientHandlingRecipe extends IContainerBlockEntity, ISpice
                 clear();
                 ItemStack result = recipe.result().copy();
                 insertItem(result);
-                FarmerUtil.setContainer(result, heldItem, true); // 此处尝试保存了容器信息
+                ContainerHelper.setContainer(result, heldItem); // 此处尝试保存了容器信息
                 if (!player.isCreative()) heldItem.shrink(1);
                 Vec3 center = pos.getCenter();
                 RandomSource randomSource = player.getRandom();
