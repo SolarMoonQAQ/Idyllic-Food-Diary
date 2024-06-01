@@ -1,5 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.api.common.capability.serializable;
 
+import cn.solarmoon.idyllic_food_diary.api.util.namespace.NBTList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraftforge.common.util.INBTSerializable;
@@ -31,21 +32,13 @@ public class SpicesData implements INBTSerializable<CompoundTag> {
     @Override
     public CompoundTag serializeNBT() {
         CompoundTag tag = new CompoundTag();
-        ListTag listTag = new ListTag();
-        for (Spice spices : spices) {
-            listTag.add(spices.serializeNBT());
-        }
-        tag.put("Spices", listTag);
+        tag.put(NBTList.SPICES, spices.serializeNBT());
         return tag;
     }
 
     @Override
     public void deserializeNBT(CompoundTag nbt) {
-        ListTag listTag = nbt.getList("Spices", ListTag.TAG_COMPOUND);
-        for (int i = 0; i < listTag.size(); i++) {
-            CompoundTag tag = listTag.getCompound(i);
-            spices.add(Spice.readFromNBT(tag));
-        }
+        spices.deserializeNBT(nbt.getList(NBTList.SPICES, ListTag.TAG_COMPOUND));
     }
 
 }

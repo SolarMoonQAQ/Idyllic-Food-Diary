@@ -14,5 +14,10 @@ public class NBTList {
     public static final String CONTAINER = "Container";
     public static final String FOOD_CONTAINER = "FoodContainer";
     public static final String RESULT = "Result";
+    public static final String EXP = "Experience";
+    public static final String STEW_TIME = "StewTime";
+    public static final String STEW_RECIPE_TIME = "StewRecipeTime";
+    public static final String SIMMER_TIME = "SimmerTime";
+    public static final String SIMMER_RECIPE_TIME = "SimmerRecipeTime";
 
 }

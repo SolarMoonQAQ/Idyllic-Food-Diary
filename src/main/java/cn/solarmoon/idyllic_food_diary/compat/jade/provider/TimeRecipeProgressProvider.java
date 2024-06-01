@@ -1,13 +1,15 @@
 package cn.solarmoon.idyllic_food_diary.compat.jade.provider;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
-import cn.solarmoon.idyllic_food_diary.api.common.block_entity.IKettleRecipe;
+import cn.solarmoon.idyllic_food_diary.api.tea_brewing.IBrewingRecipe;
+import cn.solarmoon.idyllic_food_diary.api.common.block_entity.IWaterBoilingRecipe;
 import cn.solarmoon.solarmoon_core.api.common.block_entity.iutor.ITimeRecipeBlockEntity;
 import cn.solarmoon.solarmoon_core.api.util.TextUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.StringUtil;
 import snownee.jade.api.BlockAccessor;
 import snownee.jade.api.IBlockComponentProvider;
 import snownee.jade.api.IServerDataProvider;
@@ -31,8 +33,11 @@ public class TimeRecipeProgressProvider implements IBlockComponentProvider, ISer
         if (blockAccessor.getBlockEntity() instanceof ITimeRecipeBlockEntity<?> t) {
             addByTime(t.getTime(), t.getRecipeTime(), iTooltip);
         }
-        if (blockAccessor.getBlockEntity() instanceof IKettleRecipe k) {
+        if (blockAccessor.getBlockEntity() instanceof IWaterBoilingRecipe k) {
             addByTime(k.getBoilTime(), k.getBoilRecipeTime(), iTooltip);
+        }
+        if (blockAccessor.getBlockEntity() instanceof IBrewingRecipe brew) {
+            addByTime(brew.getBrewTime(), brew.getBrewRecipeTime(), iTooltip);
         }
     }
 
@@ -44,7 +49,7 @@ public class TimeRecipeProgressProvider implements IBlockComponentProvider, ISer
             IElementHelper ehp = iTooltip.getElementHelper();
             IElement progress = ehp.progress(
                     scale,
-                    Component.literal(TextUtil.toMinuteFormat(time) + "/" + TextUtil.toMinuteFormat(needTime)).withStyle(ChatFormatting.WHITE),
+                    Component.literal(StringUtil.formatTickDuration(time) + "/" + StringUtil.formatTickDuration(needTime)).withStyle(ChatFormatting.WHITE),
                     new ProgressStyle(),
                     BoxStyle.DEFAULT,
                     true

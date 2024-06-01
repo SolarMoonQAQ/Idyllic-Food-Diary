@@ -19,7 +19,7 @@ public class ContainerHelper {
     }
 
     /**
-     * 保存食物容器信息到origin身上，要求容器必须是已被tag标记的专门容器，不然像荷叶这样的内容就不好搞定
+     * 保存食物容器信息到origin身上，要求设置的容器不为空且必须是已被tag标记的专门容器，不然像荷叶这样的内容就不好搞定
      */
     public static void setContainer(ItemStack origin, ItemStack containerSet) {
         if (isFoodContainer(containerSet)) {

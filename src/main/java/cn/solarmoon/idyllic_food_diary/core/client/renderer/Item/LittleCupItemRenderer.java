@@ -1,6 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.core.client.renderer.Item;
 
-import cn.solarmoon.idyllic_food_diary.api.util.FluidRenderUtil;
+import cn.solarmoon.idyllic_food_diary.api.util.TextureRenderUtil;
 import cn.solarmoon.solarmoon_core.api.client.renderer.Item.BaseItemRenderer;
 import cn.solarmoon.solarmoon_core.api.util.ContainerUtil;
 import cn.solarmoon.solarmoon_core.api.util.FluidUtil;
@@ -41,7 +41,7 @@ public class LittleCupItemRenderer extends BaseItemRenderer {
         IFluidHandlerItem stackTank = FluidUtil.getTank(stack);
         float zoom = 3 / 16f;
         float targetScale = FluidUtil.getScale(stackTank);
-        int targetColor = FluidRenderUtil.getColor(fluidStack);
+        int targetColor = TextureRenderUtil.getColor(fluidStack);
         Fluid fluid = fluidStack.getFluid();
         IClientFluidTypeExtensions fluidAttributes = IClientFluidTypeExtensions.of(fluid);
         ResourceLocation spriteLocation = fluidAttributes.getStillTexture(fluidStack);
@@ -50,8 +50,9 @@ public class LittleCupItemRenderer extends BaseItemRenderer {
         float posB = 6.5f / 16f;
         poseStack.translate(posB, 0.09375f, posB);
         poseStack.scale(zoom, targetScale * 0.1875f, zoom);
-        FluidRenderUtil.renderFluid(targetColor, 0, spriteLocation,
-                poseStack, buffer, light, overlay);
+        TextureRenderUtil.renderFluid(targetColor, 1, 0,
+                0, 0, 16, 16,
+                spriteLocation, poseStack, buffer, light);
         poseStack.popPose();
 
     }

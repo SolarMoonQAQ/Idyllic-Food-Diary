@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 public class BowlSoupBlock extends AbstractLongPressEatFoodBlock {
 
     public BowlSoupBlock() {
-        super(BlockProperty.FOOD_ON_SMALL_BOWL);
+        super(BlockProperty.FOOD_ON_SMALL_CONTAINER);
     }
 
     @Override

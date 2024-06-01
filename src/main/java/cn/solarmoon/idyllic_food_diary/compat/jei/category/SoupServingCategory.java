@@ -25,7 +25,7 @@ public class SoupServingCategory extends BaseJEICategory<SoupServingRecipe> {
     public SoupServingCategory(IGuiHelper helper) {
         super(helper);
         back = helper.createDrawable(ResList.JEI_SOUP_SERVING, 0, 0, 13, 25);
-        pot = helper.createDrawable(ResList.JEI_SOUP_POT, 0, 0, 28, 20);
+        pot = helper.createDrawable(ResList.JEI_COOKING_POT, 0, 0, 28, 20);
     }
 
     @Override

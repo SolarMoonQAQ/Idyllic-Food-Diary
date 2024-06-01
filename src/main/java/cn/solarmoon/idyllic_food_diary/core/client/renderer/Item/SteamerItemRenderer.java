@@ -18,7 +18,7 @@ import net.minecraft.world.level.block.state.properties.BedPart;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.items.ItemStackHandler;
 
-import static cn.solarmoon.idyllic_food_diary.api.common.block.cookware.AbstractSteamerEntityBlock.HAS_LID;
+import static cn.solarmoon.idyllic_food_diary.core.common.block.cookware.SteamerBlock.HAS_LID;
 import static cn.solarmoon.solarmoon_core.api.common.block.IStackBlock.STACK;
 
 public class SteamerItemRenderer extends BaseItemRenderer {

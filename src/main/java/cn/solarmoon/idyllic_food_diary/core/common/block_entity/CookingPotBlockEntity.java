@@ -1,95 +1,47 @@
 package cn.solarmoon.idyllic_food_diary.core.common.block_entity;
 
-import cn.solarmoon.idyllic_food_diary.api.common.block_entity.ICookingPotRecipe;
-import cn.solarmoon.idyllic_food_diary.api.common.block_entity.IKettleRecipe;
-import cn.solarmoon.idyllic_food_diary.api.common.block_entity.ISpiceable;
+import cn.solarmoon.idyllic_food_diary.api.common.block_entity.*;
 import cn.solarmoon.idyllic_food_diary.api.common.capability.serializable.Spice;
 import cn.solarmoon.idyllic_food_diary.api.common.capability.serializable.SpiceList;
-import cn.solarmoon.idyllic_food_diary.core.common.recipe.CookingPotRecipe;
 import cn.solarmoon.idyllic_food_diary.core.common.registry.IMBlockEntities;
-import cn.solarmoon.idyllic_food_diary.core.common.registry.IMRecipes;
-import cn.solarmoon.idyllic_food_diary.api.util.FarmerUtil;
 import cn.solarmoon.solarmoon_core.api.common.block_entity.BaseTCBlockEntity;
-import cn.solarmoon.solarmoon_core.api.common.block_entity.iutor.IBlockEntityAnimateTicker;
-import cn.solarmoon.solarmoon_core.api.common.block_entity.iutor.ITimeRecipeBlockEntity;
-import cn.solarmoon.solarmoon_core.api.util.FluidUtil;
-import cn.solarmoon.solarmoon_core.api.util.LevelSummonUtil;
-import cn.solarmoon.solarmoon_core.api.util.SerializeHelper;
-import com.google.gson.Gson;
-import com.google.gson.JsonParser;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.AbstractCauldronBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.util.RecipeMatcher;
-import net.minecraftforge.fluids.FluidStack;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-public class CookingPotBlockEntity extends BaseTCBlockEntity implements ICookingPotRecipe, IKettleRecipe, IBlockEntityAnimateTicker {
+public class CookingPotBlockEntity extends BaseTCBlockEntity implements IStewRecipe,
+        IWaterBoilingRecipe, IEvaporationRecipe, ISoupRecipe, IFoodBoilingRecipe {
 
     private int time;
     private int recipeTime;
-
-    private int animTick;
-    private float last;
+    private int simmerTime;
+    private int simmerRecipeTime;
+    private int[] iTimes = new int[64];
+    private int[] iRecipeTimes = new int[64];
 
     private ItemStack pendingResult = ItemStack.EMPTY;
     private Ingredient container = Ingredient.EMPTY;
 
+    private int exp;
+
     private final SpiceList spices = new SpiceList();
 
-    public int boilTime;
-    public int boilRecipeTime;
+    private int boilTime;
+    private int boilRecipeTime;
 
-    public CookingPotBlockEntity(int maxCapacity, int size, int slotLimit, BlockPos pos, BlockState state) {
-        super(IMBlockEntities.SOUP_POT.get(), maxCapacity, size, slotLimit, pos, state);
+    private int evaTick;
+
+    public CookingPotBlockEntity(BlockPos pos, BlockState state) {
+        super(IMBlockEntities.COOKING_POT.get(), 1000, 9, 1, pos, state);
     }
 
-    @Override
-    public int getTime() {
-        return time;
-    }
-
-    @Override
-    public int getRecipeTime() {
-        return recipeTime;
-    }
-
-    @Override
-    public void setTime(int time) {
-        this.time = time;
-    }
-
-    @Override
-    public void setRecipeTime(int recipeTime) {
-        this.recipeTime = recipeTime;
-    }
-
-    @Override
-    public int getTicks() {
-        return animTick;
-    }
-
-    @Override
-    public void setTicks(int ticks) {
-        animTick = ticks;
-    }
-
-    @Override
-    public float getLast() {
-        return last;
-    }
-
-    @Override
-    public void setLast(float last) {
-        this.last = last;
+    /**
+     * @return 液体是否正被加热（是否有液体且下方是否为热源）,这个和配方无关
+     */
+    public boolean isHeatingFluid() {
+        return isHeatingConsiderStove() && !getTank().isEmpty();
     }
 
     @Override
@@ -124,7 +76,7 @@ public class CookingPotBlockEntity extends BaseTCBlockEntity implements ICooking
 
     @Override
     public boolean timeToResetSpices() {
-        return getCheckedRecipe().isEmpty();
+        return findStewRecipe().isEmpty();
     }
 
     @Override
@@ -145,6 +97,91 @@ public class CookingPotBlockEntity extends BaseTCBlockEntity implements ICooking
     @Override
     public void setContainer(Ingredient newContainer) {
         container = newContainer;
+    }
+
+    @Override
+    public int getExp() {
+        return exp;
+    }
+
+    @Override
+    public void setExp(int exp) {
+        this.exp = exp;
+    }
+
+    @Override
+    public void setEvaporationTick(int tick) {
+        evaTick = tick;
+    }
+
+    @Override
+    public int getEvaporationTick() {
+        return evaTick;
+    }
+
+    @Override
+    public boolean isDirectEnabled() {
+        return false;
+    }
+
+    @Override
+    public int getStewTime() {
+        return time;
+    }
+
+    @Override
+    public void setStewTime(int time) {
+        this.time = time;
+    }
+
+    @Override
+    public int getStewRecipeTime() {
+        return recipeTime;
+    }
+
+    @Override
+    public void setStewRecipeTime(int time) {
+        recipeTime = time;
+    }
+
+    @Override
+    public int getSimmerTime() {
+        return simmerTime;
+    }
+
+    @Override
+    public void setSimmerTime(int time) {
+        simmerTime = time;
+    }
+
+    @Override
+    public int getSimmerRecipeTime() {
+        return simmerRecipeTime;
+    }
+
+    @Override
+    public void setSimmerRecipeTime(int time) {
+        simmerRecipeTime = time;
+    }
+
+    @Override
+    public int[] getTimes() {
+        return iTimes;
+    }
+
+    @Override
+    public int[] getRecipeTimes() {
+        return iRecipeTimes;
+    }
+
+    @Override
+    public void setTimes(int[] ints) {
+        iTimes = ints;
+    }
+
+    @Override
+    public void setRecipeTimes(int[] ints) {
+        iRecipeTimes = ints;
     }
 
 }

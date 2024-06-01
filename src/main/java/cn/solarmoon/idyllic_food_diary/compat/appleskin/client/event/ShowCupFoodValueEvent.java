@@ -1,16 +1,11 @@
 package cn.solarmoon.idyllic_food_diary.compat.appleskin.client.event;
 
 import cn.solarmoon.idyllic_food_diary.api.common.item.AbstractCupItem;
-import cn.solarmoon.idyllic_food_diary.api.common.item.containable.SoupBowlFoodItem;
-import cn.solarmoon.idyllic_food_diary.api.data.serializer.FluidEffect;
-import cn.solarmoon.idyllic_food_diary.api.data.serializer.TeaIngredient;
-import cn.solarmoon.solarmoon_core.api.data.serializable.FoodValue;
+import cn.solarmoon.idyllic_food_diary.api.tea_brewing.TeaIngredient;
 import cn.solarmoon.solarmoon_core.api.util.FluidUtil;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import squeek.appleskin.api.event.FoodValuesEvent;
 import squeek.appleskin.api.food.FoodValues;
 
@@ -36,11 +31,6 @@ public class ShowCupFoodValueEvent {
                 }
                 if (n > 0 || s > 0) event.modifiedFoodValues = new FoodValues(n, s);
             }
-        } else if (event.itemStack.getItem() instanceof SoupBowlFoodItem bowlFood) {
-            FluidEffect fluidEffect = FluidEffect.get(bowlFood.fluidBound);
-            if (fluidEffect == null) return;
-            FoodValue foodValue = fluidEffect.getFoodValue();
-            event.modifiedFoodValues = new FoodValues(foodValue.nutrition, foodValue.saturation);
         }
     }
 

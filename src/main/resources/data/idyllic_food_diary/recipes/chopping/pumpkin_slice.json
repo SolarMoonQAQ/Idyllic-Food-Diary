@@ -1,0 +1,12 @@
+{
+  "type": "idyllic_food_diary:chopping",
+  "ingredient": {
+    "item": "minecraft:pumpkin"
+  },
+  "result": [
+    {
+      "item": "idyllic_food_diary:pumpkin_slice",
+      "count": 4
+    }
+  ]
+}

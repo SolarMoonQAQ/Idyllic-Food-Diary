@@ -1,16 +1,13 @@
 package cn.solarmoon.idyllic_food_diary.core.common.block_entity;
 
-import cn.solarmoon.idyllic_food_diary.api.common.block_entity.IBrewTeaRecipe;
-import cn.solarmoon.idyllic_food_diary.api.common.block_entity.IKettleRecipe;
+import cn.solarmoon.idyllic_food_diary.api.tea_brewing.IBrewingRecipe;
+import cn.solarmoon.idyllic_food_diary.api.common.block_entity.IWaterBoilingRecipe;
 import cn.solarmoon.idyllic_food_diary.core.common.registry.IMBlockEntities;
 import cn.solarmoon.solarmoon_core.api.common.block_entity.BaseTCBlockEntity;
-import cn.solarmoon.solarmoon_core.api.util.namespace.SolarNBTList;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.items.ItemStackHandler;
 
-public class KettleBlockEntity extends BaseTCBlockEntity implements IKettleRecipe, IBrewTeaRecipe {
+public class KettleBlockEntity extends BaseTCBlockEntity implements IWaterBoilingRecipe, IBrewingRecipe {
 
     private int boilTime;
     private int boilRecipeTime;

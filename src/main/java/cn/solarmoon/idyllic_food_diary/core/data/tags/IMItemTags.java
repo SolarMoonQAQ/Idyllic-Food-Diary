@@ -115,7 +115,8 @@ public class IMItemTags extends ItemTagsProvider {
         );
         // 调味料，决定是否可以放入调味罐中
         tag(SPICE).add(
-                IMItems.SALT.get()
+                IMItems.SALT.get(),
+                Items.SUGAR
         );
     }
 

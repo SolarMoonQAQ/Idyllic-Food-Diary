@@ -6,6 +6,7 @@ import cn.solarmoon.solarmoon_core.api.util.TextUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.StringUtil;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import snownee.jade.api.Accessor;
@@ -34,7 +35,7 @@ public enum OptionalRecipeItemProgressProvider implements JadeTooltipCollectedCa
                 IElementHelper ehp = iTooltip.getElementHelper();
                 IElement progress = ehp.progress(
                         scale,
-                        Component.literal(TextUtil.toMinuteFormat(time) + "/" + TextUtil.toMinuteFormat(needTime)).withStyle(ChatFormatting.WHITE),
+                        Component.literal(StringUtil.formatTickDuration(time) + "/" + StringUtil.formatTickDuration(needTime)).withStyle(ChatFormatting.WHITE),
                         new ProgressStyle().color(0xFFDEAD),
                         BoxStyle.DEFAULT,
                         true

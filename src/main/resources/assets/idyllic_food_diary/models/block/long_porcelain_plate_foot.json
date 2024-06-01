@@ -2,105 +2,34 @@
 	"credit": "Made with Blockbench",
 	"render_type": "minecraft:cutout",
 	"parent": "idyllic_food_diary:block/long_porcelain_plate",
-	"texture_size": [64, 64],
 	"textures": {
-		"6": "idyllic_food_diary:block/long_porcelain_plate_foot",
-		"particle": "idyllic_food_diary:item/long_porcelain_plate"
+		"0": "idyllic_food_diary:block/long_porcelain_plate_top_foot",
+		"1": "idyllic_food_diary:block/long_porcelain_plate_bottom_foot",
+		"particle": "idyllic_food_diary:block/long_porcelain_plate_top_foot"
 	},
 	"elements": [
 		{
-			"from": [4, 0, 4],
-			"to": [12, 1, 16],
-			"rotation": {"angle": 0, "axis": "y", "origin": [16, 0, 16]},
+			"from": [1, 1, 0],
+			"to": [15, 2, 15],
+			"rotation": {"angle": 0, "axis": "y", "origin": [1, 1, 0]},
 			"faces": {
-				"north": {"uv": [3, 3, 5, 3.25], "texture": "#6"},
-				"east": {"uv": [0, 3, 3, 3.25], "texture": "#6"},
-				"south": {"uv": [8, 3, 10, 3.25], "texture": "#6"},
-				"west": {"uv": [5, 3, 8, 3.25], "texture": "#6"},
-				"up": {"uv": [5, 3, 3, 0], "texture": "#6"},
-				"down": {"uv": [7, 0, 5, 3], "texture": "#6"}
+				"east": {"uv": [0, 0, 1, 15], "rotation": 90, "texture": "#0"},
+				"south": {"uv": [1, 15, 15, 16], "texture": "#0"},
+				"west": {"uv": [0, 0, 1, 15], "rotation": 90, "texture": "#0"},
+				"up": {"uv": [1, 0, 15, 15], "texture": "#0"},
+				"down": {"uv": [1, 1, 15, 16], "texture": "#1"}
 			}
 		},
 		{
-			"from": [1, 1, 1],
-			"to": [15, 2.01, 4],
-			"rotation": {"angle": 0, "axis": "y", "origin": [16, 0, 16]},
+			"from": [3, 0, 0],
+			"to": [13, 1, 13],
+			"rotation": {"angle": 0, "axis": "y", "origin": [3, 0, 0]},
 			"faces": {
-				"north": {"uv": [8, 0.75, 11.5, 1], "texture": "#6"},
-				"east": {"uv": [7.25, 0.75, 8, 1], "texture": "#6"},
-				"south": {"uv": [12.25, 0.75, 15.75, 1], "texture": "#6"},
-				"west": {"uv": [11.5, 0.75, 12.25, 1], "texture": "#6"},
-				"up": {"uv": [11.5, 0.75, 8, 0], "texture": "#6"},
-				"down": {"uv": [15, 0, 11.5, 0.75], "texture": "#6"}
+				"east": {"uv": [0, 3, 1, 16], "rotation": 90, "texture": "#1"},
+				"south": {"uv": [3, 0, 13, 1], "texture": "#1"},
+				"west": {"uv": [0, 3, 1, 16], "rotation": 90, "texture": "#1"},
+				"down": {"uv": [3, 3, 13, 16], "texture": "#1"}
 			}
-		},
-		{
-			"from": [1, 1, 4],
-			"to": [4, 2.01, 16],
-			"rotation": {"angle": 0, "axis": "y", "origin": [16, 0, 0]},
-			"faces": {
-				"north": {"uv": [7.75, 7, 8.5, 7.25], "texture": "#6"},
-				"east": {"uv": [4.75, 7, 7.75, 7.25], "texture": "#6"},
-				"south": {"uv": [11.5, 7, 12.25, 7.25], "texture": "#6"},
-				"west": {"uv": [8.5, 7, 11.5, 7.25], "texture": "#6"},
-				"up": {"uv": [8.5, 7, 7.75, 4], "texture": "#6"},
-				"down": {"uv": [9.25, 4, 8.5, 7], "texture": "#6"}
-			}
-		},
-		{
-			"from": [12, 1, 4],
-			"to": [15, 2.01, 16],
-			"faces": {
-				"north": {"uv": [3, 6.5, 3.75, 6.75], "texture": "#6"},
-				"east": {"uv": [0, 6.5, 3, 6.75], "texture": "#6"},
-				"south": {"uv": [6.75, 6.5, 7.5, 6.75], "texture": "#6"},
-				"west": {"uv": [3.75, 6.5, 6.75, 6.75], "texture": "#6"},
-				"up": {"uv": [3.75, 6.5, 3, 3.5], "texture": "#6"},
-				"down": {"uv": [4.5, 3.5, 3.75, 6.5], "texture": "#6"}
-			}
-		}
-	],
-	"display": {
-		"thirdperson_righthand": {
-			"rotation": [95.5, 0, 0],
-			"translation": [0, 3.25, 6.25],
-			"scale": [0.7, 0.7, 0.7]
-		},
-		"thirdperson_lefthand": {
-			"rotation": [94, 0, 0],
-			"translation": [0, 2.5, 5.5],
-			"scale": [0.7, 0.7, 0.7]
-		},
-		"firstperson_righthand": {
-			"rotation": [11.25, 0, 0],
-			"translation": [2.25, 6.75, 0]
-		},
-		"firstperson_lefthand": {
-			"rotation": [9, 0, 0],
-			"translation": [0.25, 8, 1.75]
-		},
-		"ground": {
-			"translation": [0, 2.5, 0],
-			"scale": [0.7, 0.7, 0.7]
-		},
-		"gui": {
-			"rotation": [30.66, 30.36, 4.12],
-			"translation": [0, 5, 0]
-		},
-		"head": {
-			"translation": [0, 13.75, 0]
-		},
-		"fixed": {
-			"rotation": [-90, 0, 0],
-			"translation": [0, 0, -6.5]
-		}
-	},
-	"groups": [
-		{
-			"name": "group",
-			"origin": [8, 8, 8],
-			"color": 0,
-			"children": [0, 1, 2, 3]
 		}
 	]
 }

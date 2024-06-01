@@ -1,6 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.core.client.renderer.Item;
 
-import cn.solarmoon.idyllic_food_diary.api.util.FluidRenderUtil;
+import cn.solarmoon.idyllic_food_diary.api.util.TextureRenderUtil;
 import cn.solarmoon.solarmoon_core.api.client.renderer.Item.BaseItemRenderer;
 import cn.solarmoon.solarmoon_core.api.util.ContainerUtil;
 import cn.solarmoon.solarmoon_core.api.util.FluidUtil;
@@ -29,7 +29,7 @@ public class SoupPotItemRenderer extends BaseItemRenderer {
         IFluidHandlerItem stackTank = FluidUtil.getTank(itemStack);
         float zoom = 10f / 16f;
         float targetScale = FluidUtil.getScale(stackTank);
-        int targetColor = FluidRenderUtil.getColor(fluidStack);
+        int targetColor = TextureRenderUtil.getColor(fluidStack);
         Fluid fluid = fluidStack.getFluid();
         IClientFluidTypeExtensions fluidAttributes = IClientFluidTypeExtensions.of(fluid);
         ResourceLocation spriteLocation = fluidAttributes.getStillTexture(fluidStack);
@@ -38,8 +38,9 @@ public class SoupPotItemRenderer extends BaseItemRenderer {
         float posB = 3f / 16f; //坐标偏移
         poseStack.translate(posB, 0.0625f, posB);
         poseStack.scale(zoom, targetScale * 0.9375f, zoom); //中间为最大高度
-        FluidRenderUtil.renderFluid(targetColor, 0, spriteLocation,
-                poseStack, buffer, light, overlay);
+        TextureRenderUtil.renderFluid(targetColor, 1, 0,
+                0, 0, 16, 16,
+                spriteLocation, poseStack, buffer, light);
         poseStack.popPose();
 
         ItemStackHandler inventory = ContainerUtil.getInventory(itemStack);

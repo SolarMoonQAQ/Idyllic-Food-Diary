@@ -60,25 +60,15 @@ public class IdyllicFoodDiary extends SolarMoonBase {
         new IMCommonEvents().register();
         new IMDataPacks().register();
         new IMCapabilities().register();
+
+        IMSpittableItems.register();
+        IMPlaceableItems.register();
+        IMComposterThs.register();
     }
 
     @Override
     public void xData() {
         IMCommonConfig.register();
-    }
-
-    @Override
-    public void abilitiesClientOnly() {
-
-    }
-
-    @Override
-    public void abilities() {
-        IMTickers.register();
-        IMTileDataHolders.register();
-        IMSpittableItems.register();
-        IMPlaceableItems.register();
-        IMComposterThs.register();
     }
 
     @Override

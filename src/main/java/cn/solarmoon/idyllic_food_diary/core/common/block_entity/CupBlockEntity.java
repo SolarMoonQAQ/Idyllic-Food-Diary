@@ -1,6 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.core.common.block_entity;
 
-import cn.solarmoon.idyllic_food_diary.core.common.recipe.CupRecipe;
+import cn.solarmoon.idyllic_food_diary.core.common.recipe.BrewingRecipe;
 import cn.solarmoon.idyllic_food_diary.core.common.registry.IMBlockEntities;
 import cn.solarmoon.idyllic_food_diary.core.common.registry.IMRecipes;
 import cn.solarmoon.solarmoon_core.api.common.block_entity.BaseTCBlockEntity;
@@ -16,7 +16,7 @@ import net.minecraftforge.fluids.FluidStack;
 import java.util.List;
 import java.util.Optional;
 
-public class CupBlockEntity extends BaseTCBlockEntity implements ITimeRecipeBlockEntity<CupRecipe>, IBlockEntityAnimateTicker {
+public class CupBlockEntity extends BaseTCBlockEntity implements ITimeRecipeBlockEntity<BrewingRecipe>, IBlockEntityAnimateTicker {
 
     private int time;
     private int recipeTime;
@@ -29,9 +29,9 @@ public class CupBlockEntity extends BaseTCBlockEntity implements ITimeRecipeBloc
 
     public void tryMakeTea() {
         int time = getTime();
-        Optional<CupRecipe> recipeOp = getCheckedRecipe();
+        Optional<BrewingRecipe> recipeOp = getCheckedRecipe();
         if(recipeOp.isPresent()) {
-            CupRecipe recipe = recipeOp.get();
+            BrewingRecipe recipe = recipeOp.get();
             setRecipeTime(recipe.time());
             time++;
             if (time > recipe.time()) {
@@ -51,12 +51,12 @@ public class CupBlockEntity extends BaseTCBlockEntity implements ITimeRecipeBloc
      * 获取匹配的配方（杯中有物品阶段的匹配），不匹配返回null
      */
     @Override
-    public Optional<CupRecipe> getCheckedRecipe() {
+    public Optional<BrewingRecipe> getCheckedRecipe() {
         Level level = getLevel();
         if (level == null) return Optional.empty();
         FluidStack fluidStack = getTank().getFluid();
         ItemStack stackIn = getInventory().getStackInSlot(0);
-        List<CupRecipe> recipes = level.getRecipeManager().getAllRecipesFor(IMRecipes.CUP.get());
+        List<BrewingRecipe> recipes = level.getRecipeManager().getAllRecipesFor(IMRecipes.BREWING.get());
         return recipes.stream().filter(recipe -> {
             boolean match = FluidUtil.isMatch(fluidStack, recipe.inputFluid(), true, recipe.compareNBT());
             return match && recipe.ingredient().test(stackIn);

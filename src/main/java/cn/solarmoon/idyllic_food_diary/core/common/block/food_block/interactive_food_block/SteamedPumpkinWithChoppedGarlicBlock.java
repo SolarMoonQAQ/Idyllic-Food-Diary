@@ -5,6 +5,7 @@ import cn.solarmoon.idyllic_food_diary.api.common.block.food_block.food_interact
 import cn.solarmoon.idyllic_food_diary.api.common.block.food_block.food_interaction.ObtainInteraction;
 import cn.solarmoon.idyllic_food_diary.api.util.useful_data.BlockProperty;
 import cn.solarmoon.idyllic_food_diary.core.common.block.container.PorcelainPlateBlock;
+import cn.solarmoon.idyllic_food_diary.core.common.block.container.WoodenPlateBlock;
 import cn.solarmoon.idyllic_food_diary.core.common.registry.IMItems;
 import cn.solarmoon.solarmoon_core.api.util.device.ItemMatcher;
 import com.mojang.datafixers.util.Either;
@@ -39,7 +40,7 @@ public class SteamedPumpkinWithChoppedGarlicBlock extends AbstractInteractiveFoo
         return 5;
     }
 
-    public static final VoxelShape SHAPE = Shapes.or(PorcelainPlateBlock.SHAPE, Block.box(4, 1 , 4, 12, 3.5, 12));
+    public static final VoxelShape SHAPE = Shapes.or(WoodenPlateBlock.SHAPE, Block.box(4, 1 , 4, 12, 3.5, 12));
     @Override
     public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
         return SHAPE;

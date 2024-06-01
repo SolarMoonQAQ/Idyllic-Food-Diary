@@ -1,6 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.compat.jei.category;
 
-import cn.solarmoon.idyllic_food_diary.core.common.recipe.CleaverRecipe;
+import cn.solarmoon.idyllic_food_diary.core.common.recipe.ChoppingRecipe;
 import cn.solarmoon.idyllic_food_diary.core.common.registry.IMItems;
 import cn.solarmoon.solarmoon_core.SolarMoonCore;
 import cn.solarmoon.solarmoon_core.api.common.recipe.serializable.ChanceResult;
@@ -20,7 +20,7 @@ import net.minecraft.world.item.ItemStack;
 
 import java.text.DecimalFormat;
 
-public class CleaverCategory extends BaseJEICategory<CleaverRecipe> {
+public class CleaverCategory extends BaseJEICategory<ChoppingRecipe> {
 
     private final int gridX = 76;
     private final int gridY = 10;
@@ -30,7 +30,7 @@ public class CleaverCategory extends BaseJEICategory<CleaverRecipe> {
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, CleaverRecipe recipe, IFocusGroup focuses) {
+    public void setRecipe(IRecipeLayoutBuilder builder, ChoppingRecipe recipe, IFocusGroup focuses) {
         builder.addSlot(RecipeIngredientRole.INPUT, 16, 20).addIngredients(recipe.input());
 
         NonNullList<ChanceResult> recipeOutputs = recipe.chanceResults();
@@ -58,7 +58,7 @@ public class CleaverCategory extends BaseJEICategory<CleaverRecipe> {
     }
 
     @Override
-    public void draw(CleaverRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(ChoppingRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         NonNullList<ChanceResult> recipeOutputs = recipe.chanceResults();
         PoseStack poseStack = guiGraphics.pose();
 

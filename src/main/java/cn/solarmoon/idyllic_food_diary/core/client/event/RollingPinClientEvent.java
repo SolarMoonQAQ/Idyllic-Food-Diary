@@ -1,6 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.core.client.event;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
+import cn.solarmoon.idyllic_food_diary.api.util.namespace.NETList;
 import cn.solarmoon.idyllic_food_diary.core.client.gui.IOptionalRecipeItemGui;
 import cn.solarmoon.idyllic_food_diary.core.common.registry.IMPacks;
 import cn.solarmoon.solarmoon_core.api.common.capability.IItemStackData;
@@ -47,7 +48,7 @@ public class RollingPinClientEvent {
                     }
                     IOptionalRecipeItemGui.startScale();
                     selector.setIndex(index, pin.getHitBlock(player));
-                    IMPacks.SERVER_PACK.getSender().send(SolarNETList.SYNC_RECIPE_INDEX, held, selector.serializeNBT());
+                    IMPacks.SERVER_PACK.getSender().send(NETList.SYNC_RECIPE_INDEX, held, selector.serializeNBT());
                     IdyllicFoodDiary.DEBUG.send(index + "//" + size);
                     event.setCanceled(true);
                 }

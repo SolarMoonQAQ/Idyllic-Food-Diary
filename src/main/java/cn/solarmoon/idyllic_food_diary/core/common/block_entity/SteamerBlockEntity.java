@@ -1,7 +1,8 @@
 package cn.solarmoon.idyllic_food_diary.core.common.block_entity;
 
+import cn.solarmoon.idyllic_food_diary.api.common.block_entity.IEvaporationRecipe;
 import cn.solarmoon.idyllic_food_diary.api.common.block_entity.inventory.SteamerInventory;
-import cn.solarmoon.idyllic_food_diary.core.common.recipe.SteamerRecipe;
+import cn.solarmoon.idyllic_food_diary.core.common.recipe.SteamingRecipe;
 import cn.solarmoon.idyllic_food_diary.core.common.registry.IMBlockEntities;
 import cn.solarmoon.idyllic_food_diary.core.common.registry.IMItems;
 import cn.solarmoon.idyllic_food_diary.core.common.registry.IMRecipes;
@@ -22,10 +23,10 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 
-import static cn.solarmoon.idyllic_food_diary.api.common.block.cookware.AbstractSteamerEntityBlock.HAS_LID;
+import static cn.solarmoon.idyllic_food_diary.core.common.block.cookware.SteamerBlock.HAS_LID;
 import static cn.solarmoon.solarmoon_core.api.common.block.IStackBlock.STACK;
 
-public class SteamerBlockEntity extends BaseContainerBlockEntity implements IIndividualTimeRecipeBlockEntity<SteamerRecipe> {
+public class SteamerBlockEntity extends BaseContainerBlockEntity implements IIndividualTimeRecipeBlockEntity<SteamingRecipe> {
 
     private final ItemStackHandler inventory;
     private int[] times;
@@ -67,11 +68,16 @@ public class SteamerBlockEntity extends BaseContainerBlockEntity implements IInd
      * @return 获取连接底部的基座
      */
     @Nullable
-    public SteamerBaseBlockEntity getBase() {
+    public IEvaporationRecipe getBase() {
         if (getLevel() == null) return null;
         BlockEntity blockEntity = getLevel().getBlockEntity(getConnectedBelowPos());
-        if (blockEntity instanceof SteamerBaseBlockEntity base) {
+        if (blockEntity instanceof IEvaporationRecipe base && base.isDirectEnabled()) {
             return base;
+        }
+        if (blockEntity instanceof StoveBlockEntity stove) {
+            if (stove.getPot() != null) {
+                return stove.getPot();
+            }
         }
         return null;
     }
@@ -225,26 +231,26 @@ public class SteamerBlockEntity extends BaseContainerBlockEntity implements IInd
     public boolean canWork() {
         if (getBase() == null) return false;
         if (getTop() == null) return false;
-        return getBase().isWorking() && getTop().hasLid();
+        return getBase().isValidForSteamer() && getTop().hasLid();
     }
 
     /**
      * 配方匹配，连接底部有正在工作的基座即通过
      */
     @Override
-    public Optional<SteamerRecipe> getCheckedRecipe(int index) {
+    public Optional<SteamingRecipe> getCheckedRecipe(int index) {
         Level level = getLevel();
         if (level == null) return Optional.empty();
-        List<SteamerRecipe> recipes = level.getRecipeManager().getAllRecipesFor(IMRecipes.STEAMER.get());
+        List<SteamingRecipe> recipes = level.getRecipeManager().getAllRecipesFor(IMRecipes.STEAMING.get());
         ItemStack stack = getInventory().getStackInSlot(index);
         return recipes.stream().filter(recipe -> recipe.input().test(stack) && canWork()).findFirst();
     }
 
     public void tryCook() {
         for (int i = 0; i < getInventory().getSlots(); i++) {
-            Optional<SteamerRecipe> recipeOp = getCheckedRecipe(i);
+            Optional<SteamingRecipe> recipeOp = getCheckedRecipe(i);
             if (recipeOp.isPresent()) {
-                SteamerRecipe recipe = recipeOp.get();
+                SteamingRecipe recipe = recipeOp.get();
                 getRecipeTimes()[i] = recipe.time();
                 getTimes()[i] = getTimes()[i] + 1;
                 if (getTimes()[i] >= recipe.time()) {

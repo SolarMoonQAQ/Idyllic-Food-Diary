@@ -30,11 +30,11 @@ public interface IIngredientHandlingRecipe extends IContainerBlockEntity, ISpice
     default boolean trOutputResult(ItemStack heldItem, Player player, BlockPos pos, Level level) {
         if (findHandleRecipe().isPresent()) {
             IngredientHandlingRecipe recipe = findHandleRecipe().get();
-            if (recipe.container().test(heldItem)) {
-                clear();
+            if (recipe.container().test(heldItem) && withTrueSpices(recipe.withSpices(), true)) {
+                clearInv();
                 ItemStack result = recipe.result().copy();
                 insertItem(result);
-                ContainerHelper.setContainer(result, heldItem); // 此处尝试保存了容器信息
+                ContainerHelper.setContainer(result, heldItem);
                 if (!player.isCreative()) heldItem.shrink(1);
                 Vec3 center = pos.getCenter();
                 RandomSource randomSource = player.getRandom();

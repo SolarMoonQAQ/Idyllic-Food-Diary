@@ -21,17 +21,12 @@ public class LongPorcelainPlateBlock extends AbstractLongContainerBlock {
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
-        VoxelShape shape2O = state.getValue(PART) == BedPart.HEAD ?
-                VoxelShapeUtil.rotateShape(state.getValue(FACING), Block.box(1, 1, 1, 15, 2, 16))
-                : VoxelShapeUtil.rotateShape(state.getValue(FACING), Block.box(1, 1, 0, 15, 2, 15));
-        VoxelShape shapeToSubtract = state.getValue(PART) == BedPart.HEAD ?
-                VoxelShapeUtil.rotateShape(state.getValue(FACING), Block.box(4, 1, 4, 12, 2, 16))
-                : VoxelShapeUtil.rotateShape(state.getValue(FACING), Block.box(4, 1, 0, 12, 2, 12));
-        VoxelShape shape1 = state.getValue(PART) == BedPart.HEAD ?
-                VoxelShapeUtil.rotateShape(state.getValue(FACING), Block.box(4, 0, 4, 12, 1, 16))
-                : VoxelShapeUtil.rotateShape(state.getValue(FACING), Block.box(4, 0, 0, 12, 1, 12));
-        VoxelShape shape2 = Shapes.joinUnoptimized(shape2O, shapeToSubtract, BooleanOp.ONLY_FIRST);
-        return Shapes.or(shape1, shape2);
+        VoxelShape combine1 = Shapes.or(Block.box(1, 1, 1, 15, 2, 16),
+                Block.box(3, 0, 3, 13, 1, 16));
+        VoxelShape combine2 = Shapes.or(Block.box(1, 1, 0, 15, 2, 15),
+                Block.box(3, 0, 0, 13, 1, 13));
+        return state.getValue(PART) == BedPart.HEAD ? VoxelShapeUtil.rotateShape(state.getValue(FACING), combine1) :
+                VoxelShapeUtil.rotateShape(state.getValue(FACING), combine2);
     }
 
 }

@@ -1,5 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.core.common.block_entity;
 
+import cn.solarmoon.idyllic_food_diary.api.common.block_entity.ISimpleFuelBlockEntity;
 import cn.solarmoon.idyllic_food_diary.api.common.block_entity.ISpiceable;
 import cn.solarmoon.idyllic_food_diary.api.common.capability.serializable.Spice;
 import cn.solarmoon.idyllic_food_diary.core.common.registry.IMBlockEntities;
@@ -31,7 +32,8 @@ import static cn.solarmoon.solarmoon_core.api.common.block.ILitBlock.LIT;
 /**
  * 拥有七个槽位，前六个限量1，可放任意物品，最后一个只能存入煤炭类物品，限量64
  */
-public class GrillBlockEntity extends BlockEntity implements IContainerBlockEntity, IIndividualTimeRecipeBlockEntity<CampfireCookingRecipe> {
+public class GrillBlockEntity extends BlockEntity implements IContainerBlockEntity,
+        IIndividualTimeRecipeBlockEntity<CampfireCookingRecipe>, ISimpleFuelBlockEntity {
 
     private int[] times;
     private int[] recipeTimes;
@@ -60,16 +62,29 @@ public class GrillBlockEntity extends BlockEntity implements IContainerBlockEnti
         };
     }
 
-    public boolean noFuel() {
-        return !inventory.getStackInSlot(6).is(ItemTags.COALS);
+    @Override
+    public ItemStack getFuel() {
+        return getInventory().getStackInSlot(6);
     }
 
+    @Override
     public int getBurnTime() {
         return burnTime;
     }
 
+    @Override
     public void setBurnTime(int burnTime) {
         this.burnTime = burnTime;
+    }
+
+    @Override
+    public int getFuelTime() {
+        return saveBurnTime;
+    }
+
+    @Override
+    public void setFuelTime(int time) {
+        saveBurnTime = time;
     }
 
     @Override
@@ -123,33 +138,6 @@ public class GrillBlockEntity extends BlockEntity implements IContainerBlockEnti
         }
     }
 
-    public void tryControlLit() {
-        BlockState state = getBlockState();
-        BlockPos pos = getBlockPos();
-        //消耗煤炭，控制lit属性
-        if (state.getValue(LIT)) {
-            //有燃料就保存其燃烧时间，并且消耗一个
-            if (!noFuel() && saveBurnTime == 0) {
-                saveBurnTime = ForgeHooks.getBurnTime(getInventory().getStackInSlot(6), null);
-                getInventory().getStackInSlot(6).shrink(1);
-                setChanged();
-            }
-            setBurnTime(getBurnTime() + 1);
-            //燃烧时间超过燃料所能提供，就刷新
-            if (getBurnTime() >= saveBurnTime) {
-                setBurnTime(0);
-                saveBurnTime = 0;
-            }
-            //无燃料且没有燃烧时间了就停止lit
-            if (noFuel() && getBurnTime() == 0) {
-                if (level != null) {
-                    level.setBlock(pos, state.setValue(LIT, false), 3);
-                }
-                setChanged();
-            }
-        }
-    }
-
     @Override
     public Optional<CampfireCookingRecipe> getCheckedRecipe(int index) {
         Level level = getLevel();
@@ -159,20 +147,6 @@ public class GrillBlockEntity extends BlockEntity implements IContainerBlockEnti
         ItemStack stack = getInventory().getStackInSlot(index);
         return recipes.stream().filter(recipe ->
                 recipe.getIngredients().get(0).test(stack) && state.getValue(LIT)).findFirst();
-    }
-
-    @Override
-    protected void saveAdditional(CompoundTag nbt) {
-        super.saveAdditional(nbt);
-        nbt.putInt(NBTList.BURNING_TIME, getBurnTime());
-        nbt.putInt(NBTList.BURNING_TIME_SAVING, saveBurnTime);
-    }
-
-    @Override
-    public void load(CompoundTag nbt) {
-        super.load(nbt);
-        setBurnTime(nbt.getInt(NBTList.BURNING_TIME));
-        saveBurnTime = nbt.getInt(NBTList.BURNING_TIME_SAVING);
     }
 
 }

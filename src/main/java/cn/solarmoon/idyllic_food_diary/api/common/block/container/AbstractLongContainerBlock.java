@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.BlockHitResult;
 
-public abstract class AbstractLongContainerBlock extends BaseWaterBlock implements IBedPartBlock {
+public abstract class AbstractLongContainerBlock extends AbstractContainerBlock implements IBedPartBlock {
 
     public AbstractLongContainerBlock(SoundType soundType) {
         super(BlockBehaviour.Properties.of()
@@ -22,17 +22,6 @@ public abstract class AbstractLongContainerBlock extends BaseWaterBlock implemen
                 .pushReaction(PushReaction.DESTROY)
                 .noOcclusion()
         );
-    }
-
-    /**
-     * 可以快速拿起
-     */
-    @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        if (getThis(player, level, pos, state, hand, true)) {
-            return InteractionResult.SUCCESS;
-        }
-        return super.use(state, level, pos, player, hand, hitResult);
     }
 
 }

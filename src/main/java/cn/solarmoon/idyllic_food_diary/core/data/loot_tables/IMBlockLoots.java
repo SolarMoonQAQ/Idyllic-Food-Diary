@@ -62,6 +62,7 @@ public class IMBlockLoots extends BlockLootSubProvider {
         dropSelf(IMBlocks.UNCOOKED_CUSTARD_TART.get());
         dropSelf(IMBlocks.UNCOOKED_STEAMED_PUMPKIN_WITH_CHOPPED_GARLIC.get());
         dropSelf(IMBlocks.UNCOOKED_BEGGARS_CHICKEN.get());
+        dropSelf(IMBlocks.STOVE.get());
 
         dropBedPart(IMBlocks.UNCOOKED_ROASTED_SUCKLING_PIG.get());
         dropBedPart(IMBlocks.STEAMED_SALMON.get());

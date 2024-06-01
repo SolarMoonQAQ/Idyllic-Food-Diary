@@ -7,6 +7,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.StringUtil;
 import snownee.jade.api.BlockAccessor;
 import snownee.jade.api.IBlockComponentProvider;
 import snownee.jade.api.IServerDataProvider;
@@ -35,7 +36,7 @@ public class SteamerBaseProvider implements IBlockComponentProvider, IServerData
             IElementHelper ehp = iTooltip.getElementHelper();
             IElement progress = ehp.progress(
                     scale,
-                    Component.literal(TextUtil.toMinuteFormat(time) + "/" + TextUtil.toMinuteFormat(needTime)).withStyle(ChatFormatting.WHITE),
+                    Component.literal(StringUtil.formatTickDuration(time) + "/" + StringUtil.formatTickDuration(needTime)).withStyle(ChatFormatting.WHITE),
                     new ProgressStyle(),
                     BoxStyle.DEFAULT,
                     true
@@ -45,8 +46,8 @@ public class SteamerBaseProvider implements IBlockComponentProvider, IServerData
             iTooltip.add(IdyllicFoodDiary.TRANSLATOR.set("jade", "steamer_base.evaporating", 5));
         }
         iTooltip.add(IdyllicFoodDiary.TRANSLATOR.set("jade", "steamer_base.working"));
-        if (steamerBase.isWorking()) iTooltip.append(Component.literal("✔").withStyle(ChatFormatting.GREEN));
-        else if (!steamerBase.isWorking()) iTooltip.append(Component.literal("✖").withStyle(ChatFormatting.RED));
+        if (steamerBase.isValidForSteamer()) iTooltip.append(Component.literal("✔").withStyle(ChatFormatting.GREEN));
+        else if (!steamerBase.isValidForSteamer()) iTooltip.append(Component.literal("✖").withStyle(ChatFormatting.RED));
     }
 
     @Override

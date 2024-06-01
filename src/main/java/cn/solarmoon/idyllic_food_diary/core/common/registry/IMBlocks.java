@@ -27,10 +27,16 @@ import net.minecraft.world.level.block.SaplingBlock;
 public class IMBlocks {
     public static void register() {}
 
+    //灶台
+    public static final BlockEntry<StoveBlock> STOVE = IdyllicFoodDiary.REGISTRY.block()
+            .id("stove")
+            .bound(StoveBlock::new)
+            .build();
+
     //调料罐
-    public static final BlockEntry<SpiceJarEntityBlock> SPICE_JAR = IdyllicFoodDiary.REGISTRY.block()
+    public static final BlockEntry<SpiceJarBlock> SPICE_JAR = IdyllicFoodDiary.REGISTRY.block()
             .id("spice_jar")
-            .bound(SpiceJarEntityBlock::new)
+            .bound(SpiceJarBlock::new)
             .build();
 
     //面团
@@ -214,57 +220,57 @@ public class IMBlocks {
     //————————————————————————————————————————————————————————————————————————————————//
 
     //青瓷杯
-    public static final BlockEntry<CeladonCupEntityBlock> CELADON_CUP = IdyllicFoodDiary.REGISTRY.block()
+    public static final BlockEntry<CupBlock> CELADON_CUP = IdyllicFoodDiary.REGISTRY.block()
             .id("celadon_cup")
-            .bound(CeladonCupEntityBlock::new)
+            .bound(CupBlock::new)
             .build();
 
     //玉瓷杯
-    public static final BlockEntry<JadeChinaCupEntityBlock> JADE_CHINA_CUP = IdyllicFoodDiary.REGISTRY.block()
+    public static final BlockEntry<CupBlock> JADE_CHINA_CUP = IdyllicFoodDiary.REGISTRY.block()
             .id("jade_china_cup")
-            .bound(JadeChinaCupEntityBlock::new)
+            .bound(CupBlock::new)
             .build();
 
     //水壶
-    public static final BlockEntry<KettleEntityBlock> KETTLE = IdyllicFoodDiary.REGISTRY.block()
+    public static final BlockEntry<KettleBlock> KETTLE = IdyllicFoodDiary.REGISTRY.block()
             .id("kettle")
-            .bound(KettleEntityBlock::new)
+            .bound(KettleBlock::new)
             .build();
 
     //汤锅
-    public static final BlockEntry<CookingPotEntityBlock> COOKING_POT = IdyllicFoodDiary.REGISTRY.block()
+    public static final BlockEntry<CookingPotBlock> COOKING_POT = IdyllicFoodDiary.REGISTRY.block()
             .id("cooking_pot")
-            .bound(CookingPotEntityBlock::new)
+            .bound(CookingPotBlock::new)
             .build();
 
     //砧板
-    public static final BlockEntry<CuttingBoardEntityBlock> CUTTING_BOARD = IdyllicFoodDiary.REGISTRY.block()
+    public static final BlockEntry<CuttingBoardBlock> CUTTING_BOARD = IdyllicFoodDiary.REGISTRY.block()
             .id("cutting_board")
-            .bound(CuttingBoardEntityBlock::new)
+            .bound(CuttingBoardBlock::new)
             .build();
 
     //烧烤架
-    public static final BlockEntry<CuttingBoardEntityBlock> GRILL = IdyllicFoodDiary.REGISTRY.block()
+    public static final BlockEntry<CuttingBoardBlock> GRILL = IdyllicFoodDiary.REGISTRY.block()
             .id("grill")
-            .bound(GrillEntityBlock::new)
+            .bound(GrillBlock::new)
             .build();
 
     //盘子
-    public static final BlockEntry<ServicePlateEntityBlock> SERVICE_PLATE = IdyllicFoodDiary.REGISTRY.block()
+    public static final BlockEntry<ServicePlateBlock> SERVICE_PLATE = IdyllicFoodDiary.REGISTRY.block()
             .id("service_plate")
-            .bound(ServicePlateEntityBlock::new)
+            .bound(ServicePlateBlock::new)
             .build();
 
     //蒸笼
-    public static final BlockEntry<SteamerEntityBlock> STEAMER = IdyllicFoodDiary.REGISTRY.block()
+    public static final BlockEntry<SteamerBlock> STEAMER = IdyllicFoodDiary.REGISTRY.block()
             .id("steamer")
-            .bound(SteamerEntityBlock::new)
+            .bound(SteamerBlock::new)
             .build();
 
     //蒸笼底座
-    public static final BlockEntry<SteamerBaseEntityBlock> STEAMER_BASE = IdyllicFoodDiary.REGISTRY.block()
+    public static final BlockEntry<SteamerBaseBlock> STEAMER_BASE = IdyllicFoodDiary.REGISTRY.block()
             .id("steamer_base")
-            .bound(SteamerBaseEntityBlock::new)
+            .bound(SteamerBaseBlock::new)
             .build();
 
     //蒸笼盖
@@ -334,7 +340,6 @@ public class IMBlocks {
     public static final BlockEntry<UncookedFoodBlock> UNCOOKED_BEGGARS_CHICKEN = IdyllicFoodDiary.REGISTRY.block()
             .id("uncooked_beggars_chicken")
             .bound(() -> new UncookedFoodBlock(
-                    IMBlocks.WOODEN_PLATE.get(),
                     BeggarsChickenBlock::SHAPE,
                     BlockProperty.FOOD_ON_MEDIUM_CONTAINER))
             .build();
@@ -343,7 +348,6 @@ public class IMBlocks {
     public static final BlockEntry<UncookedFoodDoubleBlock> UNCOOKED_ROASTED_SUCKLING_PIG = IdyllicFoodDiary.REGISTRY.block()
             .id("uncooked_roasted_suckling_pig")
             .bound(() -> new UncookedFoodDoubleBlock(
-                    IMBlocks.LONG_WOODEN_PLATE.get(),
                     RoastedSucklingPigBlock::SHAPE,
                     BlockProperty.FOOD_ON_LARGE_CONTAINER))
             .build();

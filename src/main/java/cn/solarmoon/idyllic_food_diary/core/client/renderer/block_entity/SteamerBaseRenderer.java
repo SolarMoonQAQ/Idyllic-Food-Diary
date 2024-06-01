@@ -1,6 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.core.client.renderer.block_entity;
 
-import cn.solarmoon.idyllic_food_diary.api.util.FluidRenderUtil;
+import cn.solarmoon.idyllic_food_diary.api.util.TextureRenderUtil;
 import cn.solarmoon.idyllic_food_diary.core.common.block_entity.SteamerBaseBlockEntity;
 import cn.solarmoon.solarmoon_core.api.client.renderer.blockEntity.BaseBlockEntityRenderer;
 import cn.solarmoon.solarmoon_core.api.util.FluidUtil;
@@ -33,7 +33,7 @@ public class SteamerBaseRenderer<E extends SteamerBaseBlockEntity> extends BaseB
         float targetScale = FluidUtil.getScale(base.getTank());
         base.setLast(targetScale - (targetScale - base.getLast()) * (1 - progress));
 
-        int targetColor = FluidRenderUtil.getColor(fluidStack);
+        int targetColor = TextureRenderUtil.getColor(fluidStack);
         IClientFluidTypeExtensions fluidAttributes = IClientFluidTypeExtensions.of(fluidStack.getFluid());
         ResourceLocation spriteLocation = fluidAttributes.getStillTexture(fluidStack);
 
@@ -42,7 +42,9 @@ public class SteamerBaseRenderer<E extends SteamerBaseBlockEntity> extends BaseB
         poseStack.translate(posB, 0.15f, posB);
         poseStack.scale(zoom, base.getLast() * 0.75f, zoom);
         if (spriteLocation != null) {
-            FluidRenderUtil.renderFluid(targetColor, 0, spriteLocation, poseStack, buffer, light, overlay);
+            TextureRenderUtil.renderFluid(targetColor, 1, 0,
+                    0, 0, 16, 16,
+                    spriteLocation, poseStack, buffer, light);
         }
         poseStack.popPose();
     }

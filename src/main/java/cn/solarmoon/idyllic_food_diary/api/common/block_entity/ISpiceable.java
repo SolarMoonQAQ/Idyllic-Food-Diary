@@ -35,9 +35,17 @@ public interface ISpiceable extends IContainerBlockEntity {
             SpicesData spicesData = CapabilityUtil.getData(stack, IMCapabilities.FOOD_ITEM_DATA).getSpicesData();
             if (spicesData != null) {
                 spicesData.getSpices().addAll(getSpices()); // 而这里是应用所有调料到指定物品上
+                doFlavorAssessment(stack);
             }
         }
         clearSpices();
+    }
+
+    /**
+     * 对最终产品进行风味的评定并应用效果
+     */
+    default void doFlavorAssessment(ItemStack stack) {
+        
     }
 
     /**
@@ -45,7 +53,7 @@ public interface ISpiceable extends IContainerBlockEntity {
      * @param compareSpicesFromContainer 是否把容器内的物品加入匹配
      * @return 当前的调料待加集合中是否存在所需数量的调料
      */
-    default boolean withTrueSpices(List<Spice> recipeNeed, boolean compareSpicesFromContainer) {
+    default boolean withTrueSpices(SpiceList recipeNeed, boolean compareSpicesFromContainer) {
         return recipeNeed.stream()
                 .allMatch(need -> getSpicesToAdd(compareSpicesFromContainer).stream()
                         .anyMatch(spice -> spice.isSame(need) && spice.getAmount() >= need.getAmount())

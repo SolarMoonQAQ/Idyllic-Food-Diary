@@ -1,0 +1,12 @@
+{
+  "type": "idyllic_food_diary:chopping",
+  "ingredient": {
+    "item": "idyllic_food_diary:shredded_ginger"
+  },
+  "result": [
+    {
+      "item": "idyllic_food_diary:chopped_ginger",
+      "count": 1
+    }
+  ]
+}

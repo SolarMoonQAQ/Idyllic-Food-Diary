@@ -16,12 +16,19 @@ import cn.solarmoon.solarmoon_core.api.common.item.simple.*;
 import cn.solarmoon.solarmoon_core.api.common.registry.ItemEntry;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
 public class IMItems {
     public static void register() {}
+
+    // 炉灶
+    public static final ItemEntry<StoveItem> STOVE = IdyllicFoodDiary.REGISTRY.item()
+            .id("stove")
+            .bound(StoveItem::new)
+            .build();
 
     // 调料类
     // 盐
@@ -408,22 +415,37 @@ public class IMItems {
     //南瓜汤
     public static final ItemEntry<SoupBowlFoodItem> PUMPKIN_SOUP = IdyllicFoodDiary.REGISTRY.item()
             .id("pumpkin_soup")
-            .bound(() -> new SoupBowlFoodItem(IdyllicFoodDiary.MOD_ID + ":pumpkin_soup_fluid",
-                    IMBlocks.PUMPKIN_SOUP.get()))
+            .bound(() -> new SoupBowlFoodItem(
+                    IMBlocks.PUMPKIN_SOUP.get(),
+                    new FoodProperties.Builder().nutrition(6).saturationMod(1.5f)
+                            .effect(() -> new MobEffectInstance(IMEffects.SNUG.get(), 1200, 1), 1f)
+                            .effect(() -> new MobEffectInstance(MobEffects.ABSORPTION, 600, 0), 1f)
+                            .build()
+                    ))
             .build();
 
     //紫菜蛋花汤
     public static final ItemEntry<SoupBowlFoodItem> SEAWEED_EGG_DROP_SOUP = IdyllicFoodDiary.REGISTRY.item()
             .id("seaweed_egg_drop_soup")
-            .bound(() -> new SoupBowlFoodItem(IdyllicFoodDiary.MOD_ID + ":seaweed_egg_drop_soup_fluid",
-                    IMBlocks.SEAWEED_EGG_DROP_SOUP.get()))
+            .bound(() -> new SoupBowlFoodItem(
+                    IMBlocks.SEAWEED_EGG_DROP_SOUP.get(),
+                    new FoodProperties.Builder().nutrition(6).saturationMod(1.5f)
+                            .effect(() -> new MobEffectInstance(IMEffects.SNUG.get(), 1200, 1), 1f)
+                            .effect(() -> new MobEffectInstance(MobEffects.WATER_BREATHING, 1200, 0), 1f)
+                            .build()
+            ))
             .build();
 
     //藏书羊肉汤
     public static final ItemEntry<SoupBowlFoodItem> CANG_SHU_MUTTON_SOUP = IdyllicFoodDiary.REGISTRY.item()
             .id("cang_shu_mutton_soup")
-            .bound(() -> new SoupBowlFoodItem(IdyllicFoodDiary.MOD_ID + ":cang_shu_mutton_soup_fluid",
-                    IMBlocks.CANG_SHU_MUTTON_SOUP.get()))
+            .bound(() -> new SoupBowlFoodItem(
+                    IMBlocks.CANG_SHU_MUTTON_SOUP.get(),
+                    new FoodProperties.Builder().nutrition(6).saturationMod(1.5f)
+                            .effect(() -> new MobEffectInstance(IMEffects.SNUG.get(), 12000, 3), 1f)
+                            .effect(() -> new MobEffectInstance(MobEffects.DAMAGE_BOOST, 1200, 4), 1f)
+                            .build()
+            ))
             .build();
 
     //烹饪食物-无方块

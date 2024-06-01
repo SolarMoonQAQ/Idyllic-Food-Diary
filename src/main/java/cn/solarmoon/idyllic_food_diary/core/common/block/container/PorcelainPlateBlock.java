@@ -18,9 +18,10 @@ public class PorcelainPlateBlock extends AbstractContainerBlock {
 
     public static final VoxelShape SHAPE = Shapes.or(Block.box(4, 0 , 4, 12, 1, 12),
             Block.box(1, 1, 1, 15, 2, 15));
+
     @Override
     public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
-        return SHAPE;
+        return WoodenPlateBlock.SHAPE;
     }
 
 }

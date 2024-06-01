@@ -10,6 +10,16 @@ import cn.solarmoon.solarmoon_core.api.common.registry.FluidEntry;
 public class IMFluids {
     public static void register() {}
 
+    public static final FluidEntry SOYBEAN_OIL = IdyllicFoodDiary.REGISTRY.fluid()
+            .id("soybean_oil")
+            .bound(() -> new SoybeanOilFluid().new FluidBlock())
+            .still(() -> new SoybeanOilFluid().new Source())
+            .flowing(() -> new SoybeanOilFluid().new Flowing())
+            .bucket(() -> new SoybeanOilFluid().new Bucket())
+            .waterLike()
+            .color(0xFFEC8B)
+            .build();
+
     //热水
     public static final FluidEntry HOT_WATER = IdyllicFoodDiary.REGISTRY.fluid()
             .id("hot_water")

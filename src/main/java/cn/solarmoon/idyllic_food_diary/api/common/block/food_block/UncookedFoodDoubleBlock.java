@@ -10,7 +10,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 /**
- * 未烹饪的食物方块，没有任何多余交互，只是能吃
+ * 未烹饪的食物双方块，没有任何多余交互，只是能吃
  */
 public class UncookedFoodDoubleBlock extends UncookedFoodBlock implements IBedPartBlock {
 
@@ -18,8 +18,8 @@ public class UncookedFoodDoubleBlock extends UncookedFoodBlock implements IBedPa
         super(shape, properties);
     }
 
-    public UncookedFoodDoubleBlock(Block blockLeft, PropertyDispatch.QuadFunction<BlockState, BlockGetter, BlockPos, CollisionContext, VoxelShape> shapeConsumerFunction, Properties properties) {
-        super(blockLeft, shapeConsumerFunction, properties);
+    public UncookedFoodDoubleBlock(PropertyDispatch.QuadFunction<BlockState, BlockGetter, BlockPos, CollisionContext, VoxelShape> shapeConsumerFunction, Properties properties) {
+        super(shapeConsumerFunction, properties);
     }
 
 }

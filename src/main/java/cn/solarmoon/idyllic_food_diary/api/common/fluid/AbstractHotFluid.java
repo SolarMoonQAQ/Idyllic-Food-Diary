@@ -6,6 +6,7 @@ import cn.solarmoon.idyllic_food_diary.core.common.registry.IMEffects;
 import cn.solarmoon.idyllic_food_diary.core.common.registry.IMItems;
 import cn.solarmoon.solarmoon_core.api.common.fluid.BaseFluid;
 import cn.solarmoon.solarmoon_core.api.common.registry.FluidEntry;
+import net.minecraft.client.renderer.blockentity.ChestRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;

@@ -14,7 +14,7 @@ import net.minecraft.world.item.crafting.Ingredient;
  * 也是容器信息保存的桥梁<br/>
  * 在使用上，在类中给予空的result和container，在配方中找位置调用tryGiveResult/setContainer/setResult
  */
-public interface IPendingResult {
+public interface IPendingResult extends IExpGiver {
 
     /**
      * 将预存的结果给予玩家<br/>
@@ -35,6 +35,7 @@ public interface IPendingResult {
                 ItemStack result = getResult().split(1);
                 ContainerHelper.setContainer(result, heldItem); // 这里保存了容器信息
                 LevelSummonUtil.addItemToInventory(player, result);
+                giveExp(player, true);
                 if (!player.isCreative()) heldItem.shrink(1);
                 resetContainer();
                 return true;

@@ -1,10 +1,9 @@
 package cn.solarmoon.idyllic_food_diary.api.common.block.food_block;
 
-import cn.solarmoon.idyllic_food_diary.api.common.item.containable.SoupBowlFoodItem;
+import cn.solarmoon.idyllic_food_diary.api.common.block.FoodEntityBlock;
 import cn.solarmoon.idyllic_food_diary.api.util.ParticleSpawner;
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.core.common.block_entity.FoodBlockEntity;
-import cn.solarmoon.idyllic_food_diary.core.data.tags.IMItemTags;
 import cn.solarmoon.solarmoon_core.api.common.capability.serializable.player.CountingDevice;
 import cn.solarmoon.solarmoon_core.api.util.BlockUtil;
 import cn.solarmoon.solarmoon_core.api.util.CapabilityUtil;
@@ -22,7 +21,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
@@ -62,10 +60,6 @@ public abstract class AbstractLongPressEatFoodBlock extends FoodEntityBlock {
             return InteractionResult.PASS;
         }
 
-        if (!fb.getContainer().isEmpty() && getThis(player, level, pos, state, hand, true)) {
-            return InteractionResult.SUCCESS;
-        }
-
         if (player.canEat(false)) {
 
             //计数装置
@@ -80,10 +74,7 @@ public abstract class AbstractLongPressEatFoodBlock extends FoodEntityBlock {
             if (counting.getCount() >= getEatCount()) {
 
                 ItemStack food = state.getBlock().asItem().getDefaultInstance();
-                //应用汤碗类的fluidEffect
-                if (food.getItem() instanceof SoupBowlFoodItem soup) {
-                    soup.applyFluidEffect(level, player);
-                }
+
                 //吃掉！
                 player.eat(level, food);
 
@@ -100,6 +91,16 @@ public abstract class AbstractLongPressEatFoodBlock extends FoodEntityBlock {
             return InteractionResult.SUCCESS;
         }
         return InteractionResult.CONSUME; // 防止右键此类方块时使用手中物品
+    }
+
+    @Override
+    public void attack(BlockState state, Level level, BlockPos pos, Player player) {
+        // 此处一定是container为基底才能快速拿起
+        FoodBlockEntity fb = (FoodBlockEntity) level.getBlockEntity(pos);
+        if (fb != null && !fb.getContainer().isEmpty()) {
+            getThis(player, level, pos, state, InteractionHand.MAIN_HAND, true);
+        }
+        super.attack(state, level, pos, player);
     }
 
     /**

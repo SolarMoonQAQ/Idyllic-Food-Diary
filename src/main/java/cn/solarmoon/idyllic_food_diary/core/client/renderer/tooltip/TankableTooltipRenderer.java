@@ -1,9 +1,9 @@
 package cn.solarmoon.idyllic_food_diary.core.client.renderer.tooltip;
 
-import cn.solarmoon.idyllic_food_diary.api.util.FluidRenderUtil;
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
+import cn.solarmoon.idyllic_food_diary.api.util.TextureRenderUtil;
 import cn.solarmoon.idyllic_food_diary.core.data.tags.IMItemTags;
-import cn.solarmoon.solarmoon_core.api.client.tooltip.BaseTooltipComponent;
+import cn.solarmoon.solarmoon_core.api.client.renderer.tooltip.BaseTooltipComponent;
 import cn.solarmoon.solarmoon_core.api.common.item.ITankItem;
 import cn.solarmoon.solarmoon_core.api.util.ContainerUtil;
 import cn.solarmoon.solarmoon_core.api.util.FluidUtil;
@@ -145,8 +145,8 @@ public class TankableTooltipRenderer implements ClientTooltipComponent {
      */
     public void drawFluid(FluidStack fluidStack, GuiGraphics guiGraphics, IFluidHandlerItem stackTank, int x, int y) {
         if(!fluidStack.isEmpty()) {
-            TextureAtlasSprite fluidStillSprite = FluidRenderUtil.getFluidTexture(fluidStack, FluidRenderUtil.FluidFlow.STILL);
-            float[] color = FluidRenderUtil.getColorARGB(fluidStack);
+            TextureAtlasSprite fluidStillSprite = TextureRenderUtil.getFluidTexture(fluidStack, TextureRenderUtil.FluidFlow.STILL);
+            float[] color = TextureRenderUtil.getColorARGB(fluidStack);
 
             RenderSystem.setShaderTexture(0, InventoryMenu.BLOCK_ATLAS);
             RenderSystem.setShaderColor(color[0], color[1], color[2], color[3]);

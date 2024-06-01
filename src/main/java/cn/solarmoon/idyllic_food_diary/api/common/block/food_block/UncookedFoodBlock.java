@@ -20,7 +20,7 @@ public class UncookedFoodBlock extends AbstractLongPressEatFoodBlock {
         this.shapeConsumerFunction = (a, b, c, d) -> shape;
     }
 
-    public UncookedFoodBlock(Block blockLeft, PropertyDispatch.QuadFunction<BlockState, BlockGetter, BlockPos, CollisionContext, VoxelShape> shapeConsumerFunction, Properties properties) {
+    public UncookedFoodBlock(PropertyDispatch.QuadFunction<BlockState, BlockGetter, BlockPos, CollisionContext, VoxelShape> shapeConsumerFunction, Properties properties) {
         super(properties);
         this.shapeConsumerFunction = shapeConsumerFunction;
     }

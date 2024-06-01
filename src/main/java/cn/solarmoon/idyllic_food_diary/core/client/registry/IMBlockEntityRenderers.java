@@ -12,8 +12,9 @@ public class IMBlockEntityRenderers {
         IMBlockEntities.PLATE.renderer(() -> ServicePlateRenderer::new);
         IMBlockEntities.GRILL.renderer(() -> GrillRenderer::new);
         IMBlockEntities.CUTTING_BOARD.renderer(() -> CuttingBoardRenderer::new);
-        IMBlockEntities.SOUP_POT.renderer(() -> SoupPotRenderer::new);
+        IMBlockEntities.COOKING_POT.renderer(() -> CookingPotRenderer::new);
         IMBlockEntities.FOOD.renderer(() -> FoodBlockRenderer::new);
+        IMBlockEntities.STOVE.renderer(() -> StoveRenderer::new);
     }
 
 }

@@ -1,7 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.compat.jei.category;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
-import cn.solarmoon.idyllic_food_diary.core.common.recipe.CupRecipe;
+import cn.solarmoon.idyllic_food_diary.core.common.recipe.BrewingRecipe;
 import cn.solarmoon.idyllic_food_diary.api.util.namespace.ResList;
 import cn.solarmoon.solarmoon_core.api.compat.jei.category.BaseJEICategory;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -16,7 +16,7 @@ import net.minecraft.network.chat.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CupCategory extends BaseJEICategory<CupRecipe> {
+public class CupCategory extends BaseJEICategory<BrewingRecipe> {
 
     protected final IDrawableStatic time;
     protected final IDrawableStatic back;
@@ -28,7 +28,7 @@ public class CupCategory extends BaseJEICategory<CupRecipe> {
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, CupRecipe recipe, IFocusGroup focuses) {
+    public void setRecipe(IRecipeLayoutBuilder builder, BrewingRecipe recipe, IFocusGroup focuses) {
         builder.addSlot(RecipeIngredientRole.INPUT, 6, 1).addIngredients(recipe.ingredient());
         builder.addSlot(RecipeIngredientRole.INPUT, 6, 20).addFluidStack(recipe.inputFluid().getFluid(), recipe.getInputAmount() * 4L)
                 .addTooltipCallback((recipeSlotView, tooltip) -> tooltip.add(IdyllicFoodDiary.TRANSLATOR.set("jei", "fluid_amount", recipe.getInputAmount())));
@@ -37,7 +37,7 @@ public class CupCategory extends BaseJEICategory<CupRecipe> {
     }
 
     @Override
-    public void draw(CupRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(BrewingRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         time.draw(guiGraphics, 41, 14);
         back.draw(guiGraphics, 3, 20);
         DEFAULT_SLOT.draw(guiGraphics, 5, 0);
@@ -45,7 +45,7 @@ public class CupCategory extends BaseJEICategory<CupRecipe> {
     }
 
     @Override
-    public List<Component> getTooltipStrings(CupRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
+    public List<Component> getTooltipStrings(BrewingRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
         List<Component> components = new ArrayList<>();
         if (mouseX >= 41 && mouseX <= 52 && mouseY >= 14 && mouseY <= 25) {
             components.add(IdyllicFoodDiary.TRANSLATOR.set("jei", "time", recipe.time() / 20));

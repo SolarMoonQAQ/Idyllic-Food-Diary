@@ -1,7 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.compat.jei.category;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
-import cn.solarmoon.idyllic_food_diary.core.common.recipe.SteamerRecipe;
+import cn.solarmoon.idyllic_food_diary.core.common.recipe.SteamingRecipe;
 import cn.solarmoon.idyllic_food_diary.api.util.namespace.ResList;
 import cn.solarmoon.solarmoon_core.api.compat.jei.category.BaseJEICategory;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -16,7 +16,7 @@ import net.minecraft.network.chat.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SteamerCategory extends BaseJEICategory<SteamerRecipe> {
+public class SteamerCategory extends BaseJEICategory<SteamingRecipe> {
 
     protected final IDrawable back;
     protected final IDrawable deco;
@@ -28,13 +28,13 @@ public class SteamerCategory extends BaseJEICategory<SteamerRecipe> {
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, SteamerRecipe recipe, IFocusGroup focuses) {
+    public void setRecipe(IRecipeLayoutBuilder builder, SteamingRecipe recipe, IFocusGroup focuses) {
         builder.addSlot(RecipeIngredientRole.INPUT, 16, 20).addIngredients(recipe.input());
         builder.addSlot(RecipeIngredientRole.OUTPUT, 85, 20).addItemStack(recipe.output());
     }
 
     @Override
-    public void draw(SteamerRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(SteamingRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         helper.getSlotDrawable().draw(guiGraphics, 84, 19);
         EMPTY_ARROW.draw(guiGraphics, 48, 21);
         ANIMATED_ARROW.draw(guiGraphics, 48, 21);
@@ -43,7 +43,7 @@ public class SteamerCategory extends BaseJEICategory<SteamerRecipe> {
     }
 
     @Override
-    public List<Component> getTooltipStrings(SteamerRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
+    public List<Component> getTooltipStrings(SteamingRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
         List<Component> components = new ArrayList<>();
         if (mouseX >= 48 && mouseX <= 70 && mouseY >= 21 && mouseY <= 37) {
             components.add(IdyllicFoodDiary.TRANSLATOR.set("jei", "time", recipe.time() / 20));

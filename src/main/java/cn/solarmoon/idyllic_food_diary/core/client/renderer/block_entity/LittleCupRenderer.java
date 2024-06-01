@@ -1,7 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.core.client.renderer.block_entity;
 
-import cn.solarmoon.idyllic_food_diary.api.common.block.cookware.AbstractCupEntityBlock;
-import cn.solarmoon.idyllic_food_diary.api.util.FluidRenderUtil;
+import cn.solarmoon.idyllic_food_diary.core.common.block.cookware.CupBlock;
+import cn.solarmoon.idyllic_food_diary.api.util.TextureRenderUtil;
 import cn.solarmoon.idyllic_food_diary.core.common.block_entity.CupBlockEntity;
 import cn.solarmoon.solarmoon_core.api.client.renderer.blockEntity.BaseBlockEntityRenderer;
 import cn.solarmoon.solarmoon_core.api.util.FluidUtil;
@@ -35,7 +35,7 @@ public class LittleCupRenderer<E extends CupBlockEntity> extends BaseBlockEntity
         float targetScale = FluidUtil.getScale(blockEntity.getTank());
         blockEntity.setLast(targetScale - (targetScale - blockEntity.getLast()) * (1 - progress));
 
-        int targetColor = FluidRenderUtil.getColor(fluidStack);
+        int targetColor = TextureRenderUtil.getColor(fluidStack);
         IClientFluidTypeExtensions fluidAttributes = IClientFluidTypeExtensions.of(fluidStack.getFluid());
         ResourceLocation spriteLocation = fluidAttributes.getStillTexture(fluidStack);
 
@@ -44,7 +44,9 @@ public class LittleCupRenderer<E extends CupBlockEntity> extends BaseBlockEntity
         poseStack.translate(posB, 0.09375f, posB);
         poseStack.scale(zoom, blockEntity.getLast() * 0.1875f, zoom);
         if (spriteLocation != null) {
-            FluidRenderUtil.renderFluid(targetColor, 0, spriteLocation, poseStack, buffer, light, overlay);
+            TextureRenderUtil.renderFluid(targetColor, 1, 0,
+                    0, 0, 16, 16,
+                    spriteLocation, poseStack, buffer, light);
         }
         poseStack.popPose();
 
@@ -54,7 +56,7 @@ public class LittleCupRenderer<E extends CupBlockEntity> extends BaseBlockEntity
         poseStack.pushPose();
         poseStack.translate(0.5, 0.15, 0.5);
         //根据面朝方向决定旋转角
-        poseStack.mulPose(Axis.YP.rotationDegrees(blockEntity.getBlockState().getValue(AbstractCupEntityBlock.FACING).toYRot() + 45));
+        poseStack.mulPose(Axis.YP.rotationDegrees(blockEntity.getBlockState().getValue(CupBlock.FACING).toYRot() + 45));
         poseStack.scale(0.5f, 0.5f, 0.5f);
         itemRenderer.renderStatic(blockEntity.getInventory().getStackInSlot(0), ItemDisplayContext.GROUND, light, overlay, poseStack, buffer, blockEntity.getLevel(), (int) blockEntity.getBlockPos().asLong());
         poseStack.popPose();

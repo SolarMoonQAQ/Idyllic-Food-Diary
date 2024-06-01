@@ -38,11 +38,6 @@ public abstract class AbstractInteractiveFoodBlock extends BaseInteractionBlock 
         FoodBlockEntity fb = (FoodBlockEntity) level.getBlockEntity(pos);
         if (fb == null) return InteractionResult.FAIL;
 
-        // 此处一定是container为基底才能快速拿起
-        if (!fb.getContainer().isEmpty() && getThis(player, level, pos, state, hand, true)) {
-            return InteractionResult.SUCCESS;
-        }
-
         ItemStack heldItem = player.getItemInHand(hand);
         int remain = state.getValue(INTERACTION);
         Either<ObtainInteraction, ConsumeInteraction> eiIntact = getStageInteractionMap().get(remain);
@@ -57,6 +52,16 @@ public abstract class AbstractInteractiveFoodBlock extends BaseInteractionBlock 
         }
 
         return InteractionResult.CONSUME; // 防止右键此类方块时使用手中物品
+    }
+
+    @Override
+    public void attack(BlockState state, Level level, BlockPos pos, Player player) {
+        // 此处一定是container为基底才能快速拿起
+        FoodBlockEntity fb = (FoodBlockEntity) level.getBlockEntity(pos);
+        if (fb != null && !fb.getContainer().isEmpty()) {
+            getThis(player, level, pos, state, InteractionHand.MAIN_HAND, true);
+        }
+        super.attack(state, level, pos, player);
     }
 
     public void initStageInteraction() {

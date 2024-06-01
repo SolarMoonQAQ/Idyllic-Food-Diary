@@ -1,6 +1,5 @@
 package cn.solarmoon.idyllic_food_diary.api.common.capability.serializable;
 
-import cn.solarmoon.solarmoon_core.api.util.SerializeHelper;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import net.minecraft.nbt.CompoundTag;
@@ -9,19 +8,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.util.INBTSerializable;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class Spice implements INBTSerializable<CompoundTag> {
@@ -162,38 +152,6 @@ public class Spice implements INBTSerializable<CompoundTag> {
         Step step = Step.valueOf(buf.readUtf());
         int amount = buf.readInt();
         return new Spice(id, type, step, amount);
-    }
-
-    public static List<Spice> readSpices(JsonObject json, String id) {
-        List<Spice> spices = new ArrayList<>();
-        if (json.has(id)) {
-            for (var element : GsonHelper.getAsJsonArray(json, id)) {
-                spices.add(readFromJson(element.getAsJsonObject()));
-            }
-        }
-        return spices;
-    }
-
-    /**
-     * 必须和此类中的write配合使用
-     */
-    public static List<Spice> readSpices(FriendlyByteBuf buffer) {
-        List<Spice> spices = new ArrayList<>();
-        int itemCount = buffer.readVarInt();
-        for (int i = 0; i < itemCount; i++) {
-            spices.add(readFromNetwork(buffer));
-        }
-        return spices;
-    }
-
-    /**
-     * 必须和此类中的read配合使用
-     */
-    public static void writeSpices(FriendlyByteBuf buffer, List<Spice> spices) {
-        buffer.writeVarInt(spices.size());
-        for (Spice spice : spices) {
-            spice.toNetwork(buffer);
-        }
     }
 
     @Override

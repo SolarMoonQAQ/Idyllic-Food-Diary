@@ -1,6 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.core.client.event;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
+import cn.solarmoon.idyllic_food_diary.api.util.namespace.NETList;
 import cn.solarmoon.idyllic_food_diary.core.client.gui.IOptionalRecipeItemGui;
 import cn.solarmoon.idyllic_food_diary.core.common.registry.IMItems;
 import cn.solarmoon.idyllic_food_diary.core.common.registry.IMPacks;
@@ -44,7 +45,7 @@ public class CleaverClientEvent {
                     }
                     IOptionalRecipeItemGui.startScale();
                     recipeSelectorData.setIndex(index, pin.getHitBlock(player));
-                    IMPacks.SERVER_PACK.getSender().send(SolarNETList.SYNC_RECIPE_INDEX, index, held);
+                    IMPacks.SERVER_PACK.getSender().send(NETList.SYNC_RECIPE_INDEX, index, held);
                     IdyllicFoodDiary.DEBUG.send(index + "//");
                     event.setCanceled(true);
                 }

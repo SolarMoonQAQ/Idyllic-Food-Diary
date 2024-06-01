@@ -1,0 +1,33 @@
+{
+  "type": "idyllic_food_diary:ingredient_handling",
+  "ingredients": [
+    {
+      "item": "minecraft:porkchop"
+    },
+    {
+      "item": "minecraft:porkchop"
+    },
+    {
+      "item": "minecraft:porkchop"
+    },
+    {
+      "item": "minecraft:porkchop"
+    },
+    {
+      "item": "minecraft:porkchop"
+    }
+  ],
+  "with_spices": [
+    {
+      "item": "minecraft:sugar",
+      "step": "add",
+      "amount": 1
+    }
+  ],
+  "container": {
+    "tag": "idyllic_food_diary:large_container"
+  },
+  "result": {
+    "item": "idyllic_food_diary:uncooked_roasted_suckling_pig"
+  }
+}

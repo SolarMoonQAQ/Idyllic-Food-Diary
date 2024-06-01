@@ -2,65 +2,33 @@
 	"credit": "Made with Blockbench",
 	"render_type": "minecraft:cutout",
 	"parent": "idyllic_food_diary:block/long_wooden_plate",
-	"texture_size": [64, 64],
 	"textures": {
-		"1": "idyllic_food_diary:block/long_wooden_plate_head",
-		"particle": "idyllic_food_diary:item/long_wooden_plate"
+		"0": "idyllic_food_diary:block/long_wooden_plate_top_head",
+		"1": "idyllic_food_diary:block/long_wooden_plate_bottom_head",
+		"particle": "idyllic_food_diary:block/long_wooden_plate_top_head"
 	},
 	"elements": [
 		{
-			"from": [1, 0, 0],
-			"to": [15, 1, 15],
+			"from": [1, 1, 1],
+			"to": [15, 2, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [2, 0, 2]},
 			"faces": {
-				"north": {"uv": [3.75, 3.75, 7.25, 4], "texture": "#1"},
-				"east": {"uv": [0, 3.75, 3.75, 4], "texture": "#1"},
-				"south": {"uv": [11, 3.75, 14.5, 4], "texture": "#1"},
-				"west": {"uv": [7.25, 3.75, 11, 4], "texture": "#1"},
-				"up": {"uv": [7.25, 3.75, 3.75, 0], "texture": "#1"},
-				"down": {"uv": [10.75, 0, 7.25, 3.75], "texture": "#1"}
+				"north": {"uv": [1, 0, 15, 1], "texture": "#0"},
+				"east": {"uv": [0, 1, 1, 16], "rotation": 90, "texture": "#0"},
+				"west": {"uv": [0, 1, 1, 16], "rotation": 90, "texture": "#0"},
+				"up": {"uv": [1, 1, 15, 16], "texture": "#0"},
+				"down": {"uv": [1, 0, 15, 15], "texture": "#1"}
 			}
-		}
-	],
-	"display": {
-		"thirdperson_righthand": {
-			"rotation": [107, 0, 0],
-			"translation": [0, 2.25, 6.25],
-			"scale": [0.6, 0.6, 0.6]
 		},
-		"thirdperson_lefthand": {
-			"rotation": [96.5, 0, 0],
-			"translation": [0, 1.75, 5.5],
-			"scale": [0.6, 0.6, 0.6]
-		},
-		"firstperson_righthand": {
-			"rotation": [19, -90, 0],
-			"translation": [2.5, 9.5, 5.75]
-		},
-		"firstperson_lefthand": {
-			"rotation": [64, 90, -34],
-			"translation": [1.25, 7.25, 4.75]
-		},
-		"ground": {
-			"translation": [0, 1, 0],
-			"scale": [0.6, 0.6, 0.6]
-		},
-		"gui": {
-			"rotation": [90, -180, 0]
-		},
-		"head": {
-			"translation": [0, 13.75, 0]
-		},
-		"fixed": {
-			"rotation": [-90, 0, 0],
-			"translation": [0, 0, -6.5]
-		}
-	},
-	"groups": [
 		{
-			"name": "group",
-			"origin": [8, 8, 8],
-			"color": 0,
-			"children": [0]
+			"from": [3, 0, 3],
+			"to": [13, 1, 16],
+			"faces": {
+				"north": {"uv": [3, 15, 13, 16], "texture": "#1"},
+				"east": {"uv": [0, 0, 1, 13], "rotation": 90, "texture": "#1"},
+				"west": {"uv": [0, 0, 1, 13], "rotation": 90, "texture": "#1"},
+				"down": {"uv": [3, 0, 13, 13], "texture": "#1"}
+			}
 		}
 	]
 }

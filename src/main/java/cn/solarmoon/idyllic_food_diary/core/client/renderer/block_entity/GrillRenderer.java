@@ -2,7 +2,7 @@ package cn.solarmoon.idyllic_food_diary.core.client.renderer.block_entity;
 
 import cn.solarmoon.idyllic_food_diary.core.common.block_entity.GrillBlockEntity;
 import cn.solarmoon.solarmoon_core.api.client.renderer.blockEntity.BaseBlockEntityRenderer;
-import cn.solarmoon.solarmoon_core.api.common.block.entity_block.BasicEntityBlock;
+import cn.solarmoon.solarmoon_core.api.common.block.ILitBlock;
 import cn.solarmoon.solarmoon_core.api.util.PoseStackUtil;
 import cn.solarmoon.solarmoon_core.api.util.VecUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -20,7 +20,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.items.ItemStackHandler;
 
-import static cn.solarmoon.idyllic_food_diary.api.common.block.cookware.AbstractGrillEntityBlock.LIT;
 import static cn.solarmoon.solarmoon_core.api.common.block.IHorizontalFacingBlock.FACING;
 
 public class GrillRenderer <E extends GrillBlockEntity> extends BaseBlockEntityRenderer<E> {
@@ -72,7 +71,7 @@ public class GrillRenderer <E extends GrillBlockEntity> extends BaseBlockEntityR
     }
 
     private void renderCoal(E grill, PoseStack poseStack, MultiBufferSource buffer, int overlay) {
-        Direction direction = grill.getBlockState().getValue(BasicEntityBlock.FACING).getOpposite();
+        Direction direction = grill.getBlockState().getValue(FACING).getOpposite();
         ItemStackHandler inventory = grill.getInventory();
         int posLong = (int) grill.getBlockPos().asLong();
         ItemStack coal = inventory.getStackInSlot(6);
@@ -95,7 +94,7 @@ public class GrillRenderer <E extends GrillBlockEntity> extends BaseBlockEntityR
     }
 
     private void renderFire(E grill, PoseStack poseStack, MultiBufferSource buffer, int light, int overlay) {
-        if (grill.getBlockState().getValue(LIT)) {
+        if (grill.getBlockState().getValue(ILitBlock.LIT)) {
             poseStack.pushPose();
             poseStack.translate(0, 0.875, 0);
             poseStack.scale(0.9f, 0.05f, 0.9f);

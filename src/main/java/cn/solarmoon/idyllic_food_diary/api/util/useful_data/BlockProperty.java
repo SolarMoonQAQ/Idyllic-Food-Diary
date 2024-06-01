@@ -22,7 +22,7 @@ public class BlockProperty {
             .noOcclusion()
             .pushReaction(PushReaction.DESTROY);
 
-    public static BlockBehaviour.Properties FOOD_ON_SMALL_BOWL = BlockBehaviour.Properties.of()
+    public static BlockBehaviour.Properties FOOD_ON_SMALL_CONTAINER = BlockBehaviour.Properties.of()
             .strength(0.5F)
             .sound(SoundType.WOOL)
             .noOcclusion();

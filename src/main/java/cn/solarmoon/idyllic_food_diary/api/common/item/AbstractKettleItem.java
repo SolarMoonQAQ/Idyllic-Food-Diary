@@ -3,6 +3,8 @@ package cn.solarmoon.idyllic_food_diary.api.common.item;
 import cn.solarmoon.solarmoon_core.api.common.item.IContainerItem;
 import cn.solarmoon.solarmoon_core.api.common.item.ITankItem;
 import cn.solarmoon.solarmoon_core.api.util.FluidUtil;
+import cn.solarmoon.solarmoon_core.api.util.VecUtil;
+import cn.solarmoon.solarmoon_core.api.util.phys.OrientedBox;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -11,6 +13,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
@@ -20,8 +23,10 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BucketPickup;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
@@ -51,10 +56,10 @@ public abstract class AbstractKettleItem extends BlockItem implements ITankItem,
         BlockState state = level.getBlockState(pos);
         Direction direction = blockhitresult.getDirection();
         BlockPos pos1 = pos.relative(direction);
-        if (!state.getFluidState().isEmpty()) {
+        if (!state.getFluidState().isEmpty()) { // 这里包括上面都是类似水桶的接水功能
             if(level.mayInteract(player, pos) && player.mayUseItemAt(pos1, direction, heldStack)) {
                 if (state.getBlock() instanceof BucketPickup bp) {
-                    if (getRemainFluid(heldStack) >= 1000
+                    if (getRemainCapability(heldStack) >= 1000
                             && fluidStack.getFluid().getFluidType().equals(state.getFluidState().getFluidType())
                             || fluidStack.isEmpty()) {
                         bp.pickupBlock(level, pos, state);

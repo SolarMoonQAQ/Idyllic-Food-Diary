@@ -1,6 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.core.common.item.recipe_item;
 
-import cn.solarmoon.idyllic_food_diary.core.common.recipe.CleaverRecipe;
+import cn.solarmoon.idyllic_food_diary.core.common.recipe.ChoppingRecipe;
 import cn.solarmoon.idyllic_food_diary.core.common.registry.IMRecipes;
 import cn.solarmoon.idyllic_food_diary.core.data.tags.IMBlockTags;
 import cn.solarmoon.solarmoon_core.api.common.item.IOptionalRecipeItem;
@@ -39,7 +39,7 @@ import java.util.Optional;
  * 具有配方，右键可以将物品切成结果
  * 具体实现在event中
  */
-public class ChineseCleaverItem extends DiggerItem implements IOptionalRecipeItem<CleaverRecipe> {
+public class ChineseCleaverItem extends DiggerItem implements IOptionalRecipeItem<ChoppingRecipe> {
 
     public ChineseCleaverItem() {
         super(3, -2.4f, Tiers.IRON,
@@ -59,7 +59,7 @@ public class ChineseCleaverItem extends DiggerItem implements IOptionalRecipeIte
         if (useItem.getItem() instanceof IOptionalRecipeItem<?> op && !level.isClientSide && player != null) {
             Optional<?> recipeOp = op.getSelectedRecipe(useItem, player);
             if (recipeOp.isPresent()) {
-                CleaverRecipe recipe = (CleaverRecipe) recipeOp.get();
+                ChoppingRecipe recipe = (ChoppingRecipe) recipeOp.get();
                 //输出（生成掉落物）
                 List<ItemStack> results = recipe.getRolledResults(player);
                 for (var stack : results) {
@@ -130,12 +130,12 @@ public class ChineseCleaverItem extends DiggerItem implements IOptionalRecipeIte
     }
 
     @Override
-    public RecipeType<CleaverRecipe> getRecipeType() {
-        return IMRecipes.CLEAVER.get();
+    public RecipeType<ChoppingRecipe> getRecipeType() {
+        return IMRecipes.CHOPPING.get();
     }
 
     @Override
-    public boolean recipeMatches(CleaverRecipe recipe, BlockState state, Level level, BlockHitResult hitResult, Player player) {
+    public boolean recipeMatches(ChoppingRecipe recipe, BlockState state, Level level, BlockHitResult hitResult, Player player) {
         boolean flag = state.is(IMBlockTags.CUTTING_BOARD);
         BlockEntity blockEntity = level.getBlockEntity(hitResult.getBlockPos());
         ItemStack hitStack = state.getCloneItemStack(hitResult, level, hitResult.getBlockPos(), player);
@@ -145,7 +145,7 @@ public class ChineseCleaverItem extends DiggerItem implements IOptionalRecipeIte
     @Override
     public List<ItemStack> getItemsOnGui(Player player) {
         List<ItemStack> optionalOutputs = new ArrayList<>();
-        for (CleaverRecipe recipe : getMatchingRecipes(player)) {
+        for (ChoppingRecipe recipe : getMatchingRecipes(player)) {
             ItemStack put = recipe.getResults().get(0);
             optionalOutputs.add(put);
         }

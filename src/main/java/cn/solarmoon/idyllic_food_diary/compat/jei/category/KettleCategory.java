@@ -1,7 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.compat.jei.category;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
-import cn.solarmoon.idyllic_food_diary.core.common.recipe.KettleRecipe;
+import cn.solarmoon.idyllic_food_diary.core.common.recipe.WaterBoilingRecipe;
 import cn.solarmoon.idyllic_food_diary.api.util.namespace.ResList;
 import cn.solarmoon.solarmoon_core.api.compat.jei.category.BaseJEICategory;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -16,7 +16,7 @@ import net.minecraft.network.chat.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-public class KettleCategory extends BaseJEICategory<KettleRecipe> {
+public class KettleCategory extends BaseJEICategory<WaterBoilingRecipe> {
 
     protected final IDrawableStatic heatSourceDeco;
     protected final IDrawableStatic back;
@@ -28,13 +28,13 @@ public class KettleCategory extends BaseJEICategory<KettleRecipe> {
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, KettleRecipe recipe, IFocusGroup focuses) {
+    public void setRecipe(IRecipeLayoutBuilder builder, WaterBoilingRecipe recipe, IFocusGroup focuses) {
         builder.addSlot(RecipeIngredientRole.INPUT, 16, 20).addFluidStack(recipe.input(), 1000);
         builder.addSlot(RecipeIngredientRole.OUTPUT, 85, 20).addFluidStack(recipe.output(), 1000);
     }
 
     @Override
-    public void draw(KettleRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(WaterBoilingRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         EMPTY_ARROW.draw(guiGraphics, 48, 21);
         ANIMATED_ARROW.draw(guiGraphics, 48, 21);
         helper.getSlotDrawable().draw(guiGraphics, 84, 19);
@@ -43,7 +43,7 @@ public class KettleCategory extends BaseJEICategory<KettleRecipe> {
     }
 
     @Override
-    public List<Component> getTooltipStrings(KettleRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
+    public List<Component> getTooltipStrings(WaterBoilingRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
         List<Component> components = new ArrayList<>();
         if (mouseX >= 48 && mouseX <= 70 && mouseY >= 21 && mouseY <= 37) {
             components.add(IdyllicFoodDiary.TRANSLATOR.set("jei", "kettle_time", recipe.time() / 20));

@@ -1,0 +1,12 @@
+{
+  "type": "idyllic_food_diary:chopping",
+  "ingredient": {
+    "item": "minecraft:chicken"
+  },
+  "result": [
+    {
+      "item": "idyllic_food_diary:chicken_cuts",
+      "count": 3
+    }
+  ]
+}

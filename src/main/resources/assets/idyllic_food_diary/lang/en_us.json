@@ -145,7 +145,7 @@
   "tooltip.idyllic_food_diary.fluid_empty": "Empty",
   "tooltip.idyllic_food_diary.fluid_effect_clear": "Clear all effects",
   "tooltip.idyllic_food_diary.fluid_effect_extinguishing": "Fire extinguishing",
-  "tooltip.idyllic_food_diary.fluid_effect_fire": "Burn (%ss)",
+  "tooltip.idyllic_food_diary.fluid_effect_fire": "Burn",
 
   "death.attack.idyllic_food_diary.scald": "%s was scalded to death.",
   "death.attack.idyllic_food_diary.falling_durian": "%s was pierced by a durian.",

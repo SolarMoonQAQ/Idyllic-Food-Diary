@@ -21,37 +21,37 @@ public class JEI extends BaseJEI {
         add(
                 builder()
                         .boundCategory(new CleaverCategory(guiHelper))
-                        .recipeType(IMRecipes.CLEAVER.get())
+                        .recipeType(IMRecipes.CHOPPING.get())
                         .addRecipeCatalyst(IMItems.CHINESE_CLEAVER.get())
                         .emptyBackground(117, 57)
                         .title(IdyllicFoodDiary.TRANSLATOR.set("jei", "cleaver.title"))
-                        .build("cleaver", CleaverRecipe.class),
+                        .build("cleaver", ChoppingRecipe.class),
                 builder()
                         .recipeType(RecipeTypes.CAMPFIRE_COOKING)
                         .addRecipeCatalyst(IMItems.GRILL.get()),
                 builder()
                         .boundCategory(new SteamerCategory(guiHelper))
-                        .recipeType(IMRecipes.STEAMER.get())
+                        .recipeType(IMRecipes.STEAMING.get())
                         .addRecipeCatalyst(IMItems.STEAMER.get())
                         .emptyBackground(117, 57)
                         .title(IdyllicFoodDiary.TRANSLATOR.set("jei", "steamer.title"))
-                        .build("steamer", SteamerRecipe.class),
+                        .build("steamer", SteamingRecipe.class),
                 builder()
                         .boundCategory(new KettleCategory(guiHelper))
-                        .recipeType(IMRecipes.KETTLE.get())
+                        .recipeType(IMRecipes.WATER_BOILING.get())
                         .addRecipeCatalyst(IMItems.KETTLE.get())
                         .addRecipeCatalyst(IMItems.COOKING_POT.get())
                         .addRecipeCatalyst(IMItems.STEAMER_BASE.get())
                         .emptyBackground(117, 57)
                         .title(IdyllicFoodDiary.TRANSLATOR.set("jei", "kettle.title"))
-                        .build("kettle", KettleRecipe.class),
+                        .build("kettle", WaterBoilingRecipe.class),
                 builder()
-                        .boundCategory(new SoupPotCategory(guiHelper))
-                        .recipeType(IMRecipes.COOKING_POT.get())
+                        .boundCategory(new CookingPotCategory(guiHelper))
+                        .recipeType(IMRecipes.STEW.get())
                         .addRecipeCatalyst(IMItems.COOKING_POT.get())
                         .emptyBackground(161, 95)
-                        .title(IdyllicFoodDiary.TRANSLATOR.set("jei", "soup_pot.title"))
-                        .build("soup_pot", CookingPotRecipe.class),
+                        .title(IdyllicFoodDiary.TRANSLATOR.set("jei", "cooking_pot.title"))
+                        .build("cooking_pot", StewRecipe.class),
                 builder()
                         .boundCategory(new SoupServingCategory(guiHelper))
                         .recipeType(IMRecipes.SOUP_SERVING.get())
@@ -62,11 +62,11 @@ public class JEI extends BaseJEI {
                         .build("soup_serving", SoupServingRecipe.class),
                 builder()
                         .boundCategory(new CupCategory(guiHelper))
-                        .recipeType(IMRecipes.CUP.get())
+                        .recipeType(IMRecipes.BREWING.get())
                         .addRecipeCatalyst(Ingredient.of(IMItemTags.CUP))
                         .emptyBackground(90, 41)
                         .title(IdyllicFoodDiary.TRANSLATOR.set("jei", "cup.title"))
-                        .build("cup", CupRecipe.class),
+                        .build("cup", BrewingRecipe.class),
                 builder()
                         .boundCategory(new RollingCategory(guiHelper))
                         .recipeType(IMRecipes.ROLLING.get())

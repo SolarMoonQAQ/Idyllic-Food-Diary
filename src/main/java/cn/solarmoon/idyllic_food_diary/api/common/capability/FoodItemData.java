@@ -7,15 +7,17 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
 
-public class FoodItemData extends ItemStackData implements IFoodItemData {
+public class FoodItemData implements ICapabilitySerializable<CompoundTag>, IFoodItemData {
 
     private final LazyOptional<FoodItemData> foodItemData;
+    private final ItemStack stack;
     private final SpicesData spicesData;
 
     public FoodItemData(ItemStack stack) {
-        super(stack);
+        this.stack = stack;
         this.foodItemData = LazyOptional.of(() -> this);
         this.spicesData = new SpicesData();
     }
@@ -27,14 +29,15 @@ public class FoodItemData extends ItemStackData implements IFoodItemData {
 
     @Override
     public CompoundTag serializeNBT() {
-        CompoundTag tag = super.serializeNBT();
+        CompoundTag tag = new CompoundTag();
+
         tag.put("SpicesData", spicesData.serializeNBT());
+
         return tag;
     }
 
     @Override
     public void deserializeNBT(CompoundTag nbt) {
-        super.deserializeNBT(nbt);
         spicesData.deserializeNBT(nbt.getCompound("SpicesData"));
     }
 
@@ -43,6 +46,6 @@ public class FoodItemData extends ItemStackData implements IFoodItemData {
         if (cap == IMCapabilities.FOOD_ITEM_DATA) {
             return foodItemData.cast();
         }
-        return super.getCapability(cap, side);
+        return LazyOptional.empty();
     }
 }
