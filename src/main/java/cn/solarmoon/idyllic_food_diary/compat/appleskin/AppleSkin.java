@@ -1,6 +1,5 @@
 package cn.solarmoon.idyllic_food_diary.compat.appleskin;
 
-import cn.solarmoon.idyllic_food_diary.compat.appleskin.client.registry.ASClientEvents;
 import net.minecraftforge.fml.ModList;
 
 /**

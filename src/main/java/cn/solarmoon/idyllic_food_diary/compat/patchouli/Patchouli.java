@@ -1,6 +1,5 @@
 package cn.solarmoon.idyllic_food_diary.compat.patchouli;
 
-import cn.solarmoon.idyllic_food_diary.compat.patchouli.common.registry.PItems;
 import net.minecraftforge.fml.ModList;
 
 public class Patchouli {

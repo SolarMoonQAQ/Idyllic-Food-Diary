@@ -1,0 +1,53 @@
+{
+  "type": "idyllic_food_diary:stir_fry",
+  "stir_fry_stages": [
+    {
+      "ingredients": [
+        {
+          "item": "minecraft:iron_ingot"
+        }
+      ],
+      "fluid": {
+        "id": "minecraft:water",
+        "amount": 250
+      },
+      "with_spices": [
+        {
+          "item": "idyllic_food_diary:salt",
+          "step": "mix",
+          "amount": 1
+        }
+      ],
+      "time": 100,
+      "fry_count": 3,
+      "keep_fluid": false
+    },
+    {
+      "ingredients": [
+        {
+          "item": "minecraft:gold_ingot"
+        }
+      ],
+      "fluid": {
+        "id": "minecraft:water",
+        "amount": 250
+      },
+      "with_spices": [
+        {
+          "item": "idyllic_food_diary:salt",
+          "step": "mix",
+          "amount": 1
+        }
+      ],
+      "time": 100,
+      "fry_count": 2,
+      "keep_fluid": false
+    }
+  ],
+  "result": {
+    "item": "minecraft:diamond"
+  },
+  "container": {
+    "item": "minecraft:bowl"
+  }
+}

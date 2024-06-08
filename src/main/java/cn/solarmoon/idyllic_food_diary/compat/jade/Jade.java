@@ -1,8 +1,11 @@
 package cn.solarmoon.idyllic_food_diary.compat.jade;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
-import cn.solarmoon.idyllic_food_diary.compat.jade.provider.*;
-import cn.solarmoon.idyllic_food_diary.core.common.block.cookware.*;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cooking_pot.CookingPotBlock;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup.CupBlock;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.grill.GrillBlock;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.kettle.KettleBlock;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer.SteamerBlock;
 import cn.solarmoon.solarmoon_core.api.common.block.crop.BaseBushCropBlock;
 import net.minecraft.resources.ResourceLocation;
 import snownee.jade.api.IWailaClientRegistration;
@@ -19,7 +22,6 @@ public class Jade implements IWailaPlugin {
         registration.registerBlockComponent(new TimeRecipeProgressProvider("kettle"), KettleBlock.class);
         registration.registerBlockComponent(new TimeRecipeProgressProvider("soup_pot"), CookingPotBlock.class);
         registration.registerBlockComponent(new TimeRecipeProgressProvider("cup"), CupBlock.class);
-        registration.registerBlockComponent(new SteamerBaseProvider("steamer_base"), SteamerBaseBlock.class);
         registration.registerBlockComponent(new IndividualTimeRecipeProgressProvider("steamer"), SteamerBlock.class);
         registration.registerBlockComponent(new IndividualTimeRecipeProgressProvider("grill"), GrillBlock.class);
 

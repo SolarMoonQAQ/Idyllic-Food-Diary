@@ -1,11 +1,15 @@
 package cn.solarmoon.idyllic_food_diary.compat.jei;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
-import cn.solarmoon.idyllic_food_diary.compat.jei.category.*;
-import cn.solarmoon.idyllic_food_diary.core.common.recipe.*;
-import cn.solarmoon.idyllic_food_diary.core.common.registry.IMItems;
-import cn.solarmoon.idyllic_food_diary.core.common.registry.IMRecipes;
-import cn.solarmoon.idyllic_food_diary.core.data.tags.IMItemTags;
+import cn.solarmoon.idyllic_food_diary.data.IMItemTags;
+import cn.solarmoon.idyllic_food_diary.feature.logic.chopping.ChoppingRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.logic.rolling.RollingRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.logic.soup_serving.SoupServingRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.logic.steaming.SteamingRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.logic.stew.StewRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.logic.water_boiling.WaterBoilingRecipe;
+import cn.solarmoon.idyllic_food_diary.registry.common.IMItems;
+import cn.solarmoon.idyllic_food_diary.registry.common.IMRecipes;
 import cn.solarmoon.solarmoon_core.api.compat.jei.BaseJEI;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.RecipeTypes;
@@ -41,7 +45,6 @@ public class JEI extends BaseJEI {
                         .recipeType(IMRecipes.WATER_BOILING.get())
                         .addRecipeCatalyst(IMItems.KETTLE.get())
                         .addRecipeCatalyst(IMItems.COOKING_POT.get())
-                        .addRecipeCatalyst(IMItems.STEAMER_BASE.get())
                         .emptyBackground(117, 57)
                         .title(IdyllicFoodDiary.TRANSLATOR.set("jei", "kettle.title"))
                         .build("kettle", WaterBoilingRecipe.class),
@@ -60,13 +63,6 @@ public class JEI extends BaseJEI {
                         .emptyBackground(117, 37)
                         .title(IdyllicFoodDiary.TRANSLATOR.set("jei", "soup_serving.title"))
                         .build("soup_serving", SoupServingRecipe.class),
-                builder()
-                        .boundCategory(new CupCategory(guiHelper))
-                        .recipeType(IMRecipes.BREWING.get())
-                        .addRecipeCatalyst(Ingredient.of(IMItemTags.CUP))
-                        .emptyBackground(90, 41)
-                        .title(IdyllicFoodDiary.TRANSLATOR.set("jei", "cup.title"))
-                        .build("cup", BrewingRecipe.class),
                 builder()
                         .boundCategory(new RollingCategory(guiHelper))
                         .recipeType(IMRecipes.ROLLING.get())

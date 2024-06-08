@@ -1,7 +1,7 @@
 {
   "required": true,
   "minVersion": "0.8.5",
-  "package": "cn.solarmoon.idyllic_food_diary.core.mixin",
+  "package": "cn.solarmoon.idyllic_food_diary.mixin",
   "refmap": "idyllic_food_diary.refmap.json",
   "compatibilityLevel": "JAVA_17",
   "mixins": [

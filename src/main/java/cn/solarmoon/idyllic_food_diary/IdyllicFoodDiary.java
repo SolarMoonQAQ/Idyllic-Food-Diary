@@ -1,13 +1,14 @@
 package cn.solarmoon.idyllic_food_diary;
 
-import cn.solarmoon.idyllic_food_diary.core.client.registry.*;
-import cn.solarmoon.idyllic_food_diary.core.common.registry.IMCommonConfig;
-import cn.solarmoon.idyllic_food_diary.core.common.registry.*;
-import cn.solarmoon.idyllic_food_diary.core.common.registry.ability.*;
 import cn.solarmoon.idyllic_food_diary.compat.appleskin.AppleSkin;
 import cn.solarmoon.idyllic_food_diary.compat.create.Create;
 import cn.solarmoon.idyllic_food_diary.compat.farmersdelight.FarmersDelight;
 import cn.solarmoon.idyllic_food_diary.compat.patchouli.Patchouli;
+import cn.solarmoon.idyllic_food_diary.registry.ability.IMComposterThs;
+import cn.solarmoon.idyllic_food_diary.registry.ability.IMPlaceableItems;
+import cn.solarmoon.idyllic_food_diary.registry.ability.IMSpittableItems;
+import cn.solarmoon.idyllic_food_diary.registry.client.*;
+import cn.solarmoon.idyllic_food_diary.registry.common.*;
 import cn.solarmoon.solarmoon_core.api.ObjectRegistry;
 import cn.solarmoon.solarmoon_core.api.SolarMoonBase;
 import cn.solarmoon.solarmoon_core.api.util.static_utor.Debug;
