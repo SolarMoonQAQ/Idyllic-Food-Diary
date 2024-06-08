@@ -74,8 +74,8 @@ public class SteamerBlockEntity extends BaseContainerBlockEntity implements IInd
             return base;
         }
         if (blockEntity instanceof StoveBlockEntity stove) {
-            if (stove.getPot() != null) {
-                return stove.getPot();
+            if (stove.getPot() != null && stove.getPot() instanceof IEvaporationRecipe e) {
+                return e;
             }
         }
         return null;

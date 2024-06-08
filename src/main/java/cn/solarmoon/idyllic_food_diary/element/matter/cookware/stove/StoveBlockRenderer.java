@@ -6,21 +6,22 @@ import cn.solarmoon.solarmoon_core.api.common.block.ILitBlock;
 import cn.solarmoon.solarmoon_core.api.util.VecUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import org.joml.AxisAngle4f;
-import org.joml.Quaternionf;
 
-public class StoveRenderer extends BaseBlockEntityRenderer<StoveBlockEntity> {
+public class StoveBlockRenderer extends BaseBlockEntityRenderer<StoveBlockEntity> {
 
-    public StoveRenderer(BlockEntityRendererProvider.Context context) {
+    public StoveBlockRenderer(BlockEntityRendererProvider.Context context) {
         super(context);
     }
 
@@ -34,6 +35,10 @@ public class StoveRenderer extends BaseBlockEntityRenderer<StoveBlockEntity> {
             light = level != null ? LevelRenderer.getLightColor(level, stove.getBlockPos().above()) : 15728880;
             poseStack.pushPose();
             poseStack.translate(0, 10/16f, 0);
+            if (stove.getPot() != null) {
+                BlockEntityRenderer<BlockEntity> renderer = Minecraft.getInstance().getBlockEntityRenderDispatcher().getRenderer(stove.getPot());
+                if (renderer != null) renderer.render(stove.getPot(), v, poseStack, buffer, light, overlay);
+            }
             blockRenderDispatcher.renderSingleBlock(Block.byItem(stove.getPotItem().getItem()).defaultBlockState()
                     .setValue(IHorizontalFacingBlock.FACING, stove.getBlockState().getValue(IHorizontalFacingBlock.FACING)),
                     poseStack, buffer, light, overlay);
@@ -52,14 +57,6 @@ public class StoveRenderer extends BaseBlockEntityRenderer<StoveBlockEntity> {
             poseStack.popPose();
         }
 
-    }
-
-    public static void rotateByDirection(Direction direction, PoseStack poseStack) {
-        Quaternionf angle = direction.getRotation();
-        Quaternionf rotationZ = new Quaternionf(new AxisAngle4f(3.1415927F, 0.0F, 0.0F, 1.0F));
-        Quaternionf result = angle.mul(rotationZ);
-        poseStack.mulPose(result);
-        poseStack.mulPose(Axis.XP.rotation(-(float) Math.PI / 2));
     }
 
 }

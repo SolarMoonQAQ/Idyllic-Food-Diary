@@ -1,7 +1,9 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.stove;
 
+import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.BaseCookwareBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cooking_pot.CookingPotBlockEntity;
+import cn.solarmoon.idyllic_food_diary.feature.logic.basic_feature.IInlineBlockMethodCall;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMItems;
 import cn.solarmoon.idyllic_food_diary.util.VoxelShapeUtil;
@@ -64,45 +66,25 @@ public class StoveBlock extends BaseCookwareBlock implements ILitBlock, IBlockUs
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         StoveBlockEntity stove = (StoveBlockEntity) level.getBlockEntity(pos);
         if (stove == null) return InteractionResult.PASS;
-        CookingPotBlockEntity pot = stove.getPot();
+        BlockEntity potB = stove.getPot();
         ItemStack heldItem = player.getItemInHand(hand);
         Vec3 click = hitResult.getLocation();
         double clickH = click.y - pos.getY();
         //-------当点击区域在上半部inside时放置锅，拆卸见attack---------------------------------------------------------------------------//
-        if (clickH >= 10/16f && VecUtil.isInside(click, pos) && heldItem.is(IMItems.COOKING_POT.get())) {
+        if (clickH >= 10/16f && VecUtil.isInside(click, pos)) {
             if (stove.putItem(player, hand, 1)) {
                 level.playSound(null, pos, SoundEvents.LANTERN_PLACE, SoundSource.BLOCKS);
                 return InteractionResult.SUCCESS;
             }
         }
         //------当点击在上半区域内部且有锅时对锅进行操作-----------------------------------------------------------------------------------//
-        if (pot != null && VecUtil.isInside(click, pos,
+        if (Block.byItem(stove.getPotItem().getItem()) instanceof IInlineBlockMethodCall pot && VecUtil.isInside(click, pos,
                 2/16f, 10/16f, 2/16f, 14/16f, 1, 14/16f, true)) {
-            if (pot.tryGiveResult(player, hand)) return InteractionResult.SUCCESS;
-            // 没有预输入结果时才能进行物品流体的交互
-            if (!pot.hasResult()) {
-                //能够存取液体
-                if (pot.putFluid(player, hand, false)) {
-                    level.playSound(null, pos, SoundEvents.BUCKET_FILL, SoundSource.PLAYERS);
-                    pot.setChanged();
-                    return InteractionResult.SUCCESS;
-                }
-                if (pot.takeFluid(player, hand, false)) {
-                    level.playSound(null, pos, SoundEvents.BUCKET_EMPTY, SoundSource.PLAYERS);
-                    pot.setChanged();
-                    return InteractionResult.SUCCESS;
-                }
-
-                //存取任意单个物品
-                if (hand.equals(InteractionHand.MAIN_HAND) && pot.storage(player, hand, 1, 1)) {
-                    level.playSound(null, pos, SoundEvents.LANTERN_STEP, SoundSource.BLOCKS);
-                    pot.setChanged();
-                    return InteractionResult.SUCCESS;
-                }
-            }
+            IdyllicFoodDiary.DEBUG.send("haha");
+            return pot.doUse(level, pos, player, hand, potB);
         }
         //-----当点击在下半区域内部时放置柴火----------------------------------------------------------------//
-        if (clickH <= 7/16f && VecUtil.isInside(click, pos) && stove.specialStorage(player, hand)) {
+        if (clickH <= 7/16f && VecUtil.isInside(click, pos) && stove.getInventory().isItemValid(1, heldItem) && stove.specialStorage(player, hand)) {
             level.playSound(null, pos, SoundEvents.WOOD_PLACE, SoundSource.BLOCKS);
             return InteractionResult.SUCCESS;
         }
@@ -172,16 +154,16 @@ public class StoveBlock extends BaseCookwareBlock implements ILitBlock, IBlockUs
     public void tick(Level level, BlockPos pos, BlockState state, BlockEntity blockEntity) {
         super.tick(level, pos, state, blockEntity);
         StoveBlockEntity stove = (StoveBlockEntity) blockEntity;
-        CookingPotBlockEntity pot = stove.getPot();
+        BlockEntity pot = stove.getPot();
         stove.updatePotItem();
         stove.tryControlLit();
-        if (pot != null) {
-            if (!pot.tryStirFrying()) {
-                if (!pot.tryStew()) {
-                    if (!pot.trySimmer()) {
-                        if (!pot.tryBoilFood()) {
-                            if (!pot.tryBoilWater()) {
-                                pot.tryDrainHotFluid();
+        if (pot instanceof CookingPotBlockEntity cPot) {
+            if (!cPot.tryStirFrying()) {
+                if (!cPot.tryStew()) {
+                    if (!cPot.trySimmer()) {
+                        if (!cPot.tryBoilFood()) {
+                            if (!cPot.tryBoilWater()) {
+                                cPot.tryDrainHotFluid();
                             }
                         }
                     }
