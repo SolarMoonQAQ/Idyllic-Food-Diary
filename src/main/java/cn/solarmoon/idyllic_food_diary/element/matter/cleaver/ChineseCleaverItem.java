@@ -1,7 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cleaver;
 
 import cn.solarmoon.idyllic_food_diary.data.IMBlockTags;
-import cn.solarmoon.idyllic_food_diary.feature.logic.chopping.ChoppingRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.logic.generic_recipe.chopping.ChoppingRecipe;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMRecipes;
 import cn.solarmoon.solarmoon_core.api.common.item.IOptionalRecipeItem;
 import cn.solarmoon.solarmoon_core.api.util.ContainerUtil;

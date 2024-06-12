@@ -1,13 +1,13 @@
 package cn.solarmoon.idyllic_food_diary.feature.logic.basic_feature;
 
-import cn.solarmoon.idyllic_food_diary.feature.logic.evaporation.IEvaporationRecipe;
-import cn.solarmoon.idyllic_food_diary.feature.logic.soup.ISoupRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.logic.generic_recipe.evaporation.IEvaporationRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.logic.generic_recipe.soup.ISoupRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.logic.spice.ISpiceable;
-import cn.solarmoon.idyllic_food_diary.feature.logic.stew.IStewRecipe;
-import cn.solarmoon.idyllic_food_diary.feature.logic.stir_fry.IStirFryRecipe;
-import cn.solarmoon.idyllic_food_diary.feature.logic.stir_fry.StirFryRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.logic.generic_recipe.stew.IStewRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.logic.generic_recipe.stir_fry.IStirFryRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.logic.generic_recipe.stir_fry.StirFryRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.logic.tea_brewing.IBrewingRecipe;
-import cn.solarmoon.idyllic_food_diary.feature.logic.water_boiling.IWaterBoilingRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.logic.generic_recipe.water_boiling.IWaterBoilingRecipe;
 import cn.solarmoon.idyllic_food_diary.util.namespace.NBTList;
 import cn.solarmoon.solarmoon_core.api.common.event.BlockEntityDataEvent;
 import com.google.gson.JsonParser;

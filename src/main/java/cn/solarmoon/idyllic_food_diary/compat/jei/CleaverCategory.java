@@ -1,6 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.compat.jei;
 
-import cn.solarmoon.idyllic_food_diary.feature.logic.chopping.ChoppingRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.logic.generic_recipe.chopping.ChoppingRecipe;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMItems;
 import cn.solarmoon.solarmoon_core.SolarMoonCore;
 import cn.solarmoon.solarmoon_core.api.common.recipe.serializable.ChanceResult;

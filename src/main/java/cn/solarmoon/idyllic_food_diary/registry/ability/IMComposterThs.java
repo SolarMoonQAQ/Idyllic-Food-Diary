@@ -19,7 +19,6 @@ public class IMComposterThs {
         put(IMItems.CHOPPED_SPRING_ONION.get(), 0.3F);
         put(IMItems.APPLE_SAPLING.get(), 0.3F);
         put(IMItems.DURIAN_SAPLING.get(), 0.3F);
-        put(IMItems.BLACK_TEA_SEEDS.get(), 0.3F);
         put(IMItems.GREEN_TEA_SEEDS.get(), 0.3F);
         put(IMItems.CHOPPED_SPRING_ONION.get(), 0.3F);
 

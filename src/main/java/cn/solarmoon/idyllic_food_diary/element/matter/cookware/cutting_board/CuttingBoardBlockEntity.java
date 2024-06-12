@@ -1,6 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.cutting_board;
 
-import cn.solarmoon.idyllic_food_diary.feature.logic.ingredient_handling.IIngredientHandlingRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.logic.generic_recipe.ingredient_handling.IIngredientHandlingRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.logic.spice.Spice;
 import cn.solarmoon.idyllic_food_diary.feature.logic.spice.SpiceList;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;

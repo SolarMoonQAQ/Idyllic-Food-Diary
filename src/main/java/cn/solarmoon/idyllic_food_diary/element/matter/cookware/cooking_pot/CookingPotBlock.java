@@ -129,4 +129,5 @@ public class CookingPotBlock extends BaseCookwareBlock implements IInlineBlockMe
     public BlockEntityType<?> getBlockEntityType() {
         return IMBlockEntities.COOKING_POT.get();
     }
+
 }

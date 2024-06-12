@@ -2,7 +2,7 @@ package cn.solarmoon.idyllic_food_diary.compat.jade;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.feature.logic.tea_brewing.IBrewingRecipe;
-import cn.solarmoon.idyllic_food_diary.feature.logic.water_boiling.IWaterBoilingRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.logic.generic_recipe.water_boiling.IWaterBoilingRecipe;
 import cn.solarmoon.solarmoon_core.api.common.block_entity.iutor.ITimeRecipeBlockEntity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;

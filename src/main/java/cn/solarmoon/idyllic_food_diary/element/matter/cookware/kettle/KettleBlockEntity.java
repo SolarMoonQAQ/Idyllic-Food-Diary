@@ -1,7 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.kettle;
 
 import cn.solarmoon.idyllic_food_diary.feature.logic.tea_brewing.IBrewingRecipe;
-import cn.solarmoon.idyllic_food_diary.feature.logic.water_boiling.IWaterBoilingRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.logic.generic_recipe.water_boiling.IWaterBoilingRecipe;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
 import cn.solarmoon.solarmoon_core.api.common.block_entity.BaseTCBlockEntity;
 import net.minecraft.core.BlockPos;

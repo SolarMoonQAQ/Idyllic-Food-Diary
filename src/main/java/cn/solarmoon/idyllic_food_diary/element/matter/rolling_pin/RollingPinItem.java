@@ -1,7 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.rolling_pin;
 
 import cn.solarmoon.idyllic_food_diary.data.IMBlockTags;
-import cn.solarmoon.idyllic_food_diary.feature.logic.rolling.RollingRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.logic.generic_recipe.rolling.RollingRecipe;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMRecipes;
 import cn.solarmoon.idyllic_food_diary.util.AnimController;
 import cn.solarmoon.solarmoon_core.api.common.item.IOptionalRecipeItem;

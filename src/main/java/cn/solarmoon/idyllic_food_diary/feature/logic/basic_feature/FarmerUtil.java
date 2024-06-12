@@ -6,6 +6,9 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.LIT;
 
+/**
+ * 杂项实用方法
+ */
 public class FarmerUtil {
 
     /**

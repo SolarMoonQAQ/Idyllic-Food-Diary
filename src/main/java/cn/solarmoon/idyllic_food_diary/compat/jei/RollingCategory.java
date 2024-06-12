@@ -1,6 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.compat.jei;
 
-import cn.solarmoon.idyllic_food_diary.feature.logic.rolling.RollingRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.logic.generic_recipe.rolling.RollingRecipe;
 import cn.solarmoon.solarmoon_core.api.compat.jei.category.BaseJEICategory;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;

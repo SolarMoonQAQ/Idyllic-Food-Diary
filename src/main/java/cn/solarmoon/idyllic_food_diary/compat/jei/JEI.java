@@ -2,12 +2,12 @@ package cn.solarmoon.idyllic_food_diary.compat.jei;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.data.IMItemTags;
-import cn.solarmoon.idyllic_food_diary.feature.logic.chopping.ChoppingRecipe;
-import cn.solarmoon.idyllic_food_diary.feature.logic.rolling.RollingRecipe;
-import cn.solarmoon.idyllic_food_diary.feature.logic.soup_serving.SoupServingRecipe;
-import cn.solarmoon.idyllic_food_diary.feature.logic.steaming.SteamingRecipe;
-import cn.solarmoon.idyllic_food_diary.feature.logic.stew.StewRecipe;
-import cn.solarmoon.idyllic_food_diary.feature.logic.water_boiling.WaterBoilingRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.logic.generic_recipe.chopping.ChoppingRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.logic.generic_recipe.rolling.RollingRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.logic.generic_recipe.soup_serving.SoupServingRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.logic.generic_recipe.steaming.SteamingRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.logic.generic_recipe.stew.StewRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.logic.generic_recipe.water_boiling.WaterBoilingRecipe;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMItems;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMRecipes;
 import cn.solarmoon.solarmoon_core.api.compat.jei.BaseJEI;

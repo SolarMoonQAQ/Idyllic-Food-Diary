@@ -1,8 +1,8 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer;
 
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.stove.StoveBlockEntity;
-import cn.solarmoon.idyllic_food_diary.feature.logic.evaporation.IEvaporationRecipe;
-import cn.solarmoon.idyllic_food_diary.feature.logic.steaming.SteamingRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.logic.generic_recipe.evaporation.IEvaporationRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.logic.generic_recipe.steaming.SteamingRecipe;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMItems;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMRecipes;

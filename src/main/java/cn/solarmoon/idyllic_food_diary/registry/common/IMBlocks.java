@@ -8,6 +8,7 @@ import cn.solarmoon.idyllic_food_diary.element.matter.container.*;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cooking_pot.CookingPotBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup.CupBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cutting_board.CuttingBoardBlock;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.frying_pan.FryingPanBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.grill.GrillBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.kettle.KettleBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.service_plate.ServicePlateBlock;
@@ -35,6 +36,12 @@ public class IMBlocks {
     public static final BlockEntry<StoveBlock> STOVE = IdyllicFoodDiary.REGISTRY.block()
             .id("stove")
             .bound(StoveBlock::new)
+            .build();
+
+    //炒锅
+    public static final BlockEntry<FryingPanBlock> FRYING_PAN = IdyllicFoodDiary.REGISTRY.block()
+            .id("frying_pan")
+            .bound(FryingPanBlock::new)
             .build();
 
     //调料罐
@@ -157,12 +164,6 @@ public class IMBlocks {
     public static final BlockEntry<GreenTeaPlantCropBlock> GREEN_TEA_PLANT = IdyllicFoodDiary.REGISTRY.block()
             .id("green_tea_plant")
             .bound(GreenTeaPlantCropBlock::new)
-            .build();
-
-    //红茶
-    public static final BlockEntry<BlackTeaTreePlantBlock> BLACK_TEA_PLANT = IdyllicFoodDiary.REGISTRY.block()
-            .id("black_tea_plant")
-            .bound(BlackTeaTreePlantBlock::new)
             .build();
 
     //榴莲作物

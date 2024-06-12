@@ -1,7 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.compat.jei;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
-import cn.solarmoon.idyllic_food_diary.feature.logic.soup_serving.SoupServingRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.logic.generic_recipe.soup_serving.SoupServingRecipe;
 import cn.solarmoon.idyllic_food_diary.util.namespace.ResList;
 import cn.solarmoon.solarmoon_core.api.compat.jei.category.BaseJEICategory;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;

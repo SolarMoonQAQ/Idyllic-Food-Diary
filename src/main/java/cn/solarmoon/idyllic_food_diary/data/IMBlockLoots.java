@@ -98,7 +98,6 @@ public class IMBlockLoots extends BlockLootSubProvider {
 
         //作物专项
         //类浆果丛类
-        bushDrop(IMBlocks.BLACK_TEA_PLANT.get(), IMItems.BLACK_TEA_LEAF.get(), IMItems.BLACK_TEA_SEEDS.get());
         bushDrop(IMBlocks.GREEN_TEA_PLANT.get(), IMItems.GREEN_TEA_LEAF.get(), IMItems.GREEN_TEA_SEEDS.get());
         bushDrop(IMBlocks.APPLE_CROP.get(), Items.APPLE, IMItems.APPLE_CORE.get());
         bushDrop(IMBlocks.DURIAN_CROP.get(), IMItems.DURIAN.get(), IMItems.DURIAN_CORE.get());

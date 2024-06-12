@@ -63,18 +63,6 @@ public class IMFeatures {
             ))
             .build();
 
-    public static final FeatureEntry<WildCropConfig> BLACK_TEA = IdyllicFoodDiary.REGISTRY.feature()
-            .id("black_tea")
-            .bound(WildCropFeature::new)
-            .config(() -> WildCropConfig.createBaseWithAge(5, IMBlocks.BLACK_TEA_PLANT.get(), Blocks.LILY_OF_THE_VALLEY, BlockPredicate.matchesTag(BLOCK_BELOW, BlockTags.DIRT)))
-            .placement(() -> List.of(
-                    RarityFilter.onAverageOnceEvery(120),
-                    InSquarePlacement.spread(),
-                    PlacementUtils.HEIGHTMAP,
-                    BiomeFilter.biome()
-            ))
-            .build();
-
     public static final FeatureEntry<WildCropConfig> WILD_SPRING_ONION = IdyllicFoodDiary.REGISTRY.feature()
             .id("wild_spring_onion")
             .bound(WildCropFeature::new)

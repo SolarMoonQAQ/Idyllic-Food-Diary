@@ -1,7 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.feature.logic.tea_brewing;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
-import cn.solarmoon.idyllic_food_diary.feature.logic.soup_serving.SoupServingRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.logic.generic_recipe.soup_serving.SoupServingRecipe;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMRecipes;
 import cn.solarmoon.solarmoon_core.api.data.serializable.PotionEffect;
 import cn.solarmoon.solarmoon_core.api.util.TextUtil;
@@ -58,7 +58,7 @@ public class TeaBrewingUtil {
         if (clear) {
             entity.removeAllEffects();
         }
-        // 应用灭火效果  <- 先着火再灭火，这样如果有着火和灭火的搭配起来就可以不着火
+        // 应用灭火效果 <- 先着火再灭火，这样如果有着火和灭火的搭配起来就可以不着火
         if (extinguishValue > 0) {
             entity.clearFire();
         }

@@ -8,6 +8,7 @@ import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cooking_pot.Cooki
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup.CeladonCupItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup.JadeChinaCupItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cutting_board.CuttingBoardItem;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.frying_pan.FryingPanItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.grill.GrillItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.kettle.KettleItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.service_plate.ServicePlateItem;
@@ -38,6 +39,12 @@ public class IMItems {
     public static final ItemEntry<StoveItem> STOVE = IdyllicFoodDiary.REGISTRY.item()
             .id("stove")
             .bound(StoveItem::new)
+            .build();
+
+    // 炒锅
+    public static final ItemEntry<FryingPanItem> FRYING_PAN = IdyllicFoodDiary.REGISTRY.item()
+            .id("frying_pan")
+            .bound(FryingPanItem::new)
             .build();
 
     // 调料类
@@ -261,12 +268,6 @@ public class IMItems {
     public static final ItemEntry<SimpleItem> BLACK_TEA_LEAF = IdyllicFoodDiary.REGISTRY.item()
             .id("black_tea_leaf")
             .bound(SimpleItem::new)
-            .build();
-
-    //红茶种子
-    public static final ItemEntry<SimpleSeedItem> BLACK_TEA_SEEDS = IdyllicFoodDiary.REGISTRY.item()
-            .id("black_tea_seeds")
-            .bound(() -> new SimpleSeedItem(IMBlocks.BLACK_TEA_PLANT.get()))
             .build();
 
     //绿茶叶
