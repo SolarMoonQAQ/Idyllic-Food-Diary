@@ -1,18 +1,13 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup;
 
-import cn.solarmoon.idyllic_food_diary.util.TextureRenderUtil;
-import cn.solarmoon.solarmoon_core.api.client.renderer.blockEntity.BaseBlockEntityRenderer;
-import cn.solarmoon.solarmoon_core.api.util.FluidUtil;
+import cn.solarmoon.solarmoon_core.api.renderer.BaseBlockEntityRenderer;
+import cn.solarmoon.solarmoon_core.api.renderer.TextureRenderUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.templates.FluidTank;
 
 public class CupBlockRenderer<E extends CupBlockEntity> extends BaseBlockEntityRenderer<E> {
 
@@ -23,30 +18,8 @@ public class CupBlockRenderer<E extends CupBlockEntity> extends BaseBlockEntityR
     @SuppressWarnings("ConstantConditions")
     @Override
     public void render(E blockEntity, float tickDelta, PoseStack poseStack, MultiBufferSource buffer, int light, int overlay) {
-        FluidTank tank = blockEntity.getTank();
-        FluidStack fluidStack = tank.getFluidInTank(0);
-
         // 渲染流体过渡动画
-        float zoom = 3 / 16f;
-        int ticks = blockEntity.getTicks();
-        float progress = ticks * 0.01f;
-        float targetScale = FluidUtil.getScale(blockEntity.getTank());
-        blockEntity.setLast(targetScale - (targetScale - blockEntity.getLast()) * (1 - progress));
-
-        int targetColor = TextureRenderUtil.getColor(fluidStack);
-        IClientFluidTypeExtensions fluidAttributes = IClientFluidTypeExtensions.of(fluidStack.getFluid());
-        ResourceLocation spriteLocation = fluidAttributes.getStillTexture(fluidStack);
-
-        poseStack.pushPose();
-        float posB = 6.5f / 16f;
-        poseStack.translate(posB, 0.09375f, posB);
-        poseStack.scale(zoom, blockEntity.getLast() * 0.1875f, zoom);
-        if (spriteLocation != null) {
-            TextureRenderUtil.renderFluid(targetColor, 1, 0,
-                    0, 0, 16, 16,
-                    spriteLocation, poseStack, buffer, light);
-        }
-        poseStack.popPose();
+        TextureRenderUtil.renderAnimatedFluid(3/16f, 3f/16f, 1.5f/16f, blockEntity, poseStack, buffer, light);
 
         //渲染物品
         //让光度和环境一致

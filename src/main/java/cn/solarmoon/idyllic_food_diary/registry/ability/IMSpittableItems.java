@@ -1,8 +1,8 @@
 package cn.solarmoon.idyllic_food_diary.registry.ability;
 
-import cn.solarmoon.idyllic_food_diary.feature.logic.spit_item.SpittableItem;
+import cn.solarmoon.idyllic_food_diary.feature.spit_item.SpittableItem;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMItems;
-import cn.solarmoon.solarmoon_core.api.common.registry.ItemEntry;
+import cn.solarmoon.solarmoon_core.api.entry.common.ItemEntry;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;

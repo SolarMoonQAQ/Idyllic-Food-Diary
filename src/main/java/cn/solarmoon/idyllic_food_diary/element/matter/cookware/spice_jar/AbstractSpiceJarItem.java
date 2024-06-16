@@ -1,11 +1,9 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.spice_jar;
 
-import cn.solarmoon.idyllic_food_diary.element.matter.cookware.stove.StoveBlockEntity;
-import cn.solarmoon.idyllic_food_diary.feature.logic.spice.ISpiceable;
-import cn.solarmoon.idyllic_food_diary.feature.logic.spice.Spice;
-import cn.solarmoon.solarmoon_core.api.common.item.IContainerItem;
+import cn.solarmoon.idyllic_food_diary.feature.spice.ISpiceable;
+import cn.solarmoon.idyllic_food_diary.feature.spice.Spice;
+import cn.solarmoon.solarmoon_core.api.item_util.IContainerItem;
 import cn.solarmoon.solarmoon_core.api.util.ContainerUtil;
-import cn.solarmoon.solarmoon_core.api.util.VecUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
@@ -35,11 +33,6 @@ public abstract class AbstractSpiceJarItem extends BlockItem implements IContain
         ItemStack stack = context.getItemInHand();
         BlockPos pos = context.getClickedPos();
         BlockEntity blockEntity = level.getBlockEntity(pos);
-        if (blockEntity instanceof StoveBlockEntity stove &&
-                VecUtil.isInside(context.getClickLocation(), pos,
-                        2/16f, 10/16f, 2/16f, 14/16f, 1, 14/16f, true)) {
-            blockEntity = stove.getPot();
-        }
         if (blockEntity instanceof ISpiceable sp && hasEnoughSpice(stack) && !sp.timeToResetSpices()) {
             ItemStackHandler inv = ContainerUtil.getInventory(stack);
             sp.getSpices().add(new Spice(inv.extractItem(0, 1, false).getItem(), sp.getSpiceStep()));

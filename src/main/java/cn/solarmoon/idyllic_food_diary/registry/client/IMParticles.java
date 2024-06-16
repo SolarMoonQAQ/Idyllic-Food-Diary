@@ -1,7 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.registry.client;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
-import cn.solarmoon.solarmoon_core.api.client.registry.ParticleEntry;
+import cn.solarmoon.solarmoon_core.api.entry.client.ParticleEntry;
 import net.minecraft.client.particle.BubbleParticle;
 import net.minecraft.client.particle.SplashParticle;
 import net.minecraft.core.particles.SimpleParticleType;

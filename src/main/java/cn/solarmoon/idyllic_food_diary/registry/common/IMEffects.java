@@ -6,7 +6,7 @@ import cn.solarmoon.idyllic_food_diary.element.effect.FleetOfFootEffect;
 import cn.solarmoon.idyllic_food_diary.element.effect.RefreshmentEffect;
 import cn.solarmoon.idyllic_food_diary.element.effect.SnugEffect;
 import cn.solarmoon.idyllic_food_diary.element.effect.TeaAromaEffect;
-import cn.solarmoon.solarmoon_core.api.common.registry.EffectEntry;
+import cn.solarmoon.solarmoon_core.api.entry.common.EffectEntry;
 
 public class IMEffects {
     public static void register() {}

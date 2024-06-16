@@ -1,14 +1,13 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.food;
 
-import cn.solarmoon.idyllic_food_diary.feature.logic.spice.SpicesCap;
+import cn.solarmoon.idyllic_food_diary.feature.spice.SpicesCap;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMCapabilities;
 import cn.solarmoon.idyllic_food_diary.util.ContainerHelper;
-import cn.solarmoon.solarmoon_core.api.common.block.IBedPartBlock;
-import cn.solarmoon.solarmoon_core.api.common.block.IHorizontalFacingBlock;
-import cn.solarmoon.solarmoon_core.api.common.block.IWaterLoggedBlock;
-import cn.solarmoon.solarmoon_core.api.common.block.entity_block.BasicEntityBlock;
-import cn.solarmoon.solarmoon_core.api.util.CapabilityUtil;
+import cn.solarmoon.solarmoon_core.api.block_base.BasicEntityBlock;
+import cn.solarmoon.solarmoon_core.api.blockstate_access.IBedPartBlock;
+import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
+import cn.solarmoon.solarmoon_core.api.blockstate_access.IWaterLoggedBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -45,7 +44,7 @@ public abstract class FoodEntityBlock extends BasicEntityBlock implements IHoriz
         if (fb == null) return;
         ItemStack container = ContainerHelper.getContainer(stack);
         fb.setContainer(container);
-        SpicesCap spicesData = CapabilityUtil.getData(stack, IMCapabilities.FOOD_ITEM_DATA).getSpicesData();
+        SpicesCap spicesData = stack.getCapability(IMCapabilities.FOOD_ITEM_DATA).orElse(null).getSpicesData();
         fb.setSpices(spicesData.getSpices());
         if (this instanceof IBedPartBlock) { // 对于双方块，也要设置另一个方块的be内容
             BlockPos facingPos = pos.relative(state.getValue(IBedPartBlock.FACING));
@@ -69,7 +68,7 @@ public abstract class FoodEntityBlock extends BasicEntityBlock implements IHoriz
         if (fb != null) {
             for (var item : origin) {
                 ContainerHelper.setContainer(item, fb.getContainer());
-                SpicesCap spicesData = CapabilityUtil.getData(item, IMCapabilities.FOOD_ITEM_DATA).getSpicesData();
+                SpicesCap spicesData = item.getCapability(IMCapabilities.FOOD_ITEM_DATA).orElse(null).getSpicesData();
                 if (spicesData != null) {
                     spicesData.getSpices().addAll(fb.getSpices());
                 }
@@ -84,7 +83,7 @@ public abstract class FoodEntityBlock extends BasicEntityBlock implements IHoriz
         ItemStack origin = super.getCloneItemStack(level, pos, state);
         if (fb != null) {
             ContainerHelper.setContainer(origin, fb.getContainer());
-            SpicesCap spicesData = CapabilityUtil.getData(origin, IMCapabilities.FOOD_ITEM_DATA).getSpicesData();
+            SpicesCap spicesData = origin.getCapability(IMCapabilities.FOOD_ITEM_DATA).orElse(null).getSpicesData();
             if (spicesData != null) {
                 spicesData.getSpices().addAll(fb.getSpices());
             }

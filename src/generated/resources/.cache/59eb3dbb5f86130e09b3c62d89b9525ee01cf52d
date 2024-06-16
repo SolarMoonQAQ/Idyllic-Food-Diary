@@ -1,4 +1,4 @@
-// 1.20.1	2024-06-09T14:10:39.6822628	Loot Tables
+// 1.20.1	2024-06-16T22:55:17.3910006	Loot Tables
 81eae8dfec67eae89476c809921fbde840b65284 data/idyllic_food_diary/loot_tables/blocks/apple_crop.json
 148e61834c37eb7b329e25658d63b3ceca1c15e0 data/idyllic_food_diary/loot_tables/blocks/apple_sapling.json
 0e391e594b35127b299aec7620e44e9ce8f80144 data/idyllic_food_diary/loot_tables/blocks/bai_ji_bun.json
@@ -42,7 +42,6 @@ ad2524eee8b816ab8e0ff5bcae7c10936c948518 data/idyllic_food_diary/loot_tables/blo
 abd06d1c52780f88d4126fb72db06c97b9d37611 data/idyllic_food_diary/loot_tables/blocks/steamed_salmon.json
 2c77daef433b9d6112c051ef0225e42a68717bfe data/idyllic_food_diary/loot_tables/blocks/steamer.json
 413a89c2da39c46ce29416d9fc2db062a8555d8d data/idyllic_food_diary/loot_tables/blocks/steamer_lid.json
-f6ed71c745b5c7e52e3bcdcf5c9e90c1f3b8f30a data/idyllic_food_diary/loot_tables/blocks/stove.json
 4337220f6b3f4d2e1701e7bf198910f5f871565b data/idyllic_food_diary/loot_tables/blocks/uncooked_beggars_chicken.json
 75887e379b01fa546f074c12bf6e9b97dcb28401 data/idyllic_food_diary/loot_tables/blocks/uncooked_custard_tart.json
 cdd49e8cfb1fd2a3cecdc5fa332d1d45cf6a8e2d data/idyllic_food_diary/loot_tables/blocks/uncooked_roasted_suckling_pig.json

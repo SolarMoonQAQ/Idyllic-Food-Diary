@@ -1,7 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.data;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
-import cn.solarmoon.idyllic_food_diary.feature.logic.tea_brewing.TeaIngredient;
+import cn.solarmoon.idyllic_food_diary.feature.tea_brewing.TeaIngredient;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;

@@ -1,7 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.registry.client;
 
-import cn.solarmoon.idyllic_food_diary.feature.visual.optional_gui.IOptionalRecipeItemGui;
-import cn.solarmoon.solarmoon_core.api.client.registry.BaseGuiRegistry;
+import cn.solarmoon.idyllic_food_diary.feature.optional_gui.IOptionalRecipeItemGui;
+import cn.solarmoon.solarmoon_core.api.entry.client.BaseGuiRegistry;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 

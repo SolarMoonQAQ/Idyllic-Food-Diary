@@ -1,7 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup;
 
-import cn.solarmoon.idyllic_food_diary.util.TextureRenderUtil;
-import cn.solarmoon.solarmoon_core.api.client.renderer.Item.BaseItemRenderer;
+import cn.solarmoon.solarmoon_core.api.renderer.BaseItemRenderer;
+import cn.solarmoon.solarmoon_core.api.renderer.TextureRenderUtil;
 import cn.solarmoon.solarmoon_core.api.util.ContainerUtil;
 import cn.solarmoon.solarmoon_core.api.util.FluidUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -37,23 +37,7 @@ public class CupItemRenderer extends BaseItemRenderer {
         poseStack.popPose();
 
         // 液体
-        FluidStack fluidStack = FluidUtil.getFluidStack(stack);
-        IFluidHandlerItem stackTank = FluidUtil.getTank(stack);
-        float zoom = 3 / 16f;
-        float targetScale = FluidUtil.getScale(stackTank);
-        int targetColor = TextureRenderUtil.getColor(fluidStack);
-        Fluid fluid = fluidStack.getFluid();
-        IClientFluidTypeExtensions fluidAttributes = IClientFluidTypeExtensions.of(fluid);
-        ResourceLocation spriteLocation = fluidAttributes.getStillTexture(fluidStack);
-        if (spriteLocation == null) return;
-        poseStack.pushPose();
-        float posB = 6.5f / 16f;
-        poseStack.translate(posB, 0.09375f, posB);
-        poseStack.scale(zoom, targetScale * 0.1875f, zoom);
-        TextureRenderUtil.renderFluid(targetColor, 1, 0,
-                0, 0, 16, 16,
-                spriteLocation, poseStack, buffer, light);
-        poseStack.popPose();
+        TextureRenderUtil.renderStaticFluid(3/16f, 3/16f, 1.5f/16, stack, poseStack, buffer, light);
 
     }
 

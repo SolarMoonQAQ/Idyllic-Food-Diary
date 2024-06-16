@@ -1,8 +1,8 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.food.interactive_food_block;
 
 import cn.solarmoon.idyllic_food_diary.element.matter.food.FoodEntityBlock;
-import cn.solarmoon.solarmoon_core.api.common.block.IBedPartBlock;
-import cn.solarmoon.solarmoon_core.api.common.block.IHorizontalFacingBlock;
+import cn.solarmoon.solarmoon_core.api.blockstate_access.IBedPartBlock;
+import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;

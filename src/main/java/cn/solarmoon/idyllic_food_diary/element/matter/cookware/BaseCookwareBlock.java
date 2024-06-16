@@ -1,10 +1,9 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware;
 
-import cn.solarmoon.idyllic_food_diary.feature.logic.basic_feature.IExpGiver;
-import cn.solarmoon.idyllic_food_diary.feature.logic.basic_feature.IPendingResult;
-import cn.solarmoon.idyllic_food_diary.util.namespace.NBTList;
-import cn.solarmoon.solarmoon_core.api.common.block.IHorizontalFacingBlock;
-import cn.solarmoon.solarmoon_core.api.common.block.entity_block.BasicEntityBlock;
+import cn.solarmoon.idyllic_food_diary.feature.basic_feature.IExpGiver;
+import cn.solarmoon.idyllic_food_diary.feature.basic_feature.IPendingResult;
+import cn.solarmoon.solarmoon_core.api.block_base.BasicEntityBlock;
+import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
 import com.google.gson.JsonParser;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -38,11 +37,11 @@ public abstract class BaseCookwareBlock extends BasicEntityBlock implements IHor
         CompoundTag tag = origin.getOrCreateTag();
 
         if (blockEntity instanceof IPendingResult pending) {
-            tag.put(NBTList.RESULT, pending.getResult().save(new CompoundTag()));
-            tag.putString(NBTList.CONTAINER, pending.getContainer().toJson().toString());
+            tag.put(IPendingResult.RESULT, pending.getResult().save(new CompoundTag()));
+            tag.putString(IPendingResult.CONTAINER, pending.getContainer().toJson().toString());
         }
         if (blockEntity instanceof IExpGiver expGiver) {
-            tag.putInt(NBTList.EXP, expGiver.getExp());
+            tag.putInt(IExpGiver.EXP, expGiver.getExp());
         }
 
         return origin;
@@ -57,11 +56,11 @@ public abstract class BaseCookwareBlock extends BasicEntityBlock implements IHor
         if (tag != null) {
 
             if (blockEntity instanceof IPendingResult pending) {
-                if (tag.contains(NBTList.RESULT)) pending.setResult(ItemStack.of(tag.getCompound(NBTList.RESULT)));
-                if (tag.contains(NBTList.CONTAINER)) pending.setContainer(Ingredient.fromJson(JsonParser.parseString(tag.getString(NBTList.CONTAINER))));
+                if (tag.contains(IPendingResult.RESULT)) pending.setResult(ItemStack.of(tag.getCompound(IPendingResult.RESULT)));
+                if (tag.contains(IPendingResult.CONTAINER)) pending.setContainer(Ingredient.fromJson(JsonParser.parseString(tag.getString(IPendingResult.CONTAINER))));
             }
             if (blockEntity instanceof IExpGiver expGiver) {
-                if (tag.contains(NBTList.EXP)) expGiver.setExp(tag.getInt(NBTList.EXP));
+                if (tag.contains(IExpGiver.EXP)) expGiver.setExp(tag.getInt(IExpGiver.EXP));
             }
 
         }
@@ -76,11 +75,11 @@ public abstract class BaseCookwareBlock extends BasicEntityBlock implements IHor
                 CompoundTag tag = item.getOrCreateTag();
 
                 if (blockEntity instanceof IPendingResult pending) {
-                    tag.put(NBTList.RESULT, pending.getResult().save(new CompoundTag()));
-                    tag.putString(NBTList.CONTAINER, pending.getContainer().toJson().toString());
+                    tag.put(IPendingResult.RESULT, pending.getResult().save(new CompoundTag()));
+                    tag.putString(IPendingResult.CONTAINER, pending.getContainer().toJson().toString());
                 }
                 if (blockEntity instanceof IExpGiver expGiver) {
-                    tag.putInt(NBTList.EXP, expGiver.getExp());
+                    tag.putInt(IExpGiver.EXP, expGiver.getExp());
                 }
 
             }

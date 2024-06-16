@@ -1,7 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.compat.patchouli;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
-import cn.solarmoon.solarmoon_core.api.common.registry.ItemEntry;
+import cn.solarmoon.solarmoon_core.api.entry.common.ItemEntry;
 
 public class PItems {
 

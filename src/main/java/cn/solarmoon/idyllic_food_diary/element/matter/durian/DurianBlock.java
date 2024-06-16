@@ -1,8 +1,8 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.durian;
 
 import cn.solarmoon.idyllic_food_diary.registry.common.IMDamageTypes;
-import cn.solarmoon.solarmoon_core.api.common.block.IHorizontalFacingBlock;
-import cn.solarmoon.solarmoon_core.api.common.block.IWaterLoggedBlock;
+import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
+import cn.solarmoon.solarmoon_core.api.blockstate_access.IWaterLoggedBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;

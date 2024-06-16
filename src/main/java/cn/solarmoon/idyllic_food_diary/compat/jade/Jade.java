@@ -6,7 +6,7 @@ import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup.CupBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.grill.GrillBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.kettle.KettleBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer.SteamerBlock;
-import cn.solarmoon.solarmoon_core.api.common.block.crop.BaseBushCropBlock;
+import cn.solarmoon.solarmoon_core.api.block_base.BaseBushCropBlock;
 import net.minecraft.resources.ResourceLocation;
 import snownee.jade.api.IWailaClientRegistration;
 import snownee.jade.api.IWailaPlugin;

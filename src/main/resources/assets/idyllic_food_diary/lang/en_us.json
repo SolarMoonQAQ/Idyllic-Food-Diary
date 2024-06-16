@@ -2,16 +2,12 @@
   "creative_mode_tab.idyllic_food_diary.main": "Idyllic Food Diary",
 
   "block.idyllic_food_diary.celadon_cup": "Celadon Cup",
-  "block.idyllic_food_diary.celadon_cup_with_fluid": "Celadon Cup with %s",
   "block.idyllic_food_diary.jade_china_cup": "Jade China Cup",
-  "block.idyllic_food_diary.jade_china_cup_with_fluid": "Jade China Cup with %s",
   "block.idyllic_food_diary.kettle": "Kettle",
-  "block.idyllic_food_diary.kettle_with_fluid": "Kettle with %s",
 
   "item.idyllic_food_diary.rolling_pin": "Rolling Pin",
   "item.idyllic_food_diary.chinese_cleaver": "Chinese Cleaver",
   "block.idyllic_food_diary.soup_pot": "Soup Pot",
-  "block.idyllic_food_diary.soup_pot_with_fluid": "Soup Pot with %s",
   "block.idyllic_food_diary.cutting_board": "Cutting Board",
   "block.idyllic_food_diary.grill": "Grill",
   "block.idyllic_food_diary.service_plate": "Service Plate",

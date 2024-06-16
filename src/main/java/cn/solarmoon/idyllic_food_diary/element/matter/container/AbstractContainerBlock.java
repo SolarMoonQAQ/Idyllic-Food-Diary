@@ -1,8 +1,8 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.container;
 
-import cn.solarmoon.solarmoon_core.api.common.block.BaseWaterBlock;
-import cn.solarmoon.solarmoon_core.api.common.block.IHorizontalFacingBlock;
-import cn.solarmoon.solarmoon_core.api.common.block.IWaterLoggedBlock;
+import cn.solarmoon.solarmoon_core.api.block_base.BaseWaterBlock;
+import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
+import cn.solarmoon.solarmoon_core.api.blockstate_access.IWaterLoggedBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;

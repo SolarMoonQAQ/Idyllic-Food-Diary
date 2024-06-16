@@ -3,8 +3,8 @@ package cn.solarmoon.idyllic_food_diary.element.matter.food.interactive_food_blo
 import cn.solarmoon.idyllic_food_diary.element.matter.food.interactive_food_block.food_interaction.ConsumeInteraction;
 import cn.solarmoon.idyllic_food_diary.element.matter.food.interactive_food_block.food_interaction.ObtainInteraction;
 import cn.solarmoon.idyllic_food_diary.util.useful_data.BlockProperty;
-import cn.solarmoon.solarmoon_core.api.common.block.IBedPartBlock;
-import cn.solarmoon.solarmoon_core.api.util.device.ItemMatcher;
+import cn.solarmoon.solarmoon_core.api.blockstate_access.IBedPartBlock;
+import cn.solarmoon.solarmoon_core.api.matcher.ItemMatcher;
 import com.mojang.datafixers.util.Either;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffectInstance;

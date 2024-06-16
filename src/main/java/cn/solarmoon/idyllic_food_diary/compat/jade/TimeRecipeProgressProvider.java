@@ -1,9 +1,9 @@
 package cn.solarmoon.idyllic_food_diary.compat.jade;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
-import cn.solarmoon.idyllic_food_diary.feature.logic.tea_brewing.IBrewingRecipe;
-import cn.solarmoon.idyllic_food_diary.feature.logic.generic_recipe.water_boiling.IWaterBoilingRecipe;
-import cn.solarmoon.solarmoon_core.api.common.block_entity.iutor.ITimeRecipeBlockEntity;
+import cn.solarmoon.idyllic_food_diary.feature.tea_brewing.IBrewingRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.water_boiling.IWaterBoilingRecipe;
+import cn.solarmoon.solarmoon_core.api.blockentity_util.ITimeRecipeBE;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -29,7 +29,7 @@ public class TimeRecipeProgressProvider implements IBlockComponentProvider, ISer
 
     @Override
     public void appendTooltip(ITooltip iTooltip, BlockAccessor blockAccessor, IPluginConfig iPluginConfig) {
-        if (blockAccessor.getBlockEntity() instanceof ITimeRecipeBlockEntity<?> t) {
+        if (blockAccessor.getBlockEntity() instanceof ITimeRecipeBE<?> t) {
             addByTime(t.getTime(), t.getRecipeTime(), iTooltip);
         }
         if (blockAccessor.getBlockEntity() instanceof IWaterBoilingRecipe k) {

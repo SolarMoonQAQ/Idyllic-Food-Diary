@@ -1,7 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.service_plate;
 
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
-import cn.solarmoon.solarmoon_core.api.common.block_entity.BaseContainerBlockEntity;
+import cn.solarmoon.solarmoon_core.api.blockentity_base.BaseContainerBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;

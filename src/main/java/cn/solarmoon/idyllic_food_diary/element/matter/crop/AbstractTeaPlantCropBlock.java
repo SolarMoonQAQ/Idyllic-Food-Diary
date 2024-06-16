@@ -1,8 +1,8 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.crop;
 
 import cn.solarmoon.idyllic_food_diary.registry.common.IMEffects;
-import cn.solarmoon.solarmoon_core.api.common.block.IHorizontalFacingBlock;
-import cn.solarmoon.solarmoon_core.api.common.block.crop.BaseBushCropBlock;
+import cn.solarmoon.solarmoon_core.api.block_base.BaseBushCropBlock;
+import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;

@@ -2,7 +2,7 @@ package cn.solarmoon.idyllic_food_diary.registry.common;
 
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
-import cn.solarmoon.solarmoon_core.api.common.registry.SoundEntry;
+import cn.solarmoon.solarmoon_core.api.entry.common.SoundEntry;
 
 public class IMSounds {
     public static void register() {}

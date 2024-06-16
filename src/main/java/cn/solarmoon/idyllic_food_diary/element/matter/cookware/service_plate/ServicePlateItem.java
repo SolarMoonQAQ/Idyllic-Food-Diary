@@ -1,9 +1,9 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.service_plate;
 
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlocks;
-import cn.solarmoon.solarmoon_core.api.client.renderer.Item.BaseItemRenderer;
-import cn.solarmoon.solarmoon_core.api.client.renderer.Item.IItemRendererProvider;
-import cn.solarmoon.solarmoon_core.api.common.item.IContainerItem;
+import cn.solarmoon.solarmoon_core.api.item_util.IContainerItem;
+import cn.solarmoon.solarmoon_core.api.renderer.BaseItemRenderer;
+import cn.solarmoon.solarmoon_core.api.renderer.IItemRendererProvider;
 import net.minecraft.world.item.BlockItem;
 
 import java.util.function.Supplier;

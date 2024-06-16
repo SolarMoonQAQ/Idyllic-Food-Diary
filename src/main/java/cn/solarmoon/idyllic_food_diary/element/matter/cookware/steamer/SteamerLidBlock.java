@@ -1,6 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer;
 
-import cn.solarmoon.solarmoon_core.api.common.block.BaseWaterBlock;
+import cn.solarmoon.solarmoon_core.api.block_base.BaseWaterBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;

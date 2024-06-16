@@ -1,12 +1,12 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.grill;
 
-import cn.solarmoon.idyllic_food_diary.feature.logic.basic_feature.ISimpleFuelBlockEntity;
+import cn.solarmoon.idyllic_food_diary.feature.basic_feature.ISimpleFuelBlockEntity;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMPacks;
-import cn.solarmoon.idyllic_food_diary.util.namespace.NETList;
-import cn.solarmoon.solarmoon_core.api.common.block_entity.IContainerBlockEntity;
-import cn.solarmoon.solarmoon_core.api.common.block_entity.iutor.IIndividualTimeRecipeBlockEntity;
-import cn.solarmoon.solarmoon_core.api.util.namespace.SolarNBTList;
+import cn.solarmoon.idyllic_food_diary.network.NETList;
+import cn.solarmoon.solarmoon_core.api.blockentity_util.IContainerBE;
+import cn.solarmoon.solarmoon_core.api.blockentity_util.IIndividualTimeRecipeBE;
+import cn.solarmoon.solarmoon_core.api.util.ContainerUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tags.ItemTags;
@@ -25,8 +25,8 @@ import java.util.Optional;
 /**
  * 拥有七个槽位，前六个限量1，可放任意物品，最后一个只能存入煤炭类物品，限量64
  */
-public class GrillBlockEntity extends BlockEntity implements IContainerBlockEntity,
-        IIndividualTimeRecipeBlockEntity<CampfireCookingRecipe>, ISimpleFuelBlockEntity {
+public class GrillBlockEntity extends BlockEntity implements IContainerBE,
+        IIndividualTimeRecipeBE<CampfireCookingRecipe>, ISimpleFuelBlockEntity {
 
     private int[] times;
     private int[] recipeTimes;
@@ -119,7 +119,7 @@ public class GrillBlockEntity extends BlockEntity implements IContainerBlockEnti
                     inv.setStackInSlot(i, out);
                     //这里设置slot必须在服务端侧同步（不知道为什么）
                     CompoundTag nbt = new CompoundTag();
-                    nbt.put(SolarNBTList.INVENTORY, inv.serializeNBT());
+                    nbt.put(ContainerUtil.INVENTORY, inv.serializeNBT());
                     if (level.isClientSide) IMPacks.SERVER_PACK.getSender().pos(pos).tag(nbt).send(NETList.SYNC_SLOT_SET);
                     getTimes()[i] = 0;
                     setChanged();

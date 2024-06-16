@@ -27,15 +27,6 @@ public class IMFluidTags extends FluidTagsProvider {
     }
 
     protected void registerModTags() {
-        //热水
-        tag(HOT_FLUID).add(
-                IMFluids.HOT_WATER.getStill(),
-                IMFluids.HOT_WATER.getFlowing(),
-                IMFluids.HOT_MILK.getStill(),
-                IMFluids.HOT_MILK.getFlowing(),
-                Fluids.LAVA.getFlowing(),
-                Fluids.LAVA.getSource()
-        ).replace(false);
         //温水
         tag(WARM_FLUID).add(
                 IMFluids.BLACK_TEA.getStill(),
@@ -49,16 +40,9 @@ public class IMFluidTags extends FluidTagsProvider {
                 IMFluids.MUSHROOM_STEW_FLUID.getStill(),
                 IMFluids.MUSHROOM_STEW_FLUID.getFlowing()
         )
-                .addTag(HOT_FLUID)
                 .replace(false);
-        //原版水
-        tag(FluidTags.WATER).add(
-                IMFluids.HOT_WATER.getStill(),
-                IMFluids.HOT_WATER.getFlowing()
-        ).replace(false);
     }
 
-    public static final TagKey<Fluid> HOT_FLUID = fluidTag("hot_fluid");
     public static final TagKey<Fluid> WARM_FLUID = fluidTag("warm_fluid");
 
     private static TagKey<Fluid> fluidTag(String path) {

@@ -1,16 +1,16 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.cooking_pot;
 
-import cn.solarmoon.idyllic_food_diary.feature.logic.generic_recipe.evaporation.IEvaporationRecipe;
-import cn.solarmoon.idyllic_food_diary.feature.logic.generic_recipe.food_boiling.IFoodBoilingRecipe;
-import cn.solarmoon.idyllic_food_diary.feature.logic.generic_recipe.soup.ISoupRecipe;
-import cn.solarmoon.idyllic_food_diary.feature.logic.spice.Spice;
-import cn.solarmoon.idyllic_food_diary.feature.logic.spice.SpiceList;
-import cn.solarmoon.idyllic_food_diary.feature.logic.generic_recipe.stew.IStewRecipe;
-import cn.solarmoon.idyllic_food_diary.feature.logic.generic_recipe.stir_fry.IStirFryRecipe;
-import cn.solarmoon.idyllic_food_diary.feature.logic.generic_recipe.stir_fry.StirFryRecipe;
-import cn.solarmoon.idyllic_food_diary.feature.logic.generic_recipe.water_boiling.IWaterBoilingRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.evaporation.IEvaporationRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.food_boiling.IFoodBoilingRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.soup.ISoupRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.stew.IStewRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.stir_fry.IStirFryRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.stir_fry.StirFryRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.spice.Spice;
+import cn.solarmoon.idyllic_food_diary.feature.spice.SpiceList;
+import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.water_boiling.IWaterBoilingRecipe;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
-import cn.solarmoon.solarmoon_core.api.common.block_entity.BaseTCBlockEntity;
+import cn.solarmoon.solarmoon_core.api.blockentity_base.BaseTCBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -56,7 +56,7 @@ public class CookingPotBlockEntity extends BaseTCBlockEntity implements IStewRec
      * @return 液体是否正被加热（是否有液体且下方是否为热源）,这个和配方无关
      */
     public boolean isHeatingFluid() {
-        return isHeatingConsiderStove() && !getTank().isEmpty();
+        return isOnHeatSource() && !getTank().isEmpty();
     }
 
     @Override

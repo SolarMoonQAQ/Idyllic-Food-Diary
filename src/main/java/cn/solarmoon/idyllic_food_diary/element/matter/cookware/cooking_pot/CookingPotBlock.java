@@ -1,7 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.cooking_pot;
 
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.BaseCookwareBlock;
-import cn.solarmoon.idyllic_food_diary.feature.logic.basic_feature.IInlineBlockMethodCall;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -23,11 +22,12 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.common.property.Properties;
 
 /**
  * 汤锅
  */
-public class CookingPotBlock extends BaseCookwareBlock implements IInlineBlockMethodCall {
+public class CookingPotBlock extends BaseCookwareBlock {
 
     public CookingPotBlock() {
         super(Block.Properties.of()
@@ -44,40 +44,33 @@ public class CookingPotBlock extends BaseCookwareBlock implements IInlineBlockMe
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         CookingPotBlockEntity cookingPot = (CookingPotBlockEntity) level.getBlockEntity(pos);
         if (cookingPot == null) return InteractionResult.PASS;
-        return doUse(level, pos, player, hand, cookingPot);
-    }
+        if (cookingPot.tryGiveResult(player, hand)) {
+            return InteractionResult.SUCCESS;
+        }
 
-    @Override
-    public InteractionResult doUse(Level level, BlockPos pos, Player player, InteractionHand hand, BlockEntity blockEntity) {
-        if (blockEntity instanceof CookingPotBlockEntity cookingPot) {
-            if (cookingPot.tryGiveResult(player, hand)) {
+        if (!level.isClientSide && cookingPot.doStirFry()) {
+            return InteractionResult.SUCCESS;
+        }
+
+        // 没有预输入结果时才能进行物品流体的交互
+        if (!cookingPot.hasResult() && !cookingPot.canStirFry()) {
+            //能够存取液体
+            if (cookingPot.putFluid(player, hand, false)) {
+                level.playSound(null, pos, SoundEvents.BUCKET_FILL, SoundSource.PLAYERS);
+                cookingPot.setChanged();
+                return InteractionResult.SUCCESS;
+            }
+            if (cookingPot.takeFluid(player, hand, false)) {
+                level.playSound(null, pos, SoundEvents.BUCKET_EMPTY, SoundSource.PLAYERS);
+                cookingPot.setChanged();
                 return InteractionResult.SUCCESS;
             }
 
-            if (!level.isClientSide && cookingPot.doStirFry()) {
+            //存取任意单个物品
+            if (hand.equals(InteractionHand.MAIN_HAND) && cookingPot.storage(player, hand, 1, 1)) {
+                level.playSound(null, pos, SoundEvents.LANTERN_STEP, SoundSource.BLOCKS);
+                cookingPot.setChanged();
                 return InteractionResult.SUCCESS;
-            }
-
-            // 没有预输入结果时才能进行物品流体的交互
-            if (!cookingPot.hasResult() && !cookingPot.canStirFry()) {
-                //能够存取液体
-                if (cookingPot.putFluid(player, hand, false)) {
-                    level.playSound(null, pos, SoundEvents.BUCKET_FILL, SoundSource.PLAYERS);
-                    cookingPot.setChanged();
-                    return InteractionResult.SUCCESS;
-                }
-                if (cookingPot.takeFluid(player, hand, false)) {
-                    level.playSound(null, pos, SoundEvents.BUCKET_EMPTY, SoundSource.PLAYERS);
-                    cookingPot.setChanged();
-                    return InteractionResult.SUCCESS;
-                }
-
-                //存取任意单个物品
-                if (hand.equals(InteractionHand.MAIN_HAND) && cookingPot.storage(player, hand, 1, 1)) {
-                    level.playSound(null, pos, SoundEvents.LANTERN_STEP, SoundSource.BLOCKS);
-                    cookingPot.setChanged();
-                    return InteractionResult.SUCCESS;
-                }
             }
         }
         return InteractionResult.PASS;

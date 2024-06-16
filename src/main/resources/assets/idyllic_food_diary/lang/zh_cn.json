@@ -1,19 +1,18 @@
 {
   "creative_mode_tab.idyllic_food_diary.main": "田园食记",
 
+  "fluid.idyllic_food_diary.temp.hot": "热",
+  "fluid.idyllic_food_diary.temp.cold": "冷",
+
   "block.idyllic_food_diary.spice_jar": "调料罐",
   "block.idyllic_food_diary.celadon_cup": "青瓷杯",
-  "block.idyllic_food_diary.celadon_cup_with_fluid": "装有%s的青瓷杯",
   "block.idyllic_food_diary.jade_china_cup": "玉瓷杯",
-  "block.idyllic_food_diary.jade_china_cup_with_fluid": "装有%s的玉瓷杯",
   "block.idyllic_food_diary.kettle": "水壶",
-  "block.idyllic_food_diary.kettle_with_fluid": "装有%s的水壶",
 
   "item.idyllic_food_diary.salt": "盐",
   "item.idyllic_food_diary.rolling_pin": "擀面杖",
   "item.idyllic_food_diary.chinese_cleaver": "中式菜刀",
   "block.idyllic_food_diary.cooking_pot": "煮锅",
-  "block.idyllic_food_diary.cooking_pot_with_fluid": "装有%s的煮锅",
   "block.idyllic_food_diary.cutting_board": "砧板",
   "block.idyllic_food_diary.grill": "烧烤架",
   "block.idyllic_food_diary.service_plate": "餐盘",

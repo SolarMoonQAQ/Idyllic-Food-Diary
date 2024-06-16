@@ -2,9 +2,12 @@ package cn.solarmoon.idyllic_food_diary.registry.common;
 
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
-import cn.solarmoon.idyllic_food_diary.element.matter.fluid.*;
+import cn.solarmoon.idyllic_food_diary.element.matter.fluid.BlackTeaFluid;
+import cn.solarmoon.idyllic_food_diary.element.matter.fluid.GreenTeaFluid;
+import cn.solarmoon.idyllic_food_diary.element.matter.fluid.MilkTeaFluid;
+import cn.solarmoon.idyllic_food_diary.element.matter.fluid.SoybeanOilFluid;
 import cn.solarmoon.idyllic_food_diary.element.matter.fluid.no_bucket.*;
-import cn.solarmoon.solarmoon_core.api.common.registry.FluidEntry;
+import cn.solarmoon.solarmoon_core.api.entry.common.FluidEntry;
 
 
 public class IMFluids {
@@ -18,26 +21,6 @@ public class IMFluids {
             .bucket(() -> new SoybeanOilFluid().new Bucket())
             .waterLike()
             .color(0xFFEC8B)
-            .build();
-
-    //热水
-    public static final FluidEntry HOT_WATER = IdyllicFoodDiary.REGISTRY.fluid()
-            .id("hot_water")
-            .bound(() -> new HotWaterFluid().new FluidBlock())
-            .still(() -> new HotWaterFluid().new Source())
-            .flowing(() -> new HotWaterFluid().new Flowing())
-            .bucket(() -> new HotWaterFluid().new Bucket())
-            .waterLike()
-            .color(0xFF1874CD)
-            .build();
-
-    //热牛奶
-    public static final FluidEntry HOT_MILK = IdyllicFoodDiary.REGISTRY.fluid()
-            .id("hot_milk")
-            .bound(() -> new HotMilkFluid().new FluidBlock())
-            .still(() -> new HotMilkFluid().new Source())
-            .flowing(() -> new HotMilkFluid().new Flowing())
-            .bucket(() -> new HotMilkFluid().new Bucket())
             .build();
 
     //红茶

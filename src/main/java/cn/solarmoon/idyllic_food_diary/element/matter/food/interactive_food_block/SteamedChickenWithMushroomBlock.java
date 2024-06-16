@@ -5,7 +5,7 @@ import cn.solarmoon.idyllic_food_diary.element.matter.food.interactive_food_bloc
 import cn.solarmoon.idyllic_food_diary.element.matter.food.interactive_food_block.food_interaction.ObtainInteraction;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMItems;
 import cn.solarmoon.idyllic_food_diary.util.useful_data.BlockProperty;
-import cn.solarmoon.solarmoon_core.api.util.device.ItemMatcher;
+import cn.solarmoon.solarmoon_core.api.matcher.ItemMatcher;
 import com.mojang.datafixers.util.Either;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;

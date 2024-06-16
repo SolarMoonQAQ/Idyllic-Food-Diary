@@ -1,8 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer;
 
-import cn.solarmoon.idyllic_food_diary.util.namespace.NBTList;
-import cn.solarmoon.solarmoon_core.api.client.renderer.Item.BaseItemRenderer;
-import cn.solarmoon.solarmoon_core.api.common.block.IBedPartBlock;
+import cn.solarmoon.solarmoon_core.api.blockstate_access.IBedPartBlock;
+import cn.solarmoon.solarmoon_core.api.renderer.BaseItemRenderer;
 import cn.solarmoon.solarmoon_core.api.util.ContainerUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
@@ -18,7 +17,7 @@ import net.minecraft.world.level.block.state.properties.BedPart;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.items.ItemStackHandler;
 
-import static cn.solarmoon.solarmoon_core.api.common.block.IStackBlock.STACK;
+import static cn.solarmoon.solarmoon_core.api.blockstate_access.IStackBlock.STACK;
 
 public class SteamerItemRenderer extends BaseItemRenderer {
 
@@ -26,8 +25,8 @@ public class SteamerItemRenderer extends BaseItemRenderer {
     public void renderByItem(ItemStack stack, ItemDisplayContext context, PoseStack poseStack, MultiBufferSource buffer, int light, int overlay) {
         BlockItem item = ((BlockItem) stack.getItem());
         BlockState state = item.getBlock().defaultBlockState();
-        boolean hasLid = stack.getOrCreateTag().getBoolean(NBTList.HAS_LID);
-        int stackValue = Math.max(stack.getOrCreateTag().getInt(NBTList.STACK), 1);
+        boolean hasLid = stack.getOrCreateTag().getBoolean(SteamerBlock.HAS_LID$);
+        int stackValue = Math.max(stack.getOrCreateTag().getInt(SteamerBlock.STACK$), 1);
         state = state.setValue(SteamerBlock.HAS_LID, hasLid).setValue(STACK, stackValue);
         blockRenderer.renderSingleBlock(state, poseStack, buffer, light, overlay);
         if (!hasLid) {

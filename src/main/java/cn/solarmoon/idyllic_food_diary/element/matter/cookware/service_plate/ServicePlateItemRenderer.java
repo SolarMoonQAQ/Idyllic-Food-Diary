@@ -1,6 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.service_plate;
 
-import cn.solarmoon.solarmoon_core.api.client.renderer.Item.BaseItemRenderer;
+import cn.solarmoon.solarmoon_core.api.renderer.BaseItemRenderer;
 import cn.solarmoon.solarmoon_core.api.util.ContainerUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;

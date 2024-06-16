@@ -1,7 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer;
 
-import cn.solarmoon.idyllic_food_diary.util.namespace.NBTList;
-import cn.solarmoon.solarmoon_core.api.common.block.IBedPartBlock;
+import cn.solarmoon.solarmoon_core.api.blockstate_access.IBedPartBlock;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
@@ -9,6 +8,7 @@ import net.minecraftforge.items.ItemStackHandler;
 
 public class SteamerInventory extends ItemStackHandler {
 
+    public static final String SECOND_INV = "SecondInventory";
     public boolean secondInv;
 
     public SteamerInventory() {
@@ -100,14 +100,14 @@ public class SteamerInventory extends ItemStackHandler {
     @Override
     public CompoundTag serializeNBT() {
         CompoundTag nbt = super.serializeNBT();
-        nbt.putBoolean(NBTList.SECOND_INV, secondInv);
+        nbt.putBoolean(SECOND_INV, secondInv);
         return nbt;
     }
 
     @Override
     public void deserializeNBT(CompoundTag nbt) {
         super.deserializeNBT(nbt);
-        secondInv = nbt.getBoolean(NBTList.SECOND_INV);
+        secondInv = nbt.getBoolean(SECOND_INV);
     }
 
 }

@@ -1,19 +1,20 @@
 package cn.solarmoon.idyllic_food_diary.util;
 
 import cn.solarmoon.idyllic_food_diary.data.IMItemTags;
-import cn.solarmoon.idyllic_food_diary.util.namespace.NBTList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 
 public class ContainerHelper {
+
+    public static final String FOOD_CONTAINER = "FoodContainer";
 
     /**
      * @return 获取该物品身上的食物容器信息
      */
     public static ItemStack getContainer(ItemStack origin) {
         CompoundTag tag = origin.getTag();
-        if (tag != null && tag.contains(NBTList.FOOD_CONTAINER)) {
-            return ItemStack.of(tag.getCompound(NBTList.FOOD_CONTAINER));
+        if (tag != null && tag.contains(FOOD_CONTAINER)) {
+            return ItemStack.of(tag.getCompound(FOOD_CONTAINER));
         }
         return ItemStack.EMPTY;
     }
@@ -25,7 +26,7 @@ public class ContainerHelper {
         if (isFoodContainer(containerSet)) {
             if (!containerSet.isEmpty()) {
                 CompoundTag tag = origin.getOrCreateTag();
-                tag.put(NBTList.FOOD_CONTAINER, containerSet.serializeNBT()); // 此处把容器信息存入了物品
+                tag.put(FOOD_CONTAINER, containerSet.serializeNBT()); // 此处把容器信息存入了物品
             }
         }
     }

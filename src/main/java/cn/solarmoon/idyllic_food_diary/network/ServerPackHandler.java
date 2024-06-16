@@ -2,13 +2,11 @@ package cn.solarmoon.idyllic_food_diary.network;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.grill.GrillBlockEntity;
-import cn.solarmoon.idyllic_food_diary.feature.logic.water_pouring.WaterPouringUtil;
-import cn.solarmoon.idyllic_food_diary.util.namespace.NETList;
-import cn.solarmoon.solarmoon_core.api.common.capability.serializable.itemstack.RecipeSelectorData;
+import cn.solarmoon.idyllic_food_diary.feature.water_pouring.WaterPouringUtil;
+import cn.solarmoon.solarmoon_core.api.item_util.ItemStackUtil;
 import cn.solarmoon.solarmoon_core.api.network.IServerPackHandler;
-import cn.solarmoon.solarmoon_core.api.util.CapabilityUtil;
-import cn.solarmoon.solarmoon_core.api.util.ItemStackUtil;
-import cn.solarmoon.solarmoon_core.core.common.registry.SolarCapabilities;
+import cn.solarmoon.solarmoon_core.api.optional_recipe_item.RecipeSelectorData;
+import cn.solarmoon.solarmoon_core.registry.common.SolarCapabilities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -32,7 +30,7 @@ public class ServerPackHandler implements IServerPackHandler {
             case NETList.SYNC_RECIPE_INDEX -> {
                 ItemStack held = ItemStackUtil.getItemInHand(player, stack.getItem());
                 if (held != null) {
-                    RecipeSelectorData selector = CapabilityUtil.getData(held, SolarCapabilities.ITEMSTACK_DATA).getRecipeSelectorData();
+                    RecipeSelectorData selector = held.getCapability(SolarCapabilities.ITEMSTACK_DATA).orElse(null).getRecipeSelectorData();
                     selector.deserializeNBT(nbt);
                     IdyllicFoodDiary.DEBUG.send(selector.serializeNBT().toString());
                 }

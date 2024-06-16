@@ -2,8 +2,8 @@ package cn.solarmoon.idyllic_food_diary.registry.common;
 
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
-import cn.solarmoon.idyllic_food_diary.element.level.feature.AppleTreeFeature;
-import cn.solarmoon.idyllic_food_diary.element.level.feature.DurianTreeFeature;
+import cn.solarmoon.idyllic_food_diary.element.level.AppleTreeFeature;
+import cn.solarmoon.idyllic_food_diary.element.level.DurianTreeFeature;
 import cn.solarmoon.idyllic_food_diary.element.matter.container.*;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cooking_pot.CookingPotBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup.CupBlock;
@@ -15,13 +15,12 @@ import cn.solarmoon.idyllic_food_diary.element.matter.cookware.service_plate.Ser
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.spice_jar.SpiceJarBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer.SteamerBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer.SteamerLidBlock;
-import cn.solarmoon.idyllic_food_diary.element.matter.cookware.stove.StoveBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.crop.*;
 import cn.solarmoon.idyllic_food_diary.element.matter.durian.DurianBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.food.interactive_food_block.*;
 import cn.solarmoon.idyllic_food_diary.element.matter.food.long_press_eat_block.*;
 import cn.solarmoon.idyllic_food_diary.util.useful_data.BlockProperty;
-import cn.solarmoon.solarmoon_core.api.common.registry.BlockEntry;
+import cn.solarmoon.solarmoon_core.api.entry.common.BlockEntry;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -31,12 +30,6 @@ import net.minecraft.world.level.block.SaplingBlock;
 
 public class IMBlocks {
     public static void register() {}
-
-    //灶台
-    public static final BlockEntry<StoveBlock> STOVE = IdyllicFoodDiary.REGISTRY.block()
-            .id("stove")
-            .bound(StoveBlock::new)
-            .build();
 
     //炒锅
     public static final BlockEntry<FryingPanBlock> FRYING_PAN = IdyllicFoodDiary.REGISTRY.block()

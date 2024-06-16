@@ -1,8 +1,8 @@
 package cn.solarmoon.idyllic_food_diary.registry.common;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
-import cn.solarmoon.idyllic_food_diary.feature.logic.capability.FoodItemData;
-import cn.solarmoon.idyllic_food_diary.feature.logic.capability.IFoodItemData;
+import cn.solarmoon.idyllic_food_diary.feature.capability.FoodItemData;
+import cn.solarmoon.idyllic_food_diary.feature.capability.IFoodItemData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;

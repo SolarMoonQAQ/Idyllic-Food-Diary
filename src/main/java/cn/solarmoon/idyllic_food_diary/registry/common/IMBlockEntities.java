@@ -10,22 +10,14 @@ import cn.solarmoon.idyllic_food_diary.element.matter.cookware.kettle.KettleBloc
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.service_plate.ServicePlateBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.spice_jar.SpiceJarBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer.SteamerBlockEntity;
-import cn.solarmoon.idyllic_food_diary.element.matter.cookware.stove.StoveBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.food.FoodBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.food.FoodEntityBlock;
-import cn.solarmoon.solarmoon_core.api.common.registry.BlockEntityEntry;
+import cn.solarmoon.solarmoon_core.api.entry.common.BlockEntityEntry;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.RegistryObject;
 
 public class IMBlockEntities {
     public static void register() {}
-
-    // 灶台
-    public static final BlockEntityEntry<StoveBlockEntity> STOVE = IdyllicFoodDiary.REGISTRY.blockEntity()
-            .id("stove")
-            .bound(StoveBlockEntity::new)
-            .validBlock(IMBlocks.STOVE::get)
-            .build();
 
     // 炒锅
     public static final BlockEntityEntry<FryingPanBlockEntity> FRYING_PAN = IdyllicFoodDiary.REGISTRY.blockEntity()

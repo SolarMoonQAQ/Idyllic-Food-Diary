@@ -2,7 +2,7 @@ package cn.solarmoon.idyllic_food_diary.element.matter.cookware.cutting_board;
 
 import cn.solarmoon.idyllic_food_diary.data.IMItemTags;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMItems;
-import cn.solarmoon.solarmoon_core.api.client.renderer.Item.BaseItemRenderer;
+import cn.solarmoon.solarmoon_core.api.renderer.BaseItemRenderer;
 import cn.solarmoon.solarmoon_core.api.util.ContainerUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;

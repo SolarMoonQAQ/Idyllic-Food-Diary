@@ -1,7 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.frying_pan;
 
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.BaseCookwareBlock;
-import cn.solarmoon.idyllic_food_diary.feature.logic.basic_feature.IInlineBlockMethodCall;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
@@ -21,7 +20,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class FryingPanBlock extends BaseCookwareBlock implements IInlineBlockMethodCall {
+public class FryingPanBlock extends BaseCookwareBlock {
 
     public FryingPanBlock() {
         super(Block.Properties.of()
@@ -37,13 +36,7 @@ public class FryingPanBlock extends BaseCookwareBlock implements IInlineBlockMet
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         FryingPanBlockEntity pan = (FryingPanBlockEntity) level.getBlockEntity(pos);
-        if (pan != null) return doUse(level, pos, player, hand, pan);
-        return super.use(state, level, pos, player, hand, hitResult);
-    }
-
-    @Override
-    public InteractionResult doUse(Level level, BlockPos pos, Player player, InteractionHand hand, BlockEntity blockEntity) {
-        FryingPanBlockEntity pan = (FryingPanBlockEntity) blockEntity;
+        if (pan != null) return super.use(state, level, pos, player, hand, hitResult);
 
         if (pan.tryGiveResult(player, hand)) {
             return InteractionResult.SUCCESS;
@@ -75,7 +68,7 @@ public class FryingPanBlock extends BaseCookwareBlock implements IInlineBlockMet
             }
         }
 
-        return InteractionResult.PASS;
+        return super.use(state, level, pos, player, hand, hitResult);
     }
 
     @Override

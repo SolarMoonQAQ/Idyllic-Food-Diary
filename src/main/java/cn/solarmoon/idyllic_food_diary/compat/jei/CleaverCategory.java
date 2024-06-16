@@ -1,10 +1,10 @@
 package cn.solarmoon.idyllic_food_diary.compat.jei;
 
-import cn.solarmoon.idyllic_food_diary.feature.logic.generic_recipe.chopping.ChoppingRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.chopping.ChoppingRecipe;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMItems;
 import cn.solarmoon.solarmoon_core.SolarMoonCore;
-import cn.solarmoon.solarmoon_core.api.common.recipe.serializable.ChanceResult;
-import cn.solarmoon.solarmoon_core.api.compat.jei.category.BaseJEICategory;
+import cn.solarmoon.solarmoon_core.api.compat.jei.BaseJEICategory;
+import cn.solarmoon.solarmoon_core.api.recipe.ChanceResult;
 import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;

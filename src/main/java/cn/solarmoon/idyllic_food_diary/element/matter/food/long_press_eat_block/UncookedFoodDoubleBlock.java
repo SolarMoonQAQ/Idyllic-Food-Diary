@@ -1,6 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.food.long_press_eat_block;
 
-import cn.solarmoon.solarmoon_core.api.common.block.IBedPartBlock;
+import cn.solarmoon.solarmoon_core.api.blockstate_access.IBedPartBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.data.models.blockstates.PropertyDispatch;
 import net.minecraft.world.level.BlockGetter;

@@ -1,9 +1,10 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.grill;
 
-import cn.solarmoon.solarmoon_core.api.client.renderer.blockEntity.BaseBlockEntityRenderer;
-import cn.solarmoon.solarmoon_core.api.common.block.ILitBlock;
+import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
+import cn.solarmoon.solarmoon_core.api.blockstate_access.ILitBlock;
+import cn.solarmoon.solarmoon_core.api.phys.VecUtil;
+import cn.solarmoon.solarmoon_core.api.renderer.BaseBlockEntityRenderer;
 import cn.solarmoon.solarmoon_core.api.util.PoseStackUtil;
-import cn.solarmoon.solarmoon_core.api.util.VecUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.renderer.LevelRenderer;
@@ -19,8 +20,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.items.ItemStackHandler;
 
-import static cn.solarmoon.solarmoon_core.api.common.block.IHorizontalFacingBlock.FACING;
-
 public class GrillBlockRenderer<E extends GrillBlockEntity> extends BaseBlockEntityRenderer<E> {
 
     public GrillBlockRenderer(BlockEntityRendererProvider.Context context) {
@@ -35,7 +34,7 @@ public class GrillBlockRenderer<E extends GrillBlockEntity> extends BaseBlockEnt
     }
 
     private void renderFood(E grill, PoseStack poseStack, MultiBufferSource buffer, int light, int overlay) {
-        Direction direction = grill.getBlockState().getValue(FACING).getOpposite();
+        Direction direction = grill.getBlockState().getValue(IHorizontalFacingBlock.FACING).getOpposite();
         ItemStackHandler inventory = grill.getInventory();
         Level level = grill.getLevel();
         int posLong = (int) grill.getBlockPos().asLong();
@@ -70,7 +69,7 @@ public class GrillBlockRenderer<E extends GrillBlockEntity> extends BaseBlockEnt
     }
 
     private void renderCoal(E grill, PoseStack poseStack, MultiBufferSource buffer, int overlay) {
-        Direction direction = grill.getBlockState().getValue(FACING).getOpposite();
+        Direction direction = grill.getBlockState().getValue(IHorizontalFacingBlock.FACING).getOpposite();
         ItemStackHandler inventory = grill.getInventory();
         int posLong = (int) grill.getBlockPos().asLong();
         ItemStack coal = inventory.getStackInSlot(6);

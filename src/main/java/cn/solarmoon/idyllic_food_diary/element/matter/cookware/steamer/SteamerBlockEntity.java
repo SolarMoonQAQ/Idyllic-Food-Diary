@@ -1,15 +1,13 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer;
 
-import cn.solarmoon.idyllic_food_diary.element.matter.cookware.stove.StoveBlockEntity;
-import cn.solarmoon.idyllic_food_diary.feature.logic.generic_recipe.evaporation.IEvaporationRecipe;
-import cn.solarmoon.idyllic_food_diary.feature.logic.generic_recipe.steaming.SteamingRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.evaporation.IEvaporationRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.steaming.SteamingRecipe;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMItems;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMRecipes;
-import cn.solarmoon.idyllic_food_diary.util.namespace.NBTList;
-import cn.solarmoon.solarmoon_core.api.common.block.IStackBlock;
-import cn.solarmoon.solarmoon_core.api.common.block_entity.BaseContainerBlockEntity;
-import cn.solarmoon.solarmoon_core.api.common.block_entity.iutor.IIndividualTimeRecipeBlockEntity;
+import cn.solarmoon.solarmoon_core.api.blockentity_base.BaseContainerBlockEntity;
+import cn.solarmoon.solarmoon_core.api.blockentity_util.IIndividualTimeRecipeBE;
+import cn.solarmoon.solarmoon_core.api.blockstate_access.IStackBlock;
 import cn.solarmoon.solarmoon_core.api.util.ContainerUtil;
 import cn.solarmoon.solarmoon_core.api.util.LevelSummonUtil;
 import net.minecraft.core.BlockPos;
@@ -23,9 +21,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 
-import static cn.solarmoon.solarmoon_core.api.common.block.IStackBlock.STACK;
-
-public class SteamerBlockEntity extends BaseContainerBlockEntity implements IIndividualTimeRecipeBlockEntity<SteamingRecipe> {
+public class SteamerBlockEntity extends BaseContainerBlockEntity implements IIndividualTimeRecipeBE<SteamingRecipe> {
 
     private final ItemStackHandler inventory;
     private int[] times;
@@ -72,11 +68,6 @@ public class SteamerBlockEntity extends BaseContainerBlockEntity implements IInd
         BlockEntity blockEntity = getLevel().getBlockEntity(getConnectedBelowPos());
         if (blockEntity instanceof IEvaporationRecipe base && base.isDirectEnabled()) {
             return base;
-        }
-        if (blockEntity instanceof StoveBlockEntity stove) {
-            if (stove.getPot() != null && stove.getPot() instanceof IEvaporationRecipe e) {
-                return e;
-            }
         }
         return null;
     }
@@ -159,13 +150,13 @@ public class SteamerBlockEntity extends BaseContainerBlockEntity implements IInd
             SteamerInventory inv1 = getInv(1);
             ItemStack drop1 = new ItemStack(getBlockState().getBlock());
             ContainerUtil.setInventory(drop1, inv1);
-            drop1.getOrCreateTag().putBoolean(NBTList.HAS_LID, getBlockState().getValue(SteamerBlock.HAS_LID));
+            drop1.getOrCreateTag().putBoolean(SteamerBlock.HAS_LID$, getBlockState().getValue(SteamerBlock.HAS_LID));
             return drop1;
         } else if (index == 2) {
             SteamerInventory inv2 = getInv(2);
             ItemStack drop2 = new ItemStack(getBlockState().getBlock());
             ContainerUtil.setInventory(drop2, inv2);
-            drop2.getOrCreateTag().putBoolean(NBTList.HAS_LID, getBlockState().getValue(SteamerBlock.HAS_LID));
+            drop2.getOrCreateTag().putBoolean(SteamerBlock.HAS_LID$, getBlockState().getValue(SteamerBlock.HAS_LID));
             return drop2;
         }
         return ItemStack.EMPTY;
@@ -205,7 +196,7 @@ public class SteamerBlockEntity extends BaseContainerBlockEntity implements IInd
     }
 
     public boolean isDouble() {
-        return getBlockState().getValue(STACK) == 2;
+        return getBlockState().getValue(IStackBlock.STACK) == 2;
     }
 
     public boolean isTop() {
@@ -284,9 +275,9 @@ public class SteamerBlockEntity extends BaseContainerBlockEntity implements IInd
      */
     public void tryOpen2ndInv() {
         BlockState state = getBlockState();
-        if (state.getValue(STACK) == 1) {
+        if (state.getValue(IStackBlock.STACK) == 1) {
             set2ndInv(false);
-        } else if (state.getValue(STACK) == 2) {
+        } else if (state.getValue(IStackBlock.STACK) == 2) {
             set2ndInv(true);
         }
     }

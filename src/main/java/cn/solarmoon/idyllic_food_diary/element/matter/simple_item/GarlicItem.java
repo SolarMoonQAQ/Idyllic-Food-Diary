@@ -1,8 +1,8 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.simple_item;
 
-import cn.solarmoon.idyllic_food_diary.feature.logic.spit_item.SpitUtil;
+import cn.solarmoon.idyllic_food_diary.feature.spit_item.SpitUtil;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMItems;
-import cn.solarmoon.solarmoon_core.api.common.item.simple.SimpleItem;
+import cn.solarmoon.solarmoon_core.api.item_base.SimpleItem;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;

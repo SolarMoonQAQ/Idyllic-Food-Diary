@@ -1,7 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.service_plate;
 
-import cn.solarmoon.solarmoon_core.api.client.renderer.blockEntity.BaseBlockEntityRenderer;
-import cn.solarmoon.solarmoon_core.api.common.block.IHorizontalFacingBlock;
+import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
+import cn.solarmoon.solarmoon_core.api.renderer.BaseBlockEntityRenderer;
 import cn.solarmoon.solarmoon_core.api.util.PoseStackUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;

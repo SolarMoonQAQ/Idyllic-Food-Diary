@@ -4,8 +4,7 @@ import cn.solarmoon.idyllic_food_diary.element.matter.cookware.BaseCookwareBlock
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMItems;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMRecipes;
-import cn.solarmoon.idyllic_food_diary.util.namespace.NBTList;
-import cn.solarmoon.solarmoon_core.api.common.block.IStackBlock;
+import cn.solarmoon.solarmoon_core.api.blockstate_access.IStackBlock;
 import cn.solarmoon.solarmoon_core.api.util.ContainerUtil;
 import cn.solarmoon.solarmoon_core.api.util.LevelSummonUtil;
 import net.minecraft.core.BlockPos;
@@ -46,6 +45,8 @@ import java.util.List;
 public class SteamerBlock extends BaseCookwareBlock implements IStackBlock {
 
     public static final BooleanProperty HAS_LID = BooleanProperty.create("covered");
+    public static final String HAS_LID$ = "HasLid";
+    public static final String STACK$ = "Stack";
 
 
     public SteamerBlock(Properties properties) {
@@ -76,7 +77,7 @@ public class SteamerBlock extends BaseCookwareBlock implements IStackBlock {
             }
             level.setBlock(pos, state
                     .setValue(STACK, stackValue + 1)
-                    .setValue(HAS_LID, heldItem.getOrCreateTag().getBoolean(NBTList.HAS_LID)),
+                    .setValue(HAS_LID, heldItem.getOrCreateTag().getBoolean(HAS_LID$)),
                     3); // 添加盖子
             ItemStackHandler invIn = ContainerUtil.getInventory(heldItem);
             steamer.set2ndInv(true);
@@ -163,8 +164,8 @@ public class SteamerBlock extends BaseCookwareBlock implements IStackBlock {
     @Override
     public ItemStack getCloneItemStack(BlockGetter level, BlockPos pos, BlockState state) {
         ItemStack stack = super.getCloneItemStack(level, pos, state);
-        stack.getOrCreateTag().putInt(NBTList.STACK, state.getValue(STACK));
-        stack.getOrCreateTag().putBoolean(NBTList.HAS_LID, state.getValue(HAS_LID));
+        stack.getOrCreateTag().putInt(STACK$, state.getValue(STACK));
+        stack.getOrCreateTag().putBoolean(HAS_LID$, state.getValue(HAS_LID));
         return stack;
     }
 
@@ -210,8 +211,8 @@ public class SteamerBlock extends BaseCookwareBlock implements IStackBlock {
         if (state != null) {
             CompoundTag tag = context.getItemInHand().getOrCreateTag();
             state = state
-                    .setValue(HAS_LID, tag.getBoolean(NBTList.HAS_LID))
-                    .setValue(STACK, Math.max(tag.getInt(NBTList.STACK), 1));
+                    .setValue(HAS_LID, tag.getBoolean(HAS_LID$))
+                    .setValue(STACK, Math.max(tag.getInt(STACK$), 1));
         }
         return state;
     }

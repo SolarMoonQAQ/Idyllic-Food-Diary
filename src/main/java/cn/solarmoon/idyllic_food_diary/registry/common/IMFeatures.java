@@ -1,12 +1,11 @@
 package cn.solarmoon.idyllic_food_diary.registry.common;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
-import cn.solarmoon.idyllic_food_diary.element.level.config.WildCropConfig;
-import cn.solarmoon.idyllic_food_diary.element.level.feature.AppleTreeFeature;
-import cn.solarmoon.idyllic_food_diary.element.level.feature.DurianTreeFeature;
-import cn.solarmoon.idyllic_food_diary.element.level.feature.WildCropFeature;
-import cn.solarmoon.solarmoon_core.api.common.level.feature.configuration.BaseTreeConfig;
-import cn.solarmoon.solarmoon_core.api.common.registry.FeatureEntry;
+import cn.solarmoon.idyllic_food_diary.element.level.AppleTreeFeature;
+import cn.solarmoon.idyllic_food_diary.element.level.DurianTreeFeature;
+import cn.solarmoon.idyllic_food_diary.element.level.WildCropFeature;
+import cn.solarmoon.solarmoon_core.api.entry.common.FeatureEntry;
+import cn.solarmoon.solarmoon_core.api.level_feature.BaseTreeFeature;
 import net.minecraft.core.BlockPos;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.tags.BlockTags;
@@ -22,10 +21,10 @@ import java.util.List;
 public class IMFeatures {
     public static void register() {}
 
-    public static final FeatureEntry<BaseTreeConfig> APPLE_TREE = IdyllicFoodDiary.REGISTRY.feature()
+    public static final FeatureEntry<BaseTreeFeature.Config> APPLE_TREE = IdyllicFoodDiary.REGISTRY.feature()
             .id("apple_tree")
             .bound(AppleTreeFeature::new)
-            .config(() -> BaseTreeConfig.createBaseTree(Blocks.OAK_LOG, Blocks.OAK_LEAVES, 5, 3))
+            .config(() -> BaseTreeFeature.Config.createBaseTree(Blocks.OAK_LOG, Blocks.OAK_LEAVES, 5, 3))
             .placement(() -> List.of(
                     PlacementUtils.countExtra(0, 0.1F, 1),
                     SurfaceWaterDepthFilter.forMaxDepth(0),
@@ -35,10 +34,10 @@ public class IMFeatures {
             ))
             .build();
 
-    public static final FeatureEntry<BaseTreeConfig> DURIAN_TREE = IdyllicFoodDiary.REGISTRY.feature()
+    public static final FeatureEntry<BaseTreeFeature.Config> DURIAN_TREE = IdyllicFoodDiary.REGISTRY.feature()
             .id("durian_tree")
             .bound(DurianTreeFeature::new)
-            .config(() -> BaseTreeConfig.createBaseTree(Blocks.JUNGLE_LOG, Blocks.JUNGLE_LEAVES, 11, 3))
+            .config(() -> BaseTreeFeature.Config.createBaseTree(Blocks.JUNGLE_LOG, Blocks.JUNGLE_LEAVES, 11, 3))
             .placement(() -> List.of(
                     PlacementUtils.countExtra(0, 0.1F, 1),
                     SurfaceWaterDepthFilter.forMaxDepth(0),
@@ -51,10 +50,10 @@ public class IMFeatures {
     public static final BlockPos BLOCK_BELOW = new BlockPos(0, -1, 0);
     public static final BlockPos BLOCK_ABOVE = new BlockPos(0, 1, 0);
 
-    public static final FeatureEntry<WildCropConfig> GREEN_TEA = IdyllicFoodDiary.REGISTRY.feature()
+    public static final FeatureEntry<WildCropFeature.Config> GREEN_TEA = IdyllicFoodDiary.REGISTRY.feature()
             .id("green_tea")
             .bound(WildCropFeature::new)
-            .config(() -> WildCropConfig.createBaseWithAge(5, IMBlocks.GREEN_TEA_PLANT.get(), Blocks.FERN, BlockPredicate.matchesTag(BLOCK_BELOW, BlockTags.DIRT)))
+            .config(() -> WildCropFeature.Config.createBaseWithAge(5, IMBlocks.GREEN_TEA_PLANT.get(), Blocks.FERN, BlockPredicate.matchesTag(BLOCK_BELOW, BlockTags.DIRT)))
             .placement(() -> List.of(
                     RarityFilter.onAverageOnceEvery(120),
                     InSquarePlacement.spread(),
@@ -63,10 +62,10 @@ public class IMFeatures {
             ))
             .build();
 
-    public static final FeatureEntry<WildCropConfig> WILD_SPRING_ONION = IdyllicFoodDiary.REGISTRY.feature()
+    public static final FeatureEntry<WildCropFeature.Config> WILD_SPRING_ONION = IdyllicFoodDiary.REGISTRY.feature()
             .id("wild_spring_onion")
             .bound(WildCropFeature::new)
-            .config(() -> WildCropConfig.createBase(IMBlocks.WILD_SPRING_ONION.get(), Blocks.ALLIUM, BlockPredicate.matchesTag(BLOCK_BELOW, BlockTags.DIRT)))
+            .config(() -> WildCropFeature.Config.createBase(IMBlocks.WILD_SPRING_ONION.get(), Blocks.ALLIUM, BlockPredicate.matchesTag(BLOCK_BELOW, BlockTags.DIRT)))
             .placement(() -> List.of(
                     RarityFilter.onAverageOnceEvery(120),
                     InSquarePlacement.spread(),
@@ -75,10 +74,10 @@ public class IMFeatures {
             ))
             .build();
 
-    public static final FeatureEntry<WildCropConfig> WILD_GINGER = IdyllicFoodDiary.REGISTRY.feature()
+    public static final FeatureEntry<WildCropFeature.Config> WILD_GINGER = IdyllicFoodDiary.REGISTRY.feature()
             .id("wild_ginger")
             .bound(WildCropFeature::new)
-            .config(() -> WildCropConfig.createBase(IMBlocks.WILD_GINGER.get(), Blocks.GRASS, BlockPredicate.matchesTag(BLOCK_BELOW, BlockTags.DIRT)))
+            .config(() -> WildCropFeature.Config.createBase(IMBlocks.WILD_GINGER.get(), Blocks.GRASS, BlockPredicate.matchesTag(BLOCK_BELOW, BlockTags.DIRT)))
             .placement(() -> List.of(
                     RarityFilter.onAverageOnceEvery(120),
                     InSquarePlacement.spread(),
@@ -87,10 +86,10 @@ public class IMFeatures {
             ))
             .build();
 
-    public static final FeatureEntry<WildCropConfig> WILD_GARLIC = IdyllicFoodDiary.REGISTRY.feature()
+    public static final FeatureEntry<WildCropFeature.Config> WILD_GARLIC = IdyllicFoodDiary.REGISTRY.feature()
             .id("wild_garlic")
             .bound(WildCropFeature::new)
-            .config(() -> WildCropConfig.createBase(IMBlocks.WILD_GARLIC.get(), Blocks.GRASS, BlockPredicate.matchesTag(BLOCK_BELOW, BlockTags.DIRT)))
+            .config(() -> WildCropFeature.Config.createBase(IMBlocks.WILD_GARLIC.get(), Blocks.GRASS, BlockPredicate.matchesTag(BLOCK_BELOW, BlockTags.DIRT)))
             .placement(() -> List.of(
                     RarityFilter.onAverageOnceEvery(120),
                     InSquarePlacement.spread(),

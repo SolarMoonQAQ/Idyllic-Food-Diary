@@ -1,7 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.registry.ability;
 
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlocks;
-import cn.solarmoon.solarmoon_core.api.common.ability.CustomPlaceableItem;
+import cn.solarmoon.solarmoon_core.api.ability.CustomPlaceableItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;

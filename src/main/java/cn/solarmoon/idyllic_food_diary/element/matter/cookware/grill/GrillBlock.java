@@ -2,10 +2,10 @@ package cn.solarmoon.idyllic_food_diary.element.matter.cookware.grill;
 
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.BaseCookwareBlock;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
-import cn.solarmoon.solarmoon_core.api.common.block.IBlockUseCaller;
-import cn.solarmoon.solarmoon_core.api.common.block.ILitBlock;
+import cn.solarmoon.solarmoon_core.api.block_use_caller.IBlockUseCaller;
+import cn.solarmoon.solarmoon_core.api.blockstate_access.ILitBlock;
+import cn.solarmoon.solarmoon_core.api.phys.VecUtil;
 import cn.solarmoon.solarmoon_core.api.util.LevelSummonUtil;
-import cn.solarmoon.solarmoon_core.api.util.VecUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;

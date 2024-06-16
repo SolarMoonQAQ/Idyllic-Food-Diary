@@ -1,4 +1,2 @@
-// 1.20.1	2024-05-17T13:45:18.4851095	Tags for minecraft:fluid mod id idyllic_food_diary
-8f29593648e9759893d7371fc317dfa9e2bdecac data/idyllic_food_diary/tags/fluids/hot_fluid.json
-c7ea852abd1eef2a07a73e30f6c25a66b93f52a4 data/idyllic_food_diary/tags/fluids/warm_fluid.json
-01bd79099834b6fdf7e181743cf919953b426dfb data/minecraft/tags/fluids/water.json
+// 1.20.1	2024-06-16T22:55:17.3919986	Tags for minecraft:fluid mod id idyllic_food_diary
+8c55bbcc8191ba06ca5febb479a680fa0c8d7345 data/idyllic_food_diary/tags/fluids/warm_fluid.json

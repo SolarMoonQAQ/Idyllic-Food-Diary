@@ -1,7 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.kettle;
 
-import cn.solarmoon.solarmoon_core.api.common.item.IContainerItem;
-import cn.solarmoon.solarmoon_core.api.common.item.ITankItem;
+import cn.solarmoon.solarmoon_core.api.item_util.IContainerItem;
+import cn.solarmoon.solarmoon_core.api.item_util.ITankItem;
 import cn.solarmoon.solarmoon_core.api.util.FluidUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

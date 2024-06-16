@@ -1,7 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.cooking_pot;
 
-import cn.solarmoon.idyllic_food_diary.util.TextureRenderUtil;
-import cn.solarmoon.solarmoon_core.api.client.renderer.Item.BaseItemRenderer;
+import cn.solarmoon.solarmoon_core.api.renderer.BaseItemRenderer;
+import cn.solarmoon.solarmoon_core.api.renderer.TextureRenderUtil;
 import cn.solarmoon.solarmoon_core.api.util.ContainerUtil;
 import cn.solarmoon.solarmoon_core.api.util.FluidUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -25,23 +25,7 @@ public class CookingPotItemRenderer extends BaseItemRenderer {
         BlockState state = item.getBlock().defaultBlockState();
         blockRenderer.renderSingleBlock(state, poseStack, buffer, light, overlay);
 
-        FluidStack fluidStack = FluidUtil.getFluidStack(itemStack);
-        IFluidHandlerItem stackTank = FluidUtil.getTank(itemStack);
-        float zoom = 10f / 16f;
-        float targetScale = FluidUtil.getScale(stackTank);
-        int targetColor = TextureRenderUtil.getColor(fluidStack);
-        Fluid fluid = fluidStack.getFluid();
-        IClientFluidTypeExtensions fluidAttributes = IClientFluidTypeExtensions.of(fluid);
-        ResourceLocation spriteLocation = fluidAttributes.getStillTexture(fluidStack);
-        if (spriteLocation == null) return;
-        poseStack.pushPose();
-        float posB = 3f / 16f; //坐标偏移
-        poseStack.translate(posB, 0.0625f, posB);
-        poseStack.scale(zoom, targetScale * 0.9375f, zoom); //中间为最大高度
-        TextureRenderUtil.renderFluid(targetColor, 1, 0,
-                0, 0, 16, 16,
-                spriteLocation, poseStack, buffer, light);
-        poseStack.popPose();
+        TextureRenderUtil.renderStaticFluid(8/16f, 11/16f, 2/16f, itemStack, poseStack, buffer, light);
 
         ItemStackHandler inventory = ContainerUtil.getInventory(itemStack);
         for (int i = 0; i < inventory.getSlots(); i++) {

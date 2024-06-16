@@ -42,16 +42,12 @@ public class FluidTypeUtil {
     }
 
     public static List<FluidType> HotFluidTypes = new ArrayList<>(List.of(
-            HOT_WATER.getTypeObject().get(),
-            HOT_MILK.getTypeObject().get()
     ));
 
     public static List<FluidType> FluidTypes = new ArrayList<>(List.of(
-            HOT_WATER.getTypeObject().get(),
             BLACK_TEA.getTypeObject().get(),
             GREEN_TEA.getTypeObject().get(),
-            MILK_TEA.getTypeObject().get(),
-            HOT_MILK.getTypeObject().get()
+            MILK_TEA.getTypeObject().get()
     ));
 
 }

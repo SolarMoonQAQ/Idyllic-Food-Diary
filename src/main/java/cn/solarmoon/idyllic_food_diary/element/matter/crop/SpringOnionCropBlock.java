@@ -1,7 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.crop;
 
 import cn.solarmoon.idyllic_food_diary.registry.common.IMItems;
-import cn.solarmoon.solarmoon_core.api.common.block.crop.BaseCropBlock;
+import cn.solarmoon.solarmoon_core.api.block_base.BaseCropBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ItemLike;

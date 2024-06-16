@@ -5,8 +5,9 @@
   "type": "base",
   "fluid_bound": [
     {
-      "input": "idyllic_food_diary:hot_milk",
-      "output": "idyllic_food_diary:milk_tea"
+      "input": "minecraft:milk",
+      "output": "idyllic_food_diary:milk_tea",
+      "temp": "hot"
     }
   ],
   "time": "100",

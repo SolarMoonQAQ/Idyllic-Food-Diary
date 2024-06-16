@@ -7,7 +7,7 @@ import cn.solarmoon.idyllic_food_diary.element.matter.food.interactive_food_bloc
 import cn.solarmoon.idyllic_food_diary.registry.common.IMItems;
 import cn.solarmoon.idyllic_food_diary.util.VoxelShapeUtil;
 import cn.solarmoon.idyllic_food_diary.util.useful_data.BlockProperty;
-import cn.solarmoon.solarmoon_core.api.util.device.ItemMatcher;
+import cn.solarmoon.solarmoon_core.api.matcher.ItemMatcher;
 import com.mojang.datafixers.util.Either;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -19,6 +19,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+
+import static cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock.FACING;
 
 public class BeggarsChickenBlock extends AbstractInteractiveFoodBlock {
 

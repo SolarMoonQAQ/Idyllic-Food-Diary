@@ -2,7 +2,7 @@ package cn.solarmoon.idyllic_food_diary.registry.common;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.element.matter.durian.DurianEntity;
-import cn.solarmoon.solarmoon_core.api.common.registry.EntityEntry;
+import cn.solarmoon.solarmoon_core.api.entry.common.EntityEntry;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 

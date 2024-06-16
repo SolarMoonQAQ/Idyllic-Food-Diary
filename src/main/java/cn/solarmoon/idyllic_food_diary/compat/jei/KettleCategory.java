@@ -1,9 +1,8 @@
 package cn.solarmoon.idyllic_food_diary.compat.jei;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
-import cn.solarmoon.idyllic_food_diary.feature.logic.generic_recipe.water_boiling.WaterBoilingRecipe;
-import cn.solarmoon.idyllic_food_diary.util.namespace.ResList;
-import cn.solarmoon.solarmoon_core.api.compat.jei.category.BaseJEICategory;
+import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.water_boiling.WaterBoilingRecipe;
+import cn.solarmoon.solarmoon_core.api.compat.jei.BaseJEICategory;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawableStatic;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
@@ -30,7 +29,6 @@ public class KettleCategory extends BaseJEICategory<WaterBoilingRecipe> {
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, WaterBoilingRecipe recipe, IFocusGroup focuses) {
         builder.addSlot(RecipeIngredientRole.INPUT, 16, 20).addFluidStack(recipe.input(), 1000);
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 85, 20).addFluidStack(recipe.output(), 1000);
     }
 
     @Override

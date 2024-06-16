@@ -1,8 +1,8 @@
 package cn.solarmoon.idyllic_food_diary.registry.common;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
-import cn.solarmoon.solarmoon_core.api.config.SolarConfigBuilder;
-import cn.solarmoon.solarmoon_core.api.util.RegisterHelper;
+import cn.solarmoon.solarmoon_core.api.entry.RegisterHelper;
+import cn.solarmoon.solarmoon_core.api.entry.common.SolarConfigBuilder;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.config.ModConfig;
 

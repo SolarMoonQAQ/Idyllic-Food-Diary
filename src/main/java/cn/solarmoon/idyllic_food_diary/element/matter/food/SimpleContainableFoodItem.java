@@ -1,6 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.food;
 
-import cn.solarmoon.solarmoon_core.api.common.item.simple.SimpleFoodItem;
+import cn.solarmoon.solarmoon_core.api.item_base.SimpleFoodItem;
 import cn.solarmoon.solarmoon_core.api.util.LevelSummonUtil;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;

@@ -2,7 +2,7 @@ package cn.solarmoon.idyllic_food_diary.element.matter.bathrobe;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.registry.client.IMLayers;
-import cn.solarmoon.solarmoon_core.api.common.item.equipment.BaseArmorMaterial;
+import cn.solarmoon.solarmoon_core.api.item_util.BaseArmorMaterial;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.sounds.SoundEvents;

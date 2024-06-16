@@ -3,7 +3,7 @@ package cn.solarmoon.idyllic_food_diary.registry.common;
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.network.ClientPackHandler;
 import cn.solarmoon.idyllic_food_diary.network.ServerPackHandler;
-import cn.solarmoon.solarmoon_core.api.common.registry.NetPackEntry;
+import cn.solarmoon.solarmoon_core.api.entry.common.NetPackEntry;
 
 
 public class IMPacks {

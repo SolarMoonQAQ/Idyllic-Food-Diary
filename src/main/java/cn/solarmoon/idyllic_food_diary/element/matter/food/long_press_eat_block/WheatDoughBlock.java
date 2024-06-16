@@ -3,7 +3,7 @@ package cn.solarmoon.idyllic_food_diary.element.matter.food.long_press_eat_block
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlocks;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMItems;
 import cn.solarmoon.idyllic_food_diary.util.useful_data.BlockProperty;
-import cn.solarmoon.solarmoon_core.api.util.BlockUtil;
+import cn.solarmoon.solarmoon_core.api.block_util.BlockUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleOptions;

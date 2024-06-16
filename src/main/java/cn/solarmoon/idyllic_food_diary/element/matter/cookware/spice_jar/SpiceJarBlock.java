@@ -2,7 +2,7 @@ package cn.solarmoon.idyllic_food_diary.element.matter.cookware.spice_jar;
 
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.BaseCookwareBlock;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
-import cn.solarmoon.solarmoon_core.api.common.block.IBlockUseCaller;
+import cn.solarmoon.solarmoon_core.api.block_use_caller.IBlockUseCaller;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;

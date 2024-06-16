@@ -2,17 +2,17 @@ package cn.solarmoon.idyllic_food_diary.registry.common;
 
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
-import cn.solarmoon.idyllic_food_diary.feature.logic.generic_recipe.chopping.ChoppingRecipe;
-import cn.solarmoon.idyllic_food_diary.feature.logic.generic_recipe.food_boiling.FoodBoilingRecipe;
-import cn.solarmoon.idyllic_food_diary.feature.logic.generic_recipe.ingredient_handling.IngredientHandlingRecipe;
-import cn.solarmoon.idyllic_food_diary.feature.logic.generic_recipe.rolling.RollingRecipe;
-import cn.solarmoon.idyllic_food_diary.feature.logic.generic_recipe.soup.SoupRecipe;
-import cn.solarmoon.idyllic_food_diary.feature.logic.generic_recipe.soup_serving.SoupServingRecipe;
-import cn.solarmoon.idyllic_food_diary.feature.logic.generic_recipe.steaming.SteamingRecipe;
-import cn.solarmoon.idyllic_food_diary.feature.logic.generic_recipe.stew.StewRecipe;
-import cn.solarmoon.idyllic_food_diary.feature.logic.generic_recipe.stir_fry.StirFryRecipe;
-import cn.solarmoon.idyllic_food_diary.feature.logic.generic_recipe.water_boiling.WaterBoilingRecipe;
-import cn.solarmoon.solarmoon_core.api.common.registry.RecipeEntry;
+import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.chopping.ChoppingRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.food_boiling.FoodBoilingRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.ingredient_handling.IngredientHandlingRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.rolling.RollingRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.soup.SoupRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.soup_serving.SoupServingRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.steaming.SteamingRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.stew.StewRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.stir_fry.StirFryRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.water_boiling.WaterBoilingRecipe;
+import cn.solarmoon.solarmoon_core.api.entry.common.RecipeEntry;
 
 public class IMRecipes {
     public static void register() {}

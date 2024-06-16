@@ -2,9 +2,9 @@ package cn.solarmoon.idyllic_food_diary.registry.client;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.element.matter.food.FoodEntityBlock;
-import cn.solarmoon.idyllic_food_diary.feature.visual.container_mapping_combination.ContainableFoodBakedModel;
+import cn.solarmoon.idyllic_food_diary.feature.container_mapping_combination.ContainableFoodBakedModel;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMItems;
-import cn.solarmoon.solarmoon_core.api.client.model.item.PerspectiveBakedModelRenderer;
+import cn.solarmoon.solarmoon_core.api.item_model.PerspectiveBakedModelRenderer;
 import com.google.common.collect.Lists;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;

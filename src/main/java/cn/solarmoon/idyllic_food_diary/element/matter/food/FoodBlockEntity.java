@@ -1,10 +1,11 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.food;
 
-import cn.solarmoon.idyllic_food_diary.feature.logic.spice.SpiceList;
+import cn.solarmoon.idyllic_food_diary.feature.spice.SpiceList;
+import cn.solarmoon.idyllic_food_diary.feature.spice.SpicesCap;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
-import cn.solarmoon.idyllic_food_diary.util.namespace.NBTList;
-import cn.solarmoon.solarmoon_core.api.common.ability.CustomPlaceableItem;
-import cn.solarmoon.solarmoon_core.api.util.BlockUtil;
+import cn.solarmoon.idyllic_food_diary.util.ContainerHelper;
+import cn.solarmoon.solarmoon_core.api.ability.CustomPlaceableItem;
+import cn.solarmoon.solarmoon_core.api.block_util.BlockUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -60,15 +61,15 @@ public class FoodBlockEntity extends BlockEntity {
     @Override
     protected void saveAdditional(CompoundTag tag) {
         super.saveAdditional(tag);
-        tag.put(NBTList.FOOD_CONTAINER, container.save(new CompoundTag()));
-        tag.put(NBTList.SPICES, spices.serializeNBT());
+        tag.put(ContainerHelper.FOOD_CONTAINER, container.save(new CompoundTag()));
+        tag.put(SpicesCap.SPICES, spices.serializeNBT());
     }
 
     @Override
     public void load(CompoundTag tag) {
         super.load(tag);
-        container = ItemStack.of(tag.getCompound(NBTList.FOOD_CONTAINER));
-        spices.deserializeNBT(tag.getList(NBTList.SPICES, ListTag.TAG_COMPOUND));
+        container = ItemStack.of(tag.getCompound(ContainerHelper.FOOD_CONTAINER));
+        spices.deserializeNBT(tag.getList(SpicesCap.SPICES, ListTag.TAG_COMPOUND));
     }
 
 }

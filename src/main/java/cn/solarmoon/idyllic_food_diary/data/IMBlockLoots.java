@@ -2,9 +2,9 @@ package cn.solarmoon.idyllic_food_diary.data;
 
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlocks;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMItems;
-import cn.solarmoon.solarmoon_core.api.common.block.IBedPartBlock;
-import cn.solarmoon.solarmoon_core.api.common.block.crop.BaseBushCropBlock;
-import cn.solarmoon.solarmoon_core.api.common.block.crop.INoLimitAgeBlock;
+import cn.solarmoon.solarmoon_core.api.block_base.BaseBushCropBlock;
+import cn.solarmoon.solarmoon_core.api.blockstate_access.IBedPartBlock;
+import cn.solarmoon.solarmoon_core.api.blockstate_access.INoLimitAgeBlock;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.data.loot.BlockLootSubProvider;
@@ -62,7 +62,6 @@ public class IMBlockLoots extends BlockLootSubProvider {
         dropSelf(IMBlocks.UNCOOKED_CUSTARD_TART.get());
         dropSelf(IMBlocks.UNCOOKED_STEAMED_PUMPKIN_WITH_CHOPPED_GARLIC.get());
         dropSelf(IMBlocks.UNCOOKED_BEGGARS_CHICKEN.get());
-        dropSelf(IMBlocks.STOVE.get());
 
         dropBedPart(IMBlocks.UNCOOKED_ROASTED_SUCKLING_PIG.get());
         dropBedPart(IMBlocks.STEAMED_SALMON.get());

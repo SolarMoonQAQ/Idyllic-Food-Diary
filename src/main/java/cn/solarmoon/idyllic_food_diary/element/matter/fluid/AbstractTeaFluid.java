@@ -1,9 +1,9 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.fluid;
 
 import cn.solarmoon.idyllic_food_diary.registry.common.IMEffects;
-import cn.solarmoon.solarmoon_core.api.common.fluid.BaseFluid;
-import cn.solarmoon.solarmoon_core.api.common.fluid.SimpleFluid;
-import cn.solarmoon.solarmoon_core.api.common.registry.FluidEntry;
+import cn.solarmoon.solarmoon_core.api.entry.common.FluidEntry;
+import cn.solarmoon.solarmoon_core.api.fluid_base.BaseFluid;
+import cn.solarmoon.solarmoon_core.api.fluid_base.SimpleFluid;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;

@@ -1,16 +1,15 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cleaver;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
-import cn.solarmoon.idyllic_food_diary.feature.visual.optional_gui.IOptionalRecipeItemGui;
+import cn.solarmoon.idyllic_food_diary.feature.optional_gui.IOptionalRecipeItemGui;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMItems;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMPacks;
-import cn.solarmoon.idyllic_food_diary.util.namespace.NETList;
-import cn.solarmoon.solarmoon_core.api.common.capability.IItemStackData;
-import cn.solarmoon.solarmoon_core.api.common.capability.serializable.itemstack.RecipeSelectorData;
-import cn.solarmoon.solarmoon_core.api.common.item.IOptionalRecipeItem;
-import cn.solarmoon.solarmoon_core.api.util.CapabilityUtil;
-import cn.solarmoon.solarmoon_core.api.util.ItemStackUtil;
-import cn.solarmoon.solarmoon_core.core.common.registry.SolarCapabilities;
+import cn.solarmoon.idyllic_food_diary.network.NETList;
+import cn.solarmoon.solarmoon_core.api.item_util.ItemStackUtil;
+import cn.solarmoon.solarmoon_core.api.optional_recipe_item.IOptionalRecipeItem;
+import cn.solarmoon.solarmoon_core.api.optional_recipe_item.RecipeSelectorData;
+import cn.solarmoon.solarmoon_core.feature.capability.IItemStackData;
+import cn.solarmoon.solarmoon_core.registry.common.SolarCapabilities;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.item.ItemStack;
@@ -26,7 +25,7 @@ public class CleaverClientEvent {
         if (player != null) {
             ItemStack held = ItemStackUtil.getItemInHand(player, IMItems.CHINESE_CLEAVER.get());
             if (held != null && held.getItem() instanceof IOptionalRecipeItem<?> pin && player.isCrouching()) {
-                IItemStackData itemStackData = CapabilityUtil.getData(held, SolarCapabilities.ITEMSTACK_DATA);
+                IItemStackData itemStackData = held.getCapability(SolarCapabilities.ITEMSTACK_DATA).orElse(null);
                 RecipeSelectorData recipeSelectorData = itemStackData.getRecipeSelectorData();
                 if (!pin.getMatchingRecipes(player).isEmpty()) {
                     // 根据鼠标滚动的方向更新索引

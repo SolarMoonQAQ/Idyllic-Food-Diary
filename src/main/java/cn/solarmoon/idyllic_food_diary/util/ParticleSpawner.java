@@ -2,8 +2,8 @@ package cn.solarmoon.idyllic_food_diary.util;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMPacks;
-import cn.solarmoon.idyllic_food_diary.util.namespace.NETList;
-import cn.solarmoon.solarmoon_core.api.util.VecUtil;
+import cn.solarmoon.idyllic_food_diary.network.NETList;
+import cn.solarmoon.solarmoon_core.api.phys.VecUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ItemParticleOption;

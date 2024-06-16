@@ -3,9 +3,9 @@ package cn.solarmoon.idyllic_food_diary.element.matter.food.interactive_food_blo
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.element.matter.food.FoodBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.food.interactive_food_block.BaseInteractionBlock;
-import cn.solarmoon.solarmoon_core.api.util.BlockUtil;
+import cn.solarmoon.solarmoon_core.api.block_util.BlockUtil;
+import cn.solarmoon.solarmoon_core.api.matcher.ItemMatcher;
 import cn.solarmoon.solarmoon_core.api.util.LevelSummonUtil;
-import cn.solarmoon.solarmoon_core.api.util.device.ItemMatcher;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;

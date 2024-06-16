@@ -1,6 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.compat.farmersdelight;
 
-import cn.solarmoon.solarmoon_core.api.ObjectRegistry;
+import cn.solarmoon.solarmoon_core.api.entry.ObjectRegistry;
 import net.minecraftforge.fml.ModList;
 
 /**

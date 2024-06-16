@@ -1,6 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.mixin;
 
-import cn.solarmoon.idyllic_food_diary.feature.logic.spit_item.SpittableItem;
+import cn.solarmoon.idyllic_food_diary.feature.spit_item.SpittableItem;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;

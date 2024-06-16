@@ -1,6 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.network;
 
-import cn.solarmoon.idyllic_food_diary.util.namespace.NETList;
+import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.solarmoon_core.api.network.IClientPackHandler;
 import cn.solarmoon.solarmoon_core.api.util.TextUtil;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -15,6 +15,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;

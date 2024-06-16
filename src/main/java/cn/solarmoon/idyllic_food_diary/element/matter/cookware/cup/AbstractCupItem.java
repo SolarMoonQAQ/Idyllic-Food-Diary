@@ -1,10 +1,10 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup;
 
-import cn.solarmoon.idyllic_food_diary.feature.logic.tea_brewing.TeaBrewingUtil;
-import cn.solarmoon.solarmoon_core.api.client.renderer.Item.BaseItemRenderer;
-import cn.solarmoon.solarmoon_core.api.client.renderer.Item.IItemRendererProvider;
-import cn.solarmoon.solarmoon_core.api.common.item.IContainerItem;
-import cn.solarmoon.solarmoon_core.api.common.item.ITankItem;
+import cn.solarmoon.idyllic_food_diary.feature.tea_brewing.TeaBrewingUtil;
+import cn.solarmoon.solarmoon_core.api.item_util.IContainerItem;
+import cn.solarmoon.solarmoon_core.api.item_util.ITankItem;
+import cn.solarmoon.solarmoon_core.api.renderer.BaseItemRenderer;
+import cn.solarmoon.solarmoon_core.api.renderer.IItemRendererProvider;
 import cn.solarmoon.solarmoon_core.api.util.FluidUtil;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -111,18 +111,6 @@ public abstract class AbstractCupItem extends BlockItem implements ITankItem, IC
     @Override
     public Supplier<BaseItemRenderer> getRendererFactory() {
         return CupItemRenderer::new;
-    }
-
-    /**
-     * 让物品根据所装溶液动态改变显示名称
-     */
-    @Override
-    public Component getName(ItemStack stack) {
-        FluidStack fluidStack = FluidUtil.getFluidStack(stack);
-        int fluidAmount = fluidStack.getAmount();
-        String fluid = fluidStack.getFluid().getFluidType().getDescription().getString();
-        if(fluidAmount != 0) return Component.translatable(stack.getDescriptionId() + "_with_fluid", fluid);
-        return super.getName(stack);
     }
 
 }

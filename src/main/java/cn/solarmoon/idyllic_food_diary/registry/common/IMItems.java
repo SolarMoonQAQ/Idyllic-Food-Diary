@@ -15,7 +15,6 @@ import cn.solarmoon.idyllic_food_diary.element.matter.cookware.service_plate.Ser
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.spice_jar.SpiceJarItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer.SteamerItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer.SteamerLidItem;
-import cn.solarmoon.idyllic_food_diary.element.matter.cookware.stove.StoveItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.durian.DurianItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.food.SimpleContainableFoodBlockItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.food.SimpleContainableFoodItem;
@@ -23,8 +22,8 @@ import cn.solarmoon.idyllic_food_diary.element.matter.food.SoupBowlFoodItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.rolling_pin.RollingPinItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.simple_item.GarlicItem;
 import cn.solarmoon.idyllic_food_diary.util.useful_data.FoodProperty;
-import cn.solarmoon.solarmoon_core.api.common.item.simple.*;
-import cn.solarmoon.solarmoon_core.api.common.registry.ItemEntry;
+import cn.solarmoon.solarmoon_core.api.entry.common.ItemEntry;
+import cn.solarmoon.solarmoon_core.api.item_base.*;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
@@ -34,12 +33,6 @@ import net.minecraft.world.item.Items;
 
 public class IMItems {
     public static void register() {}
-
-    // 炉灶
-    public static final ItemEntry<StoveItem> STOVE = IdyllicFoodDiary.REGISTRY.item()
-            .id("stove")
-            .bound(StoveItem::new)
-            .build();
 
     // 炒锅
     public static final ItemEntry<FryingPanItem> FRYING_PAN = IdyllicFoodDiary.REGISTRY.item()

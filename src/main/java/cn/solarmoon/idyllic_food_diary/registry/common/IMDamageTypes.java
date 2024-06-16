@@ -1,7 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.registry.common;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
-import cn.solarmoon.solarmoon_core.api.common.registry.DamageTypeEntry;
+import cn.solarmoon.solarmoon_core.api.entry.common.DamageTypeEntry;
 
 /**
  * 伤害类型

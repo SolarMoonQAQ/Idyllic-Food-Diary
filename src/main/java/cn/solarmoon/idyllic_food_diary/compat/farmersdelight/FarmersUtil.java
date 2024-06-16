@@ -1,7 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.compat.farmersdelight;
 
-import cn.solarmoon.idyllic_food_diary.feature.logic.spice.SpiceList;
-import cn.solarmoon.idyllic_food_diary.feature.logic.generic_recipe.stew.StewRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.spice.SpiceList;
+import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.stew.StewRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;

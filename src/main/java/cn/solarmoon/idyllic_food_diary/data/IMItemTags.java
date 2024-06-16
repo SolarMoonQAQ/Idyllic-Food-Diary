@@ -118,6 +118,12 @@ public class IMItemTags extends ItemTagsProvider {
                 IMItems.SALT.get(),
                 Items.SUGAR
         );
+        // 冷却剂，可以给液体降温
+        tag(COOLANT).add(
+                Items.ICE,
+                Items.BLUE_ICE,
+                Items.PACKED_ICE
+        );
     }
 
     //特殊效果
@@ -129,6 +135,7 @@ public class IMItemTags extends ItemTagsProvider {
     public static final TagKey<Item> SMALL_CONTAINER = itemTag("small_container");
     public static final TagKey<Item> SOUP_CONTAINER = itemTag("soup_container");
     public static final TagKey<Item> SPICE = itemTag("spice");
+    public static final TagKey<Item> COOLANT = itemTag("coolant");
 
     //一般标识等
     public static final TagKey<Item> CUP = itemTag("cup");

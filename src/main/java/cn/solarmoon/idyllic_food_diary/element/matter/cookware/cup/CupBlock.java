@@ -3,13 +3,12 @@ package cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup;
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.data.IMFluidTags;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.BaseCookwareBlock;
-import cn.solarmoon.idyllic_food_diary.feature.logic.tea_brewing.TeaBrewingUtil;
+import cn.solarmoon.idyllic_food_diary.feature.tea_brewing.TeaBrewingUtil;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMSounds;
-import cn.solarmoon.solarmoon_core.api.common.block_entity.BaseTCBlockEntity;
-import cn.solarmoon.solarmoon_core.api.common.capability.serializable.player.CountingDevice;
-import cn.solarmoon.solarmoon_core.api.util.CapabilityUtil;
-import cn.solarmoon.solarmoon_core.core.common.registry.SolarCapabilities;
+import cn.solarmoon.solarmoon_core.api.blockentity_base.BaseTCBlockEntity;
+import cn.solarmoon.solarmoon_core.api.capability.CountingDevice;
+import cn.solarmoon.solarmoon_core.registry.common.SolarCapabilities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
@@ -70,7 +69,7 @@ public class CupBlock extends BaseCookwareBlock {
         FluidTank tank = cup.getTank();
 
         //计数装置
-        CountingDevice counting = CapabilityUtil.getData(player, SolarCapabilities.PLAYER_DATA).getCountingDevice();
+        CountingDevice counting = player.getCapability(SolarCapabilities.PLAYER_DATA).orElse(null).getCountingDevice();
         counting.setCount(counting.getCount() + 1, pos);
         if(TeaBrewingUtil.canEat(tank.getFluid(), player)) {
             IdyllicFoodDiary.DEBUG.send("点击次数：" + counting.getCount());

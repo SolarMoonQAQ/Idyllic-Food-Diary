@@ -1,9 +1,9 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cleaver;
 
 import cn.solarmoon.idyllic_food_diary.data.IMBlockTags;
-import cn.solarmoon.idyllic_food_diary.feature.logic.generic_recipe.chopping.ChoppingRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.chopping.ChoppingRecipe;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMRecipes;
-import cn.solarmoon.solarmoon_core.api.common.item.IOptionalRecipeItem;
+import cn.solarmoon.solarmoon_core.api.optional_recipe_item.IOptionalRecipeItem;
 import cn.solarmoon.solarmoon_core.api.util.ContainerUtil;
 import cn.solarmoon.solarmoon_core.api.util.LevelSummonUtil;
 import net.minecraft.core.BlockPos;

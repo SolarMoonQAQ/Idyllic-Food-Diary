@@ -1,4 +1,4 @@
-// 1.20.1	2024-05-21T13:26:47.3673922	Tags for minecraft:item mod id idyllic_food_diary
+// 1.20.1	2024-06-16T22:55:17.3890078	Tags for minecraft:item mod id idyllic_food_diary
 cac6de8a1f12e27e4ff2d5c9aa721638137d9b49 data/farmersdelight/tags/items/tools/knives.json
 6f6544bcd44db56581744260c3d25d2e7ba4f007 data/forge/tags/items/dough.json
 cdb80d10b1480d9fcdb2975759f6efb107eb1801 data/forge/tags/items/eggs.json
@@ -8,6 +8,7 @@ cac6de8a1f12e27e4ff2d5c9aa721638137d9b49 data/forge/tags/items/tools/axes.json
 cac6de8a1f12e27e4ff2d5c9aa721638137d9b49 data/forge/tags/items/tools/cleavers.json
 cac6de8a1f12e27e4ff2d5c9aa721638137d9b49 data/forge/tags/items/tools/knives.json
 cac6de8a1f12e27e4ff2d5c9aa721638137d9b49 data/forge/tags/items/tools/swords.json
+2268826c6d706a7f185732054fa0a2ee01865efa data/idyllic_food_diary/tags/items/coolant.json
 a1e302b3bf12893b6c75ee390649c02c1744cf3e data/idyllic_food_diary/tags/items/cup.json
 c495f741d0f96b1671772c6053bc40946a8d930c data/idyllic_food_diary/tags/items/dough.json
 d1c2643d9c0c1d3d73a71d2c0a7057a656793d97 data/idyllic_food_diary/tags/items/large_container.json

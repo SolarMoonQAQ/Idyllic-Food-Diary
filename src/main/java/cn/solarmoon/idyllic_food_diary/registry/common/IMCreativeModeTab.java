@@ -3,7 +3,7 @@ package cn.solarmoon.idyllic_food_diary.registry.common;
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.compat.patchouli.PItems;
 import cn.solarmoon.idyllic_food_diary.compat.patchouli.Patchouli;
-import cn.solarmoon.solarmoon_core.api.common.registry.CreativeTabEntry;
+import cn.solarmoon.solarmoon_core.api.entry.common.CreativeTabEntry;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;

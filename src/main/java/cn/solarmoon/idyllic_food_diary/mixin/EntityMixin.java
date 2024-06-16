@@ -123,9 +123,7 @@ public abstract class EntityMixin {
             double d0 = (this.random.nextDouble() * 2.0D - 1.0D) * (double)this.dimensions.width;
             double d1 = (this.random.nextDouble() * 2.0D - 1.0D) * (double)this.dimensions.width;
             ParticleOptions particleBubble = ParticleTypes.BUBBLE;
-            if (entity.isInFluidType(IMFluids.HOT_MILK.getType())) {
-                particleBubble = IMParticles.HOT_MILK_BUBBLE.get();
-            } else if (entity.isInFluidType(IMFluids.GREEN_TEA.getType())) {
+            if (entity.isInFluidType(IMFluids.GREEN_TEA.getType())) {
                 particleBubble = IMParticles.GREEN_TEA_BUBBLE.get();
             } else if (entity.isInFluidType(IMFluids.BLACK_TEA.getType())) {
                 particleBubble = IMParticles.BLACK_TEA_BUBBLE.get();
@@ -139,9 +137,7 @@ public abstract class EntityMixin {
             double d2 = (this.random.nextDouble() * 2.0D - 1.0D) * (double)this.dimensions.width;
             double d3 = (this.random.nextDouble() * 2.0D - 1.0D) * (double)this.dimensions.width;
             ParticleOptions particleSplash = ParticleTypes.SPLASH;
-            if (entity.isInFluidType(IMFluids.HOT_MILK.getType())) {
-                particleSplash = IMParticles.HOT_MILK_SPLASH.get();
-            } else if (entity.isInFluidType(IMFluids.GREEN_TEA.getType())) {
+            if (entity.isInFluidType(IMFluids.GREEN_TEA.getType())) {
                 particleSplash = IMParticles.GREEN_TEA_SPLASH.get();
             } else if (entity.isInFluidType(IMFluids.BLACK_TEA.getType())) {
                 particleSplash = IMParticles.BLACK_TEA_SPLASH.get();
