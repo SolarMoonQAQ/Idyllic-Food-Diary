@@ -44,9 +44,9 @@ public class TeaBrewingUtil {
      */
     public static Component getTeaInName(FluidStack fluidStack) {
         if (!fluidStack.isEmpty()) {
-            CompoundTag nameTag = fluidStack.getOrCreateTag().getCompound(TeaIngredientXX.CUSTOM_NAME);
-            String side = nameTag.getString(TeaIngredientXX.Type.SIDE.toString());
-            String add = nameTag.getString(TeaIngredientXX.Type.ADD.toString());
+            CompoundTag nameTag = fluidStack.getOrCreateTag().getCompound(TeaIngredient.CUSTOM_NAME);
+            String side = nameTag.getString(TeaIngredient.Type.SIDE.toString());
+            String add = nameTag.getString(TeaIngredient.Type.ADD.toString());
             Component sideC = side.isEmpty() ? Component.empty() : Component.translatable(side);
             Component addC = add.isEmpty() ? Component.empty() : Component.translatable(add);
             return sideC.copy().append(addC);

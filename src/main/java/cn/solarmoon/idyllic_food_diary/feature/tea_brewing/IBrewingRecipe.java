@@ -92,7 +92,7 @@ public interface IBrewingRecipe extends IContainerBE, ITankBE, IHeatable {
                 tag0.putString(teaIngredient.getType().toString(), name);
             }
         }
-        tag.put(TeaIngredientXX.CUSTOM_NAME, tag0);
+        tag.put(TeaIngredient.CUSTOM_NAME, tag0);
     }
 
     /**
