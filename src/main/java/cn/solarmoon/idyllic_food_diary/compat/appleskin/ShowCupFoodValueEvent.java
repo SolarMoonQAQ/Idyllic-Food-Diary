@@ -1,7 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.compat.appleskin;
 
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup.AbstractCupItem;
-import cn.solarmoon.idyllic_food_diary.feature.tea_brewing.TeaIngredient;
+import cn.solarmoon.idyllic_food_diary.feature.tea_brewing.TeaIngredientXX;
 import cn.solarmoon.solarmoon_core.api.util.FluidUtil;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -21,7 +21,7 @@ public class ShowCupFoodValueEvent {
         if (event.itemStack.getItem() instanceof AbstractCupItem) {
             ItemStack stack = event.itemStack;
             FluidStack fluidStack = FluidUtil.getFluidStack(stack);
-            List<TeaIngredient> teaIngredients = TeaIngredient.readFromFluidStack(fluidStack);
+            List<TeaIngredientXX> teaIngredients = TeaIngredientXX.readFromFluidStack(fluidStack);
             int n = 0;
             float s = 0;
             for (var ti : teaIngredients) {

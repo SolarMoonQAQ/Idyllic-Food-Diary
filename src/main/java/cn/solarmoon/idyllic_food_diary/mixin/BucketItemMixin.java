@@ -20,7 +20,7 @@ public abstract class BucketItemMixin extends Item {
         Component origin = super.getName(bucket);
         var op = FluidUtil.getFluidContained(bucket);
         if (op.isPresent()) {
-            return Temp.getOrCreateFluidTemp(op.get()).getLevel().getPrefix();
+            return Temp.getFluidTemp(op.get()).getScale().getPrefix().copy().append(origin);
         }
         return origin;
     }

@@ -91,16 +91,4 @@ public abstract class AbstractKettleItem extends BlockItem implements ITankItem,
         components.add(1, Component.literal("")); //留空间给tooltip
     }
 
-    /**
-     * 让物品根据所装溶液动态改变显示名称
-     */
-    @Override
-    public Component getName(ItemStack stack) {
-        FluidStack fluidStack = FluidUtil.getFluidStack(stack);
-        int fluidAmount = fluidStack.getAmount();
-        String fluid = fluidStack.getFluid().getFluidType().getDescription().getString();
-        if(fluidAmount != 0) return Component.translatable(stack.getDescriptionId() + "_with_fluid", fluid);
-        return super.getName(stack);
-    }
-
 }

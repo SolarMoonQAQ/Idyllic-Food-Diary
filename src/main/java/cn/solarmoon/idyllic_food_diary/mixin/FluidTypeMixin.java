@@ -19,7 +19,7 @@ public abstract class FluidTypeMixin {
     @Inject(remap = false, method = "getDescription(Lnet/minecraftforge/fluids/FluidStack;)Lnet/minecraft/network/chat/Component;", at = @At("HEAD"), cancellable = true)
     public void getDisplayName(FluidStack fluidStack, CallbackInfoReturnable<Component> cir) {
         Component teaName = TeaBrewingUtil.getTeaInName(fluidStack);
-        Component hotName = Temp.getOrCreateFluidTemp(fluidStack).getLevel().getPrefix();
+        Component hotName = Temp.getFluidTemp(fluidStack).getScale().getPrefix();
         cir.setReturnValue(hotName.copy().append(teaName).append(getDescription()));
     }
 

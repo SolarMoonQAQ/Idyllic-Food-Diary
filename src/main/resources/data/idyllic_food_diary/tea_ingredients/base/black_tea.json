@@ -7,22 +7,14 @@
     {
       "input": "minecraft:water",
       "output": "idyllic_food_diary:black_tea",
-      "temp": "hot"
+      "temp": "any"
+    },
+    {
+      "input": "minecraft:milk",
+      "output": "idyllic_food_diary:milk_tea",
+      "temp": "any"
     }
   ],
   "time": "100",
-  "max_brewing_volume": "500",
-  "effects": [
-    {
-      "id": "idyllic_food_diary:snug",
-      "duration": "60",
-      "amplifier": "0"
-    },
-    {
-      "id": "idyllic_food_diary:refreshment",
-      "duration": "60",
-      "amplifier": "0"
-    }
-  ],
-  "extinguishing": true
+  "max_brewing_volume": "500"
 }

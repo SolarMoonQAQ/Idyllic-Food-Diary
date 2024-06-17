@@ -2,10 +2,12 @@ package cn.solarmoon.idyllic_food_diary.network;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.grill.GrillBlockEntity;
+import cn.solarmoon.idyllic_food_diary.feature.tea_brewing.Temp;
 import cn.solarmoon.idyllic_food_diary.feature.water_pouring.WaterPouringUtil;
 import cn.solarmoon.solarmoon_core.api.item_util.ItemStackUtil;
 import cn.solarmoon.solarmoon_core.api.network.IServerPackHandler;
 import cn.solarmoon.solarmoon_core.api.optional_recipe_item.RecipeSelectorData;
+import cn.solarmoon.solarmoon_core.api.util.FluidUtil;
 import cn.solarmoon.solarmoon_core.registry.common.SolarCapabilities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -15,6 +17,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 
 import java.util.List;
 
@@ -40,6 +43,20 @@ public class ServerPackHandler implements IServerPackHandler {
                 if (blockEntity instanceof GrillBlockEntity grill) {
                     grill.setInventory(nbt);
                 }
+            }
+            case "2" -> {
+                BlockEntity be = level.getBlockEntity(pos);
+                if (be != null) {
+                    IFluidHandler tank = FluidUtil.getTank(be);
+                    if (tank != null) {
+                        FluidStack updatedFluid = Temp.tick(fluidStack, level);
+                        if (updatedFluid != null) {
+                            tank.drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.EXECUTE);
+                            tank.fill(updatedFluid, IFluidHandler.FluidAction.EXECUTE);
+                        }
+                    }
+                }
+
             }
         }
     }

@@ -24,9 +24,10 @@ public class FluidBoundMap {
         return ForgeRegistries.FLUIDS.getValue(new ResourceLocation(out));
     }
 
-    public Temp.Level getTemp() {
+    public Temp.Scale getLevel() {
         if (temp.isEmpty()) temp = "common";
-        return Temp.Level.valueOf(temp.toUpperCase());
+        else if (temp.equalsIgnoreCase("any")) temp = "empty";
+        return Temp.Scale.valueOf(temp.toUpperCase());
     }
 
     @Override

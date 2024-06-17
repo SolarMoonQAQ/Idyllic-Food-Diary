@@ -31,7 +31,8 @@ public interface IWaterBoilingRecipe extends ITankBE, IHeatable {
             setBoilRecipeTime(kettleRecipe.getActualTime(wb()));
             setBoilTime(getBoilTime() + 1);
             if (getBoilTime() > kettleRecipe.getActualTime(wb())) {
-                Temp.setFluidTemp(getTank().getFluid(), Temp.Level.HOT);
+                Temp.setFluidTemp(getTank().getFluid(),
+                        Temp.getOrCreateFluidTemp(getTank().getFluid(), level).setScale(Temp.Scale.HOT), level);
                 setBoilTime(0);
                 wb().setChanged();
             }

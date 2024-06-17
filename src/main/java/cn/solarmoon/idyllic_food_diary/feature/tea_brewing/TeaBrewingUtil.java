@@ -2,6 +2,7 @@ package cn.solarmoon.idyllic_food_diary.feature.tea_brewing;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.soup_serving.SoupServingRecipe;
+import cn.solarmoon.idyllic_food_diary.registry.common.IMEffects;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMRecipes;
 import cn.solarmoon.solarmoon_core.api.data.PotionEffect;
 import cn.solarmoon.solarmoon_core.api.util.TextUtil;
@@ -13,9 +14,11 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.fluids.FluidStack;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,13 +27,26 @@ import java.util.List;
 public class TeaBrewingUtil {
 
     /**
+     * 获取物品的对应茶属性<br/>
+     */
+    @Nullable
+    public static TeaIngredient getTeaIngredient(ItemStack stack) {
+        for (TeaIngredient teaIngredient : TeaIngredient.ALL.getCommon()) {
+            if (teaIngredient.getIngredient().test(stack)) {
+                return teaIngredient;
+            }
+        }
+        return null;
+    }
+
+    /**
      * 用于mixin，根据茶内容物组合茶名字
      */
     public static Component getTeaInName(FluidStack fluidStack) {
         if (!fluidStack.isEmpty()) {
-            CompoundTag nameTag = fluidStack.getOrCreateTag().getCompound(TeaIngredient.CUSTOM_NAME);
-            String side = nameTag.getString(TeaIngredient.Type.SIDE.toString());
-            String add = nameTag.getString(TeaIngredient.Type.ADD.toString());
+            CompoundTag nameTag = fluidStack.getOrCreateTag().getCompound(TeaIngredientXX.CUSTOM_NAME);
+            String side = nameTag.getString(TeaIngredientXX.Type.SIDE.toString());
+            String add = nameTag.getString(TeaIngredientXX.Type.ADD.toString());
             Component sideC = side.isEmpty() ? Component.empty() : Component.translatable(side);
             Component addC = add.isEmpty() ? Component.empty() : Component.translatable(add);
             return sideC.copy().append(addC);
@@ -40,12 +56,12 @@ public class TeaBrewingUtil {
 
     public static void commonDrink(FluidStack fluidStack, LivingEntity entity, boolean needFood) {
         Level level = entity.level();
-        List<TeaIngredient> teaIngredients = TeaIngredient.readFromFluidStack(fluidStack);
+        TeaIngredientList teaIngredients = TeaIngredient.readFromFluidStack(fluidStack);
         // 此处先应用需要累计的效果
         boolean clear = false;
         int fire = 0;
         int extinguishValue = 0;
-        for (var ti : teaIngredients) {
+        for (var ti : teaIngredients.getTeaIngredientsHasEffect()) {
             fire = fire + ti.getFireTime();
             if (ti.canClearAllEffect()) clear = true;
             extinguishValue = ti.canExtinguishing() ? extinguishValue + 1 : extinguishValue - 1;
@@ -64,7 +80,7 @@ public class TeaBrewingUtil {
         }
 
         // 此处应用无需累计的效果
-        for (TeaIngredient teaIngredient : teaIngredients) {
+        for (TeaIngredient.Add teaIngredient : teaIngredients.getTeaIngredientsHasEffect()) {
             // 应用药水效果
             List<PotionEffect> potionEffects = teaIngredient.getEffects();
             if (potionEffects != null) {
@@ -83,7 +99,9 @@ public class TeaBrewingUtil {
         List<SoupServingRecipe> soupServingRecipes = level.getRecipeManager().getAllRecipesFor(IMRecipes.SOUP_SERVING.get());
         soupServingRecipes.forEach(recipe -> {
             if (recipe.fluidToServe().getFluid() == fluidStack.getFluid() && fluidStack.getAmount() >= recipe.getAmountToServe()) {
-                entity.eat(level, recipe.result().copy());
+                if (needFood && entity instanceof Player player && player.canEat(false)) {
+                    player.eat(level, recipe.result().copy());
+                } else entity.eat(level, recipe.result().copy());
             }
         });
 
@@ -96,15 +114,38 @@ public class TeaBrewingUtil {
                 else entity.addEffect(new MobEffectInstance(effect));
             }
         }
+
+        applyTempEffect(fluidStack, entity);
     }
 
+    /**
+     * 对实体应用茶温度系统效果
+     */
+    public static void applyTempEffect(FluidStack fluidStack, LivingEntity entity) {
+        getTempEffects(fluidStack).forEach(entity::addEffect);
+    }
+
+    public static List<MobEffectInstance> getTempEffects(FluidStack fluidStack) {
+        List<MobEffectInstance> effects = new ArrayList<>();
+        switch (Temp.getFluidTemp(fluidStack).getScale()) {
+            case HOT -> effects.add(new MobEffectInstance(IMEffects.SNUG.get(), 1200, 1));
+            case COLD -> {
+
+            }
+        }
+        return effects;
+    }
+
+    /**
+     * 根据茶成分显示自定义工具提示
+     */
     public static void showTeaIngredientTooltip(FluidStack fluidStack, List<Component> components) {
         if (fluidStack.isEmpty()) return;
-        List<TeaIngredient> teaIngredients = TeaIngredient.readFromFluidStack(fluidStack);
+        TeaIngredientList teaIngredients = TeaIngredient.readFromFluidStack(fluidStack);
         boolean clear = false;
         int fire = 0;
         int extinguishValue = 0;
-        for (var ti : teaIngredients) {
+        for (var ti : teaIngredients.getTeaIngredientsHasEffect()) {
             fire = fire + ti.getFireTime();
             if (ti.canClearAllEffect()) clear = true;
             extinguishValue = ti.canExtinguishing() ? extinguishValue + 1 : extinguishValue - 1;
@@ -116,7 +157,7 @@ public class TeaBrewingUtil {
 
         List<PotionEffect> potionEffects = new ArrayList<>(); // 所有茶属性中的药水效果，会有id重复的
         HashMap<String, PotionEffect> allEffects = new HashMap<>(); // 设定一个不重复id的effect表
-        teaIngredients.forEach(ti -> potionEffects.addAll(ti.getEffects()));
+        teaIngredients.getTeaIngredientsHasEffect().forEach(ti -> potionEffects.addAll(ti.getEffects()));
         potionEffects.forEach(potionEffect -> {
             String id = potionEffect.id;
             PotionEffect effectPresent = allEffects.get(id);
@@ -151,11 +192,13 @@ public class TeaBrewingUtil {
      * @return 读取液体的茶成分，如果有饱食度那就根据玩家是否canEat决定能否吃，如果要能进食则必须所有ingredient都能持续可吃才行。
      */
     public static boolean canEat(FluidStack fluidStack, Player player) {
-        List<TeaIngredient> teaIngredients = TeaIngredient.readFromFluidStack(fluidStack);
-        boolean canAlwaysEat = teaIngredients.stream().allMatch(TeaIngredient::canAlwaysDrink);
-        boolean isFoodLike = teaIngredients.stream().anyMatch(tea -> tea.getFoodValue().isValid());
+        TeaIngredientList teaIngredients = TeaIngredient.readFromFluidStack(fluidStack);
+        boolean canAlwaysEat = teaIngredients.getTeaIngredientsHasEffect().stream().allMatch(TeaIngredient.Add::canAlwaysDrink);
+        boolean isFoodLike = teaIngredients.getTeaIngredientsHasEffect().stream().anyMatch(tea -> tea.getFoodValue().isValid());
         if (isFoodLike) return player.canEat(false) || canAlwaysEat;
         return true;
     }
+
+
 
 }
