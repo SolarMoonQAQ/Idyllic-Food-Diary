@@ -1,5 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.food;
 
+import cn.solarmoon.idyllic_food_diary.util.ContainerHelper;
 import cn.solarmoon.solarmoon_core.api.item_base.SimpleFoodBlockItem;
 import cn.solarmoon.solarmoon_core.api.util.LevelSummonUtil;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -15,28 +16,39 @@ import java.util.function.Supplier;
 
 public class SimpleContainableFoodBlockItem extends SimpleFoodBlockItem {
 
-    private final ItemLike itemFinishReturn;
-
-    public SimpleContainableFoodBlockItem(ItemLike itemFinishReturn, Block block, FoodProperties foodProperties) {
+    public SimpleContainableFoodBlockItem(Block block, FoodProperties foodProperties) {
         super(block, foodProperties);
-        this.itemFinishReturn = itemFinishReturn;
     }
 
-    public SimpleContainableFoodBlockItem(ItemLike itemFinishReturn, Block block, int nutrition, float saturation) {
-        super(block, nutrition, saturation);
-        this.itemFinishReturn = itemFinishReturn;
-    }
-
-    public SimpleContainableFoodBlockItem(ItemLike itemFinishReturn, Block block, int nutrition, float saturation, Supplier<MobEffectInstance> effectInstanceSupplier, float chance) {
+    public SimpleContainableFoodBlockItem(Block block, int nutrition, float saturation, Supplier<MobEffectInstance> effectInstanceSupplier, float chance) {
         super(block, nutrition, saturation, effectInstanceSupplier, chance);
-        this.itemFinishReturn = itemFinishReturn;
+    }
+
+    public SimpleContainableFoodBlockItem(Block block, int nutrition, float saturation) {
+        super(block, nutrition, saturation);
+    }
+
+    public SimpleContainableFoodBlockItem(Block block, int stacksTo, int nutrition, float saturation) {
+        super(block, stacksTo, nutrition, saturation);
+    }
+
+    public SimpleContainableFoodBlockItem(Block block, int stacksTo, FoodProperties foodProperties) {
+        super(block, stacksTo, foodProperties);
+    }
+
+    public SimpleContainableFoodBlockItem(Block block, int stacksTo, int nutrition, float saturation, Supplier<MobEffectInstance> effectInstanceSupplier, float chance) {
+        super(block, stacksTo, nutrition, saturation, effectInstanceSupplier, chance);
+    }
+
+    public ItemStack getContainer(ItemStack stack) {
+        return ContainerHelper.getContainer(stack);
     }
 
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity living) {
         living.eat(level, stack);
         if (living instanceof Player player && !player.isCreative()) {
-            LevelSummonUtil.addItemToInventory(player, new ItemStack(itemFinishReturn));
+            LevelSummonUtil.addItemToInventory(player, getContainer(stack));
         }
         return stack;
     }
@@ -48,7 +60,7 @@ public class SimpleContainableFoodBlockItem extends SimpleFoodBlockItem {
 
     @Override
     public ItemStack getCraftingRemainingItem(ItemStack itemStack) {
-        return new ItemStack(itemFinishReturn);
+        return getContainer(itemStack);
     }
 
     @Override

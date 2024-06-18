@@ -25,29 +25,29 @@ public class CleaverClientEvent {
         if (player != null) {
             ItemStack held = ItemStackUtil.getItemInHand(player, IMItems.CHINESE_CLEAVER.get());
             if (held != null && held.getItem() instanceof IOptionalRecipeItem<?> pin && player.isCrouching()) {
-                IItemStackData itemStackData = held.getCapability(SolarCapabilities.ITEMSTACK_DATA).orElse(null);
-                if (itemStackData == null) return;
-                RecipeSelectorData recipeSelectorData = itemStackData.getRecipeSelectorData();
-                if (!pin.getMatchingRecipes(player).isEmpty()) {
-                    // 根据鼠标滚动的方向更新索引
-                    // 模边界算法，触底反弹
-                    int size = pin.getItemsOnGui(player).size();
+                held.getCapability(SolarCapabilities.ITEMSTACK_DATA).ifPresent(d -> {
+                    RecipeSelectorData recipeSelectorData = d.getRecipeSelectorData();
+                    if (!pin.getMatchingRecipes(player).isEmpty()) {
+                        // 根据鼠标滚动的方向更新索引
+                        // 模边界算法，触底反弹
+                        int size = pin.getItemsOnGui(player).size();
 
-                    int index = pin.getHitBlockRecipeIndex(held, player);
+                        int index = pin.getHitBlockRecipeIndex(held, player);
 
-                    if (event.getScrollDelta() > 0) {
-                        index = (index + 1) % size;
-                        IOptionalRecipeItemGui.goDown();
-                    } else if (event.getScrollDelta() < 0) {
-                        index = (index - 1 + size) % size;
-                        IOptionalRecipeItemGui.goUp();
+                        if (event.getScrollDelta() > 0) {
+                            index = (index + 1) % size;
+                            IOptionalRecipeItemGui.goDown();
+                        } else if (event.getScrollDelta() < 0) {
+                            index = (index - 1 + size) % size;
+                            IOptionalRecipeItemGui.goUp();
+                        }
+                        IOptionalRecipeItemGui.startScale();
+                        recipeSelectorData.setIndex(index, pin.getHitBlock(player));
+                        IMPacks.SERVER_PACK.getSender().stack(held).tag(recipeSelectorData.serializeNBT()).send(NETList.SYNC_RECIPE_INDEX);
+                        IdyllicFoodDiary.DEBUG.send(index + "//");
+                        event.setCanceled(true);
                     }
-                    IOptionalRecipeItemGui.startScale();
-                    recipeSelectorData.setIndex(index, pin.getHitBlock(player));
-                    IMPacks.SERVER_PACK.getSender().stack(held).tag(recipeSelectorData.serializeNBT()).send(NETList.SYNC_RECIPE_INDEX);
-                    IdyllicFoodDiary.DEBUG.send(index + "//");
-                    event.setCanceled(true);
-                }
+                });
             }
         }
     }

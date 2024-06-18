@@ -135,11 +135,6 @@ public class CookingPotBlockEntity extends BaseTCBlockEntity implements IStewRec
     }
 
     @Override
-    public boolean isDirectEnabled() {
-        return false;
-    }
-
-    @Override
     public int getStewTime() {
         return time;
     }

@@ -45,11 +45,6 @@ public class IMBlockLoots extends BlockLootSubProvider {
         dropSelf(IMBlocks.PIE_CRUST.get());
         dropSelf(IMBlocks.ROASTED_BAI_JI_BUN.get());
         dropSelf(IMBlocks.CUSTARD_TART.get());
-        dropSelf(IMBlocks.CANG_SHU_MUTTON_SOUP.get());
-        dropSelf(IMBlocks.BEETROOT_SOUP.get());
-        dropSelf(IMBlocks.MUSHROOM_STEW.get());
-        dropSelf(IMBlocks.SEAWEED_EGG_DROP_SOUP.get());
-        dropSelf(IMBlocks.PUMPKIN_SOUP.get());
         dropSelf(IMBlocks.EGG_LIQUID_BOWL.get());
         dropSelf(IMBlocks.STEAMED_EGG_CUSTARD.get());
         dropSelf(IMBlocks.STEAMED_BUN.get());

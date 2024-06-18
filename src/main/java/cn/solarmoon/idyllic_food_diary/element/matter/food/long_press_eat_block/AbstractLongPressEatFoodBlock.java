@@ -81,7 +81,7 @@ public abstract class AbstractLongPressEatFoodBlock extends FoodEntityBlock {
                 player.eat(level, food);
 
                 //设置结束方块
-                BlockUtil.replaceBlockWithAllState(state, fb.getContainerLeft(), level, pos);
+                BlockUtil.replaceBlockWithAllState(state, getContainer(fb), level, pos);
 
                 //设置结束物品
                 LevelSummonUtil.summonDrop(getItemLeft(), level, pos);
@@ -93,6 +93,10 @@ public abstract class AbstractLongPressEatFoodBlock extends FoodEntityBlock {
             return InteractionResult.SUCCESS;
         }
         return InteractionResult.CONSUME; // 防止右键此类方块时使用手中物品
+    }
+
+    public BlockState getContainer(FoodBlockEntity fb) {
+        return fb.getContainerLeft();
     }
 
     @Override

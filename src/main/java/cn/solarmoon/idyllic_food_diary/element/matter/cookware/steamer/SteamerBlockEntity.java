@@ -66,7 +66,7 @@ public class SteamerBlockEntity extends BaseContainerBlockEntity implements IInd
     public IEvaporationRecipe getBase() {
         if (getLevel() == null) return null;
         BlockEntity blockEntity = getLevel().getBlockEntity(getConnectedBelowPos());
-        if (blockEntity instanceof IEvaporationRecipe base && base.isDirectEnabled()) {
+        if (blockEntity instanceof IEvaporationRecipe base) {
             return base;
         }
         return null;

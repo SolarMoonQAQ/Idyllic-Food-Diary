@@ -12,8 +12,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 public class IMPlaceableItems {
 
     private static void addRegistry() {
-        put(Items.MUSHROOM_STEW, IMBlocks.MUSHROOM_STEW.get());
-        put(Items.BEETROOT_SOUP, IMBlocks.BEETROOT_SOUP.get());
         put(Items.BOWL, IMBlocks.BOWL.get());
     }
 

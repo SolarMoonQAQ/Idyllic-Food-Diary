@@ -18,7 +18,6 @@ import cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer.SteamerLi
 import cn.solarmoon.idyllic_food_diary.element.matter.durian.DurianItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.food.SimpleContainableFoodBlockItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.food.SimpleContainableFoodItem;
-import cn.solarmoon.idyllic_food_diary.element.matter.food.SoupBowlFoodItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.rolling_pin.RollingPinItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.simple_item.GarlicItem;
 import cn.solarmoon.idyllic_food_diary.util.useful_data.FoodProperty;
@@ -29,7 +28,6 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
 
 public class IMItems {
     public static void register() {}
@@ -311,7 +309,6 @@ public class IMItems {
     public static final ItemEntry<SimpleContainableFoodBlockItem> EGG_LIQUID_BOWL = IdyllicFoodDiary.REGISTRY.item()
             .id("egg_liquid_bowl")
             .bound(() -> new SimpleContainableFoodBlockItem(
-                    Items.BOWL,
                     IMBlocks.EGG_LIQUID_BOWL.get(),
                     FoodProperty.PRIMARY_HUNGER_PRODUCT))
             .build();
@@ -364,7 +361,6 @@ public class IMItems {
     public static final ItemEntry<SimpleContainableFoodBlockItem> UNCOOKED_BEGGARS_CHICKEN = IdyllicFoodDiary.REGISTRY.item()
             .id("uncooked_beggars_chicken")
             .bound(() -> new SimpleContainableFoodBlockItem(
-                    WOODEN_PLATE.get(),
                     IMBlocks.UNCOOKED_BEGGARS_CHICKEN.get(),
                     FoodProperty.PRIMARY_HUNGER_PRODUCT_1)
             )
@@ -374,7 +370,6 @@ public class IMItems {
     public static final ItemEntry<SimpleContainableFoodBlockItem> UNCOOKED_STEAMED_CHICKEN_WITH_MUSHROOM = IdyllicFoodDiary.REGISTRY.item()
             .id("uncooked_steamed_chicken_with_mushroom")
             .bound(() -> new SimpleContainableFoodBlockItem(
-                    PORCELAIN_PLATE.get(),
                     IMBlocks.UNCOOKED_STEAMED_CHICKEN_WITH_MUSHROOM.get(),
                     FoodProperty.PRIMARY_HUNGER_PRODUCT_1)
             )
@@ -384,7 +379,6 @@ public class IMItems {
     public static final ItemEntry<SimpleContainableFoodBlockItem> UNCOOKED_STEAMED_PUMPKIN_WITH_CHOPPED_GARLIC = IdyllicFoodDiary.REGISTRY.item()
             .id("uncooked_steamed_pumpkin_with_chopped_garlic")
             .bound(() -> new SimpleContainableFoodBlockItem(
-                    PORCELAIN_PLATE.get(),
                     IMBlocks.UNCOOKED_STEAMED_PUMPKIN_WITH_CHOPPED_GARLIC.get(),
                     FoodProperty.PRIMARY_HUNGER_PRODUCT_1)
             )
@@ -403,47 +397,9 @@ public class IMItems {
     public static final ItemEntry<SimpleContainableFoodBlockItem> UNCOOKED_ROASTED_SUCKLING_PIG = IdyllicFoodDiary.REGISTRY.item()
             .id("uncooked_roasted_suckling_pig")
             .bound(() -> new SimpleContainableFoodBlockItem(
-                    LONG_WOODEN_PLATE.get(),
                     IMBlocks.UNCOOKED_ROASTED_SUCKLING_PIG.get(),
                     FoodProperty.PRIMARY_HUNGER_PRODUCT_1)
             )
-            .build();
-
-    //汤
-    //南瓜汤
-    public static final ItemEntry<SoupBowlFoodItem> PUMPKIN_SOUP = IdyllicFoodDiary.REGISTRY.item()
-            .id("pumpkin_soup")
-            .bound(() -> new SoupBowlFoodItem(
-                    IMBlocks.PUMPKIN_SOUP.get(),
-                    new FoodProperties.Builder().nutrition(6).saturationMod(1.5f)
-                            .effect(() -> new MobEffectInstance(IMEffects.SNUG.get(), 1200, 1), 1f)
-                            .effect(() -> new MobEffectInstance(MobEffects.ABSORPTION, 600, 0), 1f)
-                            .build()
-                    ))
-            .build();
-
-    //紫菜蛋花汤
-    public static final ItemEntry<SoupBowlFoodItem> SEAWEED_EGG_DROP_SOUP = IdyllicFoodDiary.REGISTRY.item()
-            .id("seaweed_egg_drop_soup")
-            .bound(() -> new SoupBowlFoodItem(
-                    IMBlocks.SEAWEED_EGG_DROP_SOUP.get(),
-                    new FoodProperties.Builder().nutrition(6).saturationMod(1.5f)
-                            .effect(() -> new MobEffectInstance(IMEffects.SNUG.get(), 1200, 1), 1f)
-                            .effect(() -> new MobEffectInstance(MobEffects.WATER_BREATHING, 1200, 0), 1f)
-                            .build()
-            ))
-            .build();
-
-    //藏书羊肉汤
-    public static final ItemEntry<SoupBowlFoodItem> CANG_SHU_MUTTON_SOUP = IdyllicFoodDiary.REGISTRY.item()
-            .id("cang_shu_mutton_soup")
-            .bound(() -> new SoupBowlFoodItem(
-                    IMBlocks.CANG_SHU_MUTTON_SOUP.get(),
-                    new FoodProperties.Builder().nutrition(6).saturationMod(1.5f)
-                            .effect(() -> new MobEffectInstance(IMEffects.SNUG.get(), 12000, 3), 1f)
-                            .effect(() -> new MobEffectInstance(MobEffects.DAMAGE_BOOST, 1200, 4), 1f)
-                            .build()
-            ))
             .build();
 
     //烹饪食物-无方块
@@ -508,7 +464,6 @@ public class IMItems {
     public static final ItemEntry<SimpleContainableFoodBlockItem> STEAMED_EGG_CUSTARD = IdyllicFoodDiary.REGISTRY.item()
             .id("steamed_egg_custard")
             .bound(() -> new SimpleContainableFoodBlockItem(
-                    Items.BOWL,
                     IMBlocks.STEAMED_EGG_CUSTARD.get(),
                     5, 0.75f,
                     () -> new MobEffectInstance(MobEffects.REGENERATION, 600, 0), 1))
@@ -526,7 +481,6 @@ public class IMItems {
     public static final ItemEntry<SimpleContainableFoodBlockItem> STEAMED_CHICKEN_WITH_MUSHROOM_BOWL = IdyllicFoodDiary.REGISTRY.item()
             .id("steamed_chicken_with_mushroom_bowl")
             .bound(() -> new SimpleContainableFoodBlockItem(
-                    Items.BOWL,
                     IMBlocks.STEAMED_CHICKEN_WITH_MUSHROOM_BOWL.get(), 14, 0.8f,
                     () -> new MobEffectInstance(MobEffects.REGENERATION, 600, 0), 1F))
             .build();

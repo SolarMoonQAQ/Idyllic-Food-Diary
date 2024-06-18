@@ -24,10 +24,11 @@
     }
   ],
   "input_fluid": {
-    "id": "idyllic_food_diary:hot_water",
+    "id": "minecraft:water",
     "amount": 1000
   },
-  "time": 6000,
+  "temp": "hot",
+  "time": 60,
   "output_fluid": {
     "id": "idyllic_food_diary:cang_shu_mutton_soup_fluid",
     "amount": 1000

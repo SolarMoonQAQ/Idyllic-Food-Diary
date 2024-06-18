@@ -59,9 +59,4 @@ public interface IEvaporationRecipe extends ITankBE, IHeatable {
 
     int getEvaporationTick();
 
-    /**
-     * @return 是否能被蒸笼直接识别并开始蒸东西（像炉灶嵌进去的那样就属于间接）
-     */
-    boolean isDirectEnabled();
-
 }

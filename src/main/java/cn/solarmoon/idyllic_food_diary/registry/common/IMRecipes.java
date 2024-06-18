@@ -7,7 +7,6 @@ import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.food_boiling.FoodB
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.ingredient_handling.IngredientHandlingRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.rolling.RollingRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.soup.SoupRecipe;
-import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.soup_serving.SoupServingRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.steaming.SteamingRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.stew.StewRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.stir_fry.StirFryRecipe;
@@ -67,12 +66,6 @@ public class IMRecipes {
     public static final RecipeEntry<SteamingRecipe> STEAMING = IdyllicFoodDiary.REGISTRY.recipe()
             .id("steaming")
             .serializer(SteamingRecipe.Serializer::new)
-            .build();
-
-    //盛汤
-    public static final RecipeEntry<SoupServingRecipe> SOUP_SERVING = IdyllicFoodDiary.REGISTRY.recipe()
-            .id("soup_serving")
-            .serializer(SoupServingRecipe.Serializer::new)
             .build();
 
     //食材处理

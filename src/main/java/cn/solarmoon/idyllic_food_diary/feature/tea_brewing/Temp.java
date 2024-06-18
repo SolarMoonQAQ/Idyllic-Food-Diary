@@ -1,8 +1,10 @@
 package cn.solarmoon.idyllic_food_diary.feature.tea_brewing;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
+import com.google.gson.JsonObject;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.GsonHelper;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.fluids.FluidStack;
@@ -28,8 +30,12 @@ public class Temp implements INBTSerializable<CompoundTag> {
         this.gameTime = gameTime;
     }
 
+    /**
+     * @param scale 温度等级
+     * @return 除了比较温度等级本身以外，如果任意一个为EMPTY，就可以接受任意温度等级通过
+     */
     public boolean isSame(Scale scale) {
-        return this.scale == scale || scale == Scale.EMPTY;
+        return this.scale == scale || scale == Scale.EMPTY || this.scale == Scale.EMPTY;
     }
 
     public long getGameTime() {
@@ -111,15 +117,21 @@ public class Temp implements INBTSerializable<CompoundTag> {
         }
     }
 
+    /**
+     * 获取温度，没有就创建一个常温的当前时间的温度再返回这个创建的
+     */
     public static Temp getOrCreateFluidTemp(FluidStack fluidStack, Level level) {
         if (!fluidStack.isEmpty()) {
             CompoundTag tag = fluidStack.getOrCreateTag();
             if (!tag.contains(TEMP)) tag.put(TEMP, new Temp(level.getGameTime()).serializeNBT());
             return readFromNBT(tag.getCompound(TEMP));
         }
-        return new Temp(0);
+        return new Temp(level.getGameTime());
     }
 
+    /**
+     * @return 从液体身上读取一个温度，如果没有，则默认为常温。注意没有的话不会返回当前时间
+     */
     public static Temp getFluidTemp(FluidStack fluidStack) {
         if (!fluidStack.isEmpty()) {
             CompoundTag tag = fluidStack.getTag();
@@ -161,6 +173,10 @@ public class Temp implements INBTSerializable<CompoundTag> {
                 Scale.valueOf(tag.getString(SCALE).isEmpty() ? "COMMON" : tag.getString(SCALE)),
                 tag.getLong(TIME)
         );
+    }
+
+    public static Temp.Scale readScaleFromJson(JsonObject json) {
+        return Temp.Scale.valueOf(GsonHelper.getAsString(json, "temp", "empty").toUpperCase());
     }
 
 }

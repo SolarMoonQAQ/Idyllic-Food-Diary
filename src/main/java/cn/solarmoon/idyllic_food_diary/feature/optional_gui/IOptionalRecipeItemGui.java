@@ -53,7 +53,8 @@ public class IOptionalRecipeItemGui {
             return;
         }
 
-        IItemStackData s = player.getCapability(SolarCapabilities.ITEMSTACK_DATA).orElse(null);
+        ItemStack p = player.getItemInHand(hand);
+        IItemStackData s = p.getCapability(SolarCapabilities.ITEMSTACK_DATA).orElse(null);
         if (s == null) return;
         RecipeSelectorData selector = s.getRecipeSelectorData();
 

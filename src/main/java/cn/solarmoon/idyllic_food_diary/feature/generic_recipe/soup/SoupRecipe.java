@@ -1,6 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.feature.generic_recipe.soup;
 
 import cn.solarmoon.idyllic_food_diary.feature.spice.SpiceList;
+import cn.solarmoon.idyllic_food_diary.feature.tea_brewing.Temp;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMRecipes;
 import cn.solarmoon.solarmoon_core.api.data.SerializeHelper;
 import cn.solarmoon.solarmoon_core.api.entry.common.RecipeEntry;
@@ -21,6 +22,7 @@ public record SoupRecipe(
         ResourceLocation id,
         List<Ingredient> ingredients,
         FluidStack inputFluid,
+        Temp.Scale tempScale,
         SpiceList withSpices,
         int time,
         FluidStack outputFluid,
@@ -42,11 +44,12 @@ public record SoupRecipe(
         public @NotNull SoupRecipe fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
             List<Ingredient> inputIngredients = SerializeHelper.readIngredients(json, "ingredients");
             FluidStack inputFluid = SerializeHelper.readFluidStack(json, "input_fluid");
+            Temp.Scale tempScale = Temp.readScaleFromJson(json);
             SpiceList withSpices = SpiceList.readSpices(json, "with_spices");
             int time = GsonHelper.getAsInt(json, "time");
             FluidStack outputFluid = SerializeHelper.readFluidStack(json, "output_fluid");
             int exp = GsonHelper.getAsInt(json, "exp", 0);
-            return new SoupRecipe(recipeId, inputIngredients, inputFluid, withSpices, time, outputFluid, exp);
+            return new SoupRecipe(recipeId, inputIngredients, inputFluid, tempScale, withSpices, time, outputFluid, exp);
         }
 
         @Nullable
@@ -54,17 +57,19 @@ public record SoupRecipe(
         public SoupRecipe fromNetwork(@NotNull ResourceLocation recipeId, @NotNull FriendlyByteBuf buffer) {
             List<Ingredient> ingredients = SerializeHelper.readIngredients(buffer);
             FluidStack inputFluid = buffer.readFluidStack();
+            Temp.Scale tempScale = buffer.readEnum(Temp.Scale.class);
             SpiceList withSpices = SpiceList.readSpices(buffer);
             int time = buffer.readInt();
             FluidStack outputFluid = buffer.readFluidStack();
             int exp = buffer.readInt();
-            return new SoupRecipe(recipeId, ingredients, inputFluid, withSpices, time, outputFluid, exp);
+            return new SoupRecipe(recipeId, ingredients, inputFluid, tempScale, withSpices, time, outputFluid, exp);
         }
 
         @Override
         public void toNetwork(@NotNull FriendlyByteBuf buffer, SoupRecipe recipe) {
             SerializeHelper.writeIngredients(buffer, recipe.ingredients());
             buffer.writeFluidStack(recipe.inputFluid());
+            buffer.writeEnum(recipe.tempScale);
             SpiceList.writeSpices(buffer, recipe.withSpices());
             buffer.writeInt(recipe.time());
             recipe.outputFluid().writeToPacket(buffer);

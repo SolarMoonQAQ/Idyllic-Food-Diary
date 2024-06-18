@@ -1,10 +1,8 @@
 package cn.solarmoon.idyllic_food_diary.compat.jei;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
-import cn.solarmoon.idyllic_food_diary.data.IMItemTags;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.chopping.ChoppingRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.rolling.RollingRecipe;
-import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.soup_serving.SoupServingRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.steaming.SteamingRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.stew.StewRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.water_boiling.WaterBoilingRecipe;
@@ -14,8 +12,6 @@ import cn.solarmoon.solarmoon_core.api.compat.jei.BaseJEI;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.RecipeTypes;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
 
 @JeiPlugin
 public class JEI extends BaseJEI {
@@ -55,14 +51,6 @@ public class JEI extends BaseJEI {
                         .emptyBackground(161, 95)
                         .title(IdyllicFoodDiary.TRANSLATOR.set("jei", "cooking_pot.title"))
                         .build("cooking_pot", StewRecipe.class),
-                builder()
-                        .boundCategory(new SoupServingCategory(guiHelper))
-                        .recipeType(IMRecipes.SOUP_SERVING.get())
-                        .addRecipeCatalyst(Ingredient.of(IMItemTags.SOUP_CONTAINER))
-                        .icon(Items.BOWL)
-                        .emptyBackground(117, 37)
-                        .title(IdyllicFoodDiary.TRANSLATOR.set("jei", "soup_serving.title"))
-                        .build("soup_serving", SoupServingRecipe.class),
                 builder()
                         .boundCategory(new RollingCategory(guiHelper))
                         .recipeType(IMRecipes.ROLLING.get())

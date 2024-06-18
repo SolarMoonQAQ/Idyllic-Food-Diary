@@ -1,8 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.kettle;
 
-import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.BaseCookwareBlock;
-import cn.solarmoon.idyllic_food_diary.feature.tea_brewing.TeaBrewingUtil;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMSounds;
 import net.minecraft.core.BlockPos;
@@ -13,7 +11,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -56,7 +53,6 @@ public class KettleBlock extends BaseCookwareBlock {
             kettle.setChanged();
             return InteractionResult.SUCCESS;
         }
-
         if (kettle.storage(player, hand, 1, 1)) {
             level.playSound(null, pos, SoundEvents.LANTERN_HIT, SoundSource.PLAYERS);
             kettle.setChanged();

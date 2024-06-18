@@ -91,7 +91,7 @@ public class CookingPotBlock extends BaseCookwareBlock {
                 if (!pot.trySimmer()) {
                     if (!pot.tryBoilFood()) {
                         if (!pot.tryBoilWater()) {
-                            pot.tryDrainHotFluid();
+
                         }
                     }
                 }

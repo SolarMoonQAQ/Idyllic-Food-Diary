@@ -31,7 +31,7 @@ public abstract class ItemMixin {
      * 苹果吐子儿
      */
     @Inject(method = "finishUsingItem", at = @At("HEAD"))
-    public void appleSpit(ItemStack stack, Level level, LivingEntity entity, CallbackInfoReturnable<ItemStack> cir) {
+    public void applySpit(ItemStack stack, Level level, LivingEntity entity, CallbackInfoReturnable<ItemStack> cir) {
         for (SpittableItem spit : SpittableItem.ALL) {
             if (entity instanceof Player player) {
                 spit.doSpit(player, stack);

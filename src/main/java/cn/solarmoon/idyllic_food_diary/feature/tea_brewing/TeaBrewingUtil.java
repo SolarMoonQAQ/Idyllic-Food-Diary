@@ -1,9 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.feature.tea_brewing;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
-import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.soup_serving.SoupServingRecipe;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMEffects;
-import cn.solarmoon.idyllic_food_diary.registry.common.IMRecipes;
 import cn.solarmoon.solarmoon_core.api.data.PotionEffect;
 import cn.solarmoon.solarmoon_core.api.util.TextUtil;
 import net.minecraft.ChatFormatting;
@@ -95,16 +93,6 @@ public class TeaBrewingUtil {
             }
         }
 
-        // 如果喝的是汤，就相当于吃掉汤物品
-        List<SoupServingRecipe> soupServingRecipes = level.getRecipeManager().getAllRecipesFor(IMRecipes.SOUP_SERVING.get());
-        soupServingRecipes.forEach(recipe -> {
-            if (recipe.fluidToServe().getFluid() == fluidStack.getFluid() && fluidStack.getAmount() >= recipe.getAmountToServe()) {
-                if (needFood && entity instanceof Player player && player.canEat(false)) {
-                    player.eat(level, recipe.result().copy());
-                } else entity.eat(level, recipe.result().copy());
-            }
-        });
-
         // 应用原版药水tag的效果（这对机械动力的药水液体什么的会有用）
         List<MobEffectInstance> effects = PotionUtils.getAllEffects(fluidStack.getTag());
         for (var effect : effects) {
@@ -181,10 +169,6 @@ public class TeaBrewingUtil {
      * @return 设置每次喝掉的液体量（默认50），如果是汤，返回盛汤所需的液体量
      */
     public static int getDrinkVolume(Level level, FluidStack fluidStack) {
-        List<SoupServingRecipe> recipes = level.getRecipeManager().getAllRecipesFor(IMRecipes.SOUP_SERVING.get());
-        for (var recipe : recipes) {
-            if (recipe.fluidToServe().getFluid().isSame(fluidStack.getFluid())) return recipe.getAmountToServe();
-        }
         return 50;
     }
 

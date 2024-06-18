@@ -3,10 +3,12 @@ package cn.solarmoon.idyllic_food_diary.element.matter.cookware.service_plate;
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.BaseCookwareBlock;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
+import cn.solarmoon.idyllic_food_diary.registry.common.IMPacks;
 import cn.solarmoon.idyllic_food_diary.util.ParticleSpawner;
 import cn.solarmoon.solarmoon_core.api.capability.CountingDevice;
 import cn.solarmoon.solarmoon_core.api.util.LevelSummonUtil;
 import cn.solarmoon.solarmoon_core.feature.capability.IPlayerData;
+import cn.solarmoon.solarmoon_core.network.NETList;
 import cn.solarmoon.solarmoon_core.registry.common.SolarCapabilities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
@@ -26,6 +28,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+
+import java.util.List;
 
 public class ServicePlateBlock extends BaseCookwareBlock {
 
@@ -49,10 +53,12 @@ public class ServicePlateBlock extends BaseCookwareBlock {
 
         if (plate == null) return InteractionResult.PASS;
         if (plate.putItem(player, hand, 1)) {
+            plate.setChanged();
             level.playSound(null, pos, SoundEvents.ARMOR_EQUIP_LEATHER, SoundSource.PLAYERS, 0.5f, 1f);
             return InteractionResult.SUCCESS;
         }
         if (player.isCrouching() && plate.takeItem(player, hand, 1)) {
+            plate.setChanged();
             level.playSound(null, pos, SoundEvents.ARMOR_EQUIP_LEATHER, SoundSource.PLAYERS, 0.5f, 1f);
             return InteractionResult.SUCCESS;
         }
@@ -71,7 +77,9 @@ public class ServicePlateBlock extends BaseCookwareBlock {
             if (counting.getCount() >= this.eatCount) {
                 //吃掉！
                 ItemStack give = food.finishUsingItem(level, player);
-                if (!player.isCreative()) LevelSummonUtil.addItemToInventory(player, give);
+                if (!player.isCreative()) {
+                    if (level.isClientSide) IMPacks.SERVER_PACK.getSender().pos(pos).stacks(List.of(give)).send(NETList.PUMP);
+                }
                 else food.shrink(1); //创造模式也消耗食物
                 //重置计数
                 counting.resetCount();

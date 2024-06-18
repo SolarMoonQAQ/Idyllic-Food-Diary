@@ -109,36 +109,6 @@ public class IMBlocks {
             .bound(CustardTartBlock::new)
             .build();
 
-    //蘑菇煲
-    public static final BlockEntry<BowlSoupBlock> MUSHROOM_STEW = IdyllicFoodDiary.REGISTRY.block()
-            .id("mushroom_stew")
-            .bound(() -> new BowlSoupBlock(){public Item asItem() {return Items.MUSHROOM_STEW;}})
-            .build();
-
-    //甜菜汤
-    public static final BlockEntry<BowlSoupBlock> BEETROOT_SOUP = IdyllicFoodDiary.REGISTRY.block()
-            .id("beetroot_soup")
-            .bound(() -> new BowlSoupBlock(){public Item asItem() {return Items.BEETROOT_SOUP;}})
-            .build();
-
-    //南瓜汤
-    public static final BlockEntry<BowlSoupBlock> PUMPKIN_SOUP = IdyllicFoodDiary.REGISTRY.block()
-            .id("pumpkin_soup")
-            .bound(BowlSoupBlock::new)
-            .build();
-
-    //藏书羊肉汤
-    public static final BlockEntry<BowlSoupBlock> CANG_SHU_MUTTON_SOUP = IdyllicFoodDiary.REGISTRY.block()
-            .id("cang_shu_mutton_soup")
-            .bound(BowlSoupBlock::new)
-            .build();
-
-    //紫菜蛋花汤
-    public static final BlockEntry<BowlSoupBlock> SEAWEED_EGG_DROP_SOUP = IdyllicFoodDiary.REGISTRY.block()
-            .id("seaweed_egg_drop_soup")
-            .bound(BowlSoupBlock::new)
-            .build();
-
     //------------------------------------------------------------------------------------------//
 
     //苹果树苗

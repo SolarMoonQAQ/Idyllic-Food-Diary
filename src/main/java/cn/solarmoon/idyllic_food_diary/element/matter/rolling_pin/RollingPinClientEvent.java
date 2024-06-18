@@ -27,30 +27,30 @@ public class RollingPinClientEvent {
         if (player != null) {
             ItemStack held = ItemStackUtil.getItemInHand(player, ROLLING_PIN.get());
             if (held != null && held.getItem() instanceof IOptionalRecipeItem<?> pin && player.isCrouching()) {
-                IItemStackData itemStackData = held.getCapability(SolarCapabilities.ITEMSTACK_DATA).orElse(null);
-                if (itemStackData == null) return;
-                RecipeSelectorData selector = itemStackData.getRecipeSelectorData();
-                if (!pin.getMatchingRecipes(player).isEmpty()) {
-                    // 根据鼠标滚动的方向更新索引
-                    // 模边界算法，触底反弹
-                    int size = pin.getItemsOnGui(player).size();
+                held.getCapability(SolarCapabilities.ITEMSTACK_DATA).ifPresent(d -> {
+                    RecipeSelectorData selector = d.getRecipeSelectorData();
+                    if (!pin.getMatchingRecipes(player).isEmpty()) {
+                        // 根据鼠标滚动的方向更新索引
+                        // 模边界算法，触底反弹
+                        int size = pin.getItemsOnGui(player).size();
 
-                    int index = selector.getIndex(pin.getHitBlock(player));
-                    IdyllicFoodDiary.DEBUG.send(index + "//" + size);
+                        int index = selector.getIndex(pin.getHitBlock(player));
+                        IdyllicFoodDiary.DEBUG.send(index + "//" + size);
 
-                    if (event.getScrollDelta() > 0) {
-                        index = (index + 1) % size;
-                        IOptionalRecipeItemGui.goDown();
-                    } else if (event.getScrollDelta() < 0) {
-                        index = (index - 1 + size) % size;
-                        IOptionalRecipeItemGui.goUp();
+                        if (event.getScrollDelta() > 0) {
+                            index = (index + 1) % size;
+                            IOptionalRecipeItemGui.goDown();
+                        } else if (event.getScrollDelta() < 0) {
+                            index = (index - 1 + size) % size;
+                            IOptionalRecipeItemGui.goUp();
+                        }
+                        IOptionalRecipeItemGui.startScale();
+                        selector.setIndex(index, pin.getHitBlock(player));
+                        IMPacks.SERVER_PACK.getSender().stack(held).tag(selector.serializeNBT()).send(NETList.SYNC_RECIPE_INDEX);
+                        IdyllicFoodDiary.DEBUG.send(index + "//" + size);
+                        event.setCanceled(true);
                     }
-                    IOptionalRecipeItemGui.startScale();
-                    selector.setIndex(index, pin.getHitBlock(player));
-                    IMPacks.SERVER_PACK.getSender().stack(held).tag(selector.serializeNBT()).send(NETList.SYNC_RECIPE_INDEX);
-                    IdyllicFoodDiary.DEBUG.send(index + "//" + size);
-                    event.setCanceled(true);
-                }
+                });
             }
         }
     }
