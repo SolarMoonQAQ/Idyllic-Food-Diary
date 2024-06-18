@@ -25,8 +25,7 @@ public class FluidBoundMap {
     }
 
     public Temp.Scale getLevel() {
-        if (temp.isEmpty()) temp = "common";
-        else if (temp.equalsIgnoreCase("any")) temp = "empty";
+        if (temp == null) temp = "any";
         return Temp.Scale.valueOf(temp.toUpperCase());
     }
 

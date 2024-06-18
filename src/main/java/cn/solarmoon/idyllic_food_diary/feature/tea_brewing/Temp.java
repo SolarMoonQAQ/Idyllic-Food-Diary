@@ -8,7 +8,6 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.wrappers.BucketPickupHandlerWrapper;
 import org.jetbrains.annotations.Nullable;
 
 public class Temp implements INBTSerializable<CompoundTag> {
@@ -35,7 +34,7 @@ public class Temp implements INBTSerializable<CompoundTag> {
      * @return 除了比较温度等级本身以外，如果任意一个为EMPTY，就可以接受任意温度等级通过
      */
     public boolean isSame(Scale scale) {
-        return this.scale == scale || scale == Scale.EMPTY || this.scale == Scale.EMPTY;
+        return this.scale == scale || scale == Scale.ANY || this.scale == Scale.ANY;
     }
 
     public long getGameTime() {
@@ -66,7 +65,7 @@ public class Temp implements INBTSerializable<CompoundTag> {
 
     public enum Scale {
         HOT, COMMON, COLD,
-        EMPTY;
+        ANY;
 
         public Component getPrefix() {
             if (this == COMMON) return Component.empty();
@@ -176,7 +175,7 @@ public class Temp implements INBTSerializable<CompoundTag> {
     }
 
     public static Temp.Scale readScaleFromJson(JsonObject json) {
-        return Temp.Scale.valueOf(GsonHelper.getAsString(json, "temp", "empty").toUpperCase());
+        return Temp.Scale.valueOf(GsonHelper.getAsString(json, "temp", "any").toUpperCase());
     }
 
 }
