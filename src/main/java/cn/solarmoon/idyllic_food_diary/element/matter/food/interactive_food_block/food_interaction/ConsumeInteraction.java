@@ -6,12 +6,14 @@ import cn.solarmoon.idyllic_food_diary.element.matter.food.interactive_food_bloc
 import cn.solarmoon.solarmoon_core.api.block_util.BlockUtil;
 import cn.solarmoon.solarmoon_core.api.capability.CountingDevice;
 import cn.solarmoon.solarmoon_core.api.util.PlayerUtil;
+import cn.solarmoon.solarmoon_core.feature.capability.IPlayerData;
 import cn.solarmoon.solarmoon_core.registry.common.SolarCapabilities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
@@ -76,7 +78,9 @@ public class ConsumeInteraction {
             int remain = state.getValue(BaseInteractionBlock.INTERACTION);
             if (remain > 0) {
                 //计数装置
-                CountingDevice counting = player.getCapability(SolarCapabilities.PLAYER_DATA).orElse(null).getCountingDevice();
+                IPlayerData p = player.getCapability(SolarCapabilities.PLAYER_DATA).orElse(null);
+                if (p == null) return false;
+                CountingDevice counting = p.getCountingDevice();
                 counting.setCount(counting.getCount() + 1, pos);
                 IdyllicFoodDiary.DEBUG.send("点击次数：" + counting.getCount(), player);
                 //吃的声音

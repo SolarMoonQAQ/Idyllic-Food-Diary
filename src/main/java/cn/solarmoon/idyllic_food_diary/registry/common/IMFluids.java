@@ -6,7 +6,7 @@ import cn.solarmoon.idyllic_food_diary.element.matter.fluid.BlackTeaFluid;
 import cn.solarmoon.idyllic_food_diary.element.matter.fluid.GreenTeaFluid;
 import cn.solarmoon.idyllic_food_diary.element.matter.fluid.MilkTeaFluid;
 import cn.solarmoon.idyllic_food_diary.element.matter.fluid.SoybeanOilFluid;
-import cn.solarmoon.idyllic_food_diary.element.matter.fluid.no_bucket.*;
+import cn.solarmoon.idyllic_food_diary.element.matter.fluid.soup.*;
 import cn.solarmoon.solarmoon_core.api.entry.common.FluidEntry;
 
 

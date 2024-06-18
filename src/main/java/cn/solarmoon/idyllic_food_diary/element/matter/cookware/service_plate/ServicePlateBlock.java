@@ -6,6 +6,7 @@ import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
 import cn.solarmoon.idyllic_food_diary.util.ParticleSpawner;
 import cn.solarmoon.solarmoon_core.api.capability.CountingDevice;
 import cn.solarmoon.solarmoon_core.api.util.LevelSummonUtil;
+import cn.solarmoon.solarmoon_core.feature.capability.IPlayerData;
 import cn.solarmoon.solarmoon_core.registry.common.SolarCapabilities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
@@ -28,7 +29,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class ServicePlateBlock extends BaseCookwareBlock {
 
-    private final int eatCount = 4;
+    private final int eatCount = 5;
 
     public ServicePlateBlock() {
         super(BlockBehaviour.Properties.of()
@@ -58,7 +59,9 @@ public class ServicePlateBlock extends BaseCookwareBlock {
         ItemStack food = plate.getLastItem();
         if (player.canEat(false) && food.isEdible()) {
             //计数装置
-            CountingDevice counting = plate.getCapability(SolarCapabilities.PLAYER_DATA).orElse(null).getCountingDevice();
+            IPlayerData p = player.getCapability(SolarCapabilities.PLAYER_DATA).orElse(null);
+            if (p == null) return InteractionResult.FAIL;
+            CountingDevice counting = p.getCountingDevice();
             counting.setCount(counting.getCount() + 1, pos);
             IdyllicFoodDiary.DEBUG.send("点击次数：" + counting.getCount(), player);
             //吃的声音

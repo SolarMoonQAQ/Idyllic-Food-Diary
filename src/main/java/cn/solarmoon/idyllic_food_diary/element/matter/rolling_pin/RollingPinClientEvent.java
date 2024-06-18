@@ -28,6 +28,7 @@ public class RollingPinClientEvent {
             ItemStack held = ItemStackUtil.getItemInHand(player, ROLLING_PIN.get());
             if (held != null && held.getItem() instanceof IOptionalRecipeItem<?> pin && player.isCrouching()) {
                 IItemStackData itemStackData = held.getCapability(SolarCapabilities.ITEMSTACK_DATA).orElse(null);
+                if (itemStackData == null) return;
                 RecipeSelectorData selector = itemStackData.getRecipeSelectorData();
                 if (!pin.getMatchingRecipes(player).isEmpty()) {
                     // 根据鼠标滚动的方向更新索引

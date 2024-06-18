@@ -3,6 +3,7 @@ package cn.solarmoon.idyllic_food_diary.feature.optional_gui;
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.solarmoon_core.api.optional_recipe_item.IOptionalRecipeItem;
 import cn.solarmoon.solarmoon_core.api.optional_recipe_item.RecipeSelectorData;
+import cn.solarmoon.solarmoon_core.feature.capability.IItemStackData;
 import cn.solarmoon.solarmoon_core.registry.common.SolarCapabilities;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -52,7 +53,9 @@ public class IOptionalRecipeItemGui {
             return;
         }
 
-        RecipeSelectorData selector = player.getCapability(SolarCapabilities.ITEMSTACK_DATA).orElse(null).getRecipeSelectorData();
+        IItemStackData s = player.getCapability(SolarCapabilities.ITEMSTACK_DATA).orElse(null);
+        if (s == null) return;
+        RecipeSelectorData selector = s.getRecipeSelectorData();
 
         boolean show = !pin.getMatchingRecipes(player).isEmpty() && player.isCrouching();
 

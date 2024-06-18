@@ -9,6 +9,7 @@ import cn.solarmoon.solarmoon_core.api.blockentity_util.IContainerBE;
 import cn.solarmoon.solarmoon_core.api.blockentity_util.ITankBE;
 import cn.solarmoon.solarmoon_core.api.capability.anim_ticker.AnimTicker;
 import cn.solarmoon.solarmoon_core.api.util.FluidUtil;
+import cn.solarmoon.solarmoon_core.feature.capability.IBlockEntityData;
 import cn.solarmoon.solarmoon_core.registry.common.SolarCapabilities;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -31,9 +32,9 @@ public interface IStirFryRecipe extends IContainerBE, ITankBE, IHeatable, ISpice
 
     default boolean tryStirFrying() {
         Level level = h().getLevel();
-        AnimTicker animTicker = h().getCapability(SolarCapabilities.BLOCK_ENTITY_DATA).orElse(null).getAnimTicker(2);
-        if (level == null) return false;
-
+        IBlockEntityData bData = h().getCapability(SolarCapabilities.BLOCK_ENTITY_DATA).orElse(null);
+        if (level == null || bData == null) return false;
+        AnimTicker animTicker = bData.getAnimTicker(2);
         // 如果当前物品满足任意配方的阶段0，则保存该配方
         findStirFryRecipe().ifPresent(recipe -> {
             if (getStirFryRecipe() == null) {
@@ -104,7 +105,9 @@ public interface IStirFryRecipe extends IContainerBE, ITankBE, IHeatable, ISpice
     }
 
     default boolean doStirFry() {
-        AnimTicker animTicker = h().getCapability(SolarCapabilities.BLOCK_ENTITY_DATA).orElse(null).getAnimTicker(2);
+        IBlockEntityData b = h().getCapability(SolarCapabilities.BLOCK_ENTITY_DATA).orElse(null);
+        if (b == null) return false;
+        AnimTicker animTicker = b.getAnimTicker(2);
         if (canStirFry() && getPresentFryStage() != null && !animTicker.isEnabled()) {
             setFryCount(getFryCount() + 1);
             animTicker.start();

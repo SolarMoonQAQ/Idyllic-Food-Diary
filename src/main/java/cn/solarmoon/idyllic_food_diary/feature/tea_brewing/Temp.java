@@ -6,6 +6,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.wrappers.BucketPickupHandlerWrapper;
 import org.jetbrains.annotations.Nullable;
 
 public class Temp implements INBTSerializable<CompoundTag> {
@@ -80,15 +81,17 @@ public class Temp implements INBTSerializable<CompoundTag> {
                 return fluidStack;
             }
         }
-        if (temp.getGameTime() != 0) IdyllicFoodDiary.DEBUG.send(temp.toString());
         return null;
     }
 
     /**
      * 把新温度推入液体并重置时间
      */
-    public static void setFluidTemp(FluidStack fluidStack, Temp temp, Level level) {
-        fluidStack.getOrCreateTag().put(TEMP, temp.setGameTime(level.getGameTime()).serializeNBT());
+    public static FluidStack setFluidTemp(FluidStack fluidStack, Temp temp, Level level) {
+        if (!fluidStack.isEmpty()) {
+            fluidStack.getOrCreateTag().put(TEMP, temp.setGameTime(level.getGameTime()).serializeNBT());
+        }
+        return fluidStack;
     }
 
     public static boolean shrink(FluidStack fluidStack, Level level) {

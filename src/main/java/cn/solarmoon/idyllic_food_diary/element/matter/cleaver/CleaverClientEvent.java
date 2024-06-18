@@ -26,6 +26,7 @@ public class CleaverClientEvent {
             ItemStack held = ItemStackUtil.getItemInHand(player, IMItems.CHINESE_CLEAVER.get());
             if (held != null && held.getItem() instanceof IOptionalRecipeItem<?> pin && player.isCrouching()) {
                 IItemStackData itemStackData = held.getCapability(SolarCapabilities.ITEMSTACK_DATA).orElse(null);
+                if (itemStackData == null) return;
                 RecipeSelectorData recipeSelectorData = itemStackData.getRecipeSelectorData();
                 if (!pin.getMatchingRecipes(player).isEmpty()) {
                     // 根据鼠标滚动的方向更新索引

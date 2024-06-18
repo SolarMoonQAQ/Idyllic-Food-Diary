@@ -8,6 +8,7 @@ import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMSounds;
 import cn.solarmoon.solarmoon_core.api.blockentity_base.BaseTCBlockEntity;
 import cn.solarmoon.solarmoon_core.api.capability.CountingDevice;
+import cn.solarmoon.solarmoon_core.feature.capability.IPlayerData;
 import cn.solarmoon.solarmoon_core.registry.common.SolarCapabilities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -69,8 +70,9 @@ public class CupBlock extends BaseCookwareBlock {
         FluidTank tank = cup.getTank();
 
         //计数装置
-        CountingDevice counting = player.getCapability(SolarCapabilities.PLAYER_DATA).orElse(null).getCountingDevice();
-        counting.setCount(counting.getCount() + 1, pos);
+        IPlayerData p = player.getCapability(SolarCapabilities.PLAYER_DATA).orElse(null);
+        if (p == null) return InteractionResult.FAIL;
+        CountingDevice counting = p.getCountingDevice();        counting.setCount(counting.getCount() + 1, pos);
         if(TeaBrewingUtil.canEat(tank.getFluid(), player)) {
             IdyllicFoodDiary.DEBUG.send("点击次数：" + counting.getCount());
         }

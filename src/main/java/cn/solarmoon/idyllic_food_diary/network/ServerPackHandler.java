@@ -2,12 +2,14 @@ package cn.solarmoon.idyllic_food_diary.network;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.grill.GrillBlockEntity;
+import cn.solarmoon.idyllic_food_diary.feature.basic_feature.FarmerUtil;
 import cn.solarmoon.idyllic_food_diary.feature.tea_brewing.Temp;
 import cn.solarmoon.idyllic_food_diary.feature.water_pouring.WaterPouringUtil;
 import cn.solarmoon.solarmoon_core.api.item_util.ItemStackUtil;
 import cn.solarmoon.solarmoon_core.api.network.IServerPackHandler;
 import cn.solarmoon.solarmoon_core.api.optional_recipe_item.RecipeSelectorData;
 import cn.solarmoon.solarmoon_core.api.util.FluidUtil;
+import cn.solarmoon.solarmoon_core.feature.capability.IItemStackData;
 import cn.solarmoon.solarmoon_core.registry.common.SolarCapabilities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -33,7 +35,9 @@ public class ServerPackHandler implements IServerPackHandler {
             case NETList.SYNC_RECIPE_INDEX -> {
                 ItemStack held = ItemStackUtil.getItemInHand(player, stack.getItem());
                 if (held != null) {
-                    RecipeSelectorData selector = held.getCapability(SolarCapabilities.ITEMSTACK_DATA).orElse(null).getRecipeSelectorData();
+                    IItemStackData s = held.getCapability(SolarCapabilities.ITEMSTACK_DATA).orElse(null);
+                    if (s == null) return;
+                    RecipeSelectorData selector = s.getRecipeSelectorData();
                     selector.deserializeNBT(nbt);
                     IdyllicFoodDiary.DEBUG.send(selector.serializeNBT().toString());
                 }
@@ -44,12 +48,15 @@ public class ServerPackHandler implements IServerPackHandler {
                     grill.setInventory(nbt);
                 }
             }
-            case "2" -> {
+            case NETList.TEMP -> {
                 BlockEntity be = level.getBlockEntity(pos);
                 if (be != null) {
                     IFluidHandler tank = FluidUtil.getTank(be);
                     if (tank != null) {
+                        // 有热源不会冷却
+                        boolean mtHeat = FarmerUtil.isHeatSource(level.getBlockState(pos.below())) && Temp.isHot(tank.getFluidInTank(0));
                         FluidStack updatedFluid = Temp.tick(fluidStack, level);
+                        if (mtHeat) updatedFluid = Temp.setFluidTemp(fluidStack, Temp.getOrCreateFluidTemp(fluidStack, level), level);
                         if (updatedFluid != null) {
                             tank.drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.EXECUTE);
                             tank.fill(updatedFluid, IFluidHandler.FluidAction.EXECUTE);

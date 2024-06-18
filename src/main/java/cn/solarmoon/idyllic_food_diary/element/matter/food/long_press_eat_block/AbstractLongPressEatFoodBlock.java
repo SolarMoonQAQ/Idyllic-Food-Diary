@@ -7,6 +7,7 @@ import cn.solarmoon.idyllic_food_diary.util.ParticleSpawner;
 import cn.solarmoon.solarmoon_core.api.block_util.BlockUtil;
 import cn.solarmoon.solarmoon_core.api.capability.CountingDevice;
 import cn.solarmoon.solarmoon_core.api.util.LevelSummonUtil;
+import cn.solarmoon.solarmoon_core.feature.capability.IPlayerData;
 import cn.solarmoon.solarmoon_core.registry.common.SolarCapabilities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -62,7 +63,9 @@ public abstract class AbstractLongPressEatFoodBlock extends FoodEntityBlock {
         if (player.canEat(false)) {
 
             //计数装置
-            CountingDevice counting = player.getCapability(SolarCapabilities.PLAYER_DATA).orElse(null).getCountingDevice();
+            IPlayerData p = player.getCapability(SolarCapabilities.PLAYER_DATA).orElse(null);
+            if (p == null) return InteractionResult.FAIL;
+            CountingDevice counting = p.getCountingDevice();
             counting.setCount(counting.getCount() + 1, pos);
             IdyllicFoodDiary.DEBUG.send("点击次数：" + counting.getCount(), player);
             //吃的声音
