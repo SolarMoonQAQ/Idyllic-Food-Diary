@@ -6,6 +6,7 @@ import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cutting_board.Cut
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.grill.GrillBlockRenderer;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.service_plate.ServicePlateBlockRenderer;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer.SteamerBlockRenderer;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.wok.WokBlockRenderer;
 import cn.solarmoon.idyllic_food_diary.element.matter.food.FoodBlockRenderer;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
 
@@ -19,6 +20,7 @@ public class IMBlockEntityRenderers {
         IMBlockEntities.CUTTING_BOARD.renderer(() -> CuttingBoardBlockRenderer::new);
         IMBlockEntities.COOKING_POT.renderer(() -> CookingPotBlockRenderer::new);
         IMBlockEntities.FOOD.renderer(() -> FoodBlockRenderer::new);
+        IMBlockEntities.WOK.renderer(() -> WokBlockRenderer::new);
     }
 
 }

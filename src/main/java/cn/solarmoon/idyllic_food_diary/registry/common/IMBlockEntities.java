@@ -4,7 +4,7 @@ import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cooking_pot.CookingPotBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup.CupBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cutting_board.CuttingBoardBlockEntity;
-import cn.solarmoon.idyllic_food_diary.element.matter.cookware.frying_pan.FryingPanBlockEntity;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.wok.WokBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.grill.GrillBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.kettle.KettleBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.service_plate.ServicePlateBlockEntity;
@@ -20,10 +20,10 @@ public class IMBlockEntities {
     public static void register() {}
 
     // 炒锅
-    public static final BlockEntityEntry<FryingPanBlockEntity> FRYING_PAN = IdyllicFoodDiary.REGISTRY.blockEntity()
-            .id("frying_pan")
-            .bound(FryingPanBlockEntity::new)
-            .validBlock(IMBlocks.FRYING_PAN::get)
+    public static final BlockEntityEntry<WokBlockEntity> WOK = IdyllicFoodDiary.REGISTRY.blockEntity()
+            .id("wok")
+            .bound(WokBlockEntity::new)
+            .validBlock(IMBlocks.WOK::get)
             .build();
 
     // 食物

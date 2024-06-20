@@ -8,7 +8,7 @@ import cn.solarmoon.idyllic_food_diary.element.matter.container.*;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cooking_pot.CookingPotBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup.CupBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cutting_board.CuttingBoardBlock;
-import cn.solarmoon.idyllic_food_diary.element.matter.cookware.frying_pan.FryingPanBlock;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.wok.WokBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.grill.GrillBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.kettle.KettleBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.service_plate.ServicePlateBlock;
@@ -22,8 +22,6 @@ import cn.solarmoon.idyllic_food_diary.element.matter.food.long_press_eat_block.
 import cn.solarmoon.idyllic_food_diary.util.useful_data.BlockProperty;
 import cn.solarmoon.solarmoon_core.api.entry.common.BlockEntry;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SaplingBlock;
@@ -32,9 +30,9 @@ public class IMBlocks {
     public static void register() {}
 
     //炒锅
-    public static final BlockEntry<FryingPanBlock> FRYING_PAN = IdyllicFoodDiary.REGISTRY.block()
-            .id("frying_pan")
-            .bound(FryingPanBlock::new)
+    public static final BlockEntry<WokBlock> WOK = IdyllicFoodDiary.REGISTRY.block()
+            .id("wok")
+            .bound(WokBlock::new)
             .build();
 
     //调料罐

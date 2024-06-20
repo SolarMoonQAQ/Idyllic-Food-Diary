@@ -8,7 +8,7 @@ import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cooking_pot.Cooki
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup.CeladonCupItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup.JadeChinaCupItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cutting_board.CuttingBoardItem;
-import cn.solarmoon.idyllic_food_diary.element.matter.cookware.frying_pan.FryingPanItem;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.wok.WokItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.grill.GrillItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.kettle.KettleItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.service_plate.ServicePlateItem;
@@ -25,7 +25,6 @@ import cn.solarmoon.solarmoon_core.api.entry.common.ItemEntry;
 import cn.solarmoon.solarmoon_core.api.item_base.*;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 
@@ -33,9 +32,9 @@ public class IMItems {
     public static void register() {}
 
     // 炒锅
-    public static final ItemEntry<FryingPanItem> FRYING_PAN = IdyllicFoodDiary.REGISTRY.item()
-            .id("frying_pan")
-            .bound(FryingPanItem::new)
+    public static final ItemEntry<WokItem> WOK = IdyllicFoodDiary.REGISTRY.item()
+            .id("wok")
+            .bound(WokItem::new)
             .build();
 
     // 调料类

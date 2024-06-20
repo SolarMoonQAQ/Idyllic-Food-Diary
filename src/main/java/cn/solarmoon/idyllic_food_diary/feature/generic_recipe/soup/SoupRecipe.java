@@ -18,7 +18,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public record SoupRecipe(
+public record SoupRecipe (
         ResourceLocation id,
         List<Ingredient> ingredients,
         FluidStack inputFluid,

@@ -1,4 +1,4 @@
-package cn.solarmoon.idyllic_food_diary.element.matter.cookware.frying_pan;
+package cn.solarmoon.idyllic_food_diary.element.matter.cookware.wok;
 
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.stir_fry.IStirFryRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.stir_fry.StirFryRecipe;
@@ -12,7 +12,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-public class FryingPanBlockEntity extends BaseTCBlockEntity implements IStirFryRecipe {
+public class WokBlockEntity extends BaseTCBlockEntity implements IStirFryRecipe {
 
     private int exp;
     private ItemStack result = ItemStack.EMPTY;
@@ -26,8 +26,8 @@ public class FryingPanBlockEntity extends BaseTCBlockEntity implements IStirFryR
     private ItemStack pendingItem = ItemStack.EMPTY;
     private final SpiceList spices = new SpiceList();
 
-    public FryingPanBlockEntity(BlockPos pos, BlockState state) {
-        super(IMBlockEntities.FRYING_PAN.get(), 250, 9, 1, pos, state);
+    public WokBlockEntity(BlockPos pos, BlockState state) {
+        super(IMBlockEntities.WOK.get(), 250, 9, 1, pos, state);
     }
 
     @Override

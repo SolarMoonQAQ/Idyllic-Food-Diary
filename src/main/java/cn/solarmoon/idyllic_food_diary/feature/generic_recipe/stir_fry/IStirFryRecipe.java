@@ -19,6 +19,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 public interface IStirFryRecipe extends IContainerBE, ITankBE, IHeatable, ISpiceable, IPendingResult {
 
@@ -110,6 +111,9 @@ public interface IStirFryRecipe extends IContainerBE, ITankBE, IHeatable, ISpice
         AnimTicker animTicker = b.getAnimTicker(2);
         if (canStirFry() && getPresentFryStage() != null && !animTicker.isEnabled()) {
             setFryCount(getFryCount() + 1);
+            for (int i = 0; i < getStacks().size(); i++) {
+                b.getAnimTicker(i+3).setFixedValue(new Random().nextFloat());
+            }
             animTicker.start();
             return true;
         }
