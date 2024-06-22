@@ -8,6 +8,7 @@ import cn.solarmoon.idyllic_food_diary.feature.tea_brewing.Temp;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMRecipes;
 import cn.solarmoon.solarmoon_core.api.blockentity_util.IContainerBE;
 import cn.solarmoon.solarmoon_core.api.blockentity_util.ITankBE;
+import cn.solarmoon.solarmoon_core.api.tile.ITankTile;
 import cn.solarmoon.solarmoon_core.api.util.FluidUtil;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -18,7 +19,7 @@ import net.minecraftforge.fluids.FluidStack;
 import java.util.List;
 import java.util.Optional;
 
-public interface ISoupRecipe extends IContainerBE, ITankBE, ISpiceable, IExpGiver, IHeatable {
+public interface ISoupRecipe extends ITankTile, ISpiceable, IExpGiver, IHeatable {
 
     String SIMMER_TIME = "SimmerTime";
     String SIMMER_RECIPE_TIME = "SimmerRecipeTime";

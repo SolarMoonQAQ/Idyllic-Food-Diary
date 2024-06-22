@@ -1,0 +1,40 @@
+{
+  "type": "idyllic_food_diary:stir_fry",
+  "stir_fry_stages": [
+    {
+      "ingredients": [
+        {
+          "item": "minecraft:mutton"
+        },
+        {
+          "item": "minecraft:potato"
+        }
+      ],
+      "with_spices": [
+        {
+          "item": "idyllic_food_diary:salt",
+          "step": "mix",
+          "amount": 1
+        }
+      ],
+      "time": 100,
+      "fry_count": 3,
+      "keep_fluid": false
+    },
+    {
+      "ingredients": [
+        {
+          "item": "idyllic_food_diary:chopped_spring_onion"
+        }
+      ],
+      "time": 0,
+      "fry_count": 3
+    }
+  ],
+  "result": {
+    "item": "minecraft:diamond"
+  },
+  "container": {
+    "item": "minecraft:bowl"
+  }
+}

@@ -48,12 +48,8 @@ public class CookingPotBlock extends BaseCookwareBlock {
             return InteractionResult.SUCCESS;
         }
 
-        if (!level.isClientSide && cookingPot.doStirFry()) {
-            return InteractionResult.SUCCESS;
-        }
-
         // 没有预输入结果时才能进行物品流体的交互
-        if (!cookingPot.hasResult() && !cookingPot.canStirFry()) {
+        if (!cookingPot.hasResult()) {
             //能够存取液体
             if (cookingPot.putFluid(player, hand, false)) {
                 level.playSound(null, pos, SoundEvents.BUCKET_FILL, SoundSource.PLAYERS);
@@ -86,13 +82,11 @@ public class CookingPotBlock extends BaseCookwareBlock {
     public void tick(Level level, BlockPos pos, BlockState state, BlockEntity blockEntity) {
         super.tick(level, pos, state, blockEntity);
         CookingPotBlockEntity pot = (CookingPotBlockEntity) blockEntity;
-        if (!pot.tryStirFrying()) {
-            if (!pot.tryStew()) {
-                if (!pot.trySimmer()) {
-                    if (!pot.tryBoilFood()) {
-                        if (!pot.tryBoilWater()) {
+        if (!pot.tryStew()) {
+            if (!pot.trySimmer()) {
+                if (!pot.tryBoilFood()) {
+                    if (!pot.tryBoilWater()) {
 
-                        }
                     }
                 }
             }

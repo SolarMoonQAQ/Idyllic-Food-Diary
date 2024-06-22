@@ -16,5 +16,17 @@
     "sounds": [
       "idyllic_food_diary:block/boiling_water"
     ]
+  },
+  "block.stir_fry": {
+    "subtitle": "idyllic_food_diary.block.stir_fry",
+    "sounds": [
+      "idyllic_food_diary:block/stir_fry"
+    ]
+  },
+  "block.stir_sizzle": {
+    "subtitle": "idyllic_food_diary.block.stir_sizzle",
+    "sounds": [
+      "idyllic_food_diary:block/stir_sizzle"
+    ]
   }
 }

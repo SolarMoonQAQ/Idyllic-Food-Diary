@@ -8,6 +8,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 /**
  * 可预存result和container的接口，适用于一些需要将合成结果预存在方块中再用容器取出的配方<br/>
@@ -41,6 +42,7 @@ public interface IPendingResult extends IExpGiver {
                 giveExp(player, true);
                 if (!player.isCreative()) heldItem.shrink(1);
                 resetContainer();
+                ((BlockEntity)this).setChanged();
                 return true;
             } else {
                 Component message = IdyllicFoodDiary.TRANSLATOR.set("message", "container_required.empty");

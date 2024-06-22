@@ -5,6 +5,7 @@ import cn.solarmoon.idyllic_food_diary.feature.basic_feature.IPendingResult;
 import cn.solarmoon.solarmoon_core.api.block_base.BasicEntityBlock;
 import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
 import com.google.gson.JsonParser;
+import com.simibubi.create.foundation.blockEntity.SyncedBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.LivingEntity;
@@ -35,7 +36,6 @@ public abstract class BaseCookwareBlock extends BasicEntityBlock implements IHor
         BlockEntity blockEntity = level.getBlockEntity(pos);
         if (blockEntity == null) return origin;
         CompoundTag tag = origin.getOrCreateTag();
-
         if (blockEntity instanceof IPendingResult pending) {
             tag.put(IPendingResult.RESULT, pending.getResult().save(new CompoundTag()));
             tag.putString(IPendingResult.CONTAINER, pending.getContainer().toJson().toString());

@@ -9,7 +9,7 @@ import net.minecraft.world.item.BlockItem;
 
 import java.util.function.Supplier;
 
-public class WokItem extends BlockItem implements ITankItem, IContainerItem, IItemRendererProvider {
+public class WokItem extends BlockItem implements IItemRendererProvider {
 
     public WokItem() {
         super(IMBlocks.WOK.get(), new Properties().stacksTo(1));
@@ -18,11 +18,6 @@ public class WokItem extends BlockItem implements ITankItem, IContainerItem, IIt
     @Override
     public Supplier<BaseItemRenderer> getRendererFactory() {
         return WokItemRenderer::new;
-    }
-
-    @Override
-    public int getMaxCapacity() {
-        return 250;
     }
 
 }

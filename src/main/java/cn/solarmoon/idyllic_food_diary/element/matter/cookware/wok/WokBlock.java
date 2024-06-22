@@ -3,25 +3,37 @@ package cn.solarmoon.idyllic_food_diary.element.matter.cookware.wok;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.BaseCookwareBlock;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMPacks;
+import cn.solarmoon.idyllic_food_diary.registry.common.IMSounds;
+import cn.solarmoon.idyllic_food_diary.util.VoxelShapeUtil;
+import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
+import cn.solarmoon.solarmoon_core.api.tile.SyncedEntityBlock;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import vectorwing.farmersdelight.common.block.StoveBlock;
 
-public class WokBlock extends BaseCookwareBlock {
+import java.util.Random;
+
+public class WokBlock extends SyncedEntityBlock implements IHorizontalFacingBlock {
 
     public WokBlock() {
         super(Block.Properties.of()
@@ -40,11 +52,10 @@ public class WokBlock extends BaseCookwareBlock {
         if (pan == null) return super.use(state, level, pos, player, hand, hitResult);
 
         if (pan.tryGiveResult(player, hand)) {
-            pan.setChanged();
             return InteractionResult.SUCCESS;
         }
 
-        if (!level.isClientSide && pan.doStirFry()) {
+        if (level.isClientSide && pan.doStirFry()) {
             return InteractionResult.SUCCESS;
         }
 
@@ -53,20 +64,16 @@ public class WokBlock extends BaseCookwareBlock {
             //能够存取液体
             if (pan.putFluid(player, hand, false)) {
                 level.playSound(null, pos, SoundEvents.BUCKET_FILL, SoundSource.PLAYERS);
-                pan.setChanged();
                 return InteractionResult.SUCCESS;
             }
             if (pan.takeFluid(player, hand, false)) {
                 level.playSound(null, pos, SoundEvents.BUCKET_EMPTY, SoundSource.PLAYERS);
-                pan.setChanged();
                 return InteractionResult.SUCCESS;
             }
 
             //存取任意单个物品
             if (hand.equals(InteractionHand.MAIN_HAND) && pan.storage(player, hand, 1, 1)) {
                 level.playSound(null, pos, SoundEvents.LANTERN_STEP, SoundSource.BLOCKS);
-                if (!level.isClientSide) IMPacks.CLIENT_PACK.getSender().pos(pos).send("t");
-                pan.setChanged();
                 return InteractionResult.SUCCESS;
             }
         }
@@ -78,13 +85,48 @@ public class WokBlock extends BaseCookwareBlock {
     public void tick(Level level, BlockPos pos, BlockState state, BlockEntity blockEntity) {
         if (blockEntity instanceof WokBlockEntity pan) {
             pan.tryStirFrying();
+
+            // 炒菜音效
+            if (pan.isStirFrying() && level.isClientSide) {
+                if (pan.soundTick == 0 || pan.soundTick > 90) {
+                    level.playLocalSound(pos, IMSounds.STIR_FRY.get(), SoundSource.BLOCKS, 1, 1, false);
+                    pan.soundTick = 1;
+                }
+                pan.soundTick++;
+            } else {
+                pan.soundTick = 0;
+            }
+
         }
         super.tick(level, pos, state, blockEntity);
     }
 
     @Override
-    public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
-        return Shapes.block();
+    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+        super.animateTick(state, level, pos, random);
+        WokBlockEntity pan = (WokBlockEntity) level.getBlockEntity(pos);
+        // 炒菜时的锅气
+        if (pan != null) {
+            if (pan.isStirFrying()) {
+                double rInRange = 2/16f + random.nextDouble() * 12/16; // 保证粒子起始点在锅内
+                double vi = (random.nextDouble() - 0.5) / 5;
+                level.addParticle(ParticleTypes.SMOKE, pos.getX() + rInRange, pos.getY() + 1 / 16f, pos.getZ() + rInRange, vi, 0.1, vi);
+            }
+        }
+    }
+
+    @Override
+    public VoxelShape getShape(BlockState state, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
+        VoxelShape body = Shapes.joinUnoptimized(
+                Block.box(2, 0, 2, 14, 4, 14),
+                Block.box(3, 1, 3, 13, 4, 13),
+                BooleanOp.ONLY_FIRST
+        );
+        VoxelShape handle = Shapes.or(
+                Block.box(0, 2, 5, 2, 4, 11),
+                Block.box(14, 2, 5, 16, 4, 11)
+        );
+        return VoxelShapeUtil.rotateShape(state.getValue(FACING), Shapes.or(body, handle));
     }
 
     @Override

@@ -3,7 +3,6 @@ package cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer;
 import cn.solarmoon.solarmoon_core.api.blockstate_access.IBedPartBlock;
 import cn.solarmoon.solarmoon_core.api.phys.VecUtil;
 import cn.solarmoon.solarmoon_core.api.renderer.BaseBlockEntityRenderer;
-import cn.solarmoon.solarmoon_core.api.util.PoseStackUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.renderer.LevelRenderer;
@@ -63,7 +62,6 @@ public class SteamerBlockRenderer<E extends SteamerBlockEntity> extends BaseBloc
         poseStack.translate(v1.x, v1.y, v1.z);
         poseStack.scale(0.375F, 0.375F, 0.375F);
         poseStack.mulPose(Axis.YP.rotationDegrees(90));
-        PoseStackUtil.rotateByDirection(direction, poseStack);
         poseStack.mulPose(Axis.XP.rotationDegrees(-90));
         blockRenderDispatcher.renderSingleBlock(state.setValue(IBedPartBlock.PART, BedPart.HEAD), poseStack, buffer, light, overlay);
         poseStack.popPose();
@@ -76,7 +74,6 @@ public class SteamerBlockRenderer<E extends SteamerBlockEntity> extends BaseBloc
             poseStack.translate(v1_2.x, v1_2.y, v1_2.z);
             poseStack.scale(0.375F, 0.375F, 0.375F);
             poseStack.mulPose(Axis.YP.rotationDegrees(90));
-            PoseStackUtil.rotateByDirection(direction, poseStack);
             poseStack.mulPose(Axis.XP.rotationDegrees(-90));
             blockRenderDispatcher.renderSingleBlock(state.setValue(IBedPartBlock.PART, BedPart.FOOT), poseStack, buffer, light, overlay);
             poseStack.popPose();
@@ -101,7 +98,6 @@ public class SteamerBlockRenderer<E extends SteamerBlockEntity> extends BaseBloc
                 Vec3 v1 = VecUtil.rotateVec(base1, center, direction);
                 poseStack.translate(v1.x, v1.y, v1.z);
                 poseStack.scale(0.375F, 0.375F, 0.375F);
-                PoseStackUtil.rotateByDirection(direction, poseStack);
                 if (level != null) {
                     int lightColor = LevelRenderer.getLightColor(level, steamer.getBlockPos().above());
                     BlockState state = Block.byItem(stack.getItem()).defaultBlockState();
@@ -137,7 +133,6 @@ public class SteamerBlockRenderer<E extends SteamerBlockEntity> extends BaseBloc
                 Vec3 v1 = VecUtil.rotateVec(base1, center, direction.getOpposite());
                 poseStack.translate(v1.x, v1.y, v1.z);
                 poseStack.scale(0.375F, 0.375F, 0.375F);
-                PoseStackUtil.rotateByDirection(direction.getOpposite(), poseStack);
                 if (level != null) {
                     int lightColor = LevelRenderer.getLightColor(level, steamer.getBlockPos().above());
                     BlockState state = Block.byItem(stack.getItem()).defaultBlockState();

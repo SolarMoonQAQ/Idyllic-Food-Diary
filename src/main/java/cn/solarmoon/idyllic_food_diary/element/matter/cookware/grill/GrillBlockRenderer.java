@@ -4,7 +4,6 @@ import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
 import cn.solarmoon.solarmoon_core.api.blockstate_access.ILitBlock;
 import cn.solarmoon.solarmoon_core.api.phys.VecUtil;
 import cn.solarmoon.solarmoon_core.api.renderer.BaseBlockEntityRenderer;
-import cn.solarmoon.solarmoon_core.api.util.PoseStackUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.renderer.LevelRenderer;
@@ -51,7 +50,6 @@ public class GrillBlockRenderer<E extends GrillBlockEntity> extends BaseBlockEnt
                 Vec3 v1 = VecUtil.rotateVec(base1, center, direction.getOpposite());
                 poseStack.translate(v1.x, v1.y, v1.z);
                 poseStack.scale(0.325F, 0.325F, 0.325F);
-                PoseStackUtil.rotateByDirection(direction.getOpposite(), poseStack);
                 if (level != null) {
                     BlockState state = Block.byItem(stack.getItem()).defaultBlockState();
                     if (!state.is(Blocks.AIR)) {
@@ -84,7 +82,6 @@ public class GrillBlockRenderer<E extends GrillBlockEntity> extends BaseBlockEnt
             Vec3 v1 = VecUtil.rotateVec(base1, center, direction.getOpposite());
             poseStack.translate(v1.x, v1.y, v1.z);
             poseStack.scale(0.275F, 0.275F, 0.275F);
-            PoseStackUtil.rotateByDirection(direction.getOpposite(), poseStack);
             if (grill.getLevel() != null)
                 itemRenderer.renderStatic(coal, ItemDisplayContext.FIXED, LevelRenderer.getLightColor(grill.getLevel(), grill.getBlockPos().above()), overlay, poseStack, buffer, grill.getLevel(), posLong + i);
             poseStack.popPose();

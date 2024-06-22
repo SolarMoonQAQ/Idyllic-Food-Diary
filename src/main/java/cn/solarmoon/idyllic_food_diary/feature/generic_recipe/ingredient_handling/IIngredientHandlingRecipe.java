@@ -18,7 +18,7 @@ import net.minecraft.world.phys.Vec3;
 import java.util.List;
 import java.util.Optional;
 
-public interface IIngredientHandlingRecipe extends IContainerBE, ISpiceable {
+public interface IIngredientHandlingRecipe extends ISpiceable {
 
     default BlockEntity selfI() {
         return (BlockEntity) this;

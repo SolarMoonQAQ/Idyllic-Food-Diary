@@ -6,13 +6,20 @@ import cn.solarmoon.idyllic_food_diary.feature.spice.Spice;
 import cn.solarmoon.idyllic_food_diary.feature.spice.SpiceList;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
 import cn.solarmoon.solarmoon_core.api.blockentity_base.BaseTCBlockEntity;
+import cn.solarmoon.solarmoon_core.api.tile.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
+import net.minecraftforge.fluids.capability.templates.FluidTank;
+import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 
-public class WokBlockEntity extends BaseTCBlockEntity implements IStirFryRecipe {
+public class WokBlockEntity extends SyncedBlockEntity implements IStirFryRecipe, IContainerTile, ITankTile {
+
+    private final TileInventory inventory;
+    private final TileTank fluidTank;
 
     private int exp;
     private ItemStack result = ItemStack.EMPTY;
@@ -26,8 +33,17 @@ public class WokBlockEntity extends BaseTCBlockEntity implements IStirFryRecipe 
     private ItemStack pendingItem = ItemStack.EMPTY;
     private final SpiceList spices = new SpiceList();
 
+    public int soundTick;
+
     public WokBlockEntity(BlockPos pos, BlockState state) {
-        super(IMBlockEntities.WOK.get(), 250, 9, 1, pos, state);
+        super(IMBlockEntities.WOK.get(), pos, state);
+        inventory = new TileInventory(6, 1, this);
+        fluidTank = new TileTank(250, this);
+    }
+
+    @Override
+    public AABB getRenderBoundingBox() {
+        return super.getRenderBoundingBox().inflate(3);
     }
 
     @Override
@@ -145,4 +161,13 @@ public class WokBlockEntity extends BaseTCBlockEntity implements IStirFryRecipe 
         return !isStirFrying();
     }
 
+    @Override
+    public ItemStackHandler getInventory() {
+        return inventory;
+    }
+
+    @Override
+    public FluidTank getTank() {
+        return fluidTank;
+    }
 }

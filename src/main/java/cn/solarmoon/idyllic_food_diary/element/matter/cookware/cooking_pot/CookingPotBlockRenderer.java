@@ -40,7 +40,7 @@ public class CookingPotBlockRenderer<E extends CookingPotBlockEntity> extends Ba
                 poseStack.translate(0.5, normal, 0.5);
                 poseStack.mulPose(Axis.YP.rotationDegrees(direction.toYRot()));
                 poseStack.scale(0.5f, 0.5f, 0.5f);
-                if (animTicker2.isEnabled() && pot.canStirFry()) {
+                if (animTicker2.isEnabled()) {
                     int fps = 1000; // 帧时间
                     animTicker2.setFixedValue(animTicker2.getFixedValue() + v);
                     if (animTicker2.getFixedValue() > fps) {

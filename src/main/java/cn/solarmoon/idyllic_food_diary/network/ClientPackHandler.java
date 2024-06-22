@@ -83,10 +83,6 @@ public class ClientPackHandler implements IClientPackHandler {
                     }
                 }
             }
-            case "t" -> {
-                BlockEntity B = level.getBlockEntity(pos);
-                if (B != null) B.setChanged();
-            }
         }
     }
 

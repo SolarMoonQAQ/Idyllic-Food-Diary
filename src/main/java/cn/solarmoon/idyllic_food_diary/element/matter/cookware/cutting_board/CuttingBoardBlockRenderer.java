@@ -4,7 +4,6 @@ import cn.solarmoon.idyllic_food_diary.data.IMItemTags;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMItems;
 import cn.solarmoon.solarmoon_core.api.phys.VecUtil;
 import cn.solarmoon.solarmoon_core.api.renderer.BaseBlockEntityRenderer;
-import cn.solarmoon.solarmoon_core.api.util.PoseStackUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -34,7 +33,6 @@ public class CuttingBoardBlockRenderer<E extends CuttingBoardBlockEntity> extend
         Vec3 base1 = center.add(0, 0.0625, -0.125);
         Vec3 v1 = VecUtil.rotateVec(base1, center, direction.getOpposite());
         poseStack.translate(v1.x, v1.y, v1.z);
-        PoseStackUtil.rotateByDirection(direction.getOpposite(), poseStack);
         BlockState state = Block.byItem(stack.getItem()).defaultBlockState();
         if (!state.is(Blocks.AIR)) {
             poseStack.scale(0.35F, 0.35F, 0.35F);

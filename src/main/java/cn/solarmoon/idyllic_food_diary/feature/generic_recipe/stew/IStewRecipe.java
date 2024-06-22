@@ -7,6 +7,7 @@ import cn.solarmoon.idyllic_food_diary.feature.spice.ISpiceable;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMRecipes;
 import cn.solarmoon.solarmoon_core.api.blockentity_util.IContainerBE;
 import cn.solarmoon.solarmoon_core.api.blockentity_util.ITankBE;
+import cn.solarmoon.solarmoon_core.api.tile.ITankTile;
 import cn.solarmoon.solarmoon_core.api.util.FluidUtil;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -21,8 +22,7 @@ import java.util.Optional;
 /**
  * 接入该接口后立刻实现煮锅配方，但要注意接入后无法再调用新的带有ITimeRecipeBlockEntity的配方
  */
-public interface IStewRecipe extends IContainerBE,
-        ITankBE, IPendingResult, ISpiceable, IHeatable {
+public interface IStewRecipe extends ITankTile, IPendingResult, ISpiceable, IHeatable {
 
     String STEW_TIME = "StewTime";
     String STEW_RECIPE_TIME = "StewRecipeTime";

@@ -3,6 +3,7 @@ package cn.solarmoon.idyllic_food_diary.element.matter.cookware.spice_jar;
 import cn.solarmoon.idyllic_food_diary.feature.spice.ISpiceable;
 import cn.solarmoon.idyllic_food_diary.feature.spice.Spice;
 import cn.solarmoon.solarmoon_core.api.item_util.IContainerItem;
+import cn.solarmoon.solarmoon_core.api.tile.TileItemContainerHelper;
 import cn.solarmoon.solarmoon_core.api.util.ContainerUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -18,6 +19,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.ItemStackHandler;
 
+import java.util.Optional;
 import java.util.Random;
 
 public abstract class AbstractSpiceJarItem extends BlockItem implements IContainerItem {
@@ -34,12 +36,15 @@ public abstract class AbstractSpiceJarItem extends BlockItem implements IContain
         BlockPos pos = context.getClickedPos();
         BlockEntity blockEntity = level.getBlockEntity(pos);
         if (blockEntity instanceof ISpiceable sp && hasEnoughSpice(stack) && !sp.timeToResetSpices()) {
-            ItemStackHandler inv = ContainerUtil.getInventory(stack);
-            sp.getSpices().add(new Spice(inv.extractItem(0, 1, false).getItem(), sp.getSpiceStep()));
-            level.playSound(null, pos, SoundEvents.AZALEA_LEAVES_HIT, SoundSource.PLAYERS);
-            makeSpiceParticle(level, pos);
-            if (player != null && !player.isCreative()) ContainerUtil.setInventory(stack, inv);
-            return InteractionResult.SUCCESS;
+            Optional<ItemStackHandler> invOp = TileItemContainerHelper.getInventory(stack);
+            if (invOp.isPresent()) {
+                ItemStackHandler inv = invOp.get();
+                sp.getSpices().add(new Spice(inv.extractItem(0, 1, false).getItem(), sp.getSpiceStep()));
+                level.playSound(null, pos, SoundEvents.AZALEA_LEAVES_HIT, SoundSource.PLAYERS);
+                makeSpiceParticle(level, pos);
+                if (player != null && !player.isCreative()) TileItemContainerHelper.setInventory(stack, inv);
+                return InteractionResult.SUCCESS;
+            }
         }
         return super.useOn(context);
     }
@@ -59,7 +64,8 @@ public abstract class AbstractSpiceJarItem extends BlockItem implements IContain
     }
 
     public static boolean hasEnoughSpice(ItemStack stack) {
-        return !ContainerUtil.getInventory(stack).getStackInSlot(0).isEmpty();
+        Optional<ItemStackHandler> invOp = TileItemContainerHelper.getInventory(stack);
+        return invOp.filter(itemStackHandler -> !itemStackHandler.getStackInSlot(0).isEmpty()).isPresent();
     }
 
 }

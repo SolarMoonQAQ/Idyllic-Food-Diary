@@ -4,21 +4,25 @@ import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.evaporation.IEvapo
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.food_boiling.IFoodBoilingRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.soup.ISoupRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.stew.IStewRecipe;
-import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.stir_fry.IStirFryRecipe;
-import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.stir_fry.StirFryRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.spice.Spice;
 import cn.solarmoon.idyllic_food_diary.feature.spice.SpiceList;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.water_boiling.IWaterBoilingRecipe;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
-import cn.solarmoon.solarmoon_core.api.blockentity_base.BaseTCBlockEntity;
+import cn.solarmoon.solarmoon_core.api.tile.SyncedBlockEntity;
+import cn.solarmoon.solarmoon_core.api.tile.TileInventory;
+import cn.solarmoon.solarmoon_core.api.tile.TileTank;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.Nullable;
+import net.minecraftforge.fluids.capability.templates.FluidTank;
+import net.minecraftforge.items.ItemStackHandler;
 
-public class CookingPotBlockEntity extends BaseTCBlockEntity implements IStewRecipe, IStirFryRecipe,
+public class CookingPotBlockEntity extends SyncedBlockEntity implements IStewRecipe,
         IWaterBoilingRecipe, IEvaporationRecipe, ISoupRecipe, IFoodBoilingRecipe {
+
+    private final TileInventory inventory;
+    private final TileTank fluidTank;
 
     private int time;
     private int recipeTime;
@@ -39,17 +43,10 @@ public class CookingPotBlockEntity extends BaseTCBlockEntity implements IStewRec
 
     private int evaTick;
 
-    private int stageNumber;
-    private int stirFryTime;
-    private int stirFryRecipeTime;
-    private boolean canStirFry;
-    private int fryCount;
-    private ItemStack pending;
-    private StirFryRecipe stirFryRecipe;
-
     public CookingPotBlockEntity(BlockPos pos, BlockState state) {
-        super(IMBlockEntities.COOKING_POT.get(), 1000, 9, 1, pos, state);
-        pending = ItemStack.EMPTY;
+        super(IMBlockEntities.COOKING_POT.get(), pos, state);
+        inventory = new TileInventory(9, 1, this);
+        fluidTank = new TileTank(1000, this);
     }
 
     /**
@@ -91,7 +88,7 @@ public class CookingPotBlockEntity extends BaseTCBlockEntity implements IStewRec
 
     @Override
     public boolean timeToResetSpices() {
-        return !(findStewRecipe().isPresent() || getPresentFryStage() != null || findSimmerRecipe().isPresent());
+        return !(findStewRecipe().isPresent() || findSimmerRecipe().isPresent());
     }
 
     @Override
@@ -195,73 +192,12 @@ public class CookingPotBlockEntity extends BaseTCBlockEntity implements IStewRec
     }
 
     @Override
-    public @Nullable StirFryRecipe getStirFryRecipe() {
-        return stirFryRecipe;
+    public ItemStackHandler getInventory() {
+        return inventory;
     }
 
     @Override
-    public void setStirFryRecipe(StirFryRecipe recipe) {
-        stirFryRecipe = recipe;
+    public FluidTank getTank() {
+        return fluidTank;
     }
-
-    @Override
-    public int getPresentStage() {
-        return stageNumber;
-    }
-
-    @Override
-    public void setPresentStage(int stage) {
-        stageNumber = stage;
-    }
-
-    @Override
-    public int getStirFryTime() {
-        return stirFryTime;
-    }
-
-    @Override
-    public void setStirFryTime(int time) {
-        stirFryTime = time;
-    }
-
-    @Override
-    public int getStirFryRecipeTime() {
-        return stirFryRecipeTime;
-    }
-
-    @Override
-    public void setStirFryRecipeTime(int time) {
-        stirFryRecipeTime = time;
-    }
-
-    @Override
-    public boolean canStirFry() {
-        return canStirFry;
-    }
-
-    @Override
-    public void setCanStirFry(boolean or) {
-        canStirFry = or;
-    }
-
-    @Override
-    public int getFryCount() {
-        return fryCount;
-    }
-
-    @Override
-    public void setFryCount(int count) {
-        fryCount = count;
-    }
-
-    @Override
-    public ItemStack getPendingItem() {
-        return pending;
-    }
-
-    @Override
-    public void setPendingItem(ItemStack stack) {
-        pending = stack;
-    }
-
 }

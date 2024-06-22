@@ -2,13 +2,14 @@ package cn.solarmoon.idyllic_food_diary.feature.spice;
 
 import cn.solarmoon.idyllic_food_diary.registry.common.IMCapabilities;
 import cn.solarmoon.solarmoon_core.api.blockentity_util.IContainerBE;
+import cn.solarmoon.solarmoon_core.api.tile.IContainerTile;
 import net.minecraft.world.item.ItemStack;
 
 /**
  * 接入该接口后，当拿着调味瓶右击接入该接口的方块时，将会为方块中的物品或是即将产出的产物添加spice属性，
  * 但是要注意，具体调用时机需要自己设置（在合适的地方调用addSpicesToItem方法）
  */
-public interface ISpiceable extends IContainerBE {
+public interface ISpiceable extends IContainerTile {
 
     /**
      * 将调料全部加入输入的物品中

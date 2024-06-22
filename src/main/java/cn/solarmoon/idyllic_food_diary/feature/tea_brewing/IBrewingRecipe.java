@@ -4,6 +4,8 @@ import cn.solarmoon.idyllic_food_diary.data.IMItemTags;
 import cn.solarmoon.idyllic_food_diary.feature.basic_feature.IHeatable;
 import cn.solarmoon.solarmoon_core.api.blockentity_util.IContainerBE;
 import cn.solarmoon.solarmoon_core.api.blockentity_util.ITankBE;
+import cn.solarmoon.solarmoon_core.api.tile.IContainerTile;
+import cn.solarmoon.solarmoon_core.api.tile.ITankTile;
 import com.google.gson.Gson;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
@@ -20,7 +22,7 @@ import static cn.solarmoon.idyllic_food_diary.feature.tea_brewing.TeaBrewingUtil
 /**
  * 直接接入就能实现泡茶配方
  */
-public interface IBrewingRecipe extends IContainerBE, ITankBE, IHeatable {
+public interface IBrewingRecipe extends IContainerTile, ITankTile, IHeatable {
 
     String BREW_TICK = "BrewTick";
 

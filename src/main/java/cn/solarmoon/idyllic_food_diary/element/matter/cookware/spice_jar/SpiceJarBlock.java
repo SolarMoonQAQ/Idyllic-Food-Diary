@@ -3,6 +3,8 @@ package cn.solarmoon.idyllic_food_diary.element.matter.cookware.spice_jar;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.BaseCookwareBlock;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
 import cn.solarmoon.solarmoon_core.api.block_use_caller.IBlockUseCaller;
+import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
+import cn.solarmoon.solarmoon_core.api.tile.SyncedEntityBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -20,7 +22,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.eventbus.api.Event;
 
-public class SpiceJarBlock extends BaseCookwareBlock implements IBlockUseCaller {
+public class SpiceJarBlock extends SyncedEntityBlock implements IBlockUseCaller, IHorizontalFacingBlock {
 
     public SpiceJarBlock() {
         super(BlockBehaviour.Properties.copy(Blocks.GLASS));

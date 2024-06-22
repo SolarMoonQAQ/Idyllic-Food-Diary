@@ -39,14 +39,14 @@ public class IMBlockEntities {
     //小容量杯子
     public static final BlockEntityEntry<CupBlockEntity> LITTLE_CUP = IdyllicFoodDiary.REGISTRY.blockEntity()
             .id("little_cup")
-            .bound((pos, state) -> new CupBlockEntity(250, 1, 1, pos, state))
+            .bound(CupBlockEntity::new)
             .validBlocks(() -> new Block[]{IMBlocks.CELADON_CUP.get(), IMBlocks.JADE_CHINA_CUP.get()})
             .build();
 
     //水壶
     public static final BlockEntityEntry<KettleBlockEntity> KETTLE = IdyllicFoodDiary.REGISTRY.blockEntity()
             .id("kettle")
-            .bound((pos, state) -> new KettleBlockEntity(1000, 3, 1, pos, state))
+            .bound(KettleBlockEntity::new)
             .validBlock(IMBlocks.KETTLE::get)
             .build();
 

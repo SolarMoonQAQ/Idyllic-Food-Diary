@@ -5,6 +5,7 @@ import cn.solarmoon.solarmoon_core.api.blockentity_base.BaseContainerBlockEntity
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import net.minecraftforge.items.ItemStackHandler;
 
 public class ServicePlateBlockEntity extends BaseContainerBlockEntity {
@@ -40,6 +41,11 @@ public class ServicePlateBlockEntity extends BaseContainerBlockEntity {
             }
         }
         return ItemStack.EMPTY;
+    }
+
+    @Override
+    public AABB getRenderBoundingBox() {
+        return super.getRenderBoundingBox().inflate(3);
     }
 
 }

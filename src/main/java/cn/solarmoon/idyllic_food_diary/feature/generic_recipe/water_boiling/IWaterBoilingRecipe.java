@@ -4,6 +4,7 @@ import cn.solarmoon.idyllic_food_diary.feature.basic_feature.IHeatable;
 import cn.solarmoon.idyllic_food_diary.feature.tea_brewing.Temp;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMRecipes;
 import cn.solarmoon.solarmoon_core.api.blockentity_util.ITankBE;
+import cn.solarmoon.solarmoon_core.api.tile.ITankTile;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.fluids.FluidStack;
@@ -14,7 +15,7 @@ import java.util.Optional;
 /**
  * 直接接入就能实现水壶配方
  */
-public interface IWaterBoilingRecipe extends ITankBE, IHeatable {
+public interface IWaterBoilingRecipe extends ITankTile, IHeatable {
 
     String BOIL_TICK = "BoilTick";
 

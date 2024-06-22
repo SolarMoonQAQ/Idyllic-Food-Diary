@@ -4,16 +4,20 @@ import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.ingredient_handlin
 import cn.solarmoon.idyllic_food_diary.feature.spice.Spice;
 import cn.solarmoon.idyllic_food_diary.feature.spice.SpiceList;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
-import cn.solarmoon.solarmoon_core.api.blockentity_base.BaseContainerBlockEntity;
+import cn.solarmoon.solarmoon_core.api.tile.SyncedBlockEntity;
+import cn.solarmoon.solarmoon_core.api.tile.TileInventory;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.items.ItemStackHandler;
 
-public class CuttingBoardBlockEntity extends BaseContainerBlockEntity implements IIngredientHandlingRecipe {
+public class CuttingBoardBlockEntity extends SyncedBlockEntity implements IIngredientHandlingRecipe {
 
     public SpiceList spices = new SpiceList();
+    private final TileInventory inventory;
 
     public CuttingBoardBlockEntity(BlockPos pos, BlockState state) {
-        super(IMBlockEntities.CUTTING_BOARD.get(), 9, 1, pos, state);
+        super(IMBlockEntities.CUTTING_BOARD.get(), pos, state);
+        inventory = new TileInventory(9, 1, this);
     }
 
     @Override
@@ -29,6 +33,11 @@ public class CuttingBoardBlockEntity extends BaseContainerBlockEntity implements
     @Override
     public boolean timeToResetSpices() {
         return findHandleRecipe().isEmpty();
+    }
+
+    @Override
+    public ItemStackHandler getInventory() {
+        return inventory;
     }
 
 }

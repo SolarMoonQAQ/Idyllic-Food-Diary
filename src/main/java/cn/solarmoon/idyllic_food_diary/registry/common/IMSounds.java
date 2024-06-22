@@ -19,4 +19,12 @@ public class IMSounds {
             .name("block.boiling_water")
             .build();
 
+    public static final SoundEntry STIR_FRY = IdyllicFoodDiary.REGISTRY.sound()
+            .name("block.stir_fry")
+            .build();
+
+    public static final SoundEntry STIR_SIZZLE = IdyllicFoodDiary.REGISTRY.sound()
+            .name("block.stir_sizzle")
+            .build();
+
 }
