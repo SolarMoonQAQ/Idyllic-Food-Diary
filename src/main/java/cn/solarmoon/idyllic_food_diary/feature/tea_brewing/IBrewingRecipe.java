@@ -2,10 +2,8 @@ package cn.solarmoon.idyllic_food_diary.feature.tea_brewing;
 
 import cn.solarmoon.idyllic_food_diary.data.IMItemTags;
 import cn.solarmoon.idyllic_food_diary.feature.basic_feature.IHeatable;
-import cn.solarmoon.solarmoon_core.api.blockentity_util.IContainerBE;
-import cn.solarmoon.solarmoon_core.api.blockentity_util.ITankBE;
-import cn.solarmoon.solarmoon_core.api.tile.IContainerTile;
-import cn.solarmoon.solarmoon_core.api.tile.ITankTile;
+import cn.solarmoon.solarmoon_core.api.tile.fluid.ITankTile;
+import cn.solarmoon.solarmoon_core.api.tile.inventory.IContainerTile;
 import com.google.gson.Gson;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;

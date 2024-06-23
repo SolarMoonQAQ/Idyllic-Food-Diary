@@ -2,6 +2,7 @@ package cn.solarmoon.idyllic_food_diary.element.matter.cookware.wok;
 
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.BaseCookwareBlock;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
+import cn.solarmoon.idyllic_food_diary.registry.common.IMItems;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMPacks;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMSounds;
 import cn.solarmoon.idyllic_food_diary.util.VoxelShapeUtil;
@@ -16,6 +17,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -55,7 +57,7 @@ public class WokBlock extends SyncedEntityBlock implements IHorizontalFacingBloc
             return InteractionResult.SUCCESS;
         }
 
-        if (level.isClientSide && pan.doStirFry()) {
+        if (level.isClientSide && player.getMainHandItem().is(IMItems.SPATULA.get()) && pan.doStirFry()) {
             return InteractionResult.SUCCESS;
         }
 
@@ -72,7 +74,7 @@ public class WokBlock extends SyncedEntityBlock implements IHorizontalFacingBloc
             }
 
             //存取任意单个物品
-            if (hand.equals(InteractionHand.MAIN_HAND) && pan.storage(player, hand, 1, 1)) {
+            if (hand.equals(InteractionHand.MAIN_HAND) && !player.getMainHandItem().is(IMItems.SPATULA.get()) && pan.storage(player, hand, 1, 1)) {
                 level.playSound(null, pos, SoundEvents.LANTERN_STEP, SoundSource.BLOCKS);
                 return InteractionResult.SUCCESS;
             }

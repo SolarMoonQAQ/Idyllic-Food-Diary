@@ -1,11 +1,10 @@
 package cn.solarmoon.idyllic_food_diary.feature.spice;
 
 import cn.solarmoon.idyllic_food_diary.data.IMItemTags;
-import cn.solarmoon.solarmoon_core.api.tile.TileInventory;
+import cn.solarmoon.solarmoon_core.api.tile.inventory.TileInventory;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 
 public class SpiceJarInventory extends TileInventory {

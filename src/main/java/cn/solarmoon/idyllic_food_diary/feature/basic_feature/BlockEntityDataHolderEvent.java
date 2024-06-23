@@ -87,7 +87,7 @@ public class BlockEntityDataHolderEvent {
         }
         if (be instanceof IPendingResult pendingResult) {
             pendingResult.setResult(ItemStack.of(tag.getCompound(IPendingResult.RESULT)));
-            pendingResult.setContainer(Ingredient.fromJson(JsonParser.parseString(tag.getString(IPendingResult.CONTAINER))));
+            if (tag.contains(IPendingResult.CONTAINER)) pendingResult.setContainer(Ingredient.fromJson(JsonParser.parseString(tag.getString(IPendingResult.CONTAINER))));
         }
         if (be instanceof IExpGiver expGiver) {
             expGiver.setExp(tag.getInt(IExpGiver.EXP));

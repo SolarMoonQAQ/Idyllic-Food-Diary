@@ -1,8 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.feature.spice;
 
 import cn.solarmoon.idyllic_food_diary.registry.common.IMCapabilities;
-import cn.solarmoon.solarmoon_core.api.blockentity_util.IContainerBE;
-import cn.solarmoon.solarmoon_core.api.tile.IContainerTile;
+import cn.solarmoon.solarmoon_core.api.tile.inventory.IContainerTile;
 import net.minecraft.world.item.ItemStack;
 
 /**

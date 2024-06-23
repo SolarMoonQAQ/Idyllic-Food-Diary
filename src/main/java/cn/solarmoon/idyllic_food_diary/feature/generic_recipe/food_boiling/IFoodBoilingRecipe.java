@@ -2,11 +2,9 @@ package cn.solarmoon.idyllic_food_diary.feature.generic_recipe.food_boiling;
 
 import cn.solarmoon.idyllic_food_diary.feature.basic_feature.IHeatable;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMRecipes;
-import cn.solarmoon.solarmoon_core.api.blockentity_util.IContainerBE;
 import cn.solarmoon.solarmoon_core.api.blockentity_util.IIndividualTimeRecipeBE;
-import cn.solarmoon.solarmoon_core.api.blockentity_util.ITankBE;
-import cn.solarmoon.solarmoon_core.api.tile.IContainerTile;
-import cn.solarmoon.solarmoon_core.api.tile.ITankTile;
+import cn.solarmoon.solarmoon_core.api.tile.fluid.ITankTile;
+import cn.solarmoon.solarmoon_core.api.tile.inventory.IContainerTile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;

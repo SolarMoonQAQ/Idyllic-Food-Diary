@@ -2,8 +2,7 @@ package cn.solarmoon.idyllic_food_diary.element.matter.cookware.spice_jar;
 
 import cn.solarmoon.idyllic_food_diary.feature.spice.SpiceJarInventory;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
-import cn.solarmoon.solarmoon_core.api.blockentity_util.IContainerBE;
-import cn.solarmoon.solarmoon_core.api.tile.IContainerTile;
+import cn.solarmoon.solarmoon_core.api.tile.inventory.IContainerTile;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;

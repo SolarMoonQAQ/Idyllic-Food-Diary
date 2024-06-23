@@ -2,8 +2,7 @@ package cn.solarmoon.idyllic_food_diary.feature.generic_recipe.evaporation;
 
 import cn.solarmoon.idyllic_food_diary.feature.basic_feature.IHeatable;
 import cn.solarmoon.idyllic_food_diary.feature.tea_brewing.Temp;
-import cn.solarmoon.solarmoon_core.api.blockentity_util.ITankBE;
-import cn.solarmoon.solarmoon_core.api.tile.ITankTile;
+import cn.solarmoon.solarmoon_core.api.tile.fluid.ITankTile;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.fluids.capability.IFluidHandler;

@@ -31,6 +31,12 @@ import net.minecraft.world.item.Item;
 public class IMItems {
     public static void register() {}
 
+    // 锅铲
+    public static final ItemEntry<Item> SPATULA = IdyllicFoodDiary.REGISTRY.item()
+            .id("spatula")
+            .bound(() -> new Item(new Item.Properties().stacksTo(1)))
+            .build();
+
     // 炒锅
     public static final ItemEntry<WokItem> WOK = IdyllicFoodDiary.REGISTRY.item()
             .id("wok")
