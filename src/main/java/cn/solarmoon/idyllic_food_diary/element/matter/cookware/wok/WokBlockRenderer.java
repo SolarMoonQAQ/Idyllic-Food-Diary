@@ -45,9 +45,6 @@ public class WokBlockRenderer extends BaseBlockEntityRenderer<WokBlockEntity> {
                 animTicker.setStartOnChanged(false);
                 poseStack.pushPose();
                 Direction direction = pan.getBlockState().getValue(IHorizontalFacingBlock.FACING);
-                double x;
-                double h = 1/16F + 0.5/16F * i; // 高度
-                double z;
                 float minX = 0.4f; // 三角形绘制范围的最小值
                 float maxX = 0.6f; // 绘制范围的最大值
                 float range = maxX - minX; // 宽度
@@ -59,8 +56,9 @@ public class WokBlockRenderer extends BaseBlockEntityRenderer<WokBlockEntity> {
                 };
                 // 按比例定位等边三角形的顶点
                 float[] vertex = vertices[i % 3];
-                x = minX + range * vertex[0];
-                z = minX + range * vertex[1];
+                double x = minX + range * vertex[0];
+                double h = 1/16F + 0.5/16F * i; // 高度
+                double z = minX + range * vertex[1];
                 Vec3 actV = VecUtil.rotateVec(new Vec3(x, 0, z), new Vec3(0.5, 0, 0.5), direction);
                 poseStack.translate(actV.x, h, actV.z);
                 poseStack.mulPose(Axis.YP.rotationDegrees(direction.toYRot() - 60 * i));
@@ -86,7 +84,7 @@ public class WokBlockRenderer extends BaseBlockEntityRenderer<WokBlockEntity> {
                     poseStack.mulPose(Axis.of(new Vector3f((float) Math.cos(angle), 0, (float) Math.sin(angle)))
                             .rotation(Mth.rotLerp(animTicker.getFixedValue() / getFryTime(aH), (float) 0, (float) (2*Math.PI))));
                 }
-                poseStack.mulPose(Axis.XN.rotationDegrees(rotFix(direction)));
+                poseStack.mulPose(Axis.XN.rotationDegrees(rotFix(direction, poseStack)));
                 itemRenderer.renderStatic(pan.getStacks().get(i), ItemDisplayContext.FIXED, lt, overlay, poseStack, buffer, level, (int) pan.getBlockPos().asLong());
                 poseStack.popPose();
             }
@@ -104,14 +102,13 @@ public class WokBlockRenderer extends BaseBlockEntityRenderer<WokBlockEntity> {
         return (int) (t * 30);
     }
 
-
-
-    public static int rotFix(Direction direction) {
+    public static int rotFix(Direction direction, PoseStack poseStack) {
         switch (direction) {
             case EAST, WEST -> {
                 return -90;
             }
             default -> {
+                poseStack.mulPose(Axis.ZP.rotationDegrees(180));
                 return 90;
             }
         }

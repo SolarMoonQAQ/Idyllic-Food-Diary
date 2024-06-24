@@ -9,6 +9,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,6 +38,10 @@ public interface IFoodBoilingRecipe extends IContainerTile, ITankTile,
             }
         }
         return false;
+    }
+
+    default boolean isBoilingFood() {
+        return Arrays.stream(getTimes()).anyMatch(time -> time > 0);
     }
 
     @Override

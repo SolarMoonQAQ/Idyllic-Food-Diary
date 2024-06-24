@@ -3,6 +3,7 @@ package cn.solarmoon.idyllic_food_diary.element.matter.cookware.cooking_pot;
 import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
 import cn.solarmoon.solarmoon_core.api.capability.anim_ticker.AnimTicker;
 import cn.solarmoon.solarmoon_core.api.phys.SMath;
+import cn.solarmoon.solarmoon_core.api.phys.VecUtil;
 import cn.solarmoon.solarmoon_core.api.renderer.BaseBlockEntityRenderer;
 import cn.solarmoon.solarmoon_core.api.renderer.TextureRenderUtil;
 import cn.solarmoon.solarmoon_core.feature.capability.IBlockEntityData;
@@ -15,6 +16,9 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.items.ItemStackHandler;
 
 public class CookingPotBlockRenderer<E extends CookingPotBlockEntity> extends BaseBlockEntityRenderer<E> {
 
@@ -27,44 +31,45 @@ public class CookingPotBlockRenderer<E extends CookingPotBlockEntity> extends Ba
 
         TextureRenderUtil.renderAnimatedFluid(8/16f, 11/16f, 2/16f, pot, poseStack, buffer, light);
 
-        pot.getCapability(SolarCapabilities.BLOCK_ENTITY_DATA).ifPresent(data -> {
-            AnimTicker animTicker2 = data.getAnimTicker(2);
-            animTicker2.setStartOnChanged(false);
-            //渲染物品
-            //让光度和环境一致
-            int lt = pot.getLevel() != null ? LevelRenderer.getLightColor(pot.getLevel(), pot.getBlockPos().above()) : 15728880;
-            for (int i = 0; i < pot.getInventory().getSlots(); i++) {
-                poseStack.pushPose();
-                Direction direction = pot.getBlockState().getValue(IHorizontalFacingBlock.FACING);
-                double normal = 0.0625 + 0.0625 * (i+1);
-                poseStack.translate(0.5, normal, 0.5);
-                poseStack.mulPose(Axis.YP.rotationDegrees(direction.toYRot()));
-                poseStack.scale(0.5f, 0.5f, 0.5f);
-                if (animTicker2.isEnabled()) {
-                    int fps = 1000; // 帧时间
-                    animTicker2.setFixedValue(animTicker2.getFixedValue() + v);
-                    if (animTicker2.getFixedValue() > fps) {
-                        animTicker2.setFixedValue(0);
-                        animTicker2.stop();
-                    }
-                    poseStack.translate(0, SMath.parabolaFunction(animTicker2.getFixedValue(), fps / 2f, normal + 2, normal), 0);
-                    poseStack.mulPose(Axis.ZP.rotation(Mth.rotLerp(animTicker2.getFixedValue() / fps, (float) 0, (float) (2*Math.PI))));
-                }
-                poseStack.mulPose(Axis.XP.rotationDegrees(rotFix(direction)));
-                itemRenderer.renderStatic(pot.getInventory().getStackInSlot(i), ItemDisplayContext.FIXED, lt, overlay, poseStack, buffer, pot.getLevel(), (int) pot.getBlockPos().asLong());
-                poseStack.popPose();
-            }
-        });
+        ItemStackHandler inv = pot.getInventory();
+        Direction direction = pot.getBlockState().getValue(IHorizontalFacingBlock.FACING);
+        for (int i = 0; i < inv.getSlots(); i++) {
+            poseStack.pushPose();
+            ItemStack in = inv.getStackInSlot(i);
+            float minX = 0.4f; // 三角形绘制范围的最小值
+            float maxX = 0.6f; // 绘制范围的最大值
+            float range = maxX - minX; // 宽度
+            // 图形的顶点坐标
+            float[][] vertices = {
+                    {0.5f, 0},
+                    {0, (float) Math.sqrt(3) / 2},
+                    {1, (float) Math.sqrt(3) / 2},
+            };
+            // 按比例定位等边三角形的顶点
+            float[] vertex = vertices[i % 3];
+            double x = minX + range * vertex[0];
+            double h = 2/16F + 0.5/16F * i; // 高度
+            double z = minX + range * vertex[1];
+            Vec3 actV = VecUtil.rotateVec(new Vec3(x, 0, z), new Vec3(0.5, 0, 0.5), direction);
+            poseStack.translate(actV.x, h, actV.z);
+            poseStack.mulPose(Axis.YP.rotationDegrees(direction.toYRot() - 45 * i));
+            poseStack.scale(0.35f, 0.35f, 0.35f);
+            poseStack.translate(0, h, 0);
+            poseStack.mulPose(Axis.XN.rotationDegrees(rotFix(direction, poseStack)));
+            itemRenderer.renderStatic(in, ItemDisplayContext.FIXED, light, overlay, poseStack, buffer, null, 0);
+            poseStack.popPose();
+        }
 
     }
 
-    public static int rotFix(Direction direction) {
+    public static int rotFix(Direction direction, PoseStack poseStack) {
         switch (direction) {
             case EAST, WEST -> {
-                return 90;
+                return -90;
             }
             default -> {
-                return -90;
+                poseStack.mulPose(Axis.ZP.rotationDegrees(180));
+                return 90;
             }
         }
     }

@@ -21,6 +21,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 
@@ -54,8 +55,7 @@ public class ServerPackHandler implements IServerPackHandler {
             case NETList.TEMP -> {
                 BlockEntity be = level.getBlockEntity(pos);
                 if (be != null) {
-                    IFluidHandler tank = FluidUtil.getTank(be);
-                    if (tank != null) {
+                    be.getCapability(ForgeCapabilities.FLUID_HANDLER).ifPresent(tank -> {
                         // 有热源不会冷却
                         boolean mtHeat = FarmerUtil.isHeatSource(level.getBlockState(pos.below())) && Temp.isHot(tank.getFluidInTank(0));
                         FluidStack updatedFluid = Temp.tick(fluidStack, level);
@@ -63,8 +63,9 @@ public class ServerPackHandler implements IServerPackHandler {
                         if (updatedFluid != null) {
                             tank.drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.EXECUTE);
                             tank.fill(updatedFluid, IFluidHandler.FluidAction.EXECUTE);
+                            be.setChanged();
                         }
-                    }
+                    });
                 }
             }
             case NETList.DO_STIR -> {

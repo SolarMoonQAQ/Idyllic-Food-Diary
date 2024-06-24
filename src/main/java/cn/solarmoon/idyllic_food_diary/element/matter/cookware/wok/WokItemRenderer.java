@@ -41,7 +41,8 @@ public class WokItemRenderer extends BaseItemRenderer {
                 poseStack.mulPose(Axis.YP.rotationDegrees(- 60 * i));
                 poseStack.scale(0.5f, 0.5f, 0.5f);
                 poseStack.translate(0, h, 0);
-                poseStack.mulPose(Axis.XP.rotationDegrees(90));
+                poseStack.mulPose(Axis.XN.rotationDegrees(-90));
+                poseStack.mulPose(Axis.ZN.rotationDegrees(180));
                 itemRenderer.renderStatic(in, ItemDisplayContext.FIXED, light, overlay, poseStack, buffer, null, 0);
                 poseStack.popPose();
             }

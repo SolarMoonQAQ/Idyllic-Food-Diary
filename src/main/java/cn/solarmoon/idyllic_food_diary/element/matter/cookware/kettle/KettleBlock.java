@@ -1,8 +1,11 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.kettle;
 
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.BaseCookwareBlock;
+import cn.solarmoon.idyllic_food_diary.registry.client.IMParticles;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMSounds;
+import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
+import cn.solarmoon.solarmoon_core.api.tile.SyncedEntityBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -32,7 +35,7 @@ import java.util.Random;
  * 应用tankBlockEntity，是一个液体容器（但是不使其具有原有的液体交互功能，而是替换为倒水功能）
  * 具有烧水、倒水功能
  */
-public class KettleBlock extends BaseCookwareBlock {
+public class KettleBlock extends SyncedEntityBlock implements IHorizontalFacingBlock {
 
     public KettleBlock() {
         super(Properties.of()
@@ -50,12 +53,10 @@ public class KettleBlock extends BaseCookwareBlock {
         //液体交互
         if (kettle.loadFluid(player, hand, false)) {
             level.playSound(null, pos, SoundEvents.BUCKET_FILL, SoundSource.PLAYERS);
-            kettle.setChanged();
             return InteractionResult.SUCCESS;
         }
-        if (kettle.storage(player, hand, 1, 1)) {
+        if (hand == InteractionHand.MAIN_HAND && kettle.storage(player, hand, 1, 1)) {
             level.playSound(null, pos, SoundEvents.LANTERN_HIT, SoundSource.PLAYERS);
-            kettle.setChanged();
             return InteractionResult.SUCCESS;
         }
 
@@ -91,7 +92,7 @@ public class KettleBlock extends BaseCookwareBlock {
             Random random = new Random();
             if (kettle.isInBoil()) {
                 if (random.nextFloat() < 0.8) {
-                    level.addParticle(ParticleTypes.CLOUD, spoutPos.x, spoutPos.y, spoutPos.z, 0, 0.1, 0);
+                    level.addParticle(IMParticles.CRASHLESS_CLOUD.get(), spoutPos.x, spoutPos.y, spoutPos.z, 0, 0.1, 0);
                 }
                 if (random.nextFloat() < 0.1) {
                     level.playSound(null, pos, IMSounds.BOILING_WATER.get(), SoundSource.BLOCKS, 1F, 1F);
@@ -99,7 +100,7 @@ public class KettleBlock extends BaseCookwareBlock {
             }
             else if (kettle.isBoiling()) {
                 if (random.nextFloat() < 0.1)
-                    level.addParticle(ParticleTypes.CLOUD, spoutPos.x, spoutPos.y, spoutPos.z, 0, 0.01, 0);
+                    level.addParticle(IMParticles.CRASHLESS_CLOUD.get(), spoutPos.x, spoutPos.y, spoutPos.z, 0, 0.01, 0);
             }
 
         }

@@ -1,9 +1,11 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.cooking_pot;
 
-import cn.solarmoon.idyllic_food_diary.element.matter.cookware.BaseCookwareBlock;
+import cn.solarmoon.idyllic_food_diary.registry.client.IMParticles;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
+import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
+import cn.solarmoon.solarmoon_core.api.phys.VoxelShapeUtil;
+import cn.solarmoon.solarmoon_core.api.tile.SyncedEntityBlock;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
@@ -22,12 +24,11 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.common.property.Properties;
 
 /**
  * 汤锅
  */
-public class CookingPotBlock extends BaseCookwareBlock {
+public class CookingPotBlock extends SyncedEntityBlock implements IHorizontalFacingBlock {
 
     public CookingPotBlock() {
         super(Block.Properties.of()
@@ -85,9 +86,7 @@ public class CookingPotBlock extends BaseCookwareBlock {
         if (!pot.tryStew()) {
             if (!pot.trySimmer()) {
                 if (!pot.tryBoilFood()) {
-                    if (!pot.tryBoilWater()) {
-
-                    }
+                    pot.tryBoilWater();
                 }
             }
         }
@@ -95,11 +94,13 @@ public class CookingPotBlock extends BaseCookwareBlock {
 
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+        super.animateTick(state, level, pos, random);
         BlockEntity blockEntity = level.getBlockEntity(pos);
         if (blockEntity instanceof CookingPotBlockEntity soupPot) {
-            if (soupPot.isHeatingFluid()) {
-                if (random.nextInt(10) < 4) {
-                    level.addAlwaysVisibleParticle(ParticleTypes.CLOUD, pos.getX() + random.nextFloat(), pos.getY() + 1, pos.getZ() + random.nextFloat(), 0, 0.1, 0);
+            if (soupPot.isStewing() || soupPot.isSimmering() || soupPot.isBoilingFood() || soupPot.isBoiling() || soupPot.isInBoil()) {
+                if (random.nextInt(10) < (soupPot.isInBoil() ? 10 : 4)) {
+                    float rInRange = 4 / 16f + random.nextFloat() * 8 / 16f;
+                    level.addAlwaysVisibleParticle(IMParticles.CRASHLESS_CLOUD.get(), pos.getX() + rInRange, pos.getY() + 1, pos.getZ() + rInRange, 0, 0.1, 0);
                 }
             }
         }
@@ -107,9 +108,14 @@ public class CookingPotBlock extends BaseCookwareBlock {
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        VoxelShape shape1 = Block.box(1.0D, 0.0D, 1.0D, 15D, 16D, 15D);
-        VoxelShape shape2 = Block.box(3, 1, 3, 13, 16, 13);
-        return Shapes.joinUnoptimized(shape1, shape2, BooleanOp.ONLY_FIRST);
+        VoxelShape shape1 = Block.box(2.0D, 0.0D, 2.0D, 14D, 13D, 14D);
+        VoxelShape shape2 = Block.box(4, 2, 4, 12, 13, 12);
+        VoxelShape shapeBody = Shapes.joinUnoptimized(shape1, shape2, BooleanOp.ONLY_FIRST);
+        VoxelShape shapeHandle = Shapes.or(
+                Block.box(0, 9, 5, 2, 11, 11),
+                Block.box(14, 9, 5, 16, 11, 11)
+        );
+        return VoxelShapeUtil.rotateShape(state.getValue(FACING), Shapes.or(shapeBody, shapeHandle));
     }
 
     @Override

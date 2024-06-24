@@ -5,6 +5,7 @@ import cn.solarmoon.idyllic_food_diary.data.IMItemTags;
 import cn.solarmoon.solarmoon_core.api.item_util.ITankItem;
 import cn.solarmoon.solarmoon_core.api.renderer.BaseTooltipComponent;
 import cn.solarmoon.solarmoon_core.api.renderer.TextureRenderUtil;
+import cn.solarmoon.solarmoon_core.api.tile.inventory.TileItemContainerHelper;
 import cn.solarmoon.solarmoon_core.api.util.ContainerUtil;
 import cn.solarmoon.solarmoon_core.api.util.FluidUtil;
 import cn.solarmoon.solarmoon_core.api.util.TextUtil;
@@ -45,7 +46,7 @@ public class TankableTooltipRenderer implements ClientTooltipComponent {
 
     @Override
     public int getHeight() {
-        return canBeRendered() ? size + height : 0;
+        return canBeRendered() ? size + height + 9 : 0;
     }
 
     @Override
@@ -91,7 +92,7 @@ public class TankableTooltipRenderer implements ClientTooltipComponent {
      */
     public void drawText(PoseStack poseStack, FluidStack fluidStack, Font font, GuiGraphics guiGraphics, int x, int y) {
         poseStack.pushPose();
-        poseStack.translate(0,0,2);
+        poseStack.translate(0,0,300);
         if(!fluidStack.isEmpty()) {
             String str1 = fluidStack.getDisplayName().getString();
             String str2 = fluidStack.getAmount() + "mB";
@@ -108,16 +109,17 @@ public class TankableTooltipRenderer implements ClientTooltipComponent {
      * 渲染物品
      */
     public void drawItem(ItemStack stack, PoseStack poseStack, GuiGraphics guiGraphics, int x, int y) {
-        poseStack.pushPose();
-        ItemStackHandler inventory = ContainerUtil.getInventory(stack);
-        ItemStack stackIn = inventory.getStackInSlot(0);
-        if (!stackIn.isEmpty()) {
-            poseStack.translate(0, 0, 2);
-            float scale = 1f;
-            poseStack.scale(1f / scale, 1f / scale, 1f);
-            guiGraphics.renderItem(stackIn, (int) ((x + size * count - 16 + deltaF) * scale), (int) ((y + height + hOffset) * scale));
-        }
-        poseStack.popPose();
+        TileItemContainerHelper.getInventory(stack).ifPresent(inventory -> {
+            for (int i = 0; i < inventory.getSlots(); i++) {
+                poseStack.pushPose();
+                ItemStack stackIn = inventory.getStackInSlot(i);
+                poseStack.translate(-i * 16, 0, 2);
+                float scale = 1f;
+                poseStack.scale(1f / scale, 1f / scale, 1f);
+                guiGraphics.renderItem(stackIn, (int) ((x + size * count - 16 + deltaF) * scale), (int) ((y + height + hOffset) * scale));
+                poseStack.popPose();
+            }
+        });
     }
 
     /**
@@ -125,17 +127,15 @@ public class TankableTooltipRenderer implements ClientTooltipComponent {
      */
     public void drawGUI(ItemStack stack, PoseStack poseStack, GuiGraphics guiGraphics, int x, int y) {
         poseStack.pushPose();
-        if (stack.getItem() instanceof ITankItem) {
-            ResourceLocation id = ForgeRegistries.ITEMS.getKey(stack.getItem());
-            if (id != null) {
-                String cate = TextUtil.extractString(id.toString(), ":");
-                String res = "textures/gui/" + cate + ".png";
-                float scale = 1f;
-                poseStack.scale(1f / scale, 1f / scale, 1f);
-                guiGraphics.blit(new ResourceLocation(IdyllicFoodDiary.MOD_ID, res),
-                        (int) (x * scale), (int) (y * scale) + height - 2,
-                        0, 0, 88, 24);
-            }
+        ResourceLocation id = ForgeRegistries.ITEMS.getKey(stack.getItem());
+        if (id != null) {
+            String cate = TextUtil.extractString(id.toString(), ":");
+            String res = "textures/gui/" + cate + ".png";
+            float scale = 1f;
+            poseStack.scale(1f / scale, 1f / scale, 1f);
+            guiGraphics.blit(new ResourceLocation(IdyllicFoodDiary.MOD_ID, res),
+                    (int) (x * scale), (int) (y * scale) + height - 2,
+                    0, 0, 88, 24);
         }
         poseStack.popPose();
     }

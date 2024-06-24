@@ -90,7 +90,8 @@ public class Temp implements INBTSerializable<CompoundTag> {
     }
 
     /**
-     * 把新温度推入液体并重置时间
+     * 把新温度推入液体并重置时间，注意这里只是设置了给出的fluidStack并返回
+     * @return 设置好后的液体
      */
     public static FluidStack setFluidTemp(FluidStack fluidStack, Temp temp, Level level) {
         if (!fluidStack.isEmpty()) {

@@ -1,39 +1,31 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.wok;
 
+import cn.solarmoon.idyllic_food_diary.feature.hug_item.IHuggableItem;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlocks;
 import cn.solarmoon.solarmoon_core.api.tile.fluid.ITankTileItem;
 import cn.solarmoon.solarmoon_core.api.renderer.BaseItemRenderer;
 import cn.solarmoon.solarmoon_core.api.renderer.IItemRendererProvider;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.UseAnim;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.client.IArmPoseTransformer;
-import net.minecraftforge.client.event.RenderHandEvent;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public class WokItem extends BlockItem implements IItemRendererProvider, ITankTileItem {
+import static cn.solarmoon.idyllic_food_diary.feature.hug_item.PreventArmShowEvent.HUG;
+
+public class WokItem extends BlockItem implements ITankTileItem, IHuggableItem {
 
     public WokItem() {
         super(IMBlocks.WOK.get(), new Properties().stacksTo(1));
-    }
-
-    @Override
-    public Supplier<BaseItemRenderer> getRendererFactory() {
-        return WokItemRenderer::new;
     }
 
     @Override
@@ -43,22 +35,23 @@ public class WokItem extends BlockItem implements IItemRendererProvider, ITankTi
 
     @Override
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-        super.initializeClient(consumer);
         consumer.accept(new IClientItemExtensions() {
-
-            public static final HumanoidModel.ArmPose pose = HumanoidModel.ArmPose.create("HUG", true, (model, entity, arm) -> {
-                model.leftArm.xRot = -((float) Math.PI / 5F);
-                model.leftArm.yRot = 0.0F;
-                model.rightArm.xRot = -((float) Math.PI / 5F);
-                model.rightArm.yRot = 0.0F;
-            });
 
             @Override
             public HumanoidModel.ArmPose getArmPose(LivingEntity entityLiving, InteractionHand hand, ItemStack itemStack) {
                 if (entityLiving.getMainHandItem().isEmpty() || entityLiving.getOffhandItem().isEmpty()) {
-                    return pose;
+                    return HUG;
                 }
                 return IClientItemExtensions.super.getArmPose(entityLiving, hand, itemStack);
+            }
+
+            @Override
+            public boolean applyForgeHandTransform(PoseStack poseStack, LocalPlayer player, HumanoidArm arm, ItemStack itemInHand, float partialTick, float equipProcess, float swingProcess) {
+                if (player.getMainHandItem().isEmpty() || player.getOffhandItem().isEmpty()) {
+                    poseStack.translate(arm == HumanoidArm.RIGHT ? -0.5 : 0.5, 0, 0.1);
+                    return false;
+                }
+                return IClientItemExtensions.super.applyForgeHandTransform(poseStack, player, arm, itemInHand, partialTick, equipProcess, swingProcess);
             }
 
             @Override
@@ -68,4 +61,16 @@ public class WokItem extends BlockItem implements IItemRendererProvider, ITankTi
 
         });
     }
+
+    @Override
+    public void transform3rdPDisplay(ItemStack stack, LivingEntity entity, ItemDisplayContext context, PoseStack poseStack) {
+        if (entity.getMainHandItem().isEmpty() || entity.getOffhandItem().isEmpty()) {
+            if (context == ItemDisplayContext.THIRD_PERSON_RIGHT_HAND) {
+                poseStack.translate(0.365, 0.1, 0.3);
+            } else if (context == ItemDisplayContext.THIRD_PERSON_LEFT_HAND) {
+                poseStack.translate(-0.365, 0.1, 0.3);
+            }
+        }
+    }
+
 }

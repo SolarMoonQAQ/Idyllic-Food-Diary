@@ -1,6 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.registry.client;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
+import cn.solarmoon.idyllic_food_diary.element.particle.CrashlessCloudParticle;
 import cn.solarmoon.solarmoon_core.api.entry.client.ParticleEntry;
 import net.minecraft.client.particle.BubbleParticle;
 import net.minecraft.client.particle.SplashParticle;
@@ -8,6 +9,12 @@ import net.minecraft.core.particles.SimpleParticleType;
 
 public class IMParticles {
     public static void register() {}
+
+    public static final ParticleEntry<SimpleParticleType> CRASHLESS_CLOUD = IdyllicFoodDiary.REGISTRY.particle()
+            .id("crashless_cloud")
+            .bound(() -> new SimpleParticleType(false))
+            .provider(CrashlessCloudParticle.Provider::new)
+            .build();
 
     public static final ParticleEntry<SimpleParticleType> HOT_MILK_BUBBLE = IdyllicFoodDiary.REGISTRY.particle()
             .id("hot_milk_bubble")

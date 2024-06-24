@@ -1,7 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.mixin;
 
-import cn.solarmoon.idyllic_food_diary.element.matter.cookware.wok.TransformWokPosEvent;
-import cn.solarmoon.idyllic_food_diary.registry.common.IMItems;
+import cn.solarmoon.idyllic_food_diary.feature.hug_item.IHuggableItem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
@@ -19,7 +18,9 @@ public class ItemInHandLayerMixin {
 
     @Inject(method = "renderArmWithItem", at = @At("HEAD"))
     public void renderArmWithItem(LivingEntity entity, ItemStack stack, ItemDisplayContext context, HumanoidArm arm, PoseStack poseStack, MultiBufferSource buffer, int l, CallbackInfo ci) {
-        TransformWokPosEvent.trans3(stack, entity, context, poseStack);
+        if (stack.getItem() instanceof IHuggableItem huggable) {
+            huggable.transform3rdPDisplay(stack, entity, context, poseStack);
+        }
     }
 
 }

@@ -118,6 +118,12 @@ public class WokBlock extends SyncedEntityBlock implements IHorizontalFacingBloc
     }
 
     @Override
+    public void attack(BlockState state, Level level, BlockPos pos, Player player) {
+        getThis(player, level, pos, state, InteractionHand.MAIN_HAND, true);
+        super.attack(state, level, pos, player);
+    }
+
+    @Override
     public VoxelShape getShape(BlockState state, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
         VoxelShape body = Shapes.joinUnoptimized(
                 Block.box(2, 0, 2, 14, 4, 14),

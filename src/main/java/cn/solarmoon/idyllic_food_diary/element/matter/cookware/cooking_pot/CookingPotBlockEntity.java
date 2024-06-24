@@ -19,7 +19,7 @@ import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.items.ItemStackHandler;
 
 public class CookingPotBlockEntity extends SyncedBlockEntity implements IStewRecipe,
-        IWaterBoilingRecipe, IEvaporationRecipe, ISoupRecipe, IFoodBoilingRecipe {
+        IWaterBoilingRecipe, ISoupRecipe, IFoodBoilingRecipe {
 
     private final TileInventory inventory;
     private final TileTank fluidTank;
@@ -41,19 +41,10 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements IStewRec
     private int boilTime;
     private int boilRecipeTime;
 
-    private int evaTick;
-
     public CookingPotBlockEntity(BlockPos pos, BlockState state) {
         super(IMBlockEntities.COOKING_POT.get(), pos, state);
         inventory = new TileInventory(9, 1, this);
         fluidTank = new TileTank(1000, this);
-    }
-
-    /**
-     * @return 液体是否正被加热（是否有液体且下方是否为热源）,这个和配方无关
-     */
-    public boolean isHeatingFluid() {
-        return isOnHeatSource() && !getTank().isEmpty();
     }
 
     @Override
@@ -119,16 +110,6 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements IStewRec
     @Override
     public void setExp(int exp) {
         this.exp = exp;
-    }
-
-    @Override
-    public void setEvaporationTick(int tick) {
-        evaTick = tick;
-    }
-
-    @Override
-    public int getEvaporationTick() {
-        return evaTick;
     }
 
     @Override
