@@ -1,16 +1,16 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.cooking_pot;
 
-import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.evaporation.IEvaporationRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.fluid_temp.ITempChanger;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.food_boiling.IFoodBoilingRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.soup.ISoupRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.stew.IStewRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.water_boiling.IWaterBoilingRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.spice.Spice;
 import cn.solarmoon.idyllic_food_diary.feature.spice.SpiceList;
-import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.water_boiling.IWaterBoilingRecipe;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
 import cn.solarmoon.solarmoon_core.api.tile.SyncedBlockEntity;
-import cn.solarmoon.solarmoon_core.api.tile.inventory.TileInventory;
 import cn.solarmoon.solarmoon_core.api.tile.fluid.TileTank;
+import cn.solarmoon.solarmoon_core.api.tile.inventory.TileInventory;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -19,7 +19,7 @@ import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.items.ItemStackHandler;
 
 public class CookingPotBlockEntity extends SyncedBlockEntity implements IStewRecipe,
-        IWaterBoilingRecipe, ISoupRecipe, IFoodBoilingRecipe {
+        IWaterBoilingRecipe, ISoupRecipe, IFoodBoilingRecipe, ITempChanger {
 
     private final TileInventory inventory;
     private final TileTank fluidTank;

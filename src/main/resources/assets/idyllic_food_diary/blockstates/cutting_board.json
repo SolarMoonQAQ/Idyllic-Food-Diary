@@ -1,7 +1,7 @@
 {
   "variants": {
-    "facing=north": { "model": "idyllic_food_diary:block/cutting_board" },
-    "facing=south": { "model": "idyllic_food_diary:block/cutting_board", "y": 180 },
+    "facing=north": { "model": "idyllic_food_diary:block/cutting_board", "y": 0},
+    "facing=south": { "model": "idyllic_food_diary:block/cutting_board", "y": 180},
     "facing=east": { "model": "idyllic_food_diary:block/cutting_board", "y": 90 },
     "facing=west": { "model": "idyllic_food_diary:block/cutting_board", "y": 270 }
   }

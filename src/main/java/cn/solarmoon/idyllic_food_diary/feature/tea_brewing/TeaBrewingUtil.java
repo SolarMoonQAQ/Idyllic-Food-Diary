@@ -1,6 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.feature.tea_brewing;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
+import cn.solarmoon.idyllic_food_diary.feature.fluid_temp.Temp;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMEffects;
 import cn.solarmoon.solarmoon_core.api.data.PotionEffect;
 import cn.solarmoon.solarmoon_core.api.util.TextUtil;
@@ -115,10 +116,10 @@ public class TeaBrewingUtil {
 
     public static List<MobEffectInstance> getTempEffects(FluidStack fluidStack) {
         List<MobEffectInstance> effects = new ArrayList<>();
-        switch (Temp.getFluidTemp(fluidStack).getScale()) {
+        switch (Temp.get(fluidStack)) {
             case HOT -> effects.add(new MobEffectInstance(IMEffects.SNUG.get(), 1200, 1));
             case COLD -> {
-
+                // 没想好
             }
         }
         return effects;
@@ -176,13 +177,12 @@ public class TeaBrewingUtil {
      * @return 读取液体的茶成分，如果有饱食度那就根据玩家是否canEat决定能否吃，如果要能进食则必须所有ingredient都能持续可吃才行。
      */
     public static boolean canEat(FluidStack fluidStack, Player player) {
+        if (fluidStack.isEmpty()) return false;
         TeaIngredientList teaIngredients = TeaIngredient.readFromFluidStack(fluidStack);
         boolean canAlwaysEat = teaIngredients.getTeaIngredientsHasEffect().stream().allMatch(TeaIngredient.Add::canAlwaysDrink);
         boolean isFoodLike = teaIngredients.getTeaIngredientsHasEffect().stream().anyMatch(tea -> tea.getFoodValue().isValid());
         if (isFoodLike) return player.canEat(false) || canAlwaysEat;
         return true;
     }
-
-
 
 }

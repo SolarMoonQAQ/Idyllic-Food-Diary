@@ -1,6 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.mixin;
 
-import cn.solarmoon.idyllic_food_diary.feature.tea_brewing.Temp;
+import cn.solarmoon.idyllic_food_diary.feature.fluid_temp.Temp;
 import cn.solarmoon.idyllic_food_diary.feature.tea_brewing.TeaBrewingUtil;
 import net.minecraft.network.chat.Component;
 import net.minecraftforge.fluids.FluidStack;
@@ -19,8 +19,8 @@ public abstract class FluidTypeMixin {
     @Inject(remap = false, method = "getDescription(Lnet/minecraftforge/fluids/FluidStack;)Lnet/minecraft/network/chat/Component;", at = @At("HEAD"), cancellable = true)
     public void getDisplayName(FluidStack fluidStack, CallbackInfoReturnable<Component> cir) {
         Component teaName = TeaBrewingUtil.getTeaInName(fluidStack);
-        Component hotName = Temp.getFluidTemp(fluidStack).getScale().getPrefix();
-        cir.setReturnValue(hotName.copy().append(teaName).append(getDescription()));
+        Component tempName = Temp.get(fluidStack).getPrefix();
+        cir.setReturnValue(tempName.copy().append(teaName).append(getDescription()));
     }
 
 }

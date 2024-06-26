@@ -49,6 +49,10 @@ public interface IIngredientHandlingRecipe extends ISpiceable {
         return false;
     }
 
+    default boolean hasOutput() {
+        return findHandleRecipe().isPresent() && withTrueSpices(findHandleRecipe().get().withSpices(), true);
+    }
+
     default Optional<IngredientHandlingRecipe> findHandleRecipe() {
         Level level = selfI().getLevel();
         if (level == null) return Optional.empty();

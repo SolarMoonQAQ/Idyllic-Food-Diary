@@ -1,7 +1,9 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.grill;
 
+import cn.solarmoon.idyllic_food_diary.feature.basic_feature.RendererUtil;
 import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
 import cn.solarmoon.solarmoon_core.api.blockstate_access.ILitBlock;
+import cn.solarmoon.solarmoon_core.api.phys.PoseStackHelper;
 import cn.solarmoon.solarmoon_core.api.phys.VecUtil;
 import cn.solarmoon.solarmoon_core.api.renderer.BaseBlockEntityRenderer;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -33,7 +35,7 @@ public class GrillBlockRenderer<E extends GrillBlockEntity> extends BaseBlockEnt
     }
 
     private void renderFood(E grill, PoseStack poseStack, MultiBufferSource buffer, int light, int overlay) {
-        Direction direction = grill.getBlockState().getValue(IHorizontalFacingBlock.FACING).getOpposite();
+        Direction direction = grill.getBlockState().getValue(IHorizontalFacingBlock.FACING);
         ItemStackHandler inventory = grill.getInventory();
         Level level = grill.getLevel();
         int posLong = (int) grill.getBlockPos().asLong();
@@ -41,15 +43,19 @@ public class GrillBlockRenderer<E extends GrillBlockEntity> extends BaseBlockEnt
             ItemStack stack = inventory.getStackInSlot(i - 1);
             if (!stack.isEmpty()) {
                 poseStack.pushPose();
+                poseStack.translate(0.5f, 0, 0.5f);
+                poseStack.mulPose(Axis.YN.rotationDegrees(direction.toYRot()));
+                poseStack.translate(-0.5f, 0, -0.5f);
                 int c = i > 3 ? -1 : 1; //转变竖直方向
                 int index = i > 3 ? i - 3 : i; //i>3时触底反弹
                 int blockScale = 14;
                 double scale = blockScale / 16d;
                 Vec3 center = new Vec3(0.5, 0, 0.5);
                 Vec3 base1 = center.add((-0.5 + 1 / 6f + 1 / 3f * (index - 1)) * scale, 0.9375, -0.25 * scale * c);
-                Vec3 v1 = VecUtil.rotateVec(base1, center, direction.getOpposite());
-                poseStack.translate(v1.x, v1.y, v1.z);
+                poseStack.translate(base1.x, base1.y, base1.z);
                 poseStack.scale(0.325F, 0.325F, 0.325F);
+                poseStack.mulPose(Axis.XP.rotationDegrees(90));
+                poseStack.mulPose(Axis.ZN.rotationDegrees(180));
                 if (level != null) {
                     BlockState state = Block.byItem(stack.getItem()).defaultBlockState();
                     if (!state.is(Blocks.AIR)) {
@@ -67,21 +73,24 @@ public class GrillBlockRenderer<E extends GrillBlockEntity> extends BaseBlockEnt
     }
 
     private void renderCoal(E grill, PoseStack poseStack, MultiBufferSource buffer, int overlay) {
-        Direction direction = grill.getBlockState().getValue(IHorizontalFacingBlock.FACING).getOpposite();
+        Direction direction = grill.getBlockState().getValue(IHorizontalFacingBlock.FACING);
         ItemStackHandler inventory = grill.getInventory();
         int posLong = (int) grill.getBlockPos().asLong();
         ItemStack coal = inventory.getStackInSlot(6);
-
         int renderCount = Math.min(((coal.getCount() / 8) + 1), 8);
         for (int i = 0; i < renderCount; i++) {
             poseStack.pushPose();
+            poseStack.translate(0.5f, 0, 0.5f);
+            poseStack.mulPose(Axis.YN.rotationDegrees(direction.toYRot()));
+            poseStack.translate(-0.5f, 0, -0.5f);
             Vec3 center = new Vec3(0.5, 0, 0.5);
             int c = i > 3 ? -1 : 1;
             int index = i > 3 ? i - 4 : i;
             Vec3 base1 = center.add(-0.5 + 1 / 8f + 1 / 4f * index, 0.875, -0.2 * c);
-            Vec3 v1 = VecUtil.rotateVec(base1, center, direction.getOpposite());
-            poseStack.translate(v1.x, v1.y, v1.z);
+            poseStack.translate(base1.x, base1.y, base1.z);
             poseStack.scale(0.275F, 0.275F, 0.275F);
+            poseStack.mulPose(Axis.XP.rotationDegrees(90));
+            poseStack.mulPose(Axis.ZN.rotationDegrees(180));
             if (grill.getLevel() != null)
                 itemRenderer.renderStatic(coal, ItemDisplayContext.FIXED, LevelRenderer.getLightColor(grill.getLevel(), grill.getBlockPos().above()), overlay, poseStack, buffer, grill.getLevel(), posLong + i);
             poseStack.popPose();

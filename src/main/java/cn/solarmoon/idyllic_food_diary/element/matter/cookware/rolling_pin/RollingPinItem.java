@@ -1,4 +1,4 @@
-package cn.solarmoon.idyllic_food_diary.element.matter.rolling_pin;
+package cn.solarmoon.idyllic_food_diary.element.matter.cookware.rolling_pin;
 
 import cn.solarmoon.idyllic_food_diary.data.IMBlockTags;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.rolling.RollingRecipe;

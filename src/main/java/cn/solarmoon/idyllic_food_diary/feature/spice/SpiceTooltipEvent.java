@@ -1,4 +1,4 @@
-package cn.solarmoon.idyllic_food_diary.feature.spice_tooltip;
+package cn.solarmoon.idyllic_food_diary.feature.spice;
 
 import cn.solarmoon.idyllic_food_diary.feature.spice.SpicesCap;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMCapabilities;
@@ -9,7 +9,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
-public class TooltipEvent {
+public class SpiceTooltipEvent {
 
     @SubscribeEvent
     public void onShownTooltip(ItemTooltipEvent event) {

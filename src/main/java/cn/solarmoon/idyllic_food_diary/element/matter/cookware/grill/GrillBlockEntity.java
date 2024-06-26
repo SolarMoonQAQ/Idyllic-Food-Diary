@@ -1,11 +1,15 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.grill;
 
 import cn.solarmoon.idyllic_food_diary.feature.basic_feature.ISimpleFuelBlockEntity;
+import cn.solarmoon.idyllic_food_diary.network.NETList;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMPacks;
-import cn.solarmoon.idyllic_food_diary.network.NETList;
 import cn.solarmoon.solarmoon_core.api.blockentity_util.IContainerBE;
 import cn.solarmoon.solarmoon_core.api.blockentity_util.IIndividualTimeRecipeBE;
+import cn.solarmoon.solarmoon_core.api.blockstate_access.ILitBlock;
+import cn.solarmoon.solarmoon_core.api.tile.SyncedBlockEntity;
+import cn.solarmoon.solarmoon_core.api.tile.inventory.IContainerTile;
+import cn.solarmoon.solarmoon_core.api.tile.inventory.TileInventory;
 import cn.solarmoon.solarmoon_core.api.util.ContainerUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -25,12 +29,12 @@ import java.util.Optional;
 /**
  * 拥有七个槽位，前六个限量1，可放任意物品，最后一个只能存入煤炭类物品，限量64
  */
-public class GrillBlockEntity extends BlockEntity implements IContainerBE,
+public class GrillBlockEntity extends SyncedBlockEntity implements IContainerTile,
         IIndividualTimeRecipeBE<CampfireCookingRecipe>, ISimpleFuelBlockEntity {
 
     private int[] times;
     private int[] recipeTimes;
-    private final ItemStackHandler inventory;
+    private final TileInventory inventory;
     private int burnTime;
     public int saveBurnTime;
 
@@ -38,7 +42,7 @@ public class GrillBlockEntity extends BlockEntity implements IContainerBE,
         super(IMBlockEntities.GRILL.get(), pos, state);
         this.times = new int[64];
         this.recipeTimes = new int[64];
-        this.inventory = new ItemStackHandler(7) {
+        this.inventory = new TileInventory(7, this) {
             @Override
             public int getSlotLimit(int slot) {
                 if (slot < 6) {
@@ -119,7 +123,7 @@ public class GrillBlockEntity extends BlockEntity implements IContainerBE,
                     inv.setStackInSlot(i, out);
                     //这里设置slot必须在服务端侧同步（不知道为什么）
                     CompoundTag nbt = new CompoundTag();
-                    nbt.put(ContainerUtil.INVENTORY, inv.serializeNBT());
+                    nbt.put(INVENTORY, inv.serializeNBT());
                     if (level.isClientSide) IMPacks.SERVER_PACK.getSender().pos(pos).tag(nbt).send(NETList.SYNC_SLOT_SET);
                     getTimes()[i] = 0;
                     setChanged();
@@ -139,7 +143,7 @@ public class GrillBlockEntity extends BlockEntity implements IContainerBE,
         List<CampfireCookingRecipe> recipes = level.getRecipeManager().getAllRecipesFor(RecipeType.CAMPFIRE_COOKING);
         ItemStack stack = getInventory().getStackInSlot(index);
         return recipes.stream().filter(recipe ->
-                recipe.getIngredients().get(0).test(stack) && state.getValue(LIT)).findFirst();
+                recipe.getIngredients().get(0).test(stack) && state.getValue(ILitBlock.LIT)).findFirst();
     }
 
 }

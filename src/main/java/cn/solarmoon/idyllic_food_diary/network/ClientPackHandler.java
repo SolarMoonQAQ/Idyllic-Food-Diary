@@ -1,8 +1,5 @@
 package cn.solarmoon.idyllic_food_diary.network;
 
-import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
-import cn.solarmoon.idyllic_food_diary.feature.tea_brewing.Temp;
-import cn.solarmoon.idyllic_food_diary.registry.common.IMPacks;
 import cn.solarmoon.solarmoon_core.api.network.IClientPackHandler;
 import cn.solarmoon.solarmoon_core.api.util.TextUtil;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -17,17 +14,15 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.List;
 import java.util.Random;
+import java.util.stream.IntStream;
 
 
 public class ClientPackHandler implements IClientPackHandler {
@@ -82,6 +77,10 @@ public class ClientPackHandler implements IClientPackHandler {
                         level.addParticle(particle, spawnPos3.x, spawnPos3.y, spawnPos3.z, velocityX, velocityY, velocityZ);
                     }
                 }
+            }
+            case NETList.PARTICLE_TEMP_COOL -> {
+                Vec3 c = pos.getCenter();
+                IntStream.range(0, 2).forEach(n -> level.addParticle(ParticleTypes.ITEM_SNOWBALL, c.x, c.y, c.z, 0, 0.1, 0));
             }
         }
     }

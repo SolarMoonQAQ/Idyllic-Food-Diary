@@ -1,24 +1,21 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer;
 
 import cn.solarmoon.solarmoon_core.api.blockstate_access.IBedPartBlock;
+import cn.solarmoon.solarmoon_core.api.tile.inventory.TileInventory;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.ItemStackHandler;
 
-public class SteamerInventory extends ItemStackHandler {
+public class SteamerInventory extends TileInventory {
 
     public static final String SECOND_INV = "SecondInventory";
     public boolean secondInv;
 
-    public SteamerInventory() {
-        super(8);
+    public SteamerInventory(BlockEntity blockEntity) {
+        super(8, 1, blockEntity);
         this.secondInv = false;
-    }
-
-    @Override
-    public int getSlotLimit(int slot) {
-        return 1;
     }
 
     @Override

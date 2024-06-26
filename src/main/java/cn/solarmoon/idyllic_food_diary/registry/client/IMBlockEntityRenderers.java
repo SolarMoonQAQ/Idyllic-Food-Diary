@@ -1,7 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.registry.client;
 
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cooking_pot.CookingPotBlockRenderer;
-import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup.CupBlockRenderer;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup.little_cup.LittleCupBlockRenderer;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cutting_board.CuttingBoardBlockRenderer;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.grill.GrillBlockRenderer;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.service_plate.ServicePlateBlockRenderer;
@@ -13,7 +13,7 @@ import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
 public class IMBlockEntityRenderers {
 
     public static void register() {
-        IMBlockEntities.LITTLE_CUP.renderer(() -> CupBlockRenderer::new);
+        IMBlockEntities.LITTLE_CUP.renderer(() -> LittleCupBlockRenderer::new);
         IMBlockEntities.STEAMER.renderer(() -> SteamerBlockRenderer::new);
         IMBlockEntities.PLATE.renderer(() -> ServicePlateBlockRenderer::new);
         IMBlockEntities.GRILL.renderer(() -> GrillBlockRenderer::new);

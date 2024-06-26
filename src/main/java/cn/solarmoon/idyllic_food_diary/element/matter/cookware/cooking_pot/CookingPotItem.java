@@ -2,10 +2,6 @@ package cn.solarmoon.idyllic_food_diary.element.matter.cookware.cooking_pot;
 
 import cn.solarmoon.idyllic_food_diary.feature.hug_item.IHuggableItem;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlocks;
-import cn.solarmoon.solarmoon_core.api.item_util.IContainerItem;
-import cn.solarmoon.solarmoon_core.api.item_util.ITankItem;
-import cn.solarmoon.solarmoon_core.api.renderer.BaseItemRenderer;
-import cn.solarmoon.solarmoon_core.api.renderer.IItemRendererProvider;
 import cn.solarmoon.solarmoon_core.api.tile.fluid.ITankTileItem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.HumanoidModel;
@@ -21,7 +17,6 @@ import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 import static cn.solarmoon.idyllic_food_diary.feature.hug_item.PreventArmShowEvent.HUG;
 

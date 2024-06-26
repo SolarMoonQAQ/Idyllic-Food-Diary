@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
  * 也是容器信息保存的桥梁<br/>
  * 在使用上，在类中给予空的result和container，在配方中找位置调用tryGiveResult/setContainer/setResult
  */
-public interface IPendingResult extends IExpGiver {
+public interface IPlateable extends IExpGiver {
 
     String CONTAINER = "Container";
     String RESULT = "Result";

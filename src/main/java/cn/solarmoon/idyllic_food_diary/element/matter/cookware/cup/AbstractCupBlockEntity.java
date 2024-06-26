@@ -1,28 +1,27 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup;
 
 import cn.solarmoon.idyllic_food_diary.feature.tea_brewing.IBrewingRecipe;
-import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
 import cn.solarmoon.solarmoon_core.api.tile.SyncedBlockEntity;
-import cn.solarmoon.solarmoon_core.api.tile.inventory.TileInventory;
 import cn.solarmoon.solarmoon_core.api.tile.fluid.TileTank;
+import cn.solarmoon.solarmoon_core.api.tile.inventory.TileInventory;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.items.ItemStackHandler;
 
-public class CupBlockEntity extends SyncedBlockEntity implements IBrewingRecipe {
+public abstract class AbstractCupBlockEntity extends SyncedBlockEntity implements IBrewingRecipe {
 
     private final TileInventory inventory;
     private final TileTank fluidTank;
 
-
     private int time;
     private int recipeTime;
 
-    public CupBlockEntity(BlockPos pos, BlockState state) {
-        super(IMBlockEntities.LITTLE_CUP.get(), pos, state);
-        inventory = new TileInventory(1, 1, this);
-        fluidTank = new TileTank(250, this);
+    public AbstractCupBlockEntity(int size, int maxCapability, BlockEntityType<?> blockEntityType, BlockPos pos, BlockState state) {
+        super(blockEntityType, pos, state);
+        inventory = new TileInventory(size, 1, this);
+        fluidTank = new TileTank(maxCapability, this);
     }
 
     @Override

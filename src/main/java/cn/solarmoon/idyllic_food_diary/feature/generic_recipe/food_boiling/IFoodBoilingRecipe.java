@@ -1,8 +1,9 @@
 package cn.solarmoon.idyllic_food_diary.feature.generic_recipe.food_boiling;
 
 import cn.solarmoon.idyllic_food_diary.feature.basic_feature.IHeatable;
+import cn.solarmoon.idyllic_food_diary.feature.fluid_temp.Temp;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMRecipes;
-import cn.solarmoon.solarmoon_core.api.blockentity_util.IIndividualTimeRecipeBE;
+import cn.solarmoon.solarmoon_core.api.tile.IIndividualTimeRecipeTile;
 import cn.solarmoon.solarmoon_core.api.tile.fluid.ITankTile;
 import cn.solarmoon.solarmoon_core.api.tile.inventory.IContainerTile;
 import net.minecraft.world.item.ItemStack;
@@ -14,30 +15,36 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IFoodBoilingRecipe extends IContainerTile, ITankTile,
-        IIndividualTimeRecipeBE<FoodBoilingRecipe>, IHeatable {
+        IIndividualTimeRecipeTile<FoodBoilingRecipe>, IHeatable {
 
     default BlockEntity fb() {
         return (BlockEntity) this;
     }
 
     default boolean tryBoilFood() {
+        int consumptionSum = 0;
         for (int i = 0; i < getInventory().getSlots(); i++) {
             if (getCheckedRecipe(i).isPresent()) {
                 FoodBoilingRecipe recipe = getCheckedRecipe(i).get();
-                getTimes()[i] = getTimes()[i] + 1;
-                getRecipeTimes()[i] = recipe.time();
-                if (getTimes()[i] >= recipe.time()) {
-                    getInventory().setStackInSlot(i, recipe.result().copy());
-                    getTank().getFluid().shrink(recipe.fluidConsumption().getAmount());
-                    fb().setChanged();
+                consumptionSum += recipe.fluidConsumption().getAmount(); // 保证同时存在多个配方时液体总量要大于所有配方所需的消耗量
+                if (getTank().getFluidAmount() >= consumptionSum) {
+                    getTimes()[i] = getTimes()[i] + 1;
+                    getRecipeTimes()[i] = recipe.time();
+                    if (getTimes()[i] >= recipe.time()) {
+                        getInventory().setStackInSlot(i, recipe.result().copy());
+                        getTank().getFluid().shrink(recipe.fluidConsumption().getAmount());
+                        fb().setChanged();
+                    }
+                } else {
+                    getTimes()[i] = 0;
+                    getRecipeTimes()[i] = 0;
                 }
-                return true;
             } else {
                 getTimes()[i] = 0;
                 getRecipeTimes()[i] = 0;
             }
         }
-        return false;
+        return isBoilingFood();
     }
 
     default boolean isBoilingFood() {
@@ -54,6 +61,7 @@ public interface IFoodBoilingRecipe extends IContainerTile, ITankTile,
             if (recipe.ingredient().test(stack)
                     && getTank().getFluid().getFluid() == recipe.fluidConsumption().getFluid()
                     && getTank().getFluid().getAmount() >= recipe.fluidConsumption().getAmount()
+                    && Temp.isSame(getTank().getFluid(), recipe.temp())
                     && isOnHeatSource()
             ) {
                 return Optional.of(recipe);

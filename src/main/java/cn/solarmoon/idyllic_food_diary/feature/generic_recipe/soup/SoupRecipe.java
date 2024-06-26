@@ -1,7 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.feature.generic_recipe.soup;
 
 import cn.solarmoon.idyllic_food_diary.feature.spice.SpiceList;
-import cn.solarmoon.idyllic_food_diary.feature.tea_brewing.Temp;
+import cn.solarmoon.idyllic_food_diary.feature.fluid_temp.Temp;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMRecipes;
 import cn.solarmoon.solarmoon_core.api.data.SerializeHelper;
 import cn.solarmoon.solarmoon_core.api.entry.common.RecipeEntry;
@@ -22,7 +22,7 @@ public record SoupRecipe (
         ResourceLocation id,
         List<Ingredient> ingredients,
         FluidStack inputFluid,
-        Temp.Scale tempScale,
+        Temp temp,
         SpiceList withSpices,
         int time,
         FluidStack outputFluid,
@@ -44,7 +44,7 @@ public record SoupRecipe (
         public @NotNull SoupRecipe fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
             List<Ingredient> inputIngredients = SerializeHelper.readIngredients(json, "ingredients");
             FluidStack inputFluid = SerializeHelper.readFluidStack(json, "input_fluid");
-            Temp.Scale tempScale = Temp.readScaleFromJson(json);
+            Temp tempScale = Temp.readFromJson(json);
             SpiceList withSpices = SpiceList.readSpices(json, "with_spices");
             int time = GsonHelper.getAsInt(json, "time");
             FluidStack outputFluid = SerializeHelper.readFluidStack(json, "output_fluid");
@@ -57,7 +57,7 @@ public record SoupRecipe (
         public SoupRecipe fromNetwork(@NotNull ResourceLocation recipeId, @NotNull FriendlyByteBuf buffer) {
             List<Ingredient> ingredients = SerializeHelper.readIngredients(buffer);
             FluidStack inputFluid = buffer.readFluidStack();
-            Temp.Scale tempScale = buffer.readEnum(Temp.Scale.class);
+            Temp tempScale = buffer.readEnum(Temp.class);
             SpiceList withSpices = SpiceList.readSpices(buffer);
             int time = buffer.readInt();
             FluidStack outputFluid = buffer.readFluidStack();
@@ -69,7 +69,7 @@ public record SoupRecipe (
         public void toNetwork(@NotNull FriendlyByteBuf buffer, SoupRecipe recipe) {
             SerializeHelper.writeIngredients(buffer, recipe.ingredients());
             buffer.writeFluidStack(recipe.inputFluid());
-            buffer.writeEnum(recipe.tempScale);
+            buffer.writeEnum(recipe.temp);
             SpiceList.writeSpices(buffer, recipe.withSpices());
             buffer.writeInt(recipe.time());
             recipe.outputFluid().writeToPacket(buffer);

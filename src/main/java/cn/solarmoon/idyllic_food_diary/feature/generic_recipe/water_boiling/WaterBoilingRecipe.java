@@ -12,6 +12,7 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -30,12 +31,14 @@ public record WaterBoilingRecipe(
      * 把烧水时间和当前要烧的水的容量绑定（实现动态烧水时间）
      */
     public int getActualTime(BlockEntity blockEntity) {
-        if (blockEntity instanceof ITankBE container) {
-            double scale = (double) container.getTank().getFluidAmount() / BaseFluidAmount;
-            return (int) (time * scale);
-        }
-        return time;
+        return blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER)
+                .map(tank -> {
+                    double scale = (double) tank.getFluidInTank(0).getAmount() / BaseFluidAmount;
+                    return (int) (time * scale);
+                })
+                .orElse(time);
     }
+
 
     @Override
     public RecipeEntry<?> getRecipeEntry() {

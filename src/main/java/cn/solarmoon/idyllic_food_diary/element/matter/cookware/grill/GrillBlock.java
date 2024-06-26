@@ -1,10 +1,11 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.grill;
 
-import cn.solarmoon.idyllic_food_diary.element.matter.cookware.BaseCookwareBlock;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
 import cn.solarmoon.solarmoon_core.api.block_use_caller.IBlockUseCaller;
+import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
 import cn.solarmoon.solarmoon_core.api.blockstate_access.ILitBlock;
 import cn.solarmoon.solarmoon_core.api.phys.VecUtil;
+import cn.solarmoon.solarmoon_core.api.tile.SyncedEntityBlock;
 import cn.solarmoon.solarmoon_core.api.util.LevelSummonUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -38,7 +39,7 @@ import net.minecraftforge.eventbus.api.Event;
 
 import java.util.List;
 
-public class GrillBlock extends BaseCookwareBlock implements ILitBlock, IBlockUseCaller {
+public class GrillBlock extends SyncedEntityBlock implements ILitBlock, IHorizontalFacingBlock, IBlockUseCaller {
 
     public GrillBlock() {
         super(Properties.copy(Blocks.LANTERN)
@@ -68,17 +69,6 @@ public class GrillBlock extends BaseCookwareBlock implements ILitBlock, IBlockUs
                 heldItem.hurtAndBreak(1, player, action -> action.broadcastBreakEvent(hand));
                 return InteractionResult.SUCCESS;
             }
-        }
-        //------------------------------------存入煤炭----------------------------------------//
-        //存入煤炭
-        if (heldItem.is(ItemTags.COALS)) {
-            if (player.isCrouching()) {
-                grill.putItem(player, hand, heldItem.getCount());
-            }
-            grill.putItem(player, hand, 1);
-            level.playSound(null, pos, SoundEvents.LANTERN_STEP, SoundSource.BLOCKS);
-            grill.setChanged();
-            return InteractionResult.SUCCESS;
         }
         //------------------------------------指哪取哪----------------------------------------//
         //存入其余食物
@@ -121,24 +111,16 @@ public class GrillBlock extends BaseCookwareBlock implements ILitBlock, IBlockUs
                             LevelSummonUtil.addItemToInventory(player, result);
                         }
                         level.playSound(null, pos, SoundEvents.LANTERN_STEP, SoundSource.BLOCKS);
-                        grill.setChanged();
                         return InteractionResult.SUCCESS;
                     }
                 }
             }
         }
-        //------------------------------------取出煤炭----------------------------------------//
-        //选框在别的区域就尝试取出煤炭
-        if (heldItem.isEmpty()) {
-            //蹲下取64个，站着取1个
-            ItemStack result;
-            if (player.isCrouching()) {
-                result = grill.getInventory().extractItem(6, 64, false);
-            } else result = grill.getInventory().extractItem(6, 1, false);
-            if (!result.isEmpty()) {
-                if (!player.isCreative()) LevelSummonUtil.addItemToInventory(player, result);
+        //------------------------------------存取煤炭----------------------------------------//
+        //选框在别的区域就尝试存取煤炭
+        if ((!grill.getFuel().isEmpty() && heldItem.isEmpty()) || heldItem.is(ItemTags.COALS)) {
+            if (grill.specialStorage(player, hand)) {
                 level.playSound(null, pos, SoundEvents.LANTERN_STEP, SoundSource.BLOCKS);
-                grill.setChanged();
                 return InteractionResult.SUCCESS;
             }
         }

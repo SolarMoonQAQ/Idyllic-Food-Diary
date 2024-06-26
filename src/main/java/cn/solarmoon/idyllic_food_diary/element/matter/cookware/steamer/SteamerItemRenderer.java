@@ -2,6 +2,7 @@ package cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer;
 
 import cn.solarmoon.solarmoon_core.api.blockstate_access.IBedPartBlock;
 import cn.solarmoon.solarmoon_core.api.renderer.BaseItemRenderer;
+import cn.solarmoon.solarmoon_core.api.tile.inventory.TileItemContainerHelper;
 import cn.solarmoon.solarmoon_core.api.util.ContainerUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
@@ -30,24 +31,25 @@ public class SteamerItemRenderer extends BaseItemRenderer {
         state = state.setValue(SteamerBlock.HAS_LID, hasLid).setValue(STACK, stackValue);
         blockRenderer.renderSingleBlock(state, poseStack, buffer, light, overlay);
         if (!hasLid) {
-            ItemStackHandler inv = ContainerUtil.getInventory(stack);
-            boolean valid1 = true;
-            boolean valid2 = true;
-            for (int i = 1; i <= inv.getSlots(); i++) {
-                ItemStack stackIn = inv.getStackInSlot(i - 1);
-                if (Block.byItem(stackIn.getItem()).defaultBlockState().getValues().get(IBedPartBlock.PART) != null) {
-                    if (i < 4) {
-                        renderDoubleFood(stackIn, 1, poseStack, buffer, light, overlay);
-                        valid1 = false;
-                    }
-                    else {
-                        renderDoubleFood(stackIn, 2, poseStack, buffer, light, overlay);
-                        valid2 = false;
+            TileItemContainerHelper.getInventory(stack).ifPresent(inv -> {
+                boolean valid1 = true;
+                boolean valid2 = true;
+                for (int i = 1; i <= inv.getSlots(); i++) {
+                    ItemStack stackIn = inv.getStackInSlot(i - 1);
+                    if (Block.byItem(stackIn.getItem()).defaultBlockState().getValues().get(IBedPartBlock.PART) != null) {
+                        if (i < 4) {
+                            renderDoubleFood(stackIn, 1, poseStack, buffer, light, overlay);
+                            valid1 = false;
+                        }
+                        else {
+                            renderDoubleFood(stackIn, 2, poseStack, buffer, light, overlay);
+                            valid2 = false;
+                        }
                     }
                 }
-            }
-            if (valid1) renderFood(stack, poseStack, buffer, light, overlay);
-            if (valid2) renderFood2(stack, poseStack, buffer, light, overlay);
+                if (valid1) renderFood(stack, poseStack, buffer, light, overlay);
+                if (valid2) renderFood2(stack, poseStack, buffer, light, overlay);
+            });
         }
     }
 

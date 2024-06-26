@@ -1,6 +1,5 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.wok;
 
-import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
 import cn.solarmoon.solarmoon_core.api.capability.anim_ticker.AnimTicker;
 import cn.solarmoon.solarmoon_core.api.phys.SMath;
@@ -15,16 +14,12 @@ import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
-import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
-import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
-import java.util.List;
 import java.util.Random;
 
 public class WokBlockRenderer extends BaseBlockEntityRenderer<WokBlockEntity> {
@@ -57,7 +52,7 @@ public class WokBlockRenderer extends BaseBlockEntityRenderer<WokBlockEntity> {
                 // 按比例定位等边三角形的顶点
                 float[] vertex = vertices[i % 3];
                 double x = minX + range * vertex[0];
-                double h = 1/16F + 0.5/16F * i; // 高度
+                double h = 1.25/16F + 0.5/16F * i; // 高度
                 double z = minX + range * vertex[1];
                 Vec3 actV = VecUtil.rotateVec(new Vec3(x, 0, z), new Vec3(0.5, 0, 0.5), direction);
                 poseStack.translate(actV.x, h, actV.z);

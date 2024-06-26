@@ -1,6 +1,8 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.grill;
 
+import cn.solarmoon.solarmoon_core.api.phys.PoseStackHelper;
 import cn.solarmoon.solarmoon_core.api.renderer.BaseItemRenderer;
+import cn.solarmoon.solarmoon_core.api.tile.inventory.TileItemContainerHelper;
 import cn.solarmoon.solarmoon_core.api.util.ContainerUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
@@ -22,8 +24,10 @@ public class GrillItemRenderer extends BaseItemRenderer {
         BlockItem item = ((BlockItem) stack.getItem());
         BlockState state = item.getBlock().defaultBlockState();
         blockRenderer.renderSingleBlock(state, poseStack, buffer, light, overlay);
-        renderFood(ContainerUtil.getInventory(stack), poseStack, buffer, light, overlay);
-        renderCoal(ContainerUtil.getInventory(stack), poseStack, buffer, light, overlay);
+        TileItemContainerHelper.getInventory(stack).ifPresent(inv -> {
+            renderFood(inv, poseStack, buffer, light, overlay);
+            renderCoal(inv, poseStack, buffer, light, overlay);
+        });
     }
 
     private void renderFood(ItemStackHandler inventory, PoseStack poseStack, MultiBufferSource buffer, int light, int overlay) {

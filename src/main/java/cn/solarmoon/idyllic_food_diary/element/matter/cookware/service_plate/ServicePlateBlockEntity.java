@@ -1,23 +1,23 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.service_plate;
 
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
-import cn.solarmoon.solarmoon_core.api.blockentity_base.BaseContainerBlockEntity;
+import cn.solarmoon.solarmoon_core.api.tile.SyncedBlockEntity;
+import cn.solarmoon.solarmoon_core.api.tile.inventory.IContainerTile;
+import cn.solarmoon.solarmoon_core.api.tile.inventory.TileInventory;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.items.ItemStackHandler;
 
-public class ServicePlateBlockEntity extends BaseContainerBlockEntity {
+public class ServicePlateBlockEntity extends SyncedBlockEntity implements IContainerTile {
 
-    private final ItemStackHandler inventory;
+    private final TileInventory inventory;
 
     public ServicePlateBlockEntity(BlockPos pos, BlockState state) {
-        super(IMBlockEntities.PLATE.get(), 64, 1, pos, state);
-        this.inventory = new ItemStackHandler(64) {
-            public int getSlotLimit(int slot) {
-                return 1;
-            }
+        super(IMBlockEntities.PLATE.get(), pos, state);
+        this.inventory = new TileInventory(64, 1, this) {
+            @Override
             public boolean isItemValid(int slot, ItemStack stack)
             {
                 return stack.isEdible();

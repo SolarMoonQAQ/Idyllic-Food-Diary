@@ -8,7 +8,9 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ForgeHooks;
 
-public interface ISimpleFuelBlockEntity extends ILitBlock {
+import static cn.solarmoon.solarmoon_core.api.blockstate_access.ILitBlock.LIT;
+
+public interface ISimpleFuelBlockEntity {
 
 
     String BURNING_TIME = "BurningTime";

@@ -1,11 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup;
 
 import cn.solarmoon.idyllic_food_diary.feature.tea_brewing.TeaBrewingUtil;
-import cn.solarmoon.solarmoon_core.api.item_util.IContainerItem;
-import cn.solarmoon.solarmoon_core.api.item_util.ITankItem;
-import cn.solarmoon.solarmoon_core.api.renderer.BaseItemRenderer;
-import cn.solarmoon.solarmoon_core.api.renderer.IItemRendererProvider;
-import cn.solarmoon.solarmoon_core.api.util.FluidUtil;
+import cn.solarmoon.solarmoon_core.api.tile.fluid.ITankTileItem;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -18,19 +14,18 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.function.Supplier;
 
 
 /**
  * 作为可饮用方块的对应物品的基本抽象类<br/>
  * 基本实现了绝大部分本模组杯子物品所需的功能，简单继承即可使用
  */
-public abstract class AbstractCupItem extends BlockItem implements ITankItem, IContainerItem, IItemRendererProvider {
+public abstract class AbstractCupItem extends BlockItem implements ITankTileItem {
 
     public AbstractCupItem(Block block, Properties properties) {
         super(block, properties
@@ -54,11 +49,12 @@ public abstract class AbstractCupItem extends BlockItem implements ITankItem, IC
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
-        //不存有液体就返回
-        if(!remainFluid(stack, 0)) return InteractionResultHolder.pass(stack);
-        //如果foodValue有效，但是玩家还没到吃的条件，就不让用
-        if(!TeaBrewingUtil.canEat(getFluidStack(stack), player)) return InteractionResultHolder.pass(stack);
-        return ItemUtils.startUsingInstantly(level, player, hand);
+        return FluidUtil.getFluidHandler(stack).map(tank -> {
+            FluidStack fluidStack = tank.getFluidInTank(0);
+            //如果foodValue有效，但是玩家还没到吃的条件，就不让用
+            if(!TeaBrewingUtil.canEat(fluidStack, player)) return InteractionResultHolder.pass(stack);
+            return ItemUtils.startUsingInstantly(level, player, hand);
+        }).orElse(InteractionResultHolder.pass(stack));
     }
 
     /**
@@ -68,14 +64,15 @@ public abstract class AbstractCupItem extends BlockItem implements ITankItem, IC
      */
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
-        IFluidHandlerItem tankStack = FluidUtil.getTank(stack);
-        int tankAmount = tankStack.getFluidInTank(0).getAmount();
-        if(tankAmount >= TeaBrewingUtil.getDrinkVolume(level, tankStack.getFluidInTank(0))) {
-            FluidStack fluidStack = tankStack.getFluidInTank(0);
-            TeaBrewingUtil.commonDrink(fluidStack, entity, true);
-            tankStack.drain(TeaBrewingUtil.getDrinkVolume(level, tankStack.getFluidInTank(0)), IFluidHandler.FluidAction.EXECUTE);
-        } else if (tankAmount > 0) tankStack.drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.EXECUTE);
-        return stack;
+        return FluidUtil.getFluidHandler(stack).map(tankStack -> {
+            int tankAmount = tankStack.getFluidInTank(0).getAmount();
+            if(tankAmount >= TeaBrewingUtil.getDrinkVolume(level, tankStack.getFluidInTank(0))) {
+                FluidStack fluidStack = tankStack.getFluidInTank(0);
+                TeaBrewingUtil.commonDrink(fluidStack, entity, true);
+                tankStack.drain(TeaBrewingUtil.getDrinkVolume(level, tankStack.getFluidInTank(0)), IFluidHandler.FluidAction.EXECUTE);
+            } else if (tankAmount > 0) tankStack.drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.EXECUTE);
+            return stack;
+        }).orElse(stack);
     }
 
     /**
@@ -84,13 +81,16 @@ public abstract class AbstractCupItem extends BlockItem implements ITankItem, IC
     @Override
     public InteractionResult useOn(UseOnContext context) {
         ItemStack stack = context.getItemInHand();
-        //存有液体,并且有食物属性的话要能吃才能使用
-        if(remainFluid(stack, 0) && TeaBrewingUtil.canEat(getFluidStack(stack), context.getPlayer())) {
-            Player player = context.getPlayer();
-            if (player == null) return InteractionResult.FAIL;
-            if (!player.isCrouching()) player.startUsingItem(context.getHand());
-        }
-        return super.useOn(context);
+        return FluidUtil.getFluidHandler(stack).map(tank -> {
+            FluidStack fluidStack = tank.getFluidInTank(0);
+            //存有液体,并且有食物属性的话要能吃才能使用
+            if(TeaBrewingUtil.canEat(fluidStack, context.getPlayer())) {
+                Player player = context.getPlayer();
+                if (player == null) return InteractionResult.FAIL;
+                if (!player.isCrouching()) player.startUsingItem(context.getHand());
+            }
+            return super.useOn(context);
+        }).orElse(InteractionResult.FAIL);
     }
 
     /**
@@ -99,18 +99,9 @@ public abstract class AbstractCupItem extends BlockItem implements ITankItem, IC
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
         super.appendHoverText(stack, level, components, flag);
-        components.add(1, Component.literal("")); //留空间给tooltip
-        FluidStack fluidStack = FluidUtil.getFluidStack(stack);
+        FluidStack fluidStack = FluidUtil.getFluidHandler(stack).map(tank -> tank.getFluidInTank(0)).orElse(FluidStack.EMPTY);
         //data效果显示
         TeaBrewingUtil.showTeaIngredientTooltip(fluidStack, components);
-    }
-
-    /**
-     * 应用模型渲染
-     */
-    @Override
-    public Supplier<BaseItemRenderer> getRendererFactory() {
-        return CupItemRenderer::new;
     }
 
 }

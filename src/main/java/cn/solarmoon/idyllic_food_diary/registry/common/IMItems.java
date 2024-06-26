@@ -3,22 +3,21 @@ package cn.solarmoon.idyllic_food_diary.registry.common;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.element.matter.bathrobe.BathrobeItem;
-import cn.solarmoon.idyllic_food_diary.element.matter.cleaver.ChineseCleaverItem;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cleaver.CleaverItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cooking_pot.CookingPotItem;
-import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup.CeladonCupItem;
-import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup.JadeChinaCupItem;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup.little_cup.LittleCupItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cutting_board.CuttingBoardItem;
-import cn.solarmoon.idyllic_food_diary.element.matter.cookware.wok.WokItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.grill.GrillItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.kettle.KettleItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.service_plate.ServicePlateItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.spice_jar.SpiceJarItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer.SteamerItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer.SteamerLidItem;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.wok.WokItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.durian.DurianItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.food.SimpleContainableFoodBlockItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.food.SimpleContainableFoodItem;
-import cn.solarmoon.idyllic_food_diary.element.matter.rolling_pin.RollingPinItem;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.rolling_pin.RollingPinItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.simple_item.GarlicItem;
 import cn.solarmoon.idyllic_food_diary.util.useful_data.FoodProperty;
 import cn.solarmoon.solarmoon_core.api.entry.common.ItemEntry;
@@ -52,20 +51,20 @@ public class IMItems {
 
     public static final ItemEntry<SpiceJarItem> SPICE_JAR = IdyllicFoodDiary.REGISTRY.item()
             .id("spice_jar")
-            .bound(SpiceJarItem::new)
+            .bound(() -> new SpiceJarItem(IMBlocks.SPICE_JAR.get()))
             .build();
 
     //茶具
     //青瓷杯
-    public static final ItemEntry<CeladonCupItem> CELADON_CUP = IdyllicFoodDiary.REGISTRY.item()
+    public static final ItemEntry<LittleCupItem> CELADON_CUP = IdyllicFoodDiary.REGISTRY.item()
             .id("celadon_cup")
-            .bound(CeladonCupItem::new)
+            .bound(() -> new LittleCupItem(IMBlocks.CELADON_CUP.get()))
             .build();
 
     //玉瓷杯
-    public static final ItemEntry<JadeChinaCupItem> JADE_CHINA_CUP = IdyllicFoodDiary.REGISTRY.item()
+    public static final ItemEntry<LittleCupItem> JADE_CHINA_CUP = IdyllicFoodDiary.REGISTRY.item()
             .id("jade_china_cup")
-            .bound(JadeChinaCupItem::new)
+            .bound(() -> new LittleCupItem(IMBlocks.JADE_CHINA_CUP.get()))
             .build();
 
     //水壶
@@ -82,9 +81,9 @@ public class IMItems {
             .build();
 
     //中式菜刀
-    public static final ItemEntry<ChineseCleaverItem> CHINESE_CLEAVER = IdyllicFoodDiary.REGISTRY.item()
+    public static final ItemEntry<CleaverItem> CHINESE_CLEAVER = IdyllicFoodDiary.REGISTRY.item()
             .id("chinese_cleaver")
-            .bound(ChineseCleaverItem::new)
+            .bound(CleaverItem::new)
             .build();
 
     //砧板

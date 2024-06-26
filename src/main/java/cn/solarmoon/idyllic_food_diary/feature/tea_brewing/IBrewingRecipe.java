@@ -1,9 +1,8 @@
 package cn.solarmoon.idyllic_food_diary.feature.tea_brewing;
 
-import cn.solarmoon.idyllic_food_diary.data.IMItemTags;
 import cn.solarmoon.idyllic_food_diary.feature.basic_feature.IHeatable;
-import cn.solarmoon.solarmoon_core.api.tile.fluid.ITankTile;
-import cn.solarmoon.solarmoon_core.api.tile.inventory.IContainerTile;
+import cn.solarmoon.idyllic_food_diary.feature.fluid_temp.ITempChanger;
+import cn.solarmoon.idyllic_food_diary.feature.fluid_temp.Temp;
 import com.google.gson.Gson;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
@@ -20,22 +19,19 @@ import static cn.solarmoon.idyllic_food_diary.feature.tea_brewing.TeaBrewingUtil
 /**
  * 直接接入就能实现泡茶配方
  */
-public interface IBrewingRecipe extends IContainerTile, ITankTile, IHeatable {
+public interface IBrewingRecipe extends IHeatable, ITempChanger {
 
     String BREW_TICK = "BrewTick";
-
-    default BlockEntity self2() {
-        return (BlockEntity) this;
-    }
 
     /**
      * 放于tick中将会尝试烹饪
      */
-    default void tryBrewTea() {
+    default boolean tryBrewTea() {
         FluidStack fluidStack = getTank().getFluid();
-        Level level = self2().getLevel();
+        Level level = h().getLevel();
+        if (level == null) return false;
         tryApplyThermochanger();
-        if (canStartBrew() && level != null) {
+        if (canStartBrew()) {
             setBrewRecipeTime(getNeedTime());
             setBrewTime(getBrewTime() + 1);
             if (getBrewTime() >= getBrewRecipeTime()) {
@@ -47,36 +43,17 @@ public interface IBrewingRecipe extends IContainerTile, ITankTile, IHeatable {
                     tag.putString(TeaIngredient.TAG_KEY, json);
                     putNameToNBT(tag);
                     FluidStack result = new FluidStack(getValidFluidBound().getOutput(), amount, tag);
-                    Temp.setFluidTemp(result, Temp.getOrCreateFluidTemp(fluidStack, level), level);
+                    Temp.set(result, Temp.get(fluidStack));
                     getTank().setFluid(result);
                     getStacks().forEach(stack -> stack.shrink(1));
-                    self2().setChanged();
+                    h().setChanged();
                 }
             }
-        } else setBrewTime(0);
-    }
-
-    /**
-     * 应用温度改变剂效果
-     */
-    default void tryApplyThermochanger() {
-        FluidStack fluidStack = getTank().getFluid();
-        Level level = self2().getLevel();
-        // 有冷却剂就把热液体急速冷却
-        getStacks().stream().filter(stack -> stack.is(IMItemTags.COOLANT)).findFirst().ifPresent(stack -> {
-            if (level != null && Temp.shrink(fluidStack, level)) {
-                stack.shrink(1);
-            }
-        });
-    }
-
-    @Nullable
-    default Temp getFluidTemp() {
-        Level level = self2().getLevel();
-        if (level != null) {
-            return Temp.getOrCreateFluidTemp(getTank().getFluid(), level);
+            return true;
+        } else {
+            setBrewTime(0);
+            return false;
         }
-        return null;
     }
 
     default boolean isBrewing() {
@@ -116,7 +93,10 @@ public interface IBrewingRecipe extends IContainerTile, ITankTile, IHeatable {
     default FluidBoundMap getValidFluidBound() {
         if (getBaseAttribute() != null) {
             for (var map : getBaseAttribute().getFluidBoundMap()) {
-                if (map.getInput() == getTank().getFluid().getFluid() && getFluidTemp() != null && getFluidTemp().isSame(map.getLevel())) {
+                if (
+                        map.getInput() == getTank().getFluid().getFluid()
+                        && Temp.isSame(getTank().getFluid(), map.getTemp())
+                ) {
                     return map;
                 }
             }

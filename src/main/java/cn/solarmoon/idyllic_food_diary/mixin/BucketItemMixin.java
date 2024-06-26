@@ -1,6 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.mixin;
 
-import cn.solarmoon.idyllic_food_diary.feature.tea_brewing.Temp;
+import cn.solarmoon.idyllic_food_diary.feature.fluid_temp.Temp;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
@@ -20,7 +20,7 @@ public abstract class BucketItemMixin extends Item {
         Component origin = super.getName(bucket);
         var op = FluidUtil.getFluidContained(bucket);
         if (op.isPresent()) {
-            return Temp.getFluidTemp(op.get()).getScale().getPrefix().copy().append(origin);
+            return Temp.get(op.get()).getPrefix().copy().append(origin);
         }
         return origin;
     }

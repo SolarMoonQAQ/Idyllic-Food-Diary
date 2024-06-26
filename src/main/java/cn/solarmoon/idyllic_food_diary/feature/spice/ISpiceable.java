@@ -13,10 +13,10 @@ public interface ISpiceable extends IContainerTile {
     /**
      * 将调料全部加入输入的物品中
      * @param stack 要加调料的物品
-     * @param addSpicesFormContainer 如果需要考虑之前的带调料的物品就填入这个集合，会把容器内物品的调料也加进来
+     * @param addSpicesFormIngredients 如果需要考虑之前的带调料的物品就填入这个集合，会把容器内物品的调料也加进来
      */
-    default void addSpicesToItem(ItemStack stack, boolean addSpicesFormContainer) {
-        if (addSpicesFormContainer) {
+    default void addSpicesToItem(ItemStack stack, boolean addSpicesFormIngredients) {
+        if (addSpicesFormIngredients) {
             for (ItemStack add : getStacks()) {
                 SpicesCap addData = add.getCapability(IMCapabilities.FOOD_ITEM_DATA).orElse(null).getSpicesData();
                 if (addData != null && !addData.isEmpty()) {

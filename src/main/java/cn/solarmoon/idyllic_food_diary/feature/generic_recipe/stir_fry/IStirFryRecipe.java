@@ -1,8 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.feature.generic_recipe.stir_fry;
 
-import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.feature.basic_feature.IHeatable;
-import cn.solarmoon.idyllic_food_diary.feature.basic_feature.IPendingResult;
+import cn.solarmoon.idyllic_food_diary.feature.basic_feature.IPlateable;
 import cn.solarmoon.idyllic_food_diary.feature.spice.ISpiceable;
 import cn.solarmoon.idyllic_food_diary.network.NETList;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMPacks;
@@ -23,7 +22,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
-public interface IStirFryRecipe extends IContainerTile, ITankTile, IHeatable, ISpiceable, IPendingResult {
+public interface IStirFryRecipe extends IContainerTile, ITankTile, IHeatable, ISpiceable, IPlateable {
 
     String STIR_FRY_TIME = "StirFryTime";
     String STIR_FRY_RECIPE_TIME = "StirFryRecipeTime";
@@ -83,7 +82,6 @@ public interface IStirFryRecipe extends IContainerTile, ITankTile, IHeatable, IS
                         }
                     } else if (withTrueSpices(getPresentFryStage().spices(), true)) {
                         setStirFryTime(getStirFryTime() + 1);
-                        IdyllicFoodDiary.DEBUG.send(getStirFryTime() + "/" + getStirFryRecipeTime());
                     }
                 }
             } else { // 此处就代表当前阶段已经超出配方最大阶段，表示所有阶段已满足
@@ -103,7 +101,7 @@ public interface IStirFryRecipe extends IContainerTile, ITankTile, IHeatable, IS
     }
 
     default boolean isStirFrying() {
-        return getStirFryRecipe() != null;
+        return getStirFryRecipe() != null && getPresentFryStage() != null;
     }
 
     default boolean doStirFry() {
@@ -159,6 +157,14 @@ public interface IStirFryRecipe extends IContainerTile, ITankTile, IHeatable, IS
     default StirFryStage getPresentFryStage() {
         if (getStirFryRecipe() != null && getPresentStage() < getStirFryRecipe().stirFryStages().size()) {
             return getStirFryRecipe().stirFryStages().get(getPresentStage());
+        }
+        return null;
+    }
+
+    @Nullable
+    default StirFryStage getFryStage(int stage) {
+        if (getStirFryRecipe() != null) {
+            return getStirFryRecipe().stirFryStages().get(stage);
         }
         return null;
     }

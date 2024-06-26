@@ -6,7 +6,7 @@ import cn.solarmoon.idyllic_food_diary.element.level.AppleTreeFeature;
 import cn.solarmoon.idyllic_food_diary.element.level.DurianTreeFeature;
 import cn.solarmoon.idyllic_food_diary.element.matter.container.*;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cooking_pot.CookingPotBlock;
-import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup.CupBlock;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup.little_cup.LittleCupBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cutting_board.CuttingBoardBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.wok.WokBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.grill.GrillBlock;
@@ -186,15 +186,15 @@ public class IMBlocks {
     //————————————————————————————————————————————————————————————————————————————————//
 
     //青瓷杯
-    public static final BlockEntry<CupBlock> CELADON_CUP = IdyllicFoodDiary.REGISTRY.block()
+    public static final BlockEntry<LittleCupBlock> CELADON_CUP = IdyllicFoodDiary.REGISTRY.block()
             .id("celadon_cup")
-            .bound(CupBlock::new)
+            .bound(LittleCupBlock::new)
             .build();
 
     //玉瓷杯
-    public static final BlockEntry<CupBlock> JADE_CHINA_CUP = IdyllicFoodDiary.REGISTRY.block()
+    public static final BlockEntry<LittleCupBlock> JADE_CHINA_CUP = IdyllicFoodDiary.REGISTRY.block()
             .id("jade_china_cup")
-            .bound(CupBlock::new)
+            .bound(LittleCupBlock::new)
             .build();
 
     //水壶

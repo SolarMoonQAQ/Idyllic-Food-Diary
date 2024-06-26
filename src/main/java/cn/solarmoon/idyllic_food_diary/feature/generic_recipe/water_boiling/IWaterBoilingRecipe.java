@@ -1,7 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.feature.generic_recipe.water_boiling;
 
 import cn.solarmoon.idyllic_food_diary.feature.basic_feature.IHeatable;
-import cn.solarmoon.idyllic_food_diary.feature.tea_brewing.Temp;
+import cn.solarmoon.idyllic_food_diary.feature.fluid_temp.Temp;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMRecipes;
 import cn.solarmoon.solarmoon_core.api.tile.fluid.ITankTile;
 import net.minecraft.world.level.Level;
@@ -31,8 +31,7 @@ public interface IWaterBoilingRecipe extends ITankTile, IHeatable {
             setBoilRecipeTime(kettleRecipe.getActualTime(wb()));
             setBoilTime(getBoilTime() + 1);
             if (getBoilTime() > kettleRecipe.getActualTime(wb())) {
-                Temp.setFluidTemp(getTank().getFluid(),
-                        Temp.getOrCreateFluidTemp(getTank().getFluid(), level).setScale(Temp.Scale.HOT), level);
+                Temp.set(getTank().getFluid(), Temp.HOT);
                 setBoilTime(0);
                 wb().setChanged();
             }
@@ -54,7 +53,9 @@ public interface IWaterBoilingRecipe extends ITankTile, IHeatable {
         List<WaterBoilingRecipe> recipes = level.getRecipeManager().getAllRecipesFor(IMRecipes.WATER_BOILING.get());
         return recipes.stream().filter(recipe -> {
             FluidStack fluidStackIn = getTank().getFluid();
-            return fluidStackIn.getFluid().equals(recipe.input()) && isOnHeatSource() && !Temp.isHot(fluidStackIn);
+            return fluidStackIn.getFluid().equals(recipe.input())
+                    && isOnHeatSource()
+                    && !Temp.isHot(fluidStackIn);
         }).findFirst();
     }
 

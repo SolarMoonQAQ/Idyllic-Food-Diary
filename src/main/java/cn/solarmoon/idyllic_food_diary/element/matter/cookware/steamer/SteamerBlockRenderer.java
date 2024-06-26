@@ -22,14 +22,14 @@ import net.minecraftforge.items.ItemStackHandler;
 
 import static cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock.FACING;
 
-public class SteamerBlockRenderer<E extends SteamerBlockEntity> extends BaseBlockEntityRenderer<E> {
+public class SteamerBlockRenderer extends BaseBlockEntityRenderer<SteamerBlockEntity> {
 
     public SteamerBlockRenderer(BlockEntityRendererProvider.Context context) {
         super(context);
     }
 
     @Override
-    public void render(E steamer, float v, PoseStack poseStack, MultiBufferSource buffer, int light, int overlay) {
+    public void render(SteamerBlockEntity steamer, float v, PoseStack poseStack, MultiBufferSource buffer, int light, int overlay) {
         if (!steamer.hasLid()) {
             SteamerInventory inv = (SteamerInventory)steamer.getInventory();
 
@@ -48,7 +48,7 @@ public class SteamerBlockRenderer<E extends SteamerBlockEntity> extends BaseBloc
         }
     }
 
-    private void renderDoubleFood(int layer, E steamer, PoseStack poseStack, MultiBufferSource buffer, int light, int overlay) {
+    private void renderDoubleFood(int layer, SteamerBlockEntity steamer, PoseStack poseStack, MultiBufferSource buffer, int light, int overlay) {
         Direction direction = steamer.getBlockState().getValue(FACING);
         SteamerInventory inv = (SteamerInventory)steamer.getInventory();
         ItemStack stack = inv.getDoubleStack(layer);
@@ -80,7 +80,7 @@ public class SteamerBlockRenderer<E extends SteamerBlockEntity> extends BaseBloc
         }
     }
 
-    private void renderFood(E steamer, PoseStack poseStack, MultiBufferSource buffer, int light, int overlay) {
+    private void renderFood(SteamerBlockEntity steamer, PoseStack poseStack, MultiBufferSource buffer, int light, int overlay) {
         Direction direction = steamer.getBlockState().getValue(FACING);
         ItemStackHandler inventory = steamer.getInventory();
         Level level = steamer.getLevel();
@@ -115,7 +115,7 @@ public class SteamerBlockRenderer<E extends SteamerBlockEntity> extends BaseBloc
         }
     }
 
-    private void renderFood2(E steamer, PoseStack poseStack, MultiBufferSource buffer, int light, int overlay) {
+    private void renderFood2(SteamerBlockEntity steamer, PoseStack poseStack, MultiBufferSource buffer, int light, int overlay) {
         Direction direction = steamer.getBlockState().getValue(FACING).getOpposite();
         ItemStackHandler inventory = steamer.getInventory();
         Level level = steamer.getLevel();

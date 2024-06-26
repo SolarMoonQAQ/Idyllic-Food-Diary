@@ -1,11 +1,11 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer;
 
-import cn.solarmoon.idyllic_food_diary.element.matter.cookware.BaseCookwareBlock;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMItems;
-import cn.solarmoon.idyllic_food_diary.registry.common.IMRecipes;
+import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
 import cn.solarmoon.solarmoon_core.api.blockstate_access.IStackBlock;
-import cn.solarmoon.solarmoon_core.api.util.ContainerUtil;
+import cn.solarmoon.solarmoon_core.api.tile.SyncedEntityBlock;
+import cn.solarmoon.solarmoon_core.api.tile.inventory.TileItemContainerHelper;
 import cn.solarmoon.solarmoon_core.api.util.LevelSummonUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -36,13 +36,12 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SteamerBlock extends BaseCookwareBlock implements IStackBlock {
+public class SteamerBlock extends SyncedEntityBlock implements IStackBlock, IHorizontalFacingBlock {
 
     public static final BooleanProperty HAS_LID = BooleanProperty.create("covered");
     public static final String HAS_LID$ = "HasLid";
@@ -79,16 +78,17 @@ public class SteamerBlock extends BaseCookwareBlock implements IStackBlock {
                     .setValue(STACK, stackValue + 1)
                     .setValue(HAS_LID, heldItem.getOrCreateTag().getBoolean(HAS_LID$)),
                     3); // 添加盖子
-            ItemStackHandler invIn = ContainerUtil.getInventory(heldItem);
-            steamer.set2ndInv(true);
-            for (int i = 0; i < invIn.getSlots(); i++) {
-                ItemStack stackIn = invIn.getStackInSlot(i);
-                if (!stackIn.isEmpty()) {
-                    steamer.getInventory().setStackInSlot(i + 4, stackIn);
+            TileItemContainerHelper.getInventory(heldItem).ifPresent(invIn -> {
+                steamer.set2ndInv(true);
+                for (int i = 0; i < invIn.getSlots(); i++) {
+                    ItemStack stackIn = invIn.getStackInSlot(i);
+                    if (!stackIn.isEmpty()) {
+                        steamer.getInventory().setStackInSlot(i + 4, stackIn);
+                    }
                 }
-            }
-            steamer.setChanged();
-            level.playSound(null, pos, state.getSoundType().getPlaceSound(), SoundSource.PLAYERS);
+                steamer.setChanged();
+                level.playSound(null, pos, state.getSoundType().getPlaceSound(), SoundSource.PLAYERS);
+            });
             return InteractionResult.SUCCESS;
         }
         //----------------------------------------盖子-------------------------------------------//
@@ -107,19 +107,8 @@ public class SteamerBlock extends BaseCookwareBlock implements IStackBlock {
             return InteractionResult.SUCCESS;
         }
         //----------------------------------------存储物品-------------------------------------------//
-        //匹配配方才能手动放置
-        for (var recipe : level.getRecipeManager().getAllRecipesFor(IMRecipes.STEAMING.get())) {
-            if (recipe.input().test(heldItem)) {
-                if (steamer.putItem(player, hand, 1)) {
-                    level.playSound(null, pos, state.getSoundType().getPlaceSound(), SoundSource.PLAYERS);
-                    steamer.setChanged();
-                    return InteractionResult.SUCCESS;
-                }
-            }
-        }
-        if (steamer.takeItem(player, hand, 1)) {
+        if (steamer.storage(player, hand, 1, 1)) {
             level.playSound(null, pos, state.getSoundType().getPlaceSound(), SoundSource.PLAYERS);
-            steamer.setChanged();
             return InteractionResult.SUCCESS;
         }
         //-----------------------------------------------------------------------------------//

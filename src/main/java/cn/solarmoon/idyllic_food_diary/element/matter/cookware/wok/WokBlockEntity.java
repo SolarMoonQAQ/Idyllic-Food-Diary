@@ -1,12 +1,12 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.wok;
 
+import cn.solarmoon.idyllic_food_diary.feature.fluid_temp.ITempChanger;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.stir_fry.IStirFryRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.stir_fry.StirFryRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.spice.Spice;
 import cn.solarmoon.idyllic_food_diary.feature.spice.SpiceList;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
-import cn.solarmoon.solarmoon_core.api.blockentity_base.BaseTCBlockEntity;
-import cn.solarmoon.solarmoon_core.api.tile.*;
+import cn.solarmoon.solarmoon_core.api.tile.SyncedBlockEntity;
 import cn.solarmoon.solarmoon_core.api.tile.fluid.ITankTile;
 import cn.solarmoon.solarmoon_core.api.tile.fluid.TileTank;
 import cn.solarmoon.solarmoon_core.api.tile.inventory.IContainerTile;
@@ -20,7 +20,7 @@ import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 
-public class WokBlockEntity extends SyncedBlockEntity implements IStirFryRecipe, IContainerTile, ITankTile {
+public class WokBlockEntity extends SyncedBlockEntity implements IStirFryRecipe, IContainerTile, ITankTile, ITempChanger {
 
     private final TileInventory inventory;
     private final TileTank fluidTank;

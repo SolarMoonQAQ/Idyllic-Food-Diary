@@ -1,15 +1,19 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.cutting_board;
 
-import cn.solarmoon.idyllic_food_diary.element.matter.cookware.BaseCookwareBlock;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cleaver.CleaverItem;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.spice_jar.SpiceJarItem;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
 import cn.solarmoon.idyllic_food_diary.util.VoxelShapeUtil;
 import cn.solarmoon.solarmoon_core.api.block_use_caller.IBlockUseCaller;
+import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
+import cn.solarmoon.solarmoon_core.api.tile.SyncedEntityBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -24,7 +28,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.eventbus.api.Event;
 
-public class CuttingBoardBlock extends BaseCookwareBlock implements IBlockUseCaller {
+public class CuttingBoardBlock extends SyncedEntityBlock implements IBlockUseCaller, IHorizontalFacingBlock {
 
     public CuttingBoardBlock() {
         super(Properties.copy(Blocks.CHEST).noOcclusion());
@@ -44,33 +48,36 @@ public class CuttingBoardBlock extends BaseCookwareBlock implements IBlockUseCal
                 return InteractionResult.SUCCESS;
             }
             // 蹲下右键全拉出来
-            if (player.isCrouching() && heldItem.isEmpty()) {
-                cb.pumpOutAllItems(new Vec3(0, -0.5, 0));
-                return InteractionResult.SUCCESS;
-            }
-            // 正常存
-            if (cb.putItem(player, hand, 1)) {
-                level.playSound(null, pos, SoundEvents.WOOD_PLACE, SoundSource.PLAYERS);
-                blockEntity.setChanged();
-                return InteractionResult.SUCCESS;
-            }
-            if (cb.takeItem(player, hand, 1)) {
-                level.playSound(null, pos, SoundEvents.WOOD_HIT, SoundSource.PLAYERS);
-                blockEntity.setChanged();
-                return InteractionResult.SUCCESS;
+            if (hand == InteractionHand.MAIN_HAND) {
+                if (player.isCrouching() && heldItem.isEmpty()) {
+                    cb.pumpOutAllItems(new Vec3(0, -0.5, 0));
+                    return InteractionResult.SUCCESS;
+                }
+                // 正常存
+                if (cb.putItem(player, hand, 1)) {
+                    level.playSound(null, pos, SoundEvents.WOOD_PLACE, SoundSource.PLAYERS);
+                    return InteractionResult.SUCCESS;
+                }
+                if (cb.takeItem(player, hand, 1)) {
+                    level.playSound(null, pos, SoundEvents.WOOD_HIT, SoundSource.PLAYERS);
+                    return InteractionResult.SUCCESS;
+                }
             }
         }
         return InteractionResult.PASS;
     }
 
     @Override
-    public Event.Result getUseResult(BlockState blockState, BlockPos blockPos, Level level, Player player, ItemStack itemStack, BlockHitResult blockHitResult, InteractionHand hand) {
-        return Event.Result.ALLOW;
+    public Event.Result getUseResult(BlockState blockState, BlockPos blockPos, Level level, Player player, ItemStack stack, BlockHitResult blockHitResult, InteractionHand hand) {
+        Item item = stack.getItem();
+        if (player.isCrouching() && !player.getItemInHand(hand).isEmpty()) return Event.Result.DENY;
+        return item instanceof SpiceJarItem || item instanceof CleaverItem ? Event.Result.DENY : Event.Result.ALLOW;
     }
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
-        return VoxelShapeUtil.rotateShape(state.getValue(FACING), Block.box(0.0D, 0.0D, 1.0D, 16.0D, 1.0D, 15.0D));
+        return VoxelShapeUtil.rotateShape(state.getValue(FACING),
+                Block.box(1.0D, 0.0D, 1.0D, 15.0D, 1.0D, 15.0D));
     }
 
     @Override

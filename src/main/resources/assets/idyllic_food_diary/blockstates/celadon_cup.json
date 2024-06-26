@@ -1,6 +1,6 @@
 {
   "variants": {
-    "facing=north": { "model": "idyllic_food_diary:block/celadon_cup" },
+    "facing=north": { "model": "idyllic_food_diary:block/celadon_cup", "y": 0},
     "facing=south": { "model": "idyllic_food_diary:block/celadon_cup", "y": 180 },
     "facing=east": { "model": "idyllic_food_diary:block/celadon_cup", "y": 90 },
     "facing=west": { "model": "idyllic_food_diary:block/celadon_cup", "y": 270 }

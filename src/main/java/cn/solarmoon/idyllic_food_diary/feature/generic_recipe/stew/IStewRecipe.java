@@ -2,7 +2,7 @@ package cn.solarmoon.idyllic_food_diary.feature.generic_recipe.stew;
 
 import cn.solarmoon.idyllic_food_diary.compat.farmersdelight.FarmersUtil;
 import cn.solarmoon.idyllic_food_diary.feature.basic_feature.IHeatable;
-import cn.solarmoon.idyllic_food_diary.feature.basic_feature.IPendingResult;
+import cn.solarmoon.idyllic_food_diary.feature.basic_feature.IPlateable;
 import cn.solarmoon.idyllic_food_diary.feature.spice.ISpiceable;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMRecipes;
 import cn.solarmoon.solarmoon_core.api.tile.fluid.ITankTile;
@@ -20,7 +20,7 @@ import java.util.Optional;
 /**
  * 接入该接口后立刻实现煮锅配方，但要注意接入后无法再调用新的带有ITimeRecipeBlockEntity的配方
  */
-public interface IStewRecipe extends ITankTile, IPendingResult, ISpiceable, IHeatable {
+public interface IStewRecipe extends ITankTile, IPlateable, ISpiceable, IHeatable {
 
     String STEW_TIME = "StewTime";
     String STEW_RECIPE_TIME = "StewRecipeTime";

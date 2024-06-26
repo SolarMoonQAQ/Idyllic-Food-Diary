@@ -1,7 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.compat.jade;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
-import cn.solarmoon.idyllic_food_diary.element.matter.rolling_pin.RollingPinItem;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.rolling_pin.RollingPinItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;

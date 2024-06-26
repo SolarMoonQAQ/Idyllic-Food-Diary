@@ -1,5 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.feature.tea_brewing;
 
+import cn.solarmoon.idyllic_food_diary.feature.fluid_temp.Temp;
 import com.google.gson.annotations.SerializedName;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.material.Fluid;
@@ -24,9 +25,9 @@ public class FluidBoundMap {
         return ForgeRegistries.FLUIDS.getValue(new ResourceLocation(out));
     }
 
-    public Temp.Scale getLevel() {
+    public Temp getTemp() {
         if (temp == null) temp = "any";
-        return Temp.Scale.valueOf(temp.toUpperCase());
+        return Temp.valueOf(temp.toUpperCase());
     }
 
     @Override

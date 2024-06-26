@@ -1,6 +1,5 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.spice_jar;
 
-import cn.solarmoon.idyllic_food_diary.element.matter.cookware.BaseCookwareBlock;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
 import cn.solarmoon.solarmoon_core.api.block_use_caller.IBlockUseCaller;
 import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
@@ -10,6 +9,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -21,6 +21,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.eventbus.api.Event;
+import org.jetbrains.annotations.Nullable;
 
 public class SpiceJarBlock extends SyncedEntityBlock implements IBlockUseCaller, IHorizontalFacingBlock {
 
@@ -58,6 +59,14 @@ public class SpiceJarBlock extends SyncedEntityBlock implements IBlockUseCaller,
     @Override
     public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
         return Shapes.block();
+    }
+
+    @Nullable
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        Player player = context.getPlayer();
+        if (player != null && !player.isCrouching()) return null;
+        return super.getStateForPlacement(context);
     }
 
     @Override

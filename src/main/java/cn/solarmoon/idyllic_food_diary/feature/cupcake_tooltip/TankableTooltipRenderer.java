@@ -59,30 +59,31 @@ public class TankableTooltipRenderer implements ClientTooltipComponent {
         if(canBeRendered()) {
 
             ItemStack stack = tankTooltip.getItemStack();
-            IFluidHandlerItem stackTank = FluidUtil.getTank(stack);
-            FluidStack fluidStack = FluidUtil.getFluidStack(stack);
+            net.minecraftforge.fluids.FluidUtil.getFluidHandler(stack).ifPresent(stackTank -> {
+                FluidStack fluidStack = stackTank.getFluidInTank(0);
 
-            RenderSystem.enableDepthTest();
-            RenderSystem.enableBlend();
-            RenderSystem.defaultBlendFunc();
+                RenderSystem.enableDepthTest();
+                RenderSystem.enableBlend();
+                RenderSystem.defaultBlendFunc();
 
-            drawFluid(fluidStack, guiGraphics, stackTank, x ,y);
+                drawFluid(fluidStack, guiGraphics, stackTank, x ,y);
 
-            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+                RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
-            //液体名称容量显示
-            PoseStack poseStack = guiGraphics.pose();
+                //液体名称容量显示
+                PoseStack poseStack = guiGraphics.pose();
 
-            drawText(poseStack, fluidStack, font, guiGraphics, x, y);
+                drawText(poseStack, fluidStack, font, guiGraphics, x, y);
 
-            //渲染内容物
-            drawItem(stack, poseStack, guiGraphics, x, y);
+                //渲染内容物
+                drawItem(stack, poseStack, guiGraphics, x, y);
 
-            //渲染图片
-            drawGUI(stack, poseStack, guiGraphics, x, y);
+                //渲染图片
+                drawGUI(stack, poseStack, guiGraphics, x, y);
 
-            RenderSystem.disableBlend();
-            RenderSystem.disableDepthTest();
+                RenderSystem.disableBlend();
+                RenderSystem.disableDepthTest();
+            });
 
         }
     }

@@ -25,7 +25,7 @@ public class MakeSpiceJarFacilitateEvent {
         BlockState state = level.getBlockState(pos);
         Player player = event.getEntity();
         InteractionHand hand = event.getHand();
-        if (heldItem.getItem() instanceof AbstractSpiceJarItem && AbstractSpiceJarItem.hasEnoughSpice(heldItem)) {
+        if (heldItem.getItem() instanceof SpiceJarItem && SpiceJarItem.hasEnoughSpice(heldItem)) {
             event.setUseBlock(Event.Result.DENY);
         }
     }

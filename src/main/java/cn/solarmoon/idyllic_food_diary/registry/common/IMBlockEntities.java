@@ -2,7 +2,7 @@ package cn.solarmoon.idyllic_food_diary.registry.common;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cooking_pot.CookingPotBlockEntity;
-import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup.CupBlockEntity;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup.little_cup.LittleCupBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cutting_board.CuttingBoardBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.wok.WokBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.grill.GrillBlockEntity;
@@ -37,9 +37,9 @@ public class IMBlockEntities {
             .build();
 
     //小容量杯子
-    public static final BlockEntityEntry<CupBlockEntity> LITTLE_CUP = IdyllicFoodDiary.REGISTRY.blockEntity()
+    public static final BlockEntityEntry<LittleCupBlockEntity> LITTLE_CUP = IdyllicFoodDiary.REGISTRY.blockEntity()
             .id("little_cup")
-            .bound(CupBlockEntity::new)
+            .bound(LittleCupBlockEntity::new)
             .validBlocks(() -> new Block[]{IMBlocks.CELADON_CUP.get(), IMBlocks.JADE_CHINA_CUP.get()})
             .build();
 

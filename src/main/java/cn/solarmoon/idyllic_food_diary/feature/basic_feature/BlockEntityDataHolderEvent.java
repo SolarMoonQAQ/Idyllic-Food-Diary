@@ -38,9 +38,9 @@ public class BlockEntityDataHolderEvent {
             ListTag listTag = spiceable.getSpices().serializeNBT();
             tag.put(SpicesCap.SPICES, listTag);
         }
-        if (be instanceof IPendingResult pendingResult) {
-            tag.put(IPendingResult.RESULT, pendingResult.getResult().serializeNBT());
-            tag.putString(IPendingResult.CONTAINER, pendingResult.getContainer().toJson().toString());
+        if (be instanceof IPlateable pendingResult) {
+            tag.put(IPlateable.RESULT, pendingResult.getResult().serializeNBT());
+            tag.putString(IPlateable.CONTAINER, pendingResult.getContainer().toJson().toString());
         }
         if (be instanceof IExpGiver expGiver) {
             tag.putInt(IExpGiver.EXP, expGiver.getExp());
@@ -85,9 +85,9 @@ public class BlockEntityDataHolderEvent {
         if (be instanceof ISpiceable spiceable) {
             spiceable.getSpices().deserializeNBT(tag.getList(SpicesCap.SPICES, ListTag.TAG_COMPOUND));
         }
-        if (be instanceof IPendingResult pendingResult) {
-            pendingResult.setResult(ItemStack.of(tag.getCompound(IPendingResult.RESULT)));
-            if (tag.contains(IPendingResult.CONTAINER)) pendingResult.setContainer(Ingredient.fromJson(JsonParser.parseString(tag.getString(IPendingResult.CONTAINER))));
+        if (be instanceof IPlateable pendingResult) {
+            pendingResult.setResult(ItemStack.of(tag.getCompound(IPlateable.RESULT)));
+            if (tag.contains(IPlateable.CONTAINER)) pendingResult.setContainer(Ingredient.fromJson(JsonParser.parseString(tag.getString(IPlateable.CONTAINER))));
         }
         if (be instanceof IExpGiver expGiver) {
             expGiver.setExp(tag.getInt(IExpGiver.EXP));

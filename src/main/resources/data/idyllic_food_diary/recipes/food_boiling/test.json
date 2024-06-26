@@ -4,10 +4,11 @@
     "item": "minecraft:grass_block"
   },
   "fluid_consumption": {
-    "id": "idyllic_food_diary:hot_water",
+    "id": "minecraft:water",
     "amount": 100
   },
-  "time": 10,
+  "temp": "hot",
+  "time": 100,
   "result": {
     "item": "minecraft:iron_ingot"
   }

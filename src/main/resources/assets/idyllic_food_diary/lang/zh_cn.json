@@ -190,7 +190,14 @@
   "config.jade.plugin_idyllic_food_diary.steamer_base": "蒸笼底座信息",
   "config.jade.plugin_idyllic_food_diary.steamer": "蒸笼信息",
   "config.jade.plugin_idyllic_food_diary.rolling_pin": "擀面杖进度",
+  "config.jade.plugin_idyllic_food_diary.wok": "炒锅信息",
+  "config.jade.plugin_idyllic_food_diary.cutting_board": "砧板信息",
 
+  "jade.idyllic_food_diary.stir_fry.stage": "当前阶段：%s",
+  "jade.idyllic_food_diary.ingredient_handling": "可制作：",
+  "jade.idyllic_food_diary.ingredient_handling.empty": "无",
+  "jade.idyllic_food_diary.plating": "待装盘：",
+  "jade.idyllic_food_diary.plating.empty": "无",
   "jade.idyllic_food_diary.steamer_base.evaporating": "蒸发中...（速率：%smB/秒）",
   "jade.idyllic_food_diary.steamer_base.working": "是否上汽：",
 

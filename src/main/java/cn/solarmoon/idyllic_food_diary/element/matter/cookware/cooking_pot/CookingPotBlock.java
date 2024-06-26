@@ -54,19 +54,16 @@ public class CookingPotBlock extends SyncedEntityBlock implements IHorizontalFac
             //能够存取液体
             if (cookingPot.putFluid(player, hand, false)) {
                 level.playSound(null, pos, SoundEvents.BUCKET_FILL, SoundSource.PLAYERS);
-                cookingPot.setChanged();
                 return InteractionResult.SUCCESS;
             }
             if (cookingPot.takeFluid(player, hand, false)) {
                 level.playSound(null, pos, SoundEvents.BUCKET_EMPTY, SoundSource.PLAYERS);
-                cookingPot.setChanged();
                 return InteractionResult.SUCCESS;
             }
 
             //存取任意单个物品
             if (hand.equals(InteractionHand.MAIN_HAND) && cookingPot.storage(player, hand, 1, 1)) {
                 level.playSound(null, pos, SoundEvents.LANTERN_STEP, SoundSource.BLOCKS);
-                cookingPot.setChanged();
                 return InteractionResult.SUCCESS;
             }
         }
@@ -83,6 +80,7 @@ public class CookingPotBlock extends SyncedEntityBlock implements IHorizontalFac
     public void tick(Level level, BlockPos pos, BlockState state, BlockEntity blockEntity) {
         super.tick(level, pos, state, blockEntity);
         CookingPotBlockEntity pot = (CookingPotBlockEntity) blockEntity;
+        pot.tryApplyThermochanger();
         if (!pot.tryStew()) {
             if (!pot.trySimmer()) {
                 if (!pot.tryBoilFood()) {

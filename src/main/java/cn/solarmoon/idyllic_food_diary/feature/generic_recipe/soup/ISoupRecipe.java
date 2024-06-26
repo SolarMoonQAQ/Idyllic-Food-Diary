@@ -3,7 +3,7 @@ package cn.solarmoon.idyllic_food_diary.feature.generic_recipe.soup;
 import cn.solarmoon.idyllic_food_diary.feature.basic_feature.IExpGiver;
 import cn.solarmoon.idyllic_food_diary.feature.basic_feature.IHeatable;
 import cn.solarmoon.idyllic_food_diary.feature.spice.ISpiceable;
-import cn.solarmoon.idyllic_food_diary.feature.tea_brewing.Temp;
+import cn.solarmoon.idyllic_food_diary.feature.fluid_temp.Temp;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMRecipes;
 import cn.solarmoon.solarmoon_core.api.tile.fluid.ITankTile;
 import cn.solarmoon.solarmoon_core.api.util.FluidUtil;
@@ -36,7 +36,7 @@ public interface ISoupRecipe extends ITankTile, ISpiceable, IExpGiver, IHeatable
                 setSimmerRecipeTime(recipe.time());
                 if (time >= recipe.time()) {
                     FluidStack result = recipe.outputFluid().copy();
-                    Temp.setFluidTemp(result, Temp.getOrCreateFluidTemp(getTank().getFluid(), level), level);
+                    Temp.set(result, Temp.get(getTank().getFluid()));
                     setFluid(result);
                     setExp(recipe.exp());
                     clearInv();
@@ -75,7 +75,7 @@ public interface ISoupRecipe extends ITankTile, ISpiceable, IExpGiver, IHeatable
             FluidStack fluidStack = getTank().getFluid();
             return RecipeMatcher.findMatches(stacks, recipe.ingredients()) != null
                     && FluidUtil.isMatch(fluidStack, recipe.inputFluid(), true, false)
-                    && Temp.getOrCreateFluidTemp(fluidStack, level).isSame(recipe.tempScale())
+                    && Temp.isSame(fluidStack, recipe.temp())
                     && isOnHeatSource();
         }).findFirst();
     }

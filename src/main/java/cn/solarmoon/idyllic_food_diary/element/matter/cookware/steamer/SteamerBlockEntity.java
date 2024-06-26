@@ -8,6 +8,9 @@ import cn.solarmoon.idyllic_food_diary.registry.common.IMRecipes;
 import cn.solarmoon.solarmoon_core.api.blockentity_base.BaseContainerBlockEntity;
 import cn.solarmoon.solarmoon_core.api.blockentity_util.IIndividualTimeRecipeBE;
 import cn.solarmoon.solarmoon_core.api.blockstate_access.IStackBlock;
+import cn.solarmoon.solarmoon_core.api.tile.SyncedBlockEntity;
+import cn.solarmoon.solarmoon_core.api.tile.inventory.IContainerTile;
+import cn.solarmoon.solarmoon_core.api.tile.inventory.TileItemContainerHelper;
 import cn.solarmoon.solarmoon_core.api.util.ContainerUtil;
 import cn.solarmoon.solarmoon_core.api.util.LevelSummonUtil;
 import net.minecraft.core.BlockPos;
@@ -21,15 +24,15 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 
-public class SteamerBlockEntity extends BaseContainerBlockEntity implements IIndividualTimeRecipeBE<SteamingRecipe> {
+public class SteamerBlockEntity extends SyncedBlockEntity implements IIndividualTimeRecipeBE<SteamingRecipe>, IContainerTile {
 
-    private final ItemStackHandler inventory;
+    private final SteamerInventory inventory;
     private int[] times;
     private int[] recipeTimes;
 
     public SteamerBlockEntity(BlockPos pos, BlockState state) {
-        super(IMBlockEntities.STEAMER.get(), 8, 1, pos, state);
-        this.inventory = new SteamerInventory();
+        super(IMBlockEntities.STEAMER.get(), pos, state);
+        this.inventory = new SteamerInventory(this);
         this.times = new int[64];
         this.recipeTimes = new int[64];
     }
@@ -126,13 +129,13 @@ public class SteamerBlockEntity extends BaseContainerBlockEntity implements IInd
      */
     public SteamerInventory getInv(int index) {
         if (index == 1) {
-            SteamerInventory inv1 = new SteamerInventory();
+            SteamerInventory inv1 = new SteamerInventory(this);
             for (int i = 0; i < 4; i++) {
                 inv1.setStackInSlot(i, getInventory().getStackInSlot(i));
             }
             return inv1;
         } else if (index == 2) {
-            SteamerInventory inv2 = new SteamerInventory();
+            SteamerInventory inv2 = new SteamerInventory(this);
             for (int i = 4; i < 8; i++) {
                 inv2.setStackInSlot(i - 4, getInventory().getStackInSlot(i)); //这里最好不要让序列和实际一致，判别比较麻烦
             }
@@ -149,13 +152,13 @@ public class SteamerBlockEntity extends BaseContainerBlockEntity implements IInd
         if (index == 1) {
             SteamerInventory inv1 = getInv(1);
             ItemStack drop1 = new ItemStack(getBlockState().getBlock());
-            ContainerUtil.setInventory(drop1, inv1);
+            TileItemContainerHelper.setInventory(drop1, inv1);
             drop1.getOrCreateTag().putBoolean(SteamerBlock.HAS_LID$, getBlockState().getValue(SteamerBlock.HAS_LID));
             return drop1;
         } else if (index == 2) {
             SteamerInventory inv2 = getInv(2);
             ItemStack drop2 = new ItemStack(getBlockState().getBlock());
-            ContainerUtil.setInventory(drop2, inv2);
+            TileItemContainerHelper.setInventory(drop2, inv2);
             drop2.getOrCreateTag().putBoolean(SteamerBlock.HAS_LID$, getBlockState().getValue(SteamerBlock.HAS_LID));
             return drop2;
         }
