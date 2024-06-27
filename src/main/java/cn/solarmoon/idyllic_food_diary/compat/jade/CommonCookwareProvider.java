@@ -8,6 +8,7 @@ import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.ingredient_handlin
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.soup.ISoupRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.stew.IStewRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.stir_fry.IStirFryRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.tea_production.ITeaProductionRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.water_boiling.IWaterBoilingRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.tea_brewing.IBrewingRecipe;
 import net.minecraft.nbt.CompoundTag;
@@ -58,6 +59,9 @@ public class CommonCookwareProvider implements IBlockComponentProvider, IServerD
         if (be instanceof SteamerBlockEntity steamer) {
             JadeUtil.addByTimeArray(steamer.getTimes(), steamer.getRecipeTimes(), steamer.getInventory(), iTooltip);
             JadeUtil.addSteamingTip(iTooltip, steamer);
+        }
+        if (be instanceof ITeaProductionRecipe tp) {
+            JadeUtil.addByTimeArray(tp.getTimes(), tp.getRecipeTimes(), tp.getInventory(), iTooltip);
         }
     }
 

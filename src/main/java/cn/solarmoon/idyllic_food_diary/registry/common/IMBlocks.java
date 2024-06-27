@@ -8,6 +8,7 @@ import cn.solarmoon.idyllic_food_diary.element.matter.container.*;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cooking_pot.CookingPotBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup.little_cup.LittleCupBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cutting_board.CuttingBoardBlock;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.winnowing_basket.WinnowingBasketBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.wok.WokBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.grill.GrillBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.kettle.KettleBlock;
@@ -28,6 +29,12 @@ import net.minecraft.world.level.block.SaplingBlock;
 
 public class IMBlocks {
     public static void register() {}
+
+    //簸箕
+    public static final BlockEntry<WinnowingBasketBlock> WINNOWING_BASKET = IdyllicFoodDiary.REGISTRY.block()
+            .id("winnowing_basket")
+            .bound(WinnowingBasketBlock::new)
+            .build();
 
     //炒锅
     public static final BlockEntry<WokBlock> WOK = IdyllicFoodDiary.REGISTRY.block()

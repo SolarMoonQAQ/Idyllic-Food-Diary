@@ -192,6 +192,7 @@
   "config.jade.plugin_idyllic_food_diary.rolling_pin": "擀面杖进度",
   "config.jade.plugin_idyllic_food_diary.wok": "炒锅信息",
   "config.jade.plugin_idyllic_food_diary.cutting_board": "砧板信息",
+  "config.jade.plugin_idyllic_food_diary.winnowing_basket": "簸箕信息",
 
   "jade.idyllic_food_diary.stir_fry.stage": "当前阶段：%s",
   "jade.idyllic_food_diary.ingredient_handling": "可制作：",

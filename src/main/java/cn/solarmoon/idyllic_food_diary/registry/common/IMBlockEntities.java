@@ -4,6 +4,7 @@ import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cooking_pot.CookingPotBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup.little_cup.LittleCupBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cutting_board.CuttingBoardBlockEntity;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.winnowing_basket.WinnowingBasketBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.wok.WokBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.grill.GrillBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.kettle.KettleBlockEntity;
@@ -18,6 +19,12 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class IMBlockEntities {
     public static void register() {}
+
+    public static final BlockEntityEntry<WinnowingBasketBlockEntity> WINNOWING_BASKET = IdyllicFoodDiary.REGISTRY.blockEntity()
+            .id("winnowing_basket")
+            .bound(WinnowingBasketBlockEntity::new)
+            .validBlock(IMBlocks.WINNOWING_BASKET::get)
+            .build();
 
     // 炒锅
     public static final BlockEntityEntry<WokBlockEntity> WOK = IdyllicFoodDiary.REGISTRY.blockEntity()

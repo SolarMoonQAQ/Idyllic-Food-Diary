@@ -13,6 +13,7 @@ import cn.solarmoon.idyllic_food_diary.element.matter.cookware.service_plate.Ser
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.spice_jar.SpiceJarItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer.SteamerItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer.SteamerLidItem;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.winnowing_basket.WinnowingBasketItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.wok.WokItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.durian.DurianItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.food.SimpleContainableFoodBlockItem;
@@ -29,6 +30,12 @@ import net.minecraft.world.item.Item;
 
 public class IMItems {
     public static void register() {}
+
+    // 簸箕
+    public static final ItemEntry<Item> WINNOWING_BASKET = IdyllicFoodDiary.REGISTRY.item()
+            .id("winnowing_basket")
+            .bound(WinnowingBasketItem::new)
+            .build();
 
     // 锅铲
     public static final ItemEntry<Item> SPATULA = IdyllicFoodDiary.REGISTRY.item()

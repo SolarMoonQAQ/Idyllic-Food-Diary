@@ -8,6 +8,7 @@ import cn.solarmoon.idyllic_food_diary.registry.common.IMRecipes;
 import cn.solarmoon.solarmoon_core.api.blockentity_base.BaseContainerBlockEntity;
 import cn.solarmoon.solarmoon_core.api.blockentity_util.IIndividualTimeRecipeBE;
 import cn.solarmoon.solarmoon_core.api.blockstate_access.IStackBlock;
+import cn.solarmoon.solarmoon_core.api.tile.IIndividualTimeRecipeTile;
 import cn.solarmoon.solarmoon_core.api.tile.SyncedBlockEntity;
 import cn.solarmoon.solarmoon_core.api.tile.inventory.IContainerTile;
 import cn.solarmoon.solarmoon_core.api.tile.inventory.TileItemContainerHelper;
@@ -24,7 +25,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 
-public class SteamerBlockEntity extends SyncedBlockEntity implements IIndividualTimeRecipeBE<SteamingRecipe>, IContainerTile {
+public class SteamerBlockEntity extends SyncedBlockEntity implements IIndividualTimeRecipeTile<SteamingRecipe>, IContainerTile {
 
     private final SteamerInventory inventory;
     private int[] times;

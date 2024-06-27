@@ -1,0 +1,11 @@
+{
+  "type": "idyllic_food_diary:tea_production",
+  "ingredient": {
+    "item": "idyllic_food_diary:green_tea_leaf"
+  },
+  "time": 100,
+  "environment": "sunlight",
+  "result": {
+    "item": "idyllic_food_diary:black_tea_leaf"
+  }
+}

@@ -7,6 +7,7 @@ import cn.solarmoon.idyllic_food_diary.registry.common.IMPacks;
 import cn.solarmoon.solarmoon_core.api.blockentity_util.IContainerBE;
 import cn.solarmoon.solarmoon_core.api.blockentity_util.IIndividualTimeRecipeBE;
 import cn.solarmoon.solarmoon_core.api.blockstate_access.ILitBlock;
+import cn.solarmoon.solarmoon_core.api.tile.IIndividualTimeRecipeTile;
 import cn.solarmoon.solarmoon_core.api.tile.SyncedBlockEntity;
 import cn.solarmoon.solarmoon_core.api.tile.inventory.IContainerTile;
 import cn.solarmoon.solarmoon_core.api.tile.inventory.TileInventory;
@@ -30,7 +31,7 @@ import java.util.Optional;
  * 拥有七个槽位，前六个限量1，可放任意物品，最后一个只能存入煤炭类物品，限量64
  */
 public class GrillBlockEntity extends SyncedBlockEntity implements IContainerTile,
-        IIndividualTimeRecipeBE<CampfireCookingRecipe>, ISimpleFuelBlockEntity {
+        IIndividualTimeRecipeTile<CampfireCookingRecipe>, ISimpleFuelBlockEntity {
 
     private int[] times;
     private int[] recipeTimes;

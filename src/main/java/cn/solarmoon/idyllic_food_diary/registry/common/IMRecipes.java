@@ -10,11 +10,18 @@ import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.soup.SoupRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.steaming.SteamingRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.stew.StewRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.stir_fry.StirFryRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.tea_production.TeaProductionRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.water_boiling.WaterBoilingRecipe;
 import cn.solarmoon.solarmoon_core.api.entry.common.RecipeEntry;
 
 public class IMRecipes {
     public static void register() {}
+
+    // 制茶
+    public static final RecipeEntry<TeaProductionRecipe> TEA_PRODUCTION = IdyllicFoodDiary.REGISTRY.recipe()
+            .id("tea_production")
+            .serializer(TeaProductionRecipe.Serializer::new)
+            .build();
 
     //擀面杖
     public static final RecipeEntry<StirFryRecipe> STIR_FRY = IdyllicFoodDiary.REGISTRY.recipe()
