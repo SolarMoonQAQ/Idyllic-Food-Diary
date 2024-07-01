@@ -80,7 +80,7 @@ public class WokBlockRenderer extends BaseBlockEntityRenderer<WokBlockEntity> {
                             .rotation(Mth.rotLerp(animTicker.getFixedValue() / getFryTime(aH), (float) 0, (float) (2*Math.PI))));
                 }
                 poseStack.mulPose(Axis.XN.rotationDegrees(rotFix(direction, poseStack)));
-                itemRenderer.renderStatic(pan.getStacks().get(i), ItemDisplayContext.FIXED, lt, overlay, poseStack, buffer, level, (int) pan.getBlockPos().asLong());
+                context.getItemRenderer().renderStatic(pan.getStacks().get(i), ItemDisplayContext.FIXED, lt, overlay, poseStack, buffer, context.getBlockEntityRenderDispatcher().level, (int) pan.getBlockPos().asLong());
                 poseStack.popPose();
             }
         });

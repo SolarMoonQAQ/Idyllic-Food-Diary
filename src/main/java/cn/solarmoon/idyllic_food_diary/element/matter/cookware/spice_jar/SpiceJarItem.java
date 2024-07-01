@@ -2,7 +2,6 @@ package cn.solarmoon.idyllic_food_diary.element.matter.cookware.spice_jar;
 
 import cn.solarmoon.idyllic_food_diary.feature.spice.ISpiceable;
 import cn.solarmoon.idyllic_food_diary.feature.spice.Spice;
-import cn.solarmoon.solarmoon_core.api.item_util.IContainerItem;
 import cn.solarmoon.solarmoon_core.api.tile.inventory.TileItemContainerHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -21,7 +20,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import java.util.Optional;
 import java.util.Random;
 
-public class SpiceJarItem extends BlockItem implements IContainerItem {
+public class SpiceJarItem extends BlockItem {
 
     public SpiceJarItem(Block block) {
         super(block, new Properties().stacksTo(1));

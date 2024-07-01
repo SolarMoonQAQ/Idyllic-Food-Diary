@@ -5,6 +5,8 @@ import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMSounds;
 import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
 import cn.solarmoon.solarmoon_core.api.tile.SyncedEntityBlock;
+import cn.solarmoon.solarmoon_core.api.tile.fluid.FluidHandlerUtil;
+import cn.solarmoon.solarmoon_core.api.tile.inventory.ItemHandlerUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -49,11 +51,11 @@ public class KettleBlock extends SyncedEntityBlock implements IHorizontalFacingB
         if(kettle == null) return InteractionResult.PASS;
 
         //液体交互
-        if (kettle.loadFluid(player, hand, false)) {
+        if (FluidHandlerUtil.loadFluid(kettle.getTank(), player, hand, false)) {
             level.playSound(null, pos, SoundEvents.BUCKET_FILL, SoundSource.PLAYERS);
             return InteractionResult.SUCCESS;
         }
-        if (hand == InteractionHand.MAIN_HAND && kettle.storage(player, hand, 1, 1)) {
+        if (hand == InteractionHand.MAIN_HAND && ItemHandlerUtil.storage(kettle.getInventory(), player, hand, 1, 1)) {
             level.playSound(null, pos, SoundEvents.LANTERN_HIT, SoundSource.PLAYERS);
             return InteractionResult.SUCCESS;
         }

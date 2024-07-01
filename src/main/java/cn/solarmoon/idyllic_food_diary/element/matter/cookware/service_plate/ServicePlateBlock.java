@@ -5,7 +5,8 @@ import cn.solarmoon.idyllic_food_diary.util.ParticleSpawner;
 import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
 import cn.solarmoon.solarmoon_core.api.capability.CountingDevice;
 import cn.solarmoon.solarmoon_core.api.tile.SyncedEntityBlock;
-import cn.solarmoon.solarmoon_core.api.util.LevelSummonUtil;
+import cn.solarmoon.solarmoon_core.api.tile.inventory.ItemHandlerUtil;
+import cn.solarmoon.solarmoon_core.api.util.DropUtil;
 import cn.solarmoon.solarmoon_core.registry.common.SolarCapabilities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
@@ -24,6 +25,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.items.ItemStackHandler;
 
 public class ServicePlateBlock extends SyncedEntityBlock implements IHorizontalFacingBlock {
 
@@ -43,11 +45,12 @@ public class ServicePlateBlock extends SyncedEntityBlock implements IHorizontalF
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult blockHitResult) {
         ServicePlateBlockEntity plate = (ServicePlateBlockEntity) level.getBlockEntity(pos);
         if (plate == null) return InteractionResult.PASS;
-        if (plate.putItem(player, hand, 1)) {
+        ItemStackHandler inv = plate.getInventory();
+        if (ItemHandlerUtil.putItem(inv, player, hand, 1)) {
             level.playSound(null, pos, SoundEvents.ARMOR_EQUIP_LEATHER, SoundSource.PLAYERS, 0.5f, 1f);
             return InteractionResult.SUCCESS;
         }
-        if (player.isCrouching() && plate.takeItem(player, hand, 1)) {
+        if (player.isCrouching() && ItemHandlerUtil.takeItem(inv, player, hand, 1)) {
             level.playSound(null, pos, SoundEvents.ARMOR_EQUIP_LEATHER, SoundSource.PLAYERS, 0.5f, 1f);
             return InteractionResult.SUCCESS;
         }
@@ -65,7 +68,7 @@ public class ServicePlateBlock extends SyncedEntityBlock implements IHorizontalF
                     //吃掉！
                     ItemStack give = food.finishUsingItem(level, player);
                     if (!player.isCreative()) {
-                        if (!give.isEmpty()) LevelSummonUtil.summonDrop(give, level, pos.getCenter());
+                        if (!give.isEmpty()) DropUtil.summonDrop(give, level, pos.getCenter());
                         // 保证能够推出食用后的物品（比如碗装食物吃掉后能够推出碗）
                     }
                     else food.shrink(1); //创造模式也消耗食物

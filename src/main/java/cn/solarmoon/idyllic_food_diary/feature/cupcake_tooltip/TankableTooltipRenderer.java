@@ -2,12 +2,10 @@ package cn.solarmoon.idyllic_food_diary.feature.cupcake_tooltip;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.data.IMItemTags;
-import cn.solarmoon.solarmoon_core.api.item_util.ITankItem;
 import cn.solarmoon.solarmoon_core.api.renderer.BaseTooltipComponent;
 import cn.solarmoon.solarmoon_core.api.renderer.TextureRenderUtil;
+import cn.solarmoon.solarmoon_core.api.tile.fluid.FluidHandlerUtil;
 import cn.solarmoon.solarmoon_core.api.tile.inventory.TileItemContainerHelper;
-import cn.solarmoon.solarmoon_core.api.util.ContainerUtil;
-import cn.solarmoon.solarmoon_core.api.util.FluidUtil;
 import cn.solarmoon.solarmoon_core.api.util.TextUtil;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
@@ -21,7 +19,6 @@ import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
-import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.joml.Matrix4f;
 
@@ -164,7 +161,7 @@ public class TankableTooltipRenderer implements ClientTooltipComponent {
             bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
 
             for (int i = 0; i < count; i++) {
-                float percentage = FluidUtil.getScale(stackTank);
+                float percentage = FluidHandlerUtil.getScale(stackTank);
 
                 if (percentage > (float) i / count) {
                     float reduction = 0;

@@ -3,7 +3,7 @@ package cn.solarmoon.idyllic_food_diary.feature.generic_recipe.ingredient_handli
 import cn.solarmoon.idyllic_food_diary.feature.spice.ISpiceable;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMRecipes;
 import cn.solarmoon.idyllic_food_diary.util.ContainerHelper;
-import cn.solarmoon.solarmoon_core.api.blockentity_util.IContainerBE;
+import cn.solarmoon.solarmoon_core.api.tile.inventory.ItemHandlerUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
@@ -31,9 +31,9 @@ public interface IIngredientHandlingRecipe extends ISpiceable {
         if (findHandleRecipe().isPresent()) {
             IngredientHandlingRecipe recipe = findHandleRecipe().get();
             if (recipe.container().test(heldItem) && withTrueSpices(recipe.withSpices(), true)) {
-                clearInv();
+                ItemHandlerUtil.clearInv(getInventory(), selfI());
                 ItemStack result = recipe.result().copy();
-                insertItem(result);
+                ItemHandlerUtil.insertItem(getInventory(), result);
                 ContainerHelper.setContainer(result, heldItem);
                 if (!player.isCreative()) heldItem.shrink(1);
                 Vec3 center = pos.getCenter();
@@ -59,7 +59,7 @@ public interface IIngredientHandlingRecipe extends ISpiceable {
         List<IngredientHandlingRecipe> recipes = level.getRecipeManager().getAllRecipesFor(IMRecipes.INGREDIENT_HANDLING.get());
         for (IngredientHandlingRecipe recipe :recipes) {
             boolean pass = true;
-            if (getStacks().size() == recipe.ingredients().size()) {
+            if (ItemHandlerUtil.getStacks(getInventory()).size() == recipe.ingredients().size()) {
                 if (recipe.isInOrder()) {
                     for (int i = 0; i < recipe.ingredients().size(); i++) {
                         if (!recipe.ingredients().get(i).test(getInventory().getStackInSlot(i))) {
@@ -69,7 +69,7 @@ public interface IIngredientHandlingRecipe extends ISpiceable {
                     }
                 } else {
                     boolean[] matched = new boolean[recipe.ingredients().size()];
-                    for (int i = 0; i < getStacks().size(); i++) {
+                    for (int i = 0; i < ItemHandlerUtil.getStacks(getInventory()).size(); i++) {
                         boolean found = false;
                         for (int j = 0; j < recipe.ingredients().size(); j++) {
                             if (!matched[j] && recipe.ingredients().get(j).test(getInventory().getStackInSlot(i))) {

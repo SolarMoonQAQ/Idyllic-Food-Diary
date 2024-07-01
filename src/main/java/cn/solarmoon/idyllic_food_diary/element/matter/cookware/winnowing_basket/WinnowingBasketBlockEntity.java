@@ -3,11 +3,8 @@ package cn.solarmoon.idyllic_food_diary.element.matter.cookware.winnowing_basket
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.tea_production.ITeaProductionRecipe;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
 import cn.solarmoon.solarmoon_core.api.tile.SyncedBlockEntity;
-import cn.solarmoon.solarmoon_core.api.tile.inventory.IContainerTile;
 import cn.solarmoon.solarmoon_core.api.tile.inventory.TileInventory;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.items.ItemStackHandler;
 
@@ -19,7 +16,7 @@ public class WinnowingBasketBlockEntity extends SyncedBlockEntity implements ITe
 
     public WinnowingBasketBlockEntity(BlockPos pos, BlockState state) {
         super(IMBlockEntities.WINNOWING_BASKET.get(), pos, state);
-        inventory = new TileInventory(9, 1, this);
+        inventory = new TileInventory(4, 1, this);
     }
 
     @Override
@@ -28,22 +25,22 @@ public class WinnowingBasketBlockEntity extends SyncedBlockEntity implements ITe
     }
 
     @Override
-    public int[] getTimes() {
+    public int[] getTeaPrdTimes() {
         return times;
     }
 
     @Override
-    public int[] getRecipeTimes() {
+    public int[] getTeaPrdRecipeTimes() {
         return recipeTimes;
     }
 
     @Override
-    public void setTimes(int[] ints) {
+    public void setTeaPrdTimes(int[] ints) {
         times = ints;
     }
 
     @Override
-    public void setRecipeTimes(int[] ints) {
+    public void setTeaPrdRecipeTimes(int[] ints) {
         recipeTimes = ints;
     }
 

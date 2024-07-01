@@ -2,25 +2,46 @@ package cn.solarmoon.idyllic_food_diary.compat.jade;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer.SteamerBlockEntity;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer.SteamerInventory;
 import cn.solarmoon.idyllic_food_diary.feature.basic_feature.IPlateable;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.ingredient_handling.IIngredientHandlingRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.stir_fry.IStirFryRecipe;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.StringUtil;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.Vec2;
+import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import snownee.jade.api.ITooltip;
+import snownee.jade.api.Identifiers;
 import snownee.jade.api.ui.BoxStyle;
 import snownee.jade.api.ui.IElement;
 import snownee.jade.api.ui.IElementHelper;
 import snownee.jade.impl.ui.ProgressStyle;
 
+import java.util.stream.IntStream;
+
 public class JadeUtil {
 
     public static void addSteamingTip(ITooltip iTooltip, SteamerBlockEntity steamer) {
-        iTooltip.add(IdyllicFoodDiary.TRANSLATOR.set("jade", "steamer_base.working"));
-        if (steamer.canWork()) iTooltip.append(Component.literal("✔").withStyle(ChatFormatting.GREEN));
-        else if (!steamer.canWork()) iTooltip.append(Component.literal("✖").withStyle(ChatFormatting.RED));
+        IElementHelper ehp = iTooltip.getElementHelper();
+
+        int stackAmount = steamer.getStack();
+        for (int i = 0; i < stackAmount; i++) {
+            int r = i + 1;
+            int index = i == 0 ? iTooltip.size() : iTooltip.size() - i;
+            iTooltip.add(index, IdyllicFoodDiary.TRANSLATOR.set("jade", "steamer.layer_" + r));
+            if (i < steamer.getInvList().size()) {
+                steamer.getInvList().get(i).getStacks().forEach(stack -> iTooltip.append(index, ehp.item(stack, 0.5f)));
+            }
+        }
+
+        iTooltip.add(IdyllicFoodDiary.TRANSLATOR.set("jade", "steamer.working"));
+        iTooltip.append(Component
+                .literal(steamer.canWork() ? "✔" : "✖")
+                .withStyle(steamer.canWork() ? ChatFormatting.GREEN : ChatFormatting.RED)
+        );
     }
 
     public static void addIngredientHandlingResult(ITooltip iTooltip, IIngredientHandlingRecipe ih) {
@@ -70,7 +91,7 @@ public class JadeUtil {
         }
     }
 
-    public static void addByTimeArray(int[] times, int[] recipeTimes, ItemStackHandler inv, ITooltip iTooltip) {
+    public static void addByTimeArray(int[] times, int[] recipeTimes, IItemHandler inv, ITooltip iTooltip) {
         int n = 0;
         for (int i = 0; i < times.length; i ++) {
             if (times[i] != 0) {

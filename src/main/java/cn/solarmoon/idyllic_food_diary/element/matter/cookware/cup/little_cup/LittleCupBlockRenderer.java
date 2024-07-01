@@ -30,7 +30,7 @@ public class LittleCupBlockRenderer extends BaseBlockEntityRenderer<LittleCupBlo
         //根据面朝方向决定旋转角
         poseStack.mulPose(Axis.YP.rotationDegrees(blockEntity.getBlockState().getValue(AbstractCupBlock.FACING).toYRot() + 45));
         poseStack.scale(0.5f, 0.5f, 0.5f);
-        itemRenderer.renderStatic(blockEntity.getInventory().getStackInSlot(0), ItemDisplayContext.GROUND, light, overlay, poseStack, buffer, blockEntity.getLevel(), (int) blockEntity.getBlockPos().asLong());
+        context.getItemRenderer().renderStatic(blockEntity.getInventory().getStackInSlot(0), ItemDisplayContext.GROUND, light, overlay, poseStack, buffer, blockEntity.getLevel(), (int) blockEntity.getBlockPos().asLong());
         poseStack.popPose();
     }
 

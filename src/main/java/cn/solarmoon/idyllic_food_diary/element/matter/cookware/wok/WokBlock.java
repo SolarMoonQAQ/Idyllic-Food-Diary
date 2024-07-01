@@ -6,6 +6,8 @@ import cn.solarmoon.idyllic_food_diary.registry.common.IMSounds;
 import cn.solarmoon.idyllic_food_diary.util.VoxelShapeUtil;
 import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
 import cn.solarmoon.solarmoon_core.api.tile.SyncedEntityBlock;
+import cn.solarmoon.solarmoon_core.api.tile.fluid.FluidHandlerUtil;
+import cn.solarmoon.solarmoon_core.api.tile.inventory.ItemHandlerUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
@@ -56,17 +58,18 @@ public class WokBlock extends SyncedEntityBlock implements IHorizontalFacingBloc
         // 没有预输入结果时才能进行物品流体的交互
         if (!pan.hasResult() && !pan.canStirFry()) {
             //能够存取液体
-            if (pan.putFluid(player, hand, false)) {
+            if (FluidHandlerUtil.putFluid(pan.getTank(), player, hand, false)) {
                 level.playSound(null, pos, SoundEvents.BUCKET_FILL, SoundSource.PLAYERS);
                 return InteractionResult.SUCCESS;
             }
-            if (pan.takeFluid(player, hand, false)) {
+            if (FluidHandlerUtil.takeFluid(pan.getTank(), player, hand, false)) {
                 level.playSound(null, pos, SoundEvents.BUCKET_EMPTY, SoundSource.PLAYERS);
                 return InteractionResult.SUCCESS;
             }
 
             //存取任意单个物品
-            if (hand.equals(InteractionHand.MAIN_HAND) && !player.getMainHandItem().is(IMItems.SPATULA.get()) && pan.storage(player, hand, 1, 1)) {
+            if (hand.equals(InteractionHand.MAIN_HAND) && !player.getMainHandItem().is(IMItems.SPATULA.get())
+                    && ItemHandlerUtil.storage(pan.getInventory(), player, hand, 1, 1)) {
                 level.playSound(null, pos, SoundEvents.LANTERN_STEP, SoundSource.BLOCKS);
                 return InteractionResult.SUCCESS;
             }

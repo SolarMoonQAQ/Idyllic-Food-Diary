@@ -1,66 +1,188 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer;
 
+import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.evaporation.IEvaporationRecipe;
-import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.steaming.SteamingRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.steaming.ISteamingRecipe;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
-import cn.solarmoon.idyllic_food_diary.registry.common.IMItems;
-import cn.solarmoon.idyllic_food_diary.registry.common.IMRecipes;
-import cn.solarmoon.solarmoon_core.api.blockentity_base.BaseContainerBlockEntity;
-import cn.solarmoon.solarmoon_core.api.blockentity_util.IIndividualTimeRecipeBE;
-import cn.solarmoon.solarmoon_core.api.blockstate_access.IStackBlock;
-import cn.solarmoon.solarmoon_core.api.tile.IIndividualTimeRecipeTile;
 import cn.solarmoon.solarmoon_core.api.tile.SyncedBlockEntity;
-import cn.solarmoon.solarmoon_core.api.tile.inventory.IContainerTile;
-import cn.solarmoon.solarmoon_core.api.tile.inventory.TileItemContainerHelper;
-import cn.solarmoon.solarmoon_core.api.util.ContainerUtil;
-import cn.solarmoon.solarmoon_core.api.util.LevelSummonUtil;
+import cn.solarmoon.solarmoon_core.api.util.DropUtil;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.ItemStackHandler;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 
-public class SteamerBlockEntity extends SyncedBlockEntity implements IIndividualTimeRecipeTile<SteamingRecipe>, IContainerTile {
+public class SteamerBlockEntity extends SyncedBlockEntity implements ISteamingRecipe {
 
-    private final SteamerInventory inventory;
+    public static final String STACK = "Stack";
+    public static final String LID = "Lid";
+
+    private int stack;
+    private final SteamerInventoryList invList;
+    private ItemStack lid;
     private int[] times;
     private int[] recipeTimes;
 
     public SteamerBlockEntity(BlockPos pos, BlockState state) {
         super(IMBlockEntities.STEAMER.get(), pos, state);
-        this.inventory = new SteamerInventory(this);
+        invList = new SteamerInventoryList(this);
+        stack = 1;
+        lid = ItemStack.EMPTY;
         this.times = new int[64];
         this.recipeTimes = new int[64];
     }
 
-    @Override
-    public ItemStackHandler getInventory() {
-        return this.inventory;
+    /**
+     * 增加蒸笼（如果增加的量没有超出最大蒸笼堆栈，则直接叠加，反之不进行操作）
+     * @return 增长成功返回true
+     */
+    public boolean grow(ItemStack steamerItemStack) {
+        if (steamerItemStack.getItem() instanceof SteamerItem) {
+            int itemStackAmount = SteamerItem.getStackAmount(steamerItemStack);
+            if (itemStackAmount > 0 && stack + itemStackAmount <= getMaxStack()) {
+                pushInv(SteamerItem.getInvFromItem(steamerItemStack));
+                pushLid(steamerItemStack);
+                setChanged();
+                return true;
+            } else if (itemStackAmount == 0 && stack < getMaxStack()) {
+                pushInv(newInventory());
+                pushLid(steamerItemStack);
+                setChanged();
+                return true;
+            }
+        }
+        return false;
     }
 
-    @Override
-    public int[] getTimes() {
-        return times;
+    /**
+     * 削减蒸笼
+     * @return 削减的物品栏的复制
+     */
+    public Optional<SteamerBlockEntity> shrink(@Nullable ItemStack steamerItem) {
+        if (level == null) return Optional.empty();
+        // 如果item给到null，直接强行削减
+        // 如果item不为null，但是是empty，也能削减
+        // item真实存在，则需要检测是否有效（是否为蒸笼且层数足够添加一层）
+        int mainStack = SteamerItem.getStackAmount(steamerItem);
+        boolean itemValid = steamerItem != null && steamerItem.getItem() instanceof SteamerItem && mainStack < getMaxStack();
+        if (steamerItem != null && !steamerItem.isEmpty() && !itemValid) return Optional.empty();
+        if (stack > 0) {
+            int index = stack - 1;
+            SteamerInventory inv = invList.get(index);
+            setStack(index);
+
+            SteamerBlockEntity copy = copy();
+            copy.resetToEmpty();
+            copy.setLevel(level);
+            if (steamerItem != null) copy.grow(steamerItem); // 先增加蒸笼物品层作为基础
+            copy.pushInv(inv); // 然后在此基础上加入削减的那层
+
+            // 削减到0的话就删除方块
+            if (stack == 0 && getLevel() != null) {
+                getLevel().removeBlock(getBlockPos(), true);
+                level.playSound(null, getBlockPos(), SoundEvents.BAMBOO_WOOD_HIT, SoundSource.BLOCKS);
+            } else {
+                setLid(ItemStack.EMPTY); // 每次削减总是从最上层开始，而最上层总是可能有lid，故而同时削减lid
+                invList.remove(index);
+                setChanged();
+            }
+
+            return Optional.of(copy);
+        }
+        return Optional.empty();
     }
 
-    @Override
-    public int[] getRecipeTimes() {
-        return recipeTimes;
+    public void pushLid(ItemStack steamerItemStack) {
+        ItemStack lid = SteamerItem.getLid(steamerItemStack);
+        if (!lid.isEmpty()) {
+            if (level != null && hasLid()) DropUtil.summonDrop(getLid().copy(), level, getBlockPos().getCenter()); // 如果都有盖子先把方块的盖子丢出来
+            setLid(lid); // 然后再设置盖子为物品所带的盖子
+        }
     }
 
-    @Override
-    public void setTimes(int[] ints) {
-        times = ints;
+    public void resetToEmpty() {
+        setStack(0);
+        invList.clear();
     }
 
-    @Override
-    public void setRecipeTimes(int[] ints) {
-        recipeTimes = ints;
+    private void setStack(int stack) {
+        this.stack = stack;
+    }
+
+    public SteamerBlockEntity copy() {
+        SteamerBlockEntity steamer = new SteamerBlockEntity(getBlockPos(), getBlockState());
+        steamer.deserializeNBT(serializeNBT());
+        return steamer;
+    }
+
+    public void pushInv(ItemStackHandler inv) {
+        SteamerInventory s = newInventory();
+        s.deserializeNBT(inv.serializeNBT());
+        invList.add(s);
+        setStack(invList.size());
+    }
+
+    public void pushInv(List<ItemStackHandler> invList) {
+        invList.forEach(this::pushInv);
+    }
+
+    public boolean returnLid(Player player) {
+        if (hasLid()) {
+            if (!player.isCreative()) DropUtil.addItemToInventory(player, lid);
+            setLid(ItemStack.EMPTY);
+            setChanged();
+            return true;
+        }
+        return false;
+    }
+
+    public boolean hasLid() {
+        return !lid.isEmpty();
+    }
+
+    /**
+     * @param lid 只能设置Lid类型或空物品
+     */
+    public void setLid(ItemStack lid) {
+        if (lid.getItem() instanceof SteamerLidItem || lid.isEmpty()) {
+            this.lid = lid;
+            setChanged();
+        }
+    }
+
+    public int getStack() {
+        return stack;
+    }
+
+    public ItemStack getLid() {
+        return lid;
+    }
+
+    public int getMaxStack() {
+        return 4;
+    }
+
+    public SteamerInventory newInventory() {
+        return new SteamerInventory(4, this);
+    }
+
+    public SteamerInventoryList getInvList() {
+        return invList;
     }
 
     /**
@@ -91,116 +213,41 @@ public class SteamerBlockEntity extends SyncedBlockEntity implements IIndividual
 
     /**
      * 获取连接的蒸笼的最下方的第一个非蒸笼（或一层蒸笼）方块坐标<br/>
-     * 要求是下方为蒸笼且stack为2才继续检测<br/>
-     * 也就是直到检测到非蒸笼或stack为1的蒸笼为止
+     * 要求是上方为蒸笼且stack为最大堆叠量才继续检测<br/>
+     * 也就是直到检测到非蒸笼或stack不满的蒸笼为止
      */
     public BlockPos getConnectedBelowPos() {
         if (getLevel() == null) return null;
         Level level = getLevel();
-        BlockPos posBelow = getBlockPos().below();
-        BlockState state = level.getBlockState(posBelow);
-        while (state.is(getBlockState().getBlock()) && state.getValue(IStackBlock.STACK) == 2) {
+        BlockPos posBelow = getBlockPos().below(); // 不用检测自己直接从下一格开始
+        BlockEntity be = level.getBlockEntity(posBelow);
+        // 当前坐标是蒸笼，并且栈最大，检测坐标就下移一格
+        while (be instanceof SteamerBlockEntity s && s.getStack() == getMaxStack()) {
             posBelow = posBelow.below();
-            state = level.getBlockState(posBelow); //这里得重设以防无限循环
+            be = level.getBlockEntity(posBelow); // 重设防止无限循环
         }
+        // 当前坐标不是蒸笼，或者蒸笼层数不满就返回
         return posBelow;
     }
 
     /**
      * 获取连接的蒸笼的最上方的第一个非蒸笼（或一层蒸笼）方块坐标<br/>
-     * 要求是上方为蒸笼且stack为2才继续检测<br/>
-     * 也就是直到检测到非蒸笼或stack为1的蒸笼为止
+     * 要求是上方为蒸笼且stack为最大堆叠量才继续检测<br/>
+     * 也就是直到检测到非蒸笼或stack不满的蒸笼为止
      */
     public BlockPos getConnectedTopPos() {
         if (getLevel() == null) return null;
         Level level = getLevel();
         BlockPos posAbove = getBlockPos();
-        BlockState state = level.getBlockState(posAbove);
-        while (state.is(getBlockState().getBlock()) && state.getValue(IStackBlock.STACK) == 2
-                && level.getBlockState(posAbove.above()).is(getBlockState().getBlock())) //这里多加个上层判断以防stack1和2坐标不一致
-        {
+        BlockEntity be = level.getBlockEntity(posAbove);
+        // 当前坐标是蒸笼，并且栈最大，检测坐标就上移一格
+        while (be instanceof SteamerBlockEntity s && s.getStack() == getMaxStack()) {
             posAbove = posAbove.above();
-            state = level.getBlockState(posAbove); //这里得重设以防无限循环
+            be = level.getBlockEntity(posAbove); // 重设防止无限循环
         }
-        return posAbove;
-    }
-
-    /**
-     * 获取蒸笼的两个物品栏，前四个为inv1，后四个为inv2
-     */
-    public SteamerInventory getInv(int index) {
-        if (index == 1) {
-            SteamerInventory inv1 = new SteamerInventory(this);
-            for (int i = 0; i < 4; i++) {
-                inv1.setStackInSlot(i, getInventory().getStackInSlot(i));
-            }
-            return inv1;
-        } else if (index == 2) {
-            SteamerInventory inv2 = new SteamerInventory(this);
-            for (int i = 4; i < 8; i++) {
-                inv2.setStackInSlot(i - 4, getInventory().getStackInSlot(i)); //这里最好不要让序列和实际一致，判别比较麻烦
-            }
-            return inv2;
-        }
-        return null;
-    }
-
-    /**
-     * 获取分割一半物品栏的蒸笼物品，前四个合一起为1，后四个合一起为2<br/>
-     * 如果有盖子就给盖子的nbt
-     */
-    public ItemStack getItem(int index) {
-        if (index == 1) {
-            SteamerInventory inv1 = getInv(1);
-            ItemStack drop1 = new ItemStack(getBlockState().getBlock());
-            TileItemContainerHelper.setInventory(drop1, inv1);
-            drop1.getOrCreateTag().putBoolean(SteamerBlock.HAS_LID$, getBlockState().getValue(SteamerBlock.HAS_LID));
-            return drop1;
-        } else if (index == 2) {
-            SteamerInventory inv2 = getInv(2);
-            ItemStack drop2 = new ItemStack(getBlockState().getBlock());
-            TileItemContainerHelper.setInventory(drop2, inv2);
-            drop2.getOrCreateTag().putBoolean(SteamerBlock.HAS_LID$, getBlockState().getValue(SteamerBlock.HAS_LID));
-            return drop2;
-        }
-        return ItemStack.EMPTY;
-    }
-
-    /**
-     * 清空某个槽位的内容
-     */
-    public void clearInv(int index) {
-        if (index == 1) {
-            for (int i = 0; i < 4; i++) {
-                getInventory().extractItem(i, 64, false);
-            }
-        }
-        else if (index == 2) {
-            for (int i = 4; i < 8; i++) {
-                getInventory().extractItem(i, 64, false);
-            }
-        }
-    }
-
-    /**
-     * 设置后四个物品槽的开启与否
-     */
-    public void set2ndInv(boolean value) {
-        SteamerInventory inv = (SteamerInventory) getInventory();
-        inv.secondInv = value;
-    }
-
-    /**
-     * 检测是否在连接状态（下方是否有stack为2的蒸笼）<br/>
-     * 逻辑是找连接底端坐标，如果坐标和当前坐标的下方一致，那就说明下方没有蒸笼，上方同理
-     */
-    public boolean isConnected() {
-        return !getConnectedBelowPos().equals(getBlockPos().below())
-                || !getConnectedTopPos().equals(getBlockPos());
-    }
-
-    public boolean isDouble() {
-        return getBlockState().getValue(IStackBlock.STACK) == 2;
+        // 循环结束，如果当前坐标不是蒸笼，那么实际坐标就在之前一格
+        // 如果是，就返回当前坐标
+        return be instanceof SteamerBlockEntity ? posAbove : posAbove.below();
     }
 
     public boolean isTop() {
@@ -215,10 +262,6 @@ public class SteamerBlockEntity extends SyncedBlockEntity implements IIndividual
         return !isTop() && !isBottom();
     }
 
-    public boolean hasLid() {
-        return getBlockState().getValue(SteamerBlock.HAS_LID);
-    }
-
     /**
      * @return 是否具有可工作的条件，也就是连接底部是否有一个正在消耗热水的基座，且顶部有盖子
      */
@@ -228,36 +271,33 @@ public class SteamerBlockEntity extends SyncedBlockEntity implements IIndividual
         return getBase().isValidForSteamer() && getTop().hasLid();
     }
 
-    /**
-     * 配方匹配，连接底部有正在工作的基座即通过
-     */
     @Override
-    public Optional<SteamingRecipe> getCheckedRecipe(int index) {
-        Level level = getLevel();
-        if (level == null) return Optional.empty();
-        List<SteamingRecipe> recipes = level.getRecipeManager().getAllRecipesFor(IMRecipes.STEAMING.get());
-        ItemStack stack = getInventory().getStackInSlot(index);
-        return recipes.stream().filter(recipe -> recipe.input().test(stack) && canWork()).findFirst();
+    public int[] getSteamTimes() {
+        return times;
     }
 
-    public void tryCook() {
-        for (int i = 0; i < getInventory().getSlots(); i++) {
-            Optional<SteamingRecipe> recipeOp = getCheckedRecipe(i);
-            if (recipeOp.isPresent()) {
-                SteamingRecipe recipe = recipeOp.get();
-                getRecipeTimes()[i] = recipe.time();
-                getTimes()[i] = getTimes()[i] + 1;
-                if (getTimes()[i] >= recipe.time()) {
-                    getInventory().setStackInSlot(i, recipe.output());
-                    getTimes()[i] = 0;
-                    getRecipeTimes()[i] = 0;
-                    setChanged();
-                }
-            } else {
-                getTimes()[i] = 0;
-                getRecipeTimes()[i] = 0;
-            }
-        }
+    @Override
+    public int[] getSteamRecipeTimes() {
+        return recipeTimes;
+    }
+
+    @Override
+    public void setSteamTimes(int[] var1) {
+        times = var1;
+    }
+
+    @Override
+    public void setSteamRecipeTimes(int[] var1) {
+        recipeTimes = var1;
+    }
+
+    /**
+     * 检测是否在连接状态（下方是否有stack为最大的蒸笼）<br/>
+     * 逻辑是找连接底端坐标，如果坐标和当前坐标的下方一致，那就说明下方没有蒸笼，上方同理
+     */
+    public boolean isConnected() {
+        return !getConnectedBelowPos().equals(getBlockPos().below())
+                || !getConnectedTopPos().equals(getBlockPos());
     }
 
     /**
@@ -265,25 +305,26 @@ public class SteamerBlockEntity extends SyncedBlockEntity implements IIndividual
      */
     public void tryPreventLidSet() {
         BlockPos pos = getBlockPos();
-        BlockState state = getBlockState();
         if (isConnected() && hasLid() && !isTop()) {
             if (level != null) {
-                level.setBlock(pos, state.setValue(SteamerBlock.HAS_LID, false), 3);
+                DropUtil.summonDrop(getLid().copy(), level, pos.getCenter());
             }
-            LevelSummonUtil.summonDrop(IMItems.STEAMER_LID.get(), level, pos, 1);
+            setLid(ItemStack.EMPTY);
         }
     }
 
-    /**
-     * 当stack为2时开放容量
-     */
-    public void tryOpen2ndInv() {
-        BlockState state = getBlockState();
-        if (state.getValue(IStackBlock.STACK) == 1) {
-            set2ndInv(false);
-        } else if (state.getValue(IStackBlock.STACK) == 2) {
-            set2ndInv(true);
-        }
+    @Override
+    protected void saveAdditional(CompoundTag tag) {
+        super.saveAdditional(tag);
+        tag.putInt(STACK, stack);
+        tag.put(LID, lid.serializeNBT());
+    }
+
+    @Override
+    public void load(CompoundTag tag) {
+        super.load(tag);
+        stack = tag.getInt(STACK);
+        lid = ItemStack.of(tag.getCompound(LID));
     }
 
 }

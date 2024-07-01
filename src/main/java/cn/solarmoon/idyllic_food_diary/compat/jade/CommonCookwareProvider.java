@@ -45,7 +45,7 @@ public class CommonCookwareProvider implements IBlockComponentProvider, IServerD
             JadeUtil.addByTime(boil.getBoilTime(), boil.getBoilRecipeTime(), iTooltip);
         }
         if (be instanceof IFoodBoilingRecipe fBoil) {
-            JadeUtil.addByTimeArray(fBoil.getTimes(), fBoil.getRecipeTimes(), fBoil.getInventory(), iTooltip);
+            JadeUtil.addByTimeArray(fBoil.getFBTimes(), fBoil.getFBRecipeTimes(), fBoil.getInventory(), iTooltip);
         }
         if (be instanceof IBrewingRecipe brew) {
             JadeUtil.addByTime(brew.getBrewTime(), brew.getBrewRecipeTime(), iTooltip);
@@ -57,11 +57,12 @@ public class CommonCookwareProvider implements IBlockComponentProvider, IServerD
             JadeUtil.addIngredientHandlingResult(iTooltip, ih);
         }
         if (be instanceof SteamerBlockEntity steamer) {
-            JadeUtil.addByTimeArray(steamer.getTimes(), steamer.getRecipeTimes(), steamer.getInventory(), iTooltip);
+            blockAccessor.getServerData().remove("JadeItemStorage"); // 阻止原来的容器显示
             JadeUtil.addSteamingTip(iTooltip, steamer);
+            JadeUtil.addByTimeArray(steamer.getSteamTimes(), steamer.getSteamRecipeTimes(), steamer.getInvList(), iTooltip);
         }
         if (be instanceof ITeaProductionRecipe tp) {
-            JadeUtil.addByTimeArray(tp.getTimes(), tp.getRecipeTimes(), tp.getInventory(), iTooltip);
+            JadeUtil.addByTimeArray(tp.getTeaPrdTimes(), tp.getTeaPrdRecipeTimes(), tp.getInventory(), iTooltip);
         }
     }
 

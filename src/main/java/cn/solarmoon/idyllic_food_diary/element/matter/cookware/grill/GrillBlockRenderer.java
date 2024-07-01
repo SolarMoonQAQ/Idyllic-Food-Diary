@@ -62,9 +62,9 @@ public class GrillBlockRenderer<E extends GrillBlockEntity> extends BaseBlockEnt
                         poseStack.scale(0.9F, 0.9F, 0.9F);
                         poseStack.translate(-0.5, -0.5, 0);
                         poseStack.mulPose(Axis.XP.rotation(-(float) Math.PI / 2));
-                        blockRenderDispatcher.renderSingleBlock(state, poseStack, buffer, light, overlay);
+                        context.getBlockRenderDispatcher().renderSingleBlock(state, poseStack, buffer, light, overlay);
                     } else {
-                        itemRenderer.renderStatic(stack, ItemDisplayContext.FIXED, LevelRenderer.getLightColor(level, grill.getBlockPos().above()), overlay, poseStack, buffer, level, posLong + i);
+                        context.getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED, LevelRenderer.getLightColor(level, grill.getBlockPos().above()), overlay, poseStack, buffer, level, posLong + i);
                     }
                 }
                 poseStack.popPose();
@@ -92,7 +92,7 @@ public class GrillBlockRenderer<E extends GrillBlockEntity> extends BaseBlockEnt
             poseStack.mulPose(Axis.XP.rotationDegrees(90));
             poseStack.mulPose(Axis.ZN.rotationDegrees(180));
             if (grill.getLevel() != null)
-                itemRenderer.renderStatic(coal, ItemDisplayContext.FIXED, LevelRenderer.getLightColor(grill.getLevel(), grill.getBlockPos().above()), overlay, poseStack, buffer, grill.getLevel(), posLong + i);
+                context.getItemRenderer().renderStatic(coal, ItemDisplayContext.FIXED, LevelRenderer.getLightColor(grill.getLevel(), grill.getBlockPos().above()), overlay, poseStack, buffer, grill.getLevel(), posLong + i);
             poseStack.popPose();
         }
     }
@@ -102,7 +102,7 @@ public class GrillBlockRenderer<E extends GrillBlockEntity> extends BaseBlockEnt
             poseStack.pushPose();
             poseStack.translate(0, 0.875, 0);
             poseStack.scale(0.9f, 0.05f, 0.9f);
-            blockRenderDispatcher.renderSingleBlock(Blocks.FIRE.defaultBlockState(), poseStack, buffer, light, overlay);
+            context.getBlockRenderDispatcher().renderSingleBlock(Blocks.FIRE.defaultBlockState(), poseStack, buffer, light, overlay);
             poseStack.popPose();
         }
     }

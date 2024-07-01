@@ -3,6 +3,7 @@ package cn.solarmoon.idyllic_food_diary.network;
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.grill.GrillBlockEntity;
 import cn.solarmoon.idyllic_food_diary.feature.basic_feature.FarmerUtil;
+import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.steaming.ISteamingRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.stir_fry.IStirFryRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.fluid_temp.Temp;
 import cn.solarmoon.idyllic_food_diary.feature.water_pouring.WaterPouringUtil;
@@ -10,6 +11,7 @@ import cn.solarmoon.idyllic_food_diary.registry.common.IMSounds;
 import cn.solarmoon.solarmoon_core.api.item_util.ItemStackUtil;
 import cn.solarmoon.solarmoon_core.api.network.IServerPackHandler;
 import cn.solarmoon.solarmoon_core.api.optional_recipe_item.RecipeSelectorData;
+import cn.solarmoon.solarmoon_core.api.tile.inventory.ItemHandlerUtil;
 import cn.solarmoon.solarmoon_core.registry.common.SolarCapabilities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -43,12 +45,6 @@ public class ServerPackHandler implements IServerPackHandler {
                         selector.deserializeNBT(nbt);
                         IdyllicFoodDiary.DEBUG.send(selector.serializeNBT().toString());
                     });
-                }
-            }
-            case NETList.SYNC_SLOT_SET -> {
-                BlockEntity blockEntity = level.getBlockEntity(pos);
-                if (blockEntity instanceof GrillBlockEntity grill) {
-                    grill.setInventory(nbt);
                 }
             }
             case NETList.DO_STIR -> {

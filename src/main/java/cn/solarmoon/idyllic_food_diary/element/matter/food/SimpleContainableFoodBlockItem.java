@@ -2,13 +2,12 @@ package cn.solarmoon.idyllic_food_diary.element.matter.food;
 
 import cn.solarmoon.idyllic_food_diary.util.ContainerHelper;
 import cn.solarmoon.solarmoon_core.api.item_base.SimpleFoodBlockItem;
-import cn.solarmoon.solarmoon_core.api.util.LevelSummonUtil;
+import cn.solarmoon.solarmoon_core.api.util.DropUtil;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
@@ -48,7 +47,7 @@ public class SimpleContainableFoodBlockItem extends SimpleFoodBlockItem {
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity living) {
         living.eat(level, stack);
         if (living instanceof Player player && !player.isCreative()) {
-            LevelSummonUtil.addItemToInventory(player, getContainer(stack));
+            DropUtil.addItemToInventory(player, getContainer(stack));
         }
         return stack;
     }

@@ -14,7 +14,7 @@ public class CuttingBoardBlockRenderer extends BaseBlockEntityRenderer<CuttingBo
 
     @Override
     public void render(CuttingBoardBlockEntity board, float v, PoseStack poseStack, MultiBufferSource buffer, int light, int overlay) {
-        RendererUtil.renderItemStackStack(0.4f, 0.6f, 45, 1, 0.5f,
+        RendererUtil.renderItemStackStack(0.4f, 45, 1, 0.5f,
                 board, poseStack, buffer, light, overlay, context);
     }
 

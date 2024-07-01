@@ -1,7 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.feature.generic_recipe.water_boiling;
 
 import cn.solarmoon.idyllic_food_diary.registry.common.IMRecipes;
-import cn.solarmoon.solarmoon_core.api.blockentity_util.ITankBE;
 import cn.solarmoon.solarmoon_core.api.data.SerializeHelper;
 import cn.solarmoon.solarmoon_core.api.entry.common.RecipeEntry;
 import cn.solarmoon.solarmoon_core.api.recipe.IConcreteRecipe;

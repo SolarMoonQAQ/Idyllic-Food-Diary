@@ -20,6 +20,7 @@ import cn.solarmoon.idyllic_food_diary.element.matter.food.SimpleContainableFood
 import cn.solarmoon.idyllic_food_diary.element.matter.food.SimpleContainableFoodItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.rolling_pin.RollingPinItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.simple_item.GarlicItem;
+import cn.solarmoon.idyllic_food_diary.element.matter.stove.water_storage_stove.WaterStorageStoveItem;
 import cn.solarmoon.idyllic_food_diary.util.useful_data.FoodProperty;
 import cn.solarmoon.solarmoon_core.api.entry.common.ItemEntry;
 import cn.solarmoon.solarmoon_core.api.item_base.*;
@@ -31,8 +32,14 @@ import net.minecraft.world.item.Item;
 public class IMItems {
     public static void register() {}
 
+    // 蓄水灶台
+    public static final ItemEntry<WaterStorageStoveItem> WATER_STORAGE_STOVE = IdyllicFoodDiary.REGISTRY.item()
+            .id("water_storage_stove")
+            .bound(WaterStorageStoveItem::new)
+            .build();
+
     // 簸箕
-    public static final ItemEntry<Item> WINNOWING_BASKET = IdyllicFoodDiary.REGISTRY.item()
+    public static final ItemEntry<WinnowingBasketItem> WINNOWING_BASKET = IdyllicFoodDiary.REGISTRY.item()
             .id("winnowing_basket")
             .bound(WinnowingBasketItem::new)
             .build();

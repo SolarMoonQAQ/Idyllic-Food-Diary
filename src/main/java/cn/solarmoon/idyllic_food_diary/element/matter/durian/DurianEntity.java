@@ -2,7 +2,7 @@ package cn.solarmoon.idyllic_food_diary.element.matter.durian;
 
 import cn.solarmoon.idyllic_food_diary.registry.common.IMEntityTypes;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMItems;
-import cn.solarmoon.solarmoon_core.api.util.LevelSummonUtil;
+import cn.solarmoon.solarmoon_core.api.util.DropUtil;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -31,8 +31,8 @@ public class DurianEntity extends AbstractArrow {
     protected void onHit(HitResult hit) {
         super.onHit(hit);
         Level level = this.level();
-        LevelSummonUtil.summonDrop(IMItems.DURIAN_FLESH.get(), level, hit.getLocation(), 2, 4);
-        LevelSummonUtil.summonDrop(IMItems.DURIAN_SHELL.get(), level, hit.getLocation(), 2);
+        DropUtil.summonDrop(IMItems.DURIAN_FLESH.get(), level, hit.getLocation(), 2, 4);
+        DropUtil.summonDrop(IMItems.DURIAN_SHELL.get(), level, hit.getLocation(), 2);
         this.discard();
     }
 

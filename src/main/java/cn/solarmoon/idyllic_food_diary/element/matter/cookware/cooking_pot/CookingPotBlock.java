@@ -5,6 +5,8 @@ import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
 import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
 import cn.solarmoon.solarmoon_core.api.phys.VoxelShapeUtil;
 import cn.solarmoon.solarmoon_core.api.tile.SyncedEntityBlock;
+import cn.solarmoon.solarmoon_core.api.tile.fluid.FluidHandlerUtil;
+import cn.solarmoon.solarmoon_core.api.tile.inventory.ItemHandlerUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -24,6 +26,8 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.fluids.capability.templates.FluidTank;
+import net.minecraftforge.items.ItemStackHandler;
 
 /**
  * 汤锅
@@ -45,6 +49,8 @@ public class CookingPotBlock extends SyncedEntityBlock implements IHorizontalFac
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         CookingPotBlockEntity cookingPot = (CookingPotBlockEntity) level.getBlockEntity(pos);
         if (cookingPot == null) return InteractionResult.PASS;
+        ItemStackHandler inv = cookingPot.getInventory();
+        FluidTank tank = cookingPot.getTank();
         if (cookingPot.tryGiveResult(player, hand)) {
             return InteractionResult.SUCCESS;
         }
@@ -52,17 +58,17 @@ public class CookingPotBlock extends SyncedEntityBlock implements IHorizontalFac
         // 没有预输入结果时才能进行物品流体的交互
         if (!cookingPot.hasResult()) {
             //能够存取液体
-            if (cookingPot.putFluid(player, hand, false)) {
+            if (FluidHandlerUtil.putFluid(tank, player, hand, false)) {
                 level.playSound(null, pos, SoundEvents.BUCKET_FILL, SoundSource.PLAYERS);
                 return InteractionResult.SUCCESS;
             }
-            if (cookingPot.takeFluid(player, hand, false)) {
+            if (FluidHandlerUtil.takeFluid(tank, player, hand, false)) {
                 level.playSound(null, pos, SoundEvents.BUCKET_EMPTY, SoundSource.PLAYERS);
                 return InteractionResult.SUCCESS;
             }
 
             //存取任意单个物品
-            if (hand.equals(InteractionHand.MAIN_HAND) && cookingPot.storage(player, hand, 1, 1)) {
+            if (hand.equals(InteractionHand.MAIN_HAND) && ItemHandlerUtil.storage(inv, player, hand, 1, 1)) {
                 level.playSound(null, pos, SoundEvents.LANTERN_STEP, SoundSource.BLOCKS);
                 return InteractionResult.SUCCESS;
             }

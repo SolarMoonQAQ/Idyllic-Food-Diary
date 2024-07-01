@@ -7,7 +7,7 @@ import cn.solarmoon.idyllic_food_diary.util.AnimController;
 import cn.solarmoon.solarmoon_core.api.block_util.BlockUtil;
 import cn.solarmoon.solarmoon_core.api.optional_recipe_item.IOptionalRecipeItem;
 import cn.solarmoon.solarmoon_core.api.util.CommonParticleSpawner;
-import cn.solarmoon.solarmoon_core.api.util.LevelSummonUtil;
+import cn.solarmoon.solarmoon_core.api.util.DropUtil;
 import cn.solarmoon.solarmoon_core.api.util.TagUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -162,7 +162,7 @@ public class RollingPinItem extends SwordItem implements IOptionalRecipeItem<Rol
                         //根据碰撞箱高度决定掉落物生成高度
                         double maxY = level.getBlockState(pos).getShape(level, pos).max(Direction.Axis.Y);
                         Vec3 vec3 = new Vec3(pos.getX() + 0.5, pos.getY() + maxY / 2, pos.getZ() + 0.5);
-                        LevelSummonUtil.summonDrop(results, level, vec3);
+                        DropUtil.summonDrop(results, level, vec3);
                     }
                 }
 
@@ -205,7 +205,7 @@ public class RollingPinItem extends SwordItem implements IOptionalRecipeItem<Rol
                 if (state.is(Blocks.CAKE) && state.getValue(BlockStateProperties.BITES) != 0) return false;
                 if (level instanceof ServerLevel sl) {
                     Vec3 move = new Vec3(0, 0.4, 0);
-                    LevelSummonUtil.summonDrop(Block.getDrops(state, sl, pos, null), level, pos, move);
+                    DropUtil.summonDrop(Block.getDrops(state, sl, pos, null), level, pos, move);
                 }
                 level.destroyBlock(pos, false);
                 level.playSound(null, pos, SoundEvents.ARROW_SHOOT, SoundSource.BLOCKS, 1.0f, 0.5f);
@@ -224,7 +224,7 @@ public class RollingPinItem extends SwordItem implements IOptionalRecipeItem<Rol
                                 level.addParticle(ParticleTypes.SWEEP_ATTACK, pPos.getX() + 0.5, pPos.getY(), pPos.getZ() + 0.5, 0,0,0);
                                 if (level instanceof ServerLevel sl) {
                                     Vec3 move = new Vec3(0, 0.4, 0);
-                                    LevelSummonUtil.summonDrop(Block.getDrops(tState, sl, pPos, null), level, pPos, move);
+                                    DropUtil.summonDrop(Block.getDrops(tState, sl, pPos, null), level, pPos, move);
                                 }
                                 level.destroyBlock(pPos, false);
                                 for(int i = 0; i < 5; i++) {

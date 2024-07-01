@@ -13,7 +13,7 @@ public class ServicePlateItemRenderer extends BaseItemRenderer {
     @Override
     public void renderByItem(ItemStack itemStack, ItemDisplayContext itemDisplayContext, PoseStack poseStack, MultiBufferSource buffer, int light, int overlay) {
         blockRenderer.renderSingleBlock(Block.byItem(itemStack.getItem()).defaultBlockState(), poseStack, buffer, light, overlay);
-        RendererUtil.renderItemStackStack(0.5f, 0.5f, 45, 1f, 0.5f,
+        RendererUtil.renderItemStackStack(0.5f, 45, 1f, 0.5f,
                 itemStack, poseStack, buffer, light, overlay);
     }
 

@@ -1,7 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.feature.generic_recipe.tea_production;
 
 import cn.solarmoon.idyllic_food_diary.registry.common.IMRecipes;
-import cn.solarmoon.solarmoon_core.api.tile.IIndividualTimeRecipeTile;
 import cn.solarmoon.solarmoon_core.api.tile.inventory.IContainerTile;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
@@ -11,7 +10,10 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import java.util.List;
 import java.util.Optional;
 
-public interface ITeaProductionRecipe extends IContainerTile, IIndividualTimeRecipeTile<TeaProductionRecipe> {
+public interface ITeaProductionRecipe extends IContainerTile {
+
+    String TEA_PRODUCTION_TIME = "TeaProductionTime";
+    String TEA_PRODUCTION_RECIPE_TIME = "TeaProductionRecipeTime";
 
     default BlockEntity tp() {
         return (BlockEntity) this;
@@ -20,24 +22,23 @@ public interface ITeaProductionRecipe extends IContainerTile, IIndividualTimeRec
     default boolean tryProductTea() {
         boolean flag = false;
         for (int i = 0; i < getInventory().getSlots(); i++) {
-            if (getCheckedRecipe(i).isPresent()) {
-                TeaProductionRecipe recipe = getCheckedRecipe(i).get();
-                getRecipeTimes()[i] = recipe.time();
-                getTimes()[i] = getTimes()[i] + 1;
-                if (getTimes()[i] > recipe.time()) {
+            if (findTeaPrdRecipe(i).isPresent()) {
+                TeaProductionRecipe recipe = findTeaPrdRecipe(i).get();
+                getTeaPrdRecipeTimes()[i] = recipe.time();
+                getTeaPrdTimes()[i] = getTeaPrdTimes()[i] + 1;
+                if (getTeaPrdTimes()[i] > recipe.time()) {
                     getInventory().setStackInSlot(i, recipe.result().copy());
                 }
                 flag = true;
             } else {
-                getRecipeTimes()[i] = 0;
-                getTimes()[i] = 0;
+                getTeaPrdRecipeTimes()[i] = 0;
+                getTeaPrdTimes()[i] = 0;
             }
         }
         return flag;
     }
 
-    @Override
-    default Optional<TeaProductionRecipe> getCheckedRecipe(int i) {
+    default Optional<TeaProductionRecipe> findTeaPrdRecipe(int i) {
         ItemStack stack = getInventory().getStackInSlot(i);
         Level level = tp().getLevel();
         if (level == null) return Optional.empty();
@@ -63,5 +64,10 @@ public interface ITeaProductionRecipe extends IContainerTile, IIndividualTimeRec
         if (level == null) return false;
         return level.isRainingAt(pos);
     }
+
+    int[] getTeaPrdTimes();
+    int[] getTeaPrdRecipeTimes();
+    void setTeaPrdTimes(int[] ints);
+    void setTeaPrdRecipeTimes(int[] ints);
 
 }

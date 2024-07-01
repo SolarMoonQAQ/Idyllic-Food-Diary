@@ -2,7 +2,7 @@ package cn.solarmoon.idyllic_food_diary.feature.basic_feature;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.util.ContainerHelper;
-import cn.solarmoon.solarmoon_core.api.util.LevelSummonUtil;
+import cn.solarmoon.solarmoon_core.api.util.DropUtil;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
@@ -38,7 +38,7 @@ public interface IPlateable extends IExpGiver {
             if (getContainer().test(heldItem)) {
                 ItemStack result = getResult().split(1);
                 ContainerHelper.setContainer(result, heldItem); // 这里保存了容器信息
-                LevelSummonUtil.addItemToInventory(player, result);
+                DropUtil.addItemToInventory(player, result);
                 giveExp(player, true);
                 if (!player.isCreative()) heldItem.shrink(1);
                 resetContainer();

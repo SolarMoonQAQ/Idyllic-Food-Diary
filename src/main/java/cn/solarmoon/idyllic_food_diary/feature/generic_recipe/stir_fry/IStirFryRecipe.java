@@ -7,9 +7,10 @@ import cn.solarmoon.idyllic_food_diary.network.NETList;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMPacks;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMRecipes;
 import cn.solarmoon.solarmoon_core.api.capability.anim_ticker.AnimTicker;
+import cn.solarmoon.solarmoon_core.api.tile.fluid.FluidHandlerUtil;
 import cn.solarmoon.solarmoon_core.api.tile.fluid.ITankTile;
 import cn.solarmoon.solarmoon_core.api.tile.inventory.IContainerTile;
-import cn.solarmoon.solarmoon_core.api.util.FluidUtil;
+import cn.solarmoon.solarmoon_core.api.tile.inventory.ItemHandlerUtil;
 import cn.solarmoon.solarmoon_core.feature.capability.IBlockEntityData;
 import cn.solarmoon.solarmoon_core.registry.common.SolarCapabilities;
 import net.minecraft.world.item.ItemStack;
@@ -72,7 +73,7 @@ public interface IStirFryRecipe extends IContainerTile, ITankTile, IHeatable, IS
                         if (isAnimFin() && getFryCount() >= getPresentFryStage().fryCount()) { // 最终步骤完成
                             setPendingItem(getPendingItem().isEmpty() ? getStirFryRecipe().result().copy() : getPendingItem());
                             addSpicesToItem(getPendingItem(), false);
-                            if (!getPresentFryStage().keepFluid()) clearTank();
+                            if (!getPresentFryStage().keepFluid()) FluidHandlerUtil.clearTank(getTank());
                             setStirFryTime(0);
                             setStirFryRecipeTime(0);
                             setFryCount(0); //重置各个计数
@@ -87,7 +88,7 @@ public interface IStirFryRecipe extends IContainerTile, ITankTile, IHeatable, IS
             } else { // 此处就代表当前阶段已经超出配方最大阶段，表示所有阶段已满足
                 setPending(getPendingItem(), getStirFryRecipe().container());
                 addSpicesToItem(getResult(), true);
-                clearInv();
+                ItemHandlerUtil.clearInv(getInventory(), h());
             }
             return true;
         } else {
@@ -145,7 +146,7 @@ public interface IStirFryRecipe extends IContainerTile, ITankTile, IHeatable, IS
      */
     default boolean isFluidMatch() {
         if (getPresentFryStage() != null) {
-            return FluidUtil.isMatch(getTank().getFluid(), getPresentFryStage().fluidStack(), true, false);
+            return FluidHandlerUtil.isMatch(getTank().getFluid(), getPresentFryStage().fluidStack(), true, false);
         }
         return false;
     }
@@ -179,7 +180,7 @@ public interface IStirFryRecipe extends IContainerTile, ITankTile, IHeatable, IS
         return recipes.stream().filter(recipe -> {
             boolean inMatch = getStacks().stream().allMatch(stack ->
                     recipe.getFirstStage().ingredients().stream().anyMatch(ingredient -> ingredient.test(stack)));
-            boolean fluidMatch = FluidUtil.isMatch(getTank().getFluid(), recipe.getFirstStage().fluidStack(), true, false);
+            boolean fluidMatch = FluidHandlerUtil.isMatch(getTank().getFluid(), recipe.getFirstStage().fluidStack(), true, false);
             boolean heat = isOnHeatSource();
             return inMatch && fluidMatch && heat;
         }).findFirst();

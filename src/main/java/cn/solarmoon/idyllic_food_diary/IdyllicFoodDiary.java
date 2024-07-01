@@ -10,8 +10,8 @@ import cn.solarmoon.idyllic_food_diary.registry.ability.IMSpittableItems;
 import cn.solarmoon.idyllic_food_diary.registry.client.*;
 import cn.solarmoon.idyllic_food_diary.registry.common.*;
 import cn.solarmoon.solarmoon_core.api.entry.ObjectRegistry;
-import cn.solarmoon.solarmoon_core.api.static_utor.Debug;
-import cn.solarmoon.solarmoon_core.api.static_utor.Translator;
+import cn.solarmoon.solarmoon_core.api.starter_kit.Debug;
+import cn.solarmoon.solarmoon_core.api.starter_kit.Translator;
 import cn.solarmoon.solarmoon_core.feature.SolarMoonBase;
 import net.minecraftforge.fml.common.Mod;
 

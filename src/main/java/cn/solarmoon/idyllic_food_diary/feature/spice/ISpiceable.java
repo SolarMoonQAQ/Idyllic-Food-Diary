@@ -2,7 +2,10 @@ package cn.solarmoon.idyllic_food_diary.feature.spice;
 
 import cn.solarmoon.idyllic_food_diary.registry.common.IMCapabilities;
 import cn.solarmoon.solarmoon_core.api.tile.inventory.IContainerTile;
+import cn.solarmoon.solarmoon_core.api.tile.inventory.ItemHandlerUtil;
 import net.minecraft.world.item.ItemStack;
+
+import java.util.List;
 
 /**
  * 接入该接口后，当拿着调味瓶右击接入该接口的方块时，将会为方块中的物品或是即将产出的产物添加spice属性，
@@ -67,6 +70,10 @@ public interface ISpiceable extends IContainerTile {
             }
         }
         return spices;
+    }
+
+    default List<ItemStack> getStacks() {
+        return ItemHandlerUtil.getStacks(getInventory());
     }
 
     default void clearSpices() {

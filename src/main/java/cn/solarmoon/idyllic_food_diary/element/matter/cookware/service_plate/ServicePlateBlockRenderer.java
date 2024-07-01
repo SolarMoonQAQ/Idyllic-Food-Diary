@@ -14,7 +14,7 @@ public class ServicePlateBlockRenderer extends BaseBlockEntityRenderer<ServicePl
 
     @Override
     public void render(ServicePlateBlockEntity plate, float v, PoseStack poseStack, MultiBufferSource buffer, int light, int overlay) {
-        RendererUtil.renderItemStackStack(0.5f, 0.5f, 45, 1, 0.5f,
+        RendererUtil.renderItemStackStack(0.5f, 45, 1, 0.5f,
                 plate, poseStack, buffer, light, overlay, context);
     }
 

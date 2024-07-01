@@ -5,10 +5,12 @@ import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cutting_board.Cut
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.chopping.ChoppingRecipe;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMRecipes;
 import cn.solarmoon.solarmoon_core.api.optional_recipe_item.IOptionalRecipeItem;
-import cn.solarmoon.solarmoon_core.api.util.LevelSummonUtil;
+import cn.solarmoon.solarmoon_core.api.util.DropUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.*;
-import net.minecraft.server.level.ServerLevel;
+import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ItemParticleOption;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
@@ -62,7 +64,7 @@ public class CleaverItem extends DiggerItem implements IOptionalRecipeItem<Chopp
             //输出（生成掉落物）
             List<ItemStack> results = recipe.getRolledResults(player);
             for (var stack : results) {
-                LevelSummonUtil.summonDrop(stack, level, pos.getCenter());
+                DropUtil.summonDrop(stack, level, pos.getCenter());
             }
             if (state.getBlock() instanceof CuttingBoardBlock && blockEntity != null) {
                 blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(inv -> {

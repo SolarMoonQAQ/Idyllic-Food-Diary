@@ -1,10 +1,14 @@
 package cn.solarmoon.idyllic_food_diary.feature.basic_feature;
 
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.evaporation.IEvaporationRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.food_boiling.IFoodBoilingRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.grill.IGrillRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.soup.ISoupRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.steaming.ISteamingRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.stew.IStewRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.stir_fry.IStirFryRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.stir_fry.StirFryRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.tea_production.ITeaProductionRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.spice.ISpiceable;
 import cn.solarmoon.idyllic_food_diary.feature.spice.SpicesCap;
 import cn.solarmoon.idyllic_food_diary.feature.tea_brewing.IBrewingRecipe;
@@ -18,6 +22,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import java.util.Optional;
@@ -69,6 +75,23 @@ public class BlockEntityDataHolderEvent {
             if (stirFry.getStirFryRecipe() != null) tag.putString(IStirFryRecipe.STIR_FRY_RECIPE, stirFry.getStirFryRecipe().id().toString());
             tag.put(IStirFryRecipe.STIR_FRY_PENDING, stirFry.getPendingItem().save(new CompoundTag()));
         }
+        if (be instanceof ITeaProductionRecipe tp) {
+            tag.putIntArray(ITeaProductionRecipe.TEA_PRODUCTION_TIME, tp.getTeaPrdTimes());
+            tag.putIntArray(ITeaProductionRecipe.TEA_PRODUCTION_RECIPE_TIME, tp.getTeaPrdRecipeTimes());
+        }
+        if (be instanceof IGrillRecipe grill) {
+            tag.putIntArray(IGrillRecipe.GRILL_TIME, grill.getGrillTimes());
+            tag.putIntArray(IGrillRecipe.GRILL_RECIPE_TIME, grill.getGrillRecipeTimes());
+        }
+        if (be instanceof IFoodBoilingRecipe fb) {
+            tag.putIntArray(IFoodBoilingRecipe.FB_TIME, fb.getFBTimes());
+            tag.putIntArray(IFoodBoilingRecipe.FB_RECIPE_TIME, fb.getFBRecipeTimes());
+        }
+        if (be instanceof ISteamingRecipe steamer) {
+            tag.putIntArray(ISteamingRecipe.STEAMER_TIME, steamer.getSteamTimes());
+            tag.putIntArray(ISteamingRecipe.STEAMER_RECIPE_TIME, steamer.getSteamRecipeTimes());
+            tag.put(ISteamingRecipe.STEAMER_INV_LIST, steamer.getInvList().serializeNBT());
+        }
     }
 
     @SubscribeEvent
@@ -117,6 +140,33 @@ public class BlockEntityDataHolderEvent {
             if (!tag.getString(IStirFryRecipe.STIR_FRY_RECIPE).isEmpty() && level != null) {
                 Optional<?> rop = level.getRecipeManager().byKey(new ResourceLocation(tag.getString(IStirFryRecipe.STIR_FRY_RECIPE)));
                 rop.ifPresent(r -> stirFry.setStirFryRecipe((StirFryRecipe) r));
+            }
+        }
+        if (be instanceof ITeaProductionRecipe tp) {
+            tp.setTeaPrdTimes(tag.getIntArray(ITeaProductionRecipe.TEA_PRODUCTION_TIME));
+            tp.setTeaPrdRecipeTimes(tag.getIntArray(ITeaProductionRecipe.TEA_PRODUCTION_RECIPE_TIME));
+        }
+        if (be instanceof IGrillRecipe grill) {
+            grill.setGrillTimes(tag.getIntArray(IGrillRecipe.GRILL_TIME));
+            grill.setGrillRecipeTimes(tag.getIntArray(IGrillRecipe.GRILL_RECIPE_TIME));
+        }
+        if (be instanceof IFoodBoilingRecipe fb) {
+            fb.setFBTimes(tag.getIntArray(IFoodBoilingRecipe.FB_TIME));
+            fb.setFBRecipeTimes(tag.getIntArray(IFoodBoilingRecipe.FB_RECIPE_TIME));
+        }
+        if (be instanceof ISteamingRecipe steamer) {
+            steamer.setSteamTimes(tag.getIntArray(ISteamingRecipe.STEAMER_TIME));
+            steamer.setSteamRecipeTimes(tag.getIntArray(ISteamingRecipe.STEAMER_RECIPE_TIME));
+            steamer.getInvList().deserializeNBT(tag.getList(ISteamingRecipe.STEAMER_INV_LIST, ListTag.TAG_COMPOUND));
+        }
+    }
+
+    @SubscribeEvent
+    public void cap(BlockEntityDataEvent.Capability event) {
+        BlockEntity be = event.getBlockEntity();
+        if (be instanceof ISteamingRecipe steamer) {
+            if (event.getCap() == ForgeCapabilities.ITEM_HANDLER) {
+                event.setReturnValue(LazyOptional.of(steamer::getInvList).cast());
             }
         }
     }

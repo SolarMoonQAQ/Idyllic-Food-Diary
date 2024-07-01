@@ -5,6 +5,7 @@ import cn.solarmoon.idyllic_food_diary.network.NETList;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMPacks;
 import cn.solarmoon.solarmoon_core.api.tile.fluid.ITankTile;
 import cn.solarmoon.solarmoon_core.api.tile.inventory.IContainerTile;
+import cn.solarmoon.solarmoon_core.api.tile.inventory.ItemHandlerUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -59,7 +60,7 @@ public interface ITempChanger extends IContainerTile, ITankTile {
     }
 
     default List<ItemStack> getAllCoolant() {
-        return getStacks().stream().filter(stack -> stack.is(IMItemTags.COOLANT)).collect(Collectors.toList());
+        return ItemHandlerUtil.getStacks(getInventory()).stream().filter(stack -> stack.is(IMItemTags.COOLANT)).collect(Collectors.toList());
     }
 
     default int getCoolantsAmount() {

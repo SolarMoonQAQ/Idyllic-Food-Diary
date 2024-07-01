@@ -6,7 +6,8 @@ import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
 import cn.solarmoon.solarmoon_core.api.blockstate_access.ILitBlock;
 import cn.solarmoon.solarmoon_core.api.phys.VecUtil;
 import cn.solarmoon.solarmoon_core.api.tile.SyncedEntityBlock;
-import cn.solarmoon.solarmoon_core.api.util.LevelSummonUtil;
+import cn.solarmoon.solarmoon_core.api.tile.inventory.ItemHandlerUtil;
+import cn.solarmoon.solarmoon_core.api.util.DropUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -36,6 +37,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.eventbus.api.Event;
+import net.minecraftforge.items.ItemStackHandler;
 
 import java.util.List;
 
@@ -60,6 +62,7 @@ public class GrillBlock extends SyncedEntityBlock implements ILitBlock, IHorizon
         GrillBlockEntity grill = (GrillBlockEntity) level.getBlockEntity(pos);
         ItemStack heldItem = player.getItemInHand(hand);
         if (grill == null) return InteractionResult.PASS;
+        ItemStackHandler inv = grill.getInventory();
         //------------------------------------打火石点燃----------------------------------------//
         //打火石等点燃
         if (!state.getValue(LIT) && grill.getInventory().getStackInSlot(6).is(ItemTags.COALS)) {
@@ -104,11 +107,11 @@ public class GrillBlock extends SyncedEntityBlock implements ILitBlock, IHorizon
                     }
                 }
                 //空手取出对应选框的物品
-                if (heldItem.isEmpty() && !grill.getStacks().isEmpty()) {
+                if (heldItem.isEmpty() && !ItemHandlerUtil.getStacks(inv).isEmpty()) {
                     ItemStack result = grill.getInventory().extractItem(i - 1, 1, false);
                     if (!result.isEmpty()) {
                         if (!player.isCreative()) {
-                            LevelSummonUtil.addItemToInventory(player, result);
+                            DropUtil.addItemToInventory(player, result);
                         }
                         level.playSound(null, pos, SoundEvents.LANTERN_STEP, SoundSource.BLOCKS);
                         return InteractionResult.SUCCESS;
@@ -119,7 +122,7 @@ public class GrillBlock extends SyncedEntityBlock implements ILitBlock, IHorizon
         //------------------------------------存取煤炭----------------------------------------//
         //选框在别的区域就尝试存取煤炭
         if ((!grill.getFuel().isEmpty() && heldItem.isEmpty()) || heldItem.is(ItemTags.COALS)) {
-            if (grill.specialStorage(player, hand)) {
+            if (ItemHandlerUtil.specialStorage(inv, player, hand)) {
                 level.playSound(null, pos, SoundEvents.LANTERN_STEP, SoundSource.BLOCKS);
                 return InteractionResult.SUCCESS;
             }
@@ -151,7 +154,7 @@ public class GrillBlock extends SyncedEntityBlock implements ILitBlock, IHorizon
         GrillBlockEntity grill = (GrillBlockEntity) level.getBlockEntity(pos);
         if (grill != null && state.getValue(LIT)) {
             for (int i = 0; i < grill.getInventory().getSlots(); i++) {
-                if (grill.getTimes()[i] != 0) {
+                if (grill.getGrillTimes()[i] != 0) {
                     Direction direction = state.getValue(FACING);
                     int c = i+1 > 3 ? -1 : 1; //转变竖直方向
                     int index = i+1 > 3 ? i - 3 : i; //i>3时触底反弹

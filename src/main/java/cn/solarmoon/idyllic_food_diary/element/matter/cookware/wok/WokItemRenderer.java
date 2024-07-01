@@ -16,7 +16,7 @@ public class WokItemRenderer extends BaseItemRenderer {
 
         TextureRenderUtil.renderStaticFluid(10/16f, 3/16f, 1/16f, stack, poseStack, buffer, light);
 
-        RendererUtil.renderItemStackStack(0.4f, 0.6f, 60, 1, 0.5f,
+        RendererUtil.renderItemStackStack(0.4f, 60, 1, 0.5f,
                 stack, poseStack, buffer, light, overlay);
     }
 }

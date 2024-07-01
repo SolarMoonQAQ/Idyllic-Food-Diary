@@ -13,6 +13,7 @@ import cn.solarmoon.idyllic_food_diary.element.matter.cookware.spice_jar.SpiceJa
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer.SteamerBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.food.FoodBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.food.FoodEntityBlock;
+import cn.solarmoon.idyllic_food_diary.element.matter.stove.water_storage_stove.WaterStorageStoveBlockEntity;
 import cn.solarmoon.solarmoon_core.api.entry.common.BlockEntityEntry;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.RegistryObject;
@@ -20,6 +21,14 @@ import net.minecraftforge.registries.RegistryObject;
 public class IMBlockEntities {
     public static void register() {}
 
+    // 蓄水灶台
+    public static final BlockEntityEntry<WaterStorageStoveBlockEntity> WATER_STORAGE_STOVE = IdyllicFoodDiary.REGISTRY.blockEntity()
+            .id("water_storage_stove")
+            .bound(WaterStorageStoveBlockEntity::new)
+            .validBlock(IMBlocks.WATER_STORAGE_STOVE::get)
+            .build();
+
+    // 簸箕
     public static final BlockEntityEntry<WinnowingBasketBlockEntity> WINNOWING_BASKET = IdyllicFoodDiary.REGISTRY.blockEntity()
             .id("winnowing_basket")
             .bound(WinnowingBasketBlockEntity::new)

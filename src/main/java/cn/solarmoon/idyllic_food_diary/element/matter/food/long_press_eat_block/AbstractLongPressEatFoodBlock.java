@@ -6,7 +6,7 @@ import cn.solarmoon.idyllic_food_diary.element.matter.food.FoodEntityBlock;
 import cn.solarmoon.idyllic_food_diary.util.ParticleSpawner;
 import cn.solarmoon.solarmoon_core.api.block_util.BlockUtil;
 import cn.solarmoon.solarmoon_core.api.capability.CountingDevice;
-import cn.solarmoon.solarmoon_core.api.util.LevelSummonUtil;
+import cn.solarmoon.solarmoon_core.api.util.DropUtil;
 import cn.solarmoon.solarmoon_core.feature.capability.IPlayerData;
 import cn.solarmoon.solarmoon_core.registry.common.SolarCapabilities;
 import net.minecraft.core.BlockPos;
@@ -84,7 +84,7 @@ public abstract class AbstractLongPressEatFoodBlock extends FoodEntityBlock {
                 BlockUtil.replaceBlockWithAllState(state, getContainer(fb), level, pos);
 
                 //设置结束物品
-                LevelSummonUtil.summonDrop(getItemLeft(), level, pos);
+                DropUtil.summonDrop(getItemLeft(), level, pos);
 
                 //重置计数
                 counting.resetCount();

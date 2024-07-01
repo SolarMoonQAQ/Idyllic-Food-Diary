@@ -7,6 +7,7 @@ import cn.solarmoon.idyllic_food_diary.util.VoxelShapeUtil;
 import cn.solarmoon.solarmoon_core.api.block_use_caller.IBlockUseCaller;
 import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
 import cn.solarmoon.solarmoon_core.api.tile.SyncedEntityBlock;
+import cn.solarmoon.solarmoon_core.api.tile.inventory.ItemHandlerUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -27,6 +28,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.eventbus.api.Event;
+import net.minecraftforge.items.ItemStackHandler;
 
 public class CuttingBoardBlock extends SyncedEntityBlock implements IBlockUseCaller, IHorizontalFacingBlock {
 
@@ -43,6 +45,7 @@ public class CuttingBoardBlock extends SyncedEntityBlock implements IBlockUseCal
         BlockEntity blockEntity = level.getBlockEntity(pos);
         ItemStack heldItem = player.getItemInHand(hand);
         if (blockEntity instanceof CuttingBoardBlockEntity cb) {
+            ItemStackHandler inv = cb.getInventory();
             if (cb.trOutputResult(heldItem, player, pos, level)) {
                 cb.addSpicesToItem(cb.getInventory().getStackInSlot(0), false);
                 return InteractionResult.SUCCESS;
@@ -50,15 +53,15 @@ public class CuttingBoardBlock extends SyncedEntityBlock implements IBlockUseCal
             // 蹲下右键全拉出来
             if (hand == InteractionHand.MAIN_HAND) {
                 if (player.isCrouching() && heldItem.isEmpty()) {
-                    cb.pumpOutAllItems(new Vec3(0, -0.5, 0));
+                    ItemHandlerUtil.pumpOutAllItems(inv, cb, new Vec3(0, -0.5, 0));
                     return InteractionResult.SUCCESS;
                 }
                 // 正常存
-                if (cb.putItem(player, hand, 1)) {
+                if (ItemHandlerUtil.putItem(inv, player, hand, 1)) {
                     level.playSound(null, pos, SoundEvents.WOOD_PLACE, SoundSource.PLAYERS);
                     return InteractionResult.SUCCESS;
                 }
-                if (cb.takeItem(player, hand, 1)) {
+                if (ItemHandlerUtil.takeItem(inv, player, hand, 1)) {
                     level.playSound(null, pos, SoundEvents.WOOD_HIT, SoundSource.PLAYERS);
                     return InteractionResult.SUCCESS;
                 }

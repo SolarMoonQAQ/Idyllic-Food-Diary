@@ -4,6 +4,7 @@ import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
 import cn.solarmoon.solarmoon_core.api.block_use_caller.IBlockUseCaller;
 import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
 import cn.solarmoon.solarmoon_core.api.tile.SyncedEntityBlock;
+import cn.solarmoon.solarmoon_core.api.tile.inventory.ItemHandlerUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -38,7 +39,7 @@ public class SpiceJarBlock extends SyncedEntityBlock implements IBlockUseCaller,
         SpiceJarBlockEntity jar = (SpiceJarBlockEntity) level.getBlockEntity(pos);
         if (jar == null) return InteractionResult.PASS;
 
-        if (jar.specialStorage(player, hand)) {
+        if (ItemHandlerUtil.specialStorage(jar.getInventory(), player, hand)) {
             return InteractionResult.SUCCESS;
         }
 

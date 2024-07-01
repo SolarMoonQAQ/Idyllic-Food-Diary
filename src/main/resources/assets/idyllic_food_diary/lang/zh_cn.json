@@ -193,14 +193,19 @@
   "config.jade.plugin_idyllic_food_diary.wok": "炒锅信息",
   "config.jade.plugin_idyllic_food_diary.cutting_board": "砧板信息",
   "config.jade.plugin_idyllic_food_diary.winnowing_basket": "簸箕信息",
+  "config.jade.plugin_idyllic_food_diary.water_storage_stove": "蓄水灶台信息",
 
   "jade.idyllic_food_diary.stir_fry.stage": "当前阶段：%s",
   "jade.idyllic_food_diary.ingredient_handling": "可制作：",
   "jade.idyllic_food_diary.ingredient_handling.empty": "无",
   "jade.idyllic_food_diary.plating": "待装盘：",
   "jade.idyllic_food_diary.plating.empty": "无",
+  "jade.idyllic_food_diary.steamer.layer_4": "顶层：",
+  "jade.idyllic_food_diary.steamer.layer_3": "三层：",
+  "jade.idyllic_food_diary.steamer.layer_2": "二层：",
+  "jade.idyllic_food_diary.steamer.layer_1": "底层：",
   "jade.idyllic_food_diary.steamer_base.evaporating": "蒸发中...（速率：%smB/秒）",
-  "jade.idyllic_food_diary.steamer_base.working": "是否上汽：",
+  "jade.idyllic_food_diary.steamer.working": "是否上汽：",
 
 
 

@@ -15,7 +15,7 @@ public class FoodBlockRenderer<E extends FoodBlockEntity> extends BaseBlockEntit
     @Override
     public void render(E fb, float v, PoseStack poseStack, MultiBufferSource buffer, int light, int overlay) {
         BlockState container = fb.getContainerLeft();
-        blockRenderDispatcher.renderSingleBlock(container, poseStack, buffer, light, overlay);
+        context.getBlockRenderDispatcher().renderSingleBlock(container, poseStack, buffer, light, overlay);
     }
 
 }

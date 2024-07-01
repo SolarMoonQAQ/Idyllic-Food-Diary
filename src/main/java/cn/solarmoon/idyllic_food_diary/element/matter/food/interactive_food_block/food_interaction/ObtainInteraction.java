@@ -5,7 +5,7 @@ import cn.solarmoon.idyllic_food_diary.element.matter.food.FoodBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.food.interactive_food_block.BaseInteractionBlock;
 import cn.solarmoon.solarmoon_core.api.block_util.BlockUtil;
 import cn.solarmoon.solarmoon_core.api.matcher.ItemMatcher;
-import cn.solarmoon.solarmoon_core.api.util.LevelSummonUtil;
+import cn.solarmoon.solarmoon_core.api.util.DropUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;
@@ -112,9 +112,9 @@ public class ObtainInteraction {
             }
             // 根据dropForm决定生成掉落物还是直接进入玩家背包
             if (dropForm == DropForm.DROP) {
-                LevelSummonUtil.summonDrop(drop, level, pos);
+                DropUtil.summonDrop(drop, level, pos);
             } else if (dropForm == DropForm.INVENTORY) {
-                LevelSummonUtil.addItemToInventory(player, drop);
+                DropUtil.addItemToInventory(player, drop);
             }
             level.playSound(null, pos, sound, SoundSource.PLAYERS);
             return true;

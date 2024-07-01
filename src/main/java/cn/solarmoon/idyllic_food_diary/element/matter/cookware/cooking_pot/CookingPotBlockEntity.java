@@ -153,26 +153,6 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements IStewRec
     }
 
     @Override
-    public int[] getTimes() {
-        return iTimes;
-    }
-
-    @Override
-    public int[] getRecipeTimes() {
-        return iRecipeTimes;
-    }
-
-    @Override
-    public void setTimes(int[] ints) {
-        iTimes = ints;
-    }
-
-    @Override
-    public void setRecipeTimes(int[] ints) {
-        iRecipeTimes = ints;
-    }
-
-    @Override
     public ItemStackHandler getInventory() {
         return inventory;
     }
@@ -181,4 +161,25 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements IStewRec
     public FluidTank getTank() {
         return fluidTank;
     }
+
+    @Override
+    public int[] getFBTimes() {
+        return iTimes;
+    }
+
+    @Override
+    public int[] getFBRecipeTimes() {
+        return iRecipeTimes;
+    }
+
+    @Override
+    public void setFBTimes(int[] ints) {
+        iTimes = ints;
+    }
+
+    @Override
+    public void setFBRecipeTimes(int[] ints) {
+        iRecipeTimes = ints;
+    }
+
 }

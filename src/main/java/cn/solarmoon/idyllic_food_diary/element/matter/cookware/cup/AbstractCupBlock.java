@@ -8,6 +8,8 @@ import cn.solarmoon.idyllic_food_diary.registry.common.IMSounds;
 import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
 import cn.solarmoon.solarmoon_core.api.capability.CountingDevice;
 import cn.solarmoon.solarmoon_core.api.tile.SyncedEntityBlock;
+import cn.solarmoon.solarmoon_core.api.tile.fluid.FluidHandlerUtil;
+import cn.solarmoon.solarmoon_core.api.tile.inventory.ItemHandlerUtil;
 import cn.solarmoon.solarmoon_core.registry.common.SolarCapabilities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
@@ -60,12 +62,12 @@ public abstract class AbstractCupBlock extends SyncedEntityBlock implements IHor
             }
 
             //只能存不能取液体
-            if (cup.putFluid(player, hand, false)) {
+            if (FluidHandlerUtil.putFluid(cup.getTank(), player, hand, false)) {
                 level.playSound(null, pos, IMSounds.PLAYER_POUR.get(), SoundSource.PLAYERS, 0.8F, 1F);
                 return InteractionResult.SUCCESS;
             }
 
-            if (cup.storage(player, hand, 1, 1)) {
+            if (ItemHandlerUtil.storage(cup.getInventory(), player, hand, 1, 1)) {
                 level.playSound(null, pos, SoundEvents.ARMOR_EQUIP_LEATHER, SoundSource.PLAYERS, 0.2f, 1f);
                 return InteractionResult.SUCCESS;
             }

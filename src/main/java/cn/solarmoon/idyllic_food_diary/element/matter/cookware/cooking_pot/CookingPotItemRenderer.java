@@ -19,7 +19,7 @@ public class CookingPotItemRenderer extends BaseItemRenderer {
 
         TextureRenderUtil.renderStaticFluid(8/16f, 11/16f, 2/16f, itemStack, poseStack, buffer, light);
 
-        RendererUtil.renderItemStackStack(0.4f, 0.6f, 45, 2, 0.35f,
+        RendererUtil.renderItemStackStack(0.4f, 45, 2, 0.35f,
                 itemStack, poseStack, buffer, light, overlay);
     }
 }

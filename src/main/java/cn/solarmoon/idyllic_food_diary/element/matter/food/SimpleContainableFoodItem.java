@@ -1,7 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.food;
 
 import cn.solarmoon.solarmoon_core.api.item_base.SimpleFoodItem;
-import cn.solarmoon.solarmoon_core.api.util.LevelSummonUtil;
+import cn.solarmoon.solarmoon_core.api.util.DropUtil;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -38,7 +38,7 @@ public class SimpleContainableFoodItem extends SimpleFoodItem {
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity living) {
         living.eat(level, stack);
         if (living instanceof Player player && !player.isCreative()) {
-            LevelSummonUtil.addItemToInventory(player, new ItemStack(itemFinishReturn));
+            DropUtil.addItemToInventory(player, new ItemStack(itemFinishReturn));
         }
         return stack;
     }

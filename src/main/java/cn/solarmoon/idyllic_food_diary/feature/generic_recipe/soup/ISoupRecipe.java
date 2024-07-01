@@ -2,11 +2,12 @@ package cn.solarmoon.idyllic_food_diary.feature.generic_recipe.soup;
 
 import cn.solarmoon.idyllic_food_diary.feature.basic_feature.IExpGiver;
 import cn.solarmoon.idyllic_food_diary.feature.basic_feature.IHeatable;
-import cn.solarmoon.idyllic_food_diary.feature.spice.ISpiceable;
 import cn.solarmoon.idyllic_food_diary.feature.fluid_temp.Temp;
+import cn.solarmoon.idyllic_food_diary.feature.spice.ISpiceable;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMRecipes;
+import cn.solarmoon.solarmoon_core.api.tile.fluid.FluidHandlerUtil;
 import cn.solarmoon.solarmoon_core.api.tile.fluid.ITankTile;
-import cn.solarmoon.solarmoon_core.api.util.FluidUtil;
+import cn.solarmoon.solarmoon_core.api.tile.inventory.ItemHandlerUtil;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -37,9 +38,9 @@ public interface ISoupRecipe extends ITankTile, ISpiceable, IExpGiver, IHeatable
                 if (time >= recipe.time()) {
                     FluidStack result = recipe.outputFluid().copy();
                     Temp.set(result, Temp.get(getTank().getFluid()));
-                    setFluid(result);
+                    getTank().setFluid(result);
                     setExp(recipe.exp());
-                    clearInv();
+                    ItemHandlerUtil.clearInv(getInventory(), sim());
                     setSimmerTime(0);
                     sim().setChanged();
                 }
@@ -71,10 +72,10 @@ public interface ISoupRecipe extends ITankTile, ISpiceable, IExpGiver, IHeatable
              * 输入液体及量及温度完全匹配
              * 下方为热源
              */
-            List<ItemStack> stacks = getStacks();
+            List<ItemStack> stacks = ItemHandlerUtil.getStacks(getInventory());
             FluidStack fluidStack = getTank().getFluid();
             return RecipeMatcher.findMatches(stacks, recipe.ingredients()) != null
-                    && FluidUtil.isMatch(fluidStack, recipe.inputFluid(), true, false)
+                    && FluidHandlerUtil.isMatch(fluidStack, recipe.inputFluid(), true, false)
                     && Temp.isSame(fluidStack, recipe.temp())
                     && isOnHeatSource();
         }).findFirst();

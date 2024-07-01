@@ -18,7 +18,7 @@ public class CookingPotBlockRenderer<E extends CookingPotBlockEntity> extends Ba
 
         TextureRenderUtil.renderAnimatedFluid(8/16f, 11/16f, 2/16f, pot, poseStack, buffer, light);
 
-        RendererUtil.renderItemStackStack(0.4f, 0.6f, 45, 2, 0.35f,
+        RendererUtil.renderItemStackStack(0.4f, 45, 2, 0.35f,
                 pot, poseStack, buffer, light, overlay, context);
 
     }

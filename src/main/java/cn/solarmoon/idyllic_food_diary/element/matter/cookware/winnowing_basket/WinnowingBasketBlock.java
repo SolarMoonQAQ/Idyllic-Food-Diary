@@ -3,6 +3,7 @@ package cn.solarmoon.idyllic_food_diary.element.matter.cookware.winnowing_basket
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
 import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
 import cn.solarmoon.solarmoon_core.api.tile.SyncedEntityBlock;
+import cn.solarmoon.solarmoon_core.api.tile.inventory.ItemHandlerUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -37,7 +38,7 @@ public class WinnowingBasketBlock extends SyncedEntityBlock implements IHorizont
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         WinnowingBasketBlockEntity wb = (WinnowingBasketBlockEntity) level.getBlockEntity(pos);
         if (wb == null) return InteractionResult.PASS;
-        if (wb.storage(player, hand, 1, 1)) {
+        if (ItemHandlerUtil.storage(wb.getInventory(), player, hand, 1, 1)) {
             level.playSound(null, pos, SoundEvents.ARMOR_EQUIP_LEATHER, SoundSource.PLAYERS);
             return InteractionResult.SUCCESS;
         }

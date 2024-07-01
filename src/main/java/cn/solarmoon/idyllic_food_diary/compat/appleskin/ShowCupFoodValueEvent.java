@@ -3,10 +3,9 @@ package cn.solarmoon.idyllic_food_diary.compat.appleskin;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup.AbstractCupItem;
 import cn.solarmoon.idyllic_food_diary.feature.tea_brewing.TeaIngredient;
 import cn.solarmoon.idyllic_food_diary.feature.tea_brewing.TeaIngredientList;
-import cn.solarmoon.solarmoon_core.api.util.FluidUtil;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidUtil;
 import squeek.appleskin.api.event.FoodValuesEvent;
 import squeek.appleskin.api.food.FoodValues;
 
@@ -19,15 +18,16 @@ public class ShowCupFoodValueEvent {
     public void onFoodValuesEvent(FoodValuesEvent event) {
         if (event.itemStack.getItem() instanceof AbstractCupItem) {
             ItemStack stack = event.itemStack;
-            FluidStack fluidStack = FluidUtil.getFluidStack(stack);
-            TeaIngredientList teaIngredients = TeaIngredient.readFromFluidStack(fluidStack);
-            int n = 0;
-            float s = 0;
-            for (var ti : teaIngredients.getTeaIngredientsHasEffect()) {
-                n = n + ti.getFoodValue().nutrition;
-                s = s + ti.getFoodValue().saturation;
-            }
-            if (n > 0 || s > 0) event.modifiedFoodValues = new FoodValues(n, s);
+            FluidUtil.getFluidHandler(stack).ifPresent(tank -> {
+                TeaIngredientList teaIngredients = TeaIngredient.readFromFluidStack(tank.getFluidInTank(0));
+                int n = 0;
+                float s = 0;
+                for (var ti : teaIngredients.getTeaIngredientsHasEffect()) {
+                    n = n + ti.getFoodValue().nutrition;
+                    s = s + ti.getFoodValue().saturation;
+                }
+                if (n > 0 || s > 0) event.modifiedFoodValues = new FoodValues(n, s);
+            });
         }
     }
 

@@ -5,8 +5,9 @@ import cn.solarmoon.idyllic_food_diary.feature.basic_feature.IHeatable;
 import cn.solarmoon.idyllic_food_diary.feature.basic_feature.IPlateable;
 import cn.solarmoon.idyllic_food_diary.feature.spice.ISpiceable;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMRecipes;
+import cn.solarmoon.solarmoon_core.api.tile.fluid.FluidHandlerUtil;
 import cn.solarmoon.solarmoon_core.api.tile.fluid.ITankTile;
-import cn.solarmoon.solarmoon_core.api.util.FluidUtil;
+import cn.solarmoon.solarmoon_core.api.tile.inventory.ItemHandlerUtil;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -43,9 +44,9 @@ public interface IStewRecipe extends ITankTile, IPlateable, ISpiceable, IHeatabl
                         setPending(recipe.result().copy(), recipe.container());
                         addSpicesToItem(getResult(), true);
                     }
-                    clearTank();
+                    FluidHandlerUtil.clearTank(getTank());
                     setExp(recipe.exp());
-                    clearInv();
+                    ItemHandlerUtil.clearInv(getInventory(), cookingPot());
                     setStewTime(0);
                     cookingPot().setChanged();
                 }
@@ -79,10 +80,10 @@ public interface IStewRecipe extends ITankTile, IPlateable, ISpiceable, IHeatabl
              * 输入液体及量完全匹配
              * 下方为热源
              */
-            List<ItemStack> stacks = getStacks();
+            List<ItemStack> stacks = ItemHandlerUtil.getStacks(getInventory());
             if (RecipeMatcher.findMatches(stacks, recipe.ingredients()) != null) {
                 FluidStack ctStack = getTank().getFluid();
-                if (FluidUtil.isMatch(ctStack, recipe.inputFluid(), true, false)) {
+                if (FluidHandlerUtil.isMatch(ctStack, recipe.inputFluid(), true, false)) {
                     return isOnHeatSource();
                 }
             }

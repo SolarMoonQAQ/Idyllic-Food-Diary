@@ -3,6 +3,7 @@ package cn.solarmoon.idyllic_food_diary.feature.tea_brewing;
 import cn.solarmoon.idyllic_food_diary.feature.basic_feature.IHeatable;
 import cn.solarmoon.idyllic_food_diary.feature.fluid_temp.ITempChanger;
 import cn.solarmoon.idyllic_food_diary.feature.fluid_temp.Temp;
+import cn.solarmoon.solarmoon_core.api.tile.inventory.ItemHandlerUtil;
 import com.google.gson.Gson;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
@@ -115,6 +116,10 @@ public interface IBrewingRecipe extends IHeatable, ITempChanger {
             }
         }
         return list;
+    }
+
+    default List<ItemStack> getStacks() {
+        return ItemHandlerUtil.getStacks(getInventory());
     }
 
     /**

@@ -20,6 +20,7 @@ import cn.solarmoon.idyllic_food_diary.element.matter.crop.*;
 import cn.solarmoon.idyllic_food_diary.element.matter.durian.DurianBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.food.interactive_food_block.*;
 import cn.solarmoon.idyllic_food_diary.element.matter.food.long_press_eat_block.*;
+import cn.solarmoon.idyllic_food_diary.element.matter.stove.water_storage_stove.WaterStorageStoveBlock;
 import cn.solarmoon.idyllic_food_diary.util.useful_data.BlockProperty;
 import cn.solarmoon.solarmoon_core.api.entry.common.BlockEntry;
 import net.minecraft.world.effect.MobEffects;
@@ -29,6 +30,12 @@ import net.minecraft.world.level.block.SaplingBlock;
 
 public class IMBlocks {
     public static void register() {}
+
+    // 蓄水灶台
+    public static final BlockEntry<WaterStorageStoveBlock> WATER_STORAGE_STOVE = IdyllicFoodDiary.REGISTRY.block()
+            .id("water_storage_stove")
+            .bound(WaterStorageStoveBlock::new)
+            .build();
 
     //簸箕
     public static final BlockEntry<WinnowingBasketBlock> WINNOWING_BASKET = IdyllicFoodDiary.REGISTRY.block()
