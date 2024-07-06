@@ -3,6 +3,7 @@ package cn.solarmoon.idyllic_food_diary.compat.jade;
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer.SteamerBlockEntity;
 import cn.solarmoon.idyllic_food_diary.feature.basic_feature.IPlateable;
+import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.baking.IBakingRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.food_boiling.IFoodBoilingRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.ingredient_handling.IIngredientHandlingRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.soup.ISoupRecipe;
@@ -63,6 +64,9 @@ public class CommonCookwareProvider implements IBlockComponentProvider, IServerD
         }
         if (be instanceof ITeaProductionRecipe tp) {
             JadeUtil.addByTimeArray(tp.getTeaPrdTimes(), tp.getTeaPrdRecipeTimes(), tp.getInventory(), iTooltip);
+        }
+        if (be instanceof IBakingRecipe bake) {
+            JadeUtil.addByTime(bake.getBakeTime(), bake.getBakeRecipeTime(), iTooltip);
         }
     }
 

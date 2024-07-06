@@ -71,7 +71,9 @@ public class ServicePlateBlock extends SyncedEntityBlock implements IHorizontalF
                         if (!give.isEmpty()) DropUtil.summonDrop(give, level, pos.getCenter());
                         // 保证能够推出食用后的物品（比如碗装食物吃掉后能够推出碗）
                     }
-                    else food.shrink(1); //创造模式也消耗食物
+                    else {
+                        food.shrink(1); //创造模式也消耗食物
+                    }
                     //重置计数
                     counting.resetCount();
                 }

@@ -32,7 +32,7 @@ public class SpittableItem {
      */
     public void doSpit(Player player, ItemStack stack) {
         if (isItemEqual(stack)) {
-            SpitUtil.spit(spit, player);
+            SpitUtil.spit(spit.copy(), player);
         }
     }
 

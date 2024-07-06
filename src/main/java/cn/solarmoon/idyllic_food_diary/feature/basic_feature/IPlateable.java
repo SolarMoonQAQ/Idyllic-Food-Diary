@@ -38,9 +38,9 @@ public interface IPlateable extends IExpGiver {
             if (getContainer().test(heldItem)) {
                 ItemStack result = getResult().split(1);
                 ContainerHelper.setContainer(result, heldItem); // 这里保存了容器信息
+                if (!player.isCreative()) heldItem.shrink(1);
                 DropUtil.addItemToInventory(player, result);
                 giveExp(player, true);
-                if (!player.isCreative()) heldItem.shrink(1);
                 resetContainer();
                 ((BlockEntity)this).setChanged();
                 return true;

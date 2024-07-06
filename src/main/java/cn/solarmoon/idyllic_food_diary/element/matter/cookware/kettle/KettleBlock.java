@@ -41,7 +41,9 @@ public class KettleBlock extends SyncedEntityBlock implements IHorizontalFacingB
         super(Properties.of()
                 .sound(SoundType.LANTERN)
                 .strength(2f, 6.0F)
-                .mapColor(MapColor.METAL));
+                .mapColor(MapColor.METAL)
+                .forceSolidOn()
+        );
     }
 
     @Override

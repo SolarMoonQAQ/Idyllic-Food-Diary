@@ -1,27 +1,36 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.stove;
 
-import cn.solarmoon.idyllic_food_diary.element.matter.stove.water_storage_stove.WaterStorageStoveBlockEntity;
 import cn.solarmoon.solarmoon_core.api.block_base.BaseBlock;
+import cn.solarmoon.solarmoon_core.api.block_util.BlockUtil;
+import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
 import cn.solarmoon.solarmoon_core.api.blockstate_access.ILitBlock;
+import cn.solarmoon.solarmoon_core.api.phys.VecUtil;
+import cn.solarmoon.solarmoon_core.api.util.DropUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.FlintAndSteelItem;
+import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.fluids.FluidUtil;
 
-public class StoveBlock extends BaseBlock implements ILitBlock {
+public class StoveBlock extends BaseBlock implements ILitBlock, IHorizontalFacingBlock {
 
     public StoveBlock() {
         super(Properties.of()
@@ -36,18 +45,55 @@ public class StoveBlock extends BaseBlock implements ILitBlock {
         ItemStack heldItem = player.getItemInHand(hand);
 
         //打火石等点燃
-        if (!state.getValue(LIT)) {
-            if (heldItem.getItem() instanceof FlintAndSteelItem) {
-                level.playSound(player, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, player.getRandom().nextFloat() * 0.4F + 0.8F);
-                level.setBlock(pos, state.setValue(BlockStateProperties.LIT, Boolean.TRUE), 11);
-                heldItem.hurtAndBreak(1, player, action -> action.broadcastBreakEvent(hand));
+        if (litByHand(state, pos, level, player, hand) || extinguishByHand(state, pos, level, player, hand)) {
+            return InteractionResult.SUCCESS;
+        }
+
+        // 放入可镶嵌厨具
+        if (VecUtil.isInside(hitResult.getLocation(), pos, 2 / 16f, 10 / 16f, 2 / 16f, 14 / 16f, 16 / 16f, 14 / 16f, true)) {
+            Block cookware = Block.byItem(heldItem.getItem());
+            if (cookware instanceof IBuiltInStove) {
+                BlockState d = cookware.getStateForPlacement(new BlockPlaceContext(player, hand, heldItem, hitResult));
+                if (d != null) {
+                    BlockUtil.replaceBlockWithAllState(state, d.setValue(IBuiltInStove.NESTED_IN_STOVE, true), level, pos);
+                    cookware.setPlacedBy(level, pos, level.getBlockState(pos), player, heldItem);
+                    level.playSound(null, pos, d.getSoundType().getPlaceSound(), SoundSource.BLOCKS);
+                    if (!player.isCreative()) heldItem.shrink(1);
+                }
                 return InteractionResult.SUCCESS;
             }
         }
 
-        // 放入炼药锅变为蓄水灶台
-
         return InteractionResult.PASS;
+    }
+
+    public boolean extinguishByHand(BlockState state, BlockPos pos, Level level, Player player, InteractionHand hand) {
+        ItemStack heldItem = player.getItemInHand(hand);
+        if (heldItem.is(Items.POTION) && PotionUtils.getPotion(heldItem) == Potions.WATER) {
+            if (!player.isCreative()) {
+                heldItem.shrink(1);
+                DropUtil.addItemToInventory(player, new ItemStack(Items.GLASS_BOTTLE));
+            }
+            level.setBlock(pos, state.setValue(LIT, false), 3);
+            level.playSound(null, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS);
+            return true;
+        }
+        if (heldItem.is(Items.WATER_BUCKET)) {
+            if (!player.isCreative()) {
+                heldItem.shrink(1);
+                DropUtil.addItemToInventory(player, new ItemStack(Items.BUCKET));
+            }
+            level.setBlock(pos, state.setValue(LIT, false), 3);
+            level.playSound(null, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS);
+            return true;
+        }
+        if (heldItem.is(ItemTags.SHOVELS)) {
+            heldItem.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
+            level.setBlock(pos, state.setValue(LIT, false), 3);
+            level.playSound(null, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS);
+            return true;
+        }
+        return false;
     }
 
     @Override

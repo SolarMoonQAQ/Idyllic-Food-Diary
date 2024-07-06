@@ -1,5 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.wok;
 
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.CookwareTileRenderer;
+import cn.solarmoon.idyllic_food_diary.element.matter.stove.IBuiltInStove;
 import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
 import cn.solarmoon.solarmoon_core.api.capability.anim_ticker.AnimTicker;
 import cn.solarmoon.solarmoon_core.api.phys.SMath;
@@ -22,14 +24,18 @@ import org.joml.Vector3f;
 
 import java.util.Random;
 
-public class WokBlockRenderer extends BaseBlockEntityRenderer<WokBlockEntity> {
+public class WokBlockRenderer extends CookwareTileRenderer<WokBlockEntity> {
 
     public WokBlockRenderer(BlockEntityRendererProvider.Context context) {
         super(context);
     }
 
     @Override
-    public void render(WokBlockEntity pan, float v, PoseStack poseStack, MultiBufferSource buffer, int light, int overlay) {
+    public void originRender(WokBlockEntity pan, float v, PoseStack poseStack, MultiBufferSource buffer, int light, int overlay) {
+        context.getBlockRenderDispatcher().renderSingleBlock(pan.getBlockState(), poseStack, buffer, light, overlay);
+
+        double posYOffset = ((IBuiltInStove) pan.getBlockState().getBlock()).getYOffset();
+
         pan.getCapability(SolarCapabilities.BLOCK_ENTITY_DATA).ifPresent(data -> {
             //渲染物品
             //让光度和环境一致
@@ -68,7 +74,7 @@ public class WokBlockRenderer extends BaseBlockEntityRenderer<WokBlockEntity> {
                             Random random = new Random();
                             double rInRange = 2/16f + random.nextDouble() * 12/16; // 保证粒子起始点在锅内
                             double vi = (random.nextDouble() - 0.5) / 5;
-                            pan.getLevel().addParticle(ParticleTypes.SMALL_FLAME, pan.getBlockPos().getX() + rInRange, pan.getBlockPos().getY() + h, pan.getBlockPos().getZ() + rInRange, vi, 0.1, vi);
+                            pan.getLevel().addParticle(ParticleTypes.SMALL_FLAME, pan.getBlockPos().getX() + rInRange, pan.getBlockPos().getY() + h + posYOffset, pan.getBlockPos().getZ() + rInRange, vi, 0.1, vi);
                         }
                         animTicker.stop();
                     }

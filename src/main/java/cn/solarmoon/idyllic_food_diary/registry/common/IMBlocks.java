@@ -8,19 +8,20 @@ import cn.solarmoon.idyllic_food_diary.element.matter.container.*;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cooking_pot.CookingPotBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup.little_cup.LittleCupBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cutting_board.CuttingBoardBlock;
-import cn.solarmoon.idyllic_food_diary.element.matter.cookware.winnowing_basket.WinnowingBasketBlock;
-import cn.solarmoon.idyllic_food_diary.element.matter.cookware.wok.WokBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.grill.GrillBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.kettle.KettleBlock;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.oven.OvenBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.service_plate.ServicePlateBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.spice_jar.SpiceJarBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer.SteamerBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer.SteamerLidBlock;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.winnowing_basket.WinnowingBasketBlock;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.wok.WokBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.crop.*;
 import cn.solarmoon.idyllic_food_diary.element.matter.durian.DurianBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.food.interactive_food_block.*;
 import cn.solarmoon.idyllic_food_diary.element.matter.food.long_press_eat_block.*;
-import cn.solarmoon.idyllic_food_diary.element.matter.stove.water_storage_stove.WaterStorageStoveBlock;
+import cn.solarmoon.idyllic_food_diary.element.matter.stove.StoveBlock;
 import cn.solarmoon.idyllic_food_diary.util.useful_data.BlockProperty;
 import cn.solarmoon.solarmoon_core.api.entry.common.BlockEntry;
 import net.minecraft.world.effect.MobEffects;
@@ -31,10 +32,16 @@ import net.minecraft.world.level.block.SaplingBlock;
 public class IMBlocks {
     public static void register() {}
 
-    // 蓄水灶台
-    public static final BlockEntry<WaterStorageStoveBlock> WATER_STORAGE_STOVE = IdyllicFoodDiary.REGISTRY.block()
-            .id("water_storage_stove")
-            .bound(WaterStorageStoveBlock::new)
+    // 烤箱
+    public static final BlockEntry<OvenBlock> OVEN = IdyllicFoodDiary.REGISTRY.block()
+            .id("oven")
+            .bound(OvenBlock::new)
+            .build();
+
+    // 灶台
+    public static final BlockEntry<StoveBlock> STOVE = IdyllicFoodDiary.REGISTRY.block()
+            .id("stove")
+            .bound(StoveBlock::new)
             .build();
 
     //簸箕

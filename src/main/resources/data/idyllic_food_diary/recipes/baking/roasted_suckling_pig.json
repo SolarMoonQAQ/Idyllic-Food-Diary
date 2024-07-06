@@ -1,0 +1,10 @@
+{
+  "type": "idyllic_food_diary:baking",
+  "ingredient": {
+    "item": "idyllic_food_diary:uncooked_roasted_suckling_pig"
+  },
+  "time": 100,
+  "result": {
+    "item": "idyllic_food_diary:roasted_suckling_pig"
+  }
+}

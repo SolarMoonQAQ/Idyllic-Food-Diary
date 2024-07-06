@@ -39,7 +39,7 @@ import java.util.Objects;
 public abstract class AbstractCupBlock extends SyncedEntityBlock implements IHorizontalFacingBlock {
 
     public AbstractCupBlock(Properties properties) {
-        super(properties);
+        super(properties.forceSolidOn());
     }
 
     /**

@@ -19,5 +19,10 @@ public class IMDamageTypes {
             .id("falling_durian")
             .build();
 
+    //榴莲刺伤
+    public static final DamageTypeEntry DURIAN_THORNS = IdyllicFoodDiary.REGISTRY.damageType()
+            .id("durian_thorns")
+            .build();
+
 
 }

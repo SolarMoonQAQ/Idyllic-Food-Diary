@@ -1,6 +1,8 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.wok;
 
+import cn.solarmoon.idyllic_food_diary.element.matter.stove.IBuiltInStove;
 import cn.solarmoon.idyllic_food_diary.feature.fluid_temp.ITempChanger;
+import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.evaporation.IEvaporationRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.stir_fry.IStirFryRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.stir_fry.StirFryRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.spice.Spice;
@@ -20,7 +22,7 @@ import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 
-public class WokBlockEntity extends SyncedBlockEntity implements IStirFryRecipe, IContainerTile, ITankTile, ITempChanger {
+public class WokBlockEntity extends SyncedBlockEntity implements IStirFryRecipe, ITempChanger, IEvaporationRecipe {
 
     private final TileInventory inventory;
     private final TileTank fluidTank;
@@ -174,4 +176,17 @@ public class WokBlockEntity extends SyncedBlockEntity implements IStirFryRecipe,
     public FluidTank getTank() {
         return fluidTank;
     }
+
+    private int evaTick;
+
+    @Override
+    public void setEvaporationTick(int tick) {
+        evaTick = tick;
+    }
+
+    @Override
+    public int getEvaporationTick() {
+        return evaTick;
+    }
+
 }

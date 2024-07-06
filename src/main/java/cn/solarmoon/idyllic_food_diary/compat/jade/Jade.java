@@ -6,10 +6,10 @@ import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup.AbstractCupBl
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cutting_board.CuttingBoardBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.grill.GrillBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.kettle.KettleBlock;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.oven.OvenBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer.SteamerBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.winnowing_basket.WinnowingBasketBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.wok.WokBlock;
-import cn.solarmoon.idyllic_food_diary.element.matter.stove.water_storage_stove.WaterStorageStoveBlock;
 import cn.solarmoon.solarmoon_core.api.block_base.BaseBushCropBlock;
 import net.minecraft.resources.ResourceLocation;
 import snownee.jade.api.IWailaClientRegistration;
@@ -31,7 +31,7 @@ public class Jade implements IWailaPlugin {
         registration.registerBlockComponent(new CommonCookwareProvider("steamer"), SteamerBlock.class);
         registration.registerBlockComponent(new CommonCookwareProvider("grill"), GrillBlock.class);
         registration.registerBlockComponent(new CommonCookwareProvider("winnowing_basket"), WinnowingBasketBlock.class);
-        registration.registerBlockComponent(new CommonCookwareProvider("water_storage_stove"), WaterStorageStoveBlock.class);
+        registration.registerBlockComponent(new CommonCookwareProvider("oven"), OvenBlock.class);
 
         ResourceLocation pinId = new ResourceLocation(IdyllicFoodDiary.MOD_ID, "rolling_pin");
         WailaClientRegistration.INSTANCE.addConfig(pinId, true);

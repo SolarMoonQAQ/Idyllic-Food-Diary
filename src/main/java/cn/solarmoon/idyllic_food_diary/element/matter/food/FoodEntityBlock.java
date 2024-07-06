@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * 所有foodBlock的基本类，目的是给食物一个blockEntity的动态渲染
  */
-public abstract class FoodEntityBlock extends BasicEntityBlock implements IHorizontalFacingBlock, IWaterLoggedBlock {
+public abstract class FoodEntityBlock extends BasicEntityBlock implements IHorizontalFacingBlock {
 
     public FoodEntityBlock(Properties properties) {
         super(properties);
@@ -68,10 +68,10 @@ public abstract class FoodEntityBlock extends BasicEntityBlock implements IHoriz
         if (fb != null) {
             for (var item : origin) {
                 ContainerHelper.setContainer(item, fb.getContainer());
-                SpicesCap spicesData = item.getCapability(IMCapabilities.FOOD_ITEM_DATA).orElse(null).getSpicesData();
-                if (spicesData != null) {
+                item.getCapability(IMCapabilities.FOOD_ITEM_DATA).ifPresent(d -> {
+                    SpicesCap spicesData = d.getSpicesData();
                     spicesData.getSpices().addAll(fb.getSpices());
-                }
+                });
             }
         }
         return origin;

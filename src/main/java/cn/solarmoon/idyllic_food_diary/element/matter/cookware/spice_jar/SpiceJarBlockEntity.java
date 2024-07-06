@@ -2,6 +2,7 @@ package cn.solarmoon.idyllic_food_diary.element.matter.cookware.spice_jar;
 
 import cn.solarmoon.idyllic_food_diary.data.IMItemTags;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
+import cn.solarmoon.solarmoon_core.api.tile.SyncedBlockEntity;
 import cn.solarmoon.solarmoon_core.api.tile.inventory.IContainerTile;
 import cn.solarmoon.solarmoon_core.api.tile.inventory.TileInventory;
 import net.minecraft.core.BlockPos;
@@ -11,7 +12,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 
-public class SpiceJarBlockEntity extends BlockEntity implements IContainerTile {
+public class SpiceJarBlockEntity extends SyncedBlockEntity implements IContainerTile {
 
     private final TileInventory inventory;
 

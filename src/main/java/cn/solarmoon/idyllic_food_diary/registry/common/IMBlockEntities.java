@@ -4,16 +4,16 @@ import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cooking_pot.CookingPotBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup.little_cup.LittleCupBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cutting_board.CuttingBoardBlockEntity;
-import cn.solarmoon.idyllic_food_diary.element.matter.cookware.winnowing_basket.WinnowingBasketBlockEntity;
-import cn.solarmoon.idyllic_food_diary.element.matter.cookware.wok.WokBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.grill.GrillBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.kettle.KettleBlockEntity;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.oven.OvenBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.service_plate.ServicePlateBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.spice_jar.SpiceJarBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer.SteamerBlockEntity;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.winnowing_basket.WinnowingBasketBlockEntity;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.wok.WokBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.food.FoodBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.food.FoodEntityBlock;
-import cn.solarmoon.idyllic_food_diary.element.matter.stove.water_storage_stove.WaterStorageStoveBlockEntity;
 import cn.solarmoon.solarmoon_core.api.entry.common.BlockEntityEntry;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.RegistryObject;
@@ -21,11 +21,11 @@ import net.minecraftforge.registries.RegistryObject;
 public class IMBlockEntities {
     public static void register() {}
 
-    // 蓄水灶台
-    public static final BlockEntityEntry<WaterStorageStoveBlockEntity> WATER_STORAGE_STOVE = IdyllicFoodDiary.REGISTRY.blockEntity()
-            .id("water_storage_stove")
-            .bound(WaterStorageStoveBlockEntity::new)
-            .validBlock(IMBlocks.WATER_STORAGE_STOVE::get)
+    // 烤箱
+    public static final BlockEntityEntry<OvenBlockEntity> OVEN = IdyllicFoodDiary.REGISTRY.blockEntity()
+            .id("oven")
+            .bound(OvenBlockEntity::new)
+            .validBlock(IMBlocks.OVEN::get)
             .build();
 
     // 簸箕

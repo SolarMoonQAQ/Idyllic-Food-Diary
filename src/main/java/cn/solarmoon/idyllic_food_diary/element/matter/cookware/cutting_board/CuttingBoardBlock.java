@@ -33,7 +33,9 @@ import net.minecraftforge.items.ItemStackHandler;
 public class CuttingBoardBlock extends SyncedEntityBlock implements IBlockUseCaller, IHorizontalFacingBlock {
 
     public CuttingBoardBlock() {
-        super(Properties.copy(Blocks.CHEST).noOcclusion());
+        super(Properties.copy(Blocks.CHEST)
+                .noOcclusion()
+        );
     }
 
     public CuttingBoardBlock(Properties properties) {

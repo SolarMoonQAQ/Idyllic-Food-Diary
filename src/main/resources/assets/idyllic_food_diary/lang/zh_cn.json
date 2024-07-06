@@ -155,6 +155,7 @@
 
   "death.attack.idyllic_food_diary.scald": "%s被烫死了",
   "death.attack.idyllic_food_diary.falling_durian": "%s被榴莲砸穿了",
+  "death.attack.idyllic_food_diary.durian_thorns": "%s被榴莲扎死了",
 
   "message.idyllic_food_diary.obtainable_food.container_required": "你需要%s来盛装这个食物",
   "message.idyllic_food_diary.obtainable_food.tool_required": "你需要%s来分割这个食物",
@@ -193,6 +194,7 @@
   "config.jade.plugin_idyllic_food_diary.wok": "炒锅信息",
   "config.jade.plugin_idyllic_food_diary.cutting_board": "砧板信息",
   "config.jade.plugin_idyllic_food_diary.winnowing_basket": "簸箕信息",
+  "config.jade.plugin_idyllic_food_diary.oven": "烤炉信息",
   "config.jade.plugin_idyllic_food_diary.water_storage_stove": "蓄水灶台信息",
 
   "jade.idyllic_food_diary.stir_fry.stage": "当前阶段：%s",

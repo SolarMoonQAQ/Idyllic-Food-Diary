@@ -3,6 +3,8 @@ package cn.solarmoon.idyllic_food_diary.element.matter.durian;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMDamageTypes;
 import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
 import cn.solarmoon.solarmoon_core.api.blockstate_access.IWaterLoggedBlock;
+import cn.solarmoon.solarmoon_core.api.phys.OrientedBox;
+import cn.solarmoon.solarmoon_core.api.phys.VecUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -11,9 +13,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.FallingBlock;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -24,7 +24,10 @@ import org.jetbrains.annotations.NotNull;
 public class DurianBlock extends FallingBlock implements IWaterLoggedBlock, IHorizontalFacingBlock {
 
     public DurianBlock() {
-        super(BlockBehaviour.Properties.of().sound(SoundType.STONE).strength(1.0f));
+        super(BlockBehaviour.Properties.of()
+                .sound(SoundType.STONE)
+                .strength(1.0f)
+        );
     }
 
     @Override
@@ -42,7 +45,13 @@ public class DurianBlock extends FallingBlock implements IWaterLoggedBlock, IHor
      */
     @Override
     public void onLand(Level level, BlockPos pos, BlockState state1, BlockState state2, FallingBlockEntity blockEntity) {
-        if (!level.isClientSide) level.playSound(null, pos, SoundEvents.WOOL_BREAK, SoundSource.BLOCKS, 10F, 0.1F);
+        level.playSound(null, pos, SoundEvents.WOOL_BREAK, SoundSource.BLOCKS, 10F, 0.1F);
+    }
+
+    @Override
+    public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
+        entity.hurt(IMDamageTypes.DURIAN_THORNS.get(level), 1);
+        super.entityInside(state, level, pos, entity);
     }
 
     @Override

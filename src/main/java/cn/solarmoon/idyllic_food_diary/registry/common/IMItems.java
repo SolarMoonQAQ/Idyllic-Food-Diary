@@ -9,6 +9,8 @@ import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup.little_cup.Li
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cutting_board.CuttingBoardItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.grill.GrillItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.kettle.KettleItem;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.oven.OvenItem;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.rolling_pin.RollingPinItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.service_plate.ServicePlateItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.spice_jar.SpiceJarItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer.SteamerItem;
@@ -18,9 +20,8 @@ import cn.solarmoon.idyllic_food_diary.element.matter.cookware.wok.WokItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.durian.DurianItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.food.SimpleContainableFoodBlockItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.food.SimpleContainableFoodItem;
-import cn.solarmoon.idyllic_food_diary.element.matter.cookware.rolling_pin.RollingPinItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.simple_item.GarlicItem;
-import cn.solarmoon.idyllic_food_diary.element.matter.stove.water_storage_stove.WaterStorageStoveItem;
+import cn.solarmoon.idyllic_food_diary.element.matter.stove.StoveItem;
 import cn.solarmoon.idyllic_food_diary.util.useful_data.FoodProperty;
 import cn.solarmoon.solarmoon_core.api.entry.common.ItemEntry;
 import cn.solarmoon.solarmoon_core.api.item_base.*;
@@ -32,10 +33,16 @@ import net.minecraft.world.item.Item;
 public class IMItems {
     public static void register() {}
 
-    // 蓄水灶台
-    public static final ItemEntry<WaterStorageStoveItem> WATER_STORAGE_STOVE = IdyllicFoodDiary.REGISTRY.item()
-            .id("water_storage_stove")
-            .bound(WaterStorageStoveItem::new)
+    // 烤炉
+    public static final ItemEntry<OvenItem> OVEN = IdyllicFoodDiary.REGISTRY.item()
+            .id("oven")
+            .bound(OvenItem::new)
+            .build();
+
+    // 灶台
+    public static final ItemEntry<StoveItem> STOVE = IdyllicFoodDiary.REGISTRY.item()
+            .id("stove")
+            .bound(StoveItem::new)
             .build();
 
     // 簸箕
