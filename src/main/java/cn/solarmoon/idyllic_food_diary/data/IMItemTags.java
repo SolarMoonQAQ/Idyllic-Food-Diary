@@ -107,6 +107,8 @@ public class IMItemTags extends ItemTagsProvider {
         tag(SMALL_CONTAINER).add(
                 Items.BOWL
         );
+        // 把上面的三种容器整合到一起，某些位置判断是否是容器用
+        tag(CONTAINER).addTags(SMALL_CONTAINER, MEDIUM_CONTAINER, LARGE_CONTAINER);
         //汤容器，用于识别其中的液体能否被容器盛出
         copy(IMBlockTags.SOUP_CONTAINER, SOUP_CONTAINER);
         //奶桶类配方标识
@@ -133,6 +135,7 @@ public class IMItemTags extends ItemTagsProvider {
     public static final TagKey<Item> LARGE_CONTAINER = itemTag("large_container");
     public static final TagKey<Item> MEDIUM_CONTAINER = itemTag("medium_container");
     public static final TagKey<Item> SMALL_CONTAINER = itemTag("small_container");
+    public static final TagKey<Item> CONTAINER = itemTag("container");
     public static final TagKey<Item> SOUP_CONTAINER = itemTag("soup_container");
     public static final TagKey<Item> SPICE = itemTag("spice");
     public static final TagKey<Item> COOLANT = itemTag("coolant");

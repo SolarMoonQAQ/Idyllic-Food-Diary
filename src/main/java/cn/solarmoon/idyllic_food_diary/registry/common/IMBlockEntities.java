@@ -1,13 +1,16 @@
 package cn.solarmoon.idyllic_food_diary.registry.common;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.container.AttachmentBlockEntity;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.container.LongContainerBlockEntity;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.container.long_plate.LongPlateBlockRenderer;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cooking_pot.CookingPotBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup.little_cup.LittleCupBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cutting_board.CuttingBoardBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.grill.GrillBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.kettle.KettleBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.oven.OvenBlockEntity;
-import cn.solarmoon.idyllic_food_diary.element.matter.cookware.service_plate.ServicePlateBlockEntity;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.container.ContainerBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.spice_jar.SpiceJarBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer.SteamerBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.winnowing_basket.WinnowingBasketBlockEntity;
@@ -87,11 +90,30 @@ public class IMBlockEntities {
             .validBlock(IMBlocks.GRILL::get)
             .build();
 
-    //餐盘
-    public static final BlockEntityEntry<ServicePlateBlockEntity> PLATE = IdyllicFoodDiary.REGISTRY.blockEntity()
-            .id("service_plate")
-            .bound(ServicePlateBlockEntity::new)
-            .validBlock(IMBlocks.SERVICE_PLATE::get)
+    //一般容器
+    public static final BlockEntityEntry<ContainerBlockEntity> CONTAINER = IdyllicFoodDiary.REGISTRY.blockEntity()
+            .id("container")
+            .bound((pos, state) -> new ContainerBlockEntity(9, pos, state))
+            .validBlocks(() -> new Block[] {
+                    IMBlocks.WOODEN_PLATE.get(), IMBlocks.PORCELAIN_PLATE.get()
+            })
+            .build();
+
+    //长容器
+    public static final BlockEntityEntry<LongContainerBlockEntity> LONG_CONTAINER = IdyllicFoodDiary.REGISTRY.blockEntity()
+            .id("long_container")
+            .bound((pos, state) -> new LongContainerBlockEntity(LongPlateBlockRenderer.maxElement, pos, state))
+            .validBlocks(() -> new Block[] {
+                    IMBlocks.LONG_WOODEN_PLATE.get(), IMBlocks.LONG_PORCELAIN_PLATE.get()
+            })
+            .build();
+
+    public static final BlockEntityEntry<AttachmentBlockEntity> ATTACHMENT = IdyllicFoodDiary.REGISTRY.blockEntity()
+            .id("attachment")
+            .bound(AttachmentBlockEntity::new)
+            .validBlocks(() -> new Block[] {
+                    IMBlocks.LONG_WOODEN_PLATE.get(), IMBlocks.LONG_PORCELAIN_PLATE.get()
+            })
             .build();
 
     //蒸笼

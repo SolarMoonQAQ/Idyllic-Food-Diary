@@ -1,4 +1,4 @@
-package cn.solarmoon.idyllic_food_diary.element.matter.cookware.service_plate;
+package cn.solarmoon.idyllic_food_diary.element.matter.cookware.container;
 
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
 import cn.solarmoon.idyllic_food_diary.util.ParticleSpawner;
@@ -15,35 +15,31 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.items.ItemStackHandler;
 
-public class ServicePlateBlock extends SyncedEntityBlock implements IHorizontalFacingBlock {
+public abstract class AbstractContainerBlock extends SyncedEntityBlock implements IHorizontalFacingBlock {
 
-    public ServicePlateBlock() {
+    public AbstractContainerBlock(SoundType soundType) {
         super(BlockBehaviour.Properties.of()
-                .sound(SoundType.GLASS)
+                .sound(soundType)
                 .strength(0.7F)
                 .noOcclusion()
         );
     }
 
-    public ServicePlateBlock(Properties properties) {
+    public AbstractContainerBlock(Properties properties) {
         super(properties);
     }
 
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult blockHitResult) {
-        ServicePlateBlockEntity plate = (ServicePlateBlockEntity) level.getBlockEntity(pos);
+        ContainerBlockEntity plate = (ContainerBlockEntity) level.getBlockEntity(pos);
         if (plate == null) return InteractionResult.PASS;
         ItemStackHandler inv = plate.getInventory();
         if (ItemHandlerUtil.putItem(inv, player, hand, 1)) {
@@ -91,19 +87,6 @@ public class ServicePlateBlock extends SyncedEntityBlock implements IHorizontalF
     public void attack(BlockState state, Level level, BlockPos pos, Player player) {
         getThis(player, level, pos, state, InteractionHand.MAIN_HAND, true);
         super.attack(state, level, pos, player);
-    }
-
-    @Override
-    public VoxelShape getShape(BlockState state, BlockGetter getter, BlockPos pos, CollisionContext collisionContext) {
-        // AbstractServicePlateBlockEntity plate = (AbstractServicePlateBlockEntity) getter.getBlockEntity(pos);
-        // if (plate == null) return Shapes.block();
-        // int add = plate.getStacks().size(); <- 想让堆叠的食物也具有碰撞箱，但是堆叠太高了先不改
-        return Block.box(1, 0, 1, 15, 2, 15);
-    }
-
-    @Override
-    public BlockEntityType<?> getBlockEntityType() {
-        return IMBlockEntities.PLATE.get();
     }
 
 }

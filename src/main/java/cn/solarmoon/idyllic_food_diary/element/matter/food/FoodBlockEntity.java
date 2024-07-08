@@ -3,7 +3,7 @@ package cn.solarmoon.idyllic_food_diary.element.matter.food;
 import cn.solarmoon.idyllic_food_diary.feature.spice.SpiceList;
 import cn.solarmoon.idyllic_food_diary.feature.spice.SpicesCap;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
-import cn.solarmoon.idyllic_food_diary.util.ContainerHelper;
+import cn.solarmoon.idyllic_food_diary.feature.basic_feature.ContainerHelper;
 import cn.solarmoon.solarmoon_core.api.ability.CustomPlaceableItem;
 import cn.solarmoon.solarmoon_core.api.block_util.BlockUtil;
 import net.minecraft.core.BlockPos;

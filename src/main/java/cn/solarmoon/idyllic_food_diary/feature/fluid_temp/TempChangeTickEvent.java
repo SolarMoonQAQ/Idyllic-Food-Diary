@@ -31,7 +31,7 @@ public class TempChangeTickEvent {
                             FluidStack fluidStack = tank.getFluidInTank(0);
                             boolean onHeat = be instanceof IHeatable heatable && heatable.isOnHeatSource();
                             boolean mtHeat = onHeat && Temp.get(fluidStack).isSame(Temp.HOT); // 如果在热源上就保持热
-                            if (!mtHeat && Temp.tick(tank.getFluidInTank(0))) {
+                            if (!mtHeat && Temp.tick(tank.getFluidInTank(0), level, be.getBlockPos())) {
                                 be.setChanged();
                             }
                         });
@@ -43,10 +43,10 @@ public class TempChangeTickEvent {
     }
 
 
-    public static void tickInInventory(ItemStack stack) {
+    public static void tickInInventory(ItemStack stack, Level level, BlockPos pos) {
         FluidUtil.getFluidHandler(stack).ifPresent(tank -> {
             FluidStack fluidStack = tank.getFluidInTank(0);
-            Temp.tick(fluidStack);
+            Temp.tick(fluidStack, level, pos);
         });
     }
 

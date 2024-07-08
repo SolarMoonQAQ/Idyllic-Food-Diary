@@ -5,13 +5,14 @@ import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.element.level.AppleTreeFeature;
 import cn.solarmoon.idyllic_food_diary.element.level.DurianTreeFeature;
 import cn.solarmoon.idyllic_food_diary.element.matter.container.*;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.container.long_plate.LongPlateBlock;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.container.plate.PlateBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cooking_pot.CookingPotBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup.little_cup.LittleCupBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cutting_board.CuttingBoardBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.grill.GrillBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.kettle.KettleBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.oven.OvenBlock;
-import cn.solarmoon.idyllic_food_diary.element.matter.cookware.service_plate.ServicePlateBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.spice_jar.SpiceJarBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer.SteamerBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer.SteamerLidBlock;
@@ -28,6 +29,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SaplingBlock;
+import net.minecraft.world.level.block.SoundType;
 
 public class IMBlocks {
     public static void register() {}
@@ -242,12 +244,6 @@ public class IMBlocks {
             .bound(GrillBlock::new)
             .build();
 
-    //盘子
-    public static final BlockEntry<ServicePlateBlock> SERVICE_PLATE = IdyllicFoodDiary.REGISTRY.block()
-            .id("service_plate")
-            .bound(ServicePlateBlock::new)
-            .build();
-
     //蒸笼
     public static final BlockEntry<SteamerBlock> STEAMER = IdyllicFoodDiary.REGISTRY.block()
             .id("steamer")
@@ -269,27 +265,27 @@ public class IMBlocks {
             .build();
 
     //木盘
-    public static final BlockEntry<WoodenPlateBlock> WOODEN_PLATE = IdyllicFoodDiary.REGISTRY.block()
+    public static final BlockEntry<PlateBlock> WOODEN_PLATE = IdyllicFoodDiary.REGISTRY.block()
             .id("wooden_plate")
-            .bound(WoodenPlateBlock::new)
+            .bound(() -> new PlateBlock(SoundType.WOOD))
             .build();
 
     //长木盘
-    public static final BlockEntry<WoodenPlateBlock> LONG_WOODEN_PLATE = IdyllicFoodDiary.REGISTRY.block()
+    public static final BlockEntry<LongPlateBlock> LONG_WOODEN_PLATE = IdyllicFoodDiary.REGISTRY.block()
             .id("long_wooden_plate")
-            .bound(LongWoodenPlateBlock::new)
+            .bound(() -> new LongPlateBlock(SoundType.WOOD))
             .build();
 
     //瓷盘
-    public static final BlockEntry<PorcelainPlateBlock> PORCELAIN_PLATE = IdyllicFoodDiary.REGISTRY.block()
+    public static final BlockEntry<PlateBlock> PORCELAIN_PLATE = IdyllicFoodDiary.REGISTRY.block()
             .id("porcelain_plate")
-            .bound(PorcelainPlateBlock::new)
+            .bound(() -> new PlateBlock(SoundType.GLASS))
             .build();
 
     //长瓷盘
-    public static final BlockEntry<LongPorcelainPlateBlock> LONG_PORCELAIN_PLATE = IdyllicFoodDiary.REGISTRY.block()
+    public static final BlockEntry<LongPlateBlock> LONG_PORCELAIN_PLATE = IdyllicFoodDiary.REGISTRY.block()
             .id("long_porcelain_plate")
-            .bound(LongPorcelainPlateBlock::new)
+            .bound(() -> new LongPlateBlock(SoundType.GLASS))
             .build();
 
     // 未烹饪的

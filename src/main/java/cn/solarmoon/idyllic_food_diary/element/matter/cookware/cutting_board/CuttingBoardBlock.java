@@ -1,6 +1,8 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.cutting_board;
 
+import cn.solarmoon.idyllic_food_diary.data.IMItemTags;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cleaver.CleaverItem;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.container.AbstractContainerItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.spice_jar.SpiceJarItem;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
 import cn.solarmoon.idyllic_food_diary.util.VoxelShapeUtil;
@@ -76,7 +78,7 @@ public class CuttingBoardBlock extends SyncedEntityBlock implements IBlockUseCal
     public Event.Result getUseResult(BlockState blockState, BlockPos blockPos, Level level, Player player, ItemStack stack, BlockHitResult blockHitResult, InteractionHand hand) {
         Item item = stack.getItem();
         if (player.isCrouching() && !player.getItemInHand(hand).isEmpty()) return Event.Result.DENY;
-        return item instanceof SpiceJarItem || item instanceof CleaverItem ? Event.Result.DENY : Event.Result.ALLOW;
+        return item instanceof SpiceJarItem || item instanceof CleaverItem || stack.is(IMItemTags.CONTAINER) ? Event.Result.DENY : Event.Result.ALLOW;
     }
 
     @Override

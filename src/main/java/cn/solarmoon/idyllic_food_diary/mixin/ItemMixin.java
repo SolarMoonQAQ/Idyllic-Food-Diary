@@ -51,7 +51,7 @@ public abstract class ItemMixin {
 
     @Inject(method = "inventoryTick", at = @At("HEAD"))
     public void tick(ItemStack stack, Level level, Entity entity, int i, boolean held, CallbackInfo ci) {
-        TempChangeTickEvent.tickInInventory(stack);
+        TempChangeTickEvent.tickInInventory(stack, level, entity.getOnPos());
     }
 
 }

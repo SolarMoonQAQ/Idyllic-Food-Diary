@@ -1,4 +1,4 @@
-package cn.solarmoon.idyllic_food_diary.element.matter.cookware.service_plate;
+package cn.solarmoon.idyllic_food_diary.element.matter.cookware.container;
 
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
 import cn.solarmoon.solarmoon_core.api.tile.SyncedBlockEntity;
@@ -6,17 +6,29 @@ import cn.solarmoon.solarmoon_core.api.tile.inventory.IContainerTile;
 import cn.solarmoon.solarmoon_core.api.tile.inventory.TileInventory;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.items.ItemStackHandler;
 
-public class ServicePlateBlockEntity extends SyncedBlockEntity implements IContainerTile {
+public class ContainerBlockEntity extends SyncedBlockEntity implements IContainerTile {
 
     private final TileInventory inventory;
 
-    public ServicePlateBlockEntity(BlockPos pos, BlockState state) {
-        super(IMBlockEntities.PLATE.get(), pos, state);
-        this.inventory = new TileInventory(64, 1, this) {
+    public ContainerBlockEntity(int size, BlockPos pos, BlockState state) {
+        super(IMBlockEntities.CONTAINER.get(), pos, state);
+        this.inventory = new TileInventory(size, 1, this) {
+            @Override
+            public boolean isItemValid(int slot, ItemStack stack)
+            {
+                return stack.isEdible();
+            }
+        };
+    }
+
+    public ContainerBlockEntity(BlockEntityType<?> type, int size, BlockPos pos, BlockState state) {
+        super(type, pos, state);
+        this.inventory = new TileInventory(size, 1, this) {
             @Override
             public boolean isItemValid(int slot, ItemStack stack)
             {

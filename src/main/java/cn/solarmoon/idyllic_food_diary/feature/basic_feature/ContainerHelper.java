@@ -1,8 +1,11 @@
-package cn.solarmoon.idyllic_food_diary.util;
+package cn.solarmoon.idyllic_food_diary.feature.basic_feature;
 
 import cn.solarmoon.idyllic_food_diary.data.IMItemTags;
+import cn.solarmoon.solarmoon_core.api.tile.inventory.ItemHandlerUtil;
+import cn.solarmoon.solarmoon_core.api.tile.inventory.TileItemContainerHelper;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 
 public class ContainerHelper {
 
@@ -44,6 +47,18 @@ public class ContainerHelper {
 
     public static boolean isFoodContainer(ItemStack itemStack) {
         return itemStack.is(IMItemTags.SMALL_CONTAINER) || itemStack.is(IMItemTags.MEDIUM_CONTAINER) || itemStack.is(IMItemTags.LARGE_CONTAINER);
+    }
+
+    /**
+     * 所有涉及到容器盛取的都必须用这个方法判断
+     * @param container 给定的容器材料组
+     * @param heldItem 手持物品
+     * @return 手持物品是否匹配材料组，并且手持容器内没有其他物品
+     */
+    public static boolean test(Ingredient container, ItemStack heldItem) {
+        var op = TileItemContainerHelper.getInventory(heldItem);
+        boolean invEmpty = op.isPresent() && ItemHandlerUtil.getStacks(op.get()).isEmpty(); // 保证餐盘都是空的才能装
+        return container.test(heldItem) && invEmpty;
     }
 
 }

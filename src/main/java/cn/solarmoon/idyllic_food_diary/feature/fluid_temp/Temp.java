@@ -2,13 +2,15 @@ package cn.solarmoon.idyllic_food_diary.feature.fluid_temp;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import com.google.gson.JsonObject;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.GsonHelper;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraftforge.fluids.FluidStack;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Random;
 
 public enum Temp {
     HOT, COMMON, COLD,
@@ -26,6 +28,35 @@ public enum Temp {
     public Component getPrefix() {
         if (this == COMMON) return Component.empty();
         return IdyllicFoodDiary.TRANSLATOR.set("fluid", "temp." + this.toString().toLowerCase());
+    }
+
+    /**
+     * @return 根据温度动态调节变温概率，如冷水在寒冷群系不易变为常温，而在炎热群系则极易变为常温，热水同理
+     */
+    public int getMaxProbabilityFromBiome(Biome biome) {
+        int baseP = 50000;
+        float bTemp = biome.getBaseTemperature();
+        float differ = Math.abs(bTemp - 1) * 5;
+        switch (this) {
+            case COLD -> {
+                if (bTemp <= 0.15) {
+                    return (int) (baseP * differ);
+                } else if (bTemp >= 0.95) {
+                    return (int) (baseP / differ);
+                }
+            }
+            case HOT -> {
+                if (bTemp >= 0.95) {
+                    return (int) (baseP * differ);
+                } else if (bTemp <= 0.15) {
+                    return (int) (baseP / differ);
+                }
+            }
+            default -> {
+                return baseP;
+            }
+        }
+        return baseP;
     }
 
     /**
@@ -91,18 +122,20 @@ public enum Temp {
         }
     }
 
-    public static boolean tick(FluidStack fluidStack) {
-        Random random = new Random();
+    public static boolean tick(FluidStack fluidStack, Level level, BlockPos pos) {
+        RandomSource random = level.random;
+        Biome biome = level.getBiome(pos).get();
+        int probability = get(fluidStack).getMaxProbabilityFromBiome(biome);
         switch (get(fluidStack)) {
             case COLD -> {
-                if (random.nextInt(50000) == 0) {
+                if (random.nextInt(probability) == 0) {
                     IdyllicFoodDiary.DEBUG.send("已变温");
                     grow(fluidStack);
                     return true;
                 }
             }
             case HOT -> {
-                if (random.nextInt(50000) == 0) {
+                if (random.nextInt(probability) == 0) {
                     IdyllicFoodDiary.DEBUG.send("已变温");
                     shrink(fluidStack);
                     return true;

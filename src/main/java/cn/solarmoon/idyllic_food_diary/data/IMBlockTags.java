@@ -47,7 +47,6 @@ public class IMBlockTags extends BlockTagsProvider {
                 IMBlocks.GRILL.get(),
                 IMBlocks.PORCELAIN_PLATE.get(),
                 IMBlocks.LONG_PORCELAIN_PLATE.get(),
-                IMBlocks.SERVICE_PLATE.get(),
                 IMBlocks.CELADON_CUP.get(),
                 IMBlocks.JADE_CHINA_CUP.get()
         ).replace(false);

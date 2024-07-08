@@ -1,19 +1,23 @@
-package cn.solarmoon.idyllic_food_diary.element.matter.container;
+package cn.solarmoon.idyllic_food_diary.element.matter.cookware.container.long_plate;
 
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.container.AbstractLongContainerBlock;
+import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
 import cn.solarmoon.idyllic_food_diary.util.VoxelShapeUtil;
+import cn.solarmoon.solarmoon_core.api.blockstate_access.IBedPartBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BedPart;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class LongPorcelainPlateBlock extends AbstractLongContainerBlock {
+public class LongPlateBlock extends AbstractLongContainerBlock implements IBedPartBlock {
 
-    public LongPorcelainPlateBlock() {
-        super(SoundType.GLASS);
+    public LongPlateBlock(SoundType soundType) {
+        super(soundType);
     }
 
     @Override
@@ -24,6 +28,11 @@ public class LongPorcelainPlateBlock extends AbstractLongContainerBlock {
                 box(3, 0, 0, 13, 1, 13));
         return state.getValue(PART) == BedPart.HEAD ? VoxelShapeUtil.rotateShape(state.getValue(FACING), combine1) :
                 VoxelShapeUtil.rotateShape(state.getValue(FACING), combine2);
+    }
+
+    @Override
+    public BlockEntityType<?> getBlockEntityType() {
+        return IMBlockEntities.LONG_CONTAINER.get();
     }
 
 }

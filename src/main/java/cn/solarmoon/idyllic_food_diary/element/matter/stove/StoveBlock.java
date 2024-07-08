@@ -44,8 +44,8 @@ public class StoveBlock extends BaseBlock implements ILitBlock, IHorizontalFacin
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         ItemStack heldItem = player.getItemInHand(hand);
 
-        //打火石等点燃
-        if (litByHand(state, pos, level, player, hand) || extinguishByHand(state, pos, level, player, hand)) {
+        //打火石等点燃和熄灭
+        if (controlLitByHand(state, pos, level, player, hand)) {
             return InteractionResult.SUCCESS;
         }
 
@@ -65,35 +65,6 @@ public class StoveBlock extends BaseBlock implements ILitBlock, IHorizontalFacin
         }
 
         return InteractionResult.PASS;
-    }
-
-    public boolean extinguishByHand(BlockState state, BlockPos pos, Level level, Player player, InteractionHand hand) {
-        ItemStack heldItem = player.getItemInHand(hand);
-        if (heldItem.is(Items.POTION) && PotionUtils.getPotion(heldItem) == Potions.WATER) {
-            if (!player.isCreative()) {
-                heldItem.shrink(1);
-                DropUtil.addItemToInventory(player, new ItemStack(Items.GLASS_BOTTLE));
-            }
-            level.setBlock(pos, state.setValue(LIT, false), 3);
-            level.playSound(null, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS);
-            return true;
-        }
-        if (heldItem.is(Items.WATER_BUCKET)) {
-            if (!player.isCreative()) {
-                heldItem.shrink(1);
-                DropUtil.addItemToInventory(player, new ItemStack(Items.BUCKET));
-            }
-            level.setBlock(pos, state.setValue(LIT, false), 3);
-            level.playSound(null, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS);
-            return true;
-        }
-        if (heldItem.is(ItemTags.SHOVELS)) {
-            heldItem.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
-            level.setBlock(pos, state.setValue(LIT, false), 3);
-            level.playSound(null, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS);
-            return true;
-        }
-        return false;
     }
 
     @Override

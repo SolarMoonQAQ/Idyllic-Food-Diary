@@ -75,6 +75,7 @@ public class RendererUtil {
                 poseStack.mulPose(Axis.YN.rotationDegrees(rotOffset * i));
                 poseStack.mulPose(Axis.XP.rotationDegrees(90));
                 int light0 = light;
+                // 防止超出当前pos的部分光照不和超出的pos部分一致
                 if (be.getLevel() != null) {
                     light0 = LevelRenderer.getLightColor(be.getLevel(), be.getBlockPos().above((int) h));
                 }

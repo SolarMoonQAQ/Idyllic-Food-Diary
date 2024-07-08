@@ -48,7 +48,6 @@ public class IMBlockLoots extends BlockLootSubProvider {
         dropSelf(IMBlocks.EGG_LIQUID_BOWL.get());
         dropSelf(IMBlocks.STEAMED_EGG_CUSTARD.get());
         dropSelf(IMBlocks.STEAMED_BUN.get());
-        dropSelf(IMBlocks.SERVICE_PLATE.get());
         dropSelf(IMBlocks.ROASTED_NAAN.get());
         dropSelf(IMBlocks.STEAMED_PUMPKIN_WITH_CHOPPED_GARLIC.get());
         dropSelf(IMBlocks.STEAMED_CHICKEN_WITH_MUSHROOM.get());
@@ -88,7 +87,6 @@ public class IMBlockLoots extends BlockLootSubProvider {
         dropSelf(IMBlocks.GRILL.get());
         dropSelf(IMBlocks.STEAMER.get());
         dropSelf(IMBlocks.STEAMER_LID.get());
-        dropSelf(IMBlocks.SERVICE_PLATE.get());
 
         //作物专项
         //类浆果丛类

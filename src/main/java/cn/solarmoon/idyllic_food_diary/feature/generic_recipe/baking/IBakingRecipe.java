@@ -1,10 +1,9 @@
 package cn.solarmoon.idyllic_food_diary.feature.generic_recipe.baking;
 
 import cn.solarmoon.idyllic_food_diary.feature.basic_feature.IHeatable;
-import cn.solarmoon.idyllic_food_diary.feature.basic_feature.ISimpleFuelBlockEntity;
 import cn.solarmoon.idyllic_food_diary.feature.spice.ISpiceable;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMRecipes;
-import cn.solarmoon.idyllic_food_diary.util.ContainerHelper;
+import cn.solarmoon.idyllic_food_diary.feature.basic_feature.ContainerHelper;
 import cn.solarmoon.solarmoon_core.api.tile.inventory.IContainerTile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;

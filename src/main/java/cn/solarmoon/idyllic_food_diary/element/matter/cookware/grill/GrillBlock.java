@@ -63,15 +63,9 @@ public class GrillBlock extends SyncedEntityBlock implements ILitBlock, IHorizon
         ItemStack heldItem = player.getItemInHand(hand);
         if (grill == null) return InteractionResult.PASS;
         ItemStackHandler inv = grill.getInventory();
-        //------------------------------------打火石点燃----------------------------------------//
-        //打火石等点燃
-        if (!state.getValue(LIT) && grill.getInventory().getStackInSlot(6).is(ItemTags.COALS)) {
-            if (heldItem.getItem() instanceof FlintAndSteelItem) {
-                level.playSound(player, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, player.getRandom().nextFloat() * 0.4F + 0.8F);
-                level.setBlock(pos, state.setValue(BlockStateProperties.LIT, Boolean.TRUE), 11);
-                heldItem.hurtAndBreak(1, player, action -> action.broadcastBreakEvent(hand));
-                return InteractionResult.SUCCESS;
-            }
+        //------------------------------------打火石点燃、熄灭----------------------------------------//
+        if (controlLitByHand(state, pos, level, player, hand)) {
+            return InteractionResult.SUCCESS;
         }
         //------------------------------------指哪取哪----------------------------------------//
         //存入其余食物

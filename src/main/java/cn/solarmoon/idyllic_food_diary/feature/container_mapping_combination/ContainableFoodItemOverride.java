@@ -1,6 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.feature.container_mapping_combination;
 
-import cn.solarmoon.idyllic_food_diary.util.ContainerHelper;
+import cn.solarmoon.idyllic_food_diary.feature.basic_feature.ContainerHelper;
 import cn.solarmoon.solarmoon_core.api.item_model.CompositeBakedModel;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;

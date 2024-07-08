@@ -1,7 +1,8 @@
 package cn.solarmoon.idyllic_food_diary.feature.basic_feature;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
-import cn.solarmoon.idyllic_food_diary.util.ContainerHelper;
+import cn.solarmoon.solarmoon_core.api.tile.inventory.ItemHandlerUtil;
+import cn.solarmoon.solarmoon_core.api.tile.inventory.TileItemContainerHelper;
 import cn.solarmoon.solarmoon_core.api.util.DropUtil;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -35,7 +36,7 @@ public interface IPlateable extends IExpGiver {
      */
     default boolean tryGiveResult(Player player, ItemStack heldItem) {
         if (hasResult()) {
-            if (getContainer().test(heldItem)) {
+            if (ContainerHelper.test(getContainer(), heldItem)) {
                 ItemStack result = getResult().split(1);
                 ContainerHelper.setContainer(result, heldItem); // 这里保存了容器信息
                 if (!player.isCreative()) heldItem.shrink(1);

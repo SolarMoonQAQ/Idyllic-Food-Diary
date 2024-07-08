@@ -4,6 +4,7 @@ package cn.solarmoon.idyllic_food_diary.registry.common;
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.element.matter.bathrobe.BathrobeItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cleaver.CleaverItem;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.container.long_plate.LongPlateItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cooking_pot.CookingPotItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup.little_cup.LittleCupItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cutting_board.CuttingBoardItem;
@@ -11,7 +12,7 @@ import cn.solarmoon.idyllic_food_diary.element.matter.cookware.grill.GrillItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.kettle.KettleItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.oven.OvenItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.rolling_pin.RollingPinItem;
-import cn.solarmoon.idyllic_food_diary.element.matter.cookware.service_plate.ServicePlateItem;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.container.plate.PlateItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.spice_jar.SpiceJarItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer.SteamerItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer.SteamerLidItem;
@@ -137,36 +138,29 @@ public class IMItems {
             .bound(SteamerLidItem::new)
             .build();
 
-    //餐具
-    //餐盘
-    public static final ItemEntry<ServicePlateItem> SERVICE_PLATE = IdyllicFoodDiary.REGISTRY.item()
-            .id("service_plate")
-            .bound(ServicePlateItem::new)
-            .build();
-
     //普通餐具
     //木盘
-    public static final ItemEntry<SimpleBlockItem> WOODEN_PLATE = IdyllicFoodDiary.REGISTRY.item()
+    public static final ItemEntry<PlateItem> WOODEN_PLATE = IdyllicFoodDiary.REGISTRY.item()
             .id("wooden_plate")
-            .bound(() -> new BlockItem(IMBlocks.WOODEN_PLATE.get(), new Item.Properties().stacksTo(16)))
+            .bound(() -> new PlateItem(IMBlocks.WOODEN_PLATE.get()))
             .build();
 
     //长木盘
-    public static final ItemEntry<SimpleBlockItem> LONG_WOODEN_PLATE = IdyllicFoodDiary.REGISTRY.item()
+    public static final ItemEntry<LongPlateItem> LONG_WOODEN_PLATE = IdyllicFoodDiary.REGISTRY.item()
             .id("long_wooden_plate")
-            .bound(() -> new BlockItem(IMBlocks.LONG_WOODEN_PLATE.get(), new Item.Properties().stacksTo(16)))
+            .bound(() -> new LongPlateItem(IMBlocks.LONG_WOODEN_PLATE.get()))
             .build();
 
     //瓷盘
-    public static final ItemEntry<SimpleBlockItem> PORCELAIN_PLATE = IdyllicFoodDiary.REGISTRY.item()
+    public static final ItemEntry<PlateItem> PORCELAIN_PLATE = IdyllicFoodDiary.REGISTRY.item()
             .id("porcelain_plate")
-            .bound(() -> new BlockItem(IMBlocks.PORCELAIN_PLATE.get(), new Item.Properties().stacksTo(16)))
+            .bound(() -> new PlateItem(IMBlocks.PORCELAIN_PLATE.get()))
             .build();
 
     //长瓷盘
-    public static final ItemEntry<SimpleBlockItem> LONG_PORCELAIN_PLATE = IdyllicFoodDiary.REGISTRY.item()
+    public static final ItemEntry<LongPlateItem> LONG_PORCELAIN_PLATE = IdyllicFoodDiary.REGISTRY.item()
             .id("long_porcelain_plate")
-            .bound(() -> new BlockItem(IMBlocks.LONG_PORCELAIN_PLATE.get(), new Item.Properties().stacksTo(16)))
+            .bound(() -> new LongPlateItem(IMBlocks.LONG_PORCELAIN_PLATE.get()))
             .build();
 
     //一般作物及其衍生

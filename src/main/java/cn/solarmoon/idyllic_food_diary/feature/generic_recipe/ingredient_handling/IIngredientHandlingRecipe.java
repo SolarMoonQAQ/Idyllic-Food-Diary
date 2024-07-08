@@ -2,7 +2,7 @@ package cn.solarmoon.idyllic_food_diary.feature.generic_recipe.ingredient_handli
 
 import cn.solarmoon.idyllic_food_diary.feature.spice.ISpiceable;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMRecipes;
-import cn.solarmoon.idyllic_food_diary.util.ContainerHelper;
+import cn.solarmoon.idyllic_food_diary.feature.basic_feature.ContainerHelper;
 import cn.solarmoon.solarmoon_core.api.tile.inventory.ItemHandlerUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -30,7 +30,7 @@ public interface IIngredientHandlingRecipe extends ISpiceable {
     default boolean trOutputResult(ItemStack heldItem, Player player, BlockPos pos, Level level) {
         if (findHandleRecipe().isPresent()) {
             IngredientHandlingRecipe recipe = findHandleRecipe().get();
-            if (recipe.container().test(heldItem) && withTrueSpices(recipe.withSpices(), true)) {
+            if (ContainerHelper.test(recipe.container(), heldItem) && withTrueSpices(recipe.withSpices(), true)) {
                 ItemHandlerUtil.clearInv(getInventory(), selfI());
                 ItemStack result = recipe.result().copy();
                 ItemHandlerUtil.insertItem(getInventory(), result);

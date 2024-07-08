@@ -1,9 +1,8 @@
 package cn.solarmoon.idyllic_food_diary.feature.spice;
 
-import cn.solarmoon.idyllic_food_diary.feature.spice.SpicesCap;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMCapabilities;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMCommonConfig;
-import cn.solarmoon.idyllic_food_diary.util.ContainerHelper;
+import cn.solarmoon.idyllic_food_diary.feature.basic_feature.ContainerHelper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
