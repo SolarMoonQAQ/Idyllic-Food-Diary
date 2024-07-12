@@ -7,6 +7,7 @@ import cn.solarmoon.idyllic_food_diary.element.matter.cookware.container.long_pl
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cooking_pot.CookingPotBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup.little_cup.LittleCupBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cutting_board.CuttingBoardBlockEntity;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.fermenter.FermenterBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.grill.GrillBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.kettle.KettleBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.oven.OvenBlockEntity;
@@ -23,6 +24,13 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class IMBlockEntities {
     public static void register() {}
+
+    // 发酵缸
+    public static final BlockEntityEntry<FermenterBlockEntity> FERMENTER = IdyllicFoodDiary.REGISTRY.blockEntity()
+            .id("fermenter")
+            .bound(FermenterBlockEntity::new)
+            .validBlock(IMBlocks.FERMENTER::get)
+            .build();
 
     // 烤箱
     public static final BlockEntityEntry<OvenBlockEntity> OVEN = IdyllicFoodDiary.REGISTRY.blockEntity()
@@ -102,7 +110,7 @@ public class IMBlockEntities {
     //长容器
     public static final BlockEntityEntry<LongContainerBlockEntity> LONG_CONTAINER = IdyllicFoodDiary.REGISTRY.blockEntity()
             .id("long_container")
-            .bound((pos, state) -> new LongContainerBlockEntity(LongPlateBlockRenderer.maxElement, pos, state))
+            .bound((pos, state) -> new LongContainerBlockEntity(LongPlateBlockRenderer.MAX_ELEMENT, pos, state))
             .validBlocks(() -> new Block[] {
                     IMBlocks.LONG_WOODEN_PLATE.get(), IMBlocks.LONG_PORCELAIN_PLATE.get()
             })

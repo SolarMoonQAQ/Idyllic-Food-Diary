@@ -8,6 +8,7 @@ import cn.solarmoon.idyllic_food_diary.element.matter.cookware.container.long_pl
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cooking_pot.CookingPotItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup.little_cup.LittleCupItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cutting_board.CuttingBoardItem;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.fermenter.FermenterItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.grill.GrillItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.kettle.KettleItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.oven.OvenItem;
@@ -33,6 +34,12 @@ import net.minecraft.world.item.Item;
 
 public class IMItems {
     public static void register() {}
+
+    // 发酵罐
+    public static final ItemEntry<FermenterItem> FERMENTER = IdyllicFoodDiary.REGISTRY.item()
+            .id("fermenter")
+            .bound(FermenterItem::new)
+            .build();
 
     // 烤炉
     public static final ItemEntry<OvenItem> OVEN = IdyllicFoodDiary.REGISTRY.item()

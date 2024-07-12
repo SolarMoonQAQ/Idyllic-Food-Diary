@@ -9,6 +9,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 public abstract class AbstractTeaFluid extends SimpleFluid {
@@ -20,9 +21,14 @@ public abstract class AbstractTeaFluid extends SimpleFluid {
         this.fluidEntry = fluidEntry;
     }
 
-    public class FluidBlock extends BaseFluid.FluidBlock {
+    @Override
+    public LiquidBlock getBlock() {
+        return new FluidBlock(fluidEntry);
+    }
 
-        public FluidBlock() {
+    public static class FluidBlock extends BaseFluid.FluidBlock {
+
+        public FluidBlock(FluidEntry fluidEntry) {
             super(fluidEntry.getStillObject());
         }
 

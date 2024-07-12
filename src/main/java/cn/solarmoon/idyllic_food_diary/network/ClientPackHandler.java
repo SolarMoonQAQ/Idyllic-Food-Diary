@@ -14,9 +14,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -41,18 +45,14 @@ public class ClientPackHandler implements IClientPackHandler {
                 int fluidAmount = fluidStack.getAmount();
                 BlockState fluidState = fluidStack.getFluid().defaultFluidState().createLegacyBlock();
                 ParticleOptions particle = new BlockParticleOption(ParticleTypes.BLOCK, fluidState);
-                boolean b = fluidStack.getTag() != null && fluidStack.getTag().contains("Potion");
+                Potion potion = PotionUtils.getPotion(fluidStack.getTag());
                 double d0=0, d1=0, d2=0;
-                if (b) {
+                if (potion != Potions.EMPTY) {
                     particle = ParticleTypes.ENTITY_EFFECT;
-                    ResourceLocation potionId = new ResourceLocation(TextUtil.extractTag(fluidStack.getTag().toString(), "Potion"));
-                    Potion potion = ForgeRegistries.POTIONS.getValue(potionId);
-                    if (potion != null) {
-                        int color = potion.getEffects().get(0).getEffect().getColor();
-                        d0 = (double)(color >> 16 & 255) / 255.0D;
-                        d1 = (double)(color >> 8 & 255) / 255.0D;
-                        d2 = (double)(color & 255) / 255.0D;
-                    }
+                    int color = potion.getEffects().get(0).getEffect().getColor();
+                    d0 = (double)(color >> 16 & 255) / 255.0D;
+                    d1 = (double)(color >> 8 & 255) / 255.0D;
+                    d2 = (double)(color & 255) / 255.0D;
                 } else if (fluidStack.getFluid().getBucket().getDefaultInstance().is(Items.MILK_BUCKET)) {
                     particle = new BlockParticleOption(ParticleTypes.BLOCK, Blocks.WHITE_WOOL.defaultBlockState());
                 }

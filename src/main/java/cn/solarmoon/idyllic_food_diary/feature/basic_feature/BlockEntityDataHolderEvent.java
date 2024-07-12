@@ -3,6 +3,7 @@ package cn.solarmoon.idyllic_food_diary.feature.basic_feature;
 import cn.solarmoon.idyllic_food_diary.element.matter.stove.IBuiltInStove;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.baking.IBakingRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.evaporation.IEvaporationRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.fermentation.IFermentationRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.food_boiling.IFoodBoilingRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.grill.IGrillRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.soup.ISoupRecipe;
@@ -98,6 +99,10 @@ public class BlockEntityDataHolderEvent {
             tag.putInt(IBakingRecipe.BAKE_TIME, bake.getBakeTime());
             tag.putInt(IBakingRecipe.BAKE_RECIPE_TIME, bake.getBakeRecipeTime());
         }
+        if (be instanceof IFermentationRecipe f) {
+            tag.putInt(IFermentationRecipe.FERMENT_TIME, f.getFermentTime());
+            tag.putInt(IFermentationRecipe.FERMENT_RECIPE_TIME, f.getFermentRecipeTime());
+        }
     }
 
     @SubscribeEvent
@@ -168,6 +173,10 @@ public class BlockEntityDataHolderEvent {
         if (be instanceof IBakingRecipe bake) {
             bake.setBakeTime(tag.getInt(IBakingRecipe.BAKE_TIME));
             bake.setBakeRecipeTime(tag.getInt(IBakingRecipe.BAKE_RECIPE_TIME));
+        }
+        if (be instanceof IFermentationRecipe f) {
+            f.setFermentTime(tag.getInt(IFermentationRecipe.FERMENT_TIME));
+            f.setFermentRecipeTime(tag.getInt(IFermentationRecipe.FERMENT_RECIPE_TIME));
         }
     }
 

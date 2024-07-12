@@ -1,0 +1,13 @@
+{
+  "fluid": {
+    "id": "idyllic_food_diary:black_tea"
+  },
+  "effects" : [
+    {
+      "id": "idyllic_food_diary:refreshment",
+      "duration": 1200,
+      "amplifier": 0
+    }
+  ],
+  "extinguishing": true
+}

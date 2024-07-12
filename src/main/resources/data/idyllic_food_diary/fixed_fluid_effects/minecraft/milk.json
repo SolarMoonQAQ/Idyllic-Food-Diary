@@ -1,8 +1,10 @@
 {
-  "fluid": "minecraft:milk",
+  "fluid": {
+    "id": "minecraft:milk"
+  },
   "clear": true,
   "food_value": {
-    "hunger": 2,
+    "nutrition": 2,
     "saturation": 0.5
   },
   "can_always_drink": true

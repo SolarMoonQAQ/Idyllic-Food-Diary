@@ -33,7 +33,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class WokBlock extends CookwareBlock implements IHorizontalFacingBlock, IFreeRenderBlock, IBuiltInStove {
+public class WokBlock extends CookwareBlock implements IHorizontalFacingBlock, IBuiltInStove {
 
     public WokBlock() {
         super(Block.Properties.of()
@@ -55,7 +55,7 @@ public class WokBlock extends CookwareBlock implements IHorizontalFacingBlock, I
             return InteractionResult.SUCCESS;
         }
 
-        if (level.isClientSide && player.getMainHandItem().is(IMItems.SPATULA.get()) && pan.doStirFry()) {
+        if (player.getMainHandItem().is(IMItems.SPATULA.get()) && pan.doStirFry()) {
             return InteractionResult.SUCCESS;
         }
 
@@ -110,7 +110,7 @@ public class WokBlock extends CookwareBlock implements IHorizontalFacingBlock, I
             if (pan.isStirFrying()) {
                 double rInRange = 2/16f + random.nextDouble() * 12/16; // 保证粒子起始点在锅内
                 double vi = (random.nextDouble() - 0.5) / 5;
-                level.addParticle(ParticleTypes.SMOKE, pos.getX() + rInRange, pos.getY() + 1 / 16f + getYOffset(), pos.getZ() + rInRange, vi, 0.1, vi);
+                level.addParticle(ParticleTypes.SMOKE, pos.getX() + rInRange, pos.getY() + 1 / 16f + getYOffset(state), pos.getZ() + rInRange, vi, 0.1, vi);
             }
         }
     }

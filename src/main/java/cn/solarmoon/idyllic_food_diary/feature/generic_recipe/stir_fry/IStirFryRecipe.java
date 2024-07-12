@@ -1,8 +1,10 @@
 package cn.solarmoon.idyllic_food_diary.feature.generic_recipe.stir_fry;
 
+import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.feature.basic_feature.IHeatable;
 import cn.solarmoon.idyllic_food_diary.feature.basic_feature.IPlateable;
 import cn.solarmoon.idyllic_food_diary.feature.spice.ISpiceable;
+import cn.solarmoon.idyllic_food_diary.feature.spice.SpiceList;
 import cn.solarmoon.idyllic_food_diary.network.NETList;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMPacks;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMRecipes;
@@ -59,6 +61,8 @@ public interface IStirFryRecipe extends IContainerTile, ITankTile, IHeatable, IS
 
         // 有配方（也就是在首次条件中完全满足了阶段0），进入烹饪
         if (getStirFryRecipe() != null) {
+            final SpiceList match = new SpiceList();
+            getStirFryRecipe().stirFryStages().forEach(stage -> match.addAll(stage.spices()));
             if (getPresentFryStage() != null) { // 这里当前阶段不为null，意味着还在配方所需阶段范围内
                 setStirFryRecipeTime(getPresentFryStage().time());
                 // 对每个阶段进行内容物检查，要求：满足所有阶段物品所需之和
@@ -68,11 +72,11 @@ public interface IStirFryRecipe extends IContainerTile, ITankTile, IHeatable, IS
                 }
                 // 当物品和液体全匹配后，进行该阶段的正式烹饪
                 if (ingredients.stream().allMatch(in -> getStacks().stream().anyMatch(in) && getStacks().size() == ingredients.size()) && isFluidMatch()) {
-                    if (getStirFryTime() >= getPresentFryStage().time()) {
+                    if (getStirFryTime() > getPresentFryStage().time()) {
                         setCanStirFry(true); // 设置可以翻炒
                         if (isAnimFin() && getFryCount() >= getPresentFryStage().fryCount()) { // 最终步骤完成
                             setPendingItem(getPendingItem().isEmpty() ? getStirFryRecipe().result().copy() : getPendingItem());
-                            addSpicesToItem(getPendingItem(), false);
+                            addSpicesToItem(null, getPendingItem(), false);
                             if (!getPresentFryStage().keepFluid()) FluidHandlerUtil.clearTank(getTank());
                             setStirFryTime(0);
                             setStirFryRecipeTime(0);
@@ -87,7 +91,7 @@ public interface IStirFryRecipe extends IContainerTile, ITankTile, IHeatable, IS
                 }
             } else { // 此处就代表当前阶段已经超出配方最大阶段，表示所有阶段已满足
                 setPending(getPendingItem(), getStirFryRecipe().container());
-                addSpicesToItem(getResult(), true);
+                addSpicesToItem(match, getResult(), true);
                 ItemHandlerUtil.clearInv(getInventory(), h());
             }
             return true;
@@ -106,39 +110,43 @@ public interface IStirFryRecipe extends IContainerTile, ITankTile, IHeatable, IS
     }
 
     default boolean doStirFry() {
-        IBlockEntityData b = h().getCapability(SolarCapabilities.BLOCK_ENTITY_DATA).orElse(null);
-        if (b == null || !isAnimFin()) return false;
+        return h().getCapability(SolarCapabilities.BLOCK_ENTITY_DATA).map(b -> {
+            if (!isAnimFin() || getPresentFryStage() == null || getFryCount() >= getPresentFryStage().fryCount()) return false;
 
-        boolean flag = false;
+            Level level = h().getLevel();
+            if (level == null || !level.isClientSide) return false;
 
-        for (int i = 0; i < getStacks().size(); i++) {
-            AnimTicker animTicker = b.getAnimTicker(i+2);
-            AnimTicker animTicker2 = b.getAnimTicker(-(i+2));
-            if (canStirFry() && getPresentFryStage() != null && !animTicker.isEnabled()) {
-                animTicker.setFixedValue(0); // 设置动画初始帧
-                animTicker.start();
-                animTicker2.setFixedValue(new Random().nextFloat()); // 设置炒菜随机旋转角
-                flag = true;
+            boolean flag = false;
+
+            for (int i = 0; i < getStacks().size(); i++) {
+                AnimTicker animTicker = b.getAnimTicker(i+2);
+                AnimTicker animTicker2 = b.getAnimTicker(-(i+2));
+                if (canStirFry() && !animTicker.isEnabled()) {
+                    animTicker.setFixedValue(0); // 设置动画初始帧
+                    animTicker.start();
+                    animTicker2.setFixedValue(new Random().nextFloat()); // 设置炒菜随机旋转角
+                    flag = true;
+                }
             }
-        }
 
-        if (flag) {
-            IMPacks.SERVER_PACK.getSender().pos(h().getBlockPos()).i(getFryCount() + 1).send(NETList.DO_STIR);
-            setFryCount(getFryCount() + 1);
-            return true;
-        }
+            if (flag) {
+                IMPacks.SERVER_PACK.getSender().pos(h().getBlockPos()).i(getFryCount() + 1).send(NETList.DO_STIR);
+                setFryCount(getFryCount() + 1);
+                return true;
+            }
 
-        return false;
+            return false;
+        }).orElse(false);
     }
 
     default boolean isAnimFin() {
-        for (int i = 0; i < getStacks().size(); i++) {
-            IBlockEntityData d = h().getCapability(SolarCapabilities.BLOCK_ENTITY_DATA).orElse(null);
-            if (d == null) return false;
-            AnimTicker animTicker = d.getAnimTicker(i + 2);
-            if (animTicker.isEnabled()) return false;
-        }
-        return true;
+        return h().getCapability(SolarCapabilities.BLOCK_ENTITY_DATA).map(d -> {
+            for (int i = 0; i < getStacks().size(); i++) {
+                AnimTicker animTicker = d.getAnimTicker(i + 2);
+                if (animTicker.isEnabled()) return false;
+            }
+            return true;
+        }).orElse(false);
     }
 
     /**

@@ -1,0 +1,9 @@
+{
+  "fluid": {
+    "id": "create:honey"
+  },
+  "food_value": {
+    "nutrition": 3,
+    "saturation": 0.1
+  }
+}

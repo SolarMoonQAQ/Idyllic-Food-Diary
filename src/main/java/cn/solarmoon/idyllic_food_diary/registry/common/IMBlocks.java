@@ -10,6 +10,7 @@ import cn.solarmoon.idyllic_food_diary.element.matter.cookware.container.plate.P
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cooking_pot.CookingPotBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup.little_cup.LittleCupBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cutting_board.CuttingBoardBlock;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.fermenter.FermenterBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.grill.GrillBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.kettle.KettleBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.oven.OvenBlock;
@@ -33,6 +34,12 @@ import net.minecraft.world.level.block.SoundType;
 
 public class IMBlocks {
     public static void register() {}
+
+    // 发酵缸
+    public static final BlockEntry<FermenterBlock> FERMENTER = IdyllicFoodDiary.REGISTRY.block()
+            .id("fermenter")
+            .bound(FermenterBlock::new)
+            .build();
 
     // 烤箱
     public static final BlockEntry<OvenBlock> OVEN = IdyllicFoodDiary.REGISTRY.block()

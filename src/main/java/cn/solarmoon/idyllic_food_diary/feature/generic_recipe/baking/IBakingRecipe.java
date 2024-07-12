@@ -2,6 +2,7 @@ package cn.solarmoon.idyllic_food_diary.feature.generic_recipe.baking;
 
 import cn.solarmoon.idyllic_food_diary.feature.basic_feature.IHeatable;
 import cn.solarmoon.idyllic_food_diary.feature.spice.ISpiceable;
+import cn.solarmoon.idyllic_food_diary.feature.spice.SpiceList;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMRecipes;
 import cn.solarmoon.idyllic_food_diary.feature.basic_feature.ContainerHelper;
 import cn.solarmoon.solarmoon_core.api.tile.inventory.IContainerTile;
@@ -25,7 +26,7 @@ public interface IBakingRecipe extends IContainerTile, IHeatable, ISpiceable {
                 ItemStack result = recipe.result().copy();
                 ItemStack container = ContainerHelper.getContainer(getInventory().getStackInSlot(0));
                 ContainerHelper.setContainer(result, container);
-                addSpicesToItem(result, true);
+                addSpicesToItem(new SpiceList(), result, true);
                 getInventory().setStackInSlot(0, result);
                 setBakeTime(0);
                 setBakeRecipeTime(0);

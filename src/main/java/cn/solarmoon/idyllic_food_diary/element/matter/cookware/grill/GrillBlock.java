@@ -64,7 +64,7 @@ public class GrillBlock extends SyncedEntityBlock implements ILitBlock, IHorizon
         if (grill == null) return InteractionResult.PASS;
         ItemStackHandler inv = grill.getInventory();
         //------------------------------------打火石点燃、熄灭----------------------------------------//
-        if (controlLitByHand(state, pos, level, player, hand)) {
+        if (ILitBlock.controlLitByHand(state, pos, level, player, hand)) {
             return InteractionResult.SUCCESS;
         }
         //------------------------------------指哪取哪----------------------------------------//

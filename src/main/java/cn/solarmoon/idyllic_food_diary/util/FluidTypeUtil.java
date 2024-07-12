@@ -8,6 +8,7 @@ import java.util.List;
 
 import static cn.solarmoon.idyllic_food_diary.registry.common.IMFluids.*;
 
+@Deprecated
 public class FluidTypeUtil {
 
 

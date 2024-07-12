@@ -156,6 +156,7 @@
   "death.attack.idyllic_food_diary.scald": "%s被烫死了",
   "death.attack.idyllic_food_diary.falling_durian": "%s被榴莲砸穿了",
   "death.attack.idyllic_food_diary.durian_thorns": "%s被榴莲扎死了",
+  "death.attack.idyllic_food_diary.taste_bud_shock": "%s的味蕾受到了极大的冲击而当场暴毙",
 
   "message.idyllic_food_diary.obtainable_food.container_required": "你需要%s来盛装这个食物",
   "message.idyllic_food_diary.obtainable_food.tool_required": "你需要%s来分割这个食物",

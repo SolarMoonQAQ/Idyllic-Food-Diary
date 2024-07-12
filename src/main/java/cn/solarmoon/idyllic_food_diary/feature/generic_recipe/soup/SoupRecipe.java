@@ -6,6 +6,7 @@ import cn.solarmoon.idyllic_food_diary.registry.common.IMRecipes;
 import cn.solarmoon.solarmoon_core.api.data.SerializeHelper;
 import cn.solarmoon.solarmoon_core.api.entry.common.RecipeEntry;
 import cn.solarmoon.solarmoon_core.api.recipe.IConcreteRecipe;
+import cn.solarmoon.solarmoon_core.api.recipe.ProportionalIngredient;
 import com.google.gson.JsonObject;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -20,7 +21,7 @@ import java.util.List;
 
 public record SoupRecipe (
         ResourceLocation id,
-        List<Ingredient> ingredients,
+        List<ProportionalIngredient> ingredients,
         FluidStack inputFluid,
         Temp temp,
         SpiceList withSpices,
@@ -28,6 +29,7 @@ public record SoupRecipe (
         FluidStack outputFluid,
         int exp
 ) implements IConcreteRecipe {
+
     @Override
     public RecipeEntry<?> getRecipeEntry() {
         return IMRecipes.SOUP;
@@ -42,7 +44,7 @@ public record SoupRecipe (
 
         @Override
         public @NotNull SoupRecipe fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
-            List<Ingredient> inputIngredients = SerializeHelper.readIngredients(json, "ingredients");
+            List<ProportionalIngredient> inputIngredients = ProportionalIngredient.readProportionalIngredients(json, "proportional_ingredients");
             FluidStack inputFluid = SerializeHelper.readFluidStack(json, "input_fluid");
             Temp tempScale = Temp.readFromJson(json);
             SpiceList withSpices = SpiceList.readSpices(json, "with_spices");
@@ -54,27 +56,28 @@ public record SoupRecipe (
 
         @Nullable
         @Override
-        public SoupRecipe fromNetwork(@NotNull ResourceLocation recipeId, @NotNull FriendlyByteBuf buffer) {
-            List<Ingredient> ingredients = SerializeHelper.readIngredients(buffer);
-            FluidStack inputFluid = buffer.readFluidStack();
-            Temp tempScale = buffer.readEnum(Temp.class);
-            SpiceList withSpices = SpiceList.readSpices(buffer);
-            int time = buffer.readInt();
-            FluidStack outputFluid = buffer.readFluidStack();
-            int exp = buffer.readInt();
+        public SoupRecipe fromNetwork(@NotNull ResourceLocation recipeId, @NotNull FriendlyByteBuf buf) {
+            List<ProportionalIngredient> ingredients = ProportionalIngredient.readProportionalIngredients(buf);
+            FluidStack inputFluid = buf.readFluidStack();
+            Temp tempScale = buf.readEnum(Temp.class);
+            SpiceList withSpices = SpiceList.readSpices(buf);
+            int time = buf.readInt();
+            FluidStack outputFluid = buf.readFluidStack();
+            int exp = buf.readInt();
             return new SoupRecipe(recipeId, ingredients, inputFluid, tempScale, withSpices, time, outputFluid, exp);
         }
 
         @Override
-        public void toNetwork(@NotNull FriendlyByteBuf buffer, SoupRecipe recipe) {
-            SerializeHelper.writeIngredients(buffer, recipe.ingredients());
-            buffer.writeFluidStack(recipe.inputFluid());
-            buffer.writeEnum(recipe.temp);
-            SpiceList.writeSpices(buffer, recipe.withSpices());
-            buffer.writeInt(recipe.time());
-            recipe.outputFluid().writeToPacket(buffer);
-            buffer.writeInt(recipe.exp());
+        public void toNetwork(@NotNull FriendlyByteBuf buf, SoupRecipe recipe) {
+            ProportionalIngredient.writeProportionalIngredients(buf, recipe.ingredients);
+            buf.writeFluidStack(recipe.inputFluid());
+            buf.writeEnum(recipe.temp);
+            SpiceList.writeSpices(buf, recipe.withSpices());
+            buf.writeInt(recipe.time());
+            recipe.outputFluid().writeToPacket(buf);
+            buf.writeInt(recipe.exp());
         }
 
     }
+
 }

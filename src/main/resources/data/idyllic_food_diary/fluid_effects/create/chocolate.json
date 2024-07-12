@@ -1,7 +1,0 @@
-{
-  "fluid": "create:chocolate",
-  "food_value": {
-    "hunger": 6,
-    "saturation": 0.1
-  }
-}

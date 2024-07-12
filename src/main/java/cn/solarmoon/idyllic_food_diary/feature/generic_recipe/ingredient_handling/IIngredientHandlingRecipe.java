@@ -34,6 +34,7 @@ public interface IIngredientHandlingRecipe extends ISpiceable {
                 ItemHandlerUtil.clearInv(getInventory(), selfI());
                 ItemStack result = recipe.result().copy();
                 ItemHandlerUtil.insertItem(getInventory(), result);
+                addSpicesToItem(recipe.withSpices(), result, false);
                 ContainerHelper.setContainer(result, heldItem);
                 if (!player.isCreative()) heldItem.shrink(1);
                 Vec3 center = pos.getCenter();

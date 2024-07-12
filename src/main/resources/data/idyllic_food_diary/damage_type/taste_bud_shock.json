@@ -1,0 +1,6 @@
+{
+  "effects": "taste_bud_shock",
+  "exhaustion": 0.1,
+  "message_id": "idyllic_food_diary.taste_bud_shock",
+  "scaling": "when_caused_by_living_non_player"
+}

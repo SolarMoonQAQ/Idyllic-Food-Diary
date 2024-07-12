@@ -1,36 +1,27 @@
 {
   "type": "idyllic_food_diary:soup",
-  "ingredients": [
+  "proportional_ingredients": [
     {
-      "item": "minecraft:mutton"
+      "ingredient": {
+        "item": "minecraft:mutton"
+      },
+      "count": 2
     },
     {
-      "item": "minecraft:mutton"
-    },
-    {
-      "item": "minecraft:mutton"
-    },
-    {
-      "item": "minecraft:mutton"
-    },
-    {
-      "item": "minecraft:mutton"
-    },
-    {
-      "item": "minecraft:mutton"
-    },
-    {
-      "item": "idyllic_food_diary:garlic_sprouts"
+      "ingredient": {
+        "item": "idyllic_food_diary:garlic_sprouts"
+      },
+      "count": 1
     }
   ],
   "input_fluid": {
     "id": "minecraft:water",
-    "amount": 1000
+    "amount": 250
   },
   "temp": "hot",
   "time": 60,
   "output_fluid": {
     "id": "idyllic_food_diary:cang_shu_mutton_soup_fluid",
-    "amount": 1000
+    "amount": 250
   }
 }

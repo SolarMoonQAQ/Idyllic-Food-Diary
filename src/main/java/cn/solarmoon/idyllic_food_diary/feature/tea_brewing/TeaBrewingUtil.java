@@ -11,6 +11,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -56,15 +57,18 @@ public class TeaBrewingUtil {
     public static void commonDrink(FluidStack fluidStack, LivingEntity entity, boolean needFood) {
         Level level = entity.level();
         TeaIngredientList teaIngredients = TeaIngredient.readFromFluidStack(fluidStack);
+        FixedFluidEffect fixedFluidEffect = FixedFluidEffect.getByFluid(fluidStack.getFluid());
         // 此处先应用需要累计的效果
         boolean clear = false;
         int fire = 0;
         int extinguishValue = 0;
         for (var ti : teaIngredients.getTeaIngredientsHasEffect()) {
             fire = fire + ti.getFireTime();
-            if (ti.canClearAllEffect()) clear = true;
+            if (ti.canClearAllEffect() || fixedFluidEffect.canClearAllEffect()) clear = true;
             extinguishValue = ti.canExtinguishing() ? extinguishValue + 1 : extinguishValue - 1;
         }
+        fire += fixedFluidEffect.getFireTime();
+        extinguishValue = fixedFluidEffect.canExtinguishing() ? extinguishValue + 1 : extinguishValue - 1;
         // 应用着火效果（value为0也是什么也不做（中和了））  - 举例 ： 一个着火(fire>0)，一个灭火(extinguish)，那么中和起来就不会着火也不会灭火
         if (extinguishValue == 0) fire = 0;
         entity.setSecondsOnFire(fire);
@@ -92,6 +96,13 @@ public class TeaBrewingUtil {
                 player.getFoodData().eat(teaIngredient.getFoodValue().nutrition, teaIngredient.getFoodValue().saturation);
                 level.playSound(null, player.getOnPos(), SoundEvents.PLAYER_BURP, SoundSource.PLAYERS, 1F, 1F);
             }
+        }
+
+        List<MobEffectInstance> effectsF = fixedFluidEffect.getEffects();
+        effectsF.forEach(entity::addEffect);
+        if (needFood && entity instanceof Player player && (fixedFluidEffect.canAlwaysDrink() || player.canEat(false)) && fixedFluidEffect.getFoodValue().isValid()) {
+            player.getFoodData().eat(fixedFluidEffect.getFoodValue().nutrition, fixedFluidEffect.getFoodValue().saturation);
+            level.playSound(null, player.getOnPos(), SoundEvents.PLAYER_BURP, SoundSource.PLAYERS, 1F, 1F);
         }
 
         // 应用原版药水tag的效果（这对机械动力的药水液体什么的会有用）
@@ -131,37 +142,51 @@ public class TeaBrewingUtil {
     public static void showTeaIngredientTooltip(FluidStack fluidStack, List<Component> components) {
         if (fluidStack.isEmpty()) return;
         TeaIngredientList teaIngredients = TeaIngredient.readFromFluidStack(fluidStack);
+        FixedFluidEffect fixedFluidEffect = FixedFluidEffect.getByFluid(fluidStack.getFluid());
         boolean clear = false;
         int fire = 0;
         int extinguishValue = 0;
         for (var ti : teaIngredients.getTeaIngredientsHasEffect()) {
             fire = fire + ti.getFireTime();
-            if (ti.canClearAllEffect()) clear = true;
+            if (ti.canClearAllEffect() || fixedFluidEffect.canClearAllEffect()) clear = true;
             extinguishValue = ti.canExtinguishing() ? extinguishValue + 1 : extinguishValue - 1;
         }
+        fire += fixedFluidEffect.getFireTime();
+        extinguishValue = fixedFluidEffect.canExtinguishing() ? extinguishValue + 1 : extinguishValue - 1;
         if (extinguishValue == 0) fire = 0;
         if (clear) components.add(IdyllicFoodDiary.TRANSLATOR.set("tooltip", "tea_ingredient.clear", ChatFormatting.BLUE));
         if (extinguishValue > 0) components.add(IdyllicFoodDiary.TRANSLATOR.set("tooltip", "tea_ingredient.extinguishing", ChatFormatting.BLUE));
         else if (fire > 0) components.add(TextUtil.getPotionLikeTooltip(IdyllicFoodDiary.TRANSLATOR.set("tooltip", "tea_ingredient.fire"), fire * 20));
 
         List<PotionEffect> potionEffects = new ArrayList<>(); // 所有茶属性中的药水效果，会有id重复的
-        HashMap<String, PotionEffect> allEffects = new HashMap<>(); // 设定一个不重复id的effect表
+        HashMap<String, MobEffectInstance> allEffects = new HashMap<>(); // 设定一个不重复id的effect表
         teaIngredients.getTeaIngredientsHasEffect().forEach(ti -> potionEffects.addAll(ti.getEffects()));
         potionEffects.forEach(potionEffect -> {
             String id = potionEffect.id;
-            PotionEffect effectPresent = allEffects.get(id);
+            MobEffectInstance effectPresent = allEffects.get(id);
             if (effectPresent != null) {
-                if (effectPresent.amplifier < potionEffect.amplifier || (effectPresent.amplifier == potionEffect.amplifier && effectPresent.duration < potionEffect.duration)) {
+                if (effectPresent.getAmplifier() < potionEffect.amplifier || (effectPresent.getAmplifier() == potionEffect.amplifier && effectPresent.getDuration() < potionEffect.duration)) {
+                    allEffects.put(id, potionEffect.getEffect());
+                }
+            } else {
+                allEffects.put(id, potionEffect.getEffect());
+            } // 选择等级高的或者等级一样但是时间长的同种药水进行覆盖
+        });
+
+        fixedFluidEffect.getEffects().forEach(potionEffect -> {
+            String id = potionEffect.getDescriptionId();
+            MobEffectInstance effectPresent = allEffects.get(id);
+            if (effectPresent != null) {
+                if (effectPresent.getAmplifier() < potionEffect.getAmplifier() || (effectPresent.getAmplifier() == potionEffect.getAmplifier() && effectPresent.getDuration() < potionEffect.getDuration())) {
                     allEffects.put(id, potionEffect);
                 }
             } else {
                 allEffects.put(id, potionEffect);
             } // 选择等级高的或者等级一样但是时间长的同种药水进行覆盖
         });
+
         List<MobEffectInstance> effects = new ArrayList<>();
-        for (PotionEffect effect : allEffects.values()) {
-            effects.add(effect.getEffect());
-        }
+        effects.addAll(allEffects.values());
         effects.addAll(PotionUtils.getAllEffects(fluidStack.getTag()));
         TextUtil.addPotionTooltipWithoutAttribute(effects, components);
     }
@@ -179,8 +204,9 @@ public class TeaBrewingUtil {
     public static boolean canEat(FluidStack fluidStack, Player player) {
         if (fluidStack.isEmpty()) return false;
         TeaIngredientList teaIngredients = TeaIngredient.readFromFluidStack(fluidStack);
-        boolean canAlwaysEat = teaIngredients.getTeaIngredientsHasEffect().stream().allMatch(TeaIngredient.Add::canAlwaysDrink);
-        boolean isFoodLike = teaIngredients.getTeaIngredientsHasEffect().stream().anyMatch(tea -> tea.getFoodValue().isValid());
+        FixedFluidEffect fixedFluidEffect = FixedFluidEffect.getByFluid(fluidStack.getFluid());
+        boolean canAlwaysEat = teaIngredients.getTeaIngredientsHasEffect().stream().allMatch(TeaIngredient.Add::canAlwaysDrink) && fixedFluidEffect.canAlwaysDrink();
+        boolean isFoodLike = teaIngredients.getTeaIngredientsHasEffect().stream().anyMatch(tea -> tea.getFoodValue().isValid()) || fixedFluidEffect.getFoodValue().isValid();
         if (isFoodLike) return player.canEat(false) || canAlwaysEat;
         return true;
     }

@@ -43,7 +43,7 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements IStewRec
 
     public CookingPotBlockEntity(BlockPos pos, BlockState state) {
         super(IMBlockEntities.COOKING_POT.get(), pos, state);
-        inventory = new TileInventory(9, 1, this);
+        inventory = new TileInventory(24, 1, this);
         fluidTank = new TileTank(1000, this);
     }
 

@@ -1,6 +1,5 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.container.long_plate;
 
-import cn.solarmoon.idyllic_food_diary.element.matter.cookware.container.ContainerBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.container.LongContainerBlockEntity;
 import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
 import cn.solarmoon.solarmoon_core.api.phys.PoseStackHelper;
@@ -18,8 +17,8 @@ import net.minecraftforge.items.ItemStackHandler;
 
 public class LongPlateBlockRenderer extends BaseBlockEntityRenderer<LongContainerBlockEntity> {
 
-    public static final int row = 5;
-    public static final int maxElement = row * (row + 1) / 2;
+    public static final int ROW = 5;
+    public static final int MAX_ELEMENT = ROW * (ROW + 1) / 2;
 
     public LongPlateBlockRenderer(BlockEntityRendererProvider.Context context) {
         super(context);
@@ -35,9 +34,9 @@ public class LongPlateBlockRenderer extends BaseBlockEntityRenderer<LongContaine
         //   2 3    - 2 n + (n-1)
         //  4 5 6   - 3 n + (n-1) + (n-2)
         // 7 8 9 10 - 4 n + (n-1) + (n-2) + (n-3) 等差数列
-        for (int r = 0; r < row; r++) {
-            int Sn = (row - r) * ((row - r) + 1) / 2;
-            int Sn_1 = (row - r - 1) * ((row - r - 1) + 1) / 2;
+        for (int r = 0; r < ROW; r++) {
+            int Sn = (ROW - r) * ((ROW - r) + 1) / 2;
+            int Sn_1 = (ROW - r - 1) * ((ROW - r - 1) + 1) / 2;
             float scale = 0.5f;
             float interval = scale / 2; // 物品间隔
             float x = r * interval / 2;

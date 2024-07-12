@@ -69,6 +69,24 @@ public class Spice implements INBTSerializable<CompoundTag> {
         return step;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public Spice copy() {
+        return new Spice(id, type, step, amount);
+    }
+
+    public Spice copyWithCount(int count) {
+        Spice copy = copy();
+        copy.setAmount(count);
+        return copy;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
     /**
      * 不比较数量，其它全比较
      */
@@ -102,6 +120,14 @@ public class Spice implements INBTSerializable<CompoundTag> {
         type = Type.valueOf(nbt.getString("type"));
         step = Step.valueOf(nbt.getString("step"));
         amount = nbt.getInt("amount");
+    }
+
+    public static Spice createUnit(Item item) {
+        return new Spice(item, Step.EMPTY);
+    }
+
+    public static Spice createUnit(Fluid fluid) {
+        return new Spice(fluid, Step.EMPTY);
     }
 
     public static Spice readFromNBT(CompoundTag nbt) {

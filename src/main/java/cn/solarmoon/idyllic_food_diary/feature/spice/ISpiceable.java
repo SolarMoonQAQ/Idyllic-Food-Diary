@@ -4,6 +4,7 @@ import cn.solarmoon.idyllic_food_diary.registry.common.IMCapabilities;
 import cn.solarmoon.solarmoon_core.api.tile.inventory.IContainerTile;
 import cn.solarmoon.solarmoon_core.api.tile.inventory.ItemHandlerUtil;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -18,30 +19,25 @@ public interface ISpiceable extends IContainerTile {
      * @param stack 要加调料的物品
      * @param addSpicesFormIngredients 如果需要考虑之前的带调料的物品就填入这个集合，会把容器内物品的调料也加进来
      */
-    default void addSpicesToItem(ItemStack stack, boolean addSpicesFormIngredients) {
+    default void addSpicesToItem(@Nullable SpiceList recipeNeed, ItemStack stack, boolean addSpicesFormIngredients) {
         if (addSpicesFormIngredients) {
             for (ItemStack add : getStacks()) {
-                SpicesCap addData = add.getCapability(IMCapabilities.FOOD_ITEM_DATA).orElse(null).getSpicesData();
-                if (addData != null && !addData.isEmpty()) {
-                    getSpices().addAll(addData.getSpices()); // 这里是把所有现存物品（不是预存物品）的所有调料混入待加的调料表
-                }
+                add.getCapability(IMCapabilities.FOOD_ITEM_DATA).ifPresent(d -> {
+                    SpicesCap addData = d.getSpicesData();
+                    if (addData != null && !addData.isEmpty()) {
+                        getSpices().addAll(addData.getSpices()); // 这里是把所有现存物品（不是预存物品）的所有调料混入待加的调料表
+                    }
+                });
             }
         }
-        if (!getSpices().isEmpty()) {
-            SpicesCap spicesData = stack.getCapability(IMCapabilities.FOOD_ITEM_DATA).orElse(null).getSpicesData();
+        stack.getCapability(IMCapabilities.FOOD_ITEM_DATA).ifPresent(d -> {
+            SpicesCap spicesData = d.getSpicesData();
             if (spicesData != null) {
-                spicesData.getSpices().addAll(getSpices()); // 而这里是应用所有调料到指定物品上
-                doFlavorAssessment(stack);
+                if (!getSpices().isEmpty()) spicesData.getSpices().addAll(getSpices()); // 而这里是应用所有调料到指定物品上
+                if (recipeNeed != null) Flavor.doFlavorAssessment(recipeNeed, stack);
             }
-        }
+        });
         clearSpices();
-    }
-
-    /**
-     * 对最终产品进行风味的评定并应用效果
-     */
-    default void doFlavorAssessment(ItemStack stack) {
-        
     }
 
     /**

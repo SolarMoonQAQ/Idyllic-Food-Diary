@@ -32,16 +32,18 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import java.util.List;
 
-public abstract class CookwareBlock extends SyncedEntityBlock implements IHorizontalFacingBlock, ILitBlock {
+public abstract class CookwareBlock extends SyncedEntityBlock implements IHorizontalFacingBlock {
 
     public CookwareBlock(Properties properties) {
-        super(properties.lightLevel((state) -> state.getValue(LIT) ? 13 : 0));
-        this.registerDefaultState(this.getStateDefinition().any().setValue(IBuiltInStove.NESTED_IN_STOVE, false));
+        super(properties.lightLevel(ILitBlock::getCommonLightLevel));
+        if (this instanceof IBuiltInStove) {
+            this.registerDefaultState(this.getStateDefinition().any().setValue(IBuiltInStove.NESTED_IN_STOVE, false));
+        }
     }
 
-    public abstract VoxelShape getOriginShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context);
-
     public abstract InteractionResult originUse(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult);
+
+    public abstract VoxelShape getOriginShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context);
 
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
@@ -49,7 +51,7 @@ public abstract class CookwareBlock extends SyncedEntityBlock implements IHorizo
         if (state.getBlock() instanceof IBuiltInStove bis && bis.isNestedInStove(state)) {
             Vec3 hit = hitResult.getLocation();
 
-            if (litByHand(state, pos, level, player, hand)) {
+            if (ILitBlock.litByHand(state, pos, level, player, hand)) {
                 return InteractionResult.SUCCESS;
             }
 
@@ -81,7 +83,7 @@ public abstract class CookwareBlock extends SyncedEntityBlock implements IHorizo
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         VoxelShape origin = getOriginShape(state, level, pos, context);
         if (state.getBlock() instanceof IBuiltInStove bis && bis.isNestedInStove(state)) {
-            return Shapes.or(origin.move(0, bis.getYOffset(), 0), bis.getShape(state));
+            return Shapes.or(origin.move(0, bis.getYOffset(state), 0), bis.getShape(state));
         }
         return origin;
     }

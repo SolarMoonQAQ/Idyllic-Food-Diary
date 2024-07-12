@@ -45,7 +45,7 @@ public class StoveBlock extends BaseBlock implements ILitBlock, IHorizontalFacin
         ItemStack heldItem = player.getItemInHand(hand);
 
         //打火石等点燃和熄灭
-        if (controlLitByHand(state, pos, level, player, hand)) {
+        if (ILitBlock.controlLitByHand(state, pos, level, player, hand)) {
             return InteractionResult.SUCCESS;
         }
 

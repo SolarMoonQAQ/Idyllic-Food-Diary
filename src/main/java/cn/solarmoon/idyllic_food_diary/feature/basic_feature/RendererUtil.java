@@ -38,7 +38,7 @@ public class RendererUtil {
                 // 按比例定位等边三角形的顶点
                 float[] vertex = vertices[i % 3];
                 double x = renderBoxVertexMin + range * vertex[0];
-                double h = (yBlockOffset + scale / 2) / 16F + 0.5 / 16F * i; // 高度
+                double h = (yBlockOffset + scale / 2) / 16F + scale / 16F * i; // 高度
                 double z = renderBoxVertexMin + range * vertex[1];
                 poseStack.translate(x, h, z);
                 poseStack.scale(scale, scale, scale);
@@ -68,7 +68,7 @@ public class RendererUtil {
                 // 按比例定位等边三角形的顶点
                 float[] vertex = vertices[i % vertices.length];
                 double x = renderBoxVertexMin + range * vertex[0];
-                double h = (yBlockOffset + scale / 2) / 16F + 0.5 / 16F * i; // 高度
+                double h = (yBlockOffset + scale / 2) / 16F + scale / 16F * i; // 高度
                 double z = renderBoxVertexMin + range * vertex[1];
                 poseStack.translate(x, h, z);
                 poseStack.scale(scale, scale, scale);

@@ -1,0 +1,13 @@
+{
+  "fluid": {
+    "id": "idyllic_food_diary:green_tea"
+  },
+  "effects" : [
+    {
+      "id": "idyllic_food_diary:fleet_of_foot",
+      "duration": 1800,
+      "amplifier": 1
+    }
+  ],
+  "extinguishing": true
+}

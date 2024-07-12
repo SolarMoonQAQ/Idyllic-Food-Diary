@@ -21,11 +21,13 @@ public abstract class CookwareTileRenderer<E extends BlockEntity> extends BaseBl
     @Override
     public void render(E be, float deltaTick, PoseStack poseStack, MultiBufferSource buffer, int light, int overlay) {
         BlockState state = be.getBlockState();
+
         if (state.getBlock() instanceof IBuiltInStove bis && bis.isNestedInStove(be.getBlockState())) {
             Direction direction = state.getValue(IHorizontalFacingBlock.FACING);
             bis.translateContent(direction, poseStack, buffer, light, overlay);
         }
 
+        context.getBlockRenderDispatcher().renderSingleBlock(state, poseStack, buffer, light, overlay);
         originRender(be, deltaTick, poseStack, buffer, light, overlay);
     }
 

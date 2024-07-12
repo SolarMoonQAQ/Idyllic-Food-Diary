@@ -6,7 +6,7 @@ import cn.solarmoon.solarmoon_core.api.fluid_base.SimpleFluid;
 public class SeaweedEggDropSoupFluid extends SimpleFluid {
 
     public SeaweedEggDropSoupFluid() {
-        super(IMFluids.SEAWEED_EGG_DROP_SOUP_FLUID);
+        super(IMFluids.SEAWEED_EGG_DROP_SOUP);
     }
 
 }

@@ -27,6 +27,13 @@
           "item": "idyllic_food_diary:chopped_spring_onion"
         }
       ],
+      "with_spices": [
+        {
+          "item": "minecraft:sugar",
+          "step": "mix",
+          "amount": 1
+        }
+      ],
       "time": 0,
       "fry_count": 3
     }

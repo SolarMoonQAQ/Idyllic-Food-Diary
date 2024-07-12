@@ -5,6 +5,7 @@ import cn.solarmoon.idyllic_food_diary.compat.create.Create;
 import cn.solarmoon.idyllic_food_diary.compat.farmersdelight.FarmersDelight;
 import cn.solarmoon.idyllic_food_diary.compat.patchouli.Patchouli;
 import cn.solarmoon.idyllic_food_diary.registry.ability.IMComposterThs;
+import cn.solarmoon.idyllic_food_diary.registry.ability.IMFlavors;
 import cn.solarmoon.idyllic_food_diary.registry.ability.IMPlaceableItems;
 import cn.solarmoon.idyllic_food_diary.registry.ability.IMSpittableItems;
 import cn.solarmoon.idyllic_food_diary.registry.client.*;
@@ -65,6 +66,7 @@ public class IdyllicFoodDiary extends SolarMoonBase {
         IMSpittableItems.register();
         IMPlaceableItems.register();
         IMComposterThs.register();
+        IMFlavors.register();
     }
 
     @Override

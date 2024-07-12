@@ -9,7 +9,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
 
@@ -35,10 +34,10 @@ public class IMFluidTags extends FluidTagsProvider {
                 IMFluids.GREEN_TEA.getFlowing(),
                 IMFluids.MILK_TEA.getStill(),
                 IMFluids.MILK_TEA.getFlowing(),
-                IMFluids.CANG_SHU_MUTTON_SOUP_FLUID.getStill(),
-                IMFluids.CANG_SHU_MUTTON_SOUP_FLUID.getFlowing(),
-                IMFluids.MUSHROOM_STEW_FLUID.getStill(),
-                IMFluids.MUSHROOM_STEW_FLUID.getFlowing()
+                IMFluids.CANG_SHU_MUTTON_SOUP.getStill(),
+                IMFluids.CANG_SHU_MUTTON_SOUP.getFlowing(),
+                IMFluids.MUSHROOM_STEW.getStill(),
+                IMFluids.MUSHROOM_STEW.getFlowing()
         )
                 .replace(false);
     }

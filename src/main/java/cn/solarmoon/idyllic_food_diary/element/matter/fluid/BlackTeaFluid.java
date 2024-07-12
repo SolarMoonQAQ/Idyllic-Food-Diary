@@ -11,6 +11,4 @@ public class BlackTeaFluid extends AbstractTeaFluid {
         super(IMFluids.BLACK_TEA);
     }
 
-    public class FluidBlock extends AbstractTeaFluid.FluidBlock {}
-
 }

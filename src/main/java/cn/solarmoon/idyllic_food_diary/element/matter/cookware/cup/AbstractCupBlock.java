@@ -26,6 +26,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 
@@ -67,7 +68,8 @@ public abstract class AbstractCupBlock extends SyncedEntityBlock implements IHor
                 return InteractionResult.SUCCESS;
             }
 
-            if (ItemHandlerUtil.storage(cup.getInventory(), player, hand, 1, 1)) {
+            // 不能用手存入带储罐的物品
+            if (!FluidUtil.getFluidHandler(heldItem).isPresent() && ItemHandlerUtil.storage(cup.getInventory(), player, hand, 1, 1)) {
                 level.playSound(null, pos, SoundEvents.ARMOR_EQUIP_LEATHER, SoundSource.PLAYERS, 0.2f, 1f);
                 return InteractionResult.SUCCESS;
             }

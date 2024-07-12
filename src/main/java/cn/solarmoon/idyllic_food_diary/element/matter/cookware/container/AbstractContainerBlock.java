@@ -2,6 +2,7 @@ package cn.solarmoon.idyllic_food_diary.element.matter.cookware.container;
 
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
 import cn.solarmoon.idyllic_food_diary.util.ParticleSpawner;
+import cn.solarmoon.solarmoon_core.api.blockstate_access.IBedPartBlock;
 import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
 import cn.solarmoon.solarmoon_core.api.capability.CountingDevice;
 import cn.solarmoon.solarmoon_core.api.tile.SyncedEntityBlock;
@@ -85,7 +86,11 @@ public abstract class AbstractContainerBlock extends SyncedEntityBlock implement
 
     @Override
     public void attack(BlockState state, Level level, BlockPos pos, Player player) {
-        getThis(player, level, pos, state, InteractionHand.MAIN_HAND, true);
+        BlockPos rP = pos;
+        if (this instanceof IBedPartBlock b) {
+            rP = b.getFootPos(state, pos);
+        }
+        getThis(player, level, rP, state, InteractionHand.MAIN_HAND, true);
         super.attack(state, level, pos, player);
     }
 

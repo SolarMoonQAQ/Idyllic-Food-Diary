@@ -5,6 +5,6 @@ import cn.solarmoon.solarmoon_core.api.fluid_base.SimpleFluid;
 
 public class PumpkinSoupFluid extends SimpleFluid {
     public PumpkinSoupFluid() {
-        super(IMFluids.PUMPKIN_SOUP_FLUID);
+        super(IMFluids.PUMPKIN_SOUP);
     }
 }

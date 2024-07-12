@@ -8,6 +8,4 @@ public class MilkTeaFluid extends AbstractTeaFluid {
         super(IMFluids.MILK_TEA);
     }
 
-    public class FluidBlock extends AbstractTeaFluid.FluidBlock {}
-
 }

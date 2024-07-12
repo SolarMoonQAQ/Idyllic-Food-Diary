@@ -42,7 +42,7 @@ public interface IStewRecipe extends ITankTile, IPlateable, ISpiceable, IHeatabl
                     //输出物
                     if (!recipe.result().isEmpty()) {
                         setPending(recipe.result().copy(), recipe.container());
-                        addSpicesToItem(getResult(), true);
+                        addSpicesToItem(recipe.withSpices(), getResult(), true);
                     }
                     FluidHandlerUtil.clearTank(getTank());
                     setExp(recipe.exp());

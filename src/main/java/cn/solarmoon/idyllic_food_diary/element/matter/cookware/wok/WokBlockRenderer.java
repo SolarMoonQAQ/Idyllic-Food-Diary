@@ -32,9 +32,8 @@ public class WokBlockRenderer extends CookwareTileRenderer<WokBlockEntity> {
 
     @Override
     public void originRender(WokBlockEntity pan, float v, PoseStack poseStack, MultiBufferSource buffer, int light, int overlay) {
-        context.getBlockRenderDispatcher().renderSingleBlock(pan.getBlockState(), poseStack, buffer, light, overlay);
-
-        double posYOffset = ((IBuiltInStove) pan.getBlockState().getBlock()).getYOffset();
+        IBuiltInStove b = (IBuiltInStove) pan.getBlockState().getBlock();
+        double posYOffset = b.getYOffset(pan.getBlockState());
 
         pan.getCapability(SolarCapabilities.BLOCK_ENTITY_DATA).ifPresent(data -> {
             //渲染物品

@@ -51,7 +51,6 @@ public class CuttingBoardBlock extends SyncedEntityBlock implements IBlockUseCal
         if (blockEntity instanceof CuttingBoardBlockEntity cb) {
             ItemStackHandler inv = cb.getInventory();
             if (cb.trOutputResult(heldItem, player, pos, level)) {
-                cb.addSpicesToItem(cb.getInventory().getStackInSlot(0), false);
                 return InteractionResult.SUCCESS;
             }
             // 蹲下右键全拉出来

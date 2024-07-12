@@ -57,7 +57,7 @@ public class ContainerHelper {
      */
     public static boolean test(Ingredient container, ItemStack heldItem) {
         var op = TileItemContainerHelper.getInventory(heldItem);
-        boolean invEmpty = op.isPresent() && ItemHandlerUtil.getStacks(op.get()).isEmpty(); // 保证餐盘都是空的才能装
+        boolean invEmpty = op.isPresent() && ItemHandlerUtil.getStacks(op.get()).isEmpty() || op.isEmpty(); // 保证餐盘都是空的才能装
         return container.test(heldItem) && invEmpty;
     }
 

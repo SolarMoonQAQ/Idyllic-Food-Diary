@@ -1,8 +1,8 @@
 {
   "variants": {
-    "facing=north": { "model": "idyllic_food_diary:block/wooden_plate", "y": 180  },
-    "facing=south": { "model": "idyllic_food_diary:block/wooden_plate"},
-    "facing=east": { "model": "idyllic_food_diary:block/wooden_plate", "y": 270 },
-    "facing=west": { "model": "idyllic_food_diary:block/wooden_plate", "y": 90 }
+    "facing=north": { "model": "idyllic_food_diary:block/wooden_plate", "y": 0  },
+    "facing=south": { "model": "idyllic_food_diary:block/wooden_plate", "y": 180 },
+    "facing=east": { "model": "idyllic_food_diary:block/wooden_plate", "y": 90 },
+    "facing=west": { "model": "idyllic_food_diary:block/wooden_plate", "y": 270 }
   }
 }

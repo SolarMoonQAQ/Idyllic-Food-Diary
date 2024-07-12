@@ -42,7 +42,6 @@ public class TempChangeTickEvent {
         }
     }
 
-
     public static void tickInInventory(ItemStack stack, Level level, BlockPos pos) {
         FluidUtil.getFluidHandler(stack).ifPresent(tank -> {
             FluidStack fluidStack = tank.getFluidInTank(0);

@@ -6,7 +6,7 @@ import cn.solarmoon.solarmoon_core.api.fluid_base.SimpleFluid;
 public class CangShuMuttonSoupFluid extends SimpleFluid {
 
     public CangShuMuttonSoupFluid() {
-        super(IMFluids.CANG_SHU_MUTTON_SOUP_FLUID);
+        super(IMFluids.CANG_SHU_MUTTON_SOUP);
     }
 
 }

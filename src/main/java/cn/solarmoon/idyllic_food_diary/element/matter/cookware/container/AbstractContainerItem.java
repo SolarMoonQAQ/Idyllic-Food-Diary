@@ -14,7 +14,7 @@ import java.util.function.Supplier;
 public abstract class AbstractContainerItem extends BlockItem {
 
     public AbstractContainerItem(Block block) {
-        super(block, new Properties());
+        super(block, new Properties().stacksTo(16));
     }
 
     public abstract BaseItemRenderer getItemRenderer();

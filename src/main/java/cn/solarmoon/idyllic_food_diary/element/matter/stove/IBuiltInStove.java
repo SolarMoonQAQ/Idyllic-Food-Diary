@@ -3,6 +3,8 @@ package cn.solarmoon.idyllic_food_diary.element.matter.stove;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlocks;
 import cn.solarmoon.idyllic_food_diary.util.VoxelShapeUtil;
 import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
+import cn.solarmoon.solarmoon_core.api.blockstate_access.ILitBlock;
+import cn.solarmoon.solarmoon_core.api.renderer.IFreeRenderBlock;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -20,7 +22,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 /**
  * 接入后，可以超级变换形态，也就是物品对着炉灶右键可以嵌入
  */
-public interface IBuiltInStove {
+public interface IBuiltInStove extends IFreeRenderBlock, ILitBlock {
 
     BooleanProperty NESTED_IN_STOVE = BooleanProperty.create("nested_in_stove");
 
@@ -41,6 +43,10 @@ public interface IBuiltInStove {
                 IMBlocks.STOVE.get().defaultBlockState().setValue(IHorizontalFacingBlock.FACING, direction),
                 poseStack, buffer, light, overlay);
         poseStack.translate(0, getYOffset(), 0);
+    }
+
+    default double getYOffset(BlockState state) {
+        return state.getBlock() instanceof IBuiltInStove bis && bis.isNestedInStove(state) ? getYOffset() : 0;
     }
 
     default double getYOffset() {

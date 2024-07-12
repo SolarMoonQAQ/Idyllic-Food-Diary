@@ -5,6 +5,6 @@ import cn.solarmoon.solarmoon_core.api.fluid_base.SimpleFluid;
 
 public class BeetrootSoupFluid extends SimpleFluid {
     public BeetrootSoupFluid() {
-        super(IMFluids.BEETROOT_SOUP_FLUID);
+        super(IMFluids.BEETROOT_SOUP);
     }
 }

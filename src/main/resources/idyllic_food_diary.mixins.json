@@ -9,10 +9,12 @@
     "BucketItemMixin",
     "EntityMixin",
     "FluidTypeMixin",
-    "ItemMixin"
+    "ItemMixin",
+    "LivingEntityMixin"
   ],
   "client": [
-    "ItemInHandLayerMixin"
+    "ItemInHandLayerMixin",
+    "TerrainParticleMixin"
   ],
   "injectors": {
     "defaultRequire": 1
