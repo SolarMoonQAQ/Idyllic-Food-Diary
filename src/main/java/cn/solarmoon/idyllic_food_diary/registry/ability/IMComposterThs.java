@@ -24,7 +24,7 @@ public class IMComposterThs {
 
         put(IMItems.GINGER_SLICE.get(), 0.5F);
         put(IMItems.PUMPKIN_SLICE.get(), 0.5F);
-        put(IMItems.GARLIC_CLOVE.get(), 0.5F);
+        put(IMItems.SOYBEANS.get(), 0.5F);
         put(IMItems.SPRING_ONION.get(), 0.5F);
         put(IMItems.GARLIC_SPROUTS.get(), 0.5F);
 

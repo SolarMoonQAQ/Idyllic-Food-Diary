@@ -7,6 +7,7 @@ import cn.solarmoon.solarmoon_core.api.tile.SyncedBlockEntity;
 import cn.solarmoon.solarmoon_core.api.tile.fluid.TileTank;
 import cn.solarmoon.solarmoon_core.api.tile.inventory.TileInventory;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.items.ItemStackHandler;
@@ -20,6 +21,7 @@ public class KettleBlockEntity extends SyncedBlockEntity implements IWaterBoilin
     private int boilRecipeTime;
     private int brewTime;
     private int brewRecipeTime;
+    private int dumpVolume;
 
     public KettleBlockEntity(BlockPos pos, BlockState state) {
         super(IMBlockEntities.KETTLE.get(), pos, state);
@@ -75,6 +77,18 @@ public class KettleBlockEntity extends SyncedBlockEntity implements IWaterBoilin
     @Override
     public FluidTank getTank() {
         return fluidTank;
+    }
+
+    @Override
+    protected void saveAdditional(CompoundTag tag) {
+        super.saveAdditional(tag);
+        tag.putInt(AbstractKettleItem.DRAIN, dumpVolume);
+    }
+
+    @Override
+    public void load(CompoundTag tag) {
+        super.load(tag);
+        dumpVolume = tag.getInt(AbstractKettleItem.DRAIN);
     }
 
 }

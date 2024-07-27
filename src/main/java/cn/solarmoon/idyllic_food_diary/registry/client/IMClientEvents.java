@@ -1,7 +1,9 @@
 package cn.solarmoon.idyllic_food_diary.registry.client;
 
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cleaver.CleaverClientEvent;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.kettle.KettleClientEvent;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.rolling_pin.RollingPinClientEvent;
+import cn.solarmoon.idyllic_food_diary.feature.hug_item.PreventArmShowEvent;
 import cn.solarmoon.idyllic_food_diary.feature.spice.SpiceTooltipEvent;
 import cn.solarmoon.idyllic_food_diary.feature.water_pouring.DrinkingClientEvent;
 import cn.solarmoon.solarmoon_core.api.entry.client.BaseClientEventRegistry;
@@ -15,6 +17,8 @@ public class IMClientEvents extends BaseClientEventRegistry {
         add(new RollingPinClientEvent());
         add(new CleaverClientEvent());
         add(new SpiceTooltipEvent());
+        add(new KettleClientEvent());
+        add(new PreventArmShowEvent());
     }
 
 }

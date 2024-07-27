@@ -1,5 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup.little_cup;
 
+import cn.solarmoon.idyllic_food_diary.api.AnimHelper;
 import cn.solarmoon.solarmoon_core.api.phys.PoseStackHelper;
 import cn.solarmoon.solarmoon_core.api.renderer.BaseItemRenderer;
 import cn.solarmoon.solarmoon_core.api.renderer.TextureRenderUtil;
@@ -12,6 +13,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.ItemStackHandler;
 
 public class LittleCupItemRenderer extends BaseItemRenderer {
@@ -34,7 +36,9 @@ public class LittleCupItemRenderer extends BaseItemRenderer {
         poseStack.popPose();
 
         // 液体
-        TextureRenderUtil.renderStaticFluid(3/16f, 3/16f, 1.5f/16, stack, poseStack, buffer, light);
+        stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).ifPresent(tank -> {
+            AnimHelper.Fluid.renderStaticFluid(3/16f, 3/16f, 1.5f/16, tank, poseStack, buffer, light);
+        });
 
     }
 

@@ -24,21 +24,23 @@ public class ObtainInteraction {
     private DropForm dropForm;
     private ObtainingMethod method;
     private SoundEvent sound;
+    private boolean destroy;
 
     public ObtainInteraction(ItemStack drop, ItemMatcher matcher, DropForm dropForm, ObtainingMethod method) {
-        this.drop = drop;
-        this.matcher = matcher;
-        this.dropForm = dropForm;
-        this.method = method;
-        this.sound = SoundEvents.ARMOR_EQUIP_LEATHER;
+        this(drop, matcher, dropForm, method, SoundEvents.ARMOR_EQUIP_LEATHER);
     }
 
     public ObtainInteraction(ItemStack drop, ItemMatcher matcher, DropForm dropForm, ObtainingMethod method, SoundEvent sound) {
+        this(drop, matcher, dropForm, method, sound, false);
+    }
+
+    public ObtainInteraction(ItemStack drop, ItemMatcher matcher, DropForm dropForm, ObtainingMethod method, SoundEvent sound, boolean destroy) {
         this.drop = drop;
         this.matcher = matcher;
         this.dropForm = dropForm;
         this.method = method;
         this.sound = sound;
+        this.destroy = destroy;
     }
 
     public ObtainInteraction setDrop(ItemStack drop) {
@@ -64,6 +66,10 @@ public class ObtainInteraction {
     public ObtainInteraction setSound(SoundEvent sound) {
         this.sound = sound;
         return this;
+    }
+
+    public void setDestroy(boolean destroy) {
+        this.destroy = destroy;
     }
 
     public ItemStack getDrop() {
@@ -97,6 +103,7 @@ public class ObtainInteraction {
             // 首先替换方块到下一阶段，如果目标阶段为0则放置留存方块
             int remain = state.getValue(BaseInteractionBlock.INTERACTION);
             BlockState targetState = state.setValue(BaseInteractionBlock.INTERACTION, remain - 1);
+            if (destroy) level.destroyBlock(pos, false);
             level.setBlock(pos, targetState, 3);
             if (targetState.getValue(BaseInteractionBlock.INTERACTION) == 0) {
                 BlockUtil.replaceBlockWithAllState(state, fb.getContainerLeft(), level, pos);

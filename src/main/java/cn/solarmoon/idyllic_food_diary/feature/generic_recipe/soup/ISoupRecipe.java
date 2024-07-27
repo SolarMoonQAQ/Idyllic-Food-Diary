@@ -1,10 +1,8 @@
 package cn.solarmoon.idyllic_food_diary.feature.generic_recipe.soup;
 
-import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.feature.basic_feature.IExpGiver;
 import cn.solarmoon.idyllic_food_diary.feature.basic_feature.IHeatable;
 import cn.solarmoon.idyllic_food_diary.feature.fluid_temp.Temp;
-import cn.solarmoon.idyllic_food_diary.feature.spice.Flavor;
 import cn.solarmoon.idyllic_food_diary.feature.spice.ISpiceable;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMRecipes;
 import cn.solarmoon.solarmoon_core.api.recipe.ProportionalIngredient;
@@ -12,16 +10,12 @@ import cn.solarmoon.solarmoon_core.api.tile.fluid.FluidHandlerUtil;
 import cn.solarmoon.solarmoon_core.api.tile.fluid.ITankTile;
 import cn.solarmoon.solarmoon_core.api.tile.inventory.ItemHandlerUtil;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.util.RecipeMatcher;
 import net.minecraftforge.fluids.FluidStack;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public interface ISoupRecipe extends ITankTile, ISpiceable, IExpGiver, IHeatable {
 

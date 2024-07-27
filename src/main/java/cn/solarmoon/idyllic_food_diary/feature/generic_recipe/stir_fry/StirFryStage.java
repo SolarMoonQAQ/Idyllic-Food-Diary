@@ -72,7 +72,7 @@ public record StirFryStage(
     }
 
     public static void writeListToNetwork(FriendlyByteBuf buf, List<StirFryStage> stirFryStages) {
-        buf.writeInt(stirFryStages.size());
+        buf.writeVarInt(stirFryStages.size());
         for (var stage : stirFryStages) {
             stage.toNetwork(buf);
         }

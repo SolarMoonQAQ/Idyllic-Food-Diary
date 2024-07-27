@@ -1,11 +1,11 @@
 package cn.solarmoon.idyllic_food_diary.feature.basic_feature;
 
-import cn.solarmoon.idyllic_food_diary.element.matter.stove.IBuiltInStove;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.baking.IBakingRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.evaporation.IEvaporationRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.fermentation.IFermentationRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.food_boiling.IFoodBoilingRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.grill.IGrillRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.grinding.IGrindingRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.soup.ISoupRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.steaming.ISteamingRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.stew.IStewRecipe;
@@ -103,6 +103,11 @@ public class BlockEntityDataHolderEvent {
             tag.putInt(IFermentationRecipe.FERMENT_TIME, f.getFermentTime());
             tag.putInt(IFermentationRecipe.FERMENT_RECIPE_TIME, f.getFermentRecipeTime());
         }
+        if (be instanceof IGrindingRecipe g) {
+            tag.putInt(IGrindingRecipe.GRINDING_TIME, g.getGrindingTime());
+            tag.putInt(IGrindingRecipe.GRINDING_RECIPE_TIME, g.getGrindingRecipeTime());
+            tag.putBoolean(IGrindingRecipe.FLOWING, g.isFlowing());
+        }
     }
 
     @SubscribeEvent
@@ -177,6 +182,11 @@ public class BlockEntityDataHolderEvent {
         if (be instanceof IFermentationRecipe f) {
             f.setFermentTime(tag.getInt(IFermentationRecipe.FERMENT_TIME));
             f.setFermentRecipeTime(tag.getInt(IFermentationRecipe.FERMENT_RECIPE_TIME));
+        }
+        if (be instanceof IGrindingRecipe g) {
+            g.setGrindingTime(tag.getInt(IGrindingRecipe.GRINDING_TIME));
+            g.setGrindingRecipeTime(tag.getInt(IGrindingRecipe.GRINDING_RECIPE_TIME));
+            g.setFlowing(tag.getBoolean(IGrindingRecipe.FLOWING));
         }
     }
 

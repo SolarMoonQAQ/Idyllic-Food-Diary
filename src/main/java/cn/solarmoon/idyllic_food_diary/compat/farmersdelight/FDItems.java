@@ -1,7 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.compat.farmersdelight;
 
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlocks;
-import cn.solarmoon.idyllic_food_diary.util.useful_data.FoodProperty;
+import cn.solarmoon.idyllic_food_diary.feature.basic_feature.useful_data.FoodProperty;
 import cn.solarmoon.solarmoon_core.api.entry.common.ItemEntry;
 import cn.solarmoon.solarmoon_core.api.item_base.SimpleFoodBlockItem;
 

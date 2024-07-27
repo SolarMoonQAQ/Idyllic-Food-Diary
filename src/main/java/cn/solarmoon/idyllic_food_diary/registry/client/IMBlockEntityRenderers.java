@@ -6,6 +6,8 @@ import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup.little_cup.Li
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cutting_board.CuttingBoardBlockRenderer;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.grill.GrillBlockRenderer;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.container.plate.PlateBlockRenderer;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.millstone.MillstoneBlockRenderer;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.oven.OvenBlockRenderer;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer.SteamerBlockRenderer;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.wok.WokBlockRenderer;
 import cn.solarmoon.idyllic_food_diary.element.matter.food.FoodBlockRenderer;
@@ -23,6 +25,8 @@ public class IMBlockEntityRenderers {
         IMBlockEntities.COOKING_POT.renderer(() -> CookingPotBlockRenderer::new);
         IMBlockEntities.FOOD.renderer(() -> FoodBlockRenderer::new);
         IMBlockEntities.WOK.renderer(() -> WokBlockRenderer::new);
+        IMBlockEntities.OVEN.renderer(() -> OvenBlockRenderer::new);
+        IMBlockEntities.MILLSTONE.renderer(() -> MillstoneBlockRenderer::new);
     }
 
 }

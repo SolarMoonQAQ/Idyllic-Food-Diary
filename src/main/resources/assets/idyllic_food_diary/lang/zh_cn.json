@@ -24,6 +24,9 @@
   "block.idyllic_food_diary.steamer_base": "蒸笼底座",
   "block.idyllic_food_diary.steamer": "蒸笼",
   "block.idyllic_food_diary.steamer_lid": "蒸笼盖",
+  "block.idyllic_food_diary.stove_lid": "灶台盖",
+  "block.idyllic_food_diary.inlaid_stove": "镶嵌式灶台",
+  "block.idyllic_food_diary.millstone": "石磨",
 
   "block.idyllic_food_diary.bowl": "碗",
   "block.idyllic_food_diary.wooden_plate": "木盘",
@@ -148,10 +151,13 @@
   "effect.idyllic_food_diary.refreshment": "神清气爽",
   "effect.idyllic_food_diary.fleet_of_foot": "健步如飞",
 
+  "tooltip.idyllic_food_diary.shift_off": "§8按住 [§7shift§8] 可查看概要",
+  "tooltip.idyllic_food_diary.shift_on": "§8按住 [§fshift§8] 可查看概要",
   "tooltip.idyllic_food_diary.fluid_empty": "空",
   "tooltip.idyllic_food_diary.tea_ingredient.clear": "清空所有效果",
   "tooltip.idyllic_food_diary.tea_ingredient.extinguishing": "扑灭火焰",
   "tooltip.idyllic_food_diary.tea_ingredient.fire": "着火",
+  "tooltip.idyllic_food_diary.kettle.dump": "§6倾倒量：%s",
 
   "death.attack.idyllic_food_diary.scald": "%s被烫死了",
   "death.attack.idyllic_food_diary.falling_durian": "%s被榴莲砸穿了",
@@ -162,6 +168,7 @@
   "message.idyllic_food_diary.obtainable_food.tool_required": "你需要%s来分割这个食物",
   "message.idyllic_food_diary.container_required": "你需要一个合适的容器来盛出这个食物",
   "message.idyllic_food_diary.container_required.empty": "你需要空手来盛出这个食物",
+  "message.idyllic_food_diary.dump_volume_empty": "液体倾倒量不能为空",
 
   "idyllic_food_diary.player.pouring_water": "倒水",
   "idyllic_food_diary.player.water_splashing": "泼水",
@@ -196,7 +203,7 @@
   "config.jade.plugin_idyllic_food_diary.cutting_board": "砧板信息",
   "config.jade.plugin_idyllic_food_diary.winnowing_basket": "簸箕信息",
   "config.jade.plugin_idyllic_food_diary.oven": "烤炉信息",
-  "config.jade.plugin_idyllic_food_diary.water_storage_stove": "蓄水灶台信息",
+  "config.jade.plugin_idyllic_food_diary.fermenter": "发酵缸信息",
 
   "jade.idyllic_food_diary.stir_fry.stage": "当前阶段：%s",
   "jade.idyllic_food_diary.ingredient_handling": "可制作：",
@@ -207,7 +214,7 @@
   "jade.idyllic_food_diary.steamer.layer_3": "三层：",
   "jade.idyllic_food_diary.steamer.layer_2": "二层：",
   "jade.idyllic_food_diary.steamer.layer_1": "底层：",
-  "jade.idyllic_food_diary.steamer_base.evaporating": "蒸发中...（速率：%smB/秒）",
+  "jade.idyllic_food_diary.evaporating": "蒸发中...（速率：%smB/秒）",
   "jade.idyllic_food_diary.steamer.working": "是否上汽：",
 
 

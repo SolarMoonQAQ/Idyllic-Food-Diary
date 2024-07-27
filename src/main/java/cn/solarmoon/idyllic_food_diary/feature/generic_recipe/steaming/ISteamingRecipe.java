@@ -42,6 +42,7 @@ public interface ISteamingRecipe {
                 SteamingRecipe recipe = recipeOp.get();
                 getSteamRecipeTimes()[i] = recipe.time();
                 getSteamTimes()[i] = getSteamTimes()[i] + 1;
+                sb().setChanged();
                 if (getSteamTimes()[i] >= recipe.time()) {
                     getInvList().setStackInSlot(i, recipe.output().copy());
                     getSteamTimes()[i] = 0;

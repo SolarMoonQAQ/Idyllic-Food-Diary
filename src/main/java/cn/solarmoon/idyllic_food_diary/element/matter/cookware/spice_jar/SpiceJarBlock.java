@@ -1,5 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.spice_jar;
 
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.CookwareBlock;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
 import cn.solarmoon.solarmoon_core.api.block_use_caller.IBlockUseCaller;
 import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
@@ -24,7 +25,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.eventbus.api.Event;
 import org.jetbrains.annotations.Nullable;
 
-public class SpiceJarBlock extends SyncedEntityBlock implements IBlockUseCaller, IHorizontalFacingBlock {
+public class SpiceJarBlock extends CookwareBlock implements IBlockUseCaller {
 
     public SpiceJarBlock() {
         super(BlockBehaviour.Properties.copy(Blocks.GLASS));
@@ -35,7 +36,7 @@ public class SpiceJarBlock extends SyncedEntityBlock implements IBlockUseCaller,
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    public InteractionResult originUse(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         SpiceJarBlockEntity jar = (SpiceJarBlockEntity) level.getBlockEntity(pos);
         if (jar == null) return InteractionResult.PASS;
 
@@ -47,18 +48,12 @@ public class SpiceJarBlock extends SyncedEntityBlock implements IBlockUseCaller,
     }
 
     @Override
-    public void attack(BlockState state, Level level, BlockPos pos, Player player) {
-        getThis(player, level, pos, state, InteractionHand.MAIN_HAND, true);
-        super.attack(state, level, pos, player);
-    }
-
-    @Override
     public Event.Result getUseResult(BlockState blockState, BlockPos blockPos, Level level, Player player, ItemStack itemStack, BlockHitResult blockHitResult, InteractionHand hand) {
         return Event.Result.ALLOW;
     }
 
     @Override
-    public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
+    public VoxelShape getOriginShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
         return Shapes.block();
     }
 

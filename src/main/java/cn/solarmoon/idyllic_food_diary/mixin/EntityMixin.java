@@ -1,8 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.mixin;
 
-import cn.solarmoon.idyllic_food_diary.registry.client.IMParticles;
-import cn.solarmoon.idyllic_food_diary.registry.common.IMFluids;
-import cn.solarmoon.idyllic_food_diary.util.FluidTypeUtil;
+import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -19,6 +17,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.fluids.FluidType;
+import net.minecraftforge.registries.RegistryObject;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -27,6 +26,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+@Deprecated
 @Mixin(Entity.class)
 public abstract class EntityMixin {
 
@@ -67,7 +67,7 @@ public abstract class EntityMixin {
     public void tick(CallbackInfo ci) {
         //第一次完全进入/出水判别 (模组液体)
         //这个限制 活体
-        boolean isFullInWater = FluidTypeUtil.IMFluidsMatch(getEyeInFluidType());
+        boolean isFullInWater = IdyllicFoodDiary.REGISTRY.fluidTypeRegister.getEntries().stream().map(RegistryObject::get).anyMatch(f -> f.equals(getEyeInFluidType()));
         Entity entity = ((Entity)(Object)this);
         if (entity instanceof LivingEntity) {
             CompoundTag tag = entity.getPersistentData();
@@ -90,7 +90,7 @@ public abstract class EntityMixin {
     @Inject(method = "tick", at = @At("HEAD"))
     public void tick2(CallbackInfo ci) {
         Entity entity = ((Entity)(Object)this);
-        boolean isInFluid = FluidTypeUtil.isInFluid(entity);
+        boolean isInFluid = IdyllicFoodDiary.REGISTRY.fluidTypeRegister.getEntries().stream().map(RegistryObject::get).anyMatch(entity::isInFluidType);
         //游泳音效
         if(isInFluid) {
             this.waterSwimSound();
@@ -124,13 +124,7 @@ public abstract class EntityMixin {
             double d0 = (this.random.nextDouble() * 2.0D - 1.0D) * (double)this.dimensions.width;
             double d1 = (this.random.nextDouble() * 2.0D - 1.0D) * (double)this.dimensions.width;
             ParticleOptions particleBubble = ParticleTypes.BUBBLE;
-            if (entity.isInFluidType(IMFluids.GREEN_TEA.getType())) {
-                particleBubble = IMParticles.GREEN_TEA_BUBBLE.get();
-            } else if (entity.isInFluidType(IMFluids.BLACK_TEA.getType())) {
-                particleBubble = IMParticles.BLACK_TEA_BUBBLE.get();
-            } else if (entity.isInFluidType(IMFluids.MILK_TEA.getType())) {
-                particleBubble = IMParticles.HOT_MILK_BUBBLE.get();
-            }
+
             this.level().addParticle(particleBubble, this.getX() + d0, f2 + 1.0F, this.getZ() + d1, vec3.x, vec3.y - this.random.nextDouble() * (double)0.2F, vec3.z);
         }
 
@@ -138,13 +132,7 @@ public abstract class EntityMixin {
             double d2 = (this.random.nextDouble() * 2.0D - 1.0D) * (double)this.dimensions.width;
             double d3 = (this.random.nextDouble() * 2.0D - 1.0D) * (double)this.dimensions.width;
             ParticleOptions particleSplash = ParticleTypes.SPLASH;
-            if (entity.isInFluidType(IMFluids.GREEN_TEA.getType())) {
-                particleSplash = IMParticles.GREEN_TEA_SPLASH.get();
-            } else if (entity.isInFluidType(IMFluids.BLACK_TEA.getType())) {
-                particleSplash = IMParticles.BLACK_TEA_SPLASH.get();
-            } else if (entity.isInFluidType(IMFluids.MILK_TEA.getType())) {
-                particleSplash = IMParticles.HOT_MILK_SPLASH.get();
-            }
+
             this.level().addParticle(particleSplash, this.getX() + d2, f2 + 1.0F, this.getZ() + d3, vec3.x, vec3.y, vec3.z);
         }
 

@@ -2,27 +2,28 @@ package cn.solarmoon.idyllic_food_diary.compat.jade;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer.SteamerBlockEntity;
-import cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer.SteamerInventory;
 import cn.solarmoon.idyllic_food_diary.feature.basic_feature.IPlateable;
+import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.evaporation.IEvaporationRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.ingredient_handling.IIngredientHandlingRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.stir_fry.IStirFryRecipe;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.StringUtil;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.phys.Vec2;
 import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
 import snownee.jade.api.ITooltip;
-import snownee.jade.api.Identifiers;
 import snownee.jade.api.ui.BoxStyle;
 import snownee.jade.api.ui.IElement;
 import snownee.jade.api.ui.IElementHelper;
 import snownee.jade.impl.ui.ProgressStyle;
 
-import java.util.stream.IntStream;
-
 public class JadeUtil {
+
+    public static void addSteamingBaseTip(ITooltip iTooltip, IEvaporationRecipe eva) {
+        IElementHelper ehp = iTooltip.getElementHelper();
+        if (eva.isEvaporating()) {
+            iTooltip.add(ehp.text(IdyllicFoodDiary.TRANSLATOR.set("jade", "evaporating", eva.getEvaporatingAmount())));
+        }
+    }
 
     public static void addSteamingTip(ITooltip iTooltip, SteamerBlockEntity steamer) {
         IElementHelper ehp = iTooltip.getElementHelper();
@@ -108,4 +109,5 @@ public class JadeUtil {
             }
         }
     }
+
 }

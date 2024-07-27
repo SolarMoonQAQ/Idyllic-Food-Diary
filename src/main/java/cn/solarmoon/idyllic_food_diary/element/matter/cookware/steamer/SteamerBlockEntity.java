@@ -1,15 +1,12 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer;
 
-import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.evaporation.IEvaporationRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.steaming.ISteamingRecipe;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
 import cn.solarmoon.solarmoon_core.api.tile.SyncedBlockEntity;
 import cn.solarmoon.solarmoon_core.api.util.DropUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
@@ -17,11 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.ItemStackHandler;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -95,6 +88,7 @@ public class SteamerBlockEntity extends SyncedBlockEntity implements ISteamingRe
             // 削减到0的话就删除方块
             if (stack == 0 && getLevel() != null) {
                 getLevel().removeBlock(getBlockPos(), true);
+                setChanged();
                 level.playSound(null, getBlockPos(), SoundEvents.BAMBOO_WOOD_HIT, SoundSource.BLOCKS);
             } else {
                 setLid(ItemStack.EMPTY); // 每次削减总是从最上层开始，而最上层总是可能有lid，故而同时削减lid

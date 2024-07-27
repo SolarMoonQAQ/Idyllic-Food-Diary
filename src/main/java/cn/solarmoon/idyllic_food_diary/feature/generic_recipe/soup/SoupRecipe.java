@@ -74,7 +74,7 @@ public record SoupRecipe (
             buf.writeEnum(recipe.temp);
             SpiceList.writeSpices(buf, recipe.withSpices());
             buf.writeInt(recipe.time());
-            recipe.outputFluid().writeToPacket(buf);
+            buf.writeFluidStack(recipe.outputFluid);
             buf.writeInt(recipe.exp());
         }
 

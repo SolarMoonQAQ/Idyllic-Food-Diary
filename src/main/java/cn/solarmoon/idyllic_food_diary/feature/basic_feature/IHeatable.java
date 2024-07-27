@@ -1,6 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.feature.basic_feature;
 
-import cn.solarmoon.idyllic_food_diary.element.matter.stove.IBuiltInStove;
+import cn.solarmoon.idyllic_food_diary.element.matter.inlaid_stove.IBuiltInStove;
 import cn.solarmoon.solarmoon_core.api.blockstate_access.ILitBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;

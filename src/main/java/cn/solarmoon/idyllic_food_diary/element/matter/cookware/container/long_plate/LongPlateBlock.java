@@ -2,8 +2,8 @@ package cn.solarmoon.idyllic_food_diary.element.matter.cookware.container.long_p
 
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.container.AbstractLongContainerBlock;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
-import cn.solarmoon.idyllic_food_diary.util.VoxelShapeUtil;
 import cn.solarmoon.solarmoon_core.api.blockstate_access.IBedPartBlock;
+import cn.solarmoon.solarmoon_core.api.phys.VoxelShapeUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.SoundType;
@@ -21,7 +21,7 @@ public class LongPlateBlock extends AbstractLongContainerBlock implements IBedPa
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
+    public VoxelShape getOriginShape(BlockState state, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
         VoxelShape combine1 = Shapes.or(box(1, 1, 1, 15, 2, 16),
                 box(3, 0, 3, 13, 1, 16));
         VoxelShape combine2 = Shapes.or(box(1, 1, 0, 15, 2, 15),

@@ -8,6 +8,7 @@ import cn.solarmoon.solarmoon_core.api.block_base.BasicEntityBlock;
 import cn.solarmoon.solarmoon_core.api.blockstate_access.IBedPartBlock;
 import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -20,6 +21,9 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -33,6 +37,8 @@ public abstract class FoodEntityBlock extends BasicEntityBlock implements IHoriz
         super(properties);
     }
 
+    public abstract VoxelShape getOriginShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context);
+
     /**
      * 设置容器属性
      */
@@ -43,16 +49,8 @@ public abstract class FoodEntityBlock extends BasicEntityBlock implements IHoriz
         if (fb == null) return;
         ItemStack container = ContainerHelper.getContainer(stack);
         fb.setContainer(container);
-        SpicesCap spicesData = stack.getCapability(IMCapabilities.FOOD_ITEM_DATA).orElse(null).getSpicesData();
-        fb.setSpices(spicesData.getSpices());
-        if (this instanceof IBedPartBlock) { // 对于双方块，也要设置另一个方块的be内容
-            BlockPos facingPos = pos.relative(state.getValue(IBedPartBlock.FACING));
-            FoodBlockEntity to = (FoodBlockEntity) level.getBlockEntity(facingPos);
-            if (to != null) {
-                to.setContainer(container);
-                to.setSpices(spicesData.getSpices());
-            }
-        }
+        fb.setSpices(stack);
+        fb.dataNormalizeOpposite();
     }
 
     @Override
@@ -82,10 +80,10 @@ public abstract class FoodEntityBlock extends BasicEntityBlock implements IHoriz
         ItemStack origin = super.getCloneItemStack(level, pos, state);
         if (fb != null) {
             ContainerHelper.setContainer(origin, fb.getContainer());
-            SpicesCap spicesData = origin.getCapability(IMCapabilities.FOOD_ITEM_DATA).orElse(null).getSpicesData();
-            if (spicesData != null) {
+            origin.getCapability(IMCapabilities.FOOD_ITEM_DATA).ifPresent(d -> {
+                SpicesCap spicesData = d.getSpicesData();
                 spicesData.getSpices().addAll(fb.getSpices());
-            }
+            });
         }
         return origin;
     }
@@ -108,6 +106,19 @@ public abstract class FoodEntityBlock extends BasicEntityBlock implements IHoriz
     public void tick(Level level, BlockPos pos, BlockState state, BlockEntity blockEntity) {
         super.tick(level, pos, state, blockEntity);
         FoodBlockEntity fb = (FoodBlockEntity) blockEntity;
+    }
+
+    /**
+     * @return 合并原始碰撞箱和容器碰撞箱
+     */
+    @Override
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        FoodBlockEntity fb = (FoodBlockEntity) level.getBlockEntity(pos);
+        VoxelShape container = Shapes.empty();
+        if (fb != null) {
+            container = fb.getContainerLeft().getShape(level, pos, context);
+        }
+        return Shapes.or(getOriginShape(state, level, pos, context), container);
     }
 
 }

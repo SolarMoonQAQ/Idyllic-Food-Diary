@@ -2,7 +2,7 @@ package cn.solarmoon.idyllic_food_diary.element.matter.food.long_press_eat_block
 
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlocks;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMItems;
-import cn.solarmoon.idyllic_food_diary.util.useful_data.BlockProperty;
+import cn.solarmoon.idyllic_food_diary.feature.basic_feature.useful_data.BlockProperty;
 import cn.solarmoon.solarmoon_core.api.block_util.BlockUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -27,7 +27,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-import static cn.solarmoon.idyllic_food_diary.util.ParticleSpawner.Wave.wave;
+import static cn.solarmoon.idyllic_food_diary.feature.basic_feature.ParticleSpawner.Wave.wave;
 
 /**
  * 面团方块
@@ -83,7 +83,7 @@ public class WheatDoughBlock extends AbstractLongPressEatFoodBlock {
      * 碰撞箱
      */
     @Override
-    public @NotNull VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+    public @NotNull VoxelShape getOriginShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         return Block.box(4.0D, 0.0D, 4.0D, 12.0D, 4.0D, 12.0D);
     }
 

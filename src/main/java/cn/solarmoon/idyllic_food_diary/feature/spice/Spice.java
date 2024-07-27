@@ -167,15 +167,15 @@ public class Spice implements INBTSerializable<CompoundTag> {
 
     public void toNetwork(FriendlyByteBuf buf) {
         buf.writeUtf(id);
-        buf.writeUtf(type.name());
-        buf.writeUtf(step.name());
+        buf.writeEnum(type);
+        buf.writeEnum(step);
         buf.writeInt(amount);
     }
 
     public static Spice readFromNetwork(FriendlyByteBuf buf) {
         String id = buf.readUtf();
-        Type type = Type.valueOf(buf.readUtf());
-        Step step = Step.valueOf(buf.readUtf());
+        Type type = buf.readEnum(Type.class);
+        Step step = buf.readEnum(Step.class);
         int amount = buf.readInt();
         return new Spice(id, type, step, amount);
     }

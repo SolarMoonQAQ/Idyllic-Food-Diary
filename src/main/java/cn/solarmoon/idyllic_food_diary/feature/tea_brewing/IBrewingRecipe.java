@@ -29,12 +29,11 @@ public interface IBrewingRecipe extends IHeatable, ITempChanger {
      */
     default boolean tryBrewTea() {
         FluidStack fluidStack = getTank().getFluid();
-        Level level = h().getLevel();
-        if (level == null) return false;
         tryApplyThermochanger();
         if (canStartBrew()) {
             setBrewRecipeTime(getNeedTime());
             setBrewTime(getBrewTime() + 1);
+            h().setChanged();
             if (getBrewTime() >= getBrewRecipeTime()) {
                 if (getValidFluidBound() != null) {
                     int amount = getTank().getFluidAmount() - getFluidConsumption();
@@ -133,7 +132,7 @@ public interface IBrewingRecipe extends IHeatable, ITempChanger {
         // 判断是否需要加热
         boolean flag3 = !needHeating() || isOnHeatSource();
         // 所有物品都有tea属性
-        boolean flag4 = !getAllAttributes().isEmpty();
+        boolean flag4 = getAllAttributes().size() == getStacks().size();
         return flag1 && flag2 && flag3 && flag4;
     }
 

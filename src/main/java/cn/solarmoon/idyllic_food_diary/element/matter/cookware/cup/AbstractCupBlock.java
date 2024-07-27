@@ -1,13 +1,13 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
+import cn.solarmoon.idyllic_food_diary.api.AnimHelper;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.CookwareBlock;
 import cn.solarmoon.idyllic_food_diary.feature.fluid_temp.Temp;
 import cn.solarmoon.idyllic_food_diary.feature.tea_brewing.TeaBrewingUtil;
-import cn.solarmoon.idyllic_food_diary.registry.client.IMParticles;
+import cn.solarmoon.idyllic_food_diary.registry.common.IMParticles;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMSounds;
-import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
 import cn.solarmoon.solarmoon_core.api.capability.CountingDevice;
-import cn.solarmoon.solarmoon_core.api.tile.SyncedEntityBlock;
 import cn.solarmoon.solarmoon_core.api.tile.fluid.FluidHandlerUtil;
 import cn.solarmoon.solarmoon_core.api.tile.inventory.ItemHandlerUtil;
 import cn.solarmoon.solarmoon_core.registry.common.SolarCapabilities;
@@ -37,7 +37,7 @@ import java.util.Objects;
  * 作为大部分可饮用方块（如各类杯子）的抽象类<br/>
  * 液体只能存不能取（可以倒不能拿）
  */
-public abstract class AbstractCupBlock extends SyncedEntityBlock implements IHorizontalFacingBlock {
+public abstract class AbstractCupBlock extends CookwareBlock {
 
     public AbstractCupBlock(Properties properties) {
         super(properties.forceSolidOn());
@@ -48,7 +48,7 @@ public abstract class AbstractCupBlock extends SyncedEntityBlock implements IHor
      * 使得该类方块能够每几下被喝走一定数量的液体
      */
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    public InteractionResult originUse(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         BlockEntity blockEntity = level.getBlockEntity(pos);
         AbstractCupBlockEntity cup = (AbstractCupBlockEntity) blockEntity;
         ItemStack heldItem = player.getItemInHand(hand);
@@ -62,9 +62,10 @@ public abstract class AbstractCupBlock extends SyncedEntityBlock implements IHor
                 counting.setCount(counting.getCount() + 1, pos);
             }
 
-            //只能存不能取液体
             if (FluidHandlerUtil.putFluid(cup.getTank(), player, hand, false)) {
                 level.playSound(null, pos, IMSounds.PLAYER_POUR.get(), SoundSource.PLAYERS, 0.8F, 1F);
+                return InteractionResult.SUCCESS;
+            } else if (FluidHandlerUtil.takeFluid(cup.getTank(), player, hand, true)) {
                 return InteractionResult.SUCCESS;
             }
 
@@ -103,12 +104,6 @@ public abstract class AbstractCupBlock extends SyncedEntityBlock implements IHor
         }).orElse(InteractionResult.FAIL);
     }
 
-    @Override
-    public void attack(BlockState state, Level level, BlockPos pos, Player player) {
-        getThis(player, level, pos, state, InteractionHand.MAIN_HAND, true);
-        super.attack(state, level, pos, player);
-    }
-
     /**
      * @return 设置需要右键多少下喝一下（默认2）
      */
@@ -130,6 +125,7 @@ public abstract class AbstractCupBlock extends SyncedEntityBlock implements IHor
         super.tick(level, pos, state, blockEntity);
         AbstractCupBlockEntity cup = (AbstractCupBlockEntity) blockEntity;
         if (!cup.needHeating()) cup.tryBrewTea(); // 只能泡无需加热的茶
+        AnimHelper.Fluid.onFluidAnimStop(blockEntity, cup.getTank().getFluid());
     }
 
     /**

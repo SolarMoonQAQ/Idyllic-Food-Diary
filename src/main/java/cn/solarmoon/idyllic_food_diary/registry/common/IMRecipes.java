@@ -6,6 +6,7 @@ import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.baking.BakingRecip
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.chopping.ChoppingRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.fermentation.FermentationRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.food_boiling.FoodBoilingRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.grinding.GrindingRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.ingredient_handling.IngredientHandlingRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.rolling.RollingRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.soup.SoupRecipe;
@@ -18,6 +19,12 @@ import cn.solarmoon.solarmoon_core.api.entry.common.RecipeEntry;
 
 public class IMRecipes {
     public static void register() {}
+
+    // 研磨
+    public static final RecipeEntry<GrindingRecipe> GRINDING = IdyllicFoodDiary.REGISTRY.recipe()
+            .id("grinding")
+            .serializer(GrindingRecipe.Serializer::new)
+            .build();
 
     // 发酵
     public static final RecipeEntry<FermentationRecipe> FERMENTATION = IdyllicFoodDiary.REGISTRY.recipe()

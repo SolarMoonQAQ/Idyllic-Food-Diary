@@ -1,5 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.network;
 
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.kettle.AbstractKettleItem;
 import cn.solarmoon.solarmoon_core.api.network.IClientPackHandler;
 import cn.solarmoon.solarmoon_core.api.util.TextUtil;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -11,6 +12,7 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
@@ -81,6 +83,19 @@ public class ClientPackHandler implements IClientPackHandler {
             case NETList.PARTICLE_TEMP_COOL -> {
                 Vec3 c = pos.getCenter();
                 IntStream.range(0, 2).forEach(n -> level.addParticle(ParticleTypes.ITEM_SNOWBALL, c.x, c.y, c.z, 0, 0.1, 0));
+            }
+            case NETList.ADD_SPICE_PARTICLE -> {
+                Random random = new Random();
+                for (int n = 0; n < 7; ++n) {
+                    double d0 = random.nextGaussian() * 0.02D;
+                    double d1 = random.nextGaussian() * 0.02D;
+                    double d2 = random.nextGaussian() * 0.02D;
+                    level.addParticle(ParticleTypes.COMPOSTER,
+                            pos.getX() + random.nextFloat(),
+                            pos.getY() + random.nextDouble(),
+                            pos.getZ() + random.nextFloat(),
+                            d0, d1, d2);
+                }
             }
         }
     }

@@ -16,6 +16,7 @@ import net.minecraftforge.fluids.FluidStack;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.IntStream;
 
 public interface IFermentationRecipe extends IContainerTile, ITankTile, ISpiceable {
 
@@ -40,9 +41,18 @@ public interface IFermentationRecipe extends IContainerTile, ITankTile, ISpiceab
                 if (time >= getFermentRecipeTime()) {
                     FluidStack result = recipe.outputFluid().copy();
                     result.setAmount(result.getAmount() * scale);
+                    List<ItemStack> results = recipe.results();
+                    ItemHandlerUtil.clearInv(getInventory(), fr());
+                    // 按比例多次插入匹配结果
+                    results.forEach(stack -> {
+                        IntStream.range(0, scale).forEach(i -> {
+                            for (int n = 0; n < stack.getCount(); n++) {
+                                ItemHandlerUtil.insertItem(getInventory(), stack.copyWithCount(1));
+                            }
+                        });
+                    });
                     Temp.set(result, Temp.get(getTank().getFluid()));
                     getTank().setFluid(result);
-                    ItemHandlerUtil.clearInv(getInventory(), fr());
                     setFermentTime(0);
                     fr().setChanged();
                 }
@@ -72,6 +82,7 @@ public interface IFermentationRecipe extends IContainerTile, ITankTile, ISpiceab
              * 要求：
              * 输入物按比例完全匹配
              * 输入液体及量及温度完全匹配
+             * 输出物有足够空间输出
              */
             List<ItemStack> stacks = ItemHandlerUtil.getStacks(getInventory());
             Pair<Boolean, Integer> match = ProportionalIngredient.findMatch(stacks, recipe.ingredients());
@@ -79,9 +90,13 @@ public interface IFermentationRecipe extends IContainerTile, ITankTile, ISpiceab
             int scale = match.getSecond(); // 放大所需液体比例
             FluidStack fluidNeed = recipe.inputFluid().copy();
             fluidNeed.setAmount(fluidNeed.getAmount() * scale);
+            int resultFluidNeed = recipe.outputFluid().getAmount() * scale;
+            int resultStackNeed = recipe.results().stream().mapToInt(stack -> stack.getCount() * scale).sum();
             return match.getFirst()
                     && FluidHandlerUtil.isMatch(fluidStack, fluidNeed, true, false)
-                    && Temp.isSame(fluidStack, recipe.temp());
+                    && Temp.isSame(fluidStack, recipe.temp())
+                    && getTank().getCapacity() >= resultFluidNeed
+                    && getInventory().getSlots() >= resultStackNeed;
         }).findFirst();
     }
 

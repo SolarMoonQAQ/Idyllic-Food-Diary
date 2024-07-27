@@ -25,7 +25,7 @@ public class UncookedFoodBlock extends AbstractLongPressEatFoodBlock {
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter getter, BlockPos pos, CollisionContext collision) {
+    public VoxelShape getOriginShape(BlockState state, BlockGetter getter, BlockPos pos, CollisionContext collision) {
         return shapeConsumerFunction.apply(state, getter, pos, collision);
     }
 

@@ -91,8 +91,15 @@ public class IMBlockTags extends BlockTagsProvider {
                 IMBlocks.WILD_GINGER.get(),
                 IMBlocks.WILD_SPRING_ONION.get()
         );
+        // 烟囱（决定了可以向上传到烟雾的方块）
+        tag(CHIMNEY).add(
+                Blocks.BRICK_WALL,
+                Blocks.BRICK_SLAB,
+                Blocks.BRICKS
+        );
     }
 
+    public static final TagKey<Block> CHIMNEY = blockTag("chimney");
     public static final TagKey<Block> ROLLABLE = blockTag("rollable");
     public static final TagKey<Block> HEAT_SOURCE = blockTag("heat_source");
     public static final TagKey<Block> MINEABLE_WITH_CLEAVER = blockTag("mineable/cleaver");

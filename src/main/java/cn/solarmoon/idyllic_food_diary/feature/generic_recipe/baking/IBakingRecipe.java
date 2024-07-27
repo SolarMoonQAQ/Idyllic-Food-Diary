@@ -39,6 +39,10 @@ public interface IBakingRecipe extends IContainerTile, IHeatable, ISpiceable {
         }
     }
 
+    default boolean isBaking() {
+        return getBakeTime() > 0;
+    }
+
     default Optional<BakingRecipe> findBakingRecipe() {
         Level level = h().getLevel();
         if (level == null) return Optional.empty();

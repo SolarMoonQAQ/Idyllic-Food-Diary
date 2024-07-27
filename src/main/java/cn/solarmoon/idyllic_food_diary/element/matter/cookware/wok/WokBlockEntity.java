@@ -1,28 +1,28 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.wok;
 
-import cn.solarmoon.idyllic_food_diary.element.matter.stove.IBuiltInStove;
+import cn.solarmoon.idyllic_food_diary.api.AnimHelper;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.CookwareBlock;
 import cn.solarmoon.idyllic_food_diary.feature.fluid_temp.ITempChanger;
-import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.evaporation.IEvaporationRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.stir_fry.IStirFryRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.stir_fry.StirFryRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.spice.Spice;
 import cn.solarmoon.idyllic_food_diary.feature.spice.SpiceList;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
 import cn.solarmoon.solarmoon_core.api.tile.SyncedBlockEntity;
-import cn.solarmoon.solarmoon_core.api.tile.fluid.ITankTile;
 import cn.solarmoon.solarmoon_core.api.tile.fluid.TileTank;
-import cn.solarmoon.solarmoon_core.api.tile.inventory.IContainerTile;
 import cn.solarmoon.solarmoon_core.api.tile.inventory.TileInventory;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.items.ItemStackHandler;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class WokBlockEntity extends SyncedBlockEntity implements IStirFryRecipe, ITempChanger, IEvaporationRecipe {
+public class WokBlockEntity extends SyncedBlockEntity implements IStirFryRecipe, ITempChanger {
 
     private final TileInventory inventory;
     private final TileTank fluidTank;
@@ -43,7 +43,12 @@ public class WokBlockEntity extends SyncedBlockEntity implements IStirFryRecipe,
 
     public WokBlockEntity(BlockPos pos, BlockState state) {
         super(IMBlockEntities.WOK.get(), pos, state);
-        inventory = new TileInventory(6, 1, this);
+        inventory = new TileInventory(6, 1, this) {
+            @Override
+            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+                return !(Block.byItem(stack.getItem()) instanceof CookwareBlock);
+            }
+        };
         fluidTank = new TileTank(250, this);
     }
 
@@ -175,18 +180,6 @@ public class WokBlockEntity extends SyncedBlockEntity implements IStirFryRecipe,
     @Override
     public FluidTank getTank() {
         return fluidTank;
-    }
-
-    private int evaTick;
-
-    @Override
-    public void setEvaporationTick(int tick) {
-        evaTick = tick;
-    }
-
-    @Override
-    public int getEvaporationTick() {
-        return evaTick;
     }
 
 }

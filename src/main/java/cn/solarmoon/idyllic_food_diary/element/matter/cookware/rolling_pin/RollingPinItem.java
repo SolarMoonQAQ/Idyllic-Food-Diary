@@ -3,12 +3,15 @@ package cn.solarmoon.idyllic_food_diary.element.matter.cookware.rolling_pin;
 import cn.solarmoon.idyllic_food_diary.data.IMBlockTags;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.rolling.RollingRecipe;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMRecipes;
-import cn.solarmoon.idyllic_food_diary.util.AnimController;
 import cn.solarmoon.solarmoon_core.api.block_util.BlockUtil;
 import cn.solarmoon.solarmoon_core.api.optional_recipe_item.IOptionalRecipeItem;
 import cn.solarmoon.solarmoon_core.api.util.CommonParticleSpawner;
 import cn.solarmoon.solarmoon_core.api.util.DropUtil;
 import cn.solarmoon.solarmoon_core.api.util.TagUtil;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -19,12 +22,10 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.SwordItem;
-import net.minecraft.world.item.Tiers;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -36,13 +37,16 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 
-import static cn.solarmoon.idyllic_food_diary.util.ParticleSpawner.rolling;
+import static cn.solarmoon.idyllic_food_diary.feature.basic_feature.ParticleSpawner.rolling;
 
 
 public class RollingPinItem extends SwordItem implements IOptionalRecipeItem<RollingRecipe> {
@@ -52,6 +56,10 @@ public class RollingPinItem extends SwordItem implements IOptionalRecipeItem<Rol
      */
     public RollingPinItem() {
         super(Tiers.WOOD,3, -2.4f, new Item.Properties().durability(512));
+    }
+
+    public RollingPinItem(Tier tier, int i, float f, Properties properties) {
+        super(tier, i, f, properties);
     }
 
     /**
@@ -73,11 +81,11 @@ public class RollingPinItem extends SwordItem implements IOptionalRecipeItem<Rol
         Player player = context.getPlayer();
         InteractionHand hand = context.getHand();
 
-        if (player != null) {
+        if (player != null && hand == InteractionHand.MAIN_HAND) {
             setEqualBlockPos(heldStack, context.getClickedPos());
             BlockPos exceptPos = new BlockPos(player.getOnPos().getX() + player.getDirection().getStepX(), player.getOnPos().getY() + 1, player.getOnPos().getZ() + player.getDirection().getStepZ());
             //限制擀面空间
-            if (getEqualBlockPos(heldStack).equals(exceptPos) || getEqualBlockPos(heldStack).equals(exceptPos.above())) {
+            if (getEqualBlockPos(heldStack).equals(exceptPos.above()) && getEqualBlockPos(heldStack).equals(exceptPos) && !player.isCrouching()) {
                 Optional<RollingRecipe> recipeOp = getSelectedRecipe(heldStack, player);
                 if (recipeOp.isPresent()) {
                     RollingRecipe recipe = recipeOp.get();
@@ -118,10 +126,8 @@ public class RollingPinItem extends SwordItem implements IOptionalRecipeItem<Rol
     @Override
     public void onUseTick(@NotNull Level level, @NotNull LivingEntity entity, @NotNull ItemStack stack, int i) {
         if (entity instanceof Player player) {
-            new AnimController(entity).playAnim(20, "waving");
             //不匹配配方或是在此期间更换配方就停用
             if (getMatchingRecipes(player).isEmpty()) {
-                new AnimController(entity).stopAnim(10);
                 entity.stopUsingItem();
             }
             if (level.isClientSide) {
@@ -142,7 +148,6 @@ public class RollingPinItem extends SwordItem implements IOptionalRecipeItem<Rol
      */
     @Override
     public @NotNull ItemStack finishUsingItem(@NotNull ItemStack stack, @NotNull Level level, @NotNull LivingEntity entity) {
-        new AnimController(entity).stopAnim(10);
         entity.stopUsingItem();
         if (stack.getItem() instanceof RollingPinItem pin && entity instanceof Player player) {
             if (getRecipeTime(stack) > 0) {
@@ -174,21 +179,46 @@ public class RollingPinItem extends SwordItem implements IOptionalRecipeItem<Rol
         return stack;
     }
 
+    @Override
+    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+        consumer.accept(new IClientItemExtensions() {
+            public static final HumanoidModel.ArmPose ROLLING = HumanoidModel.ArmPose.create("ROLLING", true, (model, entity, arm) -> {
+                int time = 20 - Math.abs(entity.getUseItemRemainingTicks() % 40 - 20);
+                float timeInRadians = (float) Math.toRadians(time);
+                model.leftArm.yRot = (float) (-Math.PI / 10F + timeInRadians);
+                model.leftArm.xRot = (float) (-Math.PI * 100 / 180);
+                model.leftArm.zRot = (float) (Math.PI / 2);
+                model.rightArm.yRot = (float) (-Math.PI / 10F + timeInRadians);
+                model.rightArm.xRot = (float) (-Math.PI * 80 / 180);
+                model.rightArm.zRot = (float) (Math.PI / 2);
+            });
+            @Override
+            public HumanoidModel.@Nullable ArmPose getArmPose(LivingEntity entity, InteractionHand hand, ItemStack itemStack) {
+                if (entity.getUseItem().is(itemStack.getItem())) {
+                    return ROLLING;
+                }
+                return IClientItemExtensions.super.getArmPose(entity, hand, itemStack);
+            }
+
+            @Override
+            public boolean applyForgeHandTransform(PoseStack poseStack, LocalPlayer player, HumanoidArm arm, ItemStack itemInHand, float partialTick, float equipProcess, float swingProcess) {
+                if (player.getUseItem().is(itemInHand.getItem())) {
+                    int time = 20 - Math.abs(player.getUseItemRemainingTicks() % 40 - 20);
+                    poseStack.translate(0.1, 0.2, -time / 20f);
+                    poseStack.mulPose(Axis.ZN.rotationDegrees(102.5f));
+                    poseStack.mulPose(Axis.XP.rotationDegrees(25));
+                }
+                return IClientItemExtensions.super.applyForgeHandTransform(poseStack, player, arm, itemInHand, partialTick, equipProcess, swingProcess);
+            }
+        });
+    }
+
     /**
      * 主动松开右键也能结束使用
      */
     @Override
     public void releaseUsing(@NotNull ItemStack stack, @NotNull Level level, @NotNull LivingEntity entity, int p_41415_) {
-        new AnimController(entity).stopAnim(10);
         entity.stopUsingItem();
-    }
-
-    /**
-     * 防止其他情况的下未使用不结束动作（如切换物品）
-     */
-    @Override
-    public void onStopUsing(ItemStack stack, LivingEntity entity, int count) {
-        new AnimController(entity).stopAnim(10);
     }
 
     /**

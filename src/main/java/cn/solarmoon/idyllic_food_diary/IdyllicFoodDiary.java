@@ -4,10 +4,7 @@ import cn.solarmoon.idyllic_food_diary.compat.appleskin.AppleSkin;
 import cn.solarmoon.idyllic_food_diary.compat.create.Create;
 import cn.solarmoon.idyllic_food_diary.compat.farmersdelight.FarmersDelight;
 import cn.solarmoon.idyllic_food_diary.compat.patchouli.Patchouli;
-import cn.solarmoon.idyllic_food_diary.registry.ability.IMComposterThs;
-import cn.solarmoon.idyllic_food_diary.registry.ability.IMFlavors;
-import cn.solarmoon.idyllic_food_diary.registry.ability.IMPlaceableItems;
-import cn.solarmoon.idyllic_food_diary.registry.ability.IMSpittableItems;
+import cn.solarmoon.idyllic_food_diary.registry.ability.*;
 import cn.solarmoon.idyllic_food_diary.registry.client.*;
 import cn.solarmoon.idyllic_food_diary.registry.common.*;
 import cn.solarmoon.solarmoon_core.api.entry.ObjectRegistry;
@@ -16,10 +13,8 @@ import cn.solarmoon.solarmoon_core.api.starter_kit.Translator;
 import cn.solarmoon.solarmoon_core.feature.SolarMoonBase;
 import net.minecraftforge.fml.common.Mod;
 
-import static cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary.MOD_ID;
 
-
-@Mod(MOD_ID)
+@Mod(IdyllicFoodDiary.MOD_ID)
 public class IdyllicFoodDiary extends SolarMoonBase {
 
     public static final String MOD_ID = "idyllic_food_diary";
@@ -30,9 +25,9 @@ public class IdyllicFoodDiary extends SolarMoonBase {
     @Override
     public void objectsClientOnly() {
         IMLayers.register();
-        IMParticles.register();
         IMBlockEntityRenderers.register();
         IMEntityRenderers.register();
+        IMParticleSprite.register();
     }
 
     @Override
@@ -48,6 +43,7 @@ public class IdyllicFoodDiary extends SolarMoonBase {
         IMEntityTypes.register();
         IMPacks.register();
         IMSounds.register();
+        IMParticles.register();
     }
 
     @Override

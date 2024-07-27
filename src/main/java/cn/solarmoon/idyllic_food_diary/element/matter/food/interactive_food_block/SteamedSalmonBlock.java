@@ -2,7 +2,7 @@ package cn.solarmoon.idyllic_food_diary.element.matter.food.interactive_food_blo
 
 import cn.solarmoon.idyllic_food_diary.element.matter.food.interactive_food_block.food_interaction.ConsumeInteraction;
 import cn.solarmoon.idyllic_food_diary.element.matter.food.interactive_food_block.food_interaction.ObtainInteraction;
-import cn.solarmoon.idyllic_food_diary.util.useful_data.BlockProperty;
+import cn.solarmoon.idyllic_food_diary.feature.basic_feature.useful_data.BlockProperty;
 import cn.solarmoon.solarmoon_core.api.blockstate_access.IBedPartBlock;
 import cn.solarmoon.solarmoon_core.api.matcher.ItemMatcher;
 import com.mojang.datafixers.util.Either;
@@ -44,7 +44,7 @@ public class SteamedSalmonBlock extends AbstractInteractiveFoodBlock implements 
     }
 
     @Override
-    public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
+    public VoxelShape getOriginShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
         return Shapes.block();
     }
 

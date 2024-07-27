@@ -1,8 +1,10 @@
 package cn.solarmoon.idyllic_food_diary.registry.client;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.container.AbstractContainerItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.food.FoodEntityBlock;
 import cn.solarmoon.idyllic_food_diary.feature.container_mapping_combination.ContainableFoodBakedModel;
+import cn.solarmoon.idyllic_food_diary.feature.container_mapping_combination.ContainerBakedModel;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMItems;
 import cn.solarmoon.solarmoon_core.api.item_model.PerspectiveBakedModelRenderer;
 import com.google.common.collect.Lists;
@@ -28,11 +30,17 @@ import java.util.Map;
 public final class IMItemRenderers {
 
     private static final List<Pair<ModelResourceLocation, ModelResourceLocation>> PERSPECTIVE_MODEL_LIST = Lists.newArrayList();
+    private static final List<Pair<ModelResourceLocation, ModelResourceLocation>> CONTAINER_PURE_LIST = Lists.newArrayList();
+
     @SubscribeEvent
     public static void register(RegisterEvent event) {
         if (event.getRegistryKey().equals(Registries.ITEM)) {
             addInHandModel(IMItems.ROLLING_PIN.get());
             addInHandModel(IMItems.CHINESE_CLEAVER.get());
+            IdyllicFoodDiary.REGISTRY.itemRegister.getEntries().stream()
+                    .map(RegistryObject::get)
+                    .filter(item -> item instanceof AbstractContainerItem)
+                    .forEach(IMItemRenderers::addPureContainerMapping);
         }
     }
 
@@ -56,11 +64,17 @@ public final class IMItemRenderers {
             ModelResourceLocation res = new ModelResourceLocation(ForgeRegistries.ITEMS.getKey(e), "inventory");
             registry.put(res, new ContainableFoodBakedModel(registry.get(res)));
         }
+
+        CONTAINER_PURE_LIST.forEach(pair -> {
+            ContainerBakedModel model = new ContainerBakedModel(registry.get(pair.getLeft()), registry.get(pair.getRight()));
+            registry.put(pair.getLeft(), model);
+        });
     }
 
     @SubscribeEvent
     public static void registerModels(ModelEvent.RegisterAdditional event) {
         PERSPECTIVE_MODEL_LIST.forEach((pair) -> event.register(pair.getRight()));
+        CONTAINER_PURE_LIST.forEach(pair -> event.register(pair.getRight()));
     }
 
     public static void addInHandModel(Item item) {
@@ -69,6 +83,15 @@ public final class IMItemRenderers {
             ModelResourceLocation rawName = new ModelResourceLocation(res, "inventory");
             ModelResourceLocation inHandName = new ModelResourceLocation(res.getNamespace(), res.getPath() + "_in_hand", "inventory");
             PERSPECTIVE_MODEL_LIST.add(Pair.of(rawName, inHandName));
+        }
+    }
+
+    public static void addPureContainerMapping(Item container) {
+        ResourceLocation res = ForgeRegistries.ITEMS.getKey(container);
+        if (res != null) {
+            ModelResourceLocation rawName = new ModelResourceLocation(res, "inventory");
+            ModelResourceLocation pureName = new ModelResourceLocation(res.getNamespace(), res.getPath() + "_pure", "inventory");
+            CONTAINER_PURE_LIST.add(Pair.of(rawName, pureName));
         }
     }
 

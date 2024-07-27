@@ -5,10 +5,12 @@
   "refmap": "idyllic_food_diary.refmap.json",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "BoatMixin",
+    "BlockEntityMixin",
     "BucketItemMixin",
     "EntityMixin",
+    "FluidTankMixin",
     "FluidTypeMixin",
+    "FluidUtilMixin",
     "ItemMixin",
     "LivingEntityMixin"
   ],

@@ -57,7 +57,7 @@ public abstract class AbstractInteractiveFoodBlock extends BaseInteractionBlock 
         // 此处一定是container为基底才能快速拿起
         FoodBlockEntity fb = (FoodBlockEntity) level.getBlockEntity(pos);
         if (fb != null && !fb.getContainer().isEmpty()) {
-            getThis(player, level, pos, state, InteractionHand.MAIN_HAND, true);
+            getThis(player, level, pos, state, InteractionHand.MAIN_HAND, true, true);
         }
         super.attack(state, level, pos, player);
     }

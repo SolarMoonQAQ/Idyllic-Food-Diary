@@ -1,7 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.food.long_press_eat_block;
 
-import cn.solarmoon.idyllic_food_diary.util.VoxelShapeUtil;
-import cn.solarmoon.idyllic_food_diary.util.useful_data.BlockProperty;
+import cn.solarmoon.solarmoon_core.api.phys.VoxelShapeUtil;
+import cn.solarmoon.idyllic_food_diary.feature.basic_feature.useful_data.BlockProperty;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
@@ -16,7 +16,7 @@ public class SteamedBunBlock extends AbstractLongPressEatFoodBlock {
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
+    public VoxelShape getOriginShape(BlockState state, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
         return VoxelShapeUtil.rotateShape(state.getValue(FACING),
                 Block.box(6.0D, 0.0D, 5.0D, 10.0D, 3.0D, 11.0D));
     }

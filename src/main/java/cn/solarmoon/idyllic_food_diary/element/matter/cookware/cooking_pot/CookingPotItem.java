@@ -45,7 +45,7 @@ public class CookingPotItem extends BlockItem implements ITankTileItem, IHuggabl
             @Override
             public boolean applyForgeHandTransform(PoseStack poseStack, LocalPlayer player, HumanoidArm arm, ItemStack itemInHand, float partialTick, float equipProcess, float swingProcess) {
                 if (player.getMainHandItem().isEmpty() || player.getOffhandItem().isEmpty()) {
-                    poseStack.translate(arm == HumanoidArm.RIGHT ? -0.55 : 0.55, 0, 0.1);
+                    poseStack.translate(arm == HumanoidArm.RIGHT ? -0.55 : 0.55, 0.1, 0.1);
                     return false;
                 }
                 return IClientItemExtensions.super.applyForgeHandTransform(poseStack, player, arm, itemInHand, partialTick, equipProcess, swingProcess);
@@ -62,9 +62,9 @@ public class CookingPotItem extends BlockItem implements ITankTileItem, IHuggabl
     public void transform3rdPDisplay(ItemStack stack, LivingEntity entity, ItemDisplayContext context, PoseStack poseStack) {
         if (entity.getMainHandItem().isEmpty() || entity.getOffhandItem().isEmpty()) {
             if (context == ItemDisplayContext.THIRD_PERSON_RIGHT_HAND) {
-                poseStack.translate(0.365, 0.2, 0.2);
+                poseStack.translate(0.365, 0.3, 0.2);
             } else if (context == ItemDisplayContext.THIRD_PERSON_LEFT_HAND) {
-                poseStack.translate(-0.365, 0.2, 0.2);
+                poseStack.translate(-0.365, 0.3, 0.2);
             }
         }
     }

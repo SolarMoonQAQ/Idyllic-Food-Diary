@@ -1,0 +1,85 @@
+{
+	"credit": "Made with Blockbench",
+	"render_type": "minecraft:cutout",
+	"textures": {
+		"0": "idyllic_food_diary:block/feast/east_slope_pork",
+		"1": "idyllic_food_diary:block/feast/east_slope_pork_broth",
+		"particle": "idyllic_food_diary:block/feast/east_slope_pork"
+	},
+	"elements": [
+		{
+			"from": [1, 2, 1],
+			"to": [15, 2.02, 15],
+			"rotation": {"angle": 0, "axis": "y", "origin": [1, 2, 1]},
+			"faces": {
+				"north": {"uv": [18, 4, 32, 5], "texture": "#missing"},
+				"east": {"uv": [18, 5, 32, 6], "texture": "#missing"},
+				"south": {"uv": [18, 6, 32, 7], "texture": "#missing"},
+				"west": {"uv": [18, 7, 32, 8], "texture": "#missing"},
+				"up": {"uv": [15, 15, 1, 1], "texture": "#1"},
+				"down": {"uv": [15, 1, 1, 15], "texture": "#1"}
+			}
+		},
+		{
+			"from": [3, 2, 9],
+			"to": [7, 6, 13],
+			"rotation": {"angle": 0, "axis": "y", "origin": [3, 2, 9]},
+			"faces": {
+				"north": {"uv": [0, 0, 4, 4], "texture": "#0"},
+				"east": {"uv": [0, 4, 4, 8], "texture": "#0"},
+				"south": {"uv": [4, 0, 8, 4], "texture": "#0"},
+				"west": {"uv": [4, 4, 8, 8], "texture": "#0"},
+				"up": {"uv": [4, 12, 0, 8], "texture": "#0"},
+				"down": {"uv": [22, 0, 18, 4], "texture": "#1"}
+			}
+		},
+		{
+			"from": [9, 2, 9],
+			"to": [13, 6, 13],
+			"rotation": {"angle": 0, "axis": "y", "origin": [9, 2, 9]},
+			"faces": {
+				"north": {"uv": [0, 0, 4, 4], "texture": "#0"},
+				"east": {"uv": [0, 4, 4, 8], "texture": "#0"},
+				"south": {"uv": [4, 0, 8, 4], "texture": "#0"},
+				"west": {"uv": [4, 4, 8, 8], "texture": "#0"},
+				"up": {"uv": [4, 12, 0, 8], "texture": "#0"},
+				"down": {"uv": [22, 0, 18, 4], "texture": "#1"}
+			}
+		},
+		{
+			"from": [3, 2, 3],
+			"to": [7, 6, 7],
+			"rotation": {"angle": 0, "axis": "y", "origin": [3, 2, 3]},
+			"faces": {
+				"north": {"uv": [0, 0, 4, 4], "texture": "#0"},
+				"east": {"uv": [0, 4, 4, 8], "texture": "#0"},
+				"south": {"uv": [4, 0, 8, 4], "texture": "#0"},
+				"west": {"uv": [4, 4, 8, 8], "texture": "#0"},
+				"up": {"uv": [4, 12, 0, 8], "texture": "#0"},
+				"down": {"uv": [22, 0, 18, 4], "texture": "#1"}
+			}
+		},
+		{
+			"from": [9, 2, 3],
+			"to": [13, 6, 7],
+			"rotation": {"angle": 0, "axis": "y", "origin": [9, 2, 3]},
+			"faces": {
+				"north": {"uv": [0, 0, 4, 4], "texture": "#0"},
+				"east": {"uv": [0, 4, 4, 8], "texture": "#0"},
+				"south": {"uv": [4, 0, 8, 4], "texture": "#0"},
+				"west": {"uv": [4, 4, 8, 8], "texture": "#0"},
+				"up": {"uv": [4, 12, 0, 8], "texture": "#0"},
+				"down": {"uv": [22, 0, 18, 4], "texture": "#1"}
+			}
+		}
+	],
+	"groups": [
+		0,
+		{
+			"name": "pork",
+			"origin": [1, 2, 1],
+			"color": 0,
+			"children": [1, 2, 3, 4]
+		}
+	]
+}

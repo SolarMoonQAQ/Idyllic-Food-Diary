@@ -1,9 +1,10 @@
-// 1.20.1	2024-06-09T14:10:39.6779892	Tags for minecraft:block mod id idyllic_food_diary
+// 1.20.1	2024-07-21T16:12:06.7448391	Tags for minecraft:block mod id idyllic_food_diary
+4ff955d03a61ad6454b6b1ae72f708e15c1cce86 data/idyllic_food_diary/tags/blocks/chimney.json
 4b4df3cb4b7e857544db3b3ce385d5546328461b data/idyllic_food_diary/tags/blocks/cutting_board.json
-a69ac5ef832121d535a9ca155435a40f483cab64 data/idyllic_food_diary/tags/blocks/heat_source.json
+38718bcea58cdfdecf9132b6680f5865dd7516e4 data/idyllic_food_diary/tags/blocks/heat_source.json
 9843f525d7481f0e5e03777944d5d2aae0334ee5 data/idyllic_food_diary/tags/blocks/mineable/cleaver.json
 65e3d288d90a7d9a5e5a68a571ba062f6963b97c data/idyllic_food_diary/tags/blocks/rollable.json
 35342b32d986f72bbada3676ab22b4c582f14949 data/idyllic_food_diary/tags/blocks/soup_container.json
 041151c471be31993cdf473841559228ea763587 data/minecraft/tags/blocks/mineable/axe.json
-45dc05652283dc1be1848d3db9016590d565a5b0 data/minecraft/tags/blocks/mineable/pickaxe.json
+88a9c8e811a90de22f6e76d507fca9eb1072bc46 data/minecraft/tags/blocks/mineable/pickaxe.json
 a9b27f494b8f7cbe916c6f55814540b4ddd93f15 data/minecraft/tags/blocks/small_flowers.json

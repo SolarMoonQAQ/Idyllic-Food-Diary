@@ -1,6 +1,8 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.cooking_pot;
 
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.CookwareBlock;
 import cn.solarmoon.idyllic_food_diary.feature.fluid_temp.ITempChanger;
+import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.evaporation.IEvaporationRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.food_boiling.IFoodBoilingRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.soup.ISoupRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.stew.IStewRecipe;
@@ -14,12 +16,14 @@ import cn.solarmoon.solarmoon_core.api.tile.inventory.TileInventory;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.items.ItemStackHandler;
+import org.jetbrains.annotations.NotNull;
 
 public class CookingPotBlockEntity extends SyncedBlockEntity implements IStewRecipe,
-        IWaterBoilingRecipe, ISoupRecipe, IFoodBoilingRecipe, ITempChanger {
+        IWaterBoilingRecipe, ISoupRecipe, IFoodBoilingRecipe, ITempChanger, IEvaporationRecipe {
 
     private final TileInventory inventory;
     private final TileTank fluidTank;
@@ -43,7 +47,12 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements IStewRec
 
     public CookingPotBlockEntity(BlockPos pos, BlockState state) {
         super(IMBlockEntities.COOKING_POT.get(), pos, state);
-        inventory = new TileInventory(24, 1, this);
+        inventory = new TileInventory(12, 1, this) {
+            @Override
+            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+                return !(Block.byItem(stack.getItem()) instanceof CookwareBlock);
+            }
+        };
         fluidTank = new TileTank(1000, this);
     }
 
@@ -180,6 +189,18 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements IStewRec
     @Override
     public void setFBRecipeTimes(int[] ints) {
         iRecipeTimes = ints;
+    }
+
+    private int evaTick;
+
+    @Override
+    public void setEvaporationTick(int tick) {
+        evaTick = tick;
+    }
+
+    @Override
+    public int getEvaporationTick() {
+        return evaTick;
     }
 
 }

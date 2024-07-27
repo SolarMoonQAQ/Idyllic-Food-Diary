@@ -4,50 +4,22 @@
     {
       "ingredients": [
         {
-          "item": "minecraft:iron_ingot"
+          "item": "minecraft:porkchop"
         }
       ],
       "fluid": {
         "id": "minecraft:water",
         "amount": 250
       },
-      "with_spices": [
-        {
-          "item": "idyllic_food_diary:salt",
-          "step": "mix",
-          "amount": 1
-        }
-      ],
       "time": 100,
-      "fry_count": 3,
-      "keep_fluid": false
-    },
-    {
-      "ingredients": [
-        {
-          "item": "minecraft:gold_ingot"
-        }
-      ],
-      "fluid": {
-        "id": "minecraft:water",
-        "amount": 250
-      },
-      "with_spices": [
-        {
-          "item": "idyllic_food_diary:salt",
-          "step": "mix",
-          "amount": 1
-        }
-      ],
-      "time": 100,
-      "fry_count": 2,
+      "fry_count": 0,
       "keep_fluid": false
     }
   ],
   "result": {
-    "item": "minecraft:diamond"
+    "item": "idyllic_food_diary:east_slope_pork"
   },
   "container": {
-    "item": "minecraft:bowl"
+    "tag": "idyllic_food_diary:medium_container"
   }
 }

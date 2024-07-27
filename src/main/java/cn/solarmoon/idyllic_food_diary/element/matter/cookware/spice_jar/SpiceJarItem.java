@@ -2,6 +2,8 @@ package cn.solarmoon.idyllic_food_diary.element.matter.cookware.spice_jar;
 
 import cn.solarmoon.idyllic_food_diary.feature.spice.ISpiceable;
 import cn.solarmoon.idyllic_food_diary.feature.spice.Spice;
+import cn.solarmoon.idyllic_food_diary.network.NETList;
+import cn.solarmoon.idyllic_food_diary.registry.common.IMPacks;
 import cn.solarmoon.solarmoon_core.api.tile.inventory.TileItemContainerHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -41,6 +43,7 @@ public class SpiceJarItem extends BlockItem {
                 level.playSound(null, pos, SoundEvents.AZALEA_LEAVES_HIT, SoundSource.PLAYERS);
                 makeSpiceParticle(level, pos);
                 if (player != null && !player.isCreative()) TileItemContainerHelper.setInventory(stack, inv);
+                blockEntity.setChanged();
                 return InteractionResult.SUCCESS;
             }
         }
@@ -48,16 +51,8 @@ public class SpiceJarItem extends BlockItem {
     }
 
     public static void makeSpiceParticle(Level level, BlockPos pos) {
-        Random random = new Random();
-        for (int i = 0; i < 7; ++i) {
-            double d0 = random.nextGaussian() * 0.02D;
-            double d1 = random.nextGaussian() * 0.02D;
-            double d2 = random.nextGaussian() * 0.02D;
-            level.addParticle(ParticleTypes.COMPOSTER,
-                    pos.getX() + random.nextFloat(),
-                    pos.getY() + random.nextDouble(),
-                    pos.getZ() + random.nextFloat(),
-                    d0, d1, d2);
+        if (!level.isClientSide) {
+            IMPacks.CLIENT_PACK.getSender().pos(pos).send(NETList.ADD_SPICE_PARTICLE);
         }
     }
 

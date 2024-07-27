@@ -2,15 +2,15 @@ package cn.solarmoon.idyllic_food_diary.registry.common;
 
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
-import cn.solarmoon.idyllic_food_diary.element.matter.bathrobe.BathrobeItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cleaver.CleaverItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.container.long_plate.LongPlateItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cooking_pot.CookingPotItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup.little_cup.LittleCupItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cutting_board.CuttingBoardItem;
-import cn.solarmoon.idyllic_food_diary.element.matter.cookware.fermenter.FermenterItem;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.fermentation_vat.FermentationVatItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.grill.GrillItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.kettle.KettleItem;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.millstone.MillstoneItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.oven.OvenItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.rolling_pin.RollingPinItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.container.plate.PlateItem;
@@ -20,25 +20,54 @@ import cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer.SteamerLi
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.winnowing_basket.WinnowingBasketItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.wok.WokItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.durian.DurianItem;
-import cn.solarmoon.idyllic_food_diary.element.matter.food.SimpleContainableFoodBlockItem;
-import cn.solarmoon.idyllic_food_diary.element.matter.food.SimpleContainableFoodItem;
+import cn.solarmoon.idyllic_food_diary.element.matter.food.FoodItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.simple_item.GarlicItem;
-import cn.solarmoon.idyllic_food_diary.element.matter.stove.StoveItem;
-import cn.solarmoon.idyllic_food_diary.util.useful_data.FoodProperty;
+import cn.solarmoon.idyllic_food_diary.element.matter.inlaid_stove.InlaidStoveItem;
+import cn.solarmoon.idyllic_food_diary.element.matter.inlaid_stove.StoveLidItem;
+import cn.solarmoon.idyllic_food_diary.feature.basic_feature.useful_data.FoodProperty;
 import cn.solarmoon.solarmoon_core.api.entry.common.ItemEntry;
 import cn.solarmoon.solarmoon_core.api.item_base.*;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 
 public class IMItems {
     public static void register() {}
 
-    // 发酵罐
-    public static final ItemEntry<FermenterItem> FERMENTER = IdyllicFoodDiary.REGISTRY.item()
-            .id("fermenter")
-            .bound(FermenterItem::new)
+    //红烧肉
+    public static final ItemEntry<SimpleBlockItem> EAST_SLOPE_PORK = IdyllicFoodDiary.REGISTRY.item()
+            .id("east_slope_pork")
+            .bound(() -> new SimpleBlockItem(IMBlocks.EAST_SLOPE_PORK.get(), 16))
+            .build();
+
+    //大豆
+    public static final ItemEntry<SimpleSeedFoodBlockItem> SOYBEANS = IdyllicFoodDiary.REGISTRY.item()
+            .id("soybeans")
+            .bound(() -> new SimpleSeedFoodBlockItem(IMBlocks.SOYBEAN_CROP.get(), FoodProperty.PRIMARY_PRODUCT))
+            .build();
+
+    // 石磨
+    public static final ItemEntry<MillstoneItem> MILLSTONE = IdyllicFoodDiary.REGISTRY.item()
+            .id("millstone")
+            .bound(MillstoneItem::new)
+            .build();
+
+    // 炉灶锅盖
+    public static final ItemEntry<StoveLidItem> STOVE_LID = IdyllicFoodDiary.REGISTRY.item()
+            .id("stove_lid")
+            .bound(StoveLidItem::new)
+            .build();
+
+    // 稻米
+    public static final ItemEntry<SimpleSeedFoodBlockItem> RICE = IdyllicFoodDiary.REGISTRY.item()
+            .id("rice")
+            .bound(() -> new SimpleSeedFoodBlockItem(IMBlocks.SOYBEAN_CROP.get(), FoodProperty.PRIMARY_PRODUCT))
+            .build();
+
+    // 发酵缸
+    public static final ItemEntry<FermentationVatItem> FERMENTATION_VAT = IdyllicFoodDiary.REGISTRY.item()
+            .id("fermentation_vat")
+            .bound(FermentationVatItem::new)
             .build();
 
     // 烤炉
@@ -47,10 +76,10 @@ public class IMItems {
             .bound(OvenItem::new)
             .build();
 
-    // 灶台
-    public static final ItemEntry<StoveItem> STOVE = IdyllicFoodDiary.REGISTRY.item()
-            .id("stove")
-            .bound(StoveItem::new)
+    // 镶嵌式灶台
+    public static final ItemEntry<InlaidStoveItem> INLAID_STOVE = IdyllicFoodDiary.REGISTRY.item()
+            .id("inlaid_stove")
+            .bound(InlaidStoveItem::new)
             .build();
 
     // 簸箕
@@ -332,9 +361,9 @@ public class IMItems {
             .build();
 
     //碗装蛋液
-    public static final ItemEntry<SimpleContainableFoodBlockItem> EGG_LIQUID_BOWL = IdyllicFoodDiary.REGISTRY.item()
+    public static final ItemEntry<FoodItem> EGG_LIQUID_BOWL = IdyllicFoodDiary.REGISTRY.item()
             .id("egg_liquid_bowl")
-            .bound(() -> new SimpleContainableFoodBlockItem(
+            .bound(() -> new FoodItem(
                     IMBlocks.EGG_LIQUID_BOWL.get(),
                     FoodProperty.PRIMARY_HUNGER_PRODUCT))
             .build();
@@ -384,45 +413,36 @@ public class IMItems {
             .build();
 
     //未烹饪的叫花鸡
-    public static final ItemEntry<SimpleContainableFoodBlockItem> UNCOOKED_BEGGARS_CHICKEN = IdyllicFoodDiary.REGISTRY.item()
+    public static final ItemEntry<FoodItem> UNCOOKED_BEGGARS_CHICKEN = IdyllicFoodDiary.REGISTRY.item()
             .id("uncooked_beggars_chicken")
-            .bound(() -> new SimpleContainableFoodBlockItem(
+            .bound(() -> new FoodItem(
                     IMBlocks.UNCOOKED_BEGGARS_CHICKEN.get(),
                     FoodProperty.PRIMARY_HUNGER_PRODUCT_1)
             )
             .build();
 
     //未烹饪的香菇蒸鸡
-    public static final ItemEntry<SimpleContainableFoodBlockItem> UNCOOKED_STEAMED_CHICKEN_WITH_MUSHROOM = IdyllicFoodDiary.REGISTRY.item()
+    public static final ItemEntry<FoodItem> UNCOOKED_STEAMED_CHICKEN_WITH_MUSHROOM = IdyllicFoodDiary.REGISTRY.item()
             .id("uncooked_steamed_chicken_with_mushroom")
-            .bound(() -> new SimpleContainableFoodBlockItem(
+            .bound(() -> new FoodItem(
                     IMBlocks.UNCOOKED_STEAMED_CHICKEN_WITH_MUSHROOM.get(),
                     FoodProperty.PRIMARY_HUNGER_PRODUCT_1)
             )
             .build();
 
     //未烹饪的蒜酥蒸南瓜
-    public static final ItemEntry<SimpleContainableFoodBlockItem> UNCOOKED_STEAMED_PUMPKIN_WITH_CHOPPED_GARLIC = IdyllicFoodDiary.REGISTRY.item()
+    public static final ItemEntry<FoodItem> UNCOOKED_STEAMED_PUMPKIN_WITH_CHOPPED_GARLIC = IdyllicFoodDiary.REGISTRY.item()
             .id("uncooked_steamed_pumpkin_with_chopped_garlic")
-            .bound(() -> new SimpleContainableFoodBlockItem(
+            .bound(() -> new FoodItem(
                     IMBlocks.UNCOOKED_STEAMED_PUMPKIN_WITH_CHOPPED_GARLIC.get(),
                     FoodProperty.PRIMARY_HUNGER_PRODUCT_1)
             )
             .build();
 
-    //未烹饪的清蒸鲑鱼
-    public static final ItemEntry<SimpleContainableFoodItem> UNCOOKED_STEAMED_SALMON = IdyllicFoodDiary.REGISTRY.item()
-            .id("uncooked_steamed_salmon")
-            .bound(() -> new SimpleContainableFoodItem(
-                    LONG_PORCELAIN_PLATE.get(),
-                    FoodProperty.PRIMARY_HUNGER_PRODUCT_1)
-            )
-            .build();
-
     //未烹饪的烤乳猪
-    public static final ItemEntry<SimpleContainableFoodBlockItem> UNCOOKED_ROASTED_SUCKLING_PIG = IdyllicFoodDiary.REGISTRY.item()
+    public static final ItemEntry<FoodItem> UNCOOKED_ROASTED_SUCKLING_PIG = IdyllicFoodDiary.REGISTRY.item()
             .id("uncooked_roasted_suckling_pig")
-            .bound(() -> new SimpleContainableFoodBlockItem(
+            .bound(() -> new FoodItem(
                     IMBlocks.UNCOOKED_ROASTED_SUCKLING_PIG.get(),
                     FoodProperty.PRIMARY_HUNGER_PRODUCT_1)
             )
@@ -487,9 +507,9 @@ public class IMItems {
 
     //烹饪食物-简单烹饪类
     //鸡蛋羹
-    public static final ItemEntry<SimpleContainableFoodBlockItem> STEAMED_EGG_CUSTARD = IdyllicFoodDiary.REGISTRY.item()
+    public static final ItemEntry<FoodItem> STEAMED_EGG_CUSTARD = IdyllicFoodDiary.REGISTRY.item()
             .id("steamed_egg_custard")
-            .bound(() -> new SimpleContainableFoodBlockItem(
+            .bound(() -> new FoodItem(
                     IMBlocks.STEAMED_EGG_CUSTARD.get(),
                     5, 0.75f,
                     () -> new MobEffectInstance(MobEffects.REGENERATION, 600, 0), 1))
@@ -504,9 +524,9 @@ public class IMItems {
             .build();
 
     //碗装香菇蒸鸡
-    public static final ItemEntry<SimpleContainableFoodBlockItem> STEAMED_CHICKEN_WITH_MUSHROOM_BOWL = IdyllicFoodDiary.REGISTRY.item()
+    public static final ItemEntry<FoodItem> STEAMED_CHICKEN_WITH_MUSHROOM_BOWL = IdyllicFoodDiary.REGISTRY.item()
             .id("steamed_chicken_with_mushroom_bowl")
-            .bound(() -> new SimpleContainableFoodBlockItem(
+            .bound(() -> new FoodItem(
                     IMBlocks.STEAMED_CHICKEN_WITH_MUSHROOM_BOWL.get(), 14, 0.8f,
                     () -> new MobEffectInstance(MobEffects.REGENERATION, 600, 0), 1F))
             .build();
@@ -566,10 +586,5 @@ public class IMItems {
             .build();
 
     //装备
-    //浴衣
-    public static final ItemEntry<BathrobeItem> BATHROBE = IdyllicFoodDiary.REGISTRY.item()
-            .id("bathrobe")
-            .bound(BathrobeItem::new)
-            .build();
 
 }

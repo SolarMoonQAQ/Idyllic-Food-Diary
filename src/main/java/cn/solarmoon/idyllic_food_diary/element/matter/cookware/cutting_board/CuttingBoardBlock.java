@@ -1,11 +1,12 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.cutting_board;
 
 import cn.solarmoon.idyllic_food_diary.data.IMItemTags;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.CookwareBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cleaver.CleaverItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.container.AbstractContainerItem;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.spice_jar.SpiceJarItem;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
-import cn.solarmoon.idyllic_food_diary.util.VoxelShapeUtil;
+import cn.solarmoon.solarmoon_core.api.phys.VoxelShapeUtil;
 import cn.solarmoon.solarmoon_core.api.block_use_caller.IBlockUseCaller;
 import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
 import cn.solarmoon.solarmoon_core.api.tile.SyncedEntityBlock;
@@ -32,7 +33,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.items.ItemStackHandler;
 
-public class CuttingBoardBlock extends SyncedEntityBlock implements IBlockUseCaller, IHorizontalFacingBlock {
+public class CuttingBoardBlock extends CookwareBlock implements IBlockUseCaller {
 
     public CuttingBoardBlock() {
         super(Properties.copy(Blocks.CHEST)
@@ -45,7 +46,7 @@ public class CuttingBoardBlock extends SyncedEntityBlock implements IBlockUseCal
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    public InteractionResult originUse(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         BlockEntity blockEntity = level.getBlockEntity(pos);
         ItemStack heldItem = player.getItemInHand(hand);
         if (blockEntity instanceof CuttingBoardBlockEntity cb) {
@@ -77,11 +78,11 @@ public class CuttingBoardBlock extends SyncedEntityBlock implements IBlockUseCal
     public Event.Result getUseResult(BlockState blockState, BlockPos blockPos, Level level, Player player, ItemStack stack, BlockHitResult blockHitResult, InteractionHand hand) {
         Item item = stack.getItem();
         if (player.isCrouching() && !player.getItemInHand(hand).isEmpty()) return Event.Result.DENY;
-        return item instanceof SpiceJarItem || item instanceof CleaverItem || stack.is(IMItemTags.CONTAINER) ? Event.Result.DENY : Event.Result.ALLOW;
+        return item instanceof SpiceJarItem || item instanceof CleaverItem ? Event.Result.DENY : Event.Result.ALLOW;
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
+    public VoxelShape getOriginShape(BlockState state, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
         return VoxelShapeUtil.rotateShape(state.getValue(FACING),
                 Block.box(1.0D, 0.0D, 1.0D, 15.0D, 1.0D, 15.0D));
     }

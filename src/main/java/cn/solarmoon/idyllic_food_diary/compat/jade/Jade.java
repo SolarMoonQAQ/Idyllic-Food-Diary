@@ -4,6 +4,7 @@ import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cooking_pot.CookingPotBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup.AbstractCupBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cutting_board.CuttingBoardBlock;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.fermentation_vat.FermentationVatBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.grill.GrillBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.kettle.KettleBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.oven.OvenBlock;
@@ -32,6 +33,7 @@ public class Jade implements IWailaPlugin {
         registration.registerBlockComponent(new CommonCookwareProvider("grill"), GrillBlock.class);
         registration.registerBlockComponent(new CommonCookwareProvider("winnowing_basket"), WinnowingBasketBlock.class);
         registration.registerBlockComponent(new CommonCookwareProvider("oven"), OvenBlock.class);
+        registration.registerBlockComponent(new CommonCookwareProvider("fermenter"), FermentationVatBlock.class);
 
         ResourceLocation pinId = new ResourceLocation(IdyllicFoodDiary.MOD_ID, "rolling_pin");
         WailaClientRegistration.INSTANCE.addConfig(pinId, true);

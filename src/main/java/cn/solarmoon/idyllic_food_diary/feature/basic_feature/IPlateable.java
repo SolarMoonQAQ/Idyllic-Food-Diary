@@ -1,8 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.feature.basic_feature;
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
-import cn.solarmoon.solarmoon_core.api.tile.inventory.ItemHandlerUtil;
-import cn.solarmoon.solarmoon_core.api.tile.inventory.TileItemContainerHelper;
 import cn.solarmoon.solarmoon_core.api.util.DropUtil;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;

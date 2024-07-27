@@ -1,7 +1,7 @@
 {
 	"credit": "Made with Blockbench",
-	"texture_size": [32, 32],
 	"parent": "idyllic_food_diary:item/model/rolling_pin",
+	"texture_size": [32, 32],
 	"textures": {
 		"1": "idyllic_food_diary:item/model/rolling_pin",
 		"particle": "idyllic_food_diary:item/rolling_pin"
@@ -80,12 +80,12 @@
 	],
 	"display": {
 		"thirdperson_righthand": {
-			"rotation": [-16, 89, -66],
-			"translation": [0.25, 5.75, 1.25]
+			"rotation": [-16, 90, -66],
+			"translation": [0.25, 4.75, 2]
 		},
 		"thirdperson_lefthand": {
-			"rotation": [-16, 89, 111],
-			"translation": [-0.5, 5.25, 2.25]
+			"rotation": [-16, 90, -66],
+			"translation": [0.25, 4.75, 2]
 		},
 		"firstperson_righthand": {
 			"rotation": [64, -77, 0],
@@ -95,12 +95,17 @@
 			"rotation": [5, 103, 58],
 			"translation": [-0.5, 5.25, 5.5]
 		},
+		"ground": {
+			"scale": [0.5, 0.5, 0.5]
+		},
 		"gui": {
 			"rotation": [0, 0, -45],
 			"translation": [0.5, 0.25, 0]
 		},
+		"head": {
+			"translation": [0, 9, 0]
+		},
 		"fixed": {
-			"rotation": [0, 0, 45],
 			"translation": [-0.25, 0.5, -0.25]
 		}
 	},

@@ -1,10 +1,10 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.kettle;
 
-import cn.solarmoon.idyllic_food_diary.registry.client.IMParticles;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.CookwareBlock;
+import cn.solarmoon.idyllic_food_diary.registry.common.IMParticles;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMSounds;
 import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
-import cn.solarmoon.solarmoon_core.api.tile.SyncedEntityBlock;
 import cn.solarmoon.solarmoon_core.api.tile.fluid.FluidHandlerUtil;
 import cn.solarmoon.solarmoon_core.api.tile.inventory.ItemHandlerUtil;
 import net.minecraft.core.BlockPos;
@@ -35,7 +35,7 @@ import java.util.Random;
  * 应用tankBlockEntity，是一个液体容器（但是不使其具有原有的液体交互功能，而是替换为倒水功能）
  * 具有烧水、倒水功能
  */
-public class KettleBlock extends SyncedEntityBlock implements IHorizontalFacingBlock {
+public class KettleBlock extends CookwareBlock {
 
     public KettleBlock() {
         super(Properties.of()
@@ -47,7 +47,7 @@ public class KettleBlock extends SyncedEntityBlock implements IHorizontalFacingB
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    public InteractionResult originUse(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         BlockEntity blockEntity = level.getBlockEntity(pos);
         KettleBlockEntity kettle = (KettleBlockEntity) blockEntity;
         if(kettle == null) return InteractionResult.PASS;
@@ -66,17 +66,12 @@ public class KettleBlock extends SyncedEntityBlock implements IHorizontalFacingB
     }
 
     @Override
-    public void attack(BlockState state, Level level, BlockPos pos, Player player) {
-        getThis(player, level, pos, state, InteractionHand.MAIN_HAND, true);
-        super.attack(state, level, pos, player);
-    }
-
-    @Override
     public void tick(Level level, BlockPos pos, BlockState state, BlockEntity blockEntity) {
         super.tick(level, pos, state, blockEntity);
         KettleBlockEntity kettle = (KettleBlockEntity) blockEntity;
-        kettle.tryBoilWater();
-        kettle.tryBrewTea();
+
+        if (!kettle.tryBrewTea()) kettle.tryBoilWater();
+
         //里面是hot类型的液体就冒热气
         makeBoilParticle(level, pos, state, blockEntity);
     }
@@ -110,7 +105,7 @@ public class KettleBlock extends SyncedEntityBlock implements IHorizontalFacingB
 
     protected static final VoxelShape SHAPE = Block.box(4.0D, 0.0D, 4.0D, 12.0D, 7.0D, 12.0D);
     @Override
-    public @NotNull VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+    public @NotNull VoxelShape getOriginShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         return SHAPE;
     }
 

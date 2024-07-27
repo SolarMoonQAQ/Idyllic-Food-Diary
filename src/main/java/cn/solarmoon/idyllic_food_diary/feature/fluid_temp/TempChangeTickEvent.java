@@ -1,5 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.feature.fluid_temp;
 
+import cn.solarmoon.idyllic_food_diary.api.AnimTicker;
 import cn.solarmoon.idyllic_food_diary.feature.basic_feature.IHeatable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;

@@ -1,7 +1,10 @@
 package cn.solarmoon.idyllic_food_diary.mixin;
 
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.rolling_pin.RollingPinItem;
 import cn.solarmoon.idyllic_food_diary.feature.hug_item.IHuggableItem;
+import cn.solarmoon.idyllic_food_diary.registry.common.IMItems;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.world.entity.HumanoidArm;

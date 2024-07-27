@@ -1,7 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.container;
 
-import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
-import cn.solarmoon.idyllic_food_diary.util.ParticleSpawner;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.CookwareBlock;
+import cn.solarmoon.idyllic_food_diary.feature.basic_feature.ParticleSpawner;
 import cn.solarmoon.solarmoon_core.api.blockstate_access.IBedPartBlock;
 import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
 import cn.solarmoon.solarmoon_core.api.capability.CountingDevice;
@@ -18,13 +18,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.items.ItemStackHandler;
 
-public abstract class AbstractContainerBlock extends SyncedEntityBlock implements IHorizontalFacingBlock {
+public abstract class AbstractContainerBlock extends CookwareBlock {
 
     public AbstractContainerBlock(SoundType soundType) {
         super(BlockBehaviour.Properties.of()
@@ -39,7 +38,7 @@ public abstract class AbstractContainerBlock extends SyncedEntityBlock implement
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult blockHitResult) {
+    public InteractionResult originUse(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult blockHitResult) {
         ContainerBlockEntity plate = (ContainerBlockEntity) level.getBlockEntity(pos);
         if (plate == null) return InteractionResult.PASS;
         ItemStackHandler inv = plate.getInventory();
@@ -82,16 +81,6 @@ public abstract class AbstractContainerBlock extends SyncedEntityBlock implement
 
     public int getEatCount() {
         return 5;
-    }
-
-    @Override
-    public void attack(BlockState state, Level level, BlockPos pos, Player player) {
-        BlockPos rP = pos;
-        if (this instanceof IBedPartBlock b) {
-            rP = b.getFootPos(state, pos);
-        }
-        getThis(player, level, rP, state, InteractionHand.MAIN_HAND, true);
-        super.attack(state, level, pos, player);
     }
 
 }

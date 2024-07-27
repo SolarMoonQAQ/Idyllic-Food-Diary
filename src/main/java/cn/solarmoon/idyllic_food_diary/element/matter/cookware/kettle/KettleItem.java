@@ -1,6 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.kettle;
 
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlocks;
+import net.minecraft.world.item.ItemStack;
 
 /**
  * 水壶item

@@ -1,6 +1,8 @@
 package cn.solarmoon.idyllic_food_diary.feature.generic_recipe.stir_fry;
 
-import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
+import cn.solarmoon.idyllic_food_diary.api.AnimHelper;
+import cn.solarmoon.idyllic_food_diary.api.AnimTicker;
+import cn.solarmoon.idyllic_food_diary.element.matter.inlaid_stove.IBuiltInStove;
 import cn.solarmoon.idyllic_food_diary.feature.basic_feature.IHeatable;
 import cn.solarmoon.idyllic_food_diary.feature.basic_feature.IPlateable;
 import cn.solarmoon.idyllic_food_diary.feature.spice.ISpiceable;
@@ -8,13 +10,16 @@ import cn.solarmoon.idyllic_food_diary.feature.spice.SpiceList;
 import cn.solarmoon.idyllic_food_diary.network.NETList;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMPacks;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMRecipes;
-import cn.solarmoon.solarmoon_core.api.capability.anim_ticker.AnimTicker;
+import cn.solarmoon.idyllic_food_diary.registry.common.IMSounds;
 import cn.solarmoon.solarmoon_core.api.tile.fluid.FluidHandlerUtil;
 import cn.solarmoon.solarmoon_core.api.tile.fluid.ITankTile;
 import cn.solarmoon.solarmoon_core.api.tile.inventory.IContainerTile;
 import cn.solarmoon.solarmoon_core.api.tile.inventory.ItemHandlerUtil;
 import cn.solarmoon.solarmoon_core.feature.capability.IBlockEntityData;
 import cn.solarmoon.solarmoon_core.registry.common.SolarCapabilities;
+import kotlin.Unit;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
@@ -37,8 +42,7 @@ public interface IStirFryRecipe extends IContainerTile, ITankTile, IHeatable, IS
 
     default boolean tryStirFrying() {
         Level level = h().getLevel();
-        IBlockEntityData bData = h().getCapability(SolarCapabilities.BLOCK_ENTITY_DATA).orElse(null);
-        if (level == null || bData == null) return false;
+        if (level == null) return false;
         // 如果当前物品满足任意配方的阶段0，则保存该配方
         findStirFryRecipe().ifPresent(recipe -> {
             if (getStirFryRecipe() == null) {
@@ -105,48 +109,75 @@ public interface IStirFryRecipe extends IContainerTile, ITankTile, IHeatable, IS
 
     }
 
+    /**
+     * @return 配方是否在运作
+     */
     default boolean isStirFrying() {
         return getStirFryRecipe() != null && getPresentFryStage() != null;
     }
 
     default boolean doStirFry() {
-        return h().getCapability(SolarCapabilities.BLOCK_ENTITY_DATA).map(b -> {
-            if (!isAnimFin() || getPresentFryStage() == null || getFryCount() >= getPresentFryStage().fryCount()) return false;
+        if (!isAnimFin() || getPresentFryStage() == null || getFryCount() >= getPresentFryStage().fryCount()) return false;
 
-            Level level = h().getLevel();
-            if (level == null || !level.isClientSide) return false;
+        Level level = h().getLevel();
+        if (level == null) return false;
 
-            boolean flag = false;
+        boolean flag = false;
 
-            for (int i = 0; i < getStacks().size(); i++) {
-                AnimTicker animTicker = b.getAnimTicker(i+2);
-                AnimTicker animTicker2 = b.getAnimTicker(-(i+2));
-                if (canStirFry() && !animTicker.isEnabled()) {
-                    animTicker.setFixedValue(0); // 设置动画初始帧
-                    animTicker.start();
-                    animTicker2.setFixedValue(new Random().nextFloat()); // 设置炒菜随机旋转角
-                    flag = true;
-                }
+        for (int i = 0; i < getStacks().size(); i++) {
+            String name = "fry" + i;
+            AnimHelper.createMap(h(), name);
+            AnimTicker anim = AnimHelper.getMap(h()).get(name);
+            anim.getTimer().setMaxTime(getFryTime(getStacks().size()));
+            if (canStirFry() && !anim.getTimer().getTiming()) {
+                anim.getFixedValues().put("rotRandom", new Random().nextFloat()); // 设置炒菜随机旋转角
+                anim.getFixedValues().put("maxHeight", getFryHeight(i));
+                int finalI = i;
+                anim.getTimer().setOnStopAction(() -> {
+                    double posYOffset = 0;
+                    if (h().getBlockState().getBlock() instanceof IBuiltInStove b) {
+                        posYOffset = b.getYOffset(h().getBlockState());
+                    }
+                    // 每一片食材落下后产生火花
+                    double xInRange = 2 / 16f + new Random().nextDouble() * 12 / 16;
+                    double zInRange = 2 / 16f + new Random().nextDouble() * 12 / 16; // 保证粒子起始点在锅内
+                    double vi = (new Random().nextDouble() - 0.5) / 5;
+                    level.addParticle(ParticleTypes.SMALL_FLAME, h().getBlockPos().getX() + xInRange, h().getBlockPos().getY() + (1.5 + finalI * 0.25)/16f + posYOffset, h().getBlockPos().getZ() + zInRange, vi, 0.1, vi);
+                    return Unit.INSTANCE;
+                });
+                anim.getTimer().start();
+                flag = true;
             }
+        }
 
-            if (flag) {
-                IMPacks.SERVER_PACK.getSender().pos(h().getBlockPos()).i(getFryCount() + 1).send(NETList.DO_STIR);
-                setFryCount(getFryCount() + 1);
-                return true;
-            }
+        if (flag) {
+            setFryCount(getFryCount() + 1);
+            level.playSound(null, h().getBlockPos(), IMSounds.STIR_SIZZLE.get(), SoundSource.BLOCKS);
+            return true;
+        }
 
-            return false;
-        }).orElse(false);
+        return false;
+    }
+
+    /**
+     * @return 每道菜翻炒能到达的最大高度
+     */
+    default float getFryHeight(int index) {
+        return (float) (12/16f + 0.25 * index);
+    }
+
+    /**
+     * @return 自由落体时间
+     */
+    default int getFryTime(int index) {
+        double g = 9.8;
+        double t = Math.sqrt(getFryHeight(index) / g);
+        return (int) (t * 30);
     }
 
     default boolean isAnimFin() {
-        return h().getCapability(SolarCapabilities.BLOCK_ENTITY_DATA).map(d -> {
-            for (int i = 0; i < getStacks().size(); i++) {
-                AnimTicker animTicker = d.getAnimTicker(i + 2);
-                if (animTicker.isEnabled()) return false;
-            }
-            return true;
-        }).orElse(false);
+        AnimTicker anim = AnimHelper.getMap(h()).get("fry" + (getStacks().size()-1));
+        return anim == null || !anim.getTimer().getTiming();
     }
 
     /**

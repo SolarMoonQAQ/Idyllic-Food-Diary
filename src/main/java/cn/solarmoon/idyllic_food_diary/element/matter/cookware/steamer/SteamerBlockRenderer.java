@@ -53,35 +53,37 @@ public class SteamerBlockRenderer extends BaseBlockEntityRenderer<SteamerBlockEn
 
         // 渲染物品（只渲染最上层）
         Direction direction = steamer.getBlockState().getValue(IHorizontalFacingBlock.FACING);
-        ItemStackHandler inv = steamer.getInvList().get(stackAmount - 1);
-        for (int i = 0; i < inv.getSlots(); i++) {
-            poseStack.pushPose();
-            ItemStack stack = inv.getStackInSlot(i);
-            PoseStackHelper.rotateByDirection(direction, poseStack);
-            // 物品大小
-            float scale = 4.5f / 16f;
-            // 控制图形大小的矩形的始末点
-            float renderBoxVertexMin = 5.75f / 16f;
-            float renderBoxVertexMax = 1 - renderBoxVertexMin;
-            // 图形长度
-            float range = renderBoxVertexMax - renderBoxVertexMin;
-            // 图形的顶点坐标
-            float[][] vertices = {
-                    {1, 1},
-                    {0, 1},
-                    {1, 0},
-                    {0, 0}
-            };
-            // 按序列定位正方形的顶点
-            float[] vertex = vertices[i % vertices.length];
-            double x = renderBoxVertexMin + range * vertex[0];
-            double h = 4 / 16f * stackAmount - (1 - scale / 2) / 16F;
-            double z = renderBoxVertexMin + range * vertex[1];
-            poseStack.translate(x, h, z);
-            poseStack.scale(scale, scale, scale);
-            poseStack.mulPose(Axis.XP.rotationDegrees(90));
-            Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED, light, overlay, poseStack, buffer, level, (int) pos.asLong());
-            poseStack.popPose();
+        if (stackAmount - 1 >= 0) {
+            ItemStackHandler inv = steamer.getInvList().get(stackAmount - 1);
+            for (int i = 0; i < inv.getSlots(); i++) {
+                poseStack.pushPose();
+                ItemStack stack = inv.getStackInSlot(i);
+                PoseStackHelper.rotateByDirection(direction, poseStack);
+                // 物品大小
+                float scale = 4.5f / 16f;
+                // 控制图形大小的矩形的始末点
+                float renderBoxVertexMin = 5.75f / 16f;
+                float renderBoxVertexMax = 1 - renderBoxVertexMin;
+                // 图形长度
+                float range = renderBoxVertexMax - renderBoxVertexMin;
+                // 图形的顶点坐标
+                float[][] vertices = {
+                        {1, 1},
+                        {0, 1},
+                        {1, 0},
+                        {0, 0}
+                };
+                // 按序列定位正方形的顶点
+                float[] vertex = vertices[i % vertices.length];
+                double x = renderBoxVertexMin + range * vertex[0];
+                double h = 4 / 16f * stackAmount - (1 - scale / 2) / 16F;
+                double z = renderBoxVertexMin + range * vertex[1];
+                poseStack.translate(x, h, z);
+                poseStack.scale(scale, scale, scale);
+                poseStack.mulPose(Axis.XP.rotationDegrees(90));
+                Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED, light, overlay, poseStack, buffer, level, (int) pos.asLong());
+                poseStack.popPose();
+            }
         }
 
     }

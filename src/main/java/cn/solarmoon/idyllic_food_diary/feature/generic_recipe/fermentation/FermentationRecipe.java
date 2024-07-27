@@ -11,6 +11,7 @@ import com.google.gson.JsonObject;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.fluids.FluidStack;
 import org.jetbrains.annotations.Nullable;
@@ -24,6 +25,7 @@ public record FermentationRecipe (
         Temp temp,
         SpiceList withSpices,
         int time,
+        List<ItemStack> results,
         FluidStack outputFluid
 ) implements IConcreteRecipe {
 
@@ -46,8 +48,9 @@ public record FermentationRecipe (
             Temp tempScale = Temp.readFromJson(json);
             SpiceList withSpices = SpiceList.readSpices(json, "with_spices");
             int time = GsonHelper.getAsInt(json, "time");
+            List<ItemStack> results = SerializeHelper.readItemStacks(json, "results");
             FluidStack outputFluid = SerializeHelper.readFluidStack(json, "output_fluid");
-            return new FermentationRecipe(id, inputIngredients, inputFluid, tempScale, withSpices, time, outputFluid);
+            return new FermentationRecipe(id, inputIngredients, inputFluid, tempScale, withSpices, time, results, outputFluid);
         }
 
         @Override
@@ -57,8 +60,9 @@ public record FermentationRecipe (
             Temp tempScale = buf.readEnum(Temp.class);
             SpiceList withSpices = SpiceList.readSpices(buf);
             int time = buf.readInt();
+            List<ItemStack> results = SerializeHelper.readItemStacks(buf);
             FluidStack outputFluid = buf.readFluidStack();
-            return new FermentationRecipe(id, ingredients, inputFluid, tempScale, withSpices, time, outputFluid);
+            return new FermentationRecipe(id, ingredients, inputFluid, tempScale, withSpices, time, results, outputFluid);
         }
 
         @Override
@@ -68,7 +72,8 @@ public record FermentationRecipe (
             buf.writeEnum(recipe.temp);
             SpiceList.writeSpices(buf, recipe.withSpices());
             buf.writeInt(recipe.time());
-            recipe.outputFluid().writeToPacket(buf);
+            SerializeHelper.writeItemStacks(buf, recipe.results);
+            buf.writeFluidStack(recipe.outputFluid);
         }
 
     }

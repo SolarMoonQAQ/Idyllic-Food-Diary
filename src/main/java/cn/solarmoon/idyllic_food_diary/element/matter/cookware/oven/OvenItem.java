@@ -14,14 +14,4 @@ public class OvenItem extends BlockItem {
         super(IMBlocks.OVEN.get(), new Properties().stacksTo(1));
     }
 
-    @Override
-    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-        consumer.accept(new IClientItemExtensions() {
-            @Override
-            public BlockEntityWithoutLevelRenderer getCustomRenderer() {
-                return new OvenItemRenderer();
-            }
-        });
-    }
-
 }

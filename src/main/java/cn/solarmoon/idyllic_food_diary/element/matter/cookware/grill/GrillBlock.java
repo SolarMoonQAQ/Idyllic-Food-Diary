@@ -1,5 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.grill;
 
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.CookwareBlock;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
 import cn.solarmoon.solarmoon_core.api.block_use_caller.IBlockUseCaller;
 import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
@@ -8,6 +9,7 @@ import cn.solarmoon.solarmoon_core.api.phys.VecUtil;
 import cn.solarmoon.solarmoon_core.api.tile.SyncedEntityBlock;
 import cn.solarmoon.solarmoon_core.api.tile.inventory.ItemHandlerUtil;
 import cn.solarmoon.solarmoon_core.api.util.DropUtil;
+import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -41,7 +43,7 @@ import net.minecraftforge.items.ItemStackHandler;
 
 import java.util.List;
 
-public class GrillBlock extends SyncedEntityBlock implements ILitBlock, IHorizontalFacingBlock, IBlockUseCaller {
+public class GrillBlock extends CookwareBlock implements ILitBlock, IBlockUseCaller {
 
     public GrillBlock() {
         super(Properties.copy(Blocks.LANTERN)
@@ -58,7 +60,7 @@ public class GrillBlock extends SyncedEntityBlock implements ILitBlock, IHorizon
      * 存储逻辑为指哪存哪，有煤炭存煤炭
      */
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    public InteractionResult originUse(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         GrillBlockEntity grill = (GrillBlockEntity) level.getBlockEntity(pos);
         ItemStack heldItem = player.getItemInHand(hand);
         if (grill == null) return InteractionResult.PASS;
@@ -163,7 +165,7 @@ public class GrillBlock extends SyncedEntityBlock implements ILitBlock, IHorizon
         }
     }
 
-    protected static final VoxelShape[] SHAPE = new VoxelShape[]{
+    protected static final VoxelShape[] SHAPE = new VoxelShape[] {
             Block.box(0, 0, 0, 0, 0, 0),
 
             Block.box(0D, 0.0D, 0D, 2D, 12D, 2D),
@@ -184,13 +186,23 @@ public class GrillBlock extends SyncedEntityBlock implements ILitBlock, IHorizon
             Block.box(0D, 15D, 15D, 16D, 16D, 16D)
     };
     @Override
-    public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
+    public VoxelShape getOriginShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
         return Shapes.or(SHAPE[0], SHAPE);
     }
 
     @Override
     public BlockEntityType<?> getBlockEntityType() {
         return IMBlockEntities.GRILL.get();
+    }
+
+    @Override
+    public boolean canGet() {
+        return false;
+    }
+
+    @Override
+    public boolean dropSync() {
+        return false;
     }
 
 }

@@ -4,6 +4,8 @@ import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer.SteamerBlockEntity;
 import cn.solarmoon.idyllic_food_diary.feature.basic_feature.IPlateable;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.baking.IBakingRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.evaporation.IEvaporationRecipe;
+import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.fermentation.IFermentationRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.food_boiling.IFoodBoilingRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.ingredient_handling.IIngredientHandlingRecipe;
 import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.soup.ISoupRecipe;
@@ -67,6 +69,12 @@ public class CommonCookwareProvider implements IBlockComponentProvider, IServerD
         }
         if (be instanceof IBakingRecipe bake) {
             JadeUtil.addByTime(bake.getBakeTime(), bake.getBakeRecipeTime(), iTooltip);
+        }
+        if (be instanceof IEvaporationRecipe eva) {
+            JadeUtil.addSteamingBaseTip(iTooltip, eva);
+        }
+        if (be instanceof IFermentationRecipe f) {
+            JadeUtil.addByTime(f.getFermentTime(), f.getFermentRecipeTime(), iTooltip);
         }
     }
 

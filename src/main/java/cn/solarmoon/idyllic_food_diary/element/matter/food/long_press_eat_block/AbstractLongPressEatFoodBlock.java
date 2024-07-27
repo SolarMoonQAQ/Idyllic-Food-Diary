@@ -3,7 +3,7 @@ package cn.solarmoon.idyllic_food_diary.element.matter.food.long_press_eat_block
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.element.matter.food.FoodBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.food.FoodEntityBlock;
-import cn.solarmoon.idyllic_food_diary.util.ParticleSpawner;
+import cn.solarmoon.idyllic_food_diary.feature.basic_feature.ParticleSpawner;
 import cn.solarmoon.solarmoon_core.api.block_util.BlockUtil;
 import cn.solarmoon.solarmoon_core.api.capability.CountingDevice;
 import cn.solarmoon.solarmoon_core.api.util.DropUtil;
@@ -104,7 +104,7 @@ public abstract class AbstractLongPressEatFoodBlock extends FoodEntityBlock {
         // 此处一定是container为基底才能快速拿起
         FoodBlockEntity fb = (FoodBlockEntity) level.getBlockEntity(pos);
         if (fb != null && !fb.getContainer().isEmpty()) {
-            getThis(player, level, pos, state, InteractionHand.MAIN_HAND, true);
+            getThis(player, level, pos, state, InteractionHand.MAIN_HAND, true, true);
         }
         super.attack(state, level, pos, player);
     }

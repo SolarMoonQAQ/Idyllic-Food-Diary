@@ -1,5 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.winnowing_basket;
 
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.CookwareBlock;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
 import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
 import cn.solarmoon.solarmoon_core.api.tile.SyncedEntityBlock;
@@ -24,7 +25,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class WinnowingBasketBlock extends SyncedEntityBlock implements IHorizontalFacingBlock {
+public class WinnowingBasketBlock extends CookwareBlock implements IHorizontalFacingBlock {
 
     public WinnowingBasketBlock() {
         super(BlockBehaviour.Properties.of()
@@ -35,7 +36,7 @@ public class WinnowingBasketBlock extends SyncedEntityBlock implements IHorizont
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    public InteractionResult originUse(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         WinnowingBasketBlockEntity wb = (WinnowingBasketBlockEntity) level.getBlockEntity(pos);
         if (wb == null) return InteractionResult.PASS;
         if (ItemHandlerUtil.storage(wb.getInventory(), player, hand, 1, 1)) {
@@ -53,7 +54,7 @@ public class WinnowingBasketBlock extends SyncedEntityBlock implements IHorizont
     }
 
     @Override
-    public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
+    public VoxelShape getOriginShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
         return Shapes.block();
     }
 

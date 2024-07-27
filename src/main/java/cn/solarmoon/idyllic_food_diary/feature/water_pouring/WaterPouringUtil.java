@@ -2,7 +2,7 @@ package cn.solarmoon.idyllic_food_diary.feature.water_pouring;
 
 import cn.solarmoon.idyllic_food_diary.feature.tea_brewing.TeaBrewingUtil;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMSounds;
-import cn.solarmoon.idyllic_food_diary.util.ParticleSpawner;
+import cn.solarmoon.idyllic_food_diary.feature.basic_feature.ParticleSpawner;
 import cn.solarmoon.solarmoon_core.api.phys.OrientedBox;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;

@@ -1,14 +1,13 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.wok;
 
+import cn.solarmoon.idyllic_food_diary.api.AnimHelper;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.CookwareBlock;
-import cn.solarmoon.idyllic_food_diary.element.matter.stove.IBuiltInStove;
+import cn.solarmoon.idyllic_food_diary.element.matter.inlaid_stove.IBuiltInStove;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMItems;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMSounds;
-import cn.solarmoon.idyllic_food_diary.util.VoxelShapeUtil;
+import cn.solarmoon.solarmoon_core.api.phys.VoxelShapeUtil;
 import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
-import cn.solarmoon.solarmoon_core.api.renderer.IFreeRenderBlock;
-import cn.solarmoon.solarmoon_core.api.tile.SyncedEntityBlock;
 import cn.solarmoon.solarmoon_core.api.tile.fluid.FluidHandlerUtil;
 import cn.solarmoon.solarmoon_core.api.tile.inventory.ItemHandlerUtil;
 import net.minecraft.core.BlockPos;
@@ -22,7 +21,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -55,7 +53,8 @@ public class WokBlock extends CookwareBlock implements IHorizontalFacingBlock, I
             return InteractionResult.SUCCESS;
         }
 
-        if (player.getMainHandItem().is(IMItems.SPATULA.get()) && pan.doStirFry()) {
+        // 上方是空气才能炒菜（否则渲染超出了）
+        if (player.getMainHandItem().is(IMItems.SPATULA.get()) && level.getBlockState(pos.above()).isAir() && pan.doStirFry()) {
             return InteractionResult.SUCCESS;
         }
 
@@ -79,14 +78,15 @@ public class WokBlock extends CookwareBlock implements IHorizontalFacingBlock, I
 
     @Override
     public void tick(Level level, BlockPos pos, BlockState state, BlockEntity blockEntity) {
+        super.tick(level, pos, state, blockEntity);
         if (blockEntity instanceof WokBlockEntity pan) {
             pan.tryStirFrying();
             pan.tryApplyThermochanger();
 
             // 炒菜音效
-            if (pan.isStirFrying() && level.isClientSide) {
+            if (pan.isStirFrying()) {
                 if (pan.soundTick == 0 || pan.soundTick > 90) {
-                    level.playLocalSound(pos, IMSounds.STIR_FRY.get(), SoundSource.BLOCKS, 1, 1, false);
+                    level.playSound(null, pos, IMSounds.STIR_FRY.get(), SoundSource.BLOCKS, 1, 1);
                     pan.soundTick = 1;
                 }
                 pan.soundTick++;
@@ -94,11 +94,8 @@ public class WokBlock extends CookwareBlock implements IHorizontalFacingBlock, I
                 pan.soundTick = 0;
             }
 
-            // 嵌入炉灶可以蒸水
-            if (isNestedInStove(state)) pan.tryDrainHotFluid();
-
+            AnimHelper.Fluid.onFluidAnimStop(pan, pan.getTank().getFluid());
         }
-        super.tick(level, pos, state, blockEntity);
     }
 
     @Override

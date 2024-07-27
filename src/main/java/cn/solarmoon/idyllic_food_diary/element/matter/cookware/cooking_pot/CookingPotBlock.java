@@ -1,10 +1,11 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.cooking_pot;
 
-import cn.solarmoon.idyllic_food_diary.registry.client.IMParticles;
+import cn.solarmoon.idyllic_food_diary.api.AnimHelper;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.CookwareBlock;
+import cn.solarmoon.idyllic_food_diary.element.matter.inlaid_stove.IBuiltInStove;
+import cn.solarmoon.idyllic_food_diary.registry.common.IMParticles;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
-import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
 import cn.solarmoon.solarmoon_core.api.phys.VoxelShapeUtil;
-import cn.solarmoon.solarmoon_core.api.tile.SyncedEntityBlock;
 import cn.solarmoon.solarmoon_core.api.tile.fluid.FluidHandlerUtil;
 import cn.solarmoon.solarmoon_core.api.tile.inventory.ItemHandlerUtil;
 import net.minecraft.core.BlockPos;
@@ -32,7 +33,7 @@ import net.minecraftforge.items.ItemStackHandler;
 /**
  * 汤锅
  */
-public class CookingPotBlock extends SyncedEntityBlock implements IHorizontalFacingBlock {
+public class CookingPotBlock extends CookwareBlock implements IBuiltInStove {
 
     public CookingPotBlock() {
         super(Block.Properties.of()
@@ -46,7 +47,7 @@ public class CookingPotBlock extends SyncedEntityBlock implements IHorizontalFac
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    public InteractionResult originUse(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         CookingPotBlockEntity cookingPot = (CookingPotBlockEntity) level.getBlockEntity(pos);
         if (cookingPot == null) return InteractionResult.PASS;
         ItemStackHandler inv = cookingPot.getInventory();
@@ -77,12 +78,6 @@ public class CookingPotBlock extends SyncedEntityBlock implements IHorizontalFac
     }
 
     @Override
-    public void attack(BlockState state, Level level, BlockPos pos, Player player) {
-        getThis(player, level, pos, state, InteractionHand.MAIN_HAND, true);
-        super.attack(state, level, pos, player);
-    }
-
-    @Override
     public void tick(Level level, BlockPos pos, BlockState state, BlockEntity blockEntity) {
         super.tick(level, pos, state, blockEntity);
         CookingPotBlockEntity pot = (CookingPotBlockEntity) blockEntity;
@@ -94,6 +89,11 @@ public class CookingPotBlock extends SyncedEntityBlock implements IHorizontalFac
                 }
             }
         }
+
+        // 嵌入炉灶可以蒸水
+        pot.tryDrainHotFluid();
+
+        AnimHelper.Fluid.onFluidAnimStop(blockEntity, pot.getTank().getFluid());
     }
 
     @Override
@@ -111,13 +111,13 @@ public class CookingPotBlock extends SyncedEntityBlock implements IHorizontalFac
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        VoxelShape shape1 = Block.box(2.0D, 0.0D, 2.0D, 14D, 13D, 14D);
-        VoxelShape shape2 = Block.box(4, 2, 4, 12, 13, 12);
+    public VoxelShape getOriginShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        VoxelShape shape1 = Block.box(2.0D, 0.0D, 2.0D, 14D, 8D, 14D);
+        VoxelShape shape2 = Block.box(4, 2, 4, 12, 8, 12);
         VoxelShape shapeBody = Shapes.joinUnoptimized(shape1, shape2, BooleanOp.ONLY_FIRST);
         VoxelShape shapeHandle = Shapes.or(
-                Block.box(0, 9, 5, 2, 11, 11),
-                Block.box(14, 9, 5, 16, 11, 11)
+                Block.box(0, 5, 5, 2, 7, 11),
+                Block.box(14, 5, 5, 16, 7, 11)
         );
         return VoxelShapeUtil.rotateShape(state.getValue(FACING), Shapes.or(shapeBody, shapeHandle));
     }

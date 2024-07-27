@@ -6,7 +6,7 @@ import cn.solarmoon.idyllic_food_diary.element.matter.cookware.spice_jar.MakeSpi
 import cn.solarmoon.idyllic_food_diary.feature.basic_feature.BasicBlockEntityTickEvent;
 import cn.solarmoon.idyllic_food_diary.feature.basic_feature.BlockEntityDataHolderEvent;
 import cn.solarmoon.idyllic_food_diary.feature.fluid_temp.TempChangeTickEvent;
-import cn.solarmoon.idyllic_food_diary.feature.hug_item.PreventArmShowEvent;
+import cn.solarmoon.idyllic_food_diary.feature.trade.AddSpiceTradeEvent;
 import cn.solarmoon.solarmoon_core.api.entry.common.BaseCommonEventRegistry;
 
 public class IMCommonEvents extends BaseCommonEventRegistry {
@@ -17,8 +17,8 @@ public class IMCommonEvents extends BaseCommonEventRegistry {
         add(new MakeSpiceJarFacilitateEvent());
         add(new BlockEntityDataHolderEvent());
         add(new BasicBlockEntityTickEvent());
-        add(new PreventArmShowEvent());
         add(new TempChangeTickEvent());
+        add(new AddSpiceTradeEvent());
     }
 
 }

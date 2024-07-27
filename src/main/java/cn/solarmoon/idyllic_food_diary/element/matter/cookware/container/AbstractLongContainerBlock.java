@@ -32,9 +32,9 @@ public abstract class AbstractLongContainerBlock extends AbstractContainerBlock 
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult blockHitResult) {
+    public InteractionResult originUse(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult blockHitResult) {
         BlockPos posReal = getFootPos(state, pos);
-        return super.use(state, level, posReal, player, hand, blockHitResult);
+        return super.originUse(state, level, posReal, player, hand, blockHitResult);
     }
 
     @Override

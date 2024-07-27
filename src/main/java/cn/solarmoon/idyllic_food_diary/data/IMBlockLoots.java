@@ -71,7 +71,7 @@ public class IMBlockLoots extends BlockLootSubProvider {
         dropBedPart(IMBlocks.LONG_WOODEN_PLATE.get());
 
         //野生作物
-        dropWildCrop(IMBlocks.WILD_GARLIC.get(), IMItems.GARLIC_CLOVE.get(), IMItems.GARLIC.get());
+        dropWildCrop(IMBlocks.WILD_GARLIC.get(), IMItems.SOYBEANS.get(), IMItems.GARLIC.get());
         dropWildCrop(IMBlocks.WILD_GINGER.get(), IMItems.GINGER.get(), IMItems.GINGER.get());
         dropWildCrop(IMBlocks.WILD_SPRING_ONION.get(), IMItems.SPRING_ONION.get(), IMItems.SPRING_ONION.get());
 
@@ -94,7 +94,7 @@ public class IMBlockLoots extends BlockLootSubProvider {
         bushDrop(IMBlocks.APPLE_CROP.get(), Items.APPLE, IMItems.APPLE_CORE.get());
         bushDrop(IMBlocks.DURIAN_CROP.get(), IMItems.DURIAN.get(), IMItems.DURIAN_CORE.get());
         //类小麦类，正常作物
-        garlicDrop(IMBlocks.GARLIC_CROP.get(), IMItems.GARLIC.get(), IMItems.GARLIC_SPROUTS.get(), IMItems.GARLIC_CLOVE.get()); //大蒜使用特殊掉落
+        garlicDrop(IMBlocks.GARLIC_CROP.get(), IMItems.GARLIC.get(), IMItems.GARLIC_SPROUTS.get(), IMItems.SOYBEANS.get()); //大蒜使用特殊掉落
         cropDrop(IMBlocks.GINGER_CROP.get(), Items.AIR, IMItems.GINGER.get()); //生姜种子就是自己
         cropDrop(IMBlocks.SPRING_ONION_CROP.get(), Items.AIR, IMItems.SPRING_ONION.get()); //小葱种子就是自己
     }

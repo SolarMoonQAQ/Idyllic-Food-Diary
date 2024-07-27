@@ -1,5 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup.little_cup;
 
+import cn.solarmoon.idyllic_food_diary.api.AnimHelper;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup.AbstractCupBlock;
 import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
 import cn.solarmoon.solarmoon_core.api.phys.PoseStackHelper;
@@ -21,20 +22,20 @@ public class LittleCupBlockRenderer extends BaseBlockEntityRenderer<LittleCupBlo
 
     @SuppressWarnings("ConstantConditions")
     @Override
-    public void render(LittleCupBlockEntity blockEntity, float tickDelta, PoseStack poseStack, MultiBufferSource buffer, int light, int overlay) {
+    public void render(LittleCupBlockEntity cup, float tickDelta, PoseStack poseStack, MultiBufferSource buffer, int light, int overlay) {
         // 渲染流体过渡动画
-        TextureRenderUtil.renderAnimatedFluid(3/16f, 3f/16f, 1.5f/16f, blockEntity, poseStack, buffer, light);
+        AnimHelper.Fluid.renderAnimatedFluid(cup, null, 3/16f, 3f/16f, 1.5f/16f, tickDelta, poseStack, buffer, light);
 
         //渲染物品
         //让光度和环境一致
-        Direction direction = blockEntity.getBlockState().getValue(IHorizontalFacingBlock.FACING);
-        light = blockEntity.getLevel() != null ? LevelRenderer.getLightColor(blockEntity.getLevel(), blockEntity.getBlockPos().above()) : 15728880;
+        Direction direction = cup.getBlockState().getValue(IHorizontalFacingBlock.FACING);
+        light = cup.getLevel() != null ? LevelRenderer.getLightColor(cup.getLevel(), cup.getBlockPos().above()) : 15728880;
         poseStack.pushPose();
         PoseStackHelper.rotateByDirection(direction, poseStack);
         poseStack.translate(0.5, 2/16f, 0.5);
         poseStack.scale(3/16f, 3/16f, 3/16f);
         poseStack.mulPose(Axis.XP.rotationDegrees(90));
-        context.getItemRenderer().renderStatic(blockEntity.getInventory().getStackInSlot(0), ItemDisplayContext.FIXED, light, overlay, poseStack, buffer, blockEntity.getLevel(), (int) blockEntity.getBlockPos().asLong());
+        context.getItemRenderer().renderStatic(cup.getInventory().getStackInSlot(0), ItemDisplayContext.FIXED, light, overlay, poseStack, buffer, cup.getLevel(), (int) cup.getBlockPos().asLong());
         poseStack.popPose();
     }
 

@@ -5,6 +5,7 @@
     "minecraft:lava",
     "minecraft:campfire",
     "minecraft:soul_campfire",
-    "minecraft:furnace"
+    "minecraft:furnace",
+    "idyllic_food_diary:stove"
   ]
 }

@@ -2,10 +2,7 @@ package cn.solarmoon.idyllic_food_diary.registry.common;
 
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
-import cn.solarmoon.idyllic_food_diary.element.matter.fluid.BlackTeaFluid;
-import cn.solarmoon.idyllic_food_diary.element.matter.fluid.GreenTeaFluid;
-import cn.solarmoon.idyllic_food_diary.element.matter.fluid.MilkTeaFluid;
-import cn.solarmoon.idyllic_food_diary.element.matter.fluid.SoybeanOilFluid;
+import cn.solarmoon.idyllic_food_diary.element.matter.fluid.*;
 import cn.solarmoon.idyllic_food_diary.element.matter.fluid.soup.*;
 import cn.solarmoon.solarmoon_core.api.entry.common.FluidEntry;
 
@@ -13,10 +10,19 @@ import cn.solarmoon.solarmoon_core.api.entry.common.FluidEntry;
 public class IMFluids {
     public static void register() {}
 
+    // 豆浆
+    public static final FluidEntry SOY_MILK = IdyllicFoodDiary.REGISTRY.fluid()
+            .id("soy_milk")
+            .waterLikeProperties(false)
+            .waterLike(true, 0xFFfffff7)
+            .simple(SoyMilkFluid::new, true)
+            .build();
+
+    // 豆油
     public static final FluidEntry SOYBEAN_OIL = IdyllicFoodDiary.REGISTRY.fluid()
             .id("soybean_oil")
             .waterLikeProperties(false)
-            .waterLike(true, 0xFFEC8B)
+            .waterLike(true, 0xFFFFEC8B)
             .simple(SoybeanOilFluid::new, true)
             .build();
 

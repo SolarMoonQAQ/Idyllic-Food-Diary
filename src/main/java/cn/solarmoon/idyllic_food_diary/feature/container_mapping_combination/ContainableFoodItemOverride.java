@@ -1,5 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.feature.container_mapping_combination;
 
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.container.AbstractContainerItem;
 import cn.solarmoon.idyllic_food_diary.feature.basic_feature.ContainerHelper;
 import cn.solarmoon.solarmoon_core.api.item_model.CompositeBakedModel;
 import net.minecraft.client.Minecraft;
@@ -21,7 +22,8 @@ public class ContainableFoodItemOverride extends ItemOverrides {
         BakedModel origin = super.resolve(bakedModel, stack, level, entity, i);
         ItemStack container = ContainerHelper.getContainer(stack);
         if (!container.isEmpty()) {
-            BakedModel containerModel = Minecraft.getInstance().getItemRenderer().getModel(container, level, entity, i);
+            BakedModel containerModel = Minecraft.getInstance().getItemRenderer()
+                    .getModel(AbstractContainerItem.copyForPureMapping(container), level, entity, i);
             return new CompositeBakedModel(origin, containerModel);
         }
         return origin;

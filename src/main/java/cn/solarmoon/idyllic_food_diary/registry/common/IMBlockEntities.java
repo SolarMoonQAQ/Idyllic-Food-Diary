@@ -7,9 +7,10 @@ import cn.solarmoon.idyllic_food_diary.element.matter.cookware.container.long_pl
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cooking_pot.CookingPotBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup.little_cup.LittleCupBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cutting_board.CuttingBoardBlockEntity;
-import cn.solarmoon.idyllic_food_diary.element.matter.cookware.fermenter.FermenterBlockEntity;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.fermentation_vat.FermentationVatBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.grill.GrillBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.kettle.KettleBlockEntity;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.millstone.MillstoneBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.oven.OvenBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.container.ContainerBlockEntity;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.spice_jar.SpiceJarBlockEntity;
@@ -25,11 +26,18 @@ import net.minecraftforge.registries.RegistryObject;
 public class IMBlockEntities {
     public static void register() {}
 
+    // 石磨
+    public static final BlockEntityEntry<MillstoneBlockEntity> MILLSTONE = IdyllicFoodDiary.REGISTRY.blockEntity()
+            .id("millstone")
+            .bound(MillstoneBlockEntity::new)
+            .validBlock(IMBlocks.MILLSTONE::get)
+            .build();
+
     // 发酵缸
-    public static final BlockEntityEntry<FermenterBlockEntity> FERMENTER = IdyllicFoodDiary.REGISTRY.blockEntity()
+    public static final BlockEntityEntry<FermentationVatBlockEntity> FERMENTER = IdyllicFoodDiary.REGISTRY.blockEntity()
             .id("fermenter")
-            .bound(FermenterBlockEntity::new)
-            .validBlock(IMBlocks.FERMENTER::get)
+            .bound(FermentationVatBlockEntity::new)
+            .validBlock(IMBlocks.FERMENTATION_VAT::get)
             .build();
 
     // 烤箱

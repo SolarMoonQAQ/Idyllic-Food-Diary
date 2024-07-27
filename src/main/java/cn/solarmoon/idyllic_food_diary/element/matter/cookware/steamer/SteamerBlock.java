@@ -1,14 +1,10 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer;
 
-import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
-import cn.solarmoon.idyllic_food_diary.registry.client.IMParticles;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.CookwareBlock;
+import cn.solarmoon.idyllic_food_diary.registry.common.IMParticles;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMBlockEntities;
 import cn.solarmoon.idyllic_food_diary.registry.common.IMItems;
-import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
-import cn.solarmoon.solarmoon_core.api.tile.SyncedEntityBlock;
 import cn.solarmoon.solarmoon_core.api.tile.inventory.ItemHandlerUtil;
-import cn.solarmoon.solarmoon_core.api.util.HitResultUtil;
-import net.minecraft.client.resources.model.Material;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -19,10 +15,8 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.LanternBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -32,9 +26,8 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.items.ItemHandlerHelper;
 
-public class SteamerBlock extends SyncedEntityBlock implements IHorizontalFacingBlock {
+public class SteamerBlock extends CookwareBlock {
 
 
     public SteamerBlock(Properties properties) {
@@ -50,7 +43,7 @@ public class SteamerBlock extends SyncedEntityBlock implements IHorizontalFacing
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    public InteractionResult originUse(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         ItemStack heldItem = player.getItemInHand(hand);
         SteamerBlockEntity steamer = (SteamerBlockEntity) level.getBlockEntity(pos);
         if (steamer == null) return InteractionResult.FAIL;
@@ -94,9 +87,8 @@ public class SteamerBlock extends SyncedEntityBlock implements IHorizontalFacing
 
     @Override
     public void attack(BlockState state, Level level, BlockPos pos, Player player) {
-        super.attack(state, level, pos, player);
         SteamerBlockEntity steamer = (SteamerBlockEntity) level.getBlockEntity(pos);
-        if (steamer != null) {
+        if (steamer != null && player.isCrouching()) {
             ItemStack main = player.getMainHandItem();
 
             steamer.shrink(main).ifPresent(copy -> {
@@ -132,7 +124,7 @@ public class SteamerBlock extends SyncedEntityBlock implements IHorizontalFacing
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext collisionContext) {
+    public VoxelShape getOriginShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext collisionContext) {
         SteamerBlockEntity steamer = (SteamerBlockEntity) level.getBlockEntity(pos);
         if (steamer == null) return Shapes.block();
         int stack = steamer.getStack();

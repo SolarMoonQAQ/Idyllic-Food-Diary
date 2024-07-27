@@ -1,12 +1,14 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.wok;
 
+import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
+import cn.solarmoon.idyllic_food_diary.api.AnimHelper;
+import cn.solarmoon.idyllic_food_diary.api.AnimTicker;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.CookwareTileRenderer;
-import cn.solarmoon.idyllic_food_diary.element.matter.stove.IBuiltInStove;
+import cn.solarmoon.idyllic_food_diary.element.matter.inlaid_stove.IBuiltInStove;
+import cn.solarmoon.idyllic_food_diary.feature.generic_recipe.stir_fry.IStirFryRecipe;
 import cn.solarmoon.solarmoon_core.api.blockstate_access.IHorizontalFacingBlock;
-import cn.solarmoon.solarmoon_core.api.capability.anim_ticker.AnimTicker;
 import cn.solarmoon.solarmoon_core.api.phys.SMath;
 import cn.solarmoon.solarmoon_core.api.phys.VecUtil;
-import cn.solarmoon.solarmoon_core.api.renderer.BaseBlockEntityRenderer;
 import cn.solarmoon.solarmoon_core.api.renderer.TextureRenderUtil;
 import cn.solarmoon.solarmoon_core.registry.common.SolarCapabilities;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -32,74 +34,50 @@ public class WokBlockRenderer extends CookwareTileRenderer<WokBlockEntity> {
 
     @Override
     public void originRender(WokBlockEntity pan, float v, PoseStack poseStack, MultiBufferSource buffer, int light, int overlay) {
-        IBuiltInStove b = (IBuiltInStove) pan.getBlockState().getBlock();
-        double posYOffset = b.getYOffset(pan.getBlockState());
-
-        pan.getCapability(SolarCapabilities.BLOCK_ENTITY_DATA).ifPresent(data -> {
-            //渲染物品
-            //让光度和环境一致
-            int lt = pan.getLevel() != null ? LevelRenderer.getLightColor(pan.getLevel(), pan.getBlockPos().above()) : 15728880;
-            for (int i = 0; i < pan.getStacks().size(); i++) {
-                AnimTicker animTicker = data.getAnimTicker(i+2);
-                AnimTicker animR = data.getAnimTicker(-(i+2));
-                animTicker.setStartOnChanged(false);
-                poseStack.pushPose();
-                Direction direction = pan.getBlockState().getValue(IHorizontalFacingBlock.FACING);
-                float minX = 0.4f; // 三角形绘制范围的最小值
-                float maxX = 0.6f; // 绘制范围的最大值
-                float range = maxX - minX; // 宽度
-                // 图形的顶点坐标
-                float[][] vertices = {
-                        {0.5f, 0},
-                        {0, (float) Math.sqrt(3) / 2},
-                        {1, (float) Math.sqrt(3) / 2},
-                };
-                // 按比例定位等边三角形的顶点
-                float[] vertex = vertices[i % 3];
-                double x = minX + range * vertex[0];
-                double h = 1.25/16F + 0.5/16F * i; // 高度
-                double z = minX + range * vertex[1];
-                Vec3 actV = VecUtil.rotateVec(new Vec3(x, 0, z), new Vec3(0.5, 0, 0.5), direction);
-                poseStack.translate(actV.x, h, actV.z);
-                poseStack.mulPose(Axis.YP.rotationDegrees(direction.toYRot() - 60 * i));
-                poseStack.scale(0.5f, 0.5f, 0.5f);
-                if (animTicker.isEnabled() && pan.canStirFry()) {
-                    float aH = (float) (12/16f + 0.25 * i);
-                    animTicker.setMaxTick(getFryTime(aH) + 30);
-                    animTicker.setFixedValue(animTicker.getFixedValue() + Minecraft.getInstance().getDeltaFrameTime());
-                    if (animTicker.getFixedValue() > getFryTime(aH)) {
-                        // 每一片食材落下后产生火花
-                        for (int n = 0; n < 1; n++) {
-                            Random random = new Random();
-                            double rInRange = 2/16f + random.nextDouble() * 12/16; // 保证粒子起始点在锅内
-                            double vi = (random.nextDouble() - 0.5) / 5;
-                            pan.getLevel().addParticle(ParticleTypes.SMALL_FLAME, pan.getBlockPos().getX() + rInRange, pan.getBlockPos().getY() + h + posYOffset, pan.getBlockPos().getZ() + rInRange, vi, 0.1, vi);
-                        }
-                        animTicker.stop();
-                    }
-                    poseStack.translate(0, SMath.parabolaFunction(animTicker.getFixedValue(), getFryTime(aH) / 2f, aH, 0), 0);
-
-                    float randomR = animR.getFixedValue();
-                    float angle = (float) (2.0f * Math.PI * randomR);
-                    poseStack.mulPose(Axis.of(new Vector3f((float) Math.cos(angle), 0, (float) Math.sin(angle)))
-                            .rotation(Mth.rotLerp(animTicker.getFixedValue() / getFryTime(aH), (float) 0, (float) (2*Math.PI))));
-                }
-                poseStack.mulPose(Axis.XN.rotationDegrees(rotFix(direction, poseStack)));
-                context.getItemRenderer().renderStatic(pan.getStacks().get(i), ItemDisplayContext.FIXED, lt, overlay, poseStack, buffer, context.getBlockEntityRenderDispatcher().level, (int) pan.getBlockPos().asLong());
-                poseStack.popPose();
+        //渲染物品
+        //让光度和环境一致
+        int lt = pan.getLevel() != null ? LevelRenderer.getLightColor(pan.getLevel(), pan.getBlockPos().above()) : 15728880;
+        for (int i = 0; i < pan.getStacks().size(); i++) {
+            poseStack.pushPose();
+            Direction direction = pan.getBlockState().getValue(IHorizontalFacingBlock.FACING);
+            float minX = 0.4f; // 三角形绘制范围的最小值
+            float maxX = 0.6f; // 绘制范围的最大值
+            float range = maxX - minX; // 宽度
+            // 图形的顶点坐标
+            float[][] vertices = {
+                    {0.5f, 0},
+                    {0, (float) Math.sqrt(3) / 2},
+                    {1, (float) Math.sqrt(3) / 2},
+            };
+            // 按比例定位等边三角形的顶点
+            float[] vertex = vertices[i % 3];
+            double x = minX + range * vertex[0];
+            double h = 1.25/16F + 0.5/16F * i; // 高度
+            double z = minX + range * vertex[1];
+            Vec3 actV = VecUtil.rotateVec(new Vec3(x, 0, z), new Vec3(0.5, 0, 0.5), direction);
+            poseStack.translate(actV.x, h, actV.z);
+            poseStack.mulPose(Axis.YP.rotationDegrees(direction.toYRot() - 60 * i));
+            poseStack.scale(0.5f, 0.5f, 0.5f);
+            AnimTicker anim = AnimHelper.getMap(pan).get("fry" + i);
+            if (anim != null && anim.getTimer().getTiming()) {
+                poseStack.translate(0,
+                        SMath.parabolaFunction(
+                                Math.min(anim.getTimer().getProgress(v), 1),
+                                1 / 2f,
+                                anim.getFixedValues().getOrDefault("maxHeight", 0f),
+                                0
+                        ), 0);
+                float randomR = anim.getFixedValues().getOrDefault("rotRandom", 0f);
+                float angle = (float) (2.0f * Math.PI * randomR);
+                poseStack.mulPose(Axis.of(new Vector3f((float) Math.cos(angle), 0, (float) Math.sin(angle)))
+                        .rotation(Mth.rotLerp(Math.min(anim.getTimer().getProgress(v), 1), (float) 0, (float) (2*Math.PI))));
             }
-        });
+            poseStack.mulPose(Axis.XN.rotationDegrees(rotFix(direction, poseStack)));
+            context.getItemRenderer().renderStatic(pan.getStacks().get(i), ItemDisplayContext.FIXED, lt, overlay, poseStack, buffer, context.getBlockEntityRenderDispatcher().level, (int) pan.getBlockPos().asLong());
+            poseStack.popPose();
+        }
 
-        TextureRenderUtil.renderAnimatedFluid(10/16f, 3/16f, 1/16f, pan, poseStack, buffer, light);
-    }
-
-    /**
-     * @return 自由落体时间
-     */
-    public static int getFryTime(double height) {
-        double g = 9.8;
-        double t = Math.sqrt(height / g);
-        return (int) (t * 30);
+        AnimHelper.Fluid.renderAnimatedFluid(pan, null, 10/16f, 3/16f, 1/16f, v, poseStack, buffer, light);
     }
 
     public static int rotFix(Direction direction, PoseStack poseStack) {

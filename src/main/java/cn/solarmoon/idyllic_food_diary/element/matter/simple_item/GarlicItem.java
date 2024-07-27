@@ -20,7 +20,7 @@ public class GarlicItem extends SimpleItem {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         super.use(level, player, hand);
         ItemStack heldItem = player.getItemInHand(hand);
-        SpitUtil.spit(IMItems.GARLIC_CLOVE.get(), 5 - player.getRandom().nextInt(3), player);
+        SpitUtil.spit(IMItems.SOYBEANS.get(), 5 - player.getRandom().nextInt(3), player);
         level.playSound(null, player.getOnPos().above(), SoundEvents.AXE_STRIP, SoundSource.PLAYERS, 1F, 2F);
         if (!player.isCreative()) heldItem.shrink(1);
         return InteractionResultHolder.success(player.getItemInHand(hand));

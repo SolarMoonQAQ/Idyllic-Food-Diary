@@ -4,15 +4,16 @@ package cn.solarmoon.idyllic_food_diary.registry.common;
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary;
 import cn.solarmoon.idyllic_food_diary.element.level.AppleTreeFeature;
 import cn.solarmoon.idyllic_food_diary.element.level.DurianTreeFeature;
-import cn.solarmoon.idyllic_food_diary.element.matter.container.*;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.container.long_plate.LongPlateBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.container.plate.PlateBlock;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.container.vanilla.BowlBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cooking_pot.CookingPotBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup.little_cup.LittleCupBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cutting_board.CuttingBoardBlock;
-import cn.solarmoon.idyllic_food_diary.element.matter.cookware.fermenter.FermenterBlock;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.fermentation_vat.FermentationVatBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.grill.GrillBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.kettle.KettleBlock;
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.millstone.MillstoneBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.oven.OvenBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.spice_jar.SpiceJarBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer.SteamerBlock;
@@ -22,9 +23,13 @@ import cn.solarmoon.idyllic_food_diary.element.matter.cookware.wok.WokBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.crop.*;
 import cn.solarmoon.idyllic_food_diary.element.matter.durian.DurianBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.food.interactive_food_block.*;
+import cn.solarmoon.idyllic_food_diary.element.matter.food.interactive_food_block.feast.BeggarsChickenBlock;
+import cn.solarmoon.idyllic_food_diary.element.matter.food.interactive_food_block.feast.EastSlopePorkBlock;
+import cn.solarmoon.idyllic_food_diary.element.matter.food.interactive_food_block.feast.RoastedSucklingPigBlock;
 import cn.solarmoon.idyllic_food_diary.element.matter.food.long_press_eat_block.*;
-import cn.solarmoon.idyllic_food_diary.element.matter.stove.StoveBlock;
-import cn.solarmoon.idyllic_food_diary.util.useful_data.BlockProperty;
+import cn.solarmoon.idyllic_food_diary.element.matter.inlaid_stove.InlaidStoveBlock;
+import cn.solarmoon.idyllic_food_diary.element.matter.inlaid_stove.StoveLidBlock;
+import cn.solarmoon.idyllic_food_diary.feature.basic_feature.useful_data.BlockProperty;
 import cn.solarmoon.solarmoon_core.api.entry.common.BlockEntry;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.level.block.Block;
@@ -35,10 +40,39 @@ import net.minecraft.world.level.block.SoundType;
 public class IMBlocks {
     public static void register() {}
 
+    public static final BlockEntry<EastSlopePorkBlock> EAST_SLOPE_PORK = IdyllicFoodDiary.REGISTRY.block()
+            .id("east_slope_pork")
+            .bound(EastSlopePorkBlock::new)
+            .build();
+
+    // 石磨
+    public static final BlockEntry<MillstoneBlock> MILLSTONE = IdyllicFoodDiary.REGISTRY.block()
+            .id("millstone")
+            .bound(MillstoneBlock::new)
+            .build();
+
+    // 炉灶锅盖
+    public static final BlockEntry<StoveLidBlock> STOVE_LID = IdyllicFoodDiary.REGISTRY.block()
+            .id("stove_lid")
+            .bound(StoveLidBlock::new)
+            .build();
+
+    // 大豆
+    public static final BlockEntry<SoybeanCropBlock> SOYBEAN_CROP = IdyllicFoodDiary.REGISTRY.block()
+            .id("soybean_crop")
+            .bound(SoybeanCropBlock::new)
+            .build();
+
+    // 稻米
+    public static final BlockEntry<RiceCropBlock> RICE_CROP = IdyllicFoodDiary.REGISTRY.block()
+            .id("rice_crop")
+            .bound(RiceCropBlock::new)
+            .build();
+
     // 发酵缸
-    public static final BlockEntry<FermenterBlock> FERMENTER = IdyllicFoodDiary.REGISTRY.block()
-            .id("fermenter")
-            .bound(FermenterBlock::new)
+    public static final BlockEntry<FermentationVatBlock> FERMENTATION_VAT = IdyllicFoodDiary.REGISTRY.block()
+            .id("fermentation_vat")
+            .bound(FermentationVatBlock::new)
             .build();
 
     // 烤箱
@@ -47,10 +81,10 @@ public class IMBlocks {
             .bound(OvenBlock::new)
             .build();
 
-    // 灶台
-    public static final BlockEntry<StoveBlock> STOVE = IdyllicFoodDiary.REGISTRY.block()
-            .id("stove")
-            .bound(StoveBlock::new)
+    // 镶嵌式灶台
+    public static final BlockEntry<InlaidStoveBlock> INLAID_STOVE = IdyllicFoodDiary.REGISTRY.block()
+            .id("inlaid_stove")
+            .bound(InlaidStoveBlock::new)
             .build();
 
     //簸箕

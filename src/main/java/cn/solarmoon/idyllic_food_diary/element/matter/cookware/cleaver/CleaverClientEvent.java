@@ -8,7 +8,6 @@ import cn.solarmoon.idyllic_food_diary.network.NETList;
 import cn.solarmoon.solarmoon_core.api.item_util.ItemStackUtil;
 import cn.solarmoon.solarmoon_core.api.optional_recipe_item.IOptionalRecipeItem;
 import cn.solarmoon.solarmoon_core.api.optional_recipe_item.RecipeSelectorData;
-import cn.solarmoon.solarmoon_core.feature.capability.IItemStackData;
 import cn.solarmoon.solarmoon_core.registry.common.SolarCapabilities;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;

@@ -14,6 +14,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -48,6 +49,10 @@ public class CleaverItem extends DiggerItem implements IOptionalRecipeItem<Chopp
         super(3, -2.4f, Tiers.IRON,
                 IMBlockTags.MINEABLE_WITH_CLEAVER,
                 new Item.Properties().durability(2048));
+    }
+
+    public CleaverItem(float i, float f, Tier tier, Properties properties) {
+        super(i, f, tier, IMBlockTags.MINEABLE_WITH_CLEAVER, properties);
     }
 
     @Override
