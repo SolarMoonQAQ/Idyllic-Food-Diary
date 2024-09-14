@@ -62,7 +62,7 @@ class WokBlock(properties: Properties = Properties.of()
         if (!pan.fry.hasResult() && !pan.fry.canStirFry) {
             //能够存取液体
             if (FluidUtil.interactWithFluidHandler(player, hand, pan.fluidTank)) {
-                return ItemInteractionResult.SUCCESS;
+                return ItemInteractionResult.SUCCESS
             }
 
             //存取任意单个物品
@@ -73,7 +73,7 @@ class WokBlock(properties: Properties = Properties.of()
             }
         }
 
-        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION
+        return ItemInteractionResult.CONSUME // 防止待输出物品时执行额外操作（如放方块）
     }
 
     override fun tick(level: Level, pos: BlockPos, state: BlockState, pan: BlockEntity) {
