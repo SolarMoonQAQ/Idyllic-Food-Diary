@@ -1,0 +1,22 @@
+{
+  "entries": [
+    {
+      "enum": "net/minecraft/client/model/HumanoidModel$ArmPose",
+      "name": "IDYLLIC_FOOD_DIARY_ROLLING",
+      "constructor": "(ZLnet/neoforged/neoforge/client/IArmPoseTransformer;)V",
+      "parameters": {
+        "class": "cn/solarmoon/idyllic_food_diary/registry/common/IFDEnumParams",
+        "field": "ROLLING"
+      }
+    },
+    {
+      "enum": "net/minecraft/client/model/HumanoidModel$ArmPose",
+      "name": "IDYLLIC_FOOD_DIARY_HUG",
+      "constructor": "(ZLnet/neoforged/neoforge/client/IArmPoseTransformer;)V",
+      "parameters": {
+        "class": "cn/solarmoon/idyllic_food_diary/registry/common/IFDEnumParams",
+        "field": "HUG"
+      }
+    }
+  ]
+}

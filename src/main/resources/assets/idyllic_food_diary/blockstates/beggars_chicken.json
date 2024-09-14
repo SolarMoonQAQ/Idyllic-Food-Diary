@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "facing=north,interaction=5": { "model": "idyllic_food_diary:block/feast/beggars_chicken_5", "y": 0  },
+    "facing=south,interaction=5": { "model": "idyllic_food_diary:block/feast/beggars_chicken_5", "y": 180 },
+    "facing=east,interaction=5": { "model": "idyllic_food_diary:block/feast/beggars_chicken_5", "y": 90 },
+    "facing=west,interaction=5": { "model": "idyllic_food_diary:block/feast/beggars_chicken_5", "y": 270 },
+
+    "facing=north,interaction=4": { "model": "idyllic_food_diary:block/feast/beggars_chicken_4", "y": 0  },
+    "facing=south,interaction=4": { "model": "idyllic_food_diary:block/feast/beggars_chicken_4", "y": 180  },
+    "facing=east,interaction=4": { "model": "idyllic_food_diary:block/feast/beggars_chicken_4", "y": 90 },
+    "facing=west,interaction=4": { "model": "idyllic_food_diary:block/feast/beggars_chicken_4", "y": 270 },
+
+    "facing=north,interaction=3": { "model": "idyllic_food_diary:block/feast/beggars_chicken_3", "y": 0  },
+    "facing=south,interaction=3": { "model": "idyllic_food_diary:block/feast/beggars_chicken_3", "y": 180  },
+    "facing=east,interaction=3": { "model": "idyllic_food_diary:block/feast/beggars_chicken_3", "y": 90 },
+    "facing=west,interaction=3": { "model": "idyllic_food_diary:block/feast/beggars_chicken_3", "y": 270 },
+
+    "facing=north,interaction=2": { "model": "idyllic_food_diary:block/feast/beggars_chicken_2", "y": 0  },
+    "facing=south,interaction=2": { "model": "idyllic_food_diary:block/feast/beggars_chicken_2", "y": 180  },
+    "facing=east,interaction=2": { "model": "idyllic_food_diary:block/feast/beggars_chicken_2", "y": 90 },
+    "facing=west,interaction=2": { "model": "idyllic_food_diary:block/feast/beggars_chicken_2", "y": 270 },
+
+    "facing=north,interaction=1": { "model": "idyllic_food_diary:block/feast/beggars_chicken_1", "y": 0  },
+    "facing=south,interaction=1": { "model": "idyllic_food_diary:block/feast/beggars_chicken_1", "y": 180  },
+    "facing=east,interaction=1": { "model": "idyllic_food_diary:block/feast/beggars_chicken_1", "y": 90 },
+    "facing=west,interaction=1": { "model": "idyllic_food_diary:block/feast/beggars_chicken_1", "y": 270 }
+  }
+}

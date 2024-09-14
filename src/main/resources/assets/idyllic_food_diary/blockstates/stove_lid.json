@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "idyllic_food_diary:block/stove_lid" },
+    "facing=south": { "model": "idyllic_food_diary:block/stove_lid", "y": 180 },
+    "facing=east": { "model": "idyllic_food_diary:block/stove_lid", "y": 90 },
+    "facing=west": { "model": "idyllic_food_diary:block/stove_lid", "y": 270 }
+  }
+}

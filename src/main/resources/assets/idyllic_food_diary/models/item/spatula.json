@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "idyllic_food_diary:item/spatula"
+  }
+}

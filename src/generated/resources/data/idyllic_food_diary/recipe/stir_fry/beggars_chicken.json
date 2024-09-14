@@ -1,0 +1,27 @@
+{
+  "type": "idyllic_food_diary:stir_fry",
+  "container": {
+    "item": "idyllic_food_diary:wooden_plate"
+  },
+  "exp": 10,
+  "result": {
+    "count": 1,
+    "id": "idyllic_food_diary:beggars_chicken"
+  },
+  "stir_fry_stages": [
+    {
+      "fry_count": 3,
+      "ingredients": [
+        {
+          "item": "minecraft:potato"
+        },
+        {
+          "item": "minecraft:chicken"
+        }
+      ],
+      "input_fluid": {},
+      "keep_fluid": false,
+      "time": 100
+    }
+  ]
+}

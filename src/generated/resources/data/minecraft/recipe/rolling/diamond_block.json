@@ -1,0 +1,9 @@
+{
+  "type": "idyllic_food_diary:rolling",
+  "ingredient": {
+    "item": "minecraft:grass_block"
+  },
+  "output": "minecraft:diamond_block",
+  "results": [],
+  "time": 40
+}

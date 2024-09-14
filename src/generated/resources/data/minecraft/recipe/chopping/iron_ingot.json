@@ -1,0 +1,15 @@
+{
+  "type": "idyllic_food_diary:chopping",
+  "ingredient": {
+    "item": "minecraft:grass_block"
+  },
+  "results": [
+    {
+      "chance": 0.5,
+      "item": {
+        "count": 1,
+        "id": "minecraft:iron_ingot"
+      }
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "type": "idyllic_food_diary:grinding",
+  "ingredient": {
+    "item": "minecraft:iron_ingot"
+  },
+  "input_fluid": {
+    "amount": 50,
+    "id": "minecraft:water"
+  },
+  "output_fluid": {
+    "amount": 50,
+    "id": "minecraft:lava"
+  },
+  "result": {
+    "count": 1,
+    "id": "idyllic_food_diary:stove_lid"
+  },
+  "time": 20
+}

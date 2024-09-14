@@ -1,0 +1,44 @@
+{
+  "player.pouring_water": {
+    "subtitle": "idyllic_food_diary.player.pouring_water",
+    "sounds": [
+      "idyllic_food_diary:player/pouring_water"
+    ]
+  },
+  "player.water_splashing": {
+    "subtitle": "idyllic_food_diary.player.water_splashing",
+    "sounds": [
+      "idyllic_food_diary:player/water_splashing"
+    ]
+  },
+  "player.chopping": {
+    "subtitle": "idyllic_food_diary.player.chopping",
+    "sounds": [
+      "idyllic_food_diary:player/chopping"
+    ]
+  },
+  "block.boiling_water": {
+    "subtitle": "idyllic_food_diary.block.boiling_water",
+    "sounds": [
+      "idyllic_food_diary:block/boiling_water"
+    ]
+  },
+  "block.stir_fry": {
+    "subtitle": "idyllic_food_diary.block.stir_fry",
+    "sounds": [
+      "idyllic_food_diary:block/stir_fry"
+    ]
+  },
+  "block.stir_sizzle": {
+    "subtitle": "idyllic_food_diary.block.stir_sizzle",
+    "sounds": [
+      "idyllic_food_diary:block/stir_sizzle"
+    ]
+  },
+  "gui.wooden_fish": {
+    "subtitle": "idyllic_food_diary.gui.wooden_fish",
+    "sounds": [
+      "idyllic_food_diary:gui/wooden_fish"
+    ]
+  }
+}
