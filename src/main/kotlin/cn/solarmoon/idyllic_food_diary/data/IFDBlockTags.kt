@@ -23,6 +23,11 @@ class IFDBlockTags(output: PackOutput, lookupProvider: CompletableFuture<HolderL
          */
         @JvmStatic
         val HEAT_SOURCE = modTag("heat_source")
+        /**
+         * 可以被擀面杖快速擀飞
+         */
+        @JvmStatic
+        val ROLLABLE = modTag("rollable")
 
         private fun modTag(path: String): TagKey<Block> {
             return BlockTags.create(ResourceLocation.fromNamespaceAndPath(IdyllicFoodDiary.MOD_ID, path))

@@ -1,9 +1,13 @@
 package cn.solarmoon.idyllic_food_diary.element.recipe
 
+import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer.SteamerBlockEntity
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer.SteamerItemHandler
 import cn.solarmoon.idyllic_food_diary.registry.common.IFDRecipes
 import cn.solarmoon.spark_core.api.data.RecipeJsonBuilder
 import cn.solarmoon.spark_core.api.entry_builder.common.RecipeBuilder
 import cn.solarmoon.spark_core.api.recipe.IConcreteRecipe
+import cn.solarmoon.spark_core.api.recipe.processor.MultiTimeRecipeProcessor
 import com.mojang.serialization.Codec
 import com.mojang.serialization.MapCodec
 import com.mojang.serialization.codecs.RecordCodecBuilder
@@ -17,6 +21,9 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.Recipe
 import net.minecraft.world.item.crafting.RecipeSerializer
+import net.minecraft.world.item.crafting.RecipeType
+import net.minecraft.world.level.block.entity.BlockEntity
+import net.neoforged.neoforge.items.wrapper.RecipeWrapper
 
 @JvmRecord
 data class SteamingRecipe(
@@ -49,8 +56,7 @@ data class SteamingRecipe(
         }
     }
 
-    /*
-    abstract class Processor(be: BlockEntity, val inv: SteamerInventoryList): MultiTimeRecipeProcessor<RecipeWrapper, SteamingRecipe>(be) {
+    open class Processor(override val be: SteamerBlockEntity, val inv: SteamerItemHandler): MultiTimeRecipeProcessor<RecipeWrapper, SteamingRecipe>(be) {
 
         override fun tryWork(): Boolean {
             var flag = false
@@ -80,13 +86,13 @@ data class SteamingRecipe(
             return recipe.input.test(stack) && canWork()
         }
 
-        abstract fun canWork(): Boolean
+        open fun canWork(): Boolean {
+            return be.getBase()?.isValidForSteamer() == true && be.getTop()?.hasLid == true
+        }
 
         override fun getRecipeType(): RecipeType<SteamingRecipe> = IFDRecipes.STEAMING.type.get()
 
     }
-
-    */
 
     class JsonBuilder(val r: () -> SteamingRecipe): RecipeJsonBuilder() {
         override val name: ResourceLocation

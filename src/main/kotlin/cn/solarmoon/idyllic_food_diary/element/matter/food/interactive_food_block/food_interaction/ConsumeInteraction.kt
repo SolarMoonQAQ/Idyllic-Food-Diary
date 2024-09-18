@@ -26,8 +26,10 @@ import net.minecraft.world.phys.BlockHitResult
 data class ConsumeInteraction(
     val preEatCount: Int,
     val foodProperty: FoodProperties,
-    val eatSound: SoundEvent = SoundEvents.GENERIC_EAT
+    val eatSound: SoundEvent = SoundEvents.GENERIC_EAT,
+    val destroyParticle: Boolean = false
 ): IInteraction {
+
     override fun doInteraction(
         heldItem: ItemStack,
         state: BlockState,
@@ -39,7 +41,7 @@ data class ConsumeInteraction(
     ): Boolean {
         val fb = level.getBlockEntity(pos) as FoodBlockEntity
         if (player.canEat(foodProperty.canAlwaysEat)) {
-            val stage = state.getValue(FoodEntityBlock.INTERACTION);
+            val stage = fb.stage
             if (stage > 0) {
                 val counting = player.getData(SparkAttachments.COUNTING_DEVICE)
                 counting.setCount(counting.count + 1, pos)
@@ -47,18 +49,15 @@ data class ConsumeInteraction(
                 level.playSound(null, pos, eatSound, SoundSource.PLAYERS)
                 //吃的粒子效果
                 player.spawnItemParticles(state.getCloneItemStack(hitResult, level, pos, player), 5)
-                val targetState = state.setValue(FoodEntityBlock.INTERACTION, stage - 1)
                 if (counting.count >= preEatCount) {
-                    level.setBlock(pos, targetState, 3)
                     PlayerUtil.eat(player, foodProperty)
                     counting.setCount(0)
-                    if (targetState.getValue(FoodEntityBlock.INTERACTION) == 0) {
-                        BlockUtil.replaceBlockWithAllState(state, fb.containerBlockState, level, pos);
-                    }
+                    fb.consumeInteraction(destroyParticle)
                 }
                 return true;
             }
         }
         return false;
     }
+
 }

@@ -1,5 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.element.recipe
 
+import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary
 import cn.solarmoon.idyllic_food_diary.element.matter.inlaid_stove.IBuiltInStove
 import cn.solarmoon.idyllic_food_diary.feature.fluid_temp.Temp
 import cn.solarmoon.idyllic_food_diary.feature.util.HeatSourceUtil
@@ -81,7 +82,7 @@ class EvaporationRecipe {
          * 是否存在热水（就特指水）
          */
         fun hasHotWater(): Boolean {
-            return hasHotFluid() && tank.fluid.fluid === Fluids.WATER
+            return hasHotFluid() && tank.fluid.fluid == Fluids.WATER
         }
 
         /**

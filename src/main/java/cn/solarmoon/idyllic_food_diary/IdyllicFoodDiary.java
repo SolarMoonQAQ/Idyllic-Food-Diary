@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 public class IdyllicFoodDiary {
 
     public static final String MOD_ID = "idyllic_food_diary";
-    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+    public static final Logger LOGGER = LoggerFactory.getLogger("田园食记");
     public static final Translator TRANSLATOR = new Translator(MOD_ID);
     public static final ObjectRegister REGISTER = new ObjectRegister(MOD_ID, true);
 
@@ -30,6 +30,7 @@ public class IdyllicFoodDiary {
             IFDGuis.register(modEventBus);
             IFDBakedModelOverrides.register(modEventBus);
             IFDTooltips.register(modEventBus);
+            IFDParticleProviders.register(modEventBus);
             IFDLayers.register();
             IFDClientEvents.register();
         }
@@ -43,6 +44,8 @@ public class IdyllicFoodDiary {
         IFDCreativeTabs.register();
         IFDSounds.register();
         IFDNetPacks.register();
+        IFDDatas.register();
+        IFDParticles.register();
 
         DataGenerater.register(modEventBus);
 

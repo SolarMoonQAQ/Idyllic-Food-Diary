@@ -17,10 +17,15 @@ class ServerNetHandler: ICommonNetHandler {
             RECIPE_SELECT -> {
                 player.mainHandItem.update(IFDDataComponents.RECIPE_SELECTION, RecipeSelectData.EMPTY) { it.putIndexAndCopy(payload.block, payload.intValue) }
             }
+            KETTLE_SELECT -> {
+                player.mainHandItem.update(IFDDataComponents.FLUID_INTERACT_VALUE, 1000) { payload.intValue }
+                player.sendSystemMessage(IdyllicFoodDiary.TRANSLATOR.set("message", "dumping_volume", payload.intValue), true)
+            }
         }
     }
 
     companion object {
         const val RECIPE_SELECT = "SelectRecipe"
+        const val KETTLE_SELECT = "SelectKettleValue"
     }
 }

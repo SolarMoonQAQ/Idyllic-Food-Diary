@@ -9,6 +9,7 @@ import cn.solarmoon.spark_core.api.blockentity.HandyEntityBlock
 import cn.solarmoon.spark_core.api.blockentity.SyncedEntityBlock
 import cn.solarmoon.spark_core.api.blockstate.IHorizontalFacingState
 import net.minecraft.core.BlockPos
+import net.minecraft.core.component.DataComponentMap
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.ItemInteractionResult
 import net.minecraft.world.entity.Entity
@@ -64,15 +65,15 @@ abstract class FoodEntityBlock(properties: Properties): HandyEntityBlock(propert
         hitResult: BlockHitResult
     ): ItemInteractionResult {
         val stage = state.getValue(INTERACTION)
-        if (getInteraction(stage).doInteraction(stack, state, level, pos, player, hand, hitResult)) return ItemInteractionResult.SUCCESS
+        if (getInteraction(stage).doInteraction(stack, state, level, pos, player, hand, hitResult)) return ItemInteractionResult.sidedSuccess(level.isClientSide)
         return ItemInteractionResult.CONSUME // 防止右键此类方块时使用手中物品
     }
 
     override fun setPlacedBy(level: Level, pos: BlockPos, state: BlockState, placer: LivingEntity?, stack: ItemStack) {
         super.setPlacedBy(level, pos, state, placer, stack)
         val be = level.getBlockEntity(pos) ?: return
-        be.setData(IFDAttachments.FOOD_CONTAINER, stack.getOrDefault(IFDDataComponents.FOOD_CONTAINER, FoodContainer.EMPTY))
-        level.setBlock(pos, state.setValue(INTERACTION, stack.getOrDefault(IFDDataComponents.INTERACTION, maxInteraction)), 3)
+        be.applyComponentsFromItemStack(stack)
+        level.setBlock(pos, state.setValue(INTERACTION, be.components().getOrDefault(IFDDataComponents.INTERACTION.get(), maxInteraction)), 3)
     }
 
     override fun getCloneItemStack(
@@ -84,8 +85,7 @@ abstract class FoodEntityBlock(properties: Properties): HandyEntityBlock(propert
     ): ItemStack {
         val origin = super.getCloneItemStack(state, target, level, pos, player)
         val be = level.getBlockEntity(pos) ?: return origin
-        origin.set(IFDDataComponents.FOOD_CONTAINER, be.getData(IFDAttachments.FOOD_CONTAINER))
-        origin.set(IFDDataComponents.INTERACTION, state.getValue(INTERACTION))
+        origin.applyComponents(be.collectComponents())
         return origin
     }
 
@@ -93,8 +93,7 @@ abstract class FoodEntityBlock(properties: Properties): HandyEntityBlock(propert
         val drops = super.getDrops(state, params)
         val be = params.getOptionalParameter(LootContextParams.BLOCK_ENTITY) ?: return drops
         val item = asItem().defaultInstance
-        item.set(IFDDataComponents.FOOD_CONTAINER, be.getData(IFDAttachments.FOOD_CONTAINER))
-        item.set(IFDDataComponents.INTERACTION, state.getValue(INTERACTION))
+        item.applyComponents(be.components())
         drops.add(item)
         return drops
     }
@@ -102,7 +101,7 @@ abstract class FoodEntityBlock(properties: Properties): HandyEntityBlock(propert
     override fun getSoundType(state: BlockState, level: LevelReader, pos: BlockPos, entity: Entity?): SoundType {
         val origin = super.getSoundType(state, level, pos, entity)
         val be = level.getBlockEntity(pos)
-        if (be is FoodBlockEntity) return be.containerBlockState.getSoundType(level, pos, entity)
+        if (be is FoodBlockEntity && !be.containerBlockState.isAir) return be.containerBlockState.getSoundType(level, pos, entity)
         return origin
     }
 

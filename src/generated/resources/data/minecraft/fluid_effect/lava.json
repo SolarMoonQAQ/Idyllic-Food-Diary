@@ -1,0 +1,11 @@
+{
+  "clear_all_effects": false,
+  "consume_amount": 50,
+  "extinguishing": false,
+  "fire": 200,
+  "foodProperties": {
+    "can_always_eat": true,
+    "nutrition": 0,
+    "saturation": 0.0
+  }
+}

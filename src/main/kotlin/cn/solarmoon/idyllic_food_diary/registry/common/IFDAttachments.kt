@@ -9,14 +9,4 @@ object IFDAttachments {
     @JvmStatic
     fun register() {}
 
-    /**
-     * 和[IFDDataComponents.FOOD_CONTAINER]基本一致，但这个是用在blockentity上的
-     */
-    @JvmStatic
-    val FOOD_CONTAINER = IdyllicFoodDiary.REGISTER.attachment<FoodContainer>()
-        .id("food_container")
-        .defaultValue{ FoodContainer.EMPTY }
-        .serializer { it.serialize(FoodContainer.CODEC) }
-        .build()
-
 }

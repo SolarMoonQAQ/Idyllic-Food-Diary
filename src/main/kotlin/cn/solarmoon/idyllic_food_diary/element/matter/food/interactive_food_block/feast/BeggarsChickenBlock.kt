@@ -3,8 +3,14 @@ package cn.solarmoon.idyllic_food_diary.element.matter.food.interactive_food_blo
 import cn.solarmoon.idyllic_food_diary.element.matter.food.FoodEntityBlock
 import cn.solarmoon.idyllic_food_diary.element.matter.food.interactive_food_block.food_interaction.ConsumeInteraction
 import cn.solarmoon.idyllic_food_diary.element.matter.food.interactive_food_block.food_interaction.IInteraction
+import cn.solarmoon.idyllic_food_diary.element.matter.food.interactive_food_block.food_interaction.ObtainInteraction
+import cn.solarmoon.idyllic_food_diary.element.matter.food.interactive_food_block.food_interaction.ObtainInteraction.DropForm
+import cn.solarmoon.idyllic_food_diary.element.matter.food.interactive_food_block.food_interaction.ObtainInteraction.ObtainingMethod
+import cn.solarmoon.idyllic_food_diary.feature.util.MessageUtil
 import net.minecraft.core.BlockPos
 import net.minecraft.world.food.FoodProperties
+import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.level.BlockGetter
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.phys.shapes.CollisionContext
@@ -26,7 +32,10 @@ class BeggarsChickenBlock: FoodEntityBlock(Properties.of()) {
     }
 
     override fun getInteraction(stage: Int): IInteraction {
-        return ConsumeInteraction(5, FoodProperties.Builder().nutrition(1).build())
+        return when (stage) {
+            5 -> ObtainInteraction(Ingredient.EMPTY, MessageUtil.EMPTY_HAND, ItemStack.EMPTY, DropForm.DROP_TO_GROUND, ObtainingMethod.SERVE, destroyParticle = true)
+            else -> ConsumeInteraction(5, FoodProperties.Builder().nutrition(1).build())
+        }
     }
 
 }

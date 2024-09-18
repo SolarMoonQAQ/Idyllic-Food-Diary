@@ -1,5 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware
 
+import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary
 import cn.solarmoon.idyllic_food_diary.element.matter.inlaid_stove.IBuiltInStove
 import cn.solarmoon.idyllic_food_diary.element.matter.inlaid_stove.InlaidStoveBlock
 import cn.solarmoon.idyllic_food_diary.registry.common.IFDBlocks
@@ -10,18 +11,25 @@ import cn.solarmoon.spark_core.api.blockstate.IHorizontalFacingState
 import cn.solarmoon.spark_core.api.blockstate.ILitState
 import cn.solarmoon.spark_core.api.cap.item.ItemStackHandlerHelper
 import cn.solarmoon.spark_core.api.util.BlockUtil
+import cn.solarmoon.spark_core.registry.common.SparkDataComponents
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
+import net.minecraft.core.component.DataComponents
+import net.minecraft.nbt.CompoundTag
+import net.minecraft.nbt.NbtOps
 import net.minecraft.util.RandomSource
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.ItemInteractionResult
+import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.component.CustomData
 import net.minecraft.world.level.BlockGetter
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.LevelReader
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.RenderShape
+import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
@@ -33,6 +41,8 @@ import net.minecraft.world.phys.shapes.CollisionContext
 import net.minecraft.world.phys.shapes.Shapes
 import net.minecraft.world.phys.shapes.VoxelShape
 import net.neoforged.neoforge.capabilities.Capabilities
+import net.neoforged.neoforge.fluids.SimpleFluidContent
+import test.be
 
 abstract class CookwareBlock(properties: Properties): SyncedEntityBlock(properties.lightLevel(ILitState::getCommonLightLevel)), IHorizontalFacingState {
 
@@ -66,7 +76,7 @@ abstract class CookwareBlock(properties: Properties): SyncedEntityBlock(properti
             }
 
             if (ILitState.controlLitByHand(state, pos, level, player, hand)) {
-                return ItemInteractionResult.SUCCESS;
+                return ItemInteractionResult.sidedSuccess(level.isClientSide)
             }
 
             return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION
@@ -127,7 +137,7 @@ abstract class CookwareBlock(properties: Properties): SyncedEntityBlock(properti
         if (block is IBuiltInStove && block.isNestedInStove(state)) {
             return Shapes.or(origin.move(0.0, block.getYOffset(state), 0.0), block.getShape(state));
         }
-        return origin;
+        return origin
     }
 
     override fun createBlockStateDefinition(builder: StateDefinition.Builder<Block?, BlockState?>) {
@@ -151,6 +161,33 @@ abstract class CookwareBlock(properties: Properties): SyncedEntityBlock(properti
             InlaidStoveBlock.playFireSound(level, pos, random);
         }
         super.animateTick(state, level, pos, random)
+    }
+
+    override fun hasDynamicLightEmission(state: BlockState): Boolean {
+        return true
+    }
+
+    /**
+     * 自定义光照，可在tick中调用AxuLightManager来让光照和内部液体/物品照度同步，当然和默认值之间取最大值
+     */
+    override fun getLightEmission(state: BlockState, level: BlockGetter, pos: BlockPos): Int {
+        val origin = super.getLightEmission(state, level, pos)
+        val manager = level.getAuxLightManager(pos) ?: return origin
+        return manager.getLightAt(pos).takeIf { it > origin } ?: origin
+    }
+
+    override fun tick(level: Level, pos: BlockPos, state: BlockState, blockEntity: BlockEntity) {
+        super.tick(level, pos, state, blockEntity)
+        lightSyncWithFluidIn(level, pos, state, blockEntity)
+    }
+
+    /**
+     * 默认将容器底部所得的液体内容照度显示出来
+     */
+    open fun lightSyncWithFluidIn(level: Level, pos: BlockPos, state: BlockState, blockEntity: BlockEntity) {
+        val tank = level.getCapability(Capabilities.FluidHandler.BLOCK, pos, state, blockEntity, Direction.DOWN) ?: return
+        val fluidIn = tank.getFluidInTank(0)
+        level.getAuxLightManager(pos)?.setLightAt(pos, fluidIn.fluidType.getLightLevel(fluidIn))
     }
 
     /**

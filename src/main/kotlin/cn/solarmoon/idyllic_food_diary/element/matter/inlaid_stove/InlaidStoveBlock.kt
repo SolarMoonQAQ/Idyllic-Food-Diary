@@ -43,7 +43,7 @@ class InlaidStoveBlock(properties: Properties = Properties.of()
     ): ItemInteractionResult {
         //打火石等点燃和熄灭
         if (ILitState.controlLitByHand(state, pos, level, player, hand)) {
-            return ItemInteractionResult.SUCCESS;
+            return ItemInteractionResult.sidedSuccess(level.isClientSide);
         }
 
         // 放入可镶嵌厨具
@@ -57,7 +57,7 @@ class InlaidStoveBlock(properties: Properties = Properties.of()
                     level.playSound(null, pos, d.getSoundType(level, pos, null).placeSound, SoundSource.BLOCKS)
                     if (!player.isCreative) heldItem.shrink(1)
                 }
-                return ItemInteractionResult.SUCCESS
+                return ItemInteractionResult.sidedSuccess(level.isClientSide)
             }
         }
 

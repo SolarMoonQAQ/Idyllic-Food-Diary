@@ -4,6 +4,8 @@
   "package": "cn.solarmoon.idyllic_food_diary.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "FluidTypeMixin",
+    "FluidUtilMixin"
   ],
   "client": [
   ],

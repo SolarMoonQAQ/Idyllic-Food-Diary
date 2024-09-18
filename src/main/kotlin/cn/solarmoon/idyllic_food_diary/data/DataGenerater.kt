@@ -14,8 +14,11 @@ object DataGenerater {
         val lookupProvider = event.lookupProvider
         val helper = event.existingFileHelper
 
-        generator.addProvider(event.includeServer(), IFDBlockTags(output, lookupProvider, helper))
+        val blockTags = IFDBlockTags(output, lookupProvider, helper)
+        generator.addProvider(event.includeServer(), blockTags)
+        generator.addProvider(event.includeServer(), IFDItemTags(output, lookupProvider, blockTags.contentsGetter(), helper))
         generator.addProvider(event.includeServer(), RecipeDataProvider(output, lookupProvider))
+        generator.addProvider(event.includeServer(), FluidEffectProvider(output))
     }
 
     @JvmStatic

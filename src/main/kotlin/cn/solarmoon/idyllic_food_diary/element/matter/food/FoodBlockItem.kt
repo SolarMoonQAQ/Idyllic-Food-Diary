@@ -6,11 +6,13 @@ import cn.solarmoon.idyllic_food_diary.registry.common.IFDDataComponents
 import cn.solarmoon.spark_core.api.tooltip.TooltipOperator
 import cn.solarmoon.spark_core.api.util.DropUtil
 import net.minecraft.network.chat.Component
+import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.BlockItem
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
+import net.minecraft.world.item.context.UseOnContext
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.Block
 import net.neoforged.neoforge.client.event.RenderTooltipEvent
@@ -19,7 +21,12 @@ import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent
 /**
  * 食用后返还容器，制作返还容器
  */
-class FoodBlockItem(block: Block, properties: Properties = Properties()): BlockItem(block, properties) {
+class FoodBlockItem(block: Block, private val needShiftToPlace: Boolean, val tier: FoodTier, properties: Properties = Properties()): BlockItem(block, properties) {
+
+    override fun useOn(context: UseOnContext): InteractionResult {
+        if (needShiftToPlace && context.player?.isCrouching == false) return InteractionResult.PASS
+        return super.useOn(context)
+    }
 
     override fun finishUsingItem(stack: ItemStack, level: Level, livingEntity: LivingEntity): ItemStack {
         livingEntity.eat(level, stack);

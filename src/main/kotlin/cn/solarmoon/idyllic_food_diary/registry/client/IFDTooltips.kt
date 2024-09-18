@@ -2,6 +2,7 @@ package cn.solarmoon.idyllic_food_diary.registry.client
 
 import cn.solarmoon.idyllic_food_diary.element.matter.food.FoodBlockItem
 import cn.solarmoon.idyllic_food_diary.element.matter.food.FoodBlockItemTooltip
+import cn.solarmoon.idyllic_food_diary.feature.tea_set_tooltip.TeaSetTooltip
 import cn.solarmoon.spark_core.api.tooltip.TooltipOperator
 import cn.solarmoon.spark_core.api.util.TooltipGatherUtil
 import cn.solarmoon.spark_core.feature.inlay.InlayTooltip
@@ -22,12 +23,14 @@ object IFDTooltips {
     @JvmStatic
     private fun addTooltips(event: RegisterClientTooltipComponentFactoriesEvent) {
         event.register(FoodBlockItemTooltip.Component::class.java, ::FoodBlockItemTooltip)
+        event.register(TeaSetTooltip.Component::class.java, ::TeaSetTooltip)
     }
 
     @SubscribeEvent
     @JvmStatic
     private fun gatherTooltips(event: RenderTooltipEvent.GatherComponents) {
         event.tooltipElements.add(1, Either.right(FoodBlockItemTooltip.Component(event.itemStack)))
+        event.tooltipElements.add(1, Either.right(TeaSetTooltip.Component(event.itemStack)))
     }
 
     @JvmStatic

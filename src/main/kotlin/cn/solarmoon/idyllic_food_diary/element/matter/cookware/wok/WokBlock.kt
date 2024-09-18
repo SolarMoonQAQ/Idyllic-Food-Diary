@@ -50,26 +50,26 @@ class WokBlock(properties: Properties = Properties.of()
         val pan = level.getBlockEntity(pos) as WokBlockEntity
 
         if (pan.fry.tryGiveResult(player, hand, true)) {
-            return ItemInteractionResult.SUCCESS
+            return ItemInteractionResult.sidedSuccess(level.isClientSide)
         }
 
         // 上方是空气才能炒菜（否则食材嵌到方块里有点怪）
         if (player.mainHandItem.`is`(IFDItems.SPATULA.get()) && level.getBlockState(pos.above()).isAir && pan.fry.doStirFry()) {
-            return ItemInteractionResult.SUCCESS
+            return ItemInteractionResult.sidedSuccess(level.isClientSide)
         }
 
         // 没有预输入结果时才能进行物品流体的交互
         if (!pan.fry.hasResult() && !pan.fry.canStirFry) {
             //能够存取液体
             if (FluidUtil.interactWithFluidHandler(player, hand, pan.fluidTank)) {
-                return ItemInteractionResult.SUCCESS
+                return ItemInteractionResult.sidedSuccess(level.isClientSide)
             }
 
             //存取任意单个物品
             if (hand == InteractionHand.MAIN_HAND && !player.mainHandItem.`is`(IFDItems.SPATULA.get())
                 && ItemStackHandlerHelper.storage(pan.inventory, player, hand, 1, 1)) {
                 level.playSound(null, pos, SoundEvents.LANTERN_STEP, SoundSource.BLOCKS);
-                return ItemInteractionResult.SUCCESS;
+                return ItemInteractionResult.sidedSuccess(level.isClientSide)
             }
         }
 
@@ -79,7 +79,10 @@ class WokBlock(properties: Properties = Properties.of()
     override fun tick(level: Level, pos: BlockPos, state: BlockState, pan: BlockEntity) {
         super.tick(level, pos, state, pan)
         if (pan is WokBlockEntity) {
-            pan.fry.tryWork();
+            if (!pan.fry.tryWork()) {
+                pan.boil.tryWork()
+            }
+            pan.eva.tryWork()
             //pan.tryApplyThermochanger();
 
             // 炒菜音效

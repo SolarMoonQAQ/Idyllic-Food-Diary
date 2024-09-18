@@ -16,6 +16,8 @@ import com.mojang.serialization.codecs.RecordCodecBuilder
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.data.recipes.RecipeOutput
 import net.minecraft.network.RegistryFriendlyByteBuf
+import net.minecraft.network.chat.CommonComponents
+import net.minecraft.network.chat.Component
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.resources.ResourceLocation
@@ -38,7 +40,8 @@ data class StewRecipe(
     val time: Int,
     val result: ItemStack,
     val container: Ingredient,
-    val exp: Int
+    val exp: Int,
+    val containerId: Component = CommonComponents.EMPTY
 ) : IConcreteRecipe {
 
     override val entry: RecipeBuilder.RecipeEntry<*>
@@ -53,21 +56,37 @@ data class StewRecipe(
                     Codec.INT.fieldOf("time").forGetter { it.time },
                     ItemStack.OPTIONAL_CODEC.fieldOf("result").forGetter { it.result },
                     Ingredient.CODEC.fieldOf("container").forGetter { it.container },
-                    Codec.INT.fieldOf("exp").forGetter { it.exp }
-                ).apply(it, ::StewRecipe)
+                    Codec.INT.fieldOf("exp").forGetter { it.exp },
+                    Codec.STRING.optionalFieldOf("container_identifier", "").forGetter { it.containerId.string }
+                ).apply(it) { a, b, c, d, e, f, id ->
+                    StewRecipe(a, b, c, d, e, f, Component.translatable(id))
+                }
             }
         }
 
         override fun streamCodec(): StreamCodec<RegistryFriendlyByteBuf, StewRecipe> {
-            return StreamCodec.composite(
-                SerializeHelper.INGREDIENT.LIST_STREAM_CODEC, StewRecipe::ingredients,
-                FluidStack.OPTIONAL_STREAM_CODEC, StewRecipe::inputFluid,
-                ByteBufCodecs.INT, StewRecipe::time,
-                ItemStack.OPTIONAL_STREAM_CODEC, StewRecipe::result,
-                Ingredient.CONTENTS_STREAM_CODEC, StewRecipe::container,
-                ByteBufCodecs.INT, StewRecipe::exp,
-                ::StewRecipe
-            )
+            return object : StreamCodec<RegistryFriendlyByteBuf, StewRecipe> {
+                override fun decode(buffer: RegistryFriendlyByteBuf): StewRecipe {
+                    val ing = SerializeHelper.INGREDIENT.LIST_STREAM_CODEC.decode(buffer)
+                    val fin = FluidStack.OPTIONAL_STREAM_CODEC.decode(buffer)
+                    val i = ByteBufCodecs.INT.decode(buffer)
+                    val it = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer)
+                    val iw = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer)
+                    val i2 = ByteBufCodecs.INT.decode(buffer)
+                    val s = ByteBufCodecs.STRING_UTF8.decode(buffer)
+                    return StewRecipe(ing, fin, i, it, iw, i2, Component.translatable(s))
+                }
+
+                override fun encode(buffer: RegistryFriendlyByteBuf, value: StewRecipe) {
+                    SerializeHelper.INGREDIENT.LIST_STREAM_CODEC.encode(buffer, value.ingredients)
+                    FluidStack.OPTIONAL_STREAM_CODEC.encode(buffer, value.inputFluid)
+                    ByteBufCodecs.INT.encode(buffer, value.time)
+                    ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, value.result)
+                    Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, value.container)
+                    ByteBufCodecs.INT.encode(buffer, value.exp)
+                    ByteBufCodecs.STRING_UTF8.encode(buffer, value.containerId.string)
+                }
+            }
         }
     }
 
@@ -76,6 +95,7 @@ data class StewRecipe(
         override var exp = 0
         override var result: ItemStack = ItemStack.EMPTY
         override var container: Ingredient = Ingredient.EMPTY
+        override var containerIdentifier = CommonComponents.EMPTY
         override fun getBlockEntity() = be
 
         override fun tryWork(): Boolean {
@@ -86,7 +106,7 @@ data class StewRecipe(
                     if (time > recipeTime) {
                         //输出物
                         if (!it.value.result.isEmpty) {
-                            setPending(it.value.result.copy(), it.value.container)
+                            setPending(it.value.result.copy(), it.value.container, it.value().containerId)
                         }
                         FluidHandlerHelper.clearTank(tank)
                         exp = it.value.exp

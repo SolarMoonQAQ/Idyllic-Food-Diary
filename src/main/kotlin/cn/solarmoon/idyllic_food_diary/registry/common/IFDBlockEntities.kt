@@ -1,7 +1,11 @@
 package cn.solarmoon.idyllic_food_diary.registry.common
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup.little_cup.LittleCupBlock
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup.little_cup.LittleCupBlockEntity
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.kettle.KettleBlockEntity
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.millstone.MillstoneBlockEntity
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer.SteamerBlockEntity
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.wok.WokBlockEntity
 import cn.solarmoon.idyllic_food_diary.element.matter.food.FoodBlockEntity
 import cn.solarmoon.idyllic_food_diary.element.matter.food.FoodEntityBlock
@@ -14,7 +18,6 @@ import cn.solarmoon.spark_core.api.blockstate.IBedPartState
 import net.minecraft.core.Direction
 import net.minecraft.world.level.block.state.properties.BedPart
 import net.neoforged.neoforge.capabilities.Capabilities
-import test.be
 
 object IFDBlockEntities {
 
@@ -68,6 +71,32 @@ object IFDBlockEntities {
         .id("food")
         .bound(::FoodBlockEntity)
         .validBlocks { IdyllicFoodDiary.REGISTER.blockDeferredRegister.entries.filter { it.value() is FoodEntityBlock }.map { it.value() }.toTypedArray() }
+        .build()
+
+    @JvmStatic
+    val LITTLE_CUP = IdyllicFoodDiary.REGISTER.blockentity<LittleCupBlockEntity>()
+        .id("little_cup")
+        .bound(::LittleCupBlockEntity)
+        .capability(Capabilities.ItemHandler.BLOCK) { b, _ -> b.inventory }
+        .capability(Capabilities.FluidHandler.BLOCK) { b, _ -> b.tank }
+        .validBlocks { IdyllicFoodDiary.REGISTER.blockDeferredRegister.entries.filter { it.value() is LittleCupBlock }.map { it.value() }.toTypedArray() }
+        .build()
+
+    @JvmStatic
+    val KETTLE = IdyllicFoodDiary.REGISTER.blockentity<KettleBlockEntity>()
+        .id("kettle")
+        .bound(::KettleBlockEntity)
+        .capability(Capabilities.ItemHandler.BLOCK) { b, _ -> b.inventory }
+        .capability(Capabilities.FluidHandler.BLOCK) { b, _ -> b.tank }
+        .validBlocks { arrayOf(IFDBlocks.KETTLE.get()) }
+        .build()
+
+    @JvmStatic
+    val STEAMER = IdyllicFoodDiary.REGISTER.blockentity<SteamerBlockEntity>()
+        .id("steamer")
+        .bound(::SteamerBlockEntity)
+        .capability(Capabilities.ItemHandler.BLOCK) { b, _ -> b.invHandler }
+        .validBlocks { arrayOf(IFDBlocks.STEAMER.get()) }
         .build()
 
 }

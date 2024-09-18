@@ -3,6 +3,7 @@ package cn.solarmoon.idyllic_food_diary.element.matter.food.interactive_food_blo
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary
 import cn.solarmoon.idyllic_food_diary.element.matter.food.FoodBlockEntity
 import cn.solarmoon.idyllic_food_diary.element.matter.food.FoodEntityBlock
+import cn.solarmoon.idyllic_food_diary.feature.util.MessageUtil
 import cn.solarmoon.spark_core.api.util.BlockUtil
 import cn.solarmoon.spark_core.api.util.DropUtil
 import net.minecraft.core.BlockPos
@@ -32,7 +33,7 @@ import net.minecraft.world.phys.BlockHitResult
  */
 data class ObtainInteraction(
     val container: Ingredient,
-    val containerTypeName: String,
+    val containerTypeName: Component,
     val result: ItemStack,
     val dropForm: DropForm,
     val obtainingMethod: ObtainingMethod,
@@ -52,13 +53,7 @@ data class ObtainInteraction(
         val fb = level.getBlockEntity(pos) as FoodBlockEntity
         if (container.test(heldItem)) {
             // 首先替换方块到下一阶段，如果目标阶段为0则放置留存方块
-            val stage = state.getValue(FoodEntityBlock.INTERACTION)
-            val targetState = state.setValue(FoodEntityBlock.INTERACTION, stage - 1)
-            if (destroyParticle) level.destroyBlock(pos, false)
-            level.setBlock(pos, targetState, 3)
-            if (targetState.getValue(FoodEntityBlock.INTERACTION) == 0) {
-                BlockUtil.replaceBlockWithAllState(state, fb.containerBlockState, level, pos)
-            }
+            fb.consumeInteraction(destroyParticle)
             // 根据method决定物品是消耗还是消耗耐久
             if (!heldItem.isEmpty) {
                 when (obtainingMethod) {
@@ -86,14 +81,12 @@ data class ObtainInteraction(
 
     enum class ObtainingMethod {
         SERVE, SPLIT;
-        fun getRequiredMessage(containerTypeName: String): Component {
-            val cName = IdyllicFoodDiary.TRANSLATOR.set("identifier", containerTypeName)
-            if (this == SERVE) {
-                return IdyllicFoodDiary.TRANSLATOR.set("message", "obtainable_food.container_required", cName)
-            } else if (this == SPLIT) {
-                return IdyllicFoodDiary.TRANSLATOR.set("message", "obtainable_food.tool_required", cName)
+        fun getRequiredMessage(containerTypeName: Component): Component {
+            return if (this == SERVE) {
+                IdyllicFoodDiary.TRANSLATOR.set("message", "obtainable_food.container_required", containerTypeName)
+            } else {
+                IdyllicFoodDiary.TRANSLATOR.set("message", "obtainable_food.tool_required", containerTypeName)
             }
-            return Component.empty()
         }
     }
 

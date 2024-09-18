@@ -1,6 +1,8 @@
 package cn.solarmoon.idyllic_food_diary.registry.client
 
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup.little_cup.LittleCupBlockRenderer
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.millstone.MillstoneBlockRenderer
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer.SteamerBlockRenderer
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.wok.WokBlockRenderer
 import cn.solarmoon.idyllic_food_diary.element.matter.food.FoodBlockRenderer
 import cn.solarmoon.idyllic_food_diary.element.matter.food_container.long_plate.LongPlateBlockRenderer
@@ -17,6 +19,8 @@ object IFDBlockEntityRenderers {
         event.registerBlockEntityRenderer(IFDBlockEntities.PLATE.get(), ::PlateBlockRenderer)
         event.registerBlockEntityRenderer(IFDBlockEntities.LONG_PLATE.get(), ::LongPlateBlockRenderer)
         event.registerBlockEntityRenderer(IFDBlockEntities.FOOD.get(), ::FoodBlockRenderer)
+        event.registerBlockEntityRenderer(IFDBlockEntities.LITTLE_CUP.get(), ::LittleCupBlockRenderer)
+        event.registerBlockEntityRenderer(IFDBlockEntities.STEAMER.get(), ::SteamerBlockRenderer)
     }
 
     @JvmStatic

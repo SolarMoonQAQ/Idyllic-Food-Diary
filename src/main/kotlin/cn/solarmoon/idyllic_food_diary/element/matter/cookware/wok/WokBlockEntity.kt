@@ -1,7 +1,9 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.wok
 
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.CookwareBlock
+import cn.solarmoon.idyllic_food_diary.element.recipe.EvaporationRecipe
 import cn.solarmoon.idyllic_food_diary.element.recipe.StirFryRecipe
+import cn.solarmoon.idyllic_food_diary.element.recipe.WaterBoilingRecipe
 import cn.solarmoon.idyllic_food_diary.registry.common.IFDBlockEntities
 import cn.solarmoon.spark_core.api.attachment.animation.AnimHelper
 import cn.solarmoon.spark_core.api.blockentity.SyncedBlockEntity
@@ -28,22 +30,25 @@ class WokBlockEntity(pos: BlockPos, state: BlockState) : SyncedBlockEntity(IFDBl
 
     var soundTick: Int = 0
     val fry = StirFryRecipe.Processor(this, inventory, fluidTank)
+    val boil = WaterBoilingRecipe.Processor(this, fluidTank)
+    val eva = EvaporationRecipe.Processor(this, fluidTank)
 
     init {
-        RecipeProcessorHelper.createMap(this, fry)
+        RecipeProcessorHelper.createMap(this, fry, boil, eva)
         AnimHelper.Fluid.createFluidAnim(this)
     }
 
     override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
         super.saveAdditional(tag, registries)
         tag.put(ItemStackHandlerHelper.ITEM, inventory.serializeNBT(registries))
-        tag.put(FluidHandlerHelper.FLUID, fluidTank.writeToNBT(registries, CompoundTag()))
+        saveFluid(fluidTank.fluid)
     }
 
     override fun loadAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
         super.loadAdditional(tag, registries)
+        loadFluid(fluidTank, tag, registries)
+        if (tag.isEmpty) return // 防止新物品什么都没有的情况下读取报错
         inventory.deserializeNBT(registries, tag.get(ItemStackHandlerHelper.ITEM) as CompoundTag)
-        fluidTank.readFromNBT(registries, tag.getCompound(FluidHandlerHelper.FLUID))
     }
 
 }

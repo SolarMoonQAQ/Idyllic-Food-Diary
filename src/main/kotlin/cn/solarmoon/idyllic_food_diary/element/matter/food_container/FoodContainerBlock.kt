@@ -1,6 +1,8 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.food_container
 
+import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary
 import cn.solarmoon.spark_core.api.blockentity.SyncedEntityBlock
+import cn.solarmoon.spark_core.api.blockstate.IBedPartState
 import cn.solarmoon.spark_core.api.blockstate.IHorizontalFacingState
 import cn.solarmoon.spark_core.api.cap.item.ItemStackHandlerHelper
 import cn.solarmoon.spark_core.api.util.DropUtil
@@ -18,8 +20,13 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.SoundType
+import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.state.BlockState
+import net.minecraft.world.level.block.state.properties.BedPart
+import net.minecraft.world.level.storage.loot.LootParams
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams
 import net.minecraft.world.phys.BlockHitResult
+import net.minecraft.world.phys.HitResult
 
 abstract class FoodContainerBlock(soundType: SoundType,
     properties: Properties = Properties.of()
@@ -60,7 +67,7 @@ abstract class FoodContainerBlock(soundType: SoundType,
                 //重置计数
                 counting.setCount(0)
             }
-            return InteractionResult.SUCCESS
+            return InteractionResult.sidedSuccess(level.isClientSide)
         }
         return InteractionResult.PASS
     }
@@ -78,13 +85,24 @@ abstract class FoodContainerBlock(soundType: SoundType,
         val inv = container.inventory
         if (ItemStackHandlerHelper.putItem(inv, player, hand, 1)) {
             level.playSound(null, pos, SoundEvents.ARMOR_EQUIP_LEATHER.value(), SoundSource.PLAYERS, 0.5f, 1f);
-            return ItemInteractionResult.SUCCESS;
+            return ItemInteractionResult.sidedSuccess(level.isClientSide);
         }
         if (player.isCrouching && ItemStackHandlerHelper.takeItem(inv, player, hand, 1)) {
             level.playSound(null, pos, SoundEvents.ARMOR_EQUIP_LEATHER.value(), SoundSource.PLAYERS, 0.5f, 1f);
-            return ItemInteractionResult.SUCCESS;
+            return ItemInteractionResult.sidedSuccess(level.isClientSide);
         }
         return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION
+    }
+
+    override fun getDrops(state: BlockState, builder: LootParams.Builder): List<ItemStack> {
+        val origin = mutableListOf<ItemStack>()
+        val blockEntity = builder.getOptionalParameter(LootContextParams.BLOCK_ENTITY) ?: return origin
+        val level = builder.level
+        val stack = ItemStack(this)
+        if (state.hasProperty(IBedPartState.PART) && state.getValue(IBedPartState.PART) == BedPart.FOOT) return origin
+        blockEntity.saveToItem(stack, level.registryAccess())
+        origin.add(stack)
+        return origin
     }
 
 }

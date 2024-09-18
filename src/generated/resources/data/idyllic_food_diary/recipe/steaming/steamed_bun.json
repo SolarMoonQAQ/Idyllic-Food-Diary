@@ -1,0 +1,11 @@
+{
+  "type": "idyllic_food_diary:steaming",
+  "ingredient": {
+    "item": "idyllic_food_diary:wheat_dough"
+  },
+  "result": {
+    "count": 1,
+    "id": "idyllic_food_diary:steamed_bun"
+  },
+  "time": 100
+}

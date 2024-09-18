@@ -19,7 +19,7 @@ abstract class OptionalRecipeGui: LayeredDraw.Layer {
 
     var middleX = -1; var middleY = -1 // 中间物品的坐标，同时控制整个gui的坐标
     val internal = 27 // 最大移动距离，也是上下两个物品的间隔距离
-    val maxTime = 7 / 0.02
+    val maxTime = 5 / 0.02
     var tickSpeed = 1
     private var fade = 0f
     private var tick = 0

@@ -27,4 +27,14 @@ object IFDSounds {
         .id("player.chopping")
         .build()
 
+    @JvmStatic
+    val POURING_WATER = IdyllicFoodDiary.REGISTER.sound()
+        .id("player.pouring_water")
+        .build()
+
+    @JvmStatic
+    val BOILING_WATER = IdyllicFoodDiary.REGISTER.sound()
+        .id("block.boiling_water")
+        .build()
+
 }

@@ -23,6 +23,8 @@ import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.data.recipes.RecipeOutput
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.RegistryFriendlyByteBuf
+import net.minecraft.network.chat.CommonComponents
+import net.minecraft.network.chat.Component
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.resources.ResourceLocation
@@ -45,7 +47,8 @@ data class StirFryRecipe(
     val stirFryStages: List<StirFryStage>,
     val result: ItemStack,
     val container: Ingredient,
-    val exp: Int
+    val exp: Int,
+    val containerId: Component = CommonComponents.EMPTY
 ) : IConcreteRecipe {
 
     override val entry: RecipeBuilder.RecipeEntry<*>
@@ -62,8 +65,11 @@ data class StirFryRecipe(
                     StirFryStage.LIST_CODEC.fieldOf("stir_fry_stages").forGetter { it.stirFryStages },
                     ItemStack.OPTIONAL_CODEC.fieldOf("result").forGetter { it.result },
                     Ingredient.CODEC.fieldOf("container").forGetter { it.container },
-                    Codec.INT.fieldOf("exp").forGetter { it.exp }
-                ).apply(it, ::StirFryRecipe)
+                    Codec.INT.fieldOf("exp").forGetter { it.exp },
+                    Codec.STRING.optionalFieldOf("container_identifier", "").forGetter { it.containerId.string }
+                ).apply(it) { a, b, c, d, id ->
+                    StirFryRecipe(a, b, c, d, Component.translatable(id))
+                }
             }
         }
 
@@ -73,7 +79,8 @@ data class StirFryRecipe(
                 ItemStack.OPTIONAL_STREAM_CODEC, StirFryRecipe::result,
                 Ingredient.CONTENTS_STREAM_CODEC, StirFryRecipe::container,
                 ByteBufCodecs.INT, StirFryRecipe::exp,
-                ::StirFryRecipe
+                ByteBufCodecs.STRING_UTF8, { it.containerId.string },
+                { a, b, c, d, id -> StirFryRecipe(a, b, c, d, Component.translatable(id)) }
             )
         }
     }
@@ -83,6 +90,7 @@ data class StirFryRecipe(
         override var exp = 0
         override var result: ItemStack = ItemStack.EMPTY
         override var container: Ingredient = Ingredient.EMPTY
+        override var containerIdentifier = CommonComponents.EMPTY
         override fun getBlockEntity() = be
 
         /**
@@ -154,7 +162,7 @@ data class StirFryRecipe(
                         } else time++
                     }
                 } ?: run { // 此处就代表当前阶段已经超出配方最大阶段，表示所有阶段已满足
-                    setPending(pendingItem, it.value.container)
+                    setPending(pendingItem, it.value.container, it.value.containerId)
                     exp = it.value.exp
                     ItemStackHandlerHelper.clearInv(inv)
                     be.setChanged()

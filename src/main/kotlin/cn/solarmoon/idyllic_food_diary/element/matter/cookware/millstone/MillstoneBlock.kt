@@ -56,7 +56,7 @@ class MillstoneBlock(properties: Properties = Properties.of()
         hitResult: BlockHitResult
     ): ItemInteractionResult {
         if (FluidUtil.interactWithFluidHandler(player, hand, level, pos, hitResult.direction)) {
-            return ItemInteractionResult.SUCCESS
+            return ItemInteractionResult.sidedSuccess(level.isClientSide)
         }
         return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION
     }
@@ -71,8 +71,8 @@ class MillstoneBlock(properties: Properties = Properties.of()
         // 蹲下才能手抽物品
         val mill = level.getBlockEntity(pos) as MillstoneBlockEntity
         if (!player.isCrouching) {
-            if (handle(mill)) return InteractionResult.SUCCESS;
-        } else if (handleInvAct(mill, player)) return InteractionResult.SUCCESS;
+            if (handle(mill)) return InteractionResult.sidedSuccess(level.isClientSide)
+        } else if (handleInvAct(mill, player)) return InteractionResult.sidedSuccess(level.isClientSide)
         return super.useWithoutItem(state, level, pos, player, hitResult)
     }
 
@@ -105,7 +105,6 @@ class MillstoneBlock(properties: Properties = Properties.of()
         super.tick(level, pos, state, blockEntity)
         val mill = blockEntity as MillstoneBlockEntity
         mill.grind.tryWork()
-        level.getAuxLightManager(pos)?.setLightAt(pos, mill.tanks[1].fluid.fluidType.lightLevel)
 
         // 空气漏斗
         level.getEntities(null, AABB(pos.above()).setMaxY(pos.above().y + 1 / 16.0)).forEach { entity ->
@@ -158,15 +157,6 @@ class MillstoneBlock(properties: Properties = Properties.of()
         }
         anim.fixedValues.put("flow", tick)
         anim.fixedValues.put("flowMax", flowMaxTick)
-    }
-
-    override fun hasDynamicLightEmission(state: BlockState): Boolean {
-        return true
-    }
-
-    override fun getLightEmission(state: BlockState, level: BlockGetter, pos: BlockPos): Int {
-        val manager = level.getAuxLightManager(pos)
-        return if (manager != null) manager.getLightAt(pos) else super.getLightEmission(state, level, pos)
     }
 
     override fun getShapeThis(

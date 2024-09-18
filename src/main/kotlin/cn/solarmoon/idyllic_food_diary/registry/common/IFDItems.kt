@@ -2,25 +2,30 @@ package cn.solarmoon.idyllic_food_diary.registry.common
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary
 import cn.solarmoon.idyllic_food_diary.element.matter.cleaver.CleaverItem
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup.CupItem
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.kettle.KettleBlock
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.kettle.KettleItem
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.millstone.MillstoneItem
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer.SteamerItem
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer.SteamerLidBlock
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer.SteamerLidItem
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.wok.SpatulaItem
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.wok.WokItem
 import cn.solarmoon.idyllic_food_diary.element.matter.food.FoodBlockItem
-import cn.solarmoon.idyllic_food_diary.element.matter.food.interactive_food_block.feast.BeggarsChickenBlock
+import cn.solarmoon.idyllic_food_diary.element.matter.food.FoodPropertyData
+import cn.solarmoon.idyllic_food_diary.element.matter.food.FoodTier
 import cn.solarmoon.idyllic_food_diary.element.matter.food_container.FoodContainerItem
-import cn.solarmoon.idyllic_food_diary.element.matter.inlaid_stove.InlaidStoveBlock
 import cn.solarmoon.idyllic_food_diary.element.matter.inlaid_stove.InlaidStoveItem
-import cn.solarmoon.idyllic_food_diary.element.matter.inlaid_stove.StoveLidBlock
 import cn.solarmoon.idyllic_food_diary.element.matter.inlaid_stove.StoveLidItem
 import cn.solarmoon.idyllic_food_diary.element.matter.rolling_pin.RollingPinItem
-import cn.solarmoon.spark_core.api.cap.fluid.FluidHandlerHelper
-import cn.solarmoon.spark_core.api.cap.fluid.SyncedTileItemTank
-import net.minecraft.core.component.DataComponents
-import net.minecraft.nbt.CompoundTag
-import net.minecraft.nbt.NbtOps
-import net.minecraft.world.item.component.CustomData
+import cn.solarmoon.spark_core.registry.common.SparkDataComponents
+import net.minecraft.world.food.FoodProperties
+import net.minecraft.world.item.Item
+import net.minecraft.world.item.Item.Properties
 import net.neoforged.neoforge.capabilities.Capabilities
-import net.neoforged.neoforge.fluids.FluidStack
+import net.neoforged.neoforge.fluids.SimpleFluidContent
+import net.neoforged.neoforge.fluids.capability.templates.FluidHandlerItemStack
+import kotlin.jvm.JvmStatic
 
 object IFDItems {
 
@@ -49,7 +54,7 @@ object IFDItems {
     val WOK = IdyllicFoodDiary.REGISTER.item<WokItem>()
         .id("wok")
         .bound(::WokItem)
-        .capability(Capabilities.FluidHandler.ITEM) { s, _ -> SyncedTileItemTank(s, 250) }
+        .capability(Capabilities.FluidHandler.ITEM) { s, _ -> FluidHandlerItemStack(SparkDataComponents.SIMPLE_FLUID_CONTENT, s, 250) }
         .build()
 
     @JvmStatic
@@ -95,9 +100,49 @@ object IFDItems {
         .build()
 
     @JvmStatic
+    val JADE_CHINA_CUP = IdyllicFoodDiary.REGISTER.item<CupItem>()
+        .id("jade_china_cup")
+        .bound { CupItem(IFDBlocks.JADE_CHINA_CUP.get(), Properties().stacksTo(1)) }
+        .capability(Capabilities.FluidHandler.ITEM) { s, _ -> FluidHandlerItemStack(SparkDataComponents.SIMPLE_FLUID_CONTENT, s, 250) }
+        .build()
+
+    @JvmStatic
+    val KETTLE = IdyllicFoodDiary.REGISTER.item<KettleItem>()
+        .id("kettle")
+        .bound { KettleItem(IFDBlocks.KETTLE.get(), Properties().stacksTo(1)) }
+        .capability(Capabilities.FluidHandler.ITEM) { s, _ -> FluidHandlerItemStack(SparkDataComponents.SIMPLE_FLUID_CONTENT, s, 1000) }
+        .build()
+
+    @JvmStatic
+    val STEAMER = IdyllicFoodDiary.REGISTER.item<SteamerItem>()
+        .id("steamer")
+        .bound(::SteamerItem)
+        .build()
+
+    @JvmStatic
+    val STEAMER_LID = IdyllicFoodDiary.REGISTER.item<SteamerLidItem>()
+        .id("steamer_lid")
+        .bound(::SteamerLidItem)
+        .build()
+
+    // ——————————————————————————————————————————————食物分割线——————————————————————————————————————————————————————————//
+
+    @JvmStatic
+    val WHEAT_DOUGH = IdyllicFoodDiary.REGISTER.item<FoodBlockItem>()
+        .id("wheat_dough")
+        .bound { FoodBlockItem(IFDBlocks.WHEAT_DOUGH.get(), true, FoodTier.BLAND_FOOD, Properties().food(FoodPropertyData.PRIMARY_1)) }
+        .build()
+
+    @JvmStatic
+    val STEAMED_BUN = IdyllicFoodDiary.REGISTER.item<FoodBlockItem>()
+        .id("steamed_bun")
+        .bound { FoodBlockItem(IFDBlocks.STEAMED_BUN.get(), true, FoodTier.SIMPLE_MEAL, Properties().food(FoodProperties.Builder().nutrition(4).saturationModifier(0.5f).build())) }
+        .build()
+
+    @JvmStatic
     val BEGGARS_CHICKEN = IdyllicFoodDiary.REGISTER.item<FoodBlockItem>()
         .id("beggars_chicken")
-        .bound { FoodBlockItem(IFDBlocks.BEGGARS_CHICKEN.get()) }
+        .bound { FoodBlockItem(IFDBlocks.BEGGARS_CHICKEN.get(), false, FoodTier.GREAT_MEAL) }
         .build()
 
 }

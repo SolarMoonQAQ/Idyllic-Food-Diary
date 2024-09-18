@@ -93,7 +93,7 @@ class WokBlockRenderer(context: BlockEntityRendererProvider.Context): CookwareTi
             poseStack.popPose()
         }
 
-        AnimHelper.Fluid.renderAnimatedFluid(pan, Direction.NORTH, 10/16f, 3/16f, 1/16.0, partialTick, poseStack, bufferSource, packedLight)
+        AnimHelper.Fluid.renderAnimatedFluid(pan, Direction.NORTH, 10/16f, 3/16f, 1/16f, partialTick, poseStack, bufferSource, packedLight)
     }
 
     private fun rotFix(direction: Direction, poseStack: PoseStack): Float {

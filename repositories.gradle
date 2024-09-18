@@ -13,6 +13,9 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     //农夫乐事
     compileOnly "maven.modrinth:farmers-delight:${farmersdelight_version}"
+    // 苹果皮
+    compileOnly "squeek.appleskin:appleskin-neoforge:${appleskin_version}:api"
+    runtimeOnly "squeek.appleskin:appleskin-neoforge:${appleskin_version}"
 }
 
 repositories {

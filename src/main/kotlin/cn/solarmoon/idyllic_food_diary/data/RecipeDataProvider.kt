@@ -3,8 +3,11 @@ package cn.solarmoon.idyllic_food_diary.data
 import cn.solarmoon.idyllic_food_diary.element.recipe.ChoppingRecipe
 import cn.solarmoon.idyllic_food_diary.element.recipe.GrindingRecipe
 import cn.solarmoon.idyllic_food_diary.element.recipe.RollingRecipe
+import cn.solarmoon.idyllic_food_diary.element.recipe.SteamingRecipe
 import cn.solarmoon.idyllic_food_diary.element.recipe.StirFryRecipe
+import cn.solarmoon.idyllic_food_diary.element.recipe.WaterBoilingRecipe
 import cn.solarmoon.idyllic_food_diary.element.recipe.assistant.StirFryStage
+import cn.solarmoon.idyllic_food_diary.feature.util.MessageUtil
 import cn.solarmoon.idyllic_food_diary.registry.common.IFDItems
 import cn.solarmoon.spark_core.api.data.element.AttributeData
 import cn.solarmoon.spark_core.api.data.element.ChanceResult
@@ -46,8 +49,9 @@ class RecipeDataProvider(output: PackOutput, registries: CompletableFuture<Holde
                     StirFryStage(listOf(Ingredient.of(Items.POTATO), Ingredient.of(Items.CHICKEN)), FluidStack.EMPTY, 100, 3, false)
                 ),
                 ItemStack(IFDItems.BEGGARS_CHICKEN),
-                Ingredient.of(IFDItems.WOODEN_PLATE.get()),
-                10
+                Ingredient.of(IFDItemTags.PLATE),
+                10,
+                MessageUtil.PLATE
             )
         }.save(recipeOutput)
         RollingRecipe.JsonBuilder {
@@ -85,6 +89,16 @@ class RecipeDataProvider(output: PackOutput, registries: CompletableFuture<Holde
                     ChanceResult(ItemStack(Items.IRON_INGOT), 0.5f)
                 )
             )
+        }.save(recipeOutput)
+        SteamingRecipe.JsonBuilder {
+            SteamingRecipe(
+                Ingredient.of(IFDItems.WHEAT_DOUGH.get()),
+                100,
+                ItemStack(IFDItems.STEAMED_BUN)
+            )
+        }.save(recipeOutput)
+        WaterBoilingRecipe.JsonBuilder {
+            WaterBoilingRecipe(Fluids.WATER, 400)
         }.save(recipeOutput)
     }
 

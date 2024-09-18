@@ -8,6 +8,7 @@ import cn.solarmoon.idyllic_food_diary.feature.optinal_recipe.RecipeSelectData
 import com.mojang.serialization.Codec
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.component.ItemContainerContents
 
 object IFDDataComponents {
 
@@ -61,5 +62,15 @@ object IFDDataComponents {
                 .networkSynchronized(ByteBufCodecs.INT)
                 .cacheEncoding()
         }
+
+    @JvmStatic
+    val FLUID_INTERACT_VALUE = IdyllicFoodDiary.REGISTER.dataComponent<Int>()
+        .id("fluid_interact_value")
+        .build {
+            it.persistent(Codec.INT)
+                .networkSynchronized(ByteBufCodecs.INT)
+                .cacheEncoding()
+        }
+
 
 }

@@ -3,9 +3,11 @@ package cn.solarmoon.idyllic_food_diary.element.matter.cookware
 import cn.solarmoon.idyllic_food_diary.element.matter.inlaid_stove.IBuiltInStove
 import cn.solarmoon.spark_core.api.blockstate.IHorizontalFacingState
 import cn.solarmoon.spark_core.api.renderer.HandyBlockEntityRenderer
+import cn.solarmoon.spark_core.api.renderer.IFreeRenderBlock
 import com.mojang.blaze3d.vertex.PoseStack
 import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider
+import net.minecraft.world.level.block.RenderShape
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.phys.AABB
 import net.minecraft.world.phys.Vec3
@@ -28,7 +30,7 @@ abstract class CookwareTileRenderer<E: BlockEntity>(context: BlockEntityRenderer
             val direction = state.getValue(IHorizontalFacingState.FACING);
             block.translateContent(direction, poseStack, bufferSource, packedLight, packedOverlay)
         }
-        context.blockRenderDispatcher.renderSingleBlock(state, poseStack, bufferSource, packedLight, packedOverlay)
+        if (block is IFreeRenderBlock) context.blockRenderDispatcher.renderSingleBlock(state, poseStack, bufferSource, packedLight, packedOverlay)
         renderThis(blockEntity, partialTick, poseStack, bufferSource, packedLight, packedOverlay)
     }
 

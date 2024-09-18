@@ -1,8 +1,9 @@
 {
   "type": "idyllic_food_diary:stir_fry",
   "container": {
-    "item": "idyllic_food_diary:wooden_plate"
+    "tag": "idyllic_food_diary:plate"
   },
+  "container_identifier": "identifier.idyllic_food_diary.plate",
   "exp": 10,
   "result": {
     "count": 1,

@@ -2,11 +2,13 @@ package cn.solarmoon.idyllic_food_diary.element.recipe.assistant
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary
 import cn.solarmoon.idyllic_food_diary.feature.food_container.FoodContainer
+import cn.solarmoon.idyllic_food_diary.feature.util.MessageUtil
 import cn.solarmoon.idyllic_food_diary.registry.common.IFDDataComponents
 import cn.solarmoon.spark_core.api.util.DropUtil
 import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.NbtOps
+import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
@@ -18,6 +20,7 @@ import net.minecraft.world.level.block.entity.BlockEntity
  */
 interface IPlateable: IExpGiver {
 
+    var containerIdentifier: Component
     var result: ItemStack
     var container: Ingredient
 
@@ -51,9 +54,12 @@ interface IPlateable: IExpGiver {
                 getBlockEntity().setChanged()
                 return true
             } else {
-                var message = IdyllicFoodDiary.TRANSLATOR.set("message", "container_required.empty")
+                var message = IdyllicFoodDiary.TRANSLATOR.set("message", "container_required", MessageUtil.EMPTY_HAND)
                 if (!container.isEmpty) {
-                    message = IdyllicFoodDiary.TRANSLATOR.set("message", "container_required")
+                    var id: Component
+                    if (container.items.size == 1 && containerIdentifier.string.isEmpty()) id = MessageUtil.identifier(container.items[0])
+                    else id = containerIdentifier
+                    message = IdyllicFoodDiary.TRANSLATOR.set("message", "container_required", id)
                 }
                 player.displayClientMessage(message, true)
             }
@@ -75,9 +81,10 @@ interface IPlateable: IExpGiver {
     /**
      * 同时设置输出结果和匹配容器
      */
-    fun setPending(result: ItemStack, container: Ingredient) {
+    fun setPending(result: ItemStack, container: Ingredient, id: Component) {
         this.result = result
         this.container = container
+        this.containerIdentifier = id
     }
 
     override fun aSave(tag: CompoundTag, registries: HolderLookup.Provider) {

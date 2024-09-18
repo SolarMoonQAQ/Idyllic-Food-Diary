@@ -26,7 +26,7 @@ import net.minecraft.world.phys.AABB
 import net.minecraft.world.phys.Vec3
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions
 
-class MillstoneBlockRenderer(context: BlockEntityRendererProvider.Context): HandyBlockEntityRenderer<MillstoneBlockEntity>(context) {
+class MillstoneBlockRenderer(context: BlockEntityRendererProvider.Context): CookwareTileRenderer<MillstoneBlockEntity>(context) {
 
     val wheel = context.bakeLayer(IFDLayers.MILLSTONE).getChild("wheel")
     val main = context.bakeLayer(IFDLayers.MILLSTONE).getChild("main")
@@ -71,13 +71,13 @@ class MillstoneBlockRenderer(context: BlockEntityRendererProvider.Context): Hand
                 // 盘中液体
                 poseStack.pushPose()
                 poseStack.translate(-0.5, 0.0, -0.5)
-                AnimHelper.Fluid.renderAnimatedFluid(mill, side, 14 / 16f, (2 - 0.02f) / 16f, 1 / 16.0, partialTicks, poseStack, buffer, light)
+                AnimHelper.Fluid.renderAnimatedFluid(mill, side, 14 / 16f, (2 - 0.02f) / 16f, 1 / 16f, partialTicks, poseStack, buffer, light)
                 poseStack.popPose()
                 poseStack.pushPose()
                 poseStack.translate(-0.5, 0.0, -1.0)
-                AnimHelper.Fluid.renderAnimatedFluid(mill, side, 2 / 16f, 2 / 16f, 1 / 16.0, partialTicks, poseStack, buffer, light)
+                AnimHelper.Fluid.renderAnimatedFluid(mill, side, 2 / 16f, 2 / 16f, 1 / 16f, partialTicks, poseStack, buffer, light)
                 poseStack.translate(0.0, 0.0, -2/16.0)
-                AnimHelper.Fluid.renderAnimatedFluid(mill, side, 2 / 16f, 2 / 16f, 1 / 16.0, partialTicks, poseStack, buffer, light)
+                AnimHelper.Fluid.renderAnimatedFluid(mill, side, 2 / 16f, 2 / 16f, 1 / 16f, partialTicks, poseStack, buffer, light)
                 poseStack.popPose()
 
                 // 龙头
@@ -98,7 +98,7 @@ class MillstoneBlockRenderer(context: BlockEntityRendererProvider.Context): Hand
         }
     }
 
-    override fun render(
+    override fun renderThis(
         millstone: MillstoneBlockEntity,
         partialTick: Float,
         poseStack: PoseStack,
@@ -131,18 +131,6 @@ class MillstoneBlockRenderer(context: BlockEntityRendererProvider.Context): Hand
         poseStack.popPose()
 
         renderAnimatedFluid(millstone, Direction.DOWN, partialTick, poseStack, bufferSource, light)
-    }
-
-    override fun shouldRender(blockEntity: MillstoneBlockEntity, cameraPos: Vec3): Boolean {
-        return true
-    }
-
-    override fun shouldRenderOffScreen(blockEntity: MillstoneBlockEntity): Boolean {
-        return true
-    }
-
-    override fun getRenderBoundingBox(blockEntity: MillstoneBlockEntity): AABB {
-        return super.getRenderBoundingBox(blockEntity).inflate(3.0)
     }
 
 }

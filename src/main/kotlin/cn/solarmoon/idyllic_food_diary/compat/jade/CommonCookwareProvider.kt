@@ -1,6 +1,8 @@
 package cn.solarmoon.idyllic_food_diary.compat.jade
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary
+import cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer.SteamerBlockEntity
+import cn.solarmoon.idyllic_food_diary.element.recipe.EvaporationRecipe
 import cn.solarmoon.idyllic_food_diary.element.recipe.StirFryRecipe
 import cn.solarmoon.idyllic_food_diary.element.recipe.assistant.IPlateable
 import cn.solarmoon.spark_core.api.recipe.processor.RecipeProcessorHelper
@@ -18,7 +20,7 @@ class CommonCookwareProvider(val configId: String): IBlockComponentProvider, ISe
     override fun appendTooltip(tooltip: ITooltip, accessor: BlockAccessor, config: IPluginConfig) {
         val be = accessor.blockEntity
         RecipeProcessorHelper.getMap(be).forEach { type, processor ->
-            if (processor is SingleTimeRecipeProcessor) {
+            if (processor is SingleTimeRecipeProcessor && processor !is EvaporationRecipe.Processor) {
                 JadeUtil.addByTime(processor.time, processor.recipeTime, tooltip)
             }
             if (processor is IPlateable) {
@@ -27,6 +29,13 @@ class CommonCookwareProvider(val configId: String): IBlockComponentProvider, ISe
             if (processor is StirFryRecipe.Processor) {
                 JadeUtil.addStirFryStage(tooltip, processor)
             }
+            if (processor is EvaporationRecipe.Processor) {
+                JadeUtil.addEvaporationTip(tooltip, processor)
+            }
+        }
+        if (be is SteamerBlockEntity) {
+            accessor.serverData.remove("JadeItemStorage") // 阻止原来的容器显示
+            JadeUtil.addSteamingTip(tooltip, be, accessor.hitResult)
         }
     }
 
