@@ -8,12 +8,14 @@ import cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer.SteamerBl
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer.SteamerLidBlock
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.wok.WokBlock
 import cn.solarmoon.idyllic_food_diary.element.matter.food.interactive_food_block.feast.BeggarsChickenBlock
+import cn.solarmoon.idyllic_food_diary.element.matter.food.interactive_food_block.feast.RoastedSucklingPigBlock
 import cn.solarmoon.idyllic_food_diary.element.matter.food.interactive_food_block.simple.SteamedBunBlock
 import cn.solarmoon.idyllic_food_diary.element.matter.food.interactive_food_block.simple.WheatDoughBlock
 import cn.solarmoon.idyllic_food_diary.element.matter.food_container.long_plate.LongPlateBlock
 import cn.solarmoon.idyllic_food_diary.element.matter.food_container.plate.PlateBlock
 import cn.solarmoon.idyllic_food_diary.element.matter.inlaid_stove.InlaidStoveBlock
 import cn.solarmoon.idyllic_food_diary.element.matter.inlaid_stove.StoveLidBlock
+import cn.solarmoon.idyllic_food_diary.element.matter.skewer_rack.SkewerRackBlock
 import net.minecraft.world.level.block.SoundType
 import net.minecraft.world.level.block.state.BlockBehaviour
 
@@ -94,6 +96,12 @@ object IFDBlocks {
         .bound(::SteamerLidBlock)
         .build()
 
+    @JvmStatic
+    val SKEWER_RACK = IdyllicFoodDiary.REGISTER.block<SkewerRackBlock>()
+        .id("skewer_rack")
+        .bound(::SkewerRackBlock)
+        .build()
+
     // ——————————————————————————————————————————————食物分割线——————————————————————————————————————————————————————————//
 
     @JvmStatic
@@ -112,6 +120,12 @@ object IFDBlocks {
     val BEGGARS_CHICKEN = IdyllicFoodDiary.REGISTER.block<BeggarsChickenBlock>()
         .id("beggars_chicken")
         .bound(::BeggarsChickenBlock)
+        .build()
+
+    @JvmStatic
+    val ROASTED_SUCKLING_PIG = IdyllicFoodDiary.REGISTER.block<RoastedSucklingPigBlock>()
+        .id("roasted_suckling_pig")
+        .bound(::RoastedSucklingPigBlock)
         .build()
 
 }

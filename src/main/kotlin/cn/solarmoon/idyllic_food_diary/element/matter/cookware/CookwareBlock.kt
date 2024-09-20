@@ -201,7 +201,7 @@ abstract class CookwareBlock(properties: Properties): SyncedEntityBlock(properti
      * 是否可蹲下快速拿起
      */
     open fun canGet(): Boolean {
-        return true;
+        return true
     }
 
 }

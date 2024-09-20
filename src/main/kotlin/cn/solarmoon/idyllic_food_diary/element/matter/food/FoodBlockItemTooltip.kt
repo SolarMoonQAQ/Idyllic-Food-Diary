@@ -41,7 +41,7 @@ class FoodBlockItemTooltip(component: Component): CustomTooltip<FoodBlockItemToo
     val itemOffset = 4
 
     val tierText
-        get() = IdyllicFoodDiary.TRANSLATOR.set("tooltip", "tier.${component.tier.name.lowercase()}")
+        get() = component.tier.displayName
     val containerText
         get() = IdyllicFoodDiary.TRANSLATOR.set("tooltip", "food.container", component.container.hoverName)
     val interactionText

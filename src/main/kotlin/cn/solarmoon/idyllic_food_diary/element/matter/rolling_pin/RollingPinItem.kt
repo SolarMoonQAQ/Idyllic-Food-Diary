@@ -1,13 +1,19 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.rolling_pin
 
+import cn.solarmoon.idyllic_food_diary.data.IFDBlockTags
 import cn.solarmoon.idyllic_food_diary.element.recipe.RollingRecipe
 import cn.solarmoon.idyllic_food_diary.feature.optinal_recipe.RecipeSelectData
 import cn.solarmoon.idyllic_food_diary.feature.util.ParticleUtil
 import cn.solarmoon.idyllic_food_diary.registry.common.IFDDataComponents
 import cn.solarmoon.idyllic_food_diary.registry.common.IFDRecipes
+import cn.solarmoon.spark_core.api.phys.collision.FreeCollisionBox
+import cn.solarmoon.spark_core.api.phys.collision.FreeCollisionBoxRenderManager
 import cn.solarmoon.spark_core.api.util.BlockUtil
 import cn.solarmoon.spark_core.api.util.DropUtil
 import net.minecraft.core.BlockPos
+import net.minecraft.core.particles.ParticleOptions
+import net.minecraft.core.particles.ParticleTypes
+import net.minecraft.server.level.ServerLevel
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
 import net.minecraft.world.InteractionHand
@@ -16,6 +22,7 @@ import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.CrossbowItem
 import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.Items
 import net.minecraft.world.item.SwordItem
 import net.minecraft.world.item.Tier
 import net.minecraft.world.item.Tiers
@@ -25,6 +32,9 @@ import net.minecraft.world.item.crafting.RecipeHolder
 import net.minecraft.world.level.ClipContext
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.Block
+import net.minecraft.world.level.block.Blocks
+import net.minecraft.world.level.block.state.properties.BlockStateProperties
+import net.minecraft.world.phys.Vec3
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions
 import java.util.function.Consumer
 import java.util.stream.Stream
@@ -75,6 +85,38 @@ class RollingPinItem(
                 level.playSound(null, livingEntity.onPos, sound, SoundSource.BLOCKS)
             }
         }
+    }
+
+    override fun onEntitySwing(stack: ItemStack, entity: LivingEntity, hand: InteractionHand): Boolean {
+        val level = entity.level()
+        val box = entity.boundingBox.inflate(3.0).setMinY(entity.y)
+        val debug = FreeCollisionBoxRenderManager("RollingStormFrom${entity.stringUUID}", FreeCollisionBox.of(box))
+        debug.start()
+        var flag = false
+        val blocksFind = if (entity.isCrouching) BlockPos.betweenClosedStream(box) else if (entity is Player) Stream.of(getPlayerPOVHitResult(level, entity, ClipContext.Fluid.NONE).blockPos) else Stream.of<BlockPos>()
+        blocksFind.forEach { pos ->
+            val state = level.getBlockState(pos)
+            var drop = mutableListOf(ItemStack.EMPTY)
+            if (state.`is`(IFDBlockTags.ROLLABLE)) {
+                if (state.`is`(Blocks.CAKE)) {
+                    if (state.getValue(BlockStateProperties.BITES) != 0) return@forEach //防止刷蛋糕
+                    else drop.add(ItemStack(Items.CAKE))
+                }
+                val move = Vec3(0.0, 0.4, 0.0)
+                if (level is ServerLevel) {
+                    if (drop.isEmpty()) drop = Block.getDrops(state, level, pos, null)
+                    DropUtil.summonDrop(drop, level, pos, move)
+                    level.destroyBlock(pos, false)
+                    level.playSound(null, pos, SoundEvents.ARROW_SHOOT, SoundSource.BLOCKS, 1.0f, 0.5f)
+                    stack.hurtAndBreak(1, entity, LivingEntity.getSlotForHand(hand))
+                    level.sendParticles(ParticleTypes.SWEEP_ATTACK, pos.center.x, pos.center.y, pos.center.z, 1, 0.0, 0.0, 0.0, 0.0)
+                }
+                debug.setHit()
+                flag = true
+            }
+        }
+        if (flag) entity.swinging = true
+        return flag
     }
 
     companion object {

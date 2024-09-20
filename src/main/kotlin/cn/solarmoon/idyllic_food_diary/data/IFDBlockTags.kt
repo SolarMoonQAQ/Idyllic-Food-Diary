@@ -1,6 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.data
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary
+import cn.solarmoon.idyllic_food_diary.registry.common.IFDBlocks
 import net.minecraft.core.HolderLookup
 import net.minecraft.data.PackOutput
 import net.minecraft.resources.ResourceLocation
@@ -46,6 +47,11 @@ class IFDBlockTags(output: PackOutput, lookupProvider: CompletableFuture<HolderL
             Blocks.CAMPFIRE,
             Blocks.SOUL_CAMPFIRE,
             Blocks.FURNACE
+        ).replace(false)
+        tag(ROLLABLE).add(
+            IFDBlocks.WHEAT_DOUGH.get(),
+            IFDBlocks.STEAMED_BUN.get(),
+            Blocks.CAKE
         ).replace(false)
     }
 

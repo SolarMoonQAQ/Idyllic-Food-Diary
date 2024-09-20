@@ -1,4 +1,4 @@
-// 1.21.1	2024-09-18T17:54:49.6019493	Recipes
+// 1.21.1	2024-09-19T19:24:36.6227899	Recipes
 b1da3ff5591dfff42cb6c58d629da522dbf17965 data/idyllic_food_diary/recipe/steaming/steamed_bun.json
 b6a261288d8b774c71b71e58e49256dc62893519 data/idyllic_food_diary/recipe/stir_fry/beggars_chicken.json
 719318362eba104eb15788c2200b80e56086b01a data/minecraft/recipe/chopping/iron_ingot.json
@@ -7,4 +7,4 @@ d15ea7afc667913c0d94f4195268ad58812e726d data/minecraft/recipe/grinding/lava.jso
 735b00ff9c788dcfa9c7e6b45e5b085f4ad2277e data/minecraft/recipe/rolling/emerald_block.json
 ffb6db109248b52219e61b1a8a9d6740717c726b data/minecraft/recipe/rolling/gold_block.json
 388d66e2257771f9a6291b770cdfa8fd3595e4fe data/minecraft/recipe/rolling/iron_block.json
-79f21e3c6c39d26df313fcbf3526e853b6f87361 data/minecraft/recipe/water_boiling/water.json
+a35831531835f9b65547123be3e10c54aa7860c9 data/minecraft/recipe/water_boiling/water.json

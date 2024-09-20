@@ -7,6 +7,7 @@ import cn.solarmoon.idyllic_food_diary.element.matter.cookware.wok.WokBlockRende
 import cn.solarmoon.idyllic_food_diary.element.matter.food.FoodBlockRenderer
 import cn.solarmoon.idyllic_food_diary.element.matter.food_container.long_plate.LongPlateBlockRenderer
 import cn.solarmoon.idyllic_food_diary.element.matter.food_container.plate.PlateBlockRenderer
+import cn.solarmoon.idyllic_food_diary.element.matter.skewer_rack.SkewerRackBlockRenderer
 import cn.solarmoon.idyllic_food_diary.registry.common.IFDBlockEntities
 import net.neoforged.bus.api.IEventBus
 import net.neoforged.neoforge.client.event.EntityRenderersEvent
@@ -21,6 +22,7 @@ object IFDBlockEntityRenderers {
         event.registerBlockEntityRenderer(IFDBlockEntities.FOOD.get(), ::FoodBlockRenderer)
         event.registerBlockEntityRenderer(IFDBlockEntities.LITTLE_CUP.get(), ::LittleCupBlockRenderer)
         event.registerBlockEntityRenderer(IFDBlockEntities.STEAMER.get(), ::SteamerBlockRenderer)
+        event.registerBlockEntityRenderer(IFDBlockEntities.SKEWER_RACK.get(), ::SkewerRackBlockRenderer)
     }
 
     @JvmStatic

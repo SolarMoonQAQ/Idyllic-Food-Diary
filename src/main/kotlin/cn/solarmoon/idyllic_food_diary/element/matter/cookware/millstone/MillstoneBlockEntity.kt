@@ -10,6 +10,7 @@ import cn.solarmoon.spark_core.api.cap.item.ItemStackHandlerHelper
 import cn.solarmoon.spark_core.api.recipe.processor.RecipeProcessorHelper
 import cn.solarmoon.spark_core.registry.common.SparkAttachments
 import net.minecraft.core.BlockPos
+import net.minecraft.core.Direction
 import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.ListTag
@@ -20,10 +21,7 @@ class MillstoneBlockEntity(pos: BlockPos, state: BlockState) : SyncedBlockEntity
     val inventory = MillstoneInventory(this, 2)
 
     val tanks: List<TileTank> = listOf(
-        object : TileTank(this, 1000) {
-            override fun onContentsChanged() {
-            }
-        },
+        TileTank(this, 1000),
         TileTank(this, 250)
     )
 
@@ -38,7 +36,7 @@ class MillstoneBlockEntity(pos: BlockPos, state: BlockState) : SyncedBlockEntity
         val anim = getData(SparkAttachments.ANIMTICKER)
         anim.timers[ANIM_ROTATION] = Timer().apply { maxTime = 30f }
         anim.timers[ANIM_FLOW] = Timer()
-        AnimHelper.Fluid.createFluidAnim(this)
+        AnimHelper.Fluid.createFluidAnim(this, Direction.DOWN)
         RecipeProcessorHelper.createMap(this, grind)
     }
 
@@ -52,6 +50,7 @@ class MillstoneBlockEntity(pos: BlockPos, state: BlockState) : SyncedBlockEntity
 
     override fun loadAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
         super.loadAdditional(tag, registries)
+        if (tag.isEmpty) return
         inventory.deserializeNBT(registries, tag.get(ItemStackHandlerHelper.ITEM) as CompoundTag)
         val listTag = tag.getList("FluidTanks", ListTag.TAG_COMPOUND.toInt())
         listTag.forEachIndexed { i, t -> tanks[i].readFromNBT(registries, t as CompoundTag) }

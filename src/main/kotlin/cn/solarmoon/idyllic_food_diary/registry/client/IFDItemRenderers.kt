@@ -8,6 +8,7 @@ import cn.solarmoon.idyllic_food_diary.element.matter.cookware.wok.WokItemRender
 import cn.solarmoon.idyllic_food_diary.element.matter.food_container.long_plate.LongPlateItemRenderer
 import cn.solarmoon.idyllic_food_diary.element.matter.food_container.plate.PlateItemRenderer
 import cn.solarmoon.idyllic_food_diary.element.matter.rolling_pin.RollingPinClientExtensions
+import cn.solarmoon.idyllic_food_diary.element.matter.skewer_rack.SkewerRackItemRenderer
 import cn.solarmoon.idyllic_food_diary.registry.common.IFDItems
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer
 import net.neoforged.bus.api.IEventBus
@@ -25,6 +26,7 @@ object IFDItemRenderers {
         event.registerItem(customRenderer(LongPlateItemRenderer()), IFDItems.LONG_WOODEN_PLATE, IFDItems.LONG_PORCELAIN_PLATE)
         event.registerItem(customRenderer(LittleCupItemRenderer()), IFDItems.JADE_CHINA_CUP)
         event.registerItem(customRenderer(SteamerItemRenderer()), IFDItems.STEAMER)
+        event.registerItem(customRenderer(SkewerRackItemRenderer()), IFDItems.SKEWER_RACK)
     }
 
     private fun customRenderer(renderer: BlockEntityWithoutLevelRenderer): IClientItemExtensions {

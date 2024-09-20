@@ -61,15 +61,15 @@ class WokBlock(properties: Properties = Properties.of()
         // 没有预输入结果时才能进行物品流体的交互
         if (!pan.fry.hasResult() && !pan.fry.canStirFry) {
             //能够存取液体
-            if (FluidUtil.interactWithFluidHandler(player, hand, pan.fluidTank)) {
-                return ItemInteractionResult.sidedSuccess(level.isClientSide)
+            if (!level.isClientSide && FluidUtil.interactWithFluidHandler(player, hand, pan.fluidTank)) {
+                return ItemInteractionResult.SUCCESS
             }
 
             //存取任意单个物品
             if (hand == InteractionHand.MAIN_HAND && !player.mainHandItem.`is`(IFDItems.SPATULA.get())
                 && ItemStackHandlerHelper.storage(pan.inventory, player, hand, 1, 1)) {
                 level.playSound(null, pos, SoundEvents.LANTERN_STEP, SoundSource.BLOCKS);
-                return ItemInteractionResult.sidedSuccess(level.isClientSide)
+                return ItemInteractionResult.SUCCESS
             }
         }
 
@@ -82,7 +82,6 @@ class WokBlock(properties: Properties = Properties.of()
             if (!pan.fry.tryWork()) {
                 pan.boil.tryWork()
             }
-            pan.eva.tryWork()
             //pan.tryApplyThermochanger();
 
             // 炒菜音效

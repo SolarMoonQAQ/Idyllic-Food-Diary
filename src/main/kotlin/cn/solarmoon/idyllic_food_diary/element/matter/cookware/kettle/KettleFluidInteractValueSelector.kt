@@ -3,8 +3,10 @@ package cn.solarmoon.idyllic_food_diary.element.matter.cookware.kettle
 import cn.solarmoon.idyllic_food_diary.netwrok.ServerNetHandler
 import cn.solarmoon.idyllic_food_diary.registry.common.IFDDataComponents
 import cn.solarmoon.idyllic_food_diary.registry.common.IFDItems
+import cn.solarmoon.idyllic_food_diary.registry.common.IFDSounds
 import cn.solarmoon.spark_core.api.network.CommonNetData
 import net.minecraft.client.Minecraft
+import net.minecraft.sounds.SoundSource
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.neoforge.client.event.InputEvent
 import net.neoforged.neoforge.network.PacketDistributor
@@ -23,6 +25,7 @@ class KettleFluidInteractValueSelector {
             val increment = (scroll * 50).toInt()
             val newValue = max(baseValue + increment, 0)
             PacketDistributor.sendToServer(CommonNetData(intValue = newValue, message = ServerNetHandler.KETTLE_SELECT))
+            player.level().playSound(player, player.onPos, IFDSounds.WOODEN_FISH.get(), SoundSource.PLAYERS)
             event.isCanceled = true
         }
     }

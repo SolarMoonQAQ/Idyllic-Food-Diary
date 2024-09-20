@@ -13,6 +13,7 @@ import cn.solarmoon.spark_core.api.cap.item.ItemStackHandlerHelper
 import cn.solarmoon.spark_core.api.cap.item.TileInventory
 import cn.solarmoon.spark_core.api.recipe.processor.RecipeProcessorHelper
 import net.minecraft.core.BlockPos
+import net.minecraft.core.Direction
 import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.world.item.ItemStack
@@ -31,24 +32,22 @@ class WokBlockEntity(pos: BlockPos, state: BlockState) : SyncedBlockEntity(IFDBl
     var soundTick: Int = 0
     val fry = StirFryRecipe.Processor(this, inventory, fluidTank)
     val boil = WaterBoilingRecipe.Processor(this, fluidTank)
-    val eva = EvaporationRecipe.Processor(this, fluidTank)
 
     init {
-        RecipeProcessorHelper.createMap(this, fry, boil, eva)
-        AnimHelper.Fluid.createFluidAnim(this)
+        RecipeProcessorHelper.createMap(this, fry, boil)
+        AnimHelper.Fluid.createFluidAnim(this, Direction.UP)
     }
 
     override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
         super.saveAdditional(tag, registries)
         tag.put(ItemStackHandlerHelper.ITEM, inventory.serializeNBT(registries))
-        saveFluid(fluidTank.fluid)
+        tag.put(FluidHandlerHelper.FLUID, fluidTank.writeToNBT(registries, CompoundTag()))
     }
 
     override fun loadAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
         super.loadAdditional(tag, registries)
-        loadFluid(fluidTank, tag, registries)
-        if (tag.isEmpty) return // 防止新物品什么都没有的情况下读取报错
         inventory.deserializeNBT(registries, tag.get(ItemStackHandlerHelper.ITEM) as CompoundTag)
+        fluidTank.readFromNBT(registries, tag.getCompound(FluidHandlerHelper.FLUID))
     }
 
 }

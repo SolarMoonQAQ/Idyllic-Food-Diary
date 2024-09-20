@@ -14,10 +14,13 @@ import cn.solarmoon.idyllic_food_diary.element.matter.cookware.wok.WokItem
 import cn.solarmoon.idyllic_food_diary.element.matter.food.FoodBlockItem
 import cn.solarmoon.idyllic_food_diary.element.matter.food.FoodPropertyData
 import cn.solarmoon.idyllic_food_diary.element.matter.food.FoodTier
+import cn.solarmoon.idyllic_food_diary.element.matter.food.interactive_food_block.feast.RoastedSucklingPigBlock
 import cn.solarmoon.idyllic_food_diary.element.matter.food_container.FoodContainerItem
 import cn.solarmoon.idyllic_food_diary.element.matter.inlaid_stove.InlaidStoveItem
 import cn.solarmoon.idyllic_food_diary.element.matter.inlaid_stove.StoveLidItem
 import cn.solarmoon.idyllic_food_diary.element.matter.rolling_pin.RollingPinItem
+import cn.solarmoon.idyllic_food_diary.element.matter.skewer_rack.SkewerRackBlock
+import cn.solarmoon.idyllic_food_diary.element.matter.skewer_rack.SkewerRackItem
 import cn.solarmoon.spark_core.registry.common.SparkDataComponents
 import net.minecraft.world.food.FoodProperties
 import net.minecraft.world.item.Item
@@ -125,6 +128,12 @@ object IFDItems {
         .bound(::SteamerLidItem)
         .build()
 
+    @JvmStatic
+    val SKEWER_RACK = IdyllicFoodDiary.REGISTER.item<SkewerRackItem>()
+        .id("skewer_rack")
+        .bound(::SkewerRackItem)
+        .build()
+
     // ——————————————————————————————————————————————食物分割线——————————————————————————————————————————————————————————//
 
     @JvmStatic
@@ -143,6 +152,12 @@ object IFDItems {
     val BEGGARS_CHICKEN = IdyllicFoodDiary.REGISTER.item<FoodBlockItem>()
         .id("beggars_chicken")
         .bound { FoodBlockItem(IFDBlocks.BEGGARS_CHICKEN.get(), false, FoodTier.GREAT_MEAL) }
+        .build()
+
+    @JvmStatic
+    val ROASTED_SUCKLING_PIG = IdyllicFoodDiary.REGISTER.item<FoodBlockItem>()
+        .id("roasted_suckling_pig")
+        .bound { FoodBlockItem(IFDBlocks.ROASTED_SUCKLING_PIG.get(), false, FoodTier.FEAST) }
         .build()
 
 }

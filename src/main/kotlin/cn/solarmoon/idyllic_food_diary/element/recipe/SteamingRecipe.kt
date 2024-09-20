@@ -1,6 +1,5 @@
 package cn.solarmoon.idyllic_food_diary.element.recipe
 
-import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer.SteamerBlockEntity
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer.SteamerItemHandler
 import cn.solarmoon.idyllic_food_diary.registry.common.IFDRecipes
@@ -22,7 +21,6 @@ import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.Recipe
 import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.item.crafting.RecipeType
-import net.minecraft.world.level.block.entity.BlockEntity
 import net.neoforged.neoforge.items.wrapper.RecipeWrapper
 
 @JvmRecord

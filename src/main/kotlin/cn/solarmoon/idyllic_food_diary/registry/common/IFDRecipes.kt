@@ -1,7 +1,6 @@
 package cn.solarmoon.idyllic_food_diary.registry.common
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary
-import cn.solarmoon.idyllic_food_diary.element.recipe.BakingRecipe
 import cn.solarmoon.idyllic_food_diary.element.recipe.BrewingRecipe
 import cn.solarmoon.idyllic_food_diary.element.recipe.ChoppingRecipe
 import cn.solarmoon.idyllic_food_diary.element.recipe.DryingRecipe
@@ -22,12 +21,6 @@ object IFDRecipes {
 
     @JvmStatic
     fun register() {}
-
-    @JvmStatic
-    val BAKING = IdyllicFoodDiary.REGISTER.recipe<BakingRecipe>()
-        .id("baking")
-        .serializer { BakingRecipe.Serializer() }
-        .build()
 
     @JvmStatic
     val BREWING = IdyllicFoodDiary.REGISTER.recipe<BrewingRecipe>()

@@ -38,10 +38,6 @@ abstract class CookwareTileRenderer<E: BlockEntity>(context: BlockEntityRenderer
         return true
     }
 
-    override fun shouldRenderOffScreen(blockEntity: E): Boolean {
-        return true
-    }
-
     override fun getRenderBoundingBox(blockEntity: E): AABB {
         return super.getRenderBoundingBox(blockEntity).inflate(3.0)
     }

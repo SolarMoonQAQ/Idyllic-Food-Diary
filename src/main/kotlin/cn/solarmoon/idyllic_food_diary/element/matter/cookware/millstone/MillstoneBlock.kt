@@ -71,7 +71,7 @@ class MillstoneBlock(properties: Properties = Properties.of()
         // 蹲下才能手抽物品
         val mill = level.getBlockEntity(pos) as MillstoneBlockEntity
         if (!player.isCrouching) {
-            if (handle(mill)) return InteractionResult.sidedSuccess(level.isClientSide)
+            if (!level.isClientSide && handle(mill)) return InteractionResult.SUCCESS
         } else if (handleInvAct(mill, player)) return InteractionResult.sidedSuccess(level.isClientSide)
         return super.useWithoutItem(state, level, pos, player, hitResult)
     }
@@ -84,6 +84,7 @@ class MillstoneBlock(properties: Properties = Properties.of()
         fun handle(mill: MillstoneBlockEntity): Boolean {
             if (!mill.grind.isRecipeSmooth()) return false
             mill.getData(SparkAttachments.ANIMTICKER).timers["rotation"]!!.start()
+            mill.setChanged()
             return true
         }
 

@@ -3,14 +3,18 @@ package cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.CookwareTileRenderer
 import cn.solarmoon.idyllic_food_diary.registry.common.IFDBlocks
 import cn.solarmoon.spark_core.api.blockstate.IHorizontalFacingState
+import cn.solarmoon.spark_core.api.phys.collision.FreeCollisionBox
+import cn.solarmoon.spark_core.api.phys.collision.FreeCollisionBoxRenderManager
 import cn.solarmoon.spark_core.api.util.PoseStackUtil
 import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.math.Axis
 import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider
 import net.minecraft.world.item.ItemDisplayContext
+import net.minecraft.world.phys.Vec3
 
 class SteamerBlockRenderer(context: BlockEntityRendererProvider.Context): CookwareTileRenderer<SteamerBlockEntity>(context) {
+
     override fun renderThis(
         steamer: SteamerBlockEntity,
         partialTick: Float,
@@ -76,5 +80,12 @@ class SteamerBlockRenderer(context: BlockEntityRendererProvider.Context): Cookwa
                 poseStack.popPose()
             }
         }
+
+        // debug
+        if (steamer.isConnected) {
+            FreeCollisionBoxRenderManager("${steamer.blockPos} - SteamerDebug", FreeCollisionBox(steamer.blockPos.center, Vec3(1.0, 1.0, 1.0))).start()
+        }
+
     }
+
 }

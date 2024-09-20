@@ -34,10 +34,10 @@ abstract class CupBlock(properties: Properties): CookwareBlock(properties) {
     ): ItemInteractionResult {
         val cup = level.getBlockEntity(pos) as CupBlockEntity
 
-        if (FluidHandlerHelper.putFluid(cup.tank, player, hand, false)) {
+        if (!level.isClientSide && FluidHandlerHelper.putFluid(cup.tank, player, hand, false)) {
             level.playSound(null, pos, IFDSounds.POURING_WATER.get(), SoundSource.PLAYERS)
             return ItemInteractionResult.sidedSuccess(level.isClientSide)
-        } else if (FluidHandlerHelper.takeFluid(cup.tank, player, hand, true)) {
+        } else if (!level.isClientSide && FluidHandlerHelper.takeFluid(cup.tank, player, hand, true)) {
             return ItemInteractionResult.sidedSuccess(level.isClientSide)
         }
 

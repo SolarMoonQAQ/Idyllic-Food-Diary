@@ -162,10 +162,13 @@ data class StirFryRecipe(
                         } else time++
                     }
                 } ?: run { // 此处就代表当前阶段已经超出配方最大阶段，表示所有阶段已满足
-                    setPending(pendingItem, it.value.container, it.value.containerId)
-                    exp = it.value.exp
-                    ItemStackHandlerHelper.clearInv(inv)
-                    be.setChanged()
+                    val level = be.level
+                    if (level?.isClientSide == false) {
+                        setPending(pendingItem, it.value.container, it.value.containerId)
+                        exp = it.value.exp
+                        ItemStackHandlerHelper.clearInv(inv)
+                        be.setChanged()
+                    }
                 }
                 return true
             } ?: let {

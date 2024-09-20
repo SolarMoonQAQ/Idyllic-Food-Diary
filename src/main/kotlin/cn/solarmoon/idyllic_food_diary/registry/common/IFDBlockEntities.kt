@@ -5,6 +5,7 @@ import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup.little_cup.Li
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.cup.little_cup.LittleCupBlockEntity
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.kettle.KettleBlockEntity
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.millstone.MillstoneBlockEntity
+import cn.solarmoon.idyllic_food_diary.element.matter.skewer_rack.SkewerRackBlockEntity
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.steamer.SteamerBlockEntity
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.wok.WokBlockEntity
 import cn.solarmoon.idyllic_food_diary.element.matter.food.FoodBlockEntity
@@ -97,6 +98,14 @@ object IFDBlockEntities {
         .bound(::SteamerBlockEntity)
         .capability(Capabilities.ItemHandler.BLOCK) { b, _ -> b.invHandler }
         .validBlocks { arrayOf(IFDBlocks.STEAMER.get()) }
+        .build()
+
+    @JvmStatic
+    val SKEWER_RACK = IdyllicFoodDiary.REGISTER.blockentity<SkewerRackBlockEntity>()
+        .id("skewer_rack")
+        .bound(::SkewerRackBlockEntity)
+        .capability(Capabilities.ItemHandler.BLOCK) { b, _ -> b.inventory }
+        .validBlocks { arrayOf(IFDBlocks.SKEWER_RACK.get()) }
         .build()
 
 }

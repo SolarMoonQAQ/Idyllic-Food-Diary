@@ -11,6 +11,7 @@ import cn.solarmoon.spark_core.api.cap.item.TileInventory
 import cn.solarmoon.spark_core.api.recipe.processor.RecipeProcessorHelper
 import cn.solarmoon.spark_core.registry.common.SparkDataComponents
 import net.minecraft.core.BlockPos
+import net.minecraft.core.Direction
 import net.minecraft.core.HolderLookup
 import net.minecraft.core.component.DataComponentMap
 import net.minecraft.nbt.CompoundTag
@@ -31,21 +32,20 @@ abstract class CupBlockEntity(type: BlockEntityType<*>, size: Int, capacity: Int
     val brew = BrewingRecipe.Processor(this, inventory, tank)
 
     init {
-        AnimHelper.Fluid.createFluidAnim(this)
+        AnimHelper.Fluid.createFluidAnim(this, Direction.UP)
         RecipeProcessorHelper.createMap(this, brew)
     }
 
     override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
         super.saveAdditional(tag, registries)
-        saveFluid(tank.fluid)
+        tag.put(FluidHandlerHelper.FLUID, tank.writeToNBT(registries, CompoundTag()))
         tag.put(ItemStackHandlerHelper.ITEM, inventory.serializeNBT(registries))
     }
 
     override fun loadAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
         super.loadAdditional(tag, registries)
-        loadFluid(tank, tag, registries)
-        if (tag.isEmpty) return // 防止新物品什么都没有的情况下读取报错
         inventory.deserializeNBT(registries, tag.getCompound(ItemStackHandlerHelper.ITEM))
+        tank.readFromNBT(registries, tag.getCompound(FluidHandlerHelper.FLUID))
     }
 
 }
