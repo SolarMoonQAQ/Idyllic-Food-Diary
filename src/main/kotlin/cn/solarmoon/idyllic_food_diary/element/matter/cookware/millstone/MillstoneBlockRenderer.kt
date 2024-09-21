@@ -6,7 +6,6 @@ import cn.solarmoon.idyllic_food_diary.registry.client.IFDLayers
 import cn.solarmoon.spark_core.api.attachment.animation.AnimHelper
 import cn.solarmoon.spark_core.api.blockstate.IHorizontalFacingState
 import cn.solarmoon.spark_core.api.cap.fluid.FluidHandlerHelper
-import cn.solarmoon.spark_core.api.renderer.HandyBlockEntityRenderer
 import cn.solarmoon.spark_core.api.renderer.TextureRenderHelper
 import cn.solarmoon.spark_core.registry.common.SparkAttachments
 import com.mojang.blaze3d.vertex.PoseStack
@@ -22,9 +21,8 @@ import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider
 import net.minecraft.core.Direction
 import net.minecraft.resources.ResourceLocation
-import net.minecraft.world.phys.AABB
-import net.minecraft.world.phys.Vec3
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions
+import kotlin.math.sign
 
 class MillstoneBlockRenderer(context: BlockEntityRendererProvider.Context): CookwareTileRenderer<MillstoneBlockEntity>(context) {
 
@@ -62,7 +60,7 @@ class MillstoneBlockRenderer(context: BlockEntityRendererProvider.Context): Cook
         fun renderAnimatedFluid(mill: MillstoneBlockEntity, side: Direction, partialTicks: Float, poseStack: PoseStack, buffer: MultiBufferSource, light: Int) {
             val tank = mill.tanks[1]
             val anim = mill.getData(SparkAttachments.ANIMTICKER)
-            val fluidStack = tank.getFluidInTank(0)
+            val fluidStack = tank.fluid
             val targetColor = TextureRenderHelper.getColor(fluidStack)
             val fluidAttributes = IClientFluidTypeExtensions.of(fluidStack.fluid)
             val spriteLocation = fluidAttributes.getStillTexture(fluidStack)
@@ -81,19 +79,22 @@ class MillstoneBlockRenderer(context: BlockEntityRendererProvider.Context): Cook
                 poseStack.popPose()
 
                 // 龙头
-                val tick = anim.fixedValues.getOrDefault("flow", 0f)
+                val tick = anim.fixedValues.getOrDefault("flow", 0f).takeIf { it > 0 } ?: return
                 val maxTick = anim.fixedValues.getOrDefault("flowMax", 10f)
-                var delta = partialTicks
-                if (tick > 0) {
-                    val h = 2 * FluidHandlerHelper.getScale(tank)
-                    if (tick >= maxTick) delta = 0f
-                    if (!mill.grind.flowing) delta = -partialTicks
-                    poseStack.pushPose()
-                    poseStack.translate(-0.5f, (1 + h) / 16f, -4 / 16f)
+                var delta = if (mill.grind.isFlowing) partialTicks else -partialTicks
+                val progress = (tick + (delta.takeIf { tick != maxTick } ?: 0f)) / maxTick
+                val height = (anim.fixedValues["FluidPresentScale"]!! * 2 / 16f + 17 / 16) * progress
+                val heightOffset = anim.fixedValues["FluidPresentScale"]!! * 2 / 16f + 1 / 16f
+
+                poseStack.pushPose()
+                if (mill.grind.isFlowing) {
+                    poseStack.translate(-0.5f, heightOffset, -4 / 16f)
                     poseStack.mulPose(Axis.XN.rotationDegrees(180f))
-                    TextureRenderHelper.render(spriteLocation, 0, 0, 2, (16 * (tick / maxTick)).toInt(), 2 / 16F, (tick + delta) * (16 + h) / 16f / maxTick, targetColor, 1.0F, 0, poseStack, buffer, light)
-                    poseStack.popPose()
+                } else {
+                    poseStack.translate(-0.5f, -1f, -20/16f)
                 }
+                TextureRenderHelper.render(spriteLocation, 0, 0, 2, (16 * progress).toInt(), 2 / 16F, height, targetColor, 1.0F, 0, poseStack, buffer, light)
+                poseStack.popPose()
             }
         }
     }

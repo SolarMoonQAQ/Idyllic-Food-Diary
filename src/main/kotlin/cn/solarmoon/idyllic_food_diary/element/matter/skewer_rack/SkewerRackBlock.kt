@@ -42,17 +42,7 @@ class SkewerRackBlock: HandyEntityBlock(Properties.of().sound(SoundType.WOOD).st
         player: Player,
         hitResult: BlockHitResult
     ): InteractionResult {
-        val rack = level.getBlockEntity(pos) as SkewerRackBlockEntity
-        val structure = rack.structure ?: return InteractionResult.PASS
-
-        if (!player.mainHandItem.isEmpty) return InteractionResult.FAIL
-
-        if (!level.isClientSide && pos in listOf(structure.leftTerminal.blockPos, structure.rightTerminal.blockPos)) {
-            structure.roll()
-            return InteractionResult.SUCCESS
-        }
-
-        return InteractionResult.FAIL
+        return InteractionResult.SUCCESS
     }
 
     override fun useItemOn(
@@ -67,11 +57,20 @@ class SkewerRackBlock: HandyEntityBlock(Properties.of().sound(SoundType.WOOD).st
         val rack = level.getBlockEntity(pos) as SkewerRackBlockEntity
         val direction = state.getValue(IHorizontalFacingState.FACING)
         val side = hitResult.direction
+
+        // 两边就不放入物品了，留点交互给放置方块
         if (side !in listOf(direction.clockWise, direction.counterClockWise) && ItemStackHandlerHelper.storage(rack.inventory, player, hand, 1, 1)) {
             level.playSound(null, pos, SoundEvents.ARMOR_EQUIP_LEATHER.value(), SoundSource.PLAYERS)
-            return ItemInteractionResult.sidedSuccess(level.isClientSide)
+            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION
         }
-        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION
+
+        val structure = rack.structure ?: return ItemInteractionResult.FAIL
+        if (!level.isClientSide && pos in listOf(structure.leftTerminal.blockPos, structure.rightTerminal.blockPos)) {
+            structure.roll()
+            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION
+        }
+
+        return ItemInteractionResult.CONSUME
     }
 
     override fun tick(level: Level, pos: BlockPos, state: BlockState, blockEntity: BlockEntity) {

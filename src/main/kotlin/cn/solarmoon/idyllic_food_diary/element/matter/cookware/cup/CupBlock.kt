@@ -36,9 +36,9 @@ abstract class CupBlock(properties: Properties): CookwareBlock(properties) {
 
         if (!level.isClientSide && FluidHandlerHelper.putFluid(cup.tank, player, hand, false)) {
             level.playSound(null, pos, IFDSounds.POURING_WATER.get(), SoundSource.PLAYERS)
-            return ItemInteractionResult.sidedSuccess(level.isClientSide)
+            return ItemInteractionResult.SUCCESS
         } else if (!level.isClientSide && FluidHandlerHelper.takeFluid(cup.tank, player, hand, true)) {
-            return ItemInteractionResult.sidedSuccess(level.isClientSide)
+            return ItemInteractionResult.SUCCESS
         }
 
         if (ItemStackHandlerHelper.storage(cup.inventory, player, hand, 1, 1)) {

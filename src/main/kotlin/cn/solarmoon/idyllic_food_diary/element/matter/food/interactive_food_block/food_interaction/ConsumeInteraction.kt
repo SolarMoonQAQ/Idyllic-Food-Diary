@@ -2,10 +2,13 @@ package cn.solarmoon.idyllic_food_diary.element.matter.food.interactive_food_blo
 
 import cn.solarmoon.idyllic_food_diary.element.matter.food.FoodBlockEntity
 import cn.solarmoon.idyllic_food_diary.element.matter.food.FoodEntityBlock
+import cn.solarmoon.idyllic_food_diary.netwrok.ClientNetHandler
+import cn.solarmoon.spark_core.api.network.CommonNetData
 import cn.solarmoon.spark_core.api.util.BlockUtil
 import cn.solarmoon.spark_core.api.util.PlayerUtil
 import cn.solarmoon.spark_core.registry.common.SparkAttachments
 import net.minecraft.core.BlockPos
+import net.minecraft.server.level.ServerPlayer
 import net.minecraft.sounds.SoundEvent
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
@@ -16,6 +19,7 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.phys.BlockHitResult
+import net.neoforged.neoforge.network.PacketDistributor
 
 /**
  * 消耗型交互，每次交互将食用指定次数然后消耗并恢复饱食度数据
@@ -48,7 +52,8 @@ data class ConsumeInteraction(
                 //吃的声音
                 level.playSound(null, pos, eatSound, SoundSource.PLAYERS)
                 //吃的粒子效果
-                player.spawnItemParticles(state.getCloneItemStack(hitResult, level, pos, player), 5)
+                val stack = state.getCloneItemStack(hitResult, level, pos, player)
+                if (!level.isClientSide) PacketDistributor.sendToAllPlayers(CommonNetData(itemStack = stack, uuid = player.uuid, message = ClientNetHandler.EAT_PARTICLE))
                 if (counting.count >= preEatCount) {
                     PlayerUtil.eat(player, foodProperty)
                     counting.setCount(0)

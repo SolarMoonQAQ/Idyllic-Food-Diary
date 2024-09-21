@@ -1,21 +1,18 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.cookware.millstone
 
+import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary
 import cn.solarmoon.idyllic_food_diary.element.matter.cookware.CookwareBlock
 import cn.solarmoon.idyllic_food_diary.feature.util.ParticleUtil
 import cn.solarmoon.idyllic_food_diary.registry.common.IFDBlockEntities
-import cn.solarmoon.spark_core.api.attachment.animation.AnimHelper
 import cn.solarmoon.spark_core.api.block.caller.IBlockUseCaller
 import cn.solarmoon.spark_core.api.blockstate.IHorizontalFacingState
-import cn.solarmoon.spark_core.api.cap.fluid.FluidHandlerHelper
 import cn.solarmoon.spark_core.api.cap.item.ItemStackHandlerHelper
 import cn.solarmoon.spark_core.api.util.DropUtil
 import cn.solarmoon.spark_core.api.util.VoxelShapeUtil
 import cn.solarmoon.spark_core.registry.common.SparkAttachments
 import net.minecraft.core.BlockPos
-import net.minecraft.server.level.ServerLevel
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
-import net.minecraft.util.RandomSource
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.ItemInteractionResult
@@ -46,6 +43,16 @@ class MillstoneBlock(properties: Properties = Properties.of()
     .strength(2.5f)
     .noOcclusion()): CookwareBlock(properties), IBlockUseCaller {
 
+    override fun useWithoutItem(
+        state: BlockState,
+        level: Level,
+        pos: BlockPos,
+        player: Player,
+        hitResult: BlockHitResult
+    ): InteractionResult {
+        return InteractionResult.SUCCESS
+    }
+
     override fun useItemOnThis(
         heldItem: ItemStack,
         state: BlockState,
@@ -55,25 +62,17 @@ class MillstoneBlock(properties: Properties = Properties.of()
         hand: InteractionHand,
         hitResult: BlockHitResult
     ): ItemInteractionResult {
+        val mill = level.getBlockEntity(pos) as MillstoneBlockEntity
+
         if (FluidUtil.interactWithFluidHandler(player, hand, level, pos, hitResult.direction)) {
             return ItemInteractionResult.sidedSuccess(level.isClientSide)
         }
-        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION
-    }
 
-    override fun useWithoutItem(
-        state: BlockState,
-        level: Level,
-        pos: BlockPos,
-        player: Player,
-        hitResult: BlockHitResult
-    ): InteractionResult {
-        // 蹲下才能手抽物品
-        val mill = level.getBlockEntity(pos) as MillstoneBlockEntity
         if (!player.isCrouching) {
-            if (!level.isClientSide && handle(mill)) return InteractionResult.SUCCESS
-        } else if (handleInvAct(mill, player)) return InteractionResult.sidedSuccess(level.isClientSide)
-        return super.useWithoutItem(state, level, pos, player, hitResult)
+            if (!level.isClientSide && handle(mill)) return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION
+        } else if (handleInvAct(mill, player)) return ItemInteractionResult.sidedSuccess(level.isClientSide)
+
+        return ItemInteractionResult.CONSUME
     }
 
     companion object {
@@ -148,12 +147,12 @@ class MillstoneBlock(properties: Properties = Properties.of()
             anim.fixedValues.put("velocity", v)
         }
 
-        // 液体类水管下流动画
+        // 液体类水管下流动画，如果正在传输液体就开始tick，最大tick到10
         val flowMaxTick = 10f
         var tick = anim.fixedValues.getOrDefault("flow", 0f)
-        if (mill.grind.flowing && tick < flowMaxTick) {
+        if (mill.grind.isFlowing && tick < flowMaxTick) {
             tick++
-        } else if (!mill.grind.flowing && tick > 0) {
+        } else if (!mill.grind.isFlowing && tick > 0) {
             tick--
         }
         anim.fixedValues.put("flow", tick)

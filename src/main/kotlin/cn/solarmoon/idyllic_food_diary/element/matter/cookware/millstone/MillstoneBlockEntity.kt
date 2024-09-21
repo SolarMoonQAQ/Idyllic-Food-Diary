@@ -25,12 +25,12 @@ class MillstoneBlockEntity(pos: BlockPos, state: BlockState) : SyncedBlockEntity
         TileTank(this, 250)
     )
 
+    val grind = GrindingRecipe.Processor(this, inventory, tanks)
+
     companion object {
         const val ANIM_ROTATION = "rotation"
         const val ANIM_FLOW = "flow"
     }
-
-    val grind = GrindingRecipe.Processor(this, inventory, tanks)
 
     init {
         val anim = getData(SparkAttachments.ANIMTICKER)

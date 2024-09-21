@@ -92,7 +92,6 @@ class RollingPinItem(
         val box = entity.boundingBox.inflate(3.0).setMinY(entity.y)
         val debug = FreeCollisionBoxRenderManager("RollingStormFrom${entity.stringUUID}", FreeCollisionBox.of(box))
         debug.start()
-        var flag = false
         val blocksFind = if (entity.isCrouching) BlockPos.betweenClosedStream(box) else if (entity is Player) Stream.of(getPlayerPOVHitResult(level, entity, ClipContext.Fluid.NONE).blockPos) else Stream.of<BlockPos>()
         blocksFind.forEach { pos ->
             val state = level.getBlockState(pos)
@@ -112,11 +111,9 @@ class RollingPinItem(
                     level.sendParticles(ParticleTypes.SWEEP_ATTACK, pos.center.x, pos.center.y, pos.center.z, 1, 0.0, 0.0, 0.0, 0.0)
                 }
                 debug.setHit()
-                flag = true
             }
         }
-        if (flag) entity.swinging = true
-        return flag
+        return false
     }
 
     companion object {

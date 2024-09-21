@@ -44,7 +44,7 @@ import net.neoforged.neoforge.capabilities.Capabilities
 import net.neoforged.neoforge.fluids.SimpleFluidContent
 import test.be
 
-abstract class CookwareBlock(properties: Properties): SyncedEntityBlock(properties.lightLevel(ILitState::getCommonLightLevel)), IHorizontalFacingState {
+abstract class CookwareBlock(properties: Properties): SyncedEntityBlock(properties.lightLevel(ILitState::getCommonLightLevel).forceSolidOn()), IHorizontalFacingState {
 
     init {
         if (this is IBuiltInStove) {

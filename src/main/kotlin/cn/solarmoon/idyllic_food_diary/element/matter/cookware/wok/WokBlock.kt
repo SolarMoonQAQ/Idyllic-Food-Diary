@@ -54,8 +54,9 @@ class WokBlock(properties: Properties = Properties.of()
         }
 
         // 上方是空气才能炒菜（否则食材嵌到方块里有点怪）
-        if (player.mainHandItem.`is`(IFDItems.SPATULA.get()) && level.getBlockState(pos.above()).isAir && pan.fry.doStirFry()) {
-            return ItemInteractionResult.sidedSuccess(level.isClientSide)
+        if (player.mainHandItem.`is`(IFDItems.SPATULA.get()) && level.getBlockState(pos.above()).isAir && !level.isClientSide && pan.fry.doStirFry()) {
+            pan.setChanged()
+            return ItemInteractionResult.SUCCESS
         }
 
         // 没有预输入结果时才能进行物品流体的交互

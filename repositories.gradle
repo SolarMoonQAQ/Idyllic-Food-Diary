@@ -16,6 +16,8 @@ dependencies {
     // 苹果皮
     compileOnly "squeek.appleskin:appleskin-neoforge:${appleskin_version}:api"
     runtimeOnly "squeek.appleskin:appleskin-neoforge:${appleskin_version}"
+    // 壁虎动画库，纯好玩测试用
+    implementation "software.bernie.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}"
 }
 
 repositories {
@@ -68,6 +70,13 @@ repositories {
         credentials {
             username = System.getenv("GITMAVEN_USERNAME")
             password = System.getenv("SolarMoonCore_TOKEN")
+        }
+    }
+    maven {
+        name = 'GeckoLib'
+        url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
+        content {
+            includeGroup("software.bernie.geckolib")
         }
     }
     flatDir {

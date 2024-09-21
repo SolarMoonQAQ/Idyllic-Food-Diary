@@ -1,15 +1,18 @@
 package cn.solarmoon.idyllic_food_diary.element.matter.food_container
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary
+import cn.solarmoon.idyllic_food_diary.netwrok.ClientNetHandler
 import cn.solarmoon.spark_core.api.blockentity.SyncedEntityBlock
 import cn.solarmoon.spark_core.api.blockstate.IBedPartState
 import cn.solarmoon.spark_core.api.blockstate.IHorizontalFacingState
 import cn.solarmoon.spark_core.api.cap.item.ItemStackHandlerHelper
+import cn.solarmoon.spark_core.api.network.CommonNetData
 import cn.solarmoon.spark_core.api.util.DropUtil
 import cn.solarmoon.spark_core.registry.common.SparkAttachments
 import net.minecraft.core.BlockPos
 import net.minecraft.core.particles.ItemParticleOption
 import net.minecraft.core.particles.ParticleOptions
+import net.minecraft.server.level.ServerPlayer
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
 import net.minecraft.world.InteractionHand
@@ -27,6 +30,7 @@ import net.minecraft.world.level.storage.loot.LootParams
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams
 import net.minecraft.world.phys.BlockHitResult
 import net.minecraft.world.phys.HitResult
+import net.neoforged.neoforge.network.PacketDistributor
 
 abstract class FoodContainerBlock(soundType: SoundType,
     properties: Properties = Properties.of()
@@ -53,7 +57,7 @@ abstract class FoodContainerBlock(soundType: SoundType,
             //吃的声音
             level.playSound(null, pos, food.eatingSound, SoundSource.PLAYERS)
             //吃的粒子效果
-            player.spawnItemParticles(food, 5)
+            if (!level.isClientSide) PacketDistributor.sendToAllPlayers(CommonNetData(itemStack = food, uuid = player.uuid, message = ClientNetHandler.EAT_PARTICLE))
             if (counting.count >= eatCount) {
                 //吃掉！
                 val give = food.finishUsingItem(level, player)
@@ -99,7 +103,7 @@ abstract class FoodContainerBlock(soundType: SoundType,
         val blockEntity = builder.getOptionalParameter(LootContextParams.BLOCK_ENTITY) ?: return origin
         val level = builder.level
         val stack = ItemStack(this)
-        if (state.hasProperty(IBedPartState.PART) && state.getValue(IBedPartState.PART) == BedPart.FOOT) return origin
+        if (state.hasProperty(IBedPartState.PART) && state.getValue(IBedPartState.PART) == BedPart.HEAD) return origin
         blockEntity.saveToItem(stack, level.registryAccess())
         origin.add(stack)
         return origin

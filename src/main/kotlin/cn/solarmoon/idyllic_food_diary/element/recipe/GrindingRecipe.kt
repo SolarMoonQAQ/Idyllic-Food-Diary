@@ -76,7 +76,7 @@ data class GrindingRecipe(
 
     class Processor(be: BlockEntity, val inventory: IItemHandler, val tanks: List<FluidTank>) : SingleTimeRecipeProcessor<RecipeWrapper, GrindingRecipe>(be) {
 
-        var flowing = false
+        var isFlowing = false
 
         override fun isRecipeMatch(recipe: GrindingRecipe): Boolean {
             return tanks[0].drain(recipe.inputFluid, FluidAction.SIMULATE).amount == recipe.inputFluid.amount
@@ -96,6 +96,7 @@ data class GrindingRecipe(
                             tanks[1].fill(it.value.outputFluid.copy(), FluidAction.EXECUTE)
                             time = 0
                             recipeTime = 0
+                            be.setChanged()
                         }
                     }
                     return true
@@ -148,25 +149,25 @@ data class GrindingRecipe(
          * 尝试输出液体到外部储罐
          */
         fun transferOfFluid() {
-            if (getFluidReceiver().isEmpty) flowing = false
+            if (getFluidReceiver().isEmpty) isFlowing = false
             getFluidReceiver().ifPresent { t: IFluidHandler ->
                 // 必须能传递液体才行
                 val s = FluidAction.SIMULATE
                 if (t.fill(tanks[1].drain(1, s), s) == 1) {
-                    flowing = true
+                    isFlowing = true
                     t.fill(tanks[1].drain(1, FluidAction.EXECUTE), FluidAction.EXECUTE)
-                } else flowing = false
+                } else isFlowing = false
             }
         }
 
         override fun save(tag: CompoundTag, registries: HolderLookup.Provider) {
             super.save(tag, registries)
-            tag.putBoolean(getName() + "Flowing", flowing)
+            tag.putBoolean(getName() + "Flowing", isFlowing)
         }
 
         override fun load(tag: CompoundTag, registries: HolderLookup.Provider) {
             super.load(tag, registries)
-            flowing = tag.getBoolean(getName() + "Flowing")
+            isFlowing = tag.getBoolean(getName() + "Flowing")
         }
 
         override fun getRecipeType(): RecipeType<GrindingRecipe> = IFDRecipes.GRINDING.type.get()

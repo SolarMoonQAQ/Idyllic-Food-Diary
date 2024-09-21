@@ -1,6 +1,7 @@
 package cn.solarmoon.idyllic_food_diary.element.recipe.assistant
 
 import cn.solarmoon.idyllic_food_diary.IdyllicFoodDiary
+import cn.solarmoon.idyllic_food_diary.element.matter.food_container.FoodContainerItem
 import cn.solarmoon.idyllic_food_diary.feature.food_container.FoodContainer
 import cn.solarmoon.idyllic_food_diary.feature.util.MessageUtil
 import cn.solarmoon.idyllic_food_diary.registry.common.IFDDataComponents
@@ -9,6 +10,7 @@ import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.NbtOps
 import net.minecraft.network.chat.Component
+import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
@@ -44,7 +46,7 @@ interface IPlateable: IExpGiver {
      */
     fun tryGiveResult(player: Player, heldItem: ItemStack): Boolean {
         if (hasResult()) {
-            if (container.test(heldItem)) {
+            if (container.test(heldItem) && FoodContainerItem.isPureTexture(heldItem, player.level())) {
                 val result = result.split(1)
                 if (!heldItem.isEmpty) result.set(IFDDataComponents.FOOD_CONTAINER, FoodContainer(heldItem))
                 if (!player.isCreative) heldItem.shrink(1)
@@ -54,14 +56,17 @@ interface IPlateable: IExpGiver {
                 getBlockEntity().setChanged()
                 return true
             } else {
-                var message = IdyllicFoodDiary.TRANSLATOR.set("message", "container_required", MessageUtil.EMPTY_HAND)
-                if (!container.isEmpty) {
-                    var id: Component
-                    if (container.items.size == 1 && containerIdentifier.string.isEmpty()) id = MessageUtil.identifier(container.items[0])
-                    else id = containerIdentifier
-                    message = IdyllicFoodDiary.TRANSLATOR.set("message", "container_required", id)
+                val level = player.level()
+                if (level.isClientSide) {
+                    var message = IdyllicFoodDiary.TRANSLATOR.set("message", "container_required", MessageUtil.EMPTY_HAND)
+                    if (!container.isEmpty) {
+                        var id: Component
+                        if (container.items.size == 1 && containerIdentifier.string.isEmpty()) id = MessageUtil.identifier(container.items[0])
+                        else id = containerIdentifier
+                        message = IdyllicFoodDiary.TRANSLATOR.set("message", "container_required", id)
+                    }
+                    player.displayClientMessage(message, true)
                 }
-                player.displayClientMessage(message, true)
             }
         }
         return false

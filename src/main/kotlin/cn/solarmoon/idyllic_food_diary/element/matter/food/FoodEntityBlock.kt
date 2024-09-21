@@ -7,6 +7,7 @@ import cn.solarmoon.idyllic_food_diary.registry.common.IFDBlockEntities
 import cn.solarmoon.idyllic_food_diary.registry.common.IFDDataComponents
 import cn.solarmoon.spark_core.api.blockentity.HandyEntityBlock
 import cn.solarmoon.spark_core.api.blockentity.SyncedEntityBlock
+import cn.solarmoon.spark_core.api.blockstate.IBedPartState
 import cn.solarmoon.spark_core.api.blockstate.IHorizontalFacingState
 import net.minecraft.core.BlockPos
 import net.minecraft.core.component.DataComponentMap
@@ -25,6 +26,7 @@ import net.minecraft.world.level.block.SoundType
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
+import net.minecraft.world.level.block.state.properties.BedPart
 import net.minecraft.world.level.block.state.properties.IntegerProperty
 import net.minecraft.world.level.storage.loot.LootParams
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams
@@ -92,6 +94,7 @@ abstract class FoodEntityBlock(properties: Properties): HandyEntityBlock(propert
     override fun getDrops(state: BlockState, params: LootParams.Builder): List<ItemStack?> {
         val drops = super.getDrops(state, params)
         val be = params.getOptionalParameter(LootContextParams.BLOCK_ENTITY) ?: return drops
+        if (state.hasProperty(IBedPartState.PART) && state.getValue(IBedPartState.PART) == BedPart.HEAD) return drops
         val item = asItem().defaultInstance
         item.applyComponents(be.components())
         drops.add(item)
